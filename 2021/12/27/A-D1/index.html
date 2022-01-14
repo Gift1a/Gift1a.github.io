@@ -1,0 +1,1979 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="A&amp;D1, Hexo">
+    <meta name="description" content="IsDebugger Present原理
+
+​          反调试，该API查询PEB结构中的IsDebugger标志位， 未调试返回0，调试状态返回1。
+绕过
+
+
+nop指令
+mov rax ; IsDebuggerPresent
+">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>A&amp;D1 | Hexo</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Hexo</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Hexo</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">A&amp;D1</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-12-27
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2021-12-27
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    19 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="IsDebugger-Present"><a href="#IsDebugger-Present" class="headerlink" title="IsDebugger Present"></a>IsDebugger Present</h1><p><strong>原理</strong></p>
+<hr>
+<p>​          反调试，该API查询PEB结构中的IsDebugger标志位， 未调试返回0，调试状态返回1。</p>
+<p><strong>绕过</strong></p>
+<hr>
+<ol>
+<li><p>nop指令</p>
+<pre><code>mov rax ; IsDebuggerPresent
+call rax ; IsDebuggerPresent
+</code></pre>
+</li>
+<li><p>jnz和jz</p>
+<hr>
+<p> jnz在结果不为0时跳转，jz在结果为0时跳转</p>
+<pre><code>sub_4019F4()
+{
+    return ISDebuggerPresent;
+}
+if(!sub_4019F4)
+{
+     puts();
+}
+</code></pre>
+<p> 这个时候如果处于调试状态，返回1，不会执行put，这时候只需要去汇编指令处把jnz改为jz，重新汇编后会变成</p>
+<pre><code>sub_4019F4()
+{
+    return ISDebuggerPresent;
+}
+if(sub_4019F4)
+{
+     puts();
+}
+</code></pre>
+<p> 3.Attach to process</p>
+<pre><code>sub_4019F4();
+printf("%d",n);
+scanf("%d",&amp;m);
+</code></pre>
+<p> 可以先让程序运行，这时候已经步过了反调试函数，然后Attach to process就可以调试了</p>
+<p> 4.修改EIP：jump、call、ret指令</p>
+</li>
+</ol>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><ol>
+<li><p>函数介绍</p>
+<pre><code>1 CreateThread 创建线程
+2 CloseHandle 关闭线程
+3 WaitForSingleObject() 实现线程转换
+</code></pre>
+</li>
+</ol>
+<p>​      2.题目——Youngter drive</p>
+<pre><code>int __cdecl main_0(int argc, const char **argv, const char **envp)
+{
+  HANDLE v4; // [esp+D0h] [ebp-14h]
+  HANDLE hObject; // [esp+DCh] [ebp-8h]
+
+  ((void (*)(void))sub_4110FF)();
+  ::hObject = CreateMutexW(0, 0, 0);
+  j_strcpy(Destination, &amp;Source);
+  hObject = CreateThread(0, 0, StartAddress, 0, 0, 0);
+  v4 = CreateThread(0, 0, sub_41119F, 0, 0, 0);
+  CloseHandle(hObject);
+  CloseHandle(v4);
+  while ( dword_418008 != -1 )
+    ;
+  sub_411190();
+  CloseHandle(::hObject);
+  return 0;
+}
+</code></pre>
+<pre><code>void __stdcall StartAddress_0(int a1)
+{
+  while ( 1 )
+  {
+    WaitForSingleObject(hObject, 0xFFFFFFFF);
+    if ( dword_418008 &gt; -1 )
+    {
+      sub_41112C(&amp;Source, dword_418008);
+      --dword_418008;
+      Sleep(0x64u);
+    }
+    ReleaseMutex(hObject);
+  }
+}
+</code></pre>
+<pre><code>void __stdcall sub_411B10(int a1)
+{
+  while ( 1 )
+  {
+    WaitForSingleObject(hObject, 0xFFFFFFFF);
+    if ( dword_418008 &gt; -1 )
+    {
+      Sleep(0x64u);
+      --dword_418008;
+    }
+    ReleaseMutex(hObject);
+  }
+}
+</code></pre>
+<p>实际上就是每隔两位对数组元素做一次处理</p>
+<h1 id="Z3"><a href="#Z3" class="headerlink" title="Z3"></a>Z3</h1><ol>
+<li><p>基础</p>
+<pre><code>1 声明整数x = Int('x')
+2 声明实数x = Real('x')
+3 声明布尔类型x = Bool('x')
+
+1 创建solver求解器
+   例：s = Solver()
+2 添加约束条件
+   例：s.add(x+y==10)
+3 检查solver中的约束是否满足
+   例：s.check()
+4 利用model()输出运算结果
+   例：s.model()
+</code></pre>
+<p> 2.题目——Universe_final_answer</p>
+<pre><code>__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  char v4[32]; // [rsp+0h] [rbp-A8h] BYREF
+  char input[104]; // [rsp+20h] [rbp-88h] BYREF
+  unsigned __int64 v6; // [rsp+88h] [rbp-20h]
+
+  v6 = __readfsqword(0x28u);
+  __printf_chk(1LL, "Please give me the key string:", a3);
+  scanf("%s", input);
+  if ( sub_860(input) )
+  {
+    sub_C50(input, v4);
+    __printf_chk(1LL, "Judgement pass! flag is actf{%s_%s}\n", input);
+  }
+  else
+  {
+    puts("False key!");
+  }
+  return 0LL;
+}
+</code></pre>
+<pre><code>bool __fastcall sub_860(char *input)
+{
+  int v1; // ecx
+  int v2; // esi
+  int v3; // edx
+  int v4; // er9
+  int v5; // er11
+  int v6; // ebp
+  int v7; // ebx
+  int v8; // er8
+  int v9; // er10
+  bool result; // al
+  int v11; // [rsp+0h] [rbp-38h]
+
+  v1 = input[1];
+  v2 = *input;
+  v3 = input[2];
+  v4 = input[3];
+  v5 = input[4];
+  v6 = input[6];
+  v7 = input[5];
+  v8 = input[7];
+  v9 = input[8];
+  result = 0;
+  if ( -85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613 )
+  {
+    v11 = input[9];
+    if ( 30 * v11 + -70 * v9 + -122 * v6 + -81 * v7 + -66 * v5 + -115 * v4 + -41 * v3 + -86 * v1 - 15 * v2 - 30 * v8 == -54400
+      &amp;&amp; -103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 &lt;&lt; 6) - 120 * v9 == -10283
+      &amp;&amp; 71 * v6 + (v7 &lt;&lt; 7) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855
+      &amp;&amp; 5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944
+      &amp;&amp; -54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222
+      &amp;&amp; -83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258
+      &amp;&amp; 81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559
+      &amp;&amp; 101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308 )
+    {
+      result = 99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697;
+    }
+  }
+  return result;
+}
+</code></pre>
+<p> 脚本</p>
+<pre><code>from z3 import*
+
+s=Solver()
+v1=Int('v1')
+v2=Int('v2')
+v3=Int('v3')
+v4=Int('v4')
+v5=Int('v5')
+v6=Int('v6')
+v7=Int('v7')
+v8=Int('v8')
+v9=Int('v9')
+v11=Int('v11')
+
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
+s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
+s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
+s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
+s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
+s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
+s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
+s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
+
+if s.check()==sat:
+    result=s.model()
+
+print(result)
+</code></pre>
+<p> 这里的移位操作不能被识别，需要手动转换。</p>
+<p> 其实这道题带了个简单的混淆</p>
+<pre><code>unsigned __int64 __fastcall sub_C50(const char *a1, _BYTE *a2)
+{
+  size_t v4; // rax
+  unsigned int v5; // edx
+  int v6; // edi
+  int v7; // ecx
+  __int64 v8; // r8
+  __int128 *v9; // rsi
+  unsigned int v10; // ecx
+  int v11; // eax
+  int v12; // edi
+  int v13; // edx
+  int v14; // eax
+  _BYTE *v15; // rsi
+  _BYTE *v16; // rcx
+  _BYTE *v17; // r8
+  int *i; // rax
+  unsigned __int64 result; // rax
+  __int128 v20[2]; // [rsp+0h] [rbp-48h] BYREF
+  __int64 v21; // [rsp+20h] [rbp-28h]
+  unsigned __int64 v22; // [rsp+28h] [rbp-20h]
+
+  v22 = __readfsqword(0x28u);
+  v20[0] = 0LL;
+  v21 = 0LL;
+  v20[1] = 0LL;
+  v4 = strlen(a1);
+  v5 = 0;
+  v6 = 9;
+  while ( v5 &lt; v4 )
+  {
+    v7 = a1[v5++];
+    v6 ^= v7;
+  }
+  if ( v6 )
+  {
+    v8 = 0LL;
+    v9 = v20;
+    while ( 1 )
+    {
+      v9 = (__int128 *)((char *)v9 + 4);
+      v10 = v8 + 1;
+      v11 = v6 / 10;
+      v12 = v6 % 10;
+      *((_DWORD *)v9 - 1) = v12;
+      LOBYTE(v13) = v12;
+      v6 = v11;
+      if ( !v11 )
+        break;
+      v8 = v10;
+    }
+    v14 = v8 - 1;
+    v15 = a2;
+    v16 = &amp;a2[v10];
+    v17 = &amp;a2[v8];
+    for ( i = (int *)v20 + v14; ; --i )
+    {
+      *v15 = v13 + 48;
+      if ( v17 == v15 )
+        break;
+      v13 = *i;
+      ++v15;
+    }
+  }
+  else
+  {
+    v16 = a2;
+  }
+  result = __readfsqword(0x28u) ^ v22;
+  *v16 = 0;
+  return result;
+}
+</code></pre>
+<p> 这里面的函数没有对输入进行处理，所以不用管</p>
+</li>
+</ol>
+<h1 id="修改二进制文件汇编指令"><a href="#修改二进制文件汇编指令" class="headerlink" title="修改二进制文件汇编指令"></a>修改二进制文件汇编指令</h1><p>1.题目——Overlong</p>
+<p>运行程序，得到</p>
+<pre><code>I never broke the encoding：
+</code></pre>
+<pre><code>int __stdcall start(int a1, int a2, int a3, int a4)
+{
+  CHAR Text[128]; // [esp+0h] [ebp-84h] BYREF
+  int v6; // [esp+80h] [ebp-4h]
+
+  v6 = sub_401160(Text, &amp;unk_402008, 28);
+  Text[v6] = 0;
+  MessageBoxA(0, Text, Caption, 0);
+  return 0;
+}
+</code></pre>
+<p>这里只取出了TEXT的前28位，而程序运行后的输出长度正好是28，加上题目overlong提示和：结尾，猜测部分长度没显示</p>
+<p>所以需要修改二进制文件汇编指令</p>
+<pre><code>.text:004011C0                 push    ebp
+.text:004011C1                 mov     ebp, esp
+.text:004011C3                 sub     esp, 84h
+.text:004011C9                 push    1Ch
+.text:004011CB                 push    offset unk_402008
+.text:004011D0                 lea     eax, [ebp+Text]
+</code></pre>
+<p>1c对应28，所以需要将1c改大</p>
+<p>1、ida修改–&gt; 点击菜单项“Edit”–“Patch program”–“Assemble” –&gt; 点击菜单项“Edit”–“Patch program”–“Apply patches to input file”，在弹出的对话框中点击OK按钮，则成功完成指令修改。</p>
+<p>点击确认按钮时，可能会弹出无法写入对话框，只需去除该文件的只读属性，再次执行第三步即可。</p>
+<p>2、OD修改–&gt;根据汇编指令定位–&gt;右键–&gt;二进制–&gt;编辑 ,其他的可以直接修改指令，但是这里修改之后后面的汇编代码全变了，虽然不知道为啥。</p>
+<p>3、winhex修改–&gt;定位——先去ida的patch byte找到push 1c对应6A 1C 68 08 20 40 00 8D 85 7C FF FF FF 50 E8 84–&gt;去winhex修改1c，然后重新保存运行</p>
+<h1 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h1><p>1、题目——Signin</p>
+<pre><code>__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  char v4[16]; // [rsp+0h] [rbp-4A0h] BYREF
+  char v5[16]; // [rsp+10h] [rbp-490h] BYREF
+  char v6[16]; // [rsp+20h] [rbp-480h] BYREF
+  char v7[16]; // [rsp+30h] [rbp-470h] BYREF
+  char v8[112]; // [rsp+40h] [rbp-460h] BYREF
+  char v9[1000]; // [rsp+B0h] [rbp-3F0h] BYREF
+  unsigned __int64 v10; // [rsp+498h] [rbp-8h]
+
+  v10 = __readfsqword(0x28u);
+  puts("[sign in]");
+  printf("[input your flag]: ");
+  __isoc99_scanf("%99s", v8);
+  sub_96A(v8, v9);//加密函数直接linux远调就可以知道是转十六进制数；
+  __gmpz_init_set_str(v7, "ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35", 16LL);//十六进制
+  __gmpz_init_set_str(v6, v9, 16LL);
+  __gmpz_init_set_str(v4, "103461035900816914121390101299049044413950405173712170434161686539878160984549", 10LL);//十进制
+  __gmpz_init_set_str(v5, "65537", 10LL);
+  __gmpz_powm(v6, v6, v5, v4);
+  if ( (unsigned int)__gmpz_cmp(v6, v7) )
+    puts("GG!");
+  else
+    puts("TTTTTTTTTTql!");
+  return 0LL;
+}
+</code></pre>
+<p>看到65537，加上查了__gmpz_powm()函数，也相当于__mpz_powm()函数，可以判断这是rsa加密</p>
+<pre><code>void mpz_powm (mpz_t rop, const mpz_t base, const mpz_t exp, const mpz_t mod) [Function]
+Set rop to base^exp mod mod.
+</code></pre>
+<p> 其实就是计算 base 的 exp 次方，并对 mod 取模，最后将结果写入 rop 中 </p>
+<p>剩下的就是解出p、q，然后写脚本了</p>
+<pre><code>C=M^E mod N
+C是密文，M是明文，E是公钥（E和 φ(N)互为质数），N是公共模数（质数 P 、Q相乘得到N），MOD就是模运算
+M=C^D mod N
+
+求D：E * D % φ(N) = 1
+    φ(N) = (P-1)(Q-1)
+   
+</code></pre>
+<p>2、rsa</p>
+<p>题目给出了公钥和flag.enc文件</p>
+<pre><code>(N,e)是公钥， (N, d)是私钥
+</code></pre>
+<p>公钥和密钥生成</p>
+<pre><code>4.1 求N
+我们准备两个很小对质数，
+p ＝ 17
+q ＝ 19
+N ＝ p ＊ q ＝ 323
+
+4.2 求L
+L ＝ lcm（p－1， q－1）＝ lcm(16，18） ＝ 144
+144为16和18对最小公倍数
+
+4.3 求E
+求E必须要满足2个条件：1 &lt; E &lt; L ，gcd（E，L）=1
+即1 &lt; E &lt; 144，gcd（E，144） ＝ 1 #gcd，最大公因数
+E和144互为质数，5显然满足上述2个条件
+故E ＝ 5        此时公钥=(E，N）＝ （5，323）
+
+4.4 求D
+求D也必须满足2个条件：1 &lt; D &lt; L，E＊D mod L ＝ 1
+即1 &lt; D &lt; 144，5 ＊ D mod 144 ＝ 1
+显然当D＝ 29 时满足上述两个条件
+1 &lt; 29 &lt; 144
+5＊29 mod 144 ＝ 145 mod 144 ＝ 1
+此时私钥＝（D，N）＝（29，323）
+</code></pre>
+<p>私钥和公钥都可以拿去解析</p>
+<p>这里解析得到</p>
+<pre><code>e = 65537
+n=86934482296048119190666062003494800588905656017203025617216654058378322103517(n拿去分解)
+p = 285960468890451637935629440372639283459
+q = 304008741604601924494328155975272418463
+</code></pre>
+<p>从文件读取公钥或者私钥</p>
+<pre><code>with open('private.pem', mode='rb') as privatefile:
+    keydata = privatefile.read()#rb 是以二进制形式打开文件
+privkey = rsa.PrivateKey.load_pkcs1(keydata)
+</code></pre>
+<pre><code>import gmpy2 
+import rsa 
+ 
+e = 65537
+n = 86934482296048119190666062003494800588905656017203025617216654058378322103517
+p = 285960468890451637935629440372639283459
+q = 304008741604601924494328155975272418463
+
+phin = (q-1)*(p-1)
+
+d = gmpy2.invert(e, phin)
+
+key = rsa.PrivateKey(n, e, int(d), p, q)#生成私钥
+
+with open("D:\\new\\题目\\output\\flag.enc", "rb+") as f:
+    f = f.read()
+    print(rsa.decrypt(f, key))
+
+</code></pre>
+<h1 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h1><p>Maze题一般都需要找到入口、出口还有移动方向</p>
+<p>题目——unctf20201—easymaze</p>
+<pre><code>int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  __int64 *v3; // rax
+  char *v4; // rdi
+  unsigned __int64 v5; // rbx
+  const char *v6; // rdx
+  int v7; // eax
+  int v8; // er9
+  int v9; // er8
+  int v10; // edx
+  char v11; // cl
+  int v12; // ecx
+  int v13; // ecx
+  __int64 *v14; // rax
+
+  sub_1400011A0(argc, argv, envp);
+  dword_140006790[0] = 1;#把鼠标放上去显示int型
+  dword_140006794 = 1;
+  dword_1400067B4 = 1;
+  dword_1400067CC = 1;
+  dword_1400067EC = 1;
+  dword_1400067F0 = 1;
+  dword_1400067D4 = 1;
+  dword_1400067D8 = 1;
+  dword_1400067F8 = 1;
+  dword_140006810 = 1;
+  dword_14000682C = 1;
+  dword_140006844 = 1;
+  dword_140006840 = 1;
+  dword_140006864 = 1;
+  dword_140006868 = 1;
+  dword_140006884 = 1;
+  dword_1400068A0 = 1;
+  dword_1400068BC = 1;
+  dword_1400068DC = 1;
+  dword_14000689C = 1;
+  v3 = sub_140001800(std::cout, (__int64)"Plz inpu7 the P4th :");
+  std::ostream::operator&lt;&lt;(v3, sub_1400019D0);
+  v4 = input;
+  v5 = -1i64;
+  sub_140001AA0(std::cin, -1i64, input);
+  do
+    ++v5;
+  while ( input[v5] );
+  if ( v5 &gt; 0x11 )
+  {
+    v6 = "to0 lon9!t0o long!";
+    goto LABEL_26;
+  }
+  if ( v5 &lt; 0x11 )
+  {
+    v6 = (const char *)&amp;unk_140003770;
+    goto LABEL_26;
+  }
+  v7 = dword_140006710;
+  v8 = 0;
+  v9 = dword_140006714;
+  v10 = dword_140006710;
+  do
+  {
+    v11 = *v4;
+    if ( *v4 == 'A' )
+      goto LABEL_21;
+    if ( v11 == 'W' )
+    {
+      ++v10;
+      v12 = v7 % 2;
+      ++v7;
+      goto LABEL_20;
+    }
+    if ( v11 == 'E' )
+    {
+      ++v10;
+      v13 = v7 % 2;
+      ++v7;
+LABEL_16:
+      dword_140006710 = v7;
+      if ( v13 )
+        goto LABEL_23;
+      goto LABEL_17;
+    }
+    if ( v11 != 'D' )
+    {
+      if ( v11 != 'X' )
+      {
+        if ( v11 != 'Z' )
+        {
+          v6 = "What the fuck did you give me?";
+          goto LABEL_26;
+        }
+        --v10;
+        v12 = v7 % 2;
+        --v7;
+LABEL_20:
+        dword_140006710 = v7;
+        if ( !v12 )
+          goto LABEL_23;
+LABEL_21:
+        --v9;
+        goto LABEL_22;
+      }
+      --v10;
+      v13 = v7 % 2;
+      --v7;
+      goto LABEL_16;
+    }
+LABEL_17:
+    ++v9;
+LABEL_22:
+    dword_140006714 = v9;
+LABEL_23:
+    ++v8;
+    ++v4;
+  }
+  while ( v8 &lt; v5 );
+  v6 = "Congratulations on this forced to get the right flag, you entered is the correct answer!";
+  
+  if ( dword_140006790[7 * v7 + v9] != 1 )
+    
+    v6 = "Try it again little unlucky!";
+LABEL_26:
+  v14 = sub_140001800(std::cout, (__int64)v6);
+  std::ostream::operator&lt;&lt;(v14, sub_1400019D0);
+  return 0;
+}
+</code></pre>
+<p>动调就可以把AWEDXZ的移动弄出来</p>
+<p>在ida里面dd表示四个字节，db表示一个字节</p>
+<pre><code>data:00007FF673BF6794 dword_7FF673BF6794 dd 0                 ; DATA XREF: main+27↑w
+.data:00007FF673BF6798 dd 0
+.data:00007FF673BF679C db    0
+.data:00007FF673BF679D db    0
+.data:00007FF673BF679E db    0
+.data:00007FF673BF679F db    0
+.data:00007FF673BF67A0 db    0
+.data:00007FF673BF67A1 db    0
+.data:00007FF673BF67A2 db    0
+.data:00007FF673BF67A3 db    0
+.data:00007FF673BF67A4 db    0
+.data:00007FF673BF67A5 db    0
+.data:00007FF673BF67A6 db    0
+.data:00007FF673BF67A7 db    0
+</code></pre>
+<p>要对着db按D转换数据类型，全部转为int型</p>
+<h1 id="base64变表"><a href="#base64变表" class="headerlink" title="base64变表"></a>base64变表</h1><p>1、base64变表实际上就是将base64编码表进行了修改</p>
+<p>2、题目——nctf2021 shadowbringer</p>
+<pre><code>int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char v4[16]; // [rsp+20h] [rbp-60h] BYREF
+  char v5[15]; // [rsp+30h] [rbp-50h] BYREF
+  char v6; // [rsp+3Fh] [rbp-41h] BYREF
+  char v7[16]; // [rsp+40h] [rbp-40h] BYREF
+  char v8[16]; // [rsp+50h] [rbp-30h] BYREF
+  char v9[16]; // [rsp+60h] [rbp-20h] BYREF
+  char v10[32]; // [rsp+70h] [rbp-10h] BYREF
+
+  _main();
+  youknowwhat();
+  std::string::string((std::string *)v5);
+  std::allocator&lt;char&gt;::allocator(&amp;v6);
+  std::string::string(v4, "U&gt;F2UsQXN`5sXMELT=:7M_2&lt;X]^1ThaWF0=KM?9IUhAsTM5:T==_Ns&amp;&lt;Vhb!", &amp;v6);
+  std::allocator&lt;char&gt;::~allocator(&amp;v6);
+  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Welcome.Please input your flag:\n");
+  std::operator&gt;&gt;&lt;char&gt;(scanf, (std::string *)v5);
+  std::string::string((std::string *)v8, (const std::string *)v5);
+  
+  Emet(v7, v8);
+  
+  std::string::operator=(v5, v7);
+  std::string::~string((std::string *)v7);
+  std::string::~string((std::string *)v8);
+  std::string::string((std::string *)v10, (const std::string *)v5);
+  
+  Selch(v9, v10);
+  
+  std::string::operator=(v5, v9);               
+  std::string::~string((std::string *)v9);
+  std::string::~string((std::string *)v10);
+  if ( (unsigned __int8)std::operator==&lt;char&gt;(v5, v4) )
+    std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Right.");
+  else
+    std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Wrong.");
+  std::string::~string((std::string *)v4);
+  std::string::~string((std::string *)v5);
+  return 0;
+}
+</code></pre>
+<pre><code>std::string *__fastcall Emet(std::string *a1, std::string *a2)
+{
+  int i; // ebx
+  char *v3; // rax
+  unsigned __int64 v4; // rax
+  int j; // ebx
+  unsigned int v6; // eax
+  char *v7; // rax
+  unsigned __int64 v9; // [rsp+20h] [rbp-90h] BYREF
+  char v10; // [rsp+2Eh] [rbp-82h] BYREF
+  char v11; // [rsp+2Fh] [rbp-81h] BYREF
+  char v12[16]; // [rsp+30h] [rbp-80h] BYREF
+  char v13[16]; // [rsp+40h] [rbp-70h] BYREF
+  char v14[16]; // [rsp+50h] [rbp-60h] BYREF
+  char v15[16]; // [rsp+60h] [rbp-50h] BYREF
+  char v16[16]; // [rsp+70h] [rbp-40h] BYREF
+  char v17[16]; // [rsp+80h] [rbp-30h] BYREF
+  char v18[16]; // [rsp+90h] [rbp-20h] BYREF
+  char v19[16]; // [rsp+A0h] [rbp-10h] BYREF
+
+  std::allocator&lt;char&gt;::allocator(&amp;v10);
+  std::string::string(&amp;v9, &amp;unk_48A000, &amp;v10);
+  std::allocator&lt;char&gt;::~allocator(&amp;v10);
+  std::allocator&lt;char&gt;::allocator(&amp;v11);
+  std::string::string(a1, &amp;unk_48A000, &amp;v11);
+  std::allocator&lt;char&gt;::~allocator(&amp;v11);
+  for ( i = 0; i &lt; (unsigned __int64)std::string::size(a2); ++i )
+  {
+    v3 = (char *)std::string::operator[](a2, i);
+    std::bitset&lt;8ull&gt;::bitset(v14, (unsigned int)*v3);
+    std::bitset&lt;8ull&gt;::to_string(v13, v14);
+    std::operator+&lt;char&gt;(v12, &amp;v9, v13);
+    std::string::operator=(&amp;v9, v12);
+    std::string::~string((std::string *)v12);
+    std::string::~string((std::string *)v13);
+  }
+  while ( 1 )
+  {
+    v4 = std::string::size((std::string *)&amp;v9);
+    if ( v4 == 6 * (v4 / 6) )
+      break;
+    std::operator+&lt;char&gt;(v15, &amp;v9, 48i64);
+    std::string::operator=(&amp;v9, v15);
+    std::string::~string((std::string *)v15);
+  }
+  for ( j = 0; j &lt; (unsigned __int64)std::string::size((std::string *)&amp;v9); j += 6 )
+  {
+    std::string::substr((std::string *)v18, (unsigned __int64)&amp;v9, j);
+    std::bitset&lt;6ull&gt;::bitset&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;(v17, v18, 0i64);
+    v6 = std::bitset&lt;6ull&gt;::to_ulong(v17);
+    v7 = (char *)std::string::operator[](&amp;hisoralce, v6);
+    std::operator+&lt;char&gt;(v16, a1, (unsigned int)*v7);
+    std::string::operator=(a1, v16);
+    std::string::~string((std::string *)v16);
+    std::string::~string((std::string *)v18);
+  }
+  while ( (std::string::size(a1) &amp; 3) != 0 )
+  {
+    std::operator+&lt;char&gt;(v19, a1, 33i64);
+    std::string::operator=(a1, v19);
+    std::string::~string((std::string *)v19);
+  }
+  std::string::~string((std::string *)&amp;v9);
+  return a1;
+}
+</code></pre>
+<p>这里的j+=6，像是base64，而&amp;hisorale是指针</p>
+<pre><code>bss:00000000004AA030 hisoralce db  28h ; (                   ; DATA XREF: youknowwhat(void)+2A↑o
+.bss:00000000004AA030                                         ; youknowwhat(void)+40↑o ...
+.bss:00000000004AA031 db  3Dh ; =
+.bss:00000000004AA032 db 0BBh
+.bss:00000000004AA033 db    0
+.bss:00000000004AA034 db    0
+.bss:00000000004AA035 db    0
+.bss:00000000004AA036 db    0
+.bss:00000000004AA037 db    0
+</code></pre>
+<p>需要对着db按d转换类型，才能看到该地址存储的内容</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Gift1a</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://gift1a.github.io/2021/12/27/A-D1/">https://gift1a.github.io/2021/12/27/A-D1/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Gift1a</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/01/14/1/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-14
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Gift1a
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/12/27/hello-world/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        
+                        <span class="card-title">Hello World</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Gift1a
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021-2022</span>
+            
+            <a href="/about" target="_blank">Gift1a</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">3.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2021";
+                        var startMonth = "12";
+                        var startDate = "27";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Gift1a/Gift1a.github.io" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2973414642@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2973414642" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2973414642" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
