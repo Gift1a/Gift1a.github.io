@@ -8,7 +8,7 @@
       <link href="/2022/01/14/3/"/>
       <url>/2022/01/14/3/</url>
       
-        <content type="html"><![CDATA[<p><img src="/2022/01/14/3/1642163948096.png" alt="1642163948096"></p><p><img src="/2022/01/14/3/1642164263139.png" alt="1642164263139"></p><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre>]]></content>
+        <content type="html"><![CDATA[<p><img src="/2022/01/14/3/1642163948096.png" alt="1642163948096"></p><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre>]]></content>
       
       
       
