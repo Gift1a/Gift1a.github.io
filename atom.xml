@@ -6,7 +6,7 @@
   <link href="https://gift1a.github.io/atom.xml" rel="self"/>
   
   <link href="https://gift1a.github.io/"/>
-  <updated>2022-01-14T13:09:24.708Z</updated>
+  <updated>2022-01-14T13:24:33.661Z</updated>
   <id>https://gift1a.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://gift1a.github.io/2022/01/14/3/"/>
     <id>https://gift1a.github.io/2022/01/14/3/</id>
     <published>2022-01-14T12:07:51.000Z</published>
-    <updated>2022-01-14T13:09:24.708Z</updated>
+    <updated>2022-01-14T13:24:33.661Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2022/01/14/3/1642163948096.png" alt="1642163948096"></p><pre class="language-c#" data-language="c#"><code class="language-c#">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre><pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre>]]></content>
     
