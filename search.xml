@@ -4,11 +4,76 @@
   
     
     <entry>
+      <title>视频隐写</title>
+      <link href="/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/"/>
+      <url>/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>流量分析</title>
+      <link href="/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/"/>
+      <url>/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>内存取证</title>
+      <link href="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/"/>
+      <url>/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</url>
+      
+        <content type="html"><![CDATA[<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>volatility是内存取证的工具，这里我使用的是打包好了的可执行文件</p><p>volatility下载地址：<a href="https://www.volatilityfoundation.org/releases">https://www.volatilityfoundation.org/releases</a></p><p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png"></p><h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>题目链接：</p><p><a href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p><p>朴实无华的取证</p><h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><h2 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h2><p>先使用命令volatility -f 朴实无华的取证.raw iamgeinfo查看系统信息</p><p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png"></p><p>上面的系统都有可能，主要是第一个</p><h2 id="查看运行程序列表"><a href="#查看运行程序列表" class="headerlink" title="查看运行程序列表"></a>查看运行程序列表</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 pslist</p><p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png"></p><p>这里有三处需要注意，mspaint是画图工具，360zip是解压工具，notepad是笔记本，接下来重点放在这几处</p><h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan，这里可以使用grep来指定搜索的字符串 格式如下：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan | grep flag</p><p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png"></p><p>可以看到过滤出了flag的相关数据</p><h2 id="提取文件"><a href="#提取文件" class="headerlink" title="提取文件"></a>提取文件</h2><p>接下来需要把文件dump下来，命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 dumpfiles -Q 偏移量 -D ./(-D指定文件夹，这里aaa表示存储到aaa文件夹中)</p><p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png"></p><p>可以在aaa文件夹中找到dump下来的文件</p><p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png"></p><p>还有一个加了密的zip文件，这时候注意我们的notepad还没有被使用，可以去看看信息</p><h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 notepad</p><p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png"></p><p>这样就得到了encrypt的密码</p><h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;#include &lt;string.h&gt; int main(){char str[]="FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]";for(int i = 0; i &lt; strlen(str); i++){str[i] += 32;if(str[i] &gt;='a'+3 &amp;&amp; str[i]&lt;='w'+3)str[i]-=3;else if(str[i]=='a')str[i]='x';else if(str[i]=='b')str[i]='y';else if(str[i]=='c')str[i]='z';else if(str[i]=='|')str[i]='_';}printf("%s",str);return 0;}</code></pre><p>得到flag：cazy{Xian_will_certainIy_succeed_in_fighting_the_epidemic}</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>音频隐写</title>
+      <link href="/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/"/>
+      <url>/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>图片隐写</title>
+      <link href="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/"/>
+      <url>/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>3</title>
       <link href="/2022/01/14/3/"/>
       <url>/2022/01/14/3/</url>
       
-        <content type="html"><![CDATA[<p><img src="/2022/01/14/3/1642163948096.png" alt="1642163948096"></p><pre class="language-c#" data-language="c#"><code class="language-c#">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre><pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre>]]></content>
+        <content type="html"><![CDATA[<p><img src="/2022/01/14/3/1642163948096.png" alt="1642163948096"></p><pre class="language-c#" data-language="c#"><code class="language-c#">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre><pre class="language-c++" data-language="c++"><code class="language-c++">#include &lt;stdio.h&gt;#include &lt;string.h&gt;int main(){printf("helloworld");return 0;}</code></pre><h1 id="helloworld"><a href="#helloworld" class="headerlink" title="helloworld"></a>helloworld</h1><p>hhhh</p><h1 id="你好"><a href="#你好" class="headerlink" title="你好"></a>你好</h1>]]></content>
       
       
       
