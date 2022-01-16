@@ -31,9 +31,9 @@ JPG：https://www.cnblogs.com/ba">
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -460,7 +460,7 @@ JPG：https://www.cnblogs.com/ba">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    866
+                    1k
                 </div>
                 
 
@@ -496,7 +496,8 @@ JPG：https://www.cnblogs.com/ba">
 <h1 id="F5隐写"><a href="#F5隐写" class="headerlink" title="F5隐写"></a>F5隐写</h1><h1 id="Stegpy隐写"><a href="#Stegpy隐写" class="headerlink" title="Stegpy隐写"></a>Stegpy隐写</h1><p>之前有过题了，就不说了，讲讲下载</p>
 <p>看这篇就够了</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Amherstieae/article/details/109010064">https://blog.csdn.net/Amherstieae/article/details/109010064</a></p>
-<h1 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF">https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF</a></p>
+<h1 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3679f805a0c">https://www.jianshu.com/p/c3679f805a0c</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF">https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF</a></p>
 <h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解文件</p>
 <p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302431480.png"></p>
 <p>伪加密</p>
@@ -507,7 +508,8 @@ JPG：https://www.cnblogs.com/ba">
 <p>steghide info 文件查看隐藏信息，输入y后提取，也可以直接：steghide extract 文件 </p>
 <p>找到ko.txt,得到压缩包密码</p>
 <p>flag{1RTo8w@&amp;4nK@z*XL}</p>
-<h1 id="Binwalk、Winrar——图片隐藏文件"><a href="#Binwalk、Winrar——图片隐藏文件" class="headerlink" title="Binwalk、Winrar——图片隐藏文件"></a>Binwalk、Winrar——图片隐藏文件</h1><p>可以直接binwalk提取文件，命令：binwalk -e 文件，这个比较常见，就不说了</p>
+<h1 id="Binwalk、Winrar——图片隐藏文件"><a href="#Binwalk、Winrar——图片隐藏文件" class="headerlink" title="Binwalk、Winrar——图片隐藏文件"></a>Binwalk、Winrar——图片隐藏文件</h1><p>binwalk使用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wxh0000mm/article/details/85683661">https://blog.csdn.net/wxh0000mm/article/details/85683661</a></p>
+<p>可以直接binwalk提取文件，命令：binwalk -e 文件，这个比较常见，就不说了</p>
 <p>winrar也可以直接打开被隐藏的文件</p>
 <h1 id="修改图片宽高"><a href="#修改图片宽高" class="headerlink" title="修改图片宽高"></a>修改图片宽高</h1><pre class="language-python" data-language="python"><code class="language-python">import binascii
 import struct
@@ -631,7 +633,29 @@ print(t)</code></pre>
 
 
 
-<h1 id="StegSolve"><a href="#StegSolve" class="headerlink" title="StegSolve"></a>StegSolve</h1><h2 id="两张图片拼接"><a href="#两张图片拼接" class="headerlink" title="两张图片拼接"></a>两张图片拼接</h2><h1 id="添加文件头"><a href="#添加文件头" class="headerlink" title="添加文件头"></a>添加文件头</h1>
+<h1 id="StegSolve"><a href="#StegSolve" class="headerlink" title="StegSolve"></a>StegSolve</h1><h2 id="两张图片拼接"><a href="#两张图片拼接" class="headerlink" title="两张图片拼接"></a>两张图片拼接</h2><p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312404099.png"></p>
+<p>提取http对象</p>
+<p>把scanlines拖进stegsolve，在多个通道发现了一条横线</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312485498.png"></p>
+<p>而logo正好缺了一段</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312592372.png"></p>
+<p>使用stegsolve的图像结合</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312633974.png"></p>
+<p>得到flag</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312671617.png"></p>
+<h1 id="添加文件头"><a href="#添加文件头" class="headerlink" title="添加文件头"></a>添加文件头</h1><h1 id="文件属性藏信息"><a href="#文件属性藏信息" class="headerlink" title="文件属性藏信息"></a>文件属性藏信息</h1><p>图片属性可以隐藏信息</p>
+<h1 id="outguess隐写"><a href="#outguess隐写" class="headerlink" title="outguess隐写"></a>outguess隐写</h1><h2 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo">https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo</a></p>
+<h2 id="解题过程-3"><a href="#解题过程-3" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解boki.png得到压缩包，是真加密</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311449760.png"></p>
+<p>尝试爆破</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311499706.png"></p>
+<p>得到一段字符串</p>
+<p>base64三次得到killerqueen</p>
+<p>另一张图片是outguess隐写</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311787198.png"></p>
+<p>打开flag1.txt文件</p>
+<p>wctf2020{pretty_girl_alison_likes_jojo}</p>
+
                 
             </div>
             <hr/>
@@ -1132,7 +1156,7 @@ print(t)</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">6k</span>
+                        class="white-color">6.1k</span>
             
             
             
