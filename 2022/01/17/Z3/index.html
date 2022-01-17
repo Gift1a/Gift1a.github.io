@@ -4,12 +4,11 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="zip, Hexo">
-    <meta name="description" content="伪加密伪加密原理及操作zip文件组成可以去里面看看，挺全的
-https://blog.csdn.net/qq_26187985/article/details/83654197
-例题这里找了一道大佬出的题，适合练练手
-《美丽的烟火》
-链接：">
+    <meta name="keywords" content="Z3, Hexo">
+    <meta name="description" content="先来看官方文档
+https://ericpony.github.io/z3py-tutorial/guide-examples.htm
+这个博客也不错
+https://blog.csdn.net/qq_38154820/article/de">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +20,7 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>zip | Hexo</title>
+    <title>Z3 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -321,7 +320,7 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">zip</h1>
+                    <h1 class="description center-align post-title">Z3</h1>
                 </div>
             </div>
         </div>
@@ -449,28 +448,28 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-15
+                    2022-01-17
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-16
+                    2022-01-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    6 分
                 </div>
                 
 
@@ -493,136 +492,178 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="伪加密"><a href="#伪加密" class="headerlink" title="伪加密"></a>伪加密</h1><h2 id="伪加密原理及操作"><a href="#伪加密原理及操作" class="headerlink" title="伪加密原理及操作"></a>伪加密原理及操作</h2><h3 id="zip文件组成"><a href="#zip文件组成" class="headerlink" title="zip文件组成"></a>zip文件组成</h3><p>可以去里面看看，挺全的</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26187985/article/details/83654197">https://blog.csdn.net/qq_26187985/article/details/83654197</a></p>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>这里找了一道大佬出的题，适合练练手</p>
-<p>《美丽的烟火》</p>
-<p>链接：<a target="_blank" rel="noopener" href="http://ctf.bugku.com/challenges/detail/id/350.html">http://ctf.bugku.com/challenges/detail/id/350.html</a></p>
-<p>直接打开压缩包，可以得到被加密的文件</p>
-<p><img src="/2022/01/15/zip/1642245880907.png"></p>
-<p>痛苦，一般这种没有提示的(下面会有介绍)，一般就是伪加密了。</p>
-<p>拖进winhex，搜索504b0102（不知道为什么的速速去看前面那篇文章），这个按钮</p>
-<p><img src="/2022/01/15/zip/1642246321198.png"></p>
-<p>把09改成00，要仔细，这里有两个，我开始只看到一个</p>
-<p><img src="/2022/01/15/zip/1642246469204.png"></p>
-<p><img src="/2022/01/15/zip/1642246506196.png"></p>
-<p>重新打开压缩包</p>
-<p><img src="/2022/01/15/zip/1642246638206.png"></p>
-<p>心情愉悦~</p>
-<p>接下来就是进行解密了</p>
-<p>这里不细讲了，不然就跑偏了，png文件是stegpy隐写，密码是shumu，stegpy安装应该会有问题，具体安装请看图片隐写</p>
-<p><img src="/2022/01/15/zip/1642246877362.png"></p>
-<p>password解密是base64，base58，栅栏，</p>
-<p>这里推荐一篇博客</p>
-<p>得到的字符串是aes的key，然后直接aes在线解密</p>
-<p><img src="/2022/01/15/zip/1642247152438.png"></p>
-<p>flag：flag{yX73nAutbBozYhge6d2flG}</p>
-<p>网站也放这了：<a target="_blank" rel="noopener" href="https://the-x.cn/cryptography/Aes.aspx">https://the-x.cn/cryptography/Aes.aspx</a></p>
-<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><p>winrar可以修复伪加密，不过是部分的</p>
-<p><img src="/2022/01/15/zip/1642251859085.png"></p>
-<p>点开上面的工具-&gt; 修复压缩文件</p>
-<h1 id="套娃压缩包"><a href="#套娃压缩包" class="headerlink" title="套娃压缩包"></a>套娃压缩包</h1><p>顾名思义，就是压缩包套娃</p>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF">https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF</a></p>
-<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
+                <p>先来看官方文档</p>
+<p><a target="_blank" rel="noopener" href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
+<p>这个博客也不错</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38154820/article/details/108656598">https://blog.csdn.net/qq_38154820/article/details/108656598</a></p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>  基本语句</p>
+<p>Op    Mnmonics    Description<br>            0    true    恒真<br>            1    flase    恒假<br>            2    =    相等<br>            3    distinct    不同<br>            4    ite    if-then-else<br>            5    and    n元 合取（其中条件必须全部满足）<br>            6    or    n元 析取（其中条件满足之一即可）<br>            7    iff    implication<br>            8    xor    异或<br>            9    not    否定<br>            10    implies    Bi-implications</p>
+<p>1、创建容器</p>
+<p>s=Solver()</p>
+<p>2、创建变量，变量有Int(整型)、BitVector(字节)、数组</p>
+<p>3、添加约束条件</p>
+<p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
+<p>4、判断是否存在</p>
+<pre class="language-python" data-language="python"><code class="language-python">if s.check() == sat:  
+    m = s.model()  
+    print(m)
+else:  
+    print("no answer")</code></pre>
 
-x = y = 200
-img = Image.new("RGB",(x,y))
-file = open('./qr.txt','r')
+<h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
+<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
+<p>这里就直接放脚本了</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
 
-for width in range(0,x):
-    for height in range(0,y):
-        line = file.readline()
-        rgb = line.replace('(','').replace(')','').split(',')
-        img.putpixel((width,height),(int(rgb[0]),int(rgb[1]),int(rgb[2])))
-img.save('flag.jpg')
-</code></pre>
+s=Solver()
+v1=Int('v1')
+v2=Int('v2')
+v3=Int('v3')
+v4=Int('v4')
+v5=Int('v5')
+v6=Int('v6')
+v7=Int('v7')
+v8=Int('v8')
+v9=Int('v9')
+v11=Int('v11')
+
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
+s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
+s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
+s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
+s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
+s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
+s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
+s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
+
+if s.check()==sat:
+    result=s.model()
+
+print(result)</code></pre>
 
 
 
-<h1 id="CRC32爆破"><a href="#CRC32爆破" class="headerlink" title="CRC32爆破"></a>CRC32爆破</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>CRC校验实用程序库 在数据存储和数据通讯领域，为了保证数据的正确，就不得不采用检错的手段。在诸多检错手段中，CRC是最著名的一种。CRC的全称是循环冗余校验。(这里还不是很懂，后续再看)</p>
-<p>总之每个文件都有唯一的CRC32值，即便数据中一个bit发生变化，也会导致CRC32值不同。若是知道一段数据的长度和CRC32值，便可穷举数据，与其CRC32对照，以此达到暴力猜解的目的。但通常只适用于较小文本文件。</p>
-<h3 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h3><p>打开里面有很多压缩包，里面存储的都是小数据文件</p>
-<p><img src="/2022/01/15/zip/1642249237942.png"></p>
-<p><img src="/2022/01/15/zip/1642249207274.png"></p>
-<p>直接上脚本(不是很会)</p>
-<pre class="language-python" data-language="python"><code class="language-python">#python3
-import zipfile
-import string
-import binascii
+<h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
+<h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
+#添加六个Int数据到s变量中
+s = [Int('s%d' % i) for i in range(6)]
+a=Solver()
+#多个约束条件可以使用逗号间隔
+a.add(s[2]-s[3]==2225223423,s[3]+s[4]==4201428739,s[2]-s[4]==1121399208,s[0]==0xdf48ef7e,s[5]==0x84f30420,s[1]==0x20caacf4)
+if a.check() == sat:
+    print(a.model())</code></pre>
 
-def CrackCrc(crc):
-	for i in dic:
-		for j in dic:
-			for k in dic:
-				for h in dic:
-					s = i + j + k + h
-					if crc == (binascii.crc32(s.encode())):
-						f.write(s)
-						return
 
-def CrackZip():
-	for i in range(0,68):
-		file = 'D:\\new\\新建文件夹\\out'+str(i)+'.zip'
-		crc = zipfile.ZipFile(file,'r').getinfo('data.txt').CRC
-		CrackCrc(crc)
-		print('\r'+"loading：{:%}".format(float((i+1)/68)),end='')
 
-dic = string.ascii_letters + string.digits + '+/='
-f = open('printaaa.txt','w')
-print("\nCRC32begin")
-CrackZip()
-print("CRC32finished")
-f.close()
-</code></pre>
+<p>这样得到的结果不会是数组的形式，如下得到的是数组形式</p>
+<p><img src="/2022/01/17/Z3/1642418166049.png"></p>
+<h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
+<p>先贴一下</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import *
+# 9x9整数变量矩阵
+X = [ [ Int("x_%s_%s" % (i+1, j+1)) for j in range(9) ]
+      for i in range(9) ]
+ 
+ 
+# 每个单元格包含{1，…，9}中的值
+cells_c  = [ And(1 &lt;= X[i][j], X[i][j] &lt;= 9)
+             for i in range(9) for j in range(9) ]
+ 
+ 
+# 每行最多包含一个数字一次
+rows_c   = [ Distinct(X[i]) for i in range(9) ]
+ 
+ 
+# 每列最多包含一个数字
+cols_c   = [ Distinct([ X[i][j] for i in range(9) ])
+             for j in range(9) ]
+ 
+ 
+# 每个3x3正方形最多包含一个数字
+sq_c     = [ Distinct([ X[3*i0 + i][3*j0 + j]
+                        for i in range(3) for j in range(3) ])
+             for i0 in range(3) for j0 in range(3) ]
+ 
+ 
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+ 
+ 
+# 数独实例，我们用'0'表示空单元格
+instance = ((0,0,0,0,9,4,0,3,0),
+            (0,0,0,5,1,0,0,0,7),
+            (0,8,9,0,0,0,0,4,0),
+            (0,0,0,0,0,0,2,0,8),
+            (0,6,0,2,0,1,0,5,0),
+            (1,0,2,0,0,0,0,0,0),
+            (0,7,0,0,0,0,5,2,0),
+            (9,0,0,0,6,5,0,0,0),
+            (0,4,0,9,7,0,0,0,0))
+ 
+ 
+instance_c = [ If(instance[i][j] == 0,
+                  True,
+                  X[i][j] == instance[i][j])
+               for i in range(9) for j in range(9) ]
+ 
+ 
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [ [ m.evaluate(X[i][j]) for j in range(9) ]
+          for i in range(9) ]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
 
-<p>得到base64编码的东西</p>
-<pre class="language-none"><code class="language-none">z5BzAAANAAAAAAAAAKo+egCAIwBJAAAAVAAAAAKGNKv+a2MdSR0zAwABAAAAQ01UCRUUy91BT5UkSNPoj5hFEVFBRvefHSBCfG0ruGnKnygsMyj8SBaZHxsYHY84LEZ24cXtZ01y3k1K1YJ0vpK9HwqUzb6u9z8igEr3dCCQLQAdAAAAHQAAAAJi0efVT2MdSR0wCAAgAAAAZmxhZy50eHQAsDRpZmZpeCB0aGUgZmlsZSBhbmQgZ2V0IHRoZSBmbGFnxD17AEAHAA==
-</code></pre>
+<h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
+<p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
+<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><pre class="language-python" data-language="python"><code class="language-python">from z3 import *
 
-<p>网站在线解码，这个网站挺好的，可以直接转换文件</p>
-<p><a target="_blank" rel="noopener" href="https://the-x.cn/base64/">https://the-x.cn/base64/</a></p>
-<p>解码后在尾部看到这句话</p>
-<p><img src="/2022/01/15/zip/1642250774952.png"></p>
-<p>他让我们修复文件，所以我们首先要先了解文件头和尾</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2">https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2</a></p>
-<p>修补好rar文件头在注释里得到flag</p>
-<p>flag{nev3r_enc0de_t00_sm4ll_fil3_w1th_zip}</p>
-<h1 id="压缩文件带注释"><a href="#压缩文件带注释" class="headerlink" title="压缩文件带注释"></a>压缩文件带注释</h1><p>有一些题目会在注释里面添加信息，直观的就不说了，现在说两种空白符，Whitespace <a target="_blank" rel="noopener" href="https://vii5ard.github.io/whitespace/">https://vii5ard.github.io/whitespace/</a> 和snow隐写，snow需要密码，有可执行文件</p>
-<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
-<p>无字天书</p>
-<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到流量包，导出HTTP对象</p>
-<p>得到几个文件，依次查看，注意要仔细看，流量包文件有时候会很多</p>
-<p><img src="/2022/01/15/zip/1642254197336.png"></p>
-<p>发现了504b0304，可以写脚本，也可以直接网站解码得到压缩包</p>
-<p><a target="_blank" rel="noopener" href="https://the-x.cn/zh-cn/encodings/Hex.aspx">https://the-x.cn/zh-cn/encodings/Hex.aspx</a></p>
-<p><img src="/2022/01/15/zip/1642254255927.png"></p>
-<p>也可以使用脚本</p>
-<pre class="language-python" data-language="python"><code class="language-python">s='填写16进制数据'
-import binascii
-out=open('2.jpg','wb')
-out.write(binascii.unhexlify(s))
-out.close()
+# 5*5整数变量矩阵
+X = [[Int("x_%s_%s" % (i + 1, j + 1)) for j in range(5)]
+     for i in range(5)]
 
-#Author: MoChu7
-import struct
+# 每个单元格包含{0，…，4}中的值
+cells_c = [And(0 &lt;= X[i][j], X[i][j] &lt;= 4)
+           for i in range(5) for j in range(5)]
 
-a = open("str.txt","r")#十六进制数据文件
-lines = a.read()
-res = [lines[i:i+2] for i in range(0,len(lines),2)]
+# 每行最多包含一个数字一次
+rows_c = [Distinct(X[i]) for i in range(5)]
 
-with open("res.jpg","wb") as f:
-	for i in res:
-		s = struct.pack('B',int(i,16))
-		f.write(s)
-</code></pre>
+# 每列最多包含一个数字
+cols_c = [Distinct([X[i][j] for i in range(5)])
+          for j in range(5)]
 
-<p>打开之后得到两个文件，打开里面什么都看不到，全选就会有显示，key.ws应该是snow的密码，拿去whitespace解密</p>
-<p><img src="/2022/01/15/zip/1642254325041.png"></p>
-<p>然后snow解密 命令：SNOW.EXE -p 密码 -C 文件</p>
-<p><img src="/2022/01/15/zip/1642254470293.png"></p>
-<p>cazy{C4n_y0u_underSt4nd_th3_b0oK_With0ut_Str1ng}</p>
-<h1 id="爆破压缩包"><a href="#爆破压缩包" class="headerlink" title="爆破压缩包"></a>爆破压缩包</h1><p>使用工具爆破，如Advanced Archive Password Recovery</p>
-<h2 id="已知明文攻击"><a href="#已知明文攻击" class="headerlink" title="已知明文攻击"></a>已知明文攻击</h2><h2 id="掩码攻击"><a href="#掩码攻击" class="headerlink" title="掩码攻击"></a>掩码攻击</h2>
+# 每个5x5正方形最多包含一个数字,i0和j0表示分为几组
+sq_c = [Distinct([X[5 * i0 + i][5 * j0 + j]
+                  for i in range(5) for j in range(5)])
+        for i0 in range(0) for j0 in range(0)]
+
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+
+# 数独实例，我们用'5'表示空单元格
+instance = ((1,4,5,2,3),(3,0,5,1,5),(0,5,2,3,5),(5,3,5,5,5),(4,2,5,5,1))
+
+instance_c = [If(instance[i][j] == 5,
+                 True,
+                 X[i][j] == instance[i][j])
+              for i in range(5) for j in range(5)]
+
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [[m.evaluate(X[i][j]) for j in range(5)]
+         for i in range(5)]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
+
+
                 
             </div>
             <hr/>
@@ -648,7 +689,7 @@ with open("res.jpg","wb") as f:
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/01/15/zip/">https://gift1a.github.io/2022/01/15/zip/</a>
+                    <a href="https://gift1a.github.io/2022/01/17/Z3/">https://gift1a.github.io/2022/01/17/Z3/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -855,54 +896,18 @@ with open("res.jpg","wb") as f:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/01/17/SMC/">
+                <a href="/2022/01/17/Z3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="SMC">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Z3">
                         
-                        <span class="card-title">SMC</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-17
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Gift1a
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="文档隐写">
-                        
-                        <span class="card-title">文档隐写</span>
+                        <span class="card-title">Z3</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -913,7 +918,45 @@ with open("res.jpg","wb") as f:
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Gift1a
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="花指令">
+                        
+                        <span class="card-title">花指令</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-17
                             </span>
                         <span class="publish-author">
                             
