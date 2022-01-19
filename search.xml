@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>汇编</title>
+      <link href="/2022/01/19/%E6%B1%87%E7%BC%96/"/>
+      <url>/2022/01/19/%E6%B1%87%E7%BC%96/</url>
+      
+        <content type="html"><![CDATA[<h1 id="堆栈图"><a href="#堆栈图" class="headerlink" title="堆栈图"></a>堆栈图</h1><p>调用函数实现两数相加</p><p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592553591.png"></p><p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592569833.png"></p><p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592579671.png"></p><p>因为pop之后，有一部分的值还是之前保留下来的，所以要进行填充</p><p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592639529.png"></p><p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592648442.png"></p><h1 id="LEA和MOV的区别"><a href="#LEA和MOV的区别" class="headerlink" title="LEA和MOV的区别"></a>LEA和MOV的区别</h1><p>lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的操作数，例如：</p><p>lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的内存地址里的数据赋给eax。</p><p>而mov指令则恰恰相反，例如：</p><p>mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Z3</title>
       <link href="/2022/01/17/Z3/"/>
       <url>/2022/01/17/Z3/</url>
@@ -21,7 +34,7 @@
       <link href="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/"/>
       <url>/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<p><a href="https://www.anquanke.com/post/id/208682">https://www.anquanke.com/post/id/208682</a></p>]]></content>
       
       
       
