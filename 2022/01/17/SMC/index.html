@@ -5,7 +5,8 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="SMC, Hexo">
-    <meta name="description" content="">
+    <meta name="description" content="参考文章：https://www.anquanke.com/post/id/238645
+原理SMC，是self-modifying-code的缩写 ，即自我修改的代码，通过程序运行后执行相关代码功能，对加密的代码数据进行解密，让其恢复正常">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -31,9 +32,9 @@
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
 <meta name="generator" content="Hexo 5.4.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
 
 
 
@@ -452,21 +453,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-17
+                    2022-01-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    537
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -489,7 +490,52 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p>参考文章：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/238645">https://www.anquanke.com/post/id/238645</a></p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>SMC，是self-modifying-code的缩写 ，即自我修改的代码，通过程序运行后执行相关代码功能，对加密的代码数据进行解密，让其恢复正常功能</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>1、要有两个函数，一个用于加密，一个用于解密，两个是对应的</p>
+<p>2、找到要SMC的代码地址，然后提前在程序开始的地方设置对该地址数据的解密函数</p>
+<p>3、取出要进行SMC的代码的字节码，对其使用准备好的加密函数进行加密</p>
+<p>4、用这串加密的数据替换原代码的字节码</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]jocker">https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]jocker</a></p>
+<h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><p>打开ida反编译看到</p>
+<p><img src="/2022/01/17/SMC/1642563702820.png"></p>
+<p>点进这个函数ida直接报错</p>
+<p><img src="/2022/01/17/SMC/1642563778289.png"></p>
+<p>查看汇编代码</p>
+<p><img src="/2022/01/17/SMC/1642563800178.png"></p>
+<p>点击函数跟进</p>
+<p><img src="/2022/01/17/SMC/1642563901545.png"></p>
+<p>发现一长串没被识别的数据段，这种情况可能是花指令导致，也可能是SMC，结合之前有一个循环异或，可以猜测是SMC，接下来有两种方法解密 </p>
+<h2 id="使用IDC对加密数据进行解密"><a href="#使用IDC对加密数据进行解密" class="headerlink" title="使用IDC对加密数据进行解密"></a>使用IDC对加密数据进行解密</h2><p>首先要找到被加密数据段的初始地址以及加密数据段的长度，这里长度在for循环里面，初始位置</p>
+<p><img src="/2022/01/17/SMC/1642566995107.png"></p>
+<p>点击函数跳转</p>
+<p><img src="/2022/01/17/SMC/1642567097998.png"></p>
+<p>黄色段就是初始地址，可以看到这里函数入口并不是pop开始，所以也可以猜到被加密了</p>
+<p>idc脚本如下(shift+f2)打开</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;idc.idc&gt;
+
+static main()
+{
+    auto addr = 0x401500;
+    auto i = 0;
+    for(i=0;i&lt;187;i++)
+    {
+        PatchByte(addr+i,Byte(addr+i)^0x41);
+    }
+}
+</code></pre>
+
+<p>得到了解密的数据段</p>
+<p><img src="/2022/01/17/SMC/1642567365432.png"></p>
+<h2 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h2><p>因为程序自带解密函数，只需要在解密函数后面下断点，运行到断点处，被加密的数据段就能成功解密</p>
+<p><img src="/2022/01/17/SMC/1642565058450.png"></p>
+<p>这是未解密的，运行后</p>
+<p><img src="/2022/01/17/SMC/1642565236932.png"></p>
+<p>这时候只需要先对函数按U，取消定义，然后选中按C——force转为汇编代码</p>
+<p><img src="/2022/01/17/SMC/1642565348450.png"></p>
+<p>然后按p定义成函数，再按F5就可以正常反编译了</p>
+<p><img src="/2022/01/17/SMC/1642565393714.png"></p>
+
                 
             </div>
             <hr/>
@@ -990,7 +1036,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">7.4k</span>
+                        class="white-color">8k</span>
             
             
             
