@@ -459,7 +459,7 @@ LEA和MOV的区别lea是“load effective address”的缩写，简单的说，l
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-20
+                    2022-01-26
                 </div>
                 
 
@@ -559,7 +559,7 @@ LEA和MOV的区别lea是“load effective address”的缩写，简单的说，l
 <p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657323715.png"></p>
 <p>看接下来的几行指令</p>
 <p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657469555.png"></p>
-<p>1、将0x2赋给ebp地址的前一个内存单元</p>
+<p>1、将0x2赋给ebp地址的前一个内存单元，<strong>这里的0x2就是局部变量</strong></p>
 <p>2、将EBP+0xc的值赋给eax，eax的值压入栈中，下面也是，画堆栈图</p>
 <p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657989835.png"></p>
 <p>这里压入栈的数值，将作为内部嵌套函数的参数</p>
@@ -596,6 +596,7 @@ LEA和MOV的区别lea是“load effective address”的缩写，简单的说，l
 <p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642661042648.png"></p>
 <p>和调用前一致，所以没问题了</p>
 <p>剩下的就是重复之前的操作了，先执行函数操作指令，然后POP还原现场，retn后ADD恢复堆栈平衡</p>
+<p>函数的参数存放在ebp+0x8开始因为call指令会将下一条指令地址压入栈中，而局部变量从ebp-0x4开始</p>
 
                 
             </div>
@@ -1097,7 +1098,7 @@ LEA和MOV的区别lea是“load effective address”的缩写，简单的说，l
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.6k</span>
+                        class="white-color">12.2k</span>
             
             
             
