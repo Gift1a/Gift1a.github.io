@@ -39,8 +39,8 @@ __declspec(naked) Func()
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -459,21 +459,21 @@ __declspec(naked) Func()
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-01
+                    2022-02-02
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    5 分
                 </div>
                 
 
@@ -613,7 +613,35 @@ __declspec(naked) Func()
 <p>参数传递4个字节</p>
 <p>压栈的时候都是eax</p>
 <p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643188571362.png"></p>
-<h1 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h1><h2 id="switch语句反汇编"><a href="#switch语句反汇编" class="headerlink" title="switch语句反汇编"></a>switch语句反汇编</h2><h3 id="case连续"><a href="#case连续" class="headerlink" title="case连续"></a>case连续</h3><h3 id="case连续但中断"><a href="#case连续但中断" class="headerlink" title="case连续但中断"></a>case连续但中断</h3><h3 id="case不连续"><a href="#case不连续" class="headerlink" title="case不连续"></a>case不连续</h3><h2 id="while循环反汇编"><a href="#while循环反汇编" class="headerlink" title="while循环反汇编"></a>while循环反汇编</h2><h2 id="do……while反汇编"><a href="#do……while反汇编" class="headerlink" title="do……while反汇编"></a>do……while反汇编</h2><h2 id="for循环反汇编"><a href="#for循环反汇编" class="headerlink" title="for循环反汇编"></a>for循环反汇编</h2><h1 id="数组在内存的存储和寻址"><a href="#数组在内存的存储和寻址" class="headerlink" title="数组在内存的存储和寻址"></a>数组在内存的存储和寻址</h1><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643368384236.png"></p>
+<h1 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h1><h2 id="switch语句反汇编"><a href="#switch语句反汇编" class="headerlink" title="switch语句反汇编"></a>switch语句反汇编</h2><p>当分支较少时采取if……else if ……else的方式</p>
+<h3 id="case连续"><a href="#case连续" class="headerlink" title="case连续"></a>case连续</h3><p>创建大表</p>
+<p> <img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643726580401.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643726615144.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643726837151.png"></p>
+<p>sub</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727141397.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727234505.png"></p>
+<p>这里修改参数为103，case条件也修改，发现sub的值发生了变化，所以可以知道sub的值对应最小的case条件的值，这样对应上了大表的位置，所以sub是为了跳转到生成的大表</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727350589.png"></p>
+<p>正好是case 103的地址</p>
+<h3 id="case连续但中断"><a href="#case连续但中断" class="headerlink" title="case连续但中断"></a>case连续但中断</h3><p>101、102、103的情况使用default的地址填充</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727925669.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728035747.png"></p>
+<p>只要有断开的，就会浪费一片内存地址，所以当间隔太远就不会使用这种方式</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728378338.png"></p>
+<p>但是当间隔比较大的时候，出现了新情况</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728454178.png"></p>
+<p>因为已经清空了edx，所以可使用该寄存器，这句话相当于把0x004010dd+eax的值对应地址的内容放入到dl中，dl是八位，对应1个字节，这个就是小表</p>
+<p>当连续但相差较远时会采用小表</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728595269.png"></p>
+<h3 id="case不连续"><a href="#case不连续" class="headerlink" title="case不连续"></a>case不连续</h3><p>当差值太大，不会生成大表，会直接采取if……else结构</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727643051.png"></p>
+<p>先判断大于je，再判断等于cmp+jmp</p>
+<h2 id="while循环反汇编"><a href="#while循环反汇编" class="headerlink" title="while循环反汇编"></a>while循环反汇编</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643730937945.png"></p>
+<p>je是当ZF标志位为0是跳转，test是按位与操作，用于判断寄存器的值是否为0</p>
+<h2 id="do……while反汇编"><a href="#do……while反汇编" class="headerlink" title="do……while反汇编"></a>do……while反汇编</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643731312416.png"></p>
+<h2 id="for循环反汇编"><a href="#for循环反汇编" class="headerlink" title="for循环反汇编"></a>for循环反汇编</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643730507558.png"></p>
+<h1 id="数组在内存的存储和寻址"><a href="#数组在内存的存储和寻址" class="headerlink" title="数组在内存的存储和寻址"></a>数组在内存的存储和寻址</h1><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643368384236.png"></p>
 <p>这里数组的存储是从高位往低位存储，也就是从右到左开始存储到缓冲区中，替换缓冲区的数值</p>
 <p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643368588775.png"></p>
 <p>可以看到数组的存储</p>
@@ -1131,7 +1159,7 @@ __declspec(naked) Func()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.2k</span>
+                        class="white-color">12.5k</span>
             
             
             
