@@ -4,9 +4,10 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="图片隐写, Hexo">
-    <meta name="description" content="PNG和JPG文件结构PNG：https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html   （有题目需要修改PNG宽高），结尾是IEND
-JPG：https://www.cnblog">
+    <meta name="keywords" content="base64实现及细节剖析, Hexo">
+    <meta name="description" content="源码#include&amp;lt;stdio.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+char base64_table[] = &#34;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +19,7 @@ JPG：https://www.cnblog">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>图片隐写 | Hexo</title>
+    <title>base64实现及细节剖析 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -313,12 +314,12 @@ JPG：https://www.cnblog">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">图片隐写</h1>
+                    <h1 class="description center-align post-title">base64实现及细节剖析</h1>
                 </div>
             </div>
         </div>
@@ -446,28 +447,28 @@ JPG：https://www.cnblog">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-15
+                    2022-02-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-16
+                    2022-02-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    6 分
                 </div>
                 
 
@@ -490,173 +491,227 @@ JPG：https://www.cnblog">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="PNG和JPG文件结构"><a href="#PNG和JPG文件结构" class="headerlink" title="PNG和JPG文件结构"></a>PNG和JPG文件结构</h1><p>PNG：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html">https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html</a>   （有题目需要修改PNG宽高），结尾是IEND</p>
-<p>JPG：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bandy/p/4956086.html">https://www.cnblogs.com/bandy/p/4956086.html</a></p>
-<p>jpg的一些隐写：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24054040">https://zhuanlan.zhihu.com/p/24054040</a></p>
-<p>无论是png还是jpg，只会识别到文件尾，所以可以在文件尾加入信息</p>
-<h1 id="F5隐写"><a href="#F5隐写" class="headerlink" title="F5隐写"></a>F5隐写</h1><h1 id="Stegpy隐写"><a href="#Stegpy隐写" class="headerlink" title="Stegpy隐写"></a>Stegpy隐写</h1><p>之前有过题了，就不说了，讲讲下载</p>
-<p>看这篇就够了</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Amherstieae/article/details/109010064">https://blog.csdn.net/Amherstieae/article/details/109010064</a></p>
-<h1 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3679f805a0c">https://www.jianshu.com/p/c3679f805a0c</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF">https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF</a></p>
-<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解文件</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302431480.png"></p>
-<p>伪加密</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302894034.png"></p>
-<p>得到图片和加密压缩包</p>
-<p>对图片使用steghide</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302996915.png"></p>
-<p>steghide info 文件查看隐藏信息，输入y后提取，也可以直接：steghide extract 文件 </p>
-<p>找到ko.txt,得到压缩包密码</p>
-<p>flag{1RTo8w@&amp;4nK@z*XL}</p>
-<h1 id="Binwalk、Winrar——图片隐藏文件"><a href="#Binwalk、Winrar——图片隐藏文件" class="headerlink" title="Binwalk、Winrar——图片隐藏文件"></a>Binwalk、Winrar——图片隐藏文件</h1><p>binwalk使用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wxh0000mm/article/details/85683661">https://blog.csdn.net/wxh0000mm/article/details/85683661</a></p>
-<p>可以直接binwalk提取文件，命令：binwalk -e 文件，这个比较常见，就不说了</p>
-<p>winrar也可以直接打开被隐藏的文件</p>
-<h1 id="修改图片宽高"><a href="#修改图片宽高" class="headerlink" title="修改图片宽高"></a>修改图片宽高</h1><pre class="language-python" data-language="python"><code class="language-python">import binascii
-import struct
-import sys
+                <h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include &lt;string.h&gt;
+char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+void base64_encode(char raw[], char encode[])
+{
+	int code_len = strlen(raw);
+	int final_len = 0;
+	if (code_len % 3)
+	{
+		final_len = (code_len / 3 + 1) * 4;
+	}
+	else
+		final_len = (code_len / 3) * 4;
+	int i = 0, i_ = 0;
+	for (; i &lt; code_len; i += 3, i_ += 4)
+	{
+		encode[i_] = base64_table[raw[i] &gt;&gt; 2];
+		encode[i_ + 1] = base64_table[((raw[i] &amp; 0x03) &lt;&lt; 4) | ((raw[i + 1] &amp; 0xf0) &gt;&gt; 4)];
+		encode[i_ + 2] = base64_table[((raw[i + 1] &amp; 0x0f) &lt;&lt; 2) | ((raw[i + 2] &amp; 0xc0) &gt;&gt; 6)];
+		encode[i_ + 3] = base64_table[raw[i + 2] &amp; 0x3f];
+	}
+	if (code_len % 3 == 1)
+	{
+		encode[i_ - 1] = '=';
+		encode[i_ - 2] = '=';
+	}
+	else if (code_len % 3 == 2)
+	{
+		encode[i_ - 1] = '=';
+	}
+	return;
+}
+int Findindex(char c)
+{
+	for (int i = 0; i &lt; strlen(base64_table); ++i)
+	{
+		if (c == base64_table[i])
+			return i;
+	}
+}
+void base64_decode(char* encode, char* decode)
+{
+	int decode_len=0;
+	int encode_len = strlen(encode);
+	if (strstr(encode, "=="))
+		decode_len = (encode_len / 4) * 3 - 2;
+	else if (strstr(encode, "="))
+		decode_len = (encode_len / 4) * 3 - 1;
+	else
+		decode_len = (encode_len / 4) * 3;
+	int i = 0, i_ = 0;
+	for (; i &lt; encode_len; i_ += 4, i += 3)
+	{
+		decode[i] = (Findindex(encode[i_]) &lt;&lt; 2) | (Findindex(encode[i_ + 1]) &amp; 0x30) &gt;&gt; 4;
+		decode[i + 1] = ((Findindex(encode[i_ + 1]) &amp; 0xf) &lt;&lt; 4) | ((Findindex(encode[i_ + 2]) &amp; 0x3c) &gt;&gt; 2);
+		decode[i + 2] = ((Findindex(encode[i_ + 2]) &amp; 0x3) &lt;&lt; 6) | ((Findindex(encode[i_ + 3])));
+	}
+	decode[decode_len] = 0;
+	return;
+}
+int main()
+{
+	char raw[] = "hgame{123456}";
+	char encode[100] = { 0 };
+	char decode[100] = { 0 };
+	base64_encode(raw, encode);
+	printf("%s", encode);
+	base64_decode(encode, decode);
+	printf("\n%s", decode);
+}</code></pre>
 
-file = input("图片地址：")
-fr = open(file,'rb').read()
-data = bytearray(fr[0x0c:0x1d])
-crc32key = eval('0x'+str(binascii.b2a_hex(fr[0x1d:0x21]))[2:-1])
-#原来的代码: crc32key = eval(str(fr[29:33]).replace('\\x','').replace("b'",'0x').replace("'",''))
-n = 4095
-for w in range(n):
-    width = bytearray(struct.pack('&gt;i', w))
-    for h in range(n):
-        height = bytearray(struct.pack('&gt;i', h))
-        for x in range(4):
-            data[x+4] = width[x]
-            data[x+8] = height[x]
-        crc32result = binascii.crc32(data) &amp; 0xffffffff
-        if crc32result == crc32key:
-            print(width,height)
-            newpic = bytearray(fr)
-            for x in range(4):
-                newpic[x+16] = width[x]
-                newpic[x+20] = height[x]
-            fw = open(file+'.png','wb')
-            fw.write(newpic)
-            fw.close
-            sys.exit()</code></pre>
+<h1 id="细节剖析"><a href="#细节剖析" class="headerlink" title="细节剖析"></a>细节剖析</h1><h2 id="编码部分"><a href="#编码部分" class="headerlink" title="编码部分"></a>编码部分</h2><h3 id="记录长度"><a href="#记录长度" class="headerlink" title="记录长度"></a>记录长度</h3><p>首先要先计算长度，base64就是将三个字节扩展为四个字节，所以要分成有余数和整除两种情况</p>
+<pre class="language-c" data-language="c"><code class="language-c">int code_len = strlen(raw);
+	int final_len = 0;
+	if (code_len % 3)
+	{
+		final_len = (code_len / 3 + 1) * 4;
+	}
+	else
+		final_len = (code_len / 3) * 4;</code></pre>
 
+<h3 id="编码部分-1"><a href="#编码部分-1" class="headerlink" title="编码部分"></a>编码部分</h3><p>首先先介绍一下两个工具，&amp;和|，和一些数据做&amp;运算可以取到我们想要的位，而|运算可以将两部分结合在一起</p>
+<p>编码后的索引最多为六位，原先的数据可以是八位的</p>
+<h4 id="encode-i"><a href="#encode-i" class="headerlink" title="encode[i]"></a>encode[i]</h4><p>这个其实是最好实现的，因为只需要取到前六位，所以直接&gt;&gt;2就可以实现</p>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_] = base64_table[raw[i] &gt;&gt; 2];</code></pre>
 
+<h4 id="encode-i-1"><a href="#encode-i-1" class="headerlink" title="encode[i+1]"></a>encode[i+1]</h4><p>先明确我们的需求，从第一个数据获取最后的两位与第二个数据获取的前四位结合。需要用到&amp;，这里的结合就需要用到|。</p>
+<p>首先要保证我们取到的是两位的，需要&amp;0x03</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>因为只有最后两位是1，根据按位&amp;，当有一个是0时运算后结果必定为0，所以就可以取到最后两位</p>
+<p>下一步是移到正确的位置，需要用到位移运算符</p>
+<p>这里第一个数的最后两位编码后是放在前面两位的位置，所以需要&lt;&lt;4</p>
+<p>接下来取剩余的四位</p>
+<p>剩余的四位来自第二个数的前四位</p>
+<p>可以先&amp;0xf0使得后四位都为0，当然也可以不用，直接&gt;&gt;4</p>
+<p>最后使用|结合起来</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>与</td>
+<td>运</td>
+<td>算</td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 1] = base64_table[((raw[i] &amp; 0x03) &lt;&lt; 4) | ((raw[i + 1]) &gt;&gt; 4)];</code></pre>
 
-<h1 id="二进制转二维码"><a href="#二进制转二维码" class="headerlink" title="二进制转二维码"></a>二进制转二维码</h1><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
-from zlib import *
+<h4 id="encode-i-2"><a href="#encode-i-2" class="headerlink" title="encode[i+2]"></a>encode[i+2]</h4><p>要用到第二个数据的后四位和第三个数据的前两位</p>
+<p>同理，要保留第二个数据的后四位并且去除前四位，就需要&amp;0xf，移到正确的位置&lt;&lt;2，剩余两位留给第三个数据的前两位</p>
+<p>要取到第三个数据的前两位</p>
+<p>可以直接&gt;&gt;6保证前两位移动到最后的两位，也可以先用&amp;0xc0清除后四位，因为是00110000，最后结合起来就可以了</p>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 2] = base64_table[((raw[i + 1] &amp; 0x0f) &lt;&lt; 2) | ((raw[i + 2] ) &gt;&gt; 6)];</code></pre>
 
-MAX = 25
-pic = Image.new("RGB",(MAX,MAX))
-str ='''0000000001110010000000000000000000001111010000000000000000011100010000000000000000010111100000000000000000001010101000000000000000000011000101000000000000000010101010100000000000000000100000110000000011000111011101101000110000001000010110010010010100010011110100001110111001100111101001010110010010011000001001100001001101000111100011111101110010100010110111110011011111101111000110110010010101101100100011110011111111111011100000000101100011000101000000000010010100101010001000000001010101010001100100000000001001111111100100000000000011001011110111000000000100110010010000100000000110000110110110010000000011010000101110101'''
-i=0
-for y in range(0,MAX):
-    for x in range(0,MAX):
-        if(str[i] == '1'):
-            pic.putpixel([x,y],(0,0,0))
-        else:pic.putpixel([x,y],(255,255,255))
-        i = i+1
-pic.show()
-pic.save("flag.png")
+<h4 id="encode-i-3"><a href="#encode-i-3" class="headerlink" title="encode[i+3]"></a>encode[i+3]</h4><p>只需要取到第三个数据的后六位就可以了</p>
+<p>直接&amp;0x3f，因为0x3f的二进制是00111111</p>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 3] = base64_table[raw[i + 2] &amp; 0x3f];</code></pre>
 
-</code></pre>
+<h4 id="填加"><a href="#填加" class="headerlink" title="填加="></a>填加=</h4><p>如果编码前的数据长度%3不等于0，需要使用=填充</p>
+<p>如果多出一位的话，根据经过上述过程会变成两位，所以最后两位需要用到=来填充</p>
+<p>多出两位，经过上述过程变成三位，所以只需填充最后一位为=</p>
+<pre class="language-c" data-language="c"><code class="language-c">if (code_len % 3 == 1)
+	{
+		encode[i_ - 1] = '=';
+		encode[i_ - 2] = '=';
+	}
+	else if (code_len % 3 == 2)
+	{
+		encode[i_ - 1] = '=';
+	}</code></pre>
 
+<h3 id="解码部分"><a href="#解码部分" class="headerlink" title="解码部分"></a>解码部分</h3><p>六位还原为八位</p>
+<h4 id="去除"><a href="#去除" class="headerlink" title="去除="></a>去除=</h4><p>先计算解码后的长度，每四个对应三个，最后减去=的长度</p>
+<pre class="language-c" data-language="c"><code class="language-c">int decode_len=0;
+	int encode_len = strlen(encode);
+	if (strstr(encode, "=="))
+		decode_len = (encode_len / 4) * 3 - 2;
+	else if (strstr(encode, "="))
+		decode_len = (encode_len / 4) * 3 - 1;
+	else
+		decode_len = (encode_len / 4) * 3;</code></pre>
 
+<h4 id="decode-i"><a href="#decode-i" class="headerlink" title="decode[i]"></a>decode[i]</h4><p>其实和上面过程正好相反，取第一个编码数据的后六位（因为前两位是填充的0）和第二个编码数据的前两位，在此之前需要先去除前两位填充的0，所以要&amp;0x30，根据上面的过程，我们需要的是00110000，正好是0x30</p>
+<p>再用|结合</p>
+<pre class="language-c" data-language="c"><code class="language-c">decode[i] = (Findindex(encode[i_]) &lt;&lt; 2) | (Findindex(encode[i_ + 1]) &amp; 0x30) &gt;&gt; 4;</code></pre>
 
-<h1 id="坐标画图"><a href="#坐标画图" class="headerlink" title="坐标画图"></a>坐标画图</h1><h2 id="gnuplot"><a href="#gnuplot" class="headerlink" title="gnuplot"></a>gnuplot</h2><p>linux，直接sudo apt install gnuplot，使用 直接gnuplot进入后，plot 文件名，就可以了</p>
-<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E6%A2%85%E8%8A%B1%E9%A6%99%E4%B9%8B%E8%8B%A6%E5%AF%92%E6%9D%A5">https://buuoj.cn/challenges#%E6%A2%85%E8%8A%B1%E9%A6%99%E4%B9%8B%E8%8B%A6%E5%AF%92%E6%9D%A5</a></p>
-<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642300357300.png"></p>
-<p>在文件尾之后发现大量十六进制数据，这里我使用010editor复制，这样比较快，复制后转为字符</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642300558126.png"></p>
-<p>这样的格式不能被识别，所以需要替换，我使用的是VS</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642301030524.png"></p>
-<p>替换这里不用填写，直接替换全部，然后保存到txt中，再使用工具</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642301392143.png"></p>
-<h1 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h1><p>在stegsolve可以实现，逐帧查看，注意不要漏了</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642304858835.png"></p>
-<h1 id="LSB隐写"><a href="#LSB隐写" class="headerlink" title="LSB隐写"></a>LSB隐写</h1><h1 id="文件头尾倒置"><a href="#文件头尾倒置" class="headerlink" title="文件头尾倒置"></a>文件头尾倒置</h1><h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
-<p>pipicc</p>
-<h2 id="解题过程-2"><a href="#解题过程-2" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到一张图片</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642303873774.png"></p>
-<p>有噪点，应该是修改了像素点，是需要修复的</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306122403.png"></p>
-<p>缺少png文件头，修补文件头</p>
-<p>接下来找到IEND块,将多余部分删去，改为png</p>
-<p>得到</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306518311.png"></p>
-<p>拖进stegsolve</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306719043.png"></p>
-<p>在蓝色低位发现了d9ff，这正好是jpg的文件尾反过来，save bin 下来，搜索d8ff，对应倒置的文件头</p>
-<p>010editor有工具</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306907507.png"></p>
-<p>需要安装</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306934016.png"></p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306975753.png"></p>
-<p>逆序后保存改为jpg后缀，得到图片</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642307072291.png"></p>
-<p>也可以使用脚本</p>
-<pre class="language-python" data-language="python"><code class="language-python">input = open('D:\\new\\5', 'rb')
-input_all = input.read()
-ss = input_all[::-1]
-output = open('m0re.jpg', 'wb')
-output.write(ss)
-input.close()
-output.close()
-</code></pre>
+<h4 id="decode-i-1"><a href="#decode-i-1" class="headerlink" title="decode[i+1]"></a>decode[i+1]</h4><p>需要第二个编码数据的后四位和第三个编码数据的前四位，也是需要先去除填充的0</p>
+<p>所以第二个数据&amp;0xf保证取到后四位，&lt;&lt;4移到前四位</p>
+<p>第三个数据&amp;0x3c（00111100）进行去除填充的前两位0以及取到需要的那四位，再&gt;&gt;2，最后使用|结合</p>
+<pre class="language-c" data-language="c"><code class="language-c">decode[i + 1] = ((Findindex(encode[i_ + 1]) &amp; 0xf) &lt;&lt; 4) | ((Findindex(encode[i_ + 2]) &amp; 0x3c) &gt;&gt; 2);</code></pre>
 
+<h4 id="decode-i-2"><a href="#decode-i-2" class="headerlink" title="decode[i+2]"></a>decode[i+2]</h4><p>第三个编码数据的后两位和第四个编码数据的那六位</p>
+<p>和上述过程类似，就不赘述了</p>
+<h4 id="字符数组结束"><a href="#字符数组结束" class="headerlink" title="字符数组结束"></a>字符数组结束</h4><p>最后记得填加字符数组结束符</p>
+<pre class="language-c" data-language="c"><code class="language-c">decode[decode_len] = 0;</code></pre>
 
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>base64还可以魔改，进行变表操作或者在编码过程中参杂异或（Dasctf2022）</p>
 
-<h1 id="Base64隐写"><a href="#Base64隐写" class="headerlink" title="Base64隐写"></a>Base64隐写</h1><pre class="language-python" data-language="python"><code class="language-python">
-import base64
-path = input("请输入加密文件路径\n")
-file = open(path)
-a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-aaa = ''
-while True:
-    text = file.readline()  # 只读取一行内容
-    # 判断是否读取到内容
-    text = text.replace("\n", "")
-    if not text:
-        break
-    if text.count('=') == 1:
-        aaa = aaa + \
-            str('{:02b}'.format((a.find(text[len(text)-2])) % 4))
-    if text.count('=') == 2:
-        aaa = aaa + \
-            str('{:04b}'.format((a.find(text[len(text)-3])) % 16))
-file.close()
-t = ""
-ttt = len(aaa)
-ttt = ttt//8*8
-for i in range(0,ttt,8):
-    t = t + chr(int( aaa[i:i+8],2))
-print(t)</code></pre>
-
-
-
-<h1 id="StegSolve"><a href="#StegSolve" class="headerlink" title="StegSolve"></a>StegSolve</h1><h2 id="两张图片拼接"><a href="#两张图片拼接" class="headerlink" title="两张图片拼接"></a>两张图片拼接</h2><p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312404099.png"></p>
-<p>提取http对象</p>
-<p>把scanlines拖进stegsolve，在多个通道发现了一条横线</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312485498.png"></p>
-<p>而logo正好缺了一段</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312592372.png"></p>
-<p>使用stegsolve的图像结合</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312633974.png"></p>
-<p>得到flag</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312671617.png"></p>
-<h1 id="添加文件头"><a href="#添加文件头" class="headerlink" title="添加文件头"></a>添加文件头</h1><h1 id="文件属性藏信息"><a href="#文件属性藏信息" class="headerlink" title="文件属性藏信息"></a>文件属性藏信息</h1><p>图片属性可以隐藏信息</p>
-<h1 id="outguess隐写"><a href="#outguess隐写" class="headerlink" title="outguess隐写"></a>outguess隐写</h1><h2 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo">https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo</a></p>
-<h2 id="解题过程-3"><a href="#解题过程-3" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解boki.png得到压缩包，是真加密</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311449760.png"></p>
-<p>尝试爆破</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311499706.png"></p>
-<p>得到一段字符串</p>
-<p>base64三次得到killerqueen</p>
-<p>另一张图片是outguess隐写</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311787198.png"></p>
-<p>打开flag1.txt文件</p>
-<p>wctf2020{pretty_girl_alison_likes_jojo}</p>
-<h1 id="盲水印"><a href="#盲水印" class="headerlink" title="盲水印"></a>盲水印</h1><h2 id="BlindWaterMark"><a href="#BlindWaterMark" class="headerlink" title="BlindWaterMark"></a>BlindWaterMark</h2>
                 
             </div>
             <hr/>
@@ -682,7 +737,7 @@ print(t)</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">https://gift1a.github.io/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/</a>
+                    <a href="https://gift1a.github.io/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/">https://gift1a.github.io/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -893,13 +948,13 @@ print(t)</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/">
+                <a href="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="音频隐写">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="RC4原理和实现">
                         
-                        <span class="card-title">音频隐写</span>
+                        <span class="card-title">RC4原理和实现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -910,7 +965,7 @@ print(t)</code></pre>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-06
                         </span>
                         <span class="publish-author">
                             
@@ -930,13 +985,13 @@ print(t)</code></pre>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/27/A-D1/">
+                <a href="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="A&amp;D1">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="ELF文件手脱upx变形壳">
                         
-                        <span class="card-title">A&amp;D1</span>
+                        <span class="card-title">ELF文件手脱upx变形壳</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -947,7 +1002,7 @@ print(t)</code></pre>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
                             </span>
                         <span class="publish-author">
                             

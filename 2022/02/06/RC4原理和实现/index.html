@@ -4,9 +4,12 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="图片隐写, Hexo">
-    <meta name="description" content="PNG和JPG文件结构PNG：https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html   （有题目需要修改PNG宽高），结尾是IEND
-JPG：https://www.cnblog">
+    <meta name="keywords" content="RC4原理和实现, Hexo">
+    <meta name="description" content="基本原理RC4属于对称密码算法中的流密码加密算法
+密钥长度可变，面向字节操作
+以一个足够大的S表为基础，对表进行非线性变换，产生密钥流
+加密过程初始化S表1、对S表进行先行填充，一般为256字节，且为unsigned类型
+2、用种子密钥填充">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -18,7 +21,7 @@ JPG：https://www.cnblog">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>图片隐写 | Hexo</title>
+    <title>RC4原理和实现 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -313,12 +316,12 @@ JPG：https://www.cnblog">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">图片隐写</h1>
+                    <h1 class="description center-align post-title">RC4原理和实现</h1>
                 </div>
             </div>
         </div>
@@ -446,28 +449,28 @@ JPG：https://www.cnblog">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-15
+                    2022-02-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-16
+                    2022-02-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    6 分
                 </div>
                 
 
@@ -490,173 +493,244 @@ JPG：https://www.cnblog">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="PNG和JPG文件结构"><a href="#PNG和JPG文件结构" class="headerlink" title="PNG和JPG文件结构"></a>PNG和JPG文件结构</h1><p>PNG：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html">https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html</a>   （有题目需要修改PNG宽高），结尾是IEND</p>
-<p>JPG：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bandy/p/4956086.html">https://www.cnblogs.com/bandy/p/4956086.html</a></p>
-<p>jpg的一些隐写：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24054040">https://zhuanlan.zhihu.com/p/24054040</a></p>
-<p>无论是png还是jpg，只会识别到文件尾，所以可以在文件尾加入信息</p>
-<h1 id="F5隐写"><a href="#F5隐写" class="headerlink" title="F5隐写"></a>F5隐写</h1><h1 id="Stegpy隐写"><a href="#Stegpy隐写" class="headerlink" title="Stegpy隐写"></a>Stegpy隐写</h1><p>之前有过题了，就不说了，讲讲下载</p>
-<p>看这篇就够了</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Amherstieae/article/details/109010064">https://blog.csdn.net/Amherstieae/article/details/109010064</a></p>
-<h1 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3679f805a0c">https://www.jianshu.com/p/c3679f805a0c</a></p>
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF">https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF</a></p>
-<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解文件</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302431480.png"></p>
-<p>伪加密</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302894034.png"></p>
-<p>得到图片和加密压缩包</p>
-<p>对图片使用steghide</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302996915.png"></p>
-<p>steghide info 文件查看隐藏信息，输入y后提取，也可以直接：steghide extract 文件 </p>
-<p>找到ko.txt,得到压缩包密码</p>
-<p>flag{1RTo8w@&amp;4nK@z*XL}</p>
-<h1 id="Binwalk、Winrar——图片隐藏文件"><a href="#Binwalk、Winrar——图片隐藏文件" class="headerlink" title="Binwalk、Winrar——图片隐藏文件"></a>Binwalk、Winrar——图片隐藏文件</h1><p>binwalk使用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wxh0000mm/article/details/85683661">https://blog.csdn.net/wxh0000mm/article/details/85683661</a></p>
-<p>可以直接binwalk提取文件，命令：binwalk -e 文件，这个比较常见，就不说了</p>
-<p>winrar也可以直接打开被隐藏的文件</p>
-<h1 id="修改图片宽高"><a href="#修改图片宽高" class="headerlink" title="修改图片宽高"></a>修改图片宽高</h1><pre class="language-python" data-language="python"><code class="language-python">import binascii
-import struct
-import sys
+                <h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>RC4属于对称密码算法中的流密码加密算法</p>
+<p>密钥长度可变，面向字节操作</p>
+<p>以一个足够大的S表为基础，对表进行非线性变换，产生密钥流</p>
+<h1 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h1><h2 id="初始化S表"><a href="#初始化S表" class="headerlink" title="初始化S表"></a>初始化S表</h2><p>1、对S表进行先行填充，一般为256字节，且为unsigned类型</p>
+<p>2、用种子密钥填充另一个256字节的K表</p>
+<p>如果种子密钥长度不为256，将循环使用种子密钥对K表进行填充</p>
+<p>3、用 K表对S表进行初始置换</p>
+<h3 id="样例展示"><a href="#样例展示" class="headerlink" title="样例展示"></a>样例展示</h3><p>这里我们假设S表和K表都是7个字节的，密钥为345，填充结果如下</p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644168199163.png"></p>
+<p>使用K表对S表进行置换</p>
+<pre class="language-c" data-language="c"><code class="language-c">int j = 0;
+	for (int i = 0; i &lt; 7; ++i)
+	{
+		j = (j + S[i] + K[i]) % 7;
+		Swap(S[i], S[j]);
+	}</code></pre>
 
-file = input("图片地址：")
-fr = open(file,'rb').read()
-data = bytearray(fr[0x0c:0x1d])
-crc32key = eval('0x'+str(binascii.b2a_hex(fr[0x1d:0x21]))[2:-1])
-#原来的代码: crc32key = eval(str(fr[29:33]).replace('\\x','').replace("b'",'0x').replace("'",''))
-n = 4095
-for w in range(n):
-    width = bytearray(struct.pack('&gt;i', w))
-    for h in range(n):
-        height = bytearray(struct.pack('&gt;i', h))
-        for x in range(4):
-            data[x+4] = width[x]
-            data[x+8] = height[x]
-        crc32result = binascii.crc32(data) &amp; 0xffffffff
-        if crc32result == crc32key:
-            print(width,height)
-            newpic = bytearray(fr)
-            for x in range(4):
-                newpic[x+16] = width[x]
-                newpic[x+20] = height[x]
-            fw = open(file+'.png','wb')
-            fw.write(newpic)
-            fw.close
-            sys.exit()</code></pre>
+<p>得到被置换后的S表</p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644168394862.png"></p>
+<h2 id="生成密钥流"><a href="#生成密钥流" class="headerlink" title="生成密钥流"></a>生成密钥流</h2><p>作用：为每个待价密的字节生成一个伪随机数，用来异或</p>
+<p>注：S表完成初始化之后，种子密钥将不会再被使用</p>
+<p>使用置换后的S表生成密钥流</p>
+<pre class="language-c" data-language="c"><code class="language-c">int i, j = 0;
+for (int k = 0; k &lt; strlen(raw); ++k)
+{
+	i = (i + 1) % 7;
+	j = (j + S[i]) % 7;
+	Swap(S[i], S[j]);
+	int t = (S[i] + S[j]) % 7;
+	K[k] = S[t];
+}</code></pre>
 
+<h1 id="加密过程-1"><a href="#加密过程-1" class="headerlink" title="加密过程"></a>加密过程</h1><p>密钥流和明文进行异或得到密文</p>
+<h1 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include &lt;string.h&gt;
+void Rc4_init(unsigned char* S, unsigned char*K,unsigned char* key, unsigned long len)
+{
+	unsigned char  tmp = 0;
+	for (int i = 0; i &lt; 256; ++i)
+	{
+		S[i] = i;
+		K[i] = key[i % len];
+	}
+	int j = 0;
+	for (int i = 0; i &lt; 256; ++i)
+	{
+		j = (j + S[i] + K[i]) % 256;
+		tmp = S[i];
+		S[i] = S[j];
+		S[j] = tmp;
+	}
+	return;
+}
+void Rc4_encrypt(unsigned char* S, unsigned  char* flag,int len)
+{
+	int i = 0, j = 0,t = 0 ;
+	unsigned char key_liu[len] = { 0 };
+	unsigned char tmp = 0;
+	for (unsigned long k = 0; k &lt; len; ++k)
+	{
+		i = (i + 1) % 256;
+		j = (j + S[i]) % 256;
+		tmp = S[i];
+		S[i] = S[j];
+		S[j] = tmp;
+		t = (S[i] + S[j]) % 256;
+		key_liu[k] = S[t];
+	}
+	for (int i = 0; i &lt; len; ++i)
+	{
+		flag[i] ^= key_liu[i];
+	}
+}
+int main()
+{
+	unsigned char S[256] = { 0 };
+	unsigned char K[256] = { 0 };
+	char flag[512] = { 0xB6, 0x94, 0xFA, 0x8F, 0x3D, 0x5F, 0xB2, 0xE0,
+	0xEA, 0x0F, 0xD2, 0x66, 0x98, 0x6C, 0x9D, 0xE7,
+	0x1B, 0x08, 0x40, 0x71, 0xC5, 0xBE, 0x6F, 0x6D,
+	0x7C, 0x7B, 0x09, 0x8D, 0xA8, 0xBD, 0xF3, 0xF6};
+	char key[] = "w0wy0ugot1t";
+	unsigned long Len = strlen(flag);
+	Rc4_init(S, K,(unsigned char*)key, strlen(key));
+	Rc4_encrypt(S, (unsigned char*)flag, Len);
+	printf("%s", flag);
+	return 0;
+}</code></pre>
 
+<p>可以不保存密钥流，直接进行异或，逆向的时候我们可以动调得到密钥流，再与密文进行异或就可以得到明文了</p>
+<pre class="language-c" data-language="c"><code class="language-c">void Rc4_encrypt(unsigned char* S, unsigned  char* flag,char*flag1)
+{
+	int len = strlen(flag1);
+	int i = 0, j = 0,t = 0 ;
+	unsigned char tmp = 0;
+	for (unsigned long k = 0; k &lt; len; ++k)
+	{
+		i = (i + 1) % 256;
+		j = (j + S[i]) % 256;
+		tmp = S[i];
+		S[i] = S[j];
+		S[j] = tmp;
+		t = (S[i] + S[j]) % 256;
+		flag[k] ^= S[t];
+	}
+}</code></pre>
 
-<h1 id="二进制转二维码"><a href="#二进制转二维码" class="headerlink" title="二进制转二维码"></a>二进制转二维码</h1><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
-from zlib import *
+<p>分别看一下加密过程的逆向代码</p>
+<p>直接异或，动调根据存储的寄存器进行提取</p>
+<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall Rc4_encrypt(unsigned __int8 *a1, unsigned __int8 *a2, char *a3)
+{
+  unsigned int v3; // eax
+  unsigned __int8 v4; // ST2B_1
+  __int64 result; // rax
+  unsigned int v6; // [rsp+30h] [rbp-10h]
+  unsigned int i; // [rsp+34h] [rbp-Ch]
+  int v8; // [rsp+38h] [rbp-8h]
+  signed int v9; // [rsp+3Ch] [rbp-4h]
+  unsigned __int8 *v10; // [rsp+50h] [rbp+10h]
+  unsigned __int8 *v11; // [rsp+58h] [rbp+18h]
 
-MAX = 25
-pic = Image.new("RGB",(MAX,MAX))
-str ='''0000000001110010000000000000000000001111010000000000000000011100010000000000000000010111100000000000000000001010101000000000000000000011000101000000000000000010101010100000000000000000100000110000000011000111011101101000110000001000010110010010010100010011110100001110111001100111101001010110010010011000001001100001001101000111100011111101110010100010110111110011011111101111000110110010010101101100100011110011111111111011100000000101100011000101000000000010010100101010001000000001010101010001100100000000001001111111100100000000000011001011110111000000000100110010010000100000000110000110110110010000000011010000101110101'''
-i=0
-for y in range(0,MAX):
-    for x in range(0,MAX):
-        if(str[i] == '1'):
-            pic.putpixel([x,y],(0,0,0))
-        else:pic.putpixel([x,y],(255,255,255))
-        i = i+1
-pic.show()
-pic.save("flag.png")
+  v10 = a1;
+  v11 = a2;
+  v6 = strlen(a3);
+  v9 = 0;
+  v8 = 0;
+  for ( i = 0; ; ++i )
+  {
+    result = v6;
+    if ( v6 &lt;= i )
+      break;
+    v9 = (unsigned __int8)(((unsigned int)((v9 + 1) &gt;&gt; 31) &gt;&gt; 24) + v9 + 1) - ((unsigned int)((v9 + 1) &gt;&gt; 31) &gt;&gt; 24);
+    v3 = (unsigned int)((v8 + v10[v9]) &gt;&gt; 31) &gt;&gt; 24;
+    v8 = (unsigned __int8)(v3 + v8 + v10[v9]) - v3;
+    v4 = v10[v9];
+    v10[v9] = v10[v8];
+    v10[v8] = v4;
+    v11[i] ^= v10[(unsigned __int8)(v10[v9] + v10[v8])];
+  }
+  return result;
+}</code></pre>
 
-</code></pre>
+<p>先保存再异或</p>
+<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall Rc4_encrypt(unsigned __int8 *a1, unsigned __int8 *a2, signed int a3)
+{
+  void *v3; // rsp
+  char *v4; // rax
+  signed __int64 i; // rdx
+  unsigned int v6; // eax
+  __int64 result; // rax
+  __int64 v8; // [rsp+0h] [rbp-30h]
+  __int64 *v9; // [rsp+8h] [rbp-28h]
+  __int64 v10; // [rsp+10h] [rbp-20h]
+  int v11; // [rsp+1Ch] [rbp-14h]
+  unsigned int k; // [rsp+20h] [rbp-10h]
+  unsigned int j; // [rsp+24h] [rbp-Ch]
+  unsigned int v14; // [rsp+28h] [rbp-8h]
+  unsigned int v15; // [rsp+2Ch] [rbp-4h]
+  unsigned __int8 *v16; // [rsp+58h] [rbp+28h]
 
+  v16 = a2;
+  v15 = 0;
+  v14 = 0;
+  v11 = 0;
+  v10 = a3 - 1i64;
+  v3 = alloca(16 * ((unsigned __int64)(a3 + 15i64) &gt;&gt; 4));
+  v9 = &amp;v8;
+  LOBYTE(v8) = 0;
+  v4 = (char *)&amp;v8 + 1;
+  for ( i = a3 - 2i64; i != -1; --i )
+    *v4++ = 0;
+  HIBYTE(v8) = 0;
+  for ( j = 0; a3 &gt; j; ++j )
+  {
+    v15 = (unsigned __int8)(((unsigned int)((signed int)(v15 + 1) &gt;&gt; 31) &gt;&gt; 24) + v15 + 1)
+        - ((unsigned int)((signed int)(v15 + 1) &gt;&gt; 31) &gt;&gt; 24);
+    v6 = (unsigned int)((signed int)(v14 + a1[v15]) &gt;&gt; 31) &gt;&gt; 24;
+    v14 = (unsigned __int8)(v6 + v14 + a1[v15]) - v6;
+    HIBYTE(v8) = a1[v15];
+    a1[v15] = a1[v14];
+    a1[v14] = HIBYTE(v8);
+    v11 = (unsigned __int8)(a1[v15] + a1[v14]);
+    *((_BYTE *)v9 + j) = a1[v11];
+  }
+  for ( k = 0; ; ++k )
+  {
+    result = k;
+    if ( (signed int)k &gt;= a3 )
+      break;
+    v16[k] ^= *((_BYTE *)v9 + (signed int)k);
+  }
+  return result;
+}</code></pre>
 
+<p>可以看到密钥流存储在v9，动调之后可以直接提取</p>
+<p>Vs2022生成的exe文件反编译</p>
+<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall sub_140015E30(__int64 a1, __int64 a2, char *a3)
+{
+  __int64 result; // rax
+  __int64 v4; // kr00_8
+  unsigned __int8 v5; // dl
+  char v6; // STA4_1
+  int v7; // edx
+  unsigned int v8; // [rsp+24h] [rbp+4h]
+  int v9; // [rsp+44h] [rbp+24h]
+  int v10; // [rsp+64h] [rbp+44h]
+  unsigned int i; // [rsp+C4h] [rbp+A4h]
+  __int64 v12; // [rsp+1C0h] [rbp+1A0h]
+  __int64 v13; // [rsp+1C8h] [rbp+1A8h]
+  const char *Str; // [rsp+1D0h] [rbp+1B0h]
 
-<h1 id="坐标画图"><a href="#坐标画图" class="headerlink" title="坐标画图"></a>坐标画图</h1><h2 id="gnuplot"><a href="#gnuplot" class="headerlink" title="gnuplot"></a>gnuplot</h2><p>linux，直接sudo apt install gnuplot，使用 直接gnuplot进入后，plot 文件名，就可以了</p>
-<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E6%A2%85%E8%8A%B1%E9%A6%99%E4%B9%8B%E8%8B%A6%E5%AF%92%E6%9D%A5">https://buuoj.cn/challenges#%E6%A2%85%E8%8A%B1%E9%A6%99%E4%B9%8B%E8%8B%A6%E5%AF%92%E6%9D%A5</a></p>
-<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642300357300.png"></p>
-<p>在文件尾之后发现大量十六进制数据，这里我使用010editor复制，这样比较快，复制后转为字符</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642300558126.png"></p>
-<p>这样的格式不能被识别，所以需要替换，我使用的是VS</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642301030524.png"></p>
-<p>替换这里不用填写，直接替换全部，然后保存到txt中，再使用工具</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642301392143.png"></p>
-<h1 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h1><p>在stegsolve可以实现，逐帧查看，注意不要漏了</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642304858835.png"></p>
-<h1 id="LSB隐写"><a href="#LSB隐写" class="headerlink" title="LSB隐写"></a>LSB隐写</h1><h1 id="文件头尾倒置"><a href="#文件头尾倒置" class="headerlink" title="文件头尾倒置"></a>文件头尾倒置</h1><h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
-<p>pipicc</p>
-<h2 id="解题过程-2"><a href="#解题过程-2" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到一张图片</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642303873774.png"></p>
-<p>有噪点，应该是修改了像素点，是需要修复的</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306122403.png"></p>
-<p>缺少png文件头，修补文件头</p>
-<p>接下来找到IEND块,将多余部分删去，改为png</p>
-<p>得到</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306518311.png"></p>
-<p>拖进stegsolve</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306719043.png"></p>
-<p>在蓝色低位发现了d9ff，这正好是jpg的文件尾反过来，save bin 下来，搜索d8ff，对应倒置的文件头</p>
-<p>010editor有工具</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306907507.png"></p>
-<p>需要安装</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306934016.png"></p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306975753.png"></p>
-<p>逆序后保存改为jpg后缀，得到图片</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642307072291.png"></p>
-<p>也可以使用脚本</p>
-<pre class="language-python" data-language="python"><code class="language-python">input = open('D:\\new\\5', 'rb')
-input_all = input.read()
-ss = input_all[::-1]
-output = open('m0re.jpg', 'wb')
-output.write(ss)
-input.close()
-output.close()
-</code></pre>
+  Str = a3;
+  v13 = a2;
+  v12 = a1;
+  sub_140011361(&amp;unk_14002200E);
+  v8 = j_strlen(Str);
+  v9 = 0;
+  v10 = 0;
+  for ( i = 0; ; ++i )
+  {
+    result = v8;
+    if ( i &gt;= v8 )
+      break;
+    v4 = v9 + 1;
+    v9 = (BYTE4(v4) + v9 + 1) - BYTE4(v4);
+    v5 = (*(v12 + v9) + v10) &gt;&gt; 31;
+    v10 = (v5 + *(v12 + v9) + v10) - v5;
+    v6 = *(v12 + v9);
+    *(v12 + v9) = *(v12 + v10);
+    *(v12 + v10) = v6;
+    v7 = (*(v12 + v10) + *(v12 + v9)) &gt;&gt; 31;
+    *(v13 + i) ^= *(v12 + (v7 + *(v12 + v10) + *(v12 + v9)) - v7);
+  }
+  return result;
+}</code></pre>
 
+<p>看着跟别的不一样，留一下</p>
 
-
-<h1 id="Base64隐写"><a href="#Base64隐写" class="headerlink" title="Base64隐写"></a>Base64隐写</h1><pre class="language-python" data-language="python"><code class="language-python">
-import base64
-path = input("请输入加密文件路径\n")
-file = open(path)
-a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-aaa = ''
-while True:
-    text = file.readline()  # 只读取一行内容
-    # 判断是否读取到内容
-    text = text.replace("\n", "")
-    if not text:
-        break
-    if text.count('=') == 1:
-        aaa = aaa + \
-            str('{:02b}'.format((a.find(text[len(text)-2])) % 4))
-    if text.count('=') == 2:
-        aaa = aaa + \
-            str('{:04b}'.format((a.find(text[len(text)-3])) % 16))
-file.close()
-t = ""
-ttt = len(aaa)
-ttt = ttt//8*8
-for i in range(0,ttt,8):
-    t = t + chr(int( aaa[i:i+8],2))
-print(t)</code></pre>
-
-
-
-<h1 id="StegSolve"><a href="#StegSolve" class="headerlink" title="StegSolve"></a>StegSolve</h1><h2 id="两张图片拼接"><a href="#两张图片拼接" class="headerlink" title="两张图片拼接"></a>两张图片拼接</h2><p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312404099.png"></p>
-<p>提取http对象</p>
-<p>把scanlines拖进stegsolve，在多个通道发现了一条横线</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312485498.png"></p>
-<p>而logo正好缺了一段</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312592372.png"></p>
-<p>使用stegsolve的图像结合</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312633974.png"></p>
-<p>得到flag</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312671617.png"></p>
-<h1 id="添加文件头"><a href="#添加文件头" class="headerlink" title="添加文件头"></a>添加文件头</h1><h1 id="文件属性藏信息"><a href="#文件属性藏信息" class="headerlink" title="文件属性藏信息"></a>文件属性藏信息</h1><p>图片属性可以隐藏信息</p>
-<h1 id="outguess隐写"><a href="#outguess隐写" class="headerlink" title="outguess隐写"></a>outguess隐写</h1><h2 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo">https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo</a></p>
-<h2 id="解题过程-3"><a href="#解题过程-3" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解boki.png得到压缩包，是真加密</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311449760.png"></p>
-<p>尝试爆破</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311499706.png"></p>
-<p>得到一段字符串</p>
-<p>base64三次得到killerqueen</p>
-<p>另一张图片是outguess隐写</p>
-<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311787198.png"></p>
-<p>打开flag1.txt文件</p>
-<p>wctf2020{pretty_girl_alison_likes_jojo}</p>
-<h1 id="盲水印"><a href="#盲水印" class="headerlink" title="盲水印"></a>盲水印</h1><h2 id="BlindWaterMark"><a href="#BlindWaterMark" class="headerlink" title="BlindWaterMark"></a>BlindWaterMark</h2>
                 
             </div>
             <hr/>
@@ -682,7 +756,7 @@ print(t)</code></pre>
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">https://gift1a.github.io/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/</a>
+                    <a href="https://gift1a.github.io/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/">https://gift1a.github.io/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -893,13 +967,13 @@ print(t)</code></pre>
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/">
+                <a href="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="音频隐写">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Tea、XTea、XXTea原理和实现">
                         
-                        <span class="card-title">音频隐写</span>
+                        <span class="card-title">Tea、XTea、XXTea原理和实现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -910,7 +984,7 @@ print(t)</code></pre>
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-07
                         </span>
                         <span class="publish-author">
                             
@@ -930,13 +1004,13 @@ print(t)</code></pre>
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/12/27/A-D1/">
+                <a href="/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="A&amp;D1">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="base64实现及细节剖析">
                         
-                        <span class="card-title">A&amp;D1</span>
+                        <span class="card-title">base64实现及细节剖析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -947,7 +1021,7 @@ print(t)</code></pre>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-06
                             </span>
                         <span class="publish-author">
                             

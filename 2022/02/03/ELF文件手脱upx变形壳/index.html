@@ -467,7 +467,7 @@ F7单步进入
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    482
+                    533
                 </div>
                 
 
@@ -585,14 +585,17 @@ static dump(dumpfile,startimg,endimg,offset)
 
 <p>得到dumpfile2，拖进ida得到正常的代码</p>
 <p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879324566.png"></p>
-<h3 id="爆破脚本"><a href="#爆破脚本" class="headerlink" title="爆破脚本"></a>爆破脚本</h3><p>这里要按位与上0xffff，具体为什么待研究</p>
+<h3 id="爆破脚本"><a href="#爆破脚本" class="headerlink" title="爆破脚本"></a>爆破脚本</h3><p>这里要按位与上0xffff，因为这里最后只赋值了最后十六位，所以需要使用&amp;0xffff来限制位数，保证取到最后的十六位</p>
+<p>有时候还存在左移溢出的问题：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013658041/article/details/78116449">https://blog.csdn.net/u013658041/article/details/78116449</a></p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1644069404698.png"></p>
 <pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt; 
 #include &lt;string.h&gt;
 #include &lt;stdlib.h&gt;
 int main()
 {
 	int s[]={0x8d68,0x9d49,0x2a12,0xab1a,0xcbdc,0xb92b,0x2e32,0x9f59,0xddcd,0x9d49,0xa90a,0xe70,0xf5cf,0x5ed5,0x3c03,0x7c87,0x2672,0xab1a,0xa50,0x5af5,0xff9f,0x9f59,0xbd0b,0x58e5,0x3823,0xbf1b,0x78a7,0xab1a,0x48c4,0xa90a,0x2c22,0x9f59,0x5cc5,0x5ed5,0x78a7,0x2672,0x5695};
-	for(int i=0;i&lt;32;++i)
+	for(int i=0;i&lt;40;++i)
 	{
 		for(int j=32;j&lt;=127;++j)
 		{
@@ -849,18 +852,17 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/">
+                <a href="/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="ELF文件手脱upx变形壳">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="base64实现及细节剖析">
                         
-                        <span class="card-title">ELF文件手脱upx变形壳</span>
+                        <span class="card-title">base64实现及细节剖析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -870,9 +872,9 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-06
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -881,7 +883,6 @@ int main()
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1119,7 +1120,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">13.9k</span>
+                        class="white-color">16.7k</span>
             
             
             
