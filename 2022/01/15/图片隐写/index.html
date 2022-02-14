@@ -453,21 +453,21 @@ JPG：https://www.cnblog">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-16
+                    2022-02-13
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    6 分
                 </div>
                 
 
@@ -656,7 +656,68 @@ print(t)</code></pre>
 <p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311787198.png"></p>
 <p>打开flag1.txt文件</p>
 <p>wctf2020{pretty_girl_alison_likes_jojo}</p>
-<h1 id="盲水印"><a href="#盲水印" class="headerlink" title="盲水印"></a>盲水印</h1><h2 id="BlindWaterMark"><a href="#BlindWaterMark" class="headerlink" title="BlindWaterMark"></a>BlindWaterMark</h2>
+<h1 id="盲水印"><a href="#盲水印" class="headerlink" title="盲水印"></a>盲水印</h1><h2 id="BlindWaterMark"><a href="#BlindWaterMark" class="headerlink" title="BlindWaterMark"></a>BlindWaterMark</h2><h1 id="点阵提取"><a href="#点阵提取" class="headerlink" title="点阵提取"></a>点阵提取</h1><pre class="language-python" data-language="python"><code class="language-python"># from PIL import Image
+#
+# img = Image.open('D:\\new\\cat.png')
+# width, height = img.size
+# pixs_list = []
+# for w in range(5, width, 11):
+# 	for h in range(5, height, 11):
+# 		pix = img.getpixel((w, h))
+# 		pixs_list.append(pix)
+# #分解下pixs_list的长度，就可以得到生成图片的宽高
+# new_width, new_height = 215, 215
+# new_img = Image.new('RGB', (new_width, new_height))
+# idx = 0
+# for n_w in range(new_width):
+# 	for n_h in range(new_height):
+# 		new_img.putpixel((n_w, n_h), pixs_list[idx])
+# 		idx += 1
+# new_img.save('ok.png')
+# new_img.show()
+# from PIL import Image
+#
+# img = Image.open('ok.png')
+# width, height = img.size
+# pixs_list = []
+# for w in range(2, width, 5):
+# 	for h in range(2, height, 5):
+# 		pix = img.getpixel((w, h))
+# 		pixs_list.append(pix)
+# #分解pixs_list的长度，
+# new_width, new_height = 43, 43
+# new_img = Image.new('RGB', (new_width, new_height))
+# idx = 0
+# for n_w in range(new_width):
+# 	for n_h in range(new_height):
+# 		new_img.putpixel((n_w, n_h), pixs_list[idx])
+# 		idx += 1
+# new_img.save('ok1.png')
+# new_img.show()
+
+from PIL import Image
+
+img = Image.open('ok1.png')
+if img.mode == "P":
+    img = img.convert("RGB")
+assert img.size[0] == img.size[1]
+dim = width, height = img.size
+
+st = 1
+a = 9
+b = 39
+for _ in range(st):
+    with Image.new(img.mode, dim) as canvas:
+        for nx in range(img.size[0]):
+            for ny in range(img.size[0]):
+                y = (ny - nx * a) % width
+                x = (nx - y * b) % height
+                canvas.putpixel((y, x), img.getpixel((ny, nx)))
+canvas.show()
+canvas.save('ok2.png')
+</code></pre>
+
+
                 
             </div>
             <hr/>
@@ -1157,7 +1218,7 @@ print(t)</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">18.6k</span>
+                        class="white-color">24.7k</span>
             
             
             
