@@ -4,14 +4,12 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="VM逆向, Hexo">
-    <meta name="description" content="Dasctf——EasyVm一开始有个花指令，是比较常见的永真跳转，先对call指令按u取消定义，将e8改为90，再重新弄成函数就可以了
-先找到加密的函数
-
-点进去看看
-
-这里是base64变种，在最后加了一个异或操作，先把脚本写出来
-#i">
+    <meta name="keywords" content="pyc加花指令, Hexo">
+    <meta name="description" content="VNCTF2022-BabyMazepyc相关知识-https://zhuanlan.zhihu.com/p/145811103
+使用uncompyle6发现无法反编译，应该是添加了花指令
+先查看字节码
+脚本
+import marshal,">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -23,7 +21,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>VM逆向 | Hexo</title>
+    <title>pyc加花指令 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -318,12 +316,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">VM逆向</h1>
+                    <h1 class="description center-align post-title">pyc加花指令</h1>
                 </div>
             </div>
         </div>
@@ -451,28 +449,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-23
+                    2022-02-14
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-10
+                    2022-02-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    4 分
                 </div>
                 
 
@@ -495,314 +493,163 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Dasctf——EasyVm"><a href="#Dasctf——EasyVm" class="headerlink" title="Dasctf——EasyVm"></a>Dasctf——EasyVm</h1><p>一开始有个花指令，是比较常见的永真跳转，先对call指令按u取消定义，将e8改为90，再重新弄成函数就可以了</p>
-<p>先找到加密的函数</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951424173.png"></p>
-<p>点进去看看</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951469199.png"></p>
-<p>这里是base64变种，在最后加了一个异或操作，先把脚本写出来</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-int findIndex(char c, char b64_table[])
-{
-	for (int i = 0; i &lt; 64; ++i)
-	{
-		if (c == b64_table[i])
-			return i;
-	}
-}
-char* base64_decode(char code[], char str[], char b64_table[])
-{
-	char memstr[200] = { 0 };
-	memcpy(memstr, code, strlen(code));
-	int len = strlen(code);
-	/*while (code[len] != '!' &amp;&amp; code[len] != 0)
-	{
-		len++;
-	}*/
-	for (int i = 0, i_ = 0; i &lt; len; i += 4, i_ += 3)
-	{
-		str[i_] = (findIndex(memstr[i]^0xa, b64_table) &lt;&lt; 2) | (findIndex(memstr[i + 1]^0xb, b64_table) &amp; 0x30) &gt;&gt; 4;
-		str[i_ + 1] = (findIndex(memstr[i + 1]^0xb, b64_table) &amp; 0xf) &lt;&lt; 4 | (findIndex(memstr[i + 2]^0xc, b64_table) &amp; 0x3c) &gt;&gt; 2;
-		str[i_ + 2] = (findIndex(memstr[i + 2]^0xc, b64_table) &amp; 0x03) &lt;&lt; 6 | (findIndex(memstr[i + 3]^0xd, b64_table));
-	}
-	int str_len = (len / 4) * 3 + len % 4;
-	if (len % 4)
-	{
-		str_len -= 1;
-	}
-	str[str_len] = 0;
-	return str;
-}
+                <h1 id="VNCTF2022-BabyMaze"><a href="#VNCTF2022-BabyMaze" class="headerlink" title="VNCTF2022-BabyMaze"></a>VNCTF2022-BabyMaze</h1><p>pyc相关知识-<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/145811103">https://zhuanlan.zhihu.com/p/145811103</a></p>
+<p>使用uncompyle6发现无法反编译，应该是添加了花指令</p>
+<p>先查看字节码</p>
+<p>脚本</p>
+<pre class="language-python" data-language="python"><code class="language-python">import marshal, dis
+f = open("D:\\new\\AD\\game\\vnctf2022\\re\\BabyMaze.pyc", "rb").read()
+code = marshal.loads(f[16:]) #这边从16位开始取因为是python3 python2从8位开始取
+dis.dis(code)</code></pre>
 
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848858641.png"></p>
+<p>发现这一段就是花指令</p>
+<p>去python的包里面搜索opcode.h，找到对应的字节码</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848986760.png"></p>
+<p>转为十六进制后去010editor修改，去掉即可</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849226023.png"></p>
+<p>但是发现还是不行，这是因为</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849421077.png"></p>
+<p>pyc文件有co_code，所以修改长度之后要修改它</p>
+<p>先打印出来长度，然后计算后修改</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849766935.png"></p>
+<p>2030-6=7E8</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849849453.png"></p>
+<p>重新uncompyle6</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849958666.png"></p>
+<p>反编译成功，接下来就是maze图，打印出来之后手打</p>
+<h1 id="Pyc字节码阅读-unctf2021-pytrade"><a href="#Pyc字节码阅读-unctf2021-pytrade" class="headerlink" title="Pyc字节码阅读-unctf2021-pytrade"></a>Pyc字节码阅读-unctf2021-pytrade</h1><p>得到两个txt文件，一个是py的字节码，一个是输出</p>
+<p>对字节码进行分析</p>
+<pre class="language-python" data-language="python"><code class="language-python">0 LOAD_CONST               1 ('XXXXXX')       //This is flag,try to figure it out ! Don't forget to fill it in flag{} !
+             2 STORE_FAST               0 (flag)</code></pre>
 
-int main()
-{
-	char code[100] = "";
-	char decode[] = { 0 };
-	base64_decode(code, decode, base64_table);
-	printf("%s", decode);
-	return 0;
-}</code></pre>
+<p>LOAD_CONST加载const变量，比如数值、字符串等，一般用于传给函数参数</p>
+<p>STORE_FAST 一般用于保存值到局部变量</p>
+<p>这句话意思是</p>
+<pre class="language-none"><code class="language-none">flag='XXXXXXXX'</code></pre>
 
-<p>接下来就是vm的部分</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951694407.png"></p>
-<p>先看func函数的类型，是指针数组</p>
-<p>这里需要结合动调看每条指令对应的操作</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953729321.png"></p>
-<p>在这里下断点之后F7进入函数</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953871966.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955403773.png"></p>
-<p>这就是func数组存放的东西，因为是指针，所以要先按d转为dd才会显示</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955602049.png"></p>
-<p>先把指令提取出来</p>
-<pre class="language-c" data-language="c"><code class="language-c">unsigned char ida_chars[] =
-{
-  0xCA, 0x00, 0x00, 0x00, 0x00, 0xCB, 0x00, 0x00, 0x00, 0x00,
-  0xCC, 0xCF, 0xC9, 0xEE, 0x00, 0x00, 0x00, 0xCF, 0xD1, 0xD3,
-  0x01, 0xFE, 0xC2, 0xD2, 0x39, 0x00, 0x00, 0x00, 0xD4, 0xEC,
-  0xFF, 0x00
-};</code></pre>
+<p>第二段</p>
+<pre class="language-python" data-language="python"><code class="language-python">4 LOAD_CONST               2 (0) const变量，一般用于传给函数的参数
+             6 BUILD_LIST               1  创建列表
+             8 LOAD_CONST               3 (18)   const变量  num=[0]*18
+            10 BINARY_MULTIPLY    	
+            12 STORE_FAST               1 (num) 保存值到局部变量中</code></pre>
 
-<p>F8单步调试</p>
-<p>0xCA</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955631076.png"></p>
-<p>0xCB</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955978948.png"></p>
-<p>0xCC</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955994447.png"></p>
-<p>0xCF</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956392630.png"></p>
-<p>每执行完再进入func[2]都能知道当前位置，便于查看指令</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956568041.png"></p>
-<p>0xc9</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956806744.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957130761.png"></p>
-<p>0xd1</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957467393.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957487310.png"></p>
-<p>这里本来赋值为0，1，2，为了保持字符相等的情况，把 this[5]全部赋值为1</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642987459030.png"></p>
-<p>0xd3</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988305784.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988338522.png"></p>
-<p>0xc2</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988366450.png"></p>
-<p>0xd2</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988655617.png"></p>
-<p>长度判断</p>
-<p>0xd4</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988824766.png"></p>
-<p>0xcc</p>
-<p>接下来又回到0xcc，所以就能猜测是循环做了异或操作，然后判断</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642989162099.png"></p>
-<table>
-<thead>
-<tr>
-<th>func[1]</th>
-<th>指令集</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>func[2]</td>
-<td>加密后的flag的字符</td>
-</tr>
-<tr>
-<td>func[3]</td>
-<td>0</td>
-</tr>
-<tr>
-<td>func[4]</td>
-<td>索引</td>
-</tr>
-<tr>
-<td>func[5]</td>
-<td>判断字符相等</td>
-</tr>
-<tr>
-<td>func[6]</td>
-<td>对比的flag</td>
-</tr>
-<tr>
-<td>func[7]</td>
-<td>0</td>
-</tr>
-<tr>
-<td>func[8]</td>
-<td>加密后的字符串</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xca</td>
-<td>先将this[1]指令后的数据存放到this[3]，然后往后跳转5，正好对应了下一条指令,一开始this[1]后一个数据为0，要先转为 dword</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcb</td>
-<td>先将this[1]指令后的数据存放到this[4]，然后往后跳转5，这也是下一条指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcc</td>
-<td>把this[2]先赋值为this[8]+this[4]，这里this[4]是个整数，所以猜测this[4]是索引，然后继续执行下一指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcf</td>
-<td>将this[3]和this[2]的值异或后存放在this[3],进入下一条指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xc9</td>
-<td>先把this[1]下一个数据赋值给this[2],进入下一条指令，也就是0xee</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcf</td>
-<td>将this[3]和this[2]的值异或后存放在this[3],进入下一条指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd1</td>
-<td>根据this[4]的索引来进行字符比较，这里是调试过程，所以为了进行下一步，需要修改汇编指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd3</td>
-<td>v1是指针，解引用是v1下一个位置，也就是0x1，整个就是0xee，这时候然后指向下三个位置，也就是c2指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xc2</td>
-<td>索引this[4]+1</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd2</td>
-<td>this[4]是索引，所以是判断是否结束，这里没结束，所以this[5]赋值为0</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd4</td>
-<td>ec+2==ee</td>
-</tr>
-</tbody></table>
-<p>整个过程就是这样</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220124125427.jpg"></p>
-<p>因为偶数次的异或等于不变，所以只需对奇数次的进行异或即可</p>
-<p>最终脚本</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-int findIndex(char c, char b64_table[])
-{
-	for (int i = 0; i &lt; 64; ++i)
-	{
-		if (c == b64_table[i])
-			return i;
-	}
-}
-char* base64_decode(char code[], char str[], char b64_table[])
-{
-	char memstr[200] = { 0 };
-	memcpy(memstr, code, strlen(code));
-	int len = strlen(code);
-	/*while (code[len] != '!' &amp;&amp; code[len] != 0)
-	{
-		len++;
-	}*/
-	for (int i = 0, i_ = 0; i &lt; len; i += 4, i_ += 3)
-	{
-		str[i_] = (findIndex(memstr[i], b64_table) &lt;&lt; 2) | (findIndex(memstr[i + 1], b64_table) &amp; 0x30) &gt;&gt; 4;
-		str[i_ + 1] = (findIndex(memstr[i + 1], b64_table) &amp; 0xf) &lt;&lt; 4 | (findIndex(memstr[i + 2], b64_table) &amp; 0x3c) &gt;&gt; 2;
-		str[i_ + 2] = (findIndex(memstr[i + 2], b64_table) &amp; 0x03) &lt;&lt; 6 | (findIndex(memstr[i + 3], b64_table));
-	}
-	int str_len = (len / 4) * 3 + len % 4;
-	if (len % 4)
-	{
-		str_len -= 1;
-	}
-	str[str_len] = 0;
-	return str;
-}
+<p>BINARY_MULTIPLY 是二元运算，即将栈顶的前两个元素取出进行计算，结果压回栈中 </p>
+<p>BUILD_LIST 创建列表</p>
+<pre class="language-none"><code class="language-none">num=[0]*18</code></pre>
 
+<p>第三段</p>
+<pre class="language-python" data-language="python"><code class="language-python">14 LOAD_CONST               2 (0)
+             16 STORE_FAST               2 (k)</code></pre>
 
-int main()
-{
-	char s[] =
-	{
-	  190,  54, 172,  39, 153,  79, 222,  68, 238,  95,
-	  218,  11, 181,  23, 184, 104, 194,  78, 156,  74,
-	  225,  67, 240,  34, 138,  59, 136,  91, 229,  84,
-	  255, 104, 213, 103, 212,   6, 173,  11, 216,  80,
-	  249,  88, 224, 111, 197,  74, 253,  47, 132,  54,
-	  133,  82, 251, 115, 215,  13,0
-	};
-	char s2[] = { 0 };
-	for (int i = 0; i &lt; 56; i+=2)
-	{
-		s[i] ^= 0xee;
-	}
-	for (int i = 0; i &lt; 56; ++i)
-	{
-		s2[i] = s[i];
-		for (int k = i; k &gt; 0; k--)
-		{
-			s2[i] ^= (s2[k - 1]);//该字符前面的全部都要异或上
-		}
-	}
-	//printf("%s", s2);
-	for (int i = 0; i &lt; 56; i = i + 4)
-	{
-		s2[i] ^= 0xA;
-		s2[i + 1] ^= 0xB;
-		s2[i + 2] ^= 0xC;
-		s2[i + 3] ^= 0xD;
-	}
-	char decode[] = { 0 };
-	base64_decode(s2, decode, base64_table);
-	printf("%s", decode);
+<pre class="language-python" data-language="python"><code class="language-python">k=0</code></pre>
 
-	return 0;
-}</code></pre>
+<p>第四段</p>
+<pre class="language-python" data-language="python"><code class="language-python">18 LOAD_GLOBAL              0 (range) 加载全局变量
+             20 LOAD_GLOBAL              1 (len) 
+             22 LOAD_FAST                0 (flag) 
+             24 CALL_FUNCTION            1	调用一个函数，在此之前要先赋值 len(flag)
+             26 CALL_FUNCTION            1  range(len(flag))
+             28 GET_ITER		取迭代器
+        &gt;&gt;   30 FOR_ITER               112 (to 144)  一直到144都是for循环
+             32 STORE_FAST               3 (i) </code></pre>
+
+<p> LOAD_GLOBAL 用来加载全局变量，包括指定函数名，类名，模块名等全局符号。当和函数搭配时，要注意有CALL_FUNCTION</p>
+<p>LOAD_FAST一般加载局部变量的值，也就是读取值，用于计算或者函数调用传参等。这里调用完len之后，要使用其传值，这里传入flag</p>
+<p>前半段意思是</p>
+<pre class="language-python" data-language="python"><code class="language-python">range(len(flag))</code></pre>
+
+<p>GET_ITER创建迭代器，一般是for循环</p>
+<p>FOR_ITER(to 144)表示迭代器一直到144</p>
+<p>STORE_FAST 创建局部变量，这里作为for循环的索引</p>
+<pre class="language-python" data-language="python"><code class="language-python">for i in range(len(flag)):</code></pre>
+
+<p>第五段</p>
+<pre class="language-python" data-language="python"><code class="language-python">7          34 LOAD_GLOBAL              2 (ord) 			
+            36 LOAD_FAST                0 (flag)
+            38 LOAD_FAST                3 (i)
+            40 BINARY_SUBSCR		索引运算
+            42 CALL_FUNCTION            1	ord(flag[i])
+            44 LOAD_FAST                3 (i)
+            46 BINARY_ADD		+i
+            48 LOAD_FAST                2 (k)	
+            50 LOAD_CONST               4 (3)	
+            52 BINARY_MODULO		//取模运算 k%3
+            54 LOAD_CONST               5 (1) 
+            56 BINARY_ADD		(k%3)+1
+            58 BINARY_XOR		(ord(flag[i])+i)^(k%3+1)
+            60 LOAD_FAST                1 (num)
+            62 LOAD_FAST                3 (i)
+            64 STORE_SUBSCR 		num[i]</code></pre>
+
+<p>BINARY_SUBSCR下标 访问操作</p>
+<p>BINARY_ADD也是二元运算，相加</p>
+<p>BINARY_MODULO，二元运算取模</p>
+<p>BINARY_XOR二元运算异或</p>
+<p>STORE_SUBSCR下标访问操作</p>
+<pre class="language-python" data-language="python"><code class="language-python">num[i]= (ord(flag[i]) + i) ^ (k % 3 + 1)</code></pre>
+
+<p>第六段</p>
+<pre class="language-python" data-language="python"><code class="language-python">8          66 LOAD_GLOBAL              2 (ord)
+             68 LOAD_FAST                0 (flag)
+             70 LOAD_GLOBAL              1 (len)
+             72 LOAD_FAST                0 (flag)
+             74 CALL_FUNCTION            1	len(flag)
+             76 LOAD_FAST                3 (i)	len(flag)-i
+             78 BINARY_SUBTRACT	
+             80 LOAD_CONST               5 (1)
+             82 BINARY_SUBTRACT	减法	len(flag)-i-1
+             84 BINARY_SUBSCR		索引运算	flag[len(flag)-i-1]
+             86 CALL_FUNCTION            1		ord(flag[len(flag)-i-1])
+             88 LOAD_GLOBAL              1 (len)
+             90 LOAD_FAST                0 (flag)
+             92 CALL_FUNCTION            1	len(flag)
+             94 BINARY_ADD		ord(flag[len(flag)-i-1])+len(flag)-i-1
+             96 LOAD_FAST                3 (i)	
+             98 BINARY_SUBTRACT
+            100 LOAD_CONST               5 (1)
+            102 BINARY_SUBTRACT
+            104 LOAD_FAST                2 (k)
+            106 LOAD_CONST               4 (3)
+            108 BINARY_MODULO	k%3
+            110 LOAD_CONST               5 (1)
+            112 BINARY_ADD		k%3+1
+            114 BINARY_XOR		ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)
+            116 LOAD_FAST                1 (num)
+            118 LOAD_GLOBAL              1 (len)
+            120 LOAD_FAST                0 (flag)	len(flag)
+            122 CALL_FUNCTION            1
+            124 LOAD_FAST                3 (i)
+            126 BINARY_SUBTRACT	len(flag)-i
+            128 LOAD_CONST               5 (1)	
+            130 BINARY_SUBTRACT	len(flag)-i-1
+            132 STORE_SUBSCR		num[len(flag)-i-1]=ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)</code></pre>
+
+<p>BINARY_SUBTRACT二元运算减法</p>
+<pre class="language-python" data-language="python"><code class="language-python">num[len(flag)-i-1]=ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)</code></pre>
+
+<p>第七段</p>
+<pre class="language-python" data-language="python"><code class="language-python">9         134 LOAD_FAST                2 (k)
+            136 LOAD_CONST               5 (1)
+            138 INPLACE_ADD	k++
+            140 STORE_FAST               2 (k)
+            142 JUMP_ABSOLUTE           30//循环结束
+</code></pre>
+
+<p>JUMP_ABSOLUTE绝对跳转，结束循环</p>
+<p>INPLACE_ADD  计算结果可以被操作数引用的到，每一个 二元运算，都对应一个inplace 运算 </p>
+<pre class="language-python" data-language="python"><code class="language-python">k+=1</code></pre>
+
+<p>第八段</p>
+<pre class="language-python" data-language="python"><code class="language-python">10     &gt;&gt;  144 LOAD_GLOBAL              3 (print)
+            146 LOAD_FAST                1 (num)
+            148 CALL_FUNCTION            1 print(num)
+            150 POP_TOP
+            152 LOAD_CONST               0 (None)
+            154 RETURN_VALUE</code></pre>
+
+<pre class="language-none"><code class="language-none">print(num)</code></pre>
 
 
                 
@@ -830,7 +677,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/01/23/VM%E9%80%86%E5%90%91/">https://gift1a.github.io/2022/01/23/VM%E9%80%86%E5%90%91/</a>
+                    <a href="https://gift1a.github.io/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/">https://gift1a.github.io/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1037,54 +884,18 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/">
+                <a href="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="C语言汇编2">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="pyc加花指令">
                         
-                        <span class="card-title">C语言汇编2</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-02
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Gift1a
-                            
-                        </span>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="安卓知识">
-                        
-                        <span class="card-title">安卓知识</span>
+                        <span class="card-title">pyc加花指令</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1095,7 +906,45 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Gift1a
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/02/13/hgame2022-week3-re/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="hgame2022-week3-re">
+                        
+                        <span class="card-title">hgame2022-week3-re</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-13
                             </span>
                         <span class="publish-author">
                             
