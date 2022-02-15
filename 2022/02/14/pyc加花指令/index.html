@@ -463,14 +463,14 @@ import marshal,">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    10 分
                 </div>
                 
 
@@ -520,6 +520,9 @@ dis.dis(code)</code></pre>
 <p>反编译成功，接下来就是maze图，打印出来之后手打</p>
 <h1 id="Pyc字节码阅读-unctf2021-pytrade"><a href="#Pyc字节码阅读-unctf2021-pytrade" class="headerlink" title="Pyc字节码阅读-unctf2021-pytrade"></a>Pyc字节码阅读-unctf2021-pytrade</h1><p>得到两个txt文件，一个是py的字节码，一个是输出</p>
 <p>对字节码进行分析</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/557cfe36f0f0">https://www.jianshu.com/p/557cfe36f0f0</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-246683.htm">https://bbs.pediy.com/thread-246683.htm</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/zh-cn/2/library/dis.html">https://docs.python.org/zh-cn/2/library/dis.html</a></p>
 <pre class="language-python" data-language="python"><code class="language-python">0 LOAD_CONST               1 ('XXXXXX')       //This is flag,try to figure it out ! Don't forget to fill it in flag{} !
              2 STORE_FAST               0 (flag)</code></pre>
 
@@ -650,6 +653,258 @@ dis.dis(code)</code></pre>
             154 RETURN_VALUE</code></pre>
 
 <pre class="language-none"><code class="language-none">print(num)</code></pre>
+
+<h1 id="Bugku-CTF逆向篇之Easy-Re"><a href="#Bugku-CTF逆向篇之Easy-Re" class="headerlink" title="Bugku-CTF逆向篇之Easy_Re"></a>Bugku-CTF逆向篇之Easy_Re</h1><p>python3.9，无法uncompyle6，使用pycdc翻译成字节码</p>
+<pre class="language-python" data-language="python"><code class="language-python">main.pyc (Python 3.9)
+[Code]
+    File Name: main.py
+    Object Name: &lt;module&gt;
+    Arg Count: 0
+    Pos Only Arg Count: 0
+    KW Only Arg Count: 0
+    Locals: 0
+    Stack Size: 4
+    Flags: 0x00000040 (CO_NOFREE)
+    [Names]
+        'base64'
+        'encode'
+        'enCodeAgain'
+        'correct'
+        'flag'
+        'print'
+        'input'
+    [Var Names]
+    [Free Vars]
+    [Cell Vars]
+    [Constants]
+        0
+        None
+        [Code]
+            File Name: main.py
+            Object Name: encode
+            Arg Count: 1
+            Pos Only Arg Count: 0
+            KW Only Arg Count: 0
+            Locals: 4
+            Stack Size: 5
+            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)
+            [Names]
+                'chr'
+                'base64'
+                'b64encode'
+                'encode'
+            [Var Names]
+                'message'
+                's'
+                'i'
+                'x'
+            [Free Vars]
+            [Cell Vars]
+            [Constants]
+                None
+                ''
+                32
+                16
+                'utf-8'
+ [Disassembly]
+                0       LOAD_CONST              1: ''
+                2       STORE_FAST              1: s       s=''
+                4       LOAD_FAST               0: message
+                6       GET_ITER                
+                8       FOR_ITER                32 (to 42) for i in message:
+                10      STORE_FAST              2: i   
+                12      LOAD_FAST               2: i  
+                14      LOAD_CONST              2: 32
+                16      BINARY_XOR              		 i^32
+                18      STORE_FAST              3: x	x=i^32
+                20      LOAD_FAST               3: x	
+                22      LOAD_CONST              3: 16
+                24      BINARY_ADD              		x+16
+                26      STORE_FAST              3: x	x=x+16
+                28      LOAD_FAST               1: s	
+                30      LOAD_GLOBAL             0: chr
+                32      LOAD_FAST               3: x    
+                34      CALL_FUNCTION           1  chr(x)
+                36      INPLACE_ADD             s+chr(x)
+                38      STORE_FAST              1: s	s=s+chr(x)
+                40      JUMP_ABSOLUTE           8    循环结束
+                42      LOAD_GLOBAL             1: base64
+                44      LOAD_METHOD             2: b64encode	base64.b64
+                46      LOAD_FAST               1: s		
+                48      LOAD_METHOD             3: encode   LOAD_METHOD是加载类，CALL调用
+                50      LOAD_CONST              4: 'utf-8' 
+                52      CALL_METHOD             1  
+                54      CALL_METHOD             1 base64.b64(s.encode('utf-8'))
+                56      RETURN_VALUE            return  base64.b64(s.encode('utf-8'))
+        'encode'
+        [Code]
+            File Name: main.py
+            Object Name: enCodeAgain
+            Arg Count: 2
+            Pos Only Arg Count: 0
+            KW Only Arg Count: 0
+            Locals: 5
+            Stack Size: 5
+            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)
+            [Names]
+                'str'
+                'range'
+                'len'
+            [Var Names]
+                'string'
+                'space'
+                's'
+                'i'
+                'j'
+            [Free Vars]
+            [Cell Vars]
+            [Constants]
+                None
+                ''
+                'utf-8'
+                0
+            [Disassembly]
+                0       LOAD_CONST              1: ''  
+                2       STORE_FAST              2: s	s=''
+                4       LOAD_GLOBAL             0: str	
+                6       LOAD_FAST               0: string
+                8       LOAD_CONST              2: 'utf-8' 
+                10      CALL_FUNCTION           2//参数个数 str(string,'utf-8')
+                12      STORE_FAST              0: string string=str(string,'utf-8')
+                14      LOAD_GLOBAL             1: range 
+                16      LOAD_CONST              3: 0
+                18      LOAD_FAST               1: space
+                20      CALL_FUNCTION           2 range(0,space)
+                22      GET_ITER                //创建迭代器
+                24      FOR_ITER                50 (to 76) 
+                26      STORE_FAST              3: i	for i range(0,space):
+                28      LOAD_GLOBAL             1: range 	
+                30      LOAD_FAST               3: i
+                32      LOAD_GLOBAL             2: len
+                34      LOAD_FAST               0: string
+                36      CALL_FUNCTION           1	len(string)
+                38      LOAD_FAST               1: space
+                40      CALL_FUNCTION           3 
+                42      GET_ITER                
+                44      FOR_ITER                28 (to 74)
+                46      STORE_FAST              4: j  for j in range(i,len(string),space)
+                48      LOAD_FAST               4: j 
+                50      LOAD_GLOBAL             2: len
+                52      LOAD_FAST               0: string
+                54      CALL_FUNCTION           1  	len(string)
+                56      COMPARE_OP              0 (&lt;)	if(j&lt;len(string))
+                58      POP_JUMP_IF_FALSE       44	跳转
+                60      LOAD_FAST               2: s	
+                62      LOAD_FAST               0: string
+                64      LOAD_FAST               4: j
+                66      BINARY_SUBSCR           	string[j]
+                68      INPLACE_ADD             
+                70      STORE_FAST              2: s      s+=string[j]
+                72      JUMP_ABSOLUTE           44	第二个循环
+                74      JUMP_ABSOLUTE           24	第一个循环
+                76      LOAD_FAST               2: s
+                78      RETURN_VALUE             return s
+        'enCodeAgain'
+        'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
+        ''
+        'Input flag:'
+        'utf-8'
+        2
+        'correct'
+        'wrong'
+    [Disassembly]
+        0       LOAD_CONST              0: 0
+        2       LOAD_CONST              1: None
+        4       IMPORT_NAME             0: base64	
+        6       STORE_NAME              0: base64	import base64
+        8       LOAD_CONST              2: &lt;CODE&gt; encode
+        10      LOAD_CONST              3: 'encode' //函数
+        12      MAKE_FUNCTION           0
+        14      STORE_NAME              1: encode
+        16      LOAD_CONST              4: &lt;CODE&gt; enCodeAgain
+        18      LOAD_CONST              5: 'enCodeAgain'
+        20      MAKE_FUNCTION           0	//第二个函数
+        22      STORE_NAME              2: enCodeAgain
+        24      LOAD_CONST              6: 'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
+        26      STORE_NAME              3: correct	correct=VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ=
+        28      LOAD_CONST              7: ''
+        30      STORE_NAME              4: flag	flag=''
+        32      LOAD_NAME               5: print
+        34      LOAD_CONST              8: 'Input flag:'	
+        36      CALL_FUNCTION           1	print('Int flag:')
+        38      POP_TOP                 
+        40      LOAD_NAME               6: input
+        42      CALL_FUNCTION           0	input()
+        44      STORE_NAME              4: flag	flag=input()
+        46      LOAD_NAME               4: flag		
+        48      LOAD_METHOD             1: encode	
+        50      LOAD_CONST              9: 'utf-8'
+        52      CALL_METHOD             1
+        54      STORE_NAME              4: flag	flag=flag.encode('utf-8')
+        56      LOAD_NAME               5: print	
+        58      LOAD_NAME               2: enCodeAgain
+        60      LOAD_NAME               1: encode
+        62      LOAD_NAME               4: flag
+        64      CALL_FUNCTION           1	
+        66      LOAD_CONST              10: 2 其中一个参数
+        68      CALL_FUNCTION           2//两个参数
+        70      CALL_FUNCTION           1	print(enCodeAgain(encodee(flag),2))
+        72      POP_TOP                 	函数栈顶元素出栈
+        74      LOAD_NAME               2: enCodeAgain
+        76      LOAD_NAME               1: encode
+        78      LOAD_NAME               4: flag
+        80      CALL_FUNCTION           1
+        82      LOAD_CONST              10: 2
+        84      CALL_FUNCTION           2	(enCodeAgain(encodee(flag),2))
+        86      LOAD_NAME               3: correct
+        88      COMPARE_OP              2 (==)	//比较
+        90      POP_JUMP_IF_FALSE       102		跳转
+        92      LOAD_NAME               5: print	
+        94      LOAD_CONST              11: 'correct'
+        96      CALL_FUNCTION           1		print('correct')
+        98      POP_TOP                 
+        100     JUMP_FORWARD            8 (to 110)	结束
+        102     LOAD_NAME               5: print
+        104     LOAD_CONST              12: 'wrong'
+        106     CALL_FUNCTION           1		print('wrong)
+        108     POP_TOP                 
+        110     LOAD_CONST              1: None
+        112     RETURN_VALUE            
+</code></pre>
+
+<pre class="language-python" data-language="python"><code class="language-python">import base64
+
+
+def encode(message):
+    s = ''
+    for i in message:
+        x = i ^ 32
+        x += 16
+        s += chr(x)
+        return (base64.b64encode(s.encode('utf-8')))
+
+
+def enCodeAgain(string, space):
+    s = ''
+    string = str(string, 'utf-8')
+    for i in range(0, space):
+        for j in range(i, len(string), space):
+            if j &lt; len(string):
+                s += string[j]
+    return s
+
+
+correct = 'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
+flag = ''
+print('Input flag:')
+flag = input()
+flag = flag.encode('utf-8')
+print(enCodeAgain(encode(flag), 2))
+if enCodeAgain(encode(flag), 2) == correct:
+    print(correct)
+else:
+    print('wrong')
+</code></pre>
 
 
                 
@@ -1154,7 +1409,7 @@ dis.dis(code)</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">25.8k</span>
+                        class="white-color">26.7k</span>
             
             
             
