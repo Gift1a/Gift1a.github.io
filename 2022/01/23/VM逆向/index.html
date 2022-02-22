@@ -38,8 +38,8 @@
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -458,21 +458,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-02-10
+                    2022-02-22
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    2.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    5 分
+                    11 分
                 </div>
                 
 
@@ -804,7 +804,731 @@ int main()
 	return 0;
 }</code></pre>
 
+<h1 id="hgame2022-week4-easyvm"><a href="#hgame2022-week4-easyvm" class="headerlink" title="hgame2022-week4-easyvm"></a>hgame2022-week4-easyvm</h1><p>第一次尝试写解释器，跟着别人的大致思路的</p>
+<p>首先VM就是模仿汇编，用指令代替汇编，用数据段来模拟寄存器和数据段，所以我们关键是要找到数据段和操作数、opcode，以及一些数据存放内容的含义</p>
+<p>先来给寄存器重新命名</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447619996.png"></p>
+<p>根据main函数中switch可以找到类寄存器的位置，重命名</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447726404.png"></p>
+<p>从switch的v3可以知道，前面给v3赋值的就是操作数</p>
+<p>r0[0]开始是0，所以操作指令第一个存储的位置是r0[109]，因为是int型，计算的时候×4，就可以找到地址</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447904556.png"></p>
+<p>按g跳转，使用lazyida dump下来</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447995063.png"></p>
+<p>接下来动调分析每条指令对应的汇编代码</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448145669.png"></p>
+<p>先++，再赋值给它，就相当于push指令的入栈操作，然后还有一个r4后移一位</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448615771.png"></p>
+<p>先–，再赋值给r5，相当于pop操作</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448764344.png"></p>
+<p>又回到0x12，还是push，但是因为r4++，所以已经后移，我们根据计算也可以找到存储数据的地址并提取出数据</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448880740.png"></p>
+<p>回到汇编，这里的指令push了-5进入到堆栈，也就是寄存器下面的位置</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449458278.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449560687.png"></p>
+<p>获取输入，并存储到a1中，这里的a1对应r3</p>
+<table>
+<thead>
+<tr>
+<th>getchar</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449886162.png"></p>
+<p>熟悉的操作，把输入压入堆栈，记得栈顶往低处移动</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450099792.png"></p>
+<p>这里的a1是r2</p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r2,1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450235632.png"></p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>根据前面的pop r5可以知道此时r5是0A，而我们的输入被存入了r3，也就是对我们的输入字符进行判断，那么r8应该就对应ZF标志位</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513351201.png"></p>
+<p>验证了上面的想法，这里的a1是r6，也就是-5，指令跳转回去，相当于进行循环，输入完成后会有一个换行符，getchar会吸收，这里也就是结束我们的循环</p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0-5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>直接在下一条指令下断点，F9运行</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513742181.png"></p>
+<p>这里的a1是r2，用于记录输入长度，因为最后有一个回车符，所以要–</p>
+<table>
+<thead>
+<tr>
+<th>r2–</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>根据前面就可以先对数组进行注释</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514228495.png"></p>
+<p>r4没写上去，是内存中存储的一段数据</p>
+<p>继续往下走</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514299405.png"></p>
+<p>将内存段的下一个数据入栈，也就是0x20</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514469709.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5,这里懒得改了，可以点过去查看</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>接下来是0x12和0x9</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pop</td>
+<td>r6</td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514666638.png"></p>
+<p>把r2的值赋给r3</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514774277.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514918356.png"></p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>但是这次比较的是字符串的长度，也就是字符串长度是32</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515061894.png"></p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0+r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这里r6存放的是2f，正好对应结束，所以这段就相当于exit</p>
+<p>下面是0x12和0x09</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pop</td>
+<td>r6</td>
+</tr>
+</tbody></table>
+<p>0x12和0x0A</p>
+<p>这是0x0a的代码</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515342308.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pop</td>
+<td>r2</td>
+</tr>
+</tbody></table>
+<p>0x13</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515472275.png"></p>
+<p>r2此时为0，+9正好是堆栈的位置，也是存放我们输入数据的位置</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,stack[count]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>从下面开始就是加密的部分了</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515606892.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x0B</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515758080.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x15</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515807493.png"></p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r3,r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x03</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515866224.png"></p>
+<table>
+<thead>
+<tr>
+<th>xor</th>
+<th>r3,r7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515954359.png"></p>
+<p>把处理完的数据重新放入栈中</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>stack[count],r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516003430.png"></p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r2,1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516131712.png"></p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xF</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516166189.png"></p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516207834.png"></p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0+r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>此时的r6是-10，也就是跳转回到前十条指令，这就是循环加密，现在就差最终的密文了，前面加密的部分直接运行过去</p>
+<p>再次来到0x12</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516848887.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xA</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517151788.png"></p>
+<p>接下来是三个0x12</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push</td>
+<td>data[r4++]</td>
+</tr>
+<tr>
+<td>push</td>
+<td>data[r4++]</td>
+</tr>
+</tbody></table>
+<p>到了0x08，此时我们的比较数据已经被压入栈中</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517394177.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x13，将处理完的值重新从堆栈中取出</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,satck[count]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xF</p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x07</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517670674.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x04</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517727020.png"></p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>stack[count],r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x09</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x0D</p>
+<p>r6是0x15，加上之后正好exit，和前面类似，压入栈是因为待会需要多次使用</p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0+r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这里没有问题就会往下</p>
+<p>0x09</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>此时把-17给到r6</p>
+<p>0x08</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x05</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x06</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x04</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x01</p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r2,1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x00</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x0F//长度判断</p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xd，重新进入循环</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645518636756.png"></p>
+<h2 id="最终的一些数据和分组和脚本"><a href="#最终的一些数据和分组和脚本" class="headerlink" title="最终的一些数据和分组和脚本"></a>最终的一些数据和分组和脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
 
+int main()
+{
+	int opcode[65] = {
+    0x00000012, 0x00000008, 0x00000012, 0x00000009, 
+	0x00000010, 0x00000004, 0x00000001, 0x0000000F, 0x0000000D, //接受我们的输入 
+	0x00000002, 0x00000012, 0x00000008, 0x00000012, 0x00000009, 0x00000000, 0x00000004, 0x0000000F, 0x0000000D,//对flag进行存储操作，比较长度，因为getchar最后是32，所以flag长度为32 
+	0x00000012, 0x00000009, 0x00000012, 0x0000000A, 0x00000013, 0x00000012, 0x0000000B, 0x00000015, 0x00000003, 0x00000014, 0x00000001, 0x00000000, 0x0000000F, 0x0000000D, //flag加密，flag[i]*2^3c存储的值 
+    0x00000012, 0x0000000A, 0x00000012, 0x00000012, 0x00000012, 0x00000008, 0x00000013, 0x0000000F, 0x00000007, 0x00000004, 0x00000009, 0x0000000D, 0x00000009, 0x00000008, 0x00000005, 0x00000006, 0x00000004, 0x00000001, 0x00000000, 0x0000000F, 0x0000000D, 
+	//字符串比较 
+	0x00000012, 0x00000009, 0x00000012, 
+    0x00000008, 0x00000012, 0x0000000A, 0x00000012, 0x00000007, 0x0000000F, 0x0000000C, 0x00000011, //打印 
+    0x0000000E
+};
+	unsigned char xor_table[32]={
+		0x5e,0x46,0x61,0x43,0x0e,0x53,0x49,0x1f,
+		0x51,0x5e,0x36,0x37,0x29,0x41,0x63,0x3b,
+		0x64,0x3b,0x15,0x18,0x5b,0x3e,0x22,0x50,
+		0x46,0x5e,0x35,0x4e,0x43,0x23,0x60,0x3b
+	};
+	unsigned char enc[32]={
+		0x8E, 0x88, 0xA3, 0x99, 0xC4, 0xA5, 0xC3, 0xDD,
+		0x19, 0xEC, 0x6C, 0x9B, 0xF3, 0x1B, 0x8B, 0x5B,
+		0x3E, 0x9B, 0xF1, 0x86, 0xF3, 0xF4, 0xA4, 0xF8,
+		0xF8, 0x98, 0xAB, 0x86, 0x89, 0x61, 0x22, 0xC1
+	};
+	unsigned int data[83] = {
+	//用于跳转和判断长度的数 
+    0x0000000A, -5, 0x00000020, 0x0000002F, -10, 0x00000000, 
+    //异或数据 
+	0x0000005E, 0x00000046, 0x00000061, 0x00000043, 0x0000000E, 0x00000053, 0x00000049, 0x0000001F, 
+	0x00000051, 0x0000005E, 0x00000036, 0x00000037, 0x00000029, 0x00000041, 0x00000063, 0x0000003B, 
+	0x00000064, 0x0000003B, 0x00000015, 0x00000018, 0x0000005B, 0x0000003E, 0x00000022, 0x00000050, 
+	0x00000046, 0x0000005E, 0x00000035, 0x0000004E, 0x00000043, 0x00000023, 0x00000060, 0x0000003B, 
+	//用于跳转，以及赋值初始索引 
+	0x00000000, -17, 0x00000015, 
+	//密文 
+	0x0000008E, 0x00000088, 0x000000A3, 0x00000099, 0x000000C4, 0x000000A5, 0x000000C3, 0x000000DD, 
+	0x00000019, 0x000000EC, 0x0000006C, 0x0000009B, 0x000000F3, 0x0000001B, 0x0000008B, 0x0000005B, 
+	0x0000003E, 0x0000009B, 0x000000F1, 0x00000086, 0x000000F3, 0x000000F4, 0x000000A4, 0x000000F8,
+	0x000000F8, 0x00000098, 0x000000AB, 0x00000086, 0x00000089, 0x00000061, 0x00000022, 0x000000C1, 
+	
+	0x00000002, 0x00000000, -6, 0x00000073, 0x00000075, 0x00000063, 0x00000063, 
+    0x00000065, 0x00000073, 0x00000073
+};
+	char flag[32]={0};
+	for(int i=0;i&lt;32;++i)
+	{
+		enc[i]=(enc[i]^xor_table[i])/2;
+	}
+	printf("%s",enc);
+	return 0;
+}</code></pre>
+
+<h2 id="整个过程的梳理"><a href="#整个过程的梳理" class="headerlink" title="整个过程的梳理"></a>整个过程的梳理</h2>
                 
             </div>
             <hr/>
@@ -1305,7 +2029,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">26.7k</span>
+                        class="white-color">28.7k</span>
             
             
             
