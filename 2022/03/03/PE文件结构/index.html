@@ -35,8 +35,8 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -455,21 +455,21 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-06
+                    2022-03-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    4.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    18 分
                 </div>
                 
 
@@ -510,7 +510,7 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
 <p>这里的0108表示从文件开始的地方计算0108个字节就是PE结构开始的地方</p>
 <h2 id="NT头"><a href="#NT头" class="headerlink" title="NT头"></a>NT头</h2><p>DOS头和NT头中间是一段空间，可以自由发挥，多与少不确定，我们可以在这一段写入shellcode（ <strong>利用软件漏洞而执行的代码</strong> ），在程序中调用。有地址我们就可以访问和执行</p>
 <p>PE的标记-DWORD Signature-四个字节</p>
-<h3 id="标准PE头"><a href="#标准PE头" class="headerlink" title="标准PE头"></a>标准PE头</h3><p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646295409969.png"></p>
+<h3 id="标准PE头-20字节"><a href="#标准PE头-20字节" class="headerlink" title="标准PE头-20字节"></a>标准PE头-20字节</h3><p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646295409969.png"></p>
 <p>关键信息</p>
 <p>enum IMAGE_MACHINE Machine-程序运行的CPU型号：0x0 任何处理器 /0x14C 386及后续处理器</p>
 <p>WORD NumberOfSections-文件中存在的节的数量，如果需要新增或者合并节，就要修改这个值</p>
@@ -550,7 +550,7 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
 <p>DWORD SizeOfHeapReserve-初始化时保留的堆的大小</p>
 <p>DWORD SizeOfHeapCommit-初始化时实际提交的大小</p>
 <p>DWORD NumberOfRvaAndSizes-目录项数目</p>
-<h1 id="节表"><a href="#节表" class="headerlink" title="节表"></a>节表</h1><p>节表定位-DOS+PE+OPTIONPE</p>
+<h1 id="节表-每个节有28字节的信息"><a href="#节表-每个节有28字节的信息" class="headerlink" title="节表-每个节有28字节的信息"></a>节表-每个节有28字节的信息</h1><p>节表定位-DOS+PE+OPTIONPE</p>
 <p>描述每个节的信息</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646306378425.png"></p>
 <p>节的结构</p>
@@ -589,7 +589,7 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
 <p>先把文件对齐后的数据拷贝到内存中，根据SizeofHeades，直接copy，因为头和节表是不会变化的，但是节表后面不一定是节区，这是因为文件对齐和内存对齐不同</p>
 <p>循环赋值节的内容，复制到内存的地方由节表信息里面的VirtualAddress决定，PointerToRawData决定了文件复制到内存的起始位置</p>
 <p>复制数据的大小根据SizeofRawData（Misc也可以，但是如果MIsc存在大量未初始化数据，会变得很大，可能将下一节的信息也copy到内存中）</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/407751a24fdc811a25f3f940df6e9ee.png"></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646548848907.png"></p>
 <h2 id="根据内存数据存储的位置查找在文件中的位置"><a href="#根据内存数据存储的位置查找在文件中的位置" class="headerlink" title="根据内存数据存储的位置查找在文件中的位置"></a>根据内存数据存储的位置查找在文件中的位置</h2><p>假设内存开始位置是500000，数据在内存存储位置是501234</p>
 <p>1、确定节</p>
 <p>先确定偏移501234-500000</p>
@@ -616,6 +616,145 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
 <p>5、填充，注意小端序，E8跟着计算后的地址，E9跟着计算后的OEP（ImageBase+EntryPoint）</p>
 <p>6、将原本的OEP改为我们填充数据的地址</p>
 <h1 id="任意代码节空白区添加代码"><a href="#任意代码节空白区添加代码" class="headerlink" title="任意代码节空白区添加代码"></a>任意代码节空白区添加代码</h1><p>从内存转为硬盘文件计算大小-最后一个节的初始位置+最后一个节的大小</p>
+<h1 id="新增节-添加代码"><a href="#新增节-添加代码" class="headerlink" title="新增节-添加代码"></a>新增节-添加代码</h1><p>新增之后，修改NumberOfSections，节表信息，节表后面必须跟着一定长度的00数据（空白区），所以要计算增加之后SizeofHeaders会不会大于PointerOfRawData，并且在新增节最后加上一个节长度的00</p>
+<p>计算内存偏移VirtualAddress（RVA）时，根据上一个节区的VIrtualAddress+（SizofRawData/VirtualSize[谁大加谁]）按照内存对齐后的数</p>
+<p>如果编译器在节表中加入一些数据，而我们不能修改，节表又不能断，只能将NT头前移（加入数据之前的），这样再去添加新的节表信息，就不会占用编译器加入的数据</p>
+<p>当DOS到NT头大小不够开辟一个节表的信息，只能扩充最后一个节</p>
+<h1 id="扩大节-合并节-数据目录"><a href="#扩大节-合并节-数据目录" class="headerlink" title="扩大节-合并节-数据目录"></a>扩大节-合并节-数据目录</h1><p>扩大节：在内存中进行扩大，然后再还原回文件中，还原的时候要修改参数</p>
+<p>1、拉伸到内存</p>
+<p>2、分配新空间N=SizeofImage+Ex</p>
+<p>3、将最后一个节的SizeOfRawdata和VirtualSize改为N</p>
+<p>4、修改SizeofImage</p>
+<p>合并节：合并之后节表有空间进行添加节区</p>
+<p>VirtualSize=SizeofImage-VIrtualAddress</p>
+<p>数据目录-里面存储各种表的信息</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646564515662.png"></p>
+<p>下面介绍几种比较重要的</p>
+<h1 id="DLL-动态链接库和静态链接库"><a href="#DLL-动态链接库和静态链接库" class="headerlink" title="DLL-动态链接库和静态链接库"></a>DLL-动态链接库和静态链接库</h1><p>使用的时候都需要include</p>
+<p>程序编译的过程为将.h和.cpp等文件进行预编译，然后进行编译，再进行汇编，最后链接上（.a/.lib/.so/.dll）成为可执行文件</p>
+<p>静态库、动态库区别来自【链接阶段】如何处理库（处理方式不同来区分），链接成可执行程序。分别称为静态链接方式、动态链接方式</p>
+<h2 id="静态链接"><a href="#静态链接" class="headerlink" title="静态链接"></a>静态链接</h2><p>使用的时候需要include和#pragma comment(lib,”xxx.lib”)</p>
+<p>因为头文件只包含函数声明，函数实现在lib文件中</p>
+<p>即在链接阶段，将源文件用到的库函数与汇编生成的文件.o等合并（即函数被包含在exe文件中）生成可执行文件</p>
+<p>好处：方便程序移植，因为可执行程序与库函数再无关系，放入任何环境当中都可以执行</p>
+<p>缺点：可执行文件太大（因为包含了库函数），每次库文件升级都需要重新编译源文件，每个可执行程序都会合并库函数，存在很大的重复性，占用空间大</p>
+<h2 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h2><p>两个程序应用一个库，目标文件在内存中只有一份，供所有程序使用，但是可移植性太差，如果两台电脑运行环境不同，动态库存放位置不同，可能会导致程序运行失败</p>
+<h3 id="隐式链接"><a href="#隐式链接" class="headerlink" title="隐式链接"></a>隐式链接</h3><p>1、将dll，lib文件添加到调用文件中</p>
+<p>2、将#pragma comment(lib,”xxx.lib”)添加到调用文件中</p>
+<p>3、加入函数的声明</p>
+<p>extern “C” _declspec(dllimport) _stdcall int Plus(int x,int y);</p>
+<p>导出则为dllexport，dll导出和导入的方式必须一致，即导出的时候使用了_stdcall，导入的时候也应该是__stdcall</p>
+<p>这样的话如果需要修改函数，只需要在dll文件修改即可，程序不用编译</p>
+<h3 id="显示链接"><a href="#显示链接" class="headerlink" title="显示链接"></a>显示链接</h3><p>1、定义函数指针</p>
+<p>typedef int (__stdcall *lpPlus)(int,int);</p>
+<p>2、声明函数指针变量</p>
+<p>lpPlus myPlus</p>
+<p>3、动态加载dll到内存中</p>
+<p>HINSTANCE hModule=LoadLibrary(“DllDemo.dll”);</p>
+<p>4、获取函数地址</p>
+<p>myPlus=(lpPlus)GetProcAddress(hModule,”_Plus@8”);(__stdcall为了区分会自动加符号)，如果导入的时候没加stdcall就不需要加符号，即myPlus=(lpPlus)GetProcAddress(hModule,”Plus”);</p>
+<p>5、调用函数</p>
+<p>int a=myPlus(1,2);</p>
+<h4 id="特别说明"><a href="#特别说明" class="headerlink" title="特别说明"></a>特别说明</h4><p>Handle是代表系统内核的对象，如文件句柄、线程句柄、进程句柄</p>
+<p>HMODULE代表应用程序载入的模块-在内存中拉伸的起始位置</p>
+<p>HINSTANCE在win32是和前一个一样的 win16遗留</p>
+<p>HWND是窗口句柄</p>
+<blockquote>
+<p>上面的都是无符号整数，四个字节</p>
+</blockquote>
+<p>这样做是为了方便区分，操作系统给的</p>
+<h3 id="def文件导出"><a href="#def文件导出" class="headerlink" title="def文件导出"></a>def文件导出</h3><p>为了隐藏函数的名字</p>
+<p>和前面的类似，先创建动态链接库，头文件只需要函数声明</p>
+<p>创建def文件后，在def文件中写入</p>
+<blockquote>
+<p>EXPORTS</p>
+<p>(函数名)                编号</p>
+<p>Plus                    @12——导出序号是12</p>
+<p>在编号后面+NONAME 可以隐藏函数名</p>
+</blockquote>
+<h2 id="dll导出函数的方式"><a href="#dll导出函数的方式" class="headerlink" title="dll导出函数的方式"></a>dll导出函数的方式</h2><p>extern表示是个全局函数，可以供各个其他的函数调用</p>
+<p>声明导出：_declspec(dllexport)</p>
+<p>def文件导出</p>
+<p>dll函数调用</p>
+<p>隐式链接</p>
+<p>包含头文件，载入lib库</p>
+<p>显式链接</p>
+<p>LoadLibary，GetProAddress</p>
+<h1 id="导出表"><a href="#导出表" class="headerlink" title="导出表"></a>导出表</h1><p>作用：记载我们写的dll或者exe导出的函数</p>
+<h2 id="导出表重要成员"><a href="#导出表重要成员" class="headerlink" title="导出表重要成员"></a>导出表重要成员</h2><p>1、指向导出表文件名的字符串</p>
+<p>2、导出函数的起始序号</p>
+<p>3、导出函数地址表RVA</p>
+<p>4、函数名称地址表RVA</p>
+<p>5、函数序号地址表</p>
+<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>1、找出导出表RVA的偏移</p>
+<p>首先我们要在数据目录的导出表信息的第一项，也就是导出表地址的RVA偏移是多少</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621065982.png"></p>
+<p>可以看出c000h是RVA偏移，大小是164个字节</p>
+<h3 id="判断属于哪一个节"><a href="#判断属于哪一个节" class="headerlink" title="判断属于哪一个节"></a>判断属于哪一个节</h3><p>根据节区的VIrtualAddress判断</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621026524.png"></p>
+<p>所以可以知道在.edata节</p>
+<h3 id="算出FOA位置"><a href="#算出FOA位置" class="headerlink" title="算出FOA位置"></a>算出FOA位置</h3><p>我们知道是在.rdata节的，可以算出FOA</p>
+<p>FOA=RVA-节区的VA（VirtualAddress）+节.PointerOfRawData</p>
+<p>计算发现为8200h</p>
+<h3 id="通过FOA找到导出表位置"><a href="#通过FOA找到导出表位置" class="headerlink" title="通过FOA找到导出表位置"></a>通过FOA找到导出表位置</h3><p>找到后根据前面的导出表大小可以知道导出表的范围</p>
+<p>跳转过去即可</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621157564.png"></p>
+<h2 id="导出表的存储方式"><a href="#导出表的存储方式" class="headerlink" title="导出表的存储方式"></a>导出表的存储方式</h2><p>一个导出表大小为0x28个字节，也就是两行半</p>
+<p>分段讲解</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621661598.png"></p>
+<p>前面十二个字节没用，就不讲了</p>
+<h3 id="Dword-Name"><a href="#Dword-Name" class="headerlink" title="Dword Name"></a>Dword Name</h3><p>绿框的4个字节存储的是dll名称的RVA，想查看的话，可以计算FOA，和前面一样的，得到8250地址存储的是我们的dll名称，以00结尾</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621843130.png"></p>
+<h3 id="Dword-Base"><a href="#Dword-Base" class="headerlink" title="Dword Base"></a>Dword Base</h3><p>导出函数的起始序号</p>
+<p> DLL导出的函数如果给序号了，那么就从这个序号开始 </p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622459296.png"></p>
+<h3 id="Dword-NumberOfFunctions-所有的导出函数的个数"><a href="#Dword-NumberOfFunctions-所有的导出函数的个数" class="headerlink" title="Dword NumberOfFunctions-所有的导出函数的个数"></a>Dword NumberOfFunctions-所有的导出函数的个数</h3><p>前四个</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622410901.png"></p>
+<h3 id="DWORD-NumberOfNames-以名字（有名字的）导出的函数的个数"><a href="#DWORD-NumberOfNames-以名字（有名字的）导出的函数的个数" class="headerlink" title="DWORD   NumberOfNames-以名字（有名字的）导出的函数的个数"></a>DWORD   NumberOfNames-以名字（有名字的）导出的函数的个数</h3><p>可以将两个不同的名字指向相同的地址</p>
+<p>有一些是无名函数不会在里面</p>
+<p>后四个</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622415877.png"></p>
+<p>下面就是子表了，三个子表都是RVA，要转为FOA</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622483098.png"></p>
+<p>分别是函数地址表0x8228，函数名称表0x8238，函数序号表0x8248</p>
+<blockquote>
+<p>先去找函数名称表，根据名称的下标再去序号表找对应，然后再去函数地址表找</p>
+</blockquote>
+<h4 id="函数地址表-AddressOfFunctions"><a href="#函数地址表-AddressOfFunctions" class="headerlink" title="函数地址表-AddressOfFunctions"></a>函数地址表-AddressOfFunctions</h4><p>函数地址表指向一个偏移，这个偏移存放了所有导出函数的地址，每个地址占四个字节，存放的是RVA地址</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622927186.png"></p>
+<p>ImageBase+函数偏移就是函数在内存中的实际地址</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646623978690.png"></p>
+<p>可以看到这就是函数</p>
+<p> 还需要注意的就是,如果你按照序号导出. 1 3 4 5导出了4个函数. 在导入表中我们的函数地址表中的地址会有5个.原因就是.序号会给我们用0填充. 1 2 3 4 5 虽然第二项并没有.但是也会给我们导出. </p>
+<h4 id="函数名称表-AddressOfNames"><a href="#函数名称表-AddressOfNames" class="headerlink" title="函数名称表-AddressOfNames"></a>函数名称表-AddressOfNames</h4><p>函数名称表也是存储名称的RVA，四个字节存储一个，RVA的个数由以函数名称导出函数个数来决定（DWORD  NumberOfNames）</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625166524.png"></p>
+<p>转为FOA就是0x805e，0x8071,0x8082,0x8093</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625255683.png"></p>
+<p>排序的时候是按照字母顺序排列的，而不是按照导出时函数的顺序进行排序的</p>
+<p>例如:</p>
+<p>　　EXPORT</p>
+<p>　　　　SUB</p>
+<p>　　　　ADD</p>
+<p>　　　　MUL</p>
+<p>导出三个函数，那么第一项就为 ADD，因为按照字母排序.A在前边.后面依次类推. 所以我们上面看到的函数名称 ACquireSRW 这个函数名称，并不是第一个导出的函数.</p>
+<h4 id="函数序号表-AddressOfNumberOrdinals"><a href="#函数序号表-AddressOfNumberOrdinals" class="headerlink" title="函数序号表-AddressOfNumberOrdinals"></a>函数序号表-AddressOfNumberOrdinals</h4><p>给名称用的中转表</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625803927.png"></p>
+<p>和函数名称表大小相同</p>
+<p>序号表的值+导出函数起始序号（Base）才是函数序号</p>
+<p>函数数量计算方式=最大序号-最小序号+1，（连续的算得准）不连续的话在函数地址表会留有多余的地址，但是多余的地址没有被使用</p>
+<blockquote>
+<p>当使用序号导出的时候不需要使用序号表，直接将序号-Base作为索引去函数地址表找即可</p>
+</blockquote>
+<h4 id="导出的过程"><a href="#导出的过程" class="headerlink" title="导出的过程"></a>导出的过程</h4><p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646724098510.png" alt="1"></p>
+<p>根据函数地址表找，如果索引在序号表中，说明是按名字导出的，再去名称表找对应，索引和序号表中的相同</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646724264502.png"></p>
+<p>这里的100a索引是3，在序号表中没有，所以是按照序号导出的，序号为索引+Base=005</p>
+<h1 id="重定位表-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable"><a href="#重定位表-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable" class="headerlink" title="重定位表-struct IMAGE_DATA_DIRECTORY BaseRelocationTable"></a>重定位表-struct IMAGE_DATA_DIRECTORY BaseRelocationTable</h1><h2 id="程序的加载过程"><a href="#程序的加载过程" class="headerlink" title="程序的加载过程"></a>程序的加载过程</h2><p>系统加载的dll一般在高空间运行，一般是71**************</p>
+<p>先像贴图一样把dll贴在内存中，最后指向exe文件的入口点，exe开始运行</p>
+<p>我们自己写的dll的imageBase都是1000000，所以当多个dll同时使用，会存在地址已经被占用的问题，所以dl只能往后放，但是：</p>
+<p>编译器生成的地址=ImageBase+RVA，这个地址在程序编译完成后，已经写入文件了。但是当程序加载时没有按照原来的ImageBase载入，但是此时程序还是会按照前面生成的地址进行使用</p>
+<p>所以一般exe不存在重定位表，而dll一般都有，用于记录需要修改的地方</p>
+<h1 id="IAT表-导入地址表"><a href="#IAT表-导入地址表" class="headerlink" title="IAT表-导入地址表"></a>IAT表-导入地址表</h1><p> 记录程序正在使用哪些库中的哪些函数 </p>
 
                 
             </div>
@@ -1119,7 +1258,7 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">32.6k</span>
+                        class="white-color">35.1k</span>
             
             
             
