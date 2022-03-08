@@ -462,14 +462,14 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.9k
+                    5.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    18 分
+                    20 分
                 </div>
                 
 
@@ -754,6 +754,36 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
 <p>我们自己写的dll的imageBase都是1000000，所以当多个dll同时使用，会存在地址已经被占用的问题，所以dl只能往后放，但是：</p>
 <p>编译器生成的地址=ImageBase+RVA，这个地址在程序编译完成后，已经写入文件了。但是当程序加载时没有按照原来的ImageBase载入，但是此时程序还是会按照前面生成的地址进行使用</p>
 <p>所以一般exe不存在重定位表，而dll一般都有，用于记录需要修改的地方</p>
+<h2 id="重定位表解析"><a href="#重定位表解析" class="headerlink" title="重定位表解析"></a>重定位表解析</h2><p>重定位表是分块，根据RVA计算得到FOA，跳转过去发现有几个重定位表</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646727831045.png"></p>
+<p>这两个数据分别存储RVA和大小</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646727910599.png"></p>
+<p>下面的数据中，每两个字节代表这一段有多少个数据需要修复，一般是绝对地址需要修改</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646728080337.png"></p>
+<p>只需要基础地址加上小表的值就可以定位到需要修改的地方，而不用四个字节来存储地址，节省了空间，而这个基础地址就是前面记录的RVA</p>
+<p>而基础地址可以不同，所以才需要分块操作</p>
+<p>可以发现每一块的间隔是1000h，也就是内存对齐的大小</p>
+<p>一个页是1000h，所以只需要1000个十六进制的地址就可以记录完一页的每个位置，对应十进制的4096个</p>
+<p>2^12=4096，所以只需要十二个二进制位就可以表示完所有可能，两个字节有十六位，所以最后找地址的时候，只用取低十二位，高四位有别的用处-如果高四位的值是3就说明这个地方需要修改</p>
+<h3 id="判断块数"><a href="#判断块数" class="headerlink" title="判断块数"></a>判断块数</h3><p>下一块的开始地址都可以通过RVA+SizeOfBlock来得到</p>
+<p>直到遇到全为零的块</p>
+<p>计算需要修改的数据个数：(SizeOfBlock-8)/2，因为前面两个数据是8个字节，剩下的两个字节为1组</p>
+<h1 id="移动导出表-重定位表"><a href="#移动导出表-重定位表" class="headerlink" title="移动导出表-重定位表"></a>移动导出表-重定位表</h1><p>学会移动各种表是对程序加密和破解的基础</p>
+<h2 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h2><p>比较繁琐，因为要移动多张表</p>
+<h3 id="在DLL文件中新增节"><a href="#在DLL文件中新增节" class="headerlink" title="在DLL文件中新增节"></a>在DLL文件中新增节</h3><p>先计算大小</p>
+<p>并且返回新增节的FOA，因为后面的数据还要从新增节的开头开始</p>
+<h3 id="复制数据"><a href="#复制数据" class="headerlink" title="复制数据"></a>复制数据</h3><p>需要复制的数据类型和长度</p>
+<h4 id="复制AddressOfFunctions"><a href="#复制AddressOfFunctions" class="headerlink" title="复制AddressOfFunctions"></a>复制AddressOfFunctions</h4><p>长度：4×NumberOfFunctions</p>
+<h4 id="复制AddressOfNameOrdinals"><a href="#复制AddressOfNameOrdinals" class="headerlink" title="复制AddressOfNameOrdinals"></a>复制AddressOfNameOrdinals</h4><p>长度：2×NumberOfNames</p>
+<h4 id="复制AddressOfNames"><a href="#复制AddressOfNames" class="headerlink" title="复制AddressOfNames"></a>复制AddressOfNames</h4><p>长度：4×NumberOfNames</p>
+<h4 id="复制所有函数名"><a href="#复制所有函数名" class="headerlink" title="复制所有函数名"></a>复制所有函数名</h4><p>长度不确定，复制时直接修复AddressOfName（因为名字的地址也改变了），每复制完一个名字，都需要计算下一个复制的地方</p>
+<h4 id="复制导出表的整体结构"><a href="#复制导出表的整体结构" class="headerlink" title="复制导出表的整体结构"></a>复制导出表的整体结构</h4><h3 id="修复地址"><a href="#修复地址" class="headerlink" title="修复地址"></a>修复地址</h3><p>AddressOfName</p>
+<p>目录项指向新的导出表的位置</p>
+<p>函数地址表、序号表、名称表都需要修复</p>
+<h2 id="移动重定位表"><a href="#移动重定位表" class="headerlink" title="移动重定位表"></a>移动重定位表</h2><p>直接复制过去，修改RVA即可</p>
+<p>加载程序：（当前面已经有DLL被加载）</p>
+<p>1、将新的DLL复制到新的位置</p>
+<p>2、修复重定位表，修改每一个重定位表的偏移</p>
 <h1 id="IAT表-导入地址表"><a href="#IAT表-导入地址表" class="headerlink" title="IAT表-导入地址表"></a>IAT表-导入地址表</h1><p> 记录程序正在使用哪些库中的哪些函数 </p>
 
                 
@@ -1258,7 +1288,7 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">35.1k</span>
+                        class="white-color">35.7k</span>
             
             
             
