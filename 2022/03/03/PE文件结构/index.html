@@ -455,21 +455,21 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-08
+                    2022-03-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.6k
+                    5.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    20 分
+                    21 分
                 </div>
                 
 
@@ -784,6 +784,46 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
 <p>加载程序：（当前面已经有DLL被加载）</p>
 <p>1、将新的DLL复制到新的位置</p>
 <p>2、修复重定位表，修改每一个重定位表的偏移</p>
+<h1 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h1><p>作用：从其他第三方程序导入API，以供本程序调用</p>
+<p>在exe运行的时候加载器会遍历导入表，将导入表中所有dll加载到进程中，被加载的DLL的DLLMain就会被调用</p>
+<p>通过导入表可以知道程序使用了哪些函数</p>
+<h2 id="导入表解析"><a href="#导入表解析" class="headerlink" title="导入表解析"></a>导入表解析</h2><h3 id="重要字段"><a href="#重要字段" class="headerlink" title="重要字段"></a>重要字段</h3><pre class="language-none"><code class="language-none">DWORD OriginalFirstThunk;</code></pre>
+
+<p>指向导入名称表（INT）的RVA</p>
+<pre class="language-none"><code class="language-none">DWORD   FirstThunk;</code></pre>
+
+<p>指向导入地址表（IAT）的RVA</p>
+<pre class="language-none"><code class="language-none">DWORD   Name;</code></pre>
+
+<p>指向导入映像文件的名字</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788456499.png"></p>
+<p>计算后跳转过去，注意要算的是FOA，但是这里RVA和FOA一样 </p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788490238.png"></p>
+<p>其中IAT 与 INT都指向 IMAGE_THUNK_DATA32</p>
+<p>INT-以全0结尾</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788999608.png">          函数名数组(对应IMAGE_THUNK_DATA32结构体数组,每一个结构体就是一个联合体) </p>
+<p>CEAC指向这里</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646789198251.png"></p>
+<p>导入表是一个结构体数组，每个导入表对应一个dll</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788060508.png"></p>
+<pre class="language-c" data-language="c"><code class="language-c">typedef struct  _IMAGE_THUNK_DATA32{
+union{
+DWORD ForwarderString;
+DWORD Function;//导入函数的地址,在加载到内存之后,这里才起作用
+DWORD Ordinal;//假如是序号导入的,会用到这里
+DWORD AddressOfData;//假如是函数名导入,会用到这里,它指向另外一个结构体PIMAGE_IMPORT_BY_NAME
+}u1;
+}IMAGE_THUNK_DATA32;
+
+//如果是函数名导入的,AddressOfData会指向下面这个结构体
+typedef struct _IMAGE_IMPORT_BY_NAME{
+WORD  Hint;//序号
+CHAR Name[1];//不定长,字符串
+
+}</code></pre>
+
+
+
 <h1 id="IAT表-导入地址表"><a href="#IAT表-导入地址表" class="headerlink" title="IAT表-导入地址表"></a>IAT表-导入地址表</h1><p> 记录程序正在使用哪些库中的哪些函数 </p>
 
                 
@@ -1288,7 +1328,7 @@ PE文件头解析在内存中和硬盘中数据几乎是一样的，但是存在
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">35.7k</span>
+                        class="white-color">36k</span>
             
             
             
