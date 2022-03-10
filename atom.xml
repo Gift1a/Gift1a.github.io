@@ -6,7 +6,7 @@
   <link href="https://gift1a.github.io/atom.xml" rel="self"/>
   
   <link href="https://gift1a.github.io/"/>
-  <updated>2022-03-09T05:40:25.692Z</updated>
+  <updated>2022-03-10T06:53:18.573Z</updated>
   <id>https://gift1a.github.io/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>22</title>
+    <link href="https://gift1a.github.io/2022/03/10/22/"/>
+    <id>https://gift1a.github.io/2022/03/10/22/</id>
+    <published>2022-03-10T06:52:45.000Z</published>
+    <updated>2022-03-10T06:53:18.573Z</updated>
+    
+    
+    
+    
+    
+    <category term="测试" scheme="https://gift1a.github.io/tags/%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>PE文件结构</title>
@@ -399,27 +414,6 @@
       
     <summary type="html">&lt;p&gt;先来看官方文档&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;https://ericpony.github.io/z3py-tutorial/guide-examples.htm&quot;&gt;https://ericpony.github.io/z3py-tutorial/guide-examp</summary>
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>花指令</title>
-    <link href="https://gift1a.github.io/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/"/>
-    <id>https://gift1a.github.io/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/</id>
-    <published>2022-01-17T07:49:29.000Z</published>
-    <updated>2022-03-01T12:20:22.194Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://www.anquanke.com/post/id/208682">https://www.anquanke.com/post/id/208682</a></p><h1 id="花指令原理"><a href="#花指令原理" class="headerlink" title="花指令原理"></a>花指令原理</h1><p>ida采用的是线性扫描反汇编算法，也就是一步一步往下识别，一旦在中间插入奇怪的立即数，ida可能就会识别出错，进而不能正确反编译</p><h1 id="花指令实现"><a href="#花指令实现" class="headerlink" title="花指令实现"></a>花指令实现</h1><p>首先，我们插入花指令不能阻碍我们程序的正常运行，这是最基本的</p><p>下面使用一段常规代码进行花指令的添加</p><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;#include&lt;windows.h&gt;int main(int argc, char* argv[]){char s[] = "1234234";int i = 0, k = 1;for (; i &lt; 10; ++i){k += i;}printf("%d", k);return 0;}</code></pre><p>没插花指令前的反编译</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/MF%5DH0@C0%5BLZFAI%7BX83MEI.png"></p><h2 id="永真跳转"><a href="#永真跳转" class="headerlink" title="永真跳转"></a>永真跳转</h2><pre class="language-c" data-language="c"><code class="language-c">__asm {    push eax;xor eax, eax;test eax, eax;jz LABEL1;jnz  LABLE2;LABLE2:__emit 0xe8;LABEL1:    pop eax;}</code></pre><p>先来看看效果</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646113378508.png"></p><p>可以看到ida不能正确反编译</p><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>xor eax,eax能够保证eax的值为0，异或自己，相同为0</p><p>根据目标操作数修改符号标志位、奇偶标志位、零标志位，经过这一步后，ZF为1</p><p>test eax,eax是按位与操作，并且会根据值修改ZF标志位，并且只有当位都清 0 时，零标志位才置 1 </p><p>ZF为1时，jz进行跳转，到LABEL1，因为里面没有其他值，所以代码正常执行，但是在 反编译的时候，因为是线性扫描，所以遇到了LABEL2里面的0xe8（call的机器码），就会将其后面的机器码当作要调用的地址，这样一来，jz就直接跳转到被错误识别的汇编代码中，所以会出现错误</p><h3 id="去除"><a href="#去除" class="headerlink" title="去除"></a>去除</h3><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114167483.png"></p><p>可以看到这里面的jz和jnz后面的地址存在+1，这就基本可以看出是花指令了，找到对应的地址，按u取消定义</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114596608.png"></p><p>可以看到这里也是两个函数，对下面的按C弄成代码</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114739199.png"></p><p>然后为了反编译，要把0xe8使用90填充，也就是nop，填充后按C即可</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114800614.png"></p><p>按P弄成函数后反编译，和上面的基本一致</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114856426.png"></p><h2 id="插入立即数"><a href="#插入立即数" class="headerlink" title="插入立即数"></a>插入立即数</h2><pre class="language-c" data-language="c"><code class="language-c">__asm {xor eax, eax;jz LABEL1;__emit 0x11;__emit 0x22;__emit 0x33;LABEL1:}</code></pre><p>效果</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646115623618.png"></p><p>识别出错，原理和上面一样，感觉这种稍微恶心一点，因为有一段可能是正常的，需要一个一个试</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646115805153.png"></p><p>直接nop掉即可</p><h2 id="破坏堆栈"><a href="#破坏堆栈" class="headerlink" title="破坏堆栈"></a>破坏堆栈</h2><p>我们可以插入对esp和eip的操作进而破坏堆栈</p><pre class="language-c" data-language="c"><code class="language-c">__asm {xor eax, eax;jz LABEL1;add esp, 8;LABEL1:}</code></pre><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646116696374.png"></p><p>ida能够正常反编译，但是在函数末端会发现堆栈错误提示</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646116781788.png"></p><h2 id="call-amp-ret构造花指令"><a href="#call-amp-ret构造花指令" class="headerlink" title="call&amp;ret构造花指令"></a>call&amp;ret构造花指令</h2><p>call本质是先将其 下一条指令压入栈中，再jmp函数地址</p><p>ret则是pop eip</p><p>所以我们可以修改返回地址，然后在中前插入垃圾数</p><pre class="language-c" data-language="c"><code class="language-c">__asm {call LABEL1;__emit 0x83;LABEL1:add dword ptr ss : [esp] , 8;ret;    __emit 0xf3;}</code></pre><p>效果</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646118501242.png"></p><p>这里我们插入的不是机器码，所以没有识别成奇怪的代码，但是还是让ida出现了错误</p><h3 id="去除-1"><a href="#去除-1" class="headerlink" title="去除"></a>去除</h3><p>全部nop掉即可</p><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646122556219.png"></p><p>这里之所以程序能够进行正常的运行，是因为call会把其下一条指令的地址压入栈中，也就是41459F，（不知道为什么这里会多出一个db 36h -.-)，接下来执行将当前esp地址的值+8，也就是栈顶存储的值+8，也就是返回地址加8，正好对应4145A7，下面的代码c之后是正常的代码，所以不会出错</p><p>在此基础上，我们可以构造各种花指令</p><p>下面连接有一些花指令</p><p><a href="https://www.bilibili.com/read/cv13177757">https://www.bilibili.com/read/cv13177757</a></p><h2 id="call嵌套"><a href="#call嵌套" class="headerlink" title="call嵌套"></a>call嵌套</h2><pre class="language-c" data-language="c"><code class="language-c">__asm {call LABEL1;_emit 0xE8;LABEL2:jmp LABEL3;_emit 0;_emit 0;_emit 0xE8;_emit 0xf6;_emit 0xff;_emit 0xff;_emit 0xff;LABEL1:call LABEL2;LABEL3:add esp, 8;}</code></pre><p>效果</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646123989260.png"></p><h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>这里之所以程序能够正常运行，是因为只有两个call对堆栈有影响，所以只需要在最后esp+8就可以回到原来的堆栈</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124342486.png"></p><p>这里先callA9，然后0xE8和后面的结合成了call指令，这里可以看到call到了全是int 3的地方</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124399722.png"></p><p>然后这个9f一直在call自己，所以可以判断是花指令</p><p>把这两个函数nop掉之后</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124643631.png"></p><p>所以这个调用也没用了</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124712766.png"></p><p>同理这个也可以nop掉，那么堆栈会不平衡，add esp,8也要nop</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124803779.png"></p><p>得到正常代码</p><h2 id="jmp变形-SUSCTF2022-tttree"><a href="#jmp变形-SUSCTF2022-tttree" class="headerlink" title="jmp变形-SUSCTF2022-tttree"></a>jmp变形-SUSCTF2022-tttree</h2><p>感觉很巧妙，拿出来看看</p><p>动调可以看得更清楚</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646126953595.png"></p><p>前面的push没什么好说的，关键在call之后的</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127104589.png"></p><p>当前的栈顶，call会将其之后的地址压入栈顶</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127228921.png"></p><p>可以看到是B7D82FF9B0</p><p>下面两步就是将当前栈顶的元素先+0x191b给到rax</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127367726.png"></p><p>下一步是把rax里的值给到rsp+16</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127416441.png" alt="1646127416441"></p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127424928.png"></p><p>经过两步pop，可以发现来到了存储原本返回值+0x191b的栈的位置</p><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127512911.png"></p><p>retn先将栈顶元素pop到eip，再jmp，而eip正好记录我们下一步执行的指令</p><p>这样就是一个简单的jmp</p><p>解决方法就是先计算跳转的地址，然后改成jmp即可</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;a href=&quot;https://www.anquanke.com/post/id/208682&quot;&gt;https://www.anquanke.com/post/id/208682&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;花指令原理&quot;&gt;&lt;a href=&quot;#花指令原理&quot; class=&quot;</summary>
       
     
     
