@@ -2058,3 +2058,9 @@ p.search-result-summary{
     padding: 0;
     margin: 0;
 }
+
+body{
+    /* 鼠标图标 */
+    cursor: url("../medias/cur/Arrow.cur"),default;
+    /*url("你的鼠标指针图标路径")*/
+}
