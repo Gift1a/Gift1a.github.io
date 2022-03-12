@@ -30,9 +30,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-11
+                    2022-03-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    521
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -503,7 +503,47 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="代码节空白节区添加代码"><a href="#代码节空白节区添加代码" class="headerlink" title="代码节空白节区添加代码"></a>代码节空白节区添加代码</h1><p>这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
+<h2 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h2><p> ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
+<p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
+<p>在标准PE头属性中的第一个值改为1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png"></p>
+<p>这样PE文件加载到内存中就不会随机化了</p>
+<h2 id="提取关键数据"><a href="#提取关键数据" class="headerlink" title="提取关键数据"></a>提取关键数据</h2><h3 id="可选PE头"><a href="#可选PE头" class="headerlink" title="可选PE头"></a>可选PE头</h3><p>DWORD AddressOfEntryPoint-10E5DBh</p>
+<p>DWORD ImageBase-400000h</p>
+<h3 id="节表信息"><a href="#节表信息" class="headerlink" title="节表信息"></a>节表信息</h3><p>MIsc.DWORD VirtualSize-17C51Eh</p>
+<p>DWORD VirtualAddress-1000h</p>
+<p>DWORD PointerToRawData-400h</p>
+<p>DWORD SizeOfRawData-17C600h</p>
+<h2 id="判断能否添加"><a href="#判断能否添加" class="headerlink" title="判断能否添加"></a>判断能否添加</h2><p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
+<h2 id="找到在文件中代码结束的位置"><a href="#找到在文件中代码结束的位置" class="headerlink" title="找到在文件中代码结束的位置"></a>找到在文件中代码结束的位置</h2><p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png"></p>
+<h2 id="添加硬编码"><a href="#添加硬编码" class="headerlink" title="添加硬编码"></a>添加硬编码</h2><p>MessageBoxA需要四个参数</p>
+<p>call指令长度为5</p>
+<p>jmp指令长度为5</p>
+<blockquote>
+<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
+</blockquote>
+<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png"></p>
+<h2 id="计算E8和E9的后四个字节"><a href="#计算E8和E9的后四个字节" class="headerlink" title="计算E8和E9的后四个字节"></a>计算E8和E9的后四个字节</h2><p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png"></p>
+<h3 id="E8后四字节计算"><a href="#E8后四字节计算" class="headerlink" title="E8后四字节计算"></a>E8后四字节计算</h3><p>真实地址为MessageBoxA的地址</p>
+<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
+<p>76BA5865</p>
+<h3 id="E9后四字节计算"><a href="#E9后四字节计算" class="headerlink" title="E9后四字节计算"></a>E9后四字节计算</h3><p>真实地址为原来的OEP</p>
+<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
+<p>为FFF910AB</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png"></p>
+<h2 id="修改AddressOfPoint"><a href="#修改AddressOfPoint" class="headerlink" title="修改AddressOfPoint"></a>修改AddressOfPoint</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png"></p>
+<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
+<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>先执行MessageBoxA</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png"></p>
+<p>再运行程序</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png"></p>
+
                 
             </div>
             <hr/>
@@ -1021,7 +1061,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">37k</span>
+                        class="white-color">37.6k</span>
             
             
             

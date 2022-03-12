@@ -30,9 +30,9 @@
 
     <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
@@ -612,20 +612,22 @@
 <p>3、在文件中寻找</p>
 <p>因为在文件中和在内存中距离节初始位置的长度相同，所以地址为400+234h</p>
 <h1 id="代码节空白区添加代码"><a href="#代码节空白区添加代码" class="headerlink" title="代码节空白区添加代码"></a>代码节空白区添加代码</h1><p>MessageBoxA-四个参数，执行后会出现弹窗-一般exe都有这个函数-user32.dll里面</p>
-<p>让程序执行我们的代码，需要先找到OEP，修改为call我们函数的地址，然后再jmp回来</p>
+<p>让程序执行我们的代码，需要先找到OEP，修改为call我们函数的地址，然后再jmp回到原程序的OEP</p>
 <p>call=E8+四个字节，jmp=E9+四个字节</p>
 <p>但是这四个字节不是直接的地址，需要进行计算</p>
+<blockquote>
 <p>真正要跳转的地址=E8这条指令的下一行地址（当前指令地址+5，因为call长度是5）+X（X就是E8后边跟着的四个字节）</p>
+</blockquote>
 <p>push=0x6A</p>
-<p>所以我们要加的程序汇编代码=6A 00  6A 00  6A 00  6A 00  E8 00 00 00 00 E9 00 00 00 00</p>
+<p>所以我们要加的程序硬编码 = 6A 00  6A 00  6A 00  6A 00  E8 00 00 00 00 E9 00 00 00 00</p>
 <p>我们加入的代码必须加在拉伸后的文件中，也就是内存中的，因为我们计算的地址是拉伸后的地址</p>
-<h2 id="添加代码过程-文件注入"><a href="#添加代码过程-文件注入" class="headerlink" title="添加代码过程-文件注入"></a>添加代码过程-文件注入</h2><p>1、先看代码空白区能不能填充那十八个字节，（SizeofRawData-VirtualSize）</p>
-<p>2、找到添加到地方，因为我们开始是从1000h开始的，而拉伸后的长度是1a0000，所以两者相加就是当前节结束的地址，而在1b0000之前为0的部分是代码块的空白部分</p>
-<p>3、从第一个00开始填充我们的那十八个字节</p>
+<h2 id="添加代码过程-文件注入"><a href="#添加代码过程-文件注入" class="headerlink" title="添加代码过程-文件注入"></a>添加代码过程-文件注入</h2><p>1、先看代码空白区能不能填充那十八个字节——（SizeofRawData-VirtualSize）</p>
+<p>2、找到添加的地方，假设我们开始是从1000h开始的，而SizeofRawData是1a0000，所以两者相加就是当前节结束的地址，而在1b0000之前为0的部分是代码块的空白部分</p>
+<p>3、开始填充我们的那十八个字节</p>
 <p>4、算地址，要计算内存对齐的地址，而不是文件对齐的，因为我们需要的是运行时的地址（内存对齐和文件对齐不同）</p>
 <p>先找到MessageBoxA在内存中的地址，在OD里面使用命令bp MessageBoxA，按状态栏的B可以找到内存的地址</p>
 <p>5、填充，注意小端序，E8跟着计算后的地址，E9跟着计算后的OEP（ImageBase+EntryPoint）</p>
-<p>6、将原本的OEP改为我们填充数据的地址</p>
+<p>6、将原本的EntryOfPoint改为我们填充数据在内存中的地址</p>
 <h1 id="任意代码节空白区添加代码"><a href="#任意代码节空白区添加代码" class="headerlink" title="任意代码节空白区添加代码"></a>任意代码节空白区添加代码</h1><p>从内存转为硬盘文件计算大小-最后一个节的初始位置+最后一个节的大小</p>
 <h1 id="新增节-添加代码"><a href="#新增节-添加代码" class="headerlink" title="新增节-添加代码"></a>新增节-添加代码</h1><p>新增之后，修改NumberOfSections，节表信息，节表后面必须跟着一定长度的00数据（空白区），所以要计算增加之后SizeofHeaders会不会大于PointerOfRawData，并且在新增节最后加上一个节长度的00</p>
 <p>计算内存偏移VirtualAddress（RVA）时，根据上一个节区的VIrtualAddress+（SizofRawData/VirtualSize[谁大加谁]）按照内存对齐后的数</p>
@@ -1403,7 +1405,7 @@ CHAR Name[1];//不定长,字符串
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">37k</span>
+                        class="white-color">37.6k</span>
             
             
             
