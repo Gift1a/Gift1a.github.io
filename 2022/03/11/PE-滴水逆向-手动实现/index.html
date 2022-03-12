@@ -4,11 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Tea、XTea、XXTea原理和实现, Hexo">
-    <meta name="description" content="共同点1、特征量（一般是0x9e3779b9，它是黄金分割数和232的乘积），可以替换成其他的值，但是可能会出现问题
-2、主要加密部分进行异或和移位操作（一般都存在&amp;lt;&amp;lt;4、&amp;gt;&amp;gt;5）
-3、key为128bit
-Tea加">
+    <meta name="keywords" content="PE-滴水逆向-手动实现, Hexo">
+    <meta name="description" content="PE学习之路1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -20,7 +17,7 @@ Tea加">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Tea、XTea、XXTea原理和实现 | Hexo</title>
+    <title>PE-滴水逆向-手动实现 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -325,12 +322,12 @@ Tea加">
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Tea、XTea、XXTea原理和实现</h1>
+                    <h1 class="description center-align post-title">PE-滴水逆向-手动实现</h1>
                 </div>
             </div>
         </div>
@@ -446,8 +443,8 @@ Tea加">
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Reverse/">
-                                <span class="chip bg-color">Reverse</span>
+                            <a href="/tags/PE/">
+                                <span class="chip bg-color">PE</span>
                             </a>
                         
                     </div>
@@ -462,7 +459,7 @@ Tea加">
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-02-07
+                    2022-03-11
                 </div>
                 
 
@@ -476,14 +473,14 @@ Tea加">
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    876
+                    0
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    1 分
                 </div>
                 
 
@@ -506,136 +503,7 @@ Tea加">
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h1><p>1、特征量（一般是0x9e3779b9，它是黄金分割数和232的乘积），可以替换成其他的值，但是可能会出现问题</p>
-<p>2、主要加密部分进行异或和移位操作（一般都存在&lt;&lt;4、&gt;&gt;5）</p>
-<p>3、key为128bit</p>
-<h1 id="Tea"><a href="#Tea" class="headerlink" title="Tea"></a>Tea</h1><h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p>数组的奇数下标元素从右侧传入后进行了移位异或和相加操作，最后偶数下标加上上面操作完的值，所以可以把等式右边看成一个常数，这样写逆向脚本好理解</p>
-<p>结束第一步之后，奇数下标元素的偶数下标元素进行置换，再对奇数下标进行相同的加密</p>
-<p>第三步就是sum+=Delta</p>
-<p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/OIP-C.jfif"> </p>
-<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2><pre class="language-c" data-language="c"><code class="language-c">int main()
-{
-	unsigned int Data[8] = { 0 };
-	unsigned int key[4] = { 0 };
-	unsigned int tmp[2] = { 0 };
-	unsigned int sum = 0;
-	unsigned int delta = 0x9e3779b9;
-	for (int i = 0; i &lt; 8; i += 2)
-	{
-		tmp[0] = Data[i];
-		tmp[1] = Data[i + 1];
-        sum=0;
-		for (int i = 0; i &lt; 32; ++i)
-		{
-			sum += delta;
-			tmp[0] += ((tmp[1] &lt;&lt; 4) + key[0]) ^ (tmp[1] + sum) ^ ((tmp[1] &gt;&gt; 5) + key[1]);
-			tmp[1] += ((tmp[0] &lt;&lt; 4) + key[2]) ^ (tmp[0] + sum) ^ ((tmp[0] &gt;&gt; 5) + key[3]);
-		}
-		Data[i] = tmp[i];
-		Data[i + 1] = tmp[i + 1];
-	}
-	return 0;
-}</code></pre>
-
-<h3 id="解密代码"><a href="#解密代码" class="headerlink" title="解密代码"></a>解密代码</h3><pre class="language-c" data-language="c"><code class="language-c">#include&lt;string.h&gt;
-#include &lt;stdio.h&gt;
-
-int main()
-{
-	unsigned int Data[8] = { 0 };
-	unsigned int key[4] = { 0 };
-	unsigned int tmp[2] = { 0 };
-	unsigned int sum = 0;
-	unsigned int delta = 0x9e3779b9;
-	for (int i = 0; i &lt; 8; i += 2)
-	{
-		tmp[0] = Data[i];
-		tmp[1] = Data[i + 1];
-		sum = delta*32;
-		for (int i = 0; i &lt; 32; ++i)
-		{
-			tmp[1] -= ((tmp[0] &lt;&lt; 4) + key[2]) ^ (tmp[0] + sum) ^ ((tmp[0] &gt;&gt; 5) + key[3]);
-			tmp[0] -= ((tmp[1] &lt;&lt; 4) + key[0]) ^ (tmp[1] + sum) ^ ((tmp[1] &gt;&gt; 5) + key[1]);
-			sum -= delta;
-		}
-		Data[i] = tmp[i];
-		Data[i + 1] = tmp[i + 1];
-	}
-	return 0;
-}</code></pre>
-
-<p>解密的时候主要是要找到Key和密文，并且可能会有大小端序的问题</p>
-<h1 id="XTea"><a href="#XTea" class="headerlink" title="XTea"></a>XTea</h1><p>Xtea是Tea的升级版，添加了一些移位和异或操作</p>
-<h2 id="加密流程-1"><a href="#加密流程-1" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/20190112131633-3a396138-1629-1.png"> </p>
-<p>因为加密过程实际上没发生太多变化，就不贴加密和解密的代码了</p>
-<h1 id="XXTea"><a href="#XXTea" class="headerlink" title="XXTea"></a>XXTea</h1><h2 id="加密流程-2"><a href="#加密流程-2" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/921830_48K7JHRW383FZWR.jpg"> </p>
-<h2 id="加解密代码"><a href="#加解密代码" class="headerlink" title="加解密代码"></a>加解密代码</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;stdint.h&gt;
-#define DELTA 0x9e3779b9            //固定的一个常量
-#define MX (((z&gt;&gt;5^y&lt;&lt;2) + (y&gt;&gt;3^z&lt;&lt;4)) ^ ((sum^y) + (key[(p&amp;3)^e] ^ z)))   //固定的运算
-void btea(uint32_t *v, int n, uint32_t const key[4])   //v是要加密的两个元素的数组
-{                                                      //n为数组的长度
-    uint32_t y, z, sum;                                //无符号整型     
-    unsigned p, rounds, e;                            
-    if (n &gt; 1)            /* Coding Part */   
-    {
-        rounds = 6 + 52/n;               //固定的得出轮数
-        sum = 0;                        
-        z = v[n-1];                     
-        do
-        {
-            sum += DELTA;                //每次进行叠加
-            e = (sum &gt;&gt; 2) &amp; 3;          //固定运算
-            for (p=0; p&lt;n-1; p++)       
-            {
-                y = v[p+1];
-                v[p] += MX;
-                      z = v[p];     
-                        }
-            y = v[0];
-            z = v[n-1] += MX;
-        }
-        while (--rounds);
-    }
-    else if (n &lt; -1)      /* Decoding Part */
-    {
-        n = -n;
-        rounds = 6 + 52/n;
-        sum = rounds*DELTA;
-        y = v[0];
-        do
-        {
-            e = (sum &gt;&gt; 2) &amp; 3;
-            for (p=n-1; p&gt;0; p--)
-            {
-                z = v[p-1];
-                y = v[p] -= MX;
-            }
-            z = v[n-1];
-            y = v[0] -= MX;
-            sum -= DELTA;
-        }
-        while (--rounds);
-    }
-}
- 
-int main()
-{
-    uint32_t v[2]= {1,2};
-    uint32_t const k[4]= {2,2,3,4};
-    int n= 2; //n的绝对值表示v的长度，取正表示加密，取负表示解密
-    // v为要加密的数据是两个32位无符号整数
-  // k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位
-    printf("加密前原始数据：%u %u\n",v[0],v[1]);
-    btea(v, n, k);
-    printf("加密后的数据：%u %u\n",v[0],v[1]);
-    btea(v, -n, k);
-    printf("解密后的数据：%u %u\n",v[0],v[1]);
-    return 0;
-}</code></pre>
-
-<p>还没实现过，看着流程图不知道怎么入手</p>
-
+                
                 
             </div>
             <hr/>
@@ -661,7 +529,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/">https://gift1a.github.io/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/</a>
+                    <a href="https://gift1a.github.io/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/">https://gift1a.github.io/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -699,8 +567,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Reverse/">
-                                    <span class="chip bg-color">Reverse</span>
+                                <a href="/tags/PE/">
+                                    <span class="chip bg-color">PE</span>
                                 </a>
                             
                         </div>
@@ -875,29 +743,30 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/02/08/AES/">
+                <a href="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="AES">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="PE-滴水逆向-手动实现">
                         
-                        <span class="card-title">AES</span>
+                        <span class="card-title">PE-滴水逆向-手动实现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            PE学习之路1
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-08
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -906,11 +775,12 @@ int main()
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Reverse/">
-                        <span class="chip bg-color">Reverse</span>
+                    <a href="/tags/PE/">
+                        <span class="chip bg-color">PE</span>
                     </a>
                     
                 </div>
@@ -924,13 +794,13 @@ int main()
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/">
+                <a href="/2022/03/11/PE%E8%A7%A3%E6%9E%90%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="RC4原理和实现">
+                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="PE解析代码实现">
                         
-                        <span class="card-title">RC4原理和实现</span>
+                        <span class="card-title">PE解析代码实现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -941,7 +811,7 @@ int main()
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-06
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-11
                             </span>
                         <span class="publish-author">
                             
@@ -950,14 +820,6 @@ int main()
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Reverse/">
-                        <span class="chip bg-color">Reverse</span>
-                    </a>
-                    
                 </div>
                 
             </div>
