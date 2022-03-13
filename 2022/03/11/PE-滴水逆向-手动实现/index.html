@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-12
+                    2022-03-13
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    521
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    5 分
                 </div>
                 
 
@@ -543,6 +543,65 @@
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png"></p>
 <p>再运行程序</p>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png"></p>
+<h1 id="新增节"><a href="#新增节" class="headerlink" title="新增节"></a>新增节</h1><h2 id="大小判断"><a href="#大小判断" class="headerlink" title="大小判断"></a>大小判断</h2><p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
+<h2 id="修改节表数量"><a href="#修改节表数量" class="headerlink" title="修改节表数量"></a>修改节表数量</h2><p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png"></p>
+<h2 id="添加节表信息"><a href="#添加节表信息" class="headerlink" title="添加节表信息"></a>添加节表信息</h2><p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png"></p>
+<h2 id="确定插入的大小"><a href="#确定插入的大小" class="headerlink" title="确定插入的大小"></a>确定插入的大小</h2><p>根据情况自行选择，这里假设我们插入0x1000字节</p>
+<h2 id="修改内存对齐后的大小"><a href="#修改内存对齐后的大小" class="headerlink" title="修改内存对齐后的大小"></a>修改内存对齐后的大小</h2><p>SizeOfImage+插入的大小（按照内存对齐）</p>
+<h2 id="修正节表信息"><a href="#修正节表信息" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>先看关键数据</p>
+<p>DWORD VirtualAddress</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD PointerToRawData</p>
+<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
+<h3 id="计算VirtualAddress"><a href="#计算VirtualAddress" class="headerlink" title="计算VirtualAddress"></a>计算VirtualAddress</h3><p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
+<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png"></p>
+<h3 id="计算PointerToRawData"><a href="#计算PointerToRawData" class="headerlink" title="计算PointerToRawData"></a>计算PointerToRawData</h3><p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png"></p>
+<h3 id="最终修改"><a href="#最终修改" class="headerlink" title="最终修改"></a>最终修改</h3><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png"></p>
+<h2 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h2><p>在PointerToRawData插入0x1000字节</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png"></p>
+<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>在PE解析工具可以看到插入的节表</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png"></p>
+<h1 id="新增节-节表信息后不够位置"><a href="#新增节-节表信息后不够位置" class="headerlink" title="新增节-节表信息后不够位置"></a>新增节-节表信息后不够位置</h1><p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
+<blockquote>
+<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
+</blockquote>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png"></p>
+<p>直接复制到垃圾数据的起始地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png"></p>
+<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
+<h1 id="扩大节"><a href="#扩大节" class="headerlink" title="扩大节"></a>扩大节</h1><p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
+<p>需要修改的数据</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD SizeOfImage</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
+<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
+<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
+</ol>
+<h2 id="修正节表信息-1"><a href="#修正节表信息-1" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>这里我们假设扩大0x1000个字节</p>
+<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png"></p>
+<h2 id="修正SizeOfImage"><a href="#修正SizeOfImage" class="headerlink" title="修正SizeOfImage"></a>修正SizeOfImage</h2><p>直接加上0x1000即可</p>
+<h2 id="分配空间"><a href="#分配空间" class="headerlink" title="分配空间"></a>分配空间</h2><p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
+<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
+<p>求和得到2B6C00h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png"></p>
+<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png"></p>
+<h1 id="合并节"><a href="#合并节" class="headerlink" title="合并节"></a>合并节</h1><h2 id="修改节表个数"><a href="#修改节表个数" class="headerlink" title="修改节表个数"></a>修改节表个数</h2><p>合并之后节数量-1，这里改为7</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png"></p>
+<h2 id="修改节表信息"><a href="#修改节表信息" class="headerlink" title="修改节表信息"></a>修改节表信息</h2><p>要将节进行合并，就需要修改节表信息</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png"></p>
+<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a href="#DWORD-SizeOfRawData和DWORD-VirtualSize" class="headerlink" title="DWORD SizeOfRawData和DWORD VirtualSize"></a>DWORD SizeOfRawData和DWORD VirtualSize</h3><p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
+<p>最后保存即可</p>
+<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
+<h2 id="最终效果-1"><a href="#最终效果-1" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png"></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png"></p>
 
                 
             </div>
@@ -1061,7 +1120,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">37.6k</span>
+                        class="white-color">38.4k</span>
             
             
             

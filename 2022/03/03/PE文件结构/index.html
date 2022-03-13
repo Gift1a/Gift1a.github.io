@@ -466,7 +466,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-12
+                    2022-03-13
                 </div>
                 
 
@@ -629,8 +629,8 @@
 <p>5、填充，注意小端序，E8跟着计算后的地址，E9跟着计算后的OEP（ImageBase+EntryPoint）</p>
 <p>6、将原本的EntryOfPoint改为我们填充数据在内存中的地址</p>
 <h1 id="任意代码节空白区添加代码"><a href="#任意代码节空白区添加代码" class="headerlink" title="任意代码节空白区添加代码"></a>任意代码节空白区添加代码</h1><p>从内存转为硬盘文件计算大小-最后一个节的初始位置+最后一个节的大小</p>
-<h1 id="新增节-添加代码"><a href="#新增节-添加代码" class="headerlink" title="新增节-添加代码"></a>新增节-添加代码</h1><p>新增之后，修改NumberOfSections，节表信息，节表后面必须跟着一定长度的00数据（空白区），所以要计算增加之后SizeofHeaders会不会大于PointerOfRawData，并且在新增节最后加上一个节长度的00</p>
-<p>计算内存偏移VirtualAddress（RVA）时，根据上一个节区的VIrtualAddress+（SizofRawData/VirtualSize[谁大加谁]）按照内存对齐后的数</p>
+<h1 id="新增节-添加代码"><a href="#新增节-添加代码" class="headerlink" title="新增节-添加代码"></a>新增节-添加代码</h1><p>新增之后，修改NumberOfSections，节表信息，节表后面必须跟着一定长度的00数据（空白区），所以要计算增加之后SizeofHeaders会不会大于PointerOfRawData，并且在新增节最后加上一个节表信息长度的00</p>
+<p>计算内存偏移VirtualAddress（RVA）时，根据上一个节区的VirtualAddress+（SizofRawData/VirtualSize[谁大加谁]）按照内存对齐后的数</p>
 <p>如果编译器在节表中加入一些数据，而我们不能修改，节表又不能断，只能将NT头前移（加入数据之前的），这样再去添加新的节表信息，就不会占用编译器加入的数据</p>
 <p>当DOS到NT头大小不够开辟一个节表的信息，只能扩充最后一个节</p>
 <h1 id="扩大节-合并节-数据目录"><a href="#扩大节-合并节-数据目录" class="headerlink" title="扩大节-合并节-数据目录"></a>扩大节-合并节-数据目录</h1><p>扩大节：在内存中进行扩大，然后再还原回文件中，还原的时候要修改参数</p>
@@ -640,7 +640,9 @@
 <p>4、修改SizeofImage</p>
 <p>合并节：合并之后节表有空间进行添加节区</p>
 <p>VirtualSize=SizeofImage-VIrtualAddress</p>
+<blockquote>
 <p>数据目录-里面存储各种表的信息</p>
+</blockquote>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646564515662.png"></p>
 <p>下面介绍几种比较重要的</p>
 <h1 id="DLL-动态链接库和静态链接库"><a href="#DLL-动态链接库和静态链接库" class="headerlink" title="DLL-动态链接库和静态链接库"></a>DLL-动态链接库和静态链接库</h1><p>使用的时候都需要include</p>
@@ -1405,7 +1407,7 @@ CHAR Name[1];//不定长,字符串
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">37.6k</span>
+                        class="white-color">38.4k</span>
             
             
             
