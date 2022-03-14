@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    7 分
                 </div>
                 
 
@@ -627,7 +627,15 @@
 <h2 id="修改ImageBase"><a href="#修改ImageBase" class="headerlink" title="修改ImageBase"></a>修改ImageBase</h2><p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
 <p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
 <p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
-<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1>
+<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1><p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
+<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
+<h2 id="新增节区"><a href="#新增节区" class="headerlink" title="新增节区"></a>新增节区</h2><h2 id="复制导入表信息"><a href="#复制导入表信息" class="headerlink" title="复制导入表信息"></a>复制导入表信息</h2><p> 拷贝原来的导入表到新节中 </p>
+<h2 id="新增导入表"><a href="#新增导入表" class="headerlink" title="新增导入表"></a>新增导入表</h2><h2 id="新增INT表和IAT表"><a href="#新增INT表和IAT表" class="headerlink" title="新增INT表和IAT表"></a>新增INT表和IAT表</h2><p>至少八字节</p>
+<h2 id="修改Name"><a href="#修改Name" class="headerlink" title="修改Name"></a>修改Name</h2><p> 存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
+<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a href="#创建struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="创建struct _IMAGE_IMPORT_BY_NAME"></a>创建struct _IMAGE_IMPORT_BY_NAME</h2><p>将函数名称赋值给结构体的第二个变量</p>
+<h2 id="修改INT和IAT指向的地址"><a href="#修改INT和IAT指向的地址" class="headerlink" title="修改INT和IAT指向的地址"></a>修改INT和IAT指向的地址</h2><p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
+<h2 id="修改数据目录"><a href="#修改数据目录" class="headerlink" title="修改数据目录"></a>修改数据目录</h2><p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size </p>
+
                 
             </div>
             <hr/>
@@ -1145,7 +1153,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">38.9k</span>
+                        class="white-color">39.1k</span>
             
             
             
@@ -1439,9 +1447,9 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 
 </html>

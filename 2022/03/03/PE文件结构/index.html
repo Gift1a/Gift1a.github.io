@@ -804,27 +804,23 @@
 <h1 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h1><p>作用：从其他第三方程序导入API，以供本程序调用</p>
 <p>在exe运行的时候加载器会遍历导入表，将导入表中所有dll加载到进程中，被加载的DLL的DLLMain就会被调用</p>
 <p>通过导入表可以知道程序使用了哪些函数</p>
-<h2 id="导入表解析"><a href="#导入表解析" class="headerlink" title="导入表解析"></a>导入表解析</h2><h3 id="重要字段"><a href="#重要字段" class="headerlink" title="重要字段"></a>重要字段</h3><pre class="language-none"><code class="language-none">DWORD OriginalFirstThunk;</code></pre>
+<h2 id="导入表解析"><a href="#导入表解析" class="headerlink" title="导入表解析"></a>导入表解析</h2><h3 id="重要字段"><a href="#重要字段" class="headerlink" title="重要字段"></a>重要字段</h3><pre class="language-c" data-language="c"><code class="language-c">DWORD OriginalFirstThunk;</code></pre>
 
 <p>指向导入名称表（INT）的RVA</p>
-<pre class="language-none"><code class="language-none">DWORD   FirstThunk;</code></pre>
+<pre class="language-c" data-language="c"><code class="language-c">DWORD   FirstThunk;</code></pre>
 
 <p>指向导入地址表（IAT）的RVA</p>
-<pre class="language-none"><code class="language-none">DWORD   Name;</code></pre>
+<pre class="language-c" data-language="c"><code class="language-c">DWORD   Name;</code></pre>
 
 <p>指向导入映像文件的名字</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788456499.png"></p>
 <p>计算后跳转过去，注意要算的是FOA，但是这里RVA和FOA一样 </p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788490238.png"></p>
-<p>其中IAT 与 INT都指向 IMAGE_THUNK_DATA32</p>
+<p>其中IAT与INT都指向 IMAGE_THUNK_DATA32（虽然二者的地址不同）</p>
 <p>INT-以全0结尾</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788999608.png">          函数名数组(对应IMAGE_THUNK_DATA32结构体数组,每一个结构体就是一个联合体) </p>
-<p>CEAC指向这里</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646789198251.png"></p>
-<p>导入表是一个结构体数组，每个导入表对应一个dll</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788060508.png"></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788999608.png">          函数名数组(对应IMAGE_THUNK_DATA32结构体数组,每一个结构体就是一个联合体-4字节) </p>
 <pre class="language-c" data-language="c"><code class="language-c">typedef struct  _IMAGE_THUNK_DATA32{
-union{
+union{//联合体，实际是4字节
 DWORD ForwarderString;
 DWORD Function;//导入函数的地址,在加载到内存之后,这里才起作用
 DWORD Ordinal;//假如是序号导入的,会用到这里
@@ -839,6 +835,10 @@ CHAR Name[1];//不定长,字符串
 
 }</code></pre>
 
+<p>CEAC指向这里</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646789198251.png"></p>
+<p>导入表是一个结构体数组，每个导入表对应一个dll</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788060508.png"></p>
 <h1 id="IAT表-导入地址表"><a href="#IAT表-导入地址表" class="headerlink" title="IAT表-导入地址表"></a>IAT表-导入地址表</h1><p> 记录程序正在使用哪些库中的哪些函数 </p>
 <p>分为两个过程，在文件中存储的是存放函数的地址，在内存中存放函数</p>
 <p>在文件运行前类似于call [地址]</p>
@@ -860,13 +860,13 @@ CHAR Name[1];//不定长,字符串
 <p> 如果这个4字节数的最高位（二进制）为1，那么抹去这个最高位之后，所表示的数就是要导入的函数的序号；如果最高位是0，那这个数就也是一个RVA，指向IMAGE_IMPORT_BY_NAME结构体（包含真正的导入函数的名字字符串，以0结尾）。INT表以4字节0结尾。 </p>
 </blockquote>
 <p>根据INT存储的RVA进行跳转</p>
-<h4 id="struct-IMAGE-IMPORT-BY-NAME"><a href="#struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="struct _IMAGE_IMPORT_BY_NAME"></a>struct _IMAGE_IMPORT_BY_NAME</h4><p>1、WORD Hint，可能为0，编译器决，如果不为0，则是函数在导出表中的索引</p>
+<h4 id="struct-IMAGE-IMPORT-BY-NAME"><a href="#struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="struct _IMAGE_IMPORT_BY_NAME"></a>struct _IMAGE_IMPORT_BY_NAME</h4><p>1、WORD Hint，可能为0，编译器决定，如果不为0，则是函数在导出表中的索引</p>
 <p>2、BYTE Name[1]，函数名称，以0结尾</p>
 <h3 id="NAME"><a href="#NAME" class="headerlink" title="NAME"></a>NAME</h3><p>DLL的名字，以0结尾</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999638790.png"></p>
 <h3 id="ULONG-FirstThunk"><a href="#ULONG-FirstThunk" class="headerlink" title="ULONG FirstThunk"></a>ULONG FirstThunk</h3><p>根据RVA跳转，发现存储的值和INT的一样，这个存储的是IAT，当文件加载后，会发现IAT会改变</p>
-<h2 id="导入表加载过程"><a href="#导入表加载过程" class="headerlink" title="导入表加载过程"></a>导入表加载过程</h2><p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAzMjg0Ni5wbmc-1647000237348.png" alt="PE文件加载前">   </p>
-<p> <img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAyNTEwMy5wbmc.png" alt="PE文件加载后"> </p>
+<h2 id="导入表加载过程"><a href="#导入表加载过程" class="headerlink" title="导入表加载过程"></a>导入表加载过程</h2><p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAzMjg0Ni5wbmc-1647000237348.png" alt="PE文件加载前"></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAyNTEwMy5wbmc.png" alt="PE文件加载后"> </p>
 <p>可以看到IAT表变成了函数的地址</p>
 <p> IAT表会存储dll的函数的地址，方便调用该函数时，直接取IAT表这个地址内的值，作为函数地址，去CALL。</p>
 <h1 id="绑定导入表-struct-IMAGE-BOUND-IMPORT-DESCRIPTOR"><a href="#绑定导入表-struct-IMAGE-BOUND-IMPORT-DESCRIPTOR" class="headerlink" title="绑定导入表- struct _IMAGE_BOUND_IMPORT_DESCRIPTOR"></a>绑定导入表- struct _IMAGE_BOUND_IMPORT_DESCRIPTOR</h1><p>可选NT头里的结构</p>
@@ -1409,7 +1409,7 @@ CHAR Name[1];//不定长,字符串
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">38.9k</span>
+                        class="white-color">39.1k</span>
             
             
             
@@ -1703,9 +1703,9 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 
 </html>
