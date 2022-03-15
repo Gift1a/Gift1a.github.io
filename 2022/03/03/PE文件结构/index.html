@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-14
+                    2022-03-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    7k
+                    7.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    25 分
+                    26 分
                 </div>
                 
 
@@ -696,11 +696,11 @@
 <p>显式链接</p>
 <p>LoadLibary，GetProAddress</p>
 <h1 id="导出表"><a href="#导出表" class="headerlink" title="导出表"></a>导出表</h1><p>作用：记载我们写的dll或者exe导出的函数</p>
-<h2 id="导出表重要成员"><a href="#导出表重要成员" class="headerlink" title="导出表重要成员"></a>导出表重要成员</h2><p>1、指向导出表文件名的字符串</p>
-<p>2、导出函数的起始序号</p>
-<p>3、导出函数地址表RVA</p>
-<p>4、函数名称地址表RVA</p>
-<p>5、函数序号地址表</p>
+<h2 id="导出表重要成员"><a href="#导出表重要成员" class="headerlink" title="导出表重要成员"></a>导出表重要成员</h2><p>1、指向导出表文件名的字符串-DWORD Name</p>
+<p>2、导出函数的起始序号-DWORD Base</p>
+<p>3、导出函数地址表RVA-DWORD AddressOfFunctions</p>
+<p>4、函数名称地址表RVA-DWORD AddressOfNames</p>
+<p>5、函数序号地址表RVA-DWORD AddressOfNameOrdinals</p>
 <h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>1、找出导出表RVA的偏移</p>
 <p>首先我们要在数据目录的导出表信息的第一项，也就是导出表地址的RVA偏移是多少</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621065982.png"></p>
@@ -721,7 +721,7 @@
 <h3 id="Dword-Name"><a href="#Dword-Name" class="headerlink" title="Dword Name"></a>Dword Name</h3><p>绿框的4个字节存储的是dll名称的RVA，想查看的话，可以计算FOA，和前面一样的，得到8250地址存储的是我们的dll名称，以00结尾</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621843130.png"></p>
 <h3 id="Dword-Base"><a href="#Dword-Base" class="headerlink" title="Dword Base"></a>Dword Base</h3><p>导出函数的起始序号</p>
-<p> DLL导出的函数如果给序号了，那么就从这个序号开始 </p>
+<p> DLL导出的函数如果给序号了，那么就从这个序号开始</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622459296.png"></p>
 <h3 id="Dword-NumberOfFunctions-所有的导出函数的个数"><a href="#Dword-NumberOfFunctions-所有的导出函数的个数" class="headerlink" title="Dword NumberOfFunctions-所有的导出函数的个数"></a>Dword NumberOfFunctions-所有的导出函数的个数</h3><p>前四个</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622410901.png"></p>
@@ -740,7 +740,7 @@
 <p>ImageBase+函数偏移就是函数在内存中的实际地址</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646623978690.png"></p>
 <p>可以看到这就是函数</p>
-<p> 还需要注意的就是,如果你按照序号导出. 1 3 4 5导出了4个函数. 在导入表中我们的函数地址表中的地址会有5个.原因就是.序号会给我们用0填充. 1 2 3 4 5 虽然第二项并没有.但是也会给我们导出. </p>
+<p> 还需要注意的就是，如果你按照序号导出1 3 4 5这4个函数，在导入表中我们的函数地址表中的地址会有5个，原因就是：中断的序号会给我们用0填充，２虽然没有，但是也会给我们导出. </p>
 <h4 id="函数名称表-AddressOfNames"><a href="#函数名称表-AddressOfNames" class="headerlink" title="函数名称表-AddressOfNames"></a>函数名称表-AddressOfNames</h4><p>函数名称表也是存储名称的RVA，四个字节存储一个，RVA的个数由以函数名称导出函数个数来决定（DWORD  NumberOfNames）</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625166524.png"></p>
 <p>转为FOA就是0x805e，0x8071,0x8082,0x8093</p>
@@ -751,20 +751,21 @@
 <p>　　　　SUB</p>
 <p>　　　　ADD</p>
 <p>　　　　MUL</p>
-<p>导出三个函数，那么第一项就为 ADD，因为按照字母排序.A在前边.后面依次类推. 所以我们上面看到的函数名称 ACquireSRW 这个函数名称，并不是第一个导出的函数.</p>
-<h4 id="函数序号表-AddressOfNumberOrdinals"><a href="#函数序号表-AddressOfNumberOrdinals" class="headerlink" title="函数序号表-AddressOfNumberOrdinals"></a>函数序号表-AddressOfNumberOrdinals</h4><p>给名称用的中转表</p>
+<p>导出三个函数，那么第一项就为 ADD，因为按照字母排序，A在前边，后面依次类推，所以我们上面看到的函数名称 ACquireSRW 这个函数名称，并不是第一个导出的函数.</p>
+<h4 id="函数序号表-AddressOfNumberOrdinals－存储的是RVA"><a href="#函数序号表-AddressOfNumberOrdinals－存储的是RVA" class="headerlink" title="函数序号表-AddressOfNumberOrdinals－存储的是ＲＶＡ"></a>函数序号表-AddressOfNumberOrdinals－存储的是ＲＶＡ</h4><p>给名称用的中转表</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625803927.png"></p>
 <p>和函数名称表大小相同</p>
-<p>序号表的值+导出函数起始序号（Base）才是函数序号，然后通过函数序号寻找地址</p>
+<h4 id="按名称导出"><a href="#按名称导出" class="headerlink" title="按名称导出"></a>按名称导出</h4><p>得到函数名称后去AddressOfNames中的函数名称对比，得到索引后根据索引取出AddressOfNameOrdinals存储的值，以此为索引去函数地址表找到函数的地址</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1647329750554.png" alt="按名称导出过程"></p>
 <p>函数数量计算方式=最大序号-最小序号+1，（连续的算得准）不连续的话在函数地址表会留有多余的地址，但是多余的地址没有被使用</p>
-<blockquote>
+<h4 id="按序号导出"><a href="#按序号导出" class="headerlink" title="按序号导出"></a>按序号导出</h4><blockquote>
 <p>当使用序号导出的时候不需要使用序号表，直接将序号-Base作为索引去函数地址表找即可</p>
 </blockquote>
 <h4 id="导出的过程"><a href="#导出的过程" class="headerlink" title="导出的过程"></a>导出的过程</h4><p>系统和我们前面说的不一样</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646724098510.png" alt="1"></p>
 <p>根据函数地址表找，如果索引在序号表中，说明是按名字导出的，再去名称表找对应，索引和序号表中的相同</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646724264502.png"></p>
-<p>这里的100a索引是3，在序号表中没有，所以是按照序号导出的，序号为索引+Base=005</p>
+<p>这里的100a索引是3，在序号表中没有，所以不是按照序号导出的，序号可算，为索引+Base=005</p>
 <h1 id="重定位表-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable"><a href="#重定位表-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable" class="headerlink" title="重定位表-struct IMAGE_DATA_DIRECTORY BaseRelocationTable"></a>重定位表-struct IMAGE_DATA_DIRECTORY BaseRelocationTable</h1><h2 id="程序的加载过程"><a href="#程序的加载过程" class="headerlink" title="程序的加载过程"></a>程序的加载过程</h2><p>系统加载的dll一般在高空间运行，一般是71**************</p>
 <p>先像贴图一样把dll贴在内存中，最后指向exe文件的入口点，exe开始运行</p>
 <p>我们自己写的dll的imageBase都是1000000，所以当多个dll同时使用，会存在地址已经被占用的问题，所以dl只能往后放，但是：</p>
@@ -804,6 +805,7 @@
 <h1 id="导入表"><a href="#导入表" class="headerlink" title="导入表"></a>导入表</h1><p>作用：从其他第三方程序导入API，以供本程序调用</p>
 <p>在exe运行的时候加载器会遍历导入表，将导入表中所有dll加载到进程中，被加载的DLL的DLLMain就会被调用</p>
 <p>通过导入表可以知道程序使用了哪些函数</p>
+<p> 导入表，是为了提供的要导入的dll的函数的地址，只不过由于dll地址不固定，所以每次都会重新修正 </p>
 <h2 id="导入表解析"><a href="#导入表解析" class="headerlink" title="导入表解析"></a>导入表解析</h2><h3 id="重要字段"><a href="#重要字段" class="headerlink" title="重要字段"></a>重要字段</h3><pre class="language-c" data-language="c"><code class="language-c">DWORD OriginalFirstThunk;</code></pre>
 
 <p>指向导入名称表（INT）的RVA</p>
@@ -835,17 +837,6 @@ CHAR Name[1];//不定长,字符串
 
 }</code></pre>
 
-<p>CEAC指向这里</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646789198251.png"></p>
-<p>导入表是一个结构体数组，每个导入表对应一个dll</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788060508.png"></p>
-<h1 id="IAT表-导入地址表"><a href="#IAT表-导入地址表" class="headerlink" title="IAT表-导入地址表"></a>IAT表-导入地址表</h1><p> 记录程序正在使用哪些库中的哪些函数 </p>
-<p>分为两个过程，在文件中存储的是存放函数的地址，在内存中存放函数</p>
-<p>在文件运行前类似于call [地址]</p>
-<p>在文件运行时类似于call [上面地址存放的值]</p>
-<h2 id="IAT表存在的原因"><a href="#IAT表存在的原因" class="headerlink" title="IAT表存在的原因"></a>IAT表存在的原因</h2><p> 一般程序在调用自身函数的时候，自身函数地址RAV是固定的；但是当程序在调用dll里的函数的时候，由于dll的地址会发生重定位，导致dll里的函数地址每次都会发生变化。 </p>
-<p>为了准确调用dll函数的地址，构造了IAT表来存储程序运行时，即DLL文件重定位之后的dll函数的位置</p>
-<h1 id="导入表-1"><a href="#导入表-1" class="headerlink" title="导入表"></a>导入表</h1><p> 导入表，是为了提供的要导入的dll的函数的地址，只不过由于dll地址不固定，所以每次都会重新修正 </p>
 <h2 id="导入表结构"><a href="#导入表结构" class="headerlink" title="导入表结构"></a>导入表结构</h2><p>在可选PE头最后的十六个数组的导入表结构，这里存放的是RVA</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646998855451.png"></p>
 <p>跳转过去发现存储的是struct IMAGE_IMPORT_DESCRIPTOR ImportDescriptor[0]，这里存放的是真正的导入表结构</p>
@@ -865,7 +856,19 @@ CHAR Name[1];//不定长,字符串
 <h3 id="NAME"><a href="#NAME" class="headerlink" title="NAME"></a>NAME</h3><p>DLL的名字，以0结尾</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999638790.png"></p>
 <h3 id="ULONG-FirstThunk"><a href="#ULONG-FirstThunk" class="headerlink" title="ULONG FirstThunk"></a>ULONG FirstThunk</h3><p>根据RVA跳转，发现存储的值和INT的一样，这个存储的是IAT，当文件加载后，会发现IAT会改变</p>
+<h4 id="IAT表-导入地址表"><a href="#IAT表-导入地址表" class="headerlink" title="IAT表-导入地址表"></a>IAT表-导入地址表</h4><p> 记录程序正在使用哪些库中的哪些函数 </p>
+<p>分为两个过程，在文件中存储的是存放函数的地址，在内存中存放函数</p>
+<p>在文件运行前类似于call [地址]</p>
+<p>在文件运行时类似于call [上面地址存放的值]</p>
+<h4 id="IAT表存在的原因"><a href="#IAT表存在的原因" class="headerlink" title="IAT表存在的原因"></a>IAT表存在的原因</h4><p> 一般程序在调用自身函数的时候，自身函数地址RAV是固定的；但是当程序在调用dll里的函数的时候，由于dll的地址会发生重定位，导致dll里的函数地址每次都会发生变化。 </p>
+<p>为了准确调用dll函数的地址，构造了IAT表来存储程序运行时，即DLL文件重定位之后的dll函数的位置</p>
 <h2 id="导入表加载过程"><a href="#导入表加载过程" class="headerlink" title="导入表加载过程"></a>导入表加载过程</h2><p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAzMjg0Ni5wbmc-1647000237348.png" alt="PE文件加载前"></p>
+<p>加载过程</p>
+<p>先找ＤＬＬ，再确定使用的函数</p>
+<h3 id="寻找DLL"><a href="#寻找DLL" class="headerlink" title="寻找DLL"></a>寻找DLL</h3><p>先根据导入表的NAME找到DLL名称和DLL的INT和IAT表，开始的时候INT和IAT数据相同，但是存储位置不同</p>
+<h3 id="查INT表"><a href="#查INT表" class="headerlink" title="查ＩＮＴ表"></a>查ＩＮＴ表</h3><p>因为导出的时候可以按序号导出也可以按函数名称导出，所以为了区分，ｉｍａｇｅ＿ｔｈｕｎｋ＿ｄａｔａ最高位为１时，表示其存储的是序号，而剩下的３１位表示序号，否则ｉｍａｇｅ＿ｔｈｕｎｋ＿ｄａｔａ存储的是函数名称的ＲＶＡ</p>
+<h3 id="修改IAT"><a href="#修改IAT" class="headerlink" title="修改ＩＡＴ"></a>修改ＩＡＴ</h3><p>使用ＧＥＴＰｒｏＡｄｄｒ（ｍｏｄｕｌｅ，）</p>
+<p>将前面查找到的函数地址填充进ＩＡＴ表中</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAyNTEwMy5wbmc.png" alt="PE文件加载后"> </p>
 <p>可以看到IAT表变成了函数的地址</p>
 <p> IAT表会存储dll的函数的地址，方便调用该函数时，直接取IAT表这个地址内的值，作为函数地址，去CALL。</p>
@@ -893,7 +896,7 @@ CHAR Name[1];//不定长,字符串
 
 <p> 除了第三个属性保留，其他与 _IMAGE_BOUND_IMPORT_DESCRIPTOR 相同。 </p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1647049008006.png" alt="绑定导入表"></p>
-<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1>
+
                 
             </div>
             <hr/>
@@ -1409,7 +1412,7 @@ CHAR Name[1];//不定长,字符串
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">39.1k</span>
+                        class="white-color">39.2k</span>
             
             
             
