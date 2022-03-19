@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-17
+                    2022-03-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    831
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    10 分
                 </div>
                 
 
@@ -623,6 +623,218 @@ int main()
 		}
 	}
 	fclose(pfile);
+	return 0;
+}</code></pre>
+
+<h1 id="PE插入shellcode"><a href="#PE插入shellcode" class="headerlink" title="PE插入shellcode"></a>PE插入shellcode</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;Windows.h&gt;
+#include&lt;malloc.h&gt;
+#include&lt;stdlib.h&gt;
+
+#define MessageBoxA_ADDR 0x76C20F40//MessageBoxA的地址
+#define shellcode_len 0x12//定义shellcode的长度
+//输入路径和输出路径
+char file_path[] = "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\notepad++.exe";
+char final_path[] = "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\5.exe";
+
+//插入的shellcode
+BYTE shellcode[] = {
+	0x6A,0x00,0x6A,0x00,0x6A,0x00,0x6A,0x00,
+	0xE8,0x00,0x00,0x00,0x00,
+	0xE9,0x00,0x00,0x00,0x00
+};
+int LoadPE(LPVOID*pFileBuffer)//二级指针存储的是一级指针的地址
+{
+	FILE* pfile;
+	DWORD FileSize = 0;
+	LPVOID pTempBuffer;
+	pfile = fopen(file_path, "rb");
+	//通过fseek和ftell返回文件长度，fseek将fp指针设置在文件尾，ftell获取当前fp指针的位置与文件首的偏移
+	fseek(pfile, 0, SEEK_END);
+	FileSize = ftell(pfile);
+
+	//重新设置回开头
+	fseek(pfile, 0, SEEK_SET);
+	//开辟空间，malloc函数返回开辟空间的起始地址
+	pTempBuffer = malloc(FileSize);
+
+	//将文件中的内容读取到临时Buffer中
+	fread(pTempBuffer, FileSize, 1, pfile);
+
+	//将分配返回的地址存储到FileBuffer中
+	*pFileBuffer = pTempBuffer;
+	//temp指针指向空
+	pTempBuffer = NULL;
+	fclose(pfile);
+	return FileSize;
+}
+
+int CopyFileBufferToImageBuffer(LPVOID pFileBuffer,LPVOID* pImageBuffer)//pImageBuffer是void类型指针，指向的是读取到内存中的文件内容首地址
+{
+	//初始化PE结构体指针
+	PIMAGE_DOS_HEADER pDOSHeader = NULL;
+	PIMAGE_NT_HEADERS pNTHeader = NULL;
+	PIMAGE_FILE_HEADER pFileHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
+	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
+	//初始化tempBuffer
+	LPVOID pTempBuffer = NULL;
+	//通过强制转换类型来限制长度,转为Dos头的指针那么得到的就是Dos头的信息
+	pDOSHeader = PIMAGE_DOS_HEADER(pFileBuffer);
+	pNTHeader = (PIMAGE_NT_HEADERS)((DWORD)pFileBuffer + pDOSHeader-&gt;e_lfanew);//因为void类型的指针不能直接运算，所以将其转为int整型，再做加减得到其他地址
+	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
+	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + IMAGE_SIZEOF_FILE_HEADER);
+	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + pFileHeader-&gt;SizeOfOptionalHeader);
+	
+	//分配ImageBuffer内存
+	pTempBuffer = malloc(pOptionalHeader-&gt;SizeOfImage);
+	//初始化ImageBuffer内存
+	memset(pTempBuffer, 0, pOptionalHeader-&gt;SizeOfImage);
+	//拷贝数据
+	memcpy(pTempBuffer, pDOSHeader, pOptionalHeader-&gt;SizeOfHeaders);//参数说明，目标数据、被使用数据，长度
+	
+	//循环拷贝节表信息
+	PIMAGE_SECTION_HEADER pTempSectionHeader = pSectionHeader;
+	for (int i = 0; i &lt; pFileHeader-&gt;NumberOfSections; i++,pTempSectionHeader++)
+	{
+		//因为memcpy只接受void类型的指针，所以要先强制转换
+		memcpy((void*)((DWORD)pTempBuffer + pTempSectionHeader-&gt;VirtualAddress), (void*)((DWORD)pFileBuffer + pTempSectionHeader-&gt;PointerToRawData), pTempSectionHeader-&gt;SizeOfRawData);
+	}
+	//赋值给pImageBuffer
+	*pImageBuffer = pTempBuffer;
+	pTempBuffer = NULL;
+	return pOptionalHeader-&gt;SizeOfImage;
+}
+
+int CopyImageBufferToNewBuffer(LPVOID pImageBuffer,LPVOID* pNewBuffer)
+{
+	//初始化PE结构体指针
+	PIMAGE_DOS_HEADER pDOSHeader = NULL;
+	PIMAGE_NT_HEADERS pNTHeader = NULL;
+	PIMAGE_FILE_HEADER pFileHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
+	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
+	//初始化TempBuffer
+	LPVOID pTempBuffer = NULL;
+
+	//结构体强制转换
+	pDOSHeader = PIMAGE_DOS_HEADER(pImageBuffer);
+	pNTHeader = (PIMAGE_NT_HEADERS)((DWORD)pImageBuffer + pDOSHeader-&gt;e_lfanew);//因为void类型的指针不能直接运算，所以将其转为int整型，再做加减得到其他地址
+	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
+	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + IMAGE_SIZEOF_FILE_HEADER);
+	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + pFileHeader-&gt;SizeOfOptionalHeader);
+
+	//计算NewBuffer大小
+	DWORD new_buffer_size = pOptionalHeader-&gt;SizeOfHeaders;
+	//节表大小计算
+	PIMAGE_SECTION_HEADER pTempSectionHeader = pSectionHeader;
+	//注意这里要使用临时变量，否则循环的时候，结构体指针后移，指向改变
+	for (int i = 0; i &lt; pFileHeader-&gt;NumberOfSections; i++, pTempSectionHeader++)
+	{
+		new_buffer_size += pTempSectionHeader-&gt;SizeOfRawData;
+		//printf("%X\n", pSectionHeader-&gt;SizeOfRawData);
+	}
+	printf("%X\n", new_buffer_size);
+	//开辟空间并且设置为0
+	pTempBuffer = malloc(new_buffer_size);
+	memset(pTempBuffer, 0, new_buffer_size);
+	//复制ImageBuffer信息
+	memcpy(pTempBuffer, pDOSHeader, pOptionalHeader-&gt;SizeOfHeaders);
+	//复制节表信息
+	pTempSectionHeader = pSectionHeader;
+	for (int i = 0; i &lt; pFileHeader-&gt;NumberOfSections; i++, ++pTempSectionHeader)
+	{
+		//因为memcpy只接受void类型的指针，所以要先强制转换
+		memcpy((PWORD)((DWORD)pTempBuffer + pTempSectionHeader-&gt;PointerToRawData), (PWORD)((DWORD)pImageBuffer + pTempSectionHeader-&gt;VirtualAddress), pTempSectionHeader-&gt;SizeOfRawData);
+	}
+	//赋值给pImageBuffer
+	*pNewBuffer = pTempBuffer;
+	pTempBuffer = NULL;
+	return new_buffer_size;
+}
+void newbuffer_write2_exe(PVOID NewFileBuffer, DWORD FileSize, char* FilePath)
+{
+	FILE* fp1 = fopen(FilePath, "wb");
+	if (fp1 != NULL)
+	{
+		fwrite(NewFileBuffer, FileSize, 1, fp1);
+		printf("成功存盘");
+	}
+	fclose(fp1);
+	return ;
+
+}
+void ADD_Opcode(LPVOID pImageBuffer, LPVOID* pNewBuffer)
+{
+	//初始化PE结构体指针
+	PIMAGE_DOS_HEADER pDOSHeader = NULL;
+	PIMAGE_NT_HEADERS pNTHeader = NULL;
+	PIMAGE_FILE_HEADER pFileHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
+	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
+	//通过强制转换类型来限制长度,转为Dos头的指针那么得到的就是Dos头的信息
+	pDOSHeader = PIMAGE_DOS_HEADER(pImageBuffer);
+	pNTHeader = (PIMAGE_NT_HEADERS)((DWORD)pImageBuffer + pDOSHeader-&gt;e_lfanew);//因为void类型的指针不能直接运算，所以将其转为int整型，再做加减得到其他地址
+	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
+	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + IMAGE_SIZEOF_FILE_HEADER);
+	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + pFileHeader-&gt;SizeOfOptionalHeader);
+	//判断能否插入
+	if (shellcode_len &gt; pSectionHeader-&gt;SizeOfRawData - pSectionHeader-&gt;Misc.VirtualSize)
+	{
+		printf("长度不足，无法插入\n");
+		free(pImageBuffer);
+	}
+
+	//计算空白位置，转为char*指针
+	PBYTE code_begin = (PBYTE)((DWORD)pImageBuffer + pSectionHeader-&gt;VirtualAddress+ pSectionHeader-&gt;Misc.VirtualSize);
+	//插入shellcode
+	memcpy(code_begin, shellcode, shellcode_len);
+	//计算E8地址
+	DWORD callADDr = (MessageBoxA_ADDR - (pOptionalHeader-&gt;ImageBase + pSectionHeader-&gt;VirtualAddress + pSectionHeader-&gt;Misc.VirtualSize + 0xD));
+	//将callADDR插入到E8之后,填充数据
+	*(PDWORD)((DWORD)code_begin + 0x09) = callADDr;
+
+	//计算jmp地址,跳转的值=真实地址-下一条指令地址
+	DWORD jmpADDr = pOptionalHeader-&gt;ImageBase + pOptionalHeader-&gt;AddressOfEntryPoint - ((DWORD)code_begin + pOptionalHeader-&gt;ImageBase + shellcode_len-(DWORD)pImageBuffer);
+	*(PDWORD)((code_begin + 14)) = jmpADDr;
+
+	//修改OEP
+	pOptionalHeader-&gt;AddressOfEntryPoint = ((DWORD)code_begin - (DWORD)pImageBuffer);//也可以使用VirtualAddress+VirtualSize
+
+	//还原为NewBuffer
+	DWORD ret2=CopyImageBufferToNewBuffer(pImageBuffer, pNewBuffer);
+	
+	//存盘
+	newbuffer_write2_exe(*pNewBuffer,ret2, final_path);
+	return ;
+}
+void operate_pe()
+{
+	LPVOID pFileBuffer = NULL;//LPVOID相当于void*
+	LPVOID pNewBuffer = NULL;
+	LPVOID pImageBuffer = NULL;
+	//读取文件内容到FileBuffer中d
+	DWORD file_size = LoadPE(&amp;pFileBuffer);//二级指针void**,将存储指针的地址传过去
+	printf("文件长度为：  %08X\n", file_size);
+
+	//将FileBuffer拉伸为ImageBuffer
+	DWORD Image_Size = CopyFileBufferToImageBuffer(pFileBuffer,&amp;pImageBuffer);
+	printf("拉伸后的大小为：  %08X\n",Image_Size);
+
+	//添加opcode
+	ADD_Opcode(pImageBuffer, &amp;pNewBuffer);
+
+	//开辟的内存需要free掉
+	free(pFileBuffer);
+	free(pNewBuffer);
+	free(pImageBuffer);
+	return;
+}
+int main()
+{
+	operate_pe();
 	return 0;
 }</code></pre>
 
@@ -1150,7 +1362,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">40.1k</span>
+                        class="white-color">41.3k</span>
             
             
             
@@ -1444,9 +1656,9 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 
 </html>
