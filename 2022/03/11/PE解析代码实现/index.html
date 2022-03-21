@@ -32,8 +32,8 @@
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-19
+                    2022-03-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.1k
+                    2.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    13 分
                 </div>
                 
 
@@ -835,6 +835,151 @@ void operate_pe()
 int main()
 {
 	operate_pe();
+	return 0;
+}</code></pre>
+
+<h1 id="PE文件新增节"><a href="#PE文件新增节" class="headerlink" title="PE文件新增节"></a>PE文件新增节</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;windows.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;malloc.h&gt;
+
+
+/*
+思路：
+1、读取文件信息到buffer中
+判断节区信息够不够大小，两个节表的大小
+2、找到节区的最后位置，开辟指定大小的空间
+3、修改信息-NumberOfSection、SizeOfRawData、VirtualSize（注意要对齐）
+*/
+#define New_Buffer_Size 0x1000
+#define File_Path "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\notepad++.exe"
+#define Final_Path "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\6++.exe"
+int Open_File(LPVOID *pFileBuffer)
+{
+	FILE* pfile = NULL;
+	
+	LPVOID TempBuffer = NULL;
+	pfile = fopen(File_Path, "rb");
+	fseek(pfile, 0, SEEK_END);
+	DWORD file_size = ftell(pfile);
+	//设置文件指针到文件头
+	fseek(pfile, 0, SEEK_SET);
+	TempBuffer = malloc(file_size);
+	fread(TempBuffer , file_size, 1, pfile);
+	
+	*pFileBuffer = TempBuffer;
+	TempBuffer = NULL;
+	fclose(pfile);
+	return file_size;
+}
+int Add_Section(LPVOID FileBuffer, LPVOID* pNewBuffer,DWORD file_size)
+{
+	//定义结构体指针
+	PIMAGE_DOS_HEADER pDOSHeader = NULL;
+	PIMAGE_NT_HEADERS32 pNTHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
+	PIMAGE_SECTION_HEADER pSection = NULL;
+	PIMAGE_FILE_HEADER pFileHeader = NULL;
+	PVOID pNewTempBuffer = NULL;
+	DWORD New_File_Size = 0;
+	
+	
+	//新增节
+	New_File_Size = file_size + 0x1000;
+	pNewTempBuffer = (PVOID)malloc(New_File_Size);
+	// 判断开辟空间是否成功
+	if (!pNewTempBuffer)
+	{
+		printf("pNewTempBuffer开辟空间失败!\n");
+		return 0;
+	}
+	// 初始化内存
+	memset(pNewTempBuffer, 0, New_File_Size);
+	// 将旧空间的内容copy到新的空间
+	memcpy(pNewTempBuffer, FileBuffer, file_size);
+
+	//读取信息
+	pDOSHeader = (PIMAGE_DOS_HEADER)(pNewTempBuffer);
+	pNTHeader = (PIMAGE_NT_HEADERS32)((DWORD)pNewTempBuffer + pDOSHeader-&gt;e_lfanew);
+	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
+	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + sizeof(IMAGE_FILE_HEADER));
+	pSection = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + sizeof(IMAGE_OPTIONAL_HEADER32));
+
+	//找到节表的最后位置
+	PIMAGE_SECTION_HEADER pfinal_Section = &amp;(pSection[pFileHeader-&gt;NumberOfSections - 1]);
+
+	//判断能否插入节表,因为在文件和内存中PE头和DOS头大小不变，直接计算即可
+	DWORD remain_size = (pOptionalHeader-&gt;SizeOfHeaders - pDOSHeader-&gt;e_lfanew - 4 - sizeof(IMAGE_FILE_HEADER) - sizeof(IMAGE_OPTIONAL_HEADER32) - sizeof(IMAGE_SECTION_HEADER) * pFileHeader-&gt;NumberOfSections);
+	if (remain_size &lt; 2 * sizeof(IMAGE_SECTION_HEADER))
+	{
+		printf("位置不够捏，想想其他办法吧~\n");
+	}
+	
+
+	//修改信息
+	// 初始化新增节信息
+	PVOID pSecName = &amp;pSection[pFileHeader-&gt;NumberOfSections].Name;
+	PDWORD pSecMisc = &amp;pSection[pFileHeader-&gt;NumberOfSections].Misc.VirtualSize;
+	PDWORD pSecVirtualAddress = &amp;pSection[pFileHeader-&gt;NumberOfSections].VirtualAddress;
+	PDWORD pSecSizeofRawData = &amp;pSection[pFileHeader-&gt;NumberOfSections].SizeOfRawData;
+	PDWORD pSecPointerToRawData = &amp;pSection[pFileHeader-&gt;NumberOfSections].PointerToRawData;
+	PDWORD pSecCharacteristic = &amp;pSection[pFileHeader-&gt;NumberOfSections].Characteristics;
+	//名字
+	memcpy(pSecName, ".mycode", 8);
+	//Misc
+	*pSecMisc = 0x1000;
+	//计算VirtualAddress=前一个节的VA+sizeofrawdata或者virtualSize内存对齐大小
+	DWORD Sec_Size = (pfinal_Section-&gt;SizeOfRawData &gt; pfinal_Section-&gt;Misc.VirtualSize) ? pfinal_Section-&gt;SizeOfRawData : pfinal_Section-&gt;Misc.VirtualSize;
+	//内存对齐
+	Sec_Size= (Sec_Size % pOptionalHeader-&gt;SectionAlignment) ? ((Sec_Size / pOptionalHeader-&gt;SectionAlignment) + 1) * pOptionalHeader-&gt;SectionAlignment : Sec_Size;
+	//修改VirtualAddress
+	*pSecVirtualAddress = pfinal_Section-&gt;VirtualAddress + Sec_Size;
+	//修改sizeofRawData
+	*pSecSizeofRawData = 0x1000;
+	//修改Pointer
+	DWORD size = pfinal_Section-&gt;SizeOfRawData;
+	DWORD File_Size= (size % pOptionalHeader-&gt;FileAlignment) ? ((size / pOptionalHeader-&gt;FileAlignment) + 1) * pOptionalHeader-&gt;FileAlignment : size;
+	*pSecPointerToRawData = pfinal_Section-&gt;PointerToRawData + File_Size;
+
+	*pSecCharacteristic = 0xFFFFFFFF;
+
+	//头部信息,先计算增加的长度在内存和文件拉伸的长度
+	DWORD Sec_ADD = (New_Buffer_Size % pOptionalHeader-&gt;SectionAlignment) ? ((New_Buffer_Size / pOptionalHeader-&gt;SectionAlignment) + 1) * pOptionalHeader-&gt;SectionAlignment : New_Buffer_Size;
+	DWORD File_ADD = 
+	pOptionalHeader-&gt;SizeOfImage += Sec_ADD;
+	pFileHeader-&gt;NumberOfSections += 1;
+
+	*pNewBuffer = pNewTempBuffer;
+	pNewTempBuffer = NULL;
+	return New_File_Size;
+}
+void Write_To_Newfile(DWORD New_File_Size, LPVOID pNewBuffer)
+{
+	FILE* fp;
+	fp = fopen(Final_Path, "wb");
+	fwrite(pNewBuffer, New_File_Size, 1, fp);
+	fclose(fp);
+	return ;
+}
+void PE_operate()
+{
+	DWORD new_file_size = 0;
+	PVOID pNewBuffer = NULL;
+	PVOID FileBuffer = NULL;
+	DWORD file_size = 0;
+	DWORD New_File_Size = 0;
+	//打开文件读取信息
+	file_size = Open_File(&amp;FileBuffer);
+	//新增节并且修改信息
+	New_File_Size=Add_Section(FileBuffer,&amp;pNewBuffer,file_size);
+
+	Write_To_Newfile(New_File_Size, pNewBuffer);
+}
+int main()
+{
+	PE_operate();
 	return 0;
 }</code></pre>
 
@@ -1362,7 +1507,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">41.3k</span>
+                        class="white-color">42k</span>
             
             
             
@@ -1656,9 +1801,9 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 
 </html>
