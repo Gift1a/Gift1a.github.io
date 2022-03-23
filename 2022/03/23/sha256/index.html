@@ -4,8 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="PE解析代码实现, Hexo">
-    <meta name="description" content="PE解析代码实现">
+    <meta name="keywords" content="sha256, Hexo">
+    <meta name="description" content="sha256学习">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>PE解析代码实现 | Hexo</title>
+    <title>sha256 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -322,12 +322,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/14.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">PE解析代码实现</h1>
+                    <h1 class="description center-align post-title">sha256</h1>
                 </div>
             </div>
         </div>
@@ -443,8 +443,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/PE/">
-                                <span class="chip bg-color">PE</span>
+                            <a href="/tags/Reverse/">
+                                <span class="chip bg-color">Reverse</span>
                             </a>
                         
                     </div>
@@ -459,28 +459,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-11
+                    2022-03-23
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-21
+                    2022-03-23
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    0
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    1 分
                 </div>
                 
 
@@ -503,487 +503,7 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="打印PE文件头部和节区信息"><a href="#打印PE文件头部和节区信息" class="headerlink" title="打印PE文件头部和节区信息"></a>打印PE文件头部和节区信息</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;malloc.h&gt;
-#include&lt;Windows.h&gt;
-
-//宏定义，方便后续使用
-
-//定义变量
-IMAGE_DOS_HEADER myDOS;
-LONG elf_new;
-IMAGE_NT_HEADERS32 myNTheader;
-IMAGE_OPTIONAL_HEADER32 myOPTIONheader;
-IMAGE_SECTION_HEADER mysection[100];
-
-int NUM_SECTION;
-
-int main()
-{
-	FILE* pfile;
-	pfile = fopen("D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\notepad++.exe", "r");//打开文件
-	fseek(pfile, 0, SEEK_SET);//参数说明，将fp指针从文件开头移动到0的位置
-	fread(&amp;myDOS, sizeof(IMAGE_DOS_HEADER), 1, pfile);//表示从fp开始的地方读取一次长度为sizeof(IMAGE_DOS_HEADER)的字节，存储到myDOS中
-	//DOS
-	printf("==============IMAGE_DOS_HEADER==============\n");
-	printf("DOS头：          %08X\n", myDOS.e_magic);
-	printf("NT头所在位置：   %08X\n", myDOS.e_lfanew);
-	elf_new = myDOS.e_lfanew;//将NT头的偏移存储起来
-
-	//NT头
-	fseek(pfile, elf_new, SEEK_SET);//注意不是sizeof(elf_new)
-	fread(&amp;myNTheader, sizeof(IMAGE_NT_HEADERS), 1, pfile);
-	printf("==============IMAGE_NT_HEADERS==============\n");
-	//打印PE标志
-	printf("PE标志：         %08X\n", myNTheader.Signature);
-
-	//打印标准PE头信息
-	printf("==============IMAGE_FILE_HEADERS==============\n");
-	printf("节区数量：       %08X\n", myNTheader.FileHeader.NumberOfSections);
-	NUM_SECTION = myNTheader.FileHeader.NumberOfSections;
-	printf("可选PE头大小：   %08X\n", myNTheader.FileHeader.SizeOfOptionalHeader);
-	//打印ASLR的信息，方便查看和修改
-	printf("ASLR属性：       %08X\n", (myNTheader.FileHeader.Characteristics ) &amp; 1);
-
-	//打印可选PE头信息
-	printf("==============IMAGE_OPTIONAL_HEADERS==============\n");
-	fseek(pfile, elf_new+sizeof(IMAGE_FILE_HEADER)+sizeof(myNTheader.Signature), SEEK_SET);//因为标准PE头长度为20
-	fread(&amp;myOPTIONheader, sizeof(IMAGE_OPTIONAL_HEADER), 1, pfile);
-	printf("DWORD AddressOfEntryPoint：   %08llX\n", myOPTIONheader.AddressOfEntryPoint);
-	printf("基址：				%08X\n", myOPTIONheader.ImageBase);//注意这里的可选PE头类型必须是IMAGE_OPTIONAL_HEADER32
-	printf("文件对齐大小：		%08X\n", myOPTIONheader.FileAlignment);
-	printf("内存对齐大小：		%08X\n", myOPTIONheader.SectionAlignment);
-	printf("文件头和节表大小：  %08X\n", myOPTIONheader.SizeOfHeaders);
-	printf("内存拉伸大小：		%08X\n", myOPTIONheader.SizeOfImage);
-
-	//打印节表信息，前面我们已经存储了节表数量了
-	printf("==============IMAGE_SECTION_HEADER SectionHeaders==============\n");
-	fseek(pfile, elf_new + sizeof(IMAGE_NT_HEADERS32), SEEK_SET);
-	fread(&amp;mysection, sizeof(IMAGE_SECTION_HEADER) * NUM_SECTION, 1, pfile);
-	for (int i = 0; i &lt; NUM_SECTION; ++i)
-	{
-		printf("NAME：        %s\n", mysection[i].Name);
-		printf("DWORD VirtualAddress：        %08X\n", mysection[i].VirtualAddress);
-		printf("DWORD SizeOfRawData：        %08X\n", mysection[i].SizeOfRawData);
-		printf("DWORD PointerToRawData：        %08X\n", mysection[i].PointerToRawData);
-		printf("DWORD VirtualSize：        %08X\n", mysection[i].Misc.VirtualSize);
-	}
-	fclose(pfile);//关闭文件
-	return 0;
-}</code></pre>
-
-<h1 id="RVA转FOA"><a href="#RVA转FOA" class="headerlink" title="RVA转FOA"></a>RVA转FOA</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
-#include&lt;stdio.h&gt;
-#include&lt;windows.h&gt;
-#include&lt;string.h&gt;
-#include&lt;stdlib.h&gt;
-/*
-* RVA转FOA的思路
-* 1、先判断所在节区，设计思路：首先我们必须拿的是内存对齐后的来比较大小，先把RVA-virtualaddress，再和max(MISC,SizeofRawData)按照内存对齐的值作比较
-* 2、循环判断节区
-* 3、计算FOA，偏移是一样的，那就是RVA-virtualaddress+节区的PointerOfdata
-*/
-IMAGE_NT_HEADERS32 myNTheader;
-IMAGE_DOS_HEADER myDOS;//因为PE头长度不变，所以我们只需要找到elf_new的内容就可以知道节区的起始地址
-IMAGE_SECTION_HEADER mysection[10];
-int NUM_SECTION;//我们还需要知道节区的数量
-int elf_new;
-int RVA = 0x20d000;
-long long MAX(DWORD a, DWORD b)
-{//计算MISC和SizeOFRAWDATA，并返回按照内存对齐后的值
-	if (a &gt; b)
-	{
-		return (a%myNTheader.OptionalHeader.SectionAlignment)?((a / myNTheader.OptionalHeader.SectionAlignment)+1) * myNTheader.OptionalHeader.SectionAlignment : ((a / myNTheader.OptionalHeader.SectionAlignment)) * myNTheader.OptionalHeader.SectionAlignment;
-	}
-	else
-		return (b % myNTheader.OptionalHeader.SectionAlignment) ? ((b / myNTheader.OptionalHeader.SectionAlignment) + 1) * myNTheader.OptionalHeader.SectionAlignment : ((b / myNTheader.OptionalHeader.SectionAlignment)) * myNTheader.OptionalHeader.SectionAlignment;;
-}
-int main()
-{
-	FILE* pfile;
-	pfile = fopen("D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\notepad++.exe", "r");
-	fseek(pfile,0, SEEK_SET);
-	fread(&amp;myDOS, sizeof(IMAGE_DOS_HEADER), 1, pfile);
-	elf_new = myDOS.e_lfanew;
-	fseek(pfile, elf_new, SEEK_SET);
-	fread(&amp;myNTheader, sizeof(IMAGE_NT_HEADERS32), 1, pfile);
-	NUM_SECTION = myNTheader.FileHeader.NumberOfSections;
-	
-	//得到节区
-	fseek(pfile, elf_new + sizeof(IMAGE_NT_HEADERS32), SEEK_SET);
-	fread(&amp;mysection, sizeof(IMAGE_SECTION_HEADER) * NUM_SECTION, 1, pfile);
-	for (int i = 0; i &lt; NUM_SECTION; ++i)
-	{
-		if (RVA - mysection[i].VirtualAddress &lt; MAX(mysection[i].Misc.VirtualSize, mysection[i].SizeOfRawData))
-		{
-			printf("所在节区为：%s\n", mysection[i].Name);
-			printf("FOA为：%08X", RVA - mysection[i].VirtualAddress + mysection[i].PointerToRawData);
-		}
-	}
-	fclose(pfile);
-	return 0;
-}</code></pre>
-
-<h1 id="PE插入shellcode"><a href="#PE插入shellcode" class="headerlink" title="PE插入shellcode"></a>PE插入shellcode</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;Windows.h&gt;
-#include&lt;malloc.h&gt;
-#include&lt;stdlib.h&gt;
-
-#define MessageBoxA_ADDR 0x76C20F40//MessageBoxA的地址
-#define shellcode_len 0x12//定义shellcode的长度
-//输入路径和输出路径
-char file_path[] = "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\notepad++.exe";
-char final_path[] = "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\5.exe";
-
-//插入的shellcode
-BYTE shellcode[] = {
-	0x6A,0x00,0x6A,0x00,0x6A,0x00,0x6A,0x00,
-	0xE8,0x00,0x00,0x00,0x00,
-	0xE9,0x00,0x00,0x00,0x00
-};
-int LoadPE(LPVOID*pFileBuffer)//二级指针存储的是一级指针的地址
-{
-	FILE* pfile;
-	DWORD FileSize = 0;
-	LPVOID pTempBuffer;
-	pfile = fopen(file_path, "rb");
-	//通过fseek和ftell返回文件长度，fseek将fp指针设置在文件尾，ftell获取当前fp指针的位置与文件首的偏移
-	fseek(pfile, 0, SEEK_END);
-	FileSize = ftell(pfile);
-
-	//重新设置回开头
-	fseek(pfile, 0, SEEK_SET);
-	//开辟空间，malloc函数返回开辟空间的起始地址
-	pTempBuffer = malloc(FileSize);
-
-	//将文件中的内容读取到临时Buffer中
-	fread(pTempBuffer, FileSize, 1, pfile);
-
-	//将分配返回的地址存储到FileBuffer中
-	*pFileBuffer = pTempBuffer;
-	//temp指针指向空
-	pTempBuffer = NULL;
-	fclose(pfile);
-	return FileSize;
-}
-
-int CopyFileBufferToImageBuffer(LPVOID pFileBuffer,LPVOID* pImageBuffer)//pImageBuffer是void类型指针，指向的是读取到内存中的文件内容首地址
-{
-	//初始化PE结构体指针
-	PIMAGE_DOS_HEADER pDOSHeader = NULL;
-	PIMAGE_NT_HEADERS pNTHeader = NULL;
-	PIMAGE_FILE_HEADER pFileHeader = NULL;
-	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
-	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
-	//初始化tempBuffer
-	LPVOID pTempBuffer = NULL;
-	//通过强制转换类型来限制长度,转为Dos头的指针那么得到的就是Dos头的信息
-	pDOSHeader = PIMAGE_DOS_HEADER(pFileBuffer);
-	pNTHeader = (PIMAGE_NT_HEADERS)((DWORD)pFileBuffer + pDOSHeader-&gt;e_lfanew);//因为void类型的指针不能直接运算，所以将其转为int整型，再做加减得到其他地址
-	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
-	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + IMAGE_SIZEOF_FILE_HEADER);
-	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + pFileHeader-&gt;SizeOfOptionalHeader);
-	
-	//分配ImageBuffer内存
-	pTempBuffer = malloc(pOptionalHeader-&gt;SizeOfImage);
-	//初始化ImageBuffer内存
-	memset(pTempBuffer, 0, pOptionalHeader-&gt;SizeOfImage);
-	//拷贝数据
-	memcpy(pTempBuffer, pDOSHeader, pOptionalHeader-&gt;SizeOfHeaders);//参数说明，目标数据、被使用数据，长度
-	
-	//循环拷贝节表信息
-	PIMAGE_SECTION_HEADER pTempSectionHeader = pSectionHeader;
-	for (int i = 0; i &lt; pFileHeader-&gt;NumberOfSections; i++,pTempSectionHeader++)
-	{
-		//因为memcpy只接受void类型的指针，所以要先强制转换
-		memcpy((void*)((DWORD)pTempBuffer + pTempSectionHeader-&gt;VirtualAddress), (void*)((DWORD)pFileBuffer + pTempSectionHeader-&gt;PointerToRawData), pTempSectionHeader-&gt;SizeOfRawData);
-	}
-	//赋值给pImageBuffer
-	*pImageBuffer = pTempBuffer;
-	pTempBuffer = NULL;
-	return pOptionalHeader-&gt;SizeOfImage;
-}
-
-int CopyImageBufferToNewBuffer(LPVOID pImageBuffer,LPVOID* pNewBuffer)
-{
-	//初始化PE结构体指针
-	PIMAGE_DOS_HEADER pDOSHeader = NULL;
-	PIMAGE_NT_HEADERS pNTHeader = NULL;
-	PIMAGE_FILE_HEADER pFileHeader = NULL;
-	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
-	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
-	//初始化TempBuffer
-	LPVOID pTempBuffer = NULL;
-
-	//结构体强制转换
-	pDOSHeader = PIMAGE_DOS_HEADER(pImageBuffer);
-	pNTHeader = (PIMAGE_NT_HEADERS)((DWORD)pImageBuffer + pDOSHeader-&gt;e_lfanew);//因为void类型的指针不能直接运算，所以将其转为int整型，再做加减得到其他地址
-	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
-	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + IMAGE_SIZEOF_FILE_HEADER);
-	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + pFileHeader-&gt;SizeOfOptionalHeader);
-
-	//计算NewBuffer大小
-	DWORD new_buffer_size = pOptionalHeader-&gt;SizeOfHeaders;
-	//节表大小计算
-	PIMAGE_SECTION_HEADER pTempSectionHeader = pSectionHeader;
-	//注意这里要使用临时变量，否则循环的时候，结构体指针后移，指向改变
-	for (int i = 0; i &lt; pFileHeader-&gt;NumberOfSections; i++, pTempSectionHeader++)
-	{
-		new_buffer_size += pTempSectionHeader-&gt;SizeOfRawData;
-		//printf("%X\n", pSectionHeader-&gt;SizeOfRawData);
-	}
-	printf("%X\n", new_buffer_size);
-	//开辟空间并且设置为0
-	pTempBuffer = malloc(new_buffer_size);
-	memset(pTempBuffer, 0, new_buffer_size);
-	//复制ImageBuffer信息
-	memcpy(pTempBuffer, pDOSHeader, pOptionalHeader-&gt;SizeOfHeaders);
-	//复制节表信息
-	pTempSectionHeader = pSectionHeader;
-	for (int i = 0; i &lt; pFileHeader-&gt;NumberOfSections; i++, ++pTempSectionHeader)
-	{
-		//因为memcpy只接受void类型的指针，所以要先强制转换
-		memcpy((PWORD)((DWORD)pTempBuffer + pTempSectionHeader-&gt;PointerToRawData), (PWORD)((DWORD)pImageBuffer + pTempSectionHeader-&gt;VirtualAddress), pTempSectionHeader-&gt;SizeOfRawData);
-	}
-	//赋值给pImageBuffer
-	*pNewBuffer = pTempBuffer;
-	pTempBuffer = NULL;
-	return new_buffer_size;
-}
-void newbuffer_write2_exe(PVOID NewFileBuffer, DWORD FileSize, char* FilePath)
-{
-	FILE* fp1 = fopen(FilePath, "wb");
-	if (fp1 != NULL)
-	{
-		fwrite(NewFileBuffer, FileSize, 1, fp1);
-		printf("成功存盘");
-	}
-	fclose(fp1);
-	return ;
-
-}
-void ADD_Opcode(LPVOID pImageBuffer, LPVOID* pNewBuffer)
-{
-	//初始化PE结构体指针
-	PIMAGE_DOS_HEADER pDOSHeader = NULL;
-	PIMAGE_NT_HEADERS pNTHeader = NULL;
-	PIMAGE_FILE_HEADER pFileHeader = NULL;
-	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
-	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
-	//通过强制转换类型来限制长度,转为Dos头的指针那么得到的就是Dos头的信息
-	pDOSHeader = PIMAGE_DOS_HEADER(pImageBuffer);
-	pNTHeader = (PIMAGE_NT_HEADERS)((DWORD)pImageBuffer + pDOSHeader-&gt;e_lfanew);//因为void类型的指针不能直接运算，所以将其转为int整型，再做加减得到其他地址
-	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
-	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + IMAGE_SIZEOF_FILE_HEADER);
-	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + pFileHeader-&gt;SizeOfOptionalHeader);
-	//判断能否插入
-	if (shellcode_len &gt; pSectionHeader-&gt;SizeOfRawData - pSectionHeader-&gt;Misc.VirtualSize)
-	{
-		printf("长度不足，无法插入\n");
-		free(pImageBuffer);
-	}
-
-	//计算空白位置，转为char*指针
-	PBYTE code_begin = (PBYTE)((DWORD)pImageBuffer + pSectionHeader-&gt;VirtualAddress+ pSectionHeader-&gt;Misc.VirtualSize);
-	//插入shellcode
-	memcpy(code_begin, shellcode, shellcode_len);
-	//计算E8地址
-	DWORD callADDr = (MessageBoxA_ADDR - (pOptionalHeader-&gt;ImageBase + pSectionHeader-&gt;VirtualAddress + pSectionHeader-&gt;Misc.VirtualSize + 0xD));
-	//将callADDR插入到E8之后,填充数据
-	*(PDWORD)((DWORD)code_begin + 0x09) = callADDr;
-
-	//计算jmp地址,跳转的值=真实地址-下一条指令地址
-	DWORD jmpADDr = pOptionalHeader-&gt;ImageBase + pOptionalHeader-&gt;AddressOfEntryPoint - ((DWORD)code_begin + pOptionalHeader-&gt;ImageBase + shellcode_len-(DWORD)pImageBuffer);
-	*(PDWORD)((code_begin + 14)) = jmpADDr;
-
-	//修改OEP
-	pOptionalHeader-&gt;AddressOfEntryPoint = ((DWORD)code_begin - (DWORD)pImageBuffer);//也可以使用VirtualAddress+VirtualSize
-
-	//还原为NewBuffer
-	DWORD ret2=CopyImageBufferToNewBuffer(pImageBuffer, pNewBuffer);
-	
-	//存盘
-	newbuffer_write2_exe(*pNewBuffer,ret2, final_path);
-	return ;
-}
-void operate_pe()
-{
-	LPVOID pFileBuffer = NULL;//LPVOID相当于void*
-	LPVOID pNewBuffer = NULL;
-	LPVOID pImageBuffer = NULL;
-	//读取文件内容到FileBuffer中d
-	DWORD file_size = LoadPE(&amp;pFileBuffer);//二级指针void**,将存储指针的地址传过去
-	printf("文件长度为：  %08X\n", file_size);
-
-	//将FileBuffer拉伸为ImageBuffer
-	DWORD Image_Size = CopyFileBufferToImageBuffer(pFileBuffer,&amp;pImageBuffer);
-	printf("拉伸后的大小为：  %08X\n",Image_Size);
-
-	//添加opcode
-	ADD_Opcode(pImageBuffer, &amp;pNewBuffer);
-
-	//开辟的内存需要free掉
-	free(pFileBuffer);
-	free(pNewBuffer);
-	free(pImageBuffer);
-	return;
-}
-int main()
-{
-	operate_pe();
-	return 0;
-}</code></pre>
-
-<h1 id="PE文件新增节"><a href="#PE文件新增节" class="headerlink" title="PE文件新增节"></a>PE文件新增节</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;windows.h&gt;
-#include&lt;stdlib.h&gt;
-#include&lt;malloc.h&gt;
-
-
-/*
-思路：
-1、读取文件信息到buffer中
-判断节区信息够不够大小，两个节表的大小
-2、找到节区的最后位置，开辟指定大小的空间
-3、修改信息-NumberOfSection、SizeOfRawData、VirtualSize（注意要对齐）
-*/
-#define New_Buffer_Size 0x1000
-#define File_Path "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\notepad++.exe"
-#define Final_Path "D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\6++.exe"
-int Open_File(LPVOID *pFileBuffer)
-{
-	FILE* pfile = NULL;
-	
-	LPVOID TempBuffer = NULL;
-	pfile = fopen(File_Path, "rb");
-	fseek(pfile, 0, SEEK_END);
-	DWORD file_size = ftell(pfile);
-	//设置文件指针到文件头
-	fseek(pfile, 0, SEEK_SET);
-	TempBuffer = malloc(file_size);
-	fread(TempBuffer , file_size, 1, pfile);
-	
-	*pFileBuffer = TempBuffer;
-	TempBuffer = NULL;
-	fclose(pfile);
-	return file_size;
-}
-int Add_Section(LPVOID FileBuffer, LPVOID* pNewBuffer,DWORD file_size)
-{
-	//定义结构体指针
-	PIMAGE_DOS_HEADER pDOSHeader = NULL;
-	PIMAGE_NT_HEADERS32 pNTHeader = NULL;
-	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
-	PIMAGE_SECTION_HEADER pSection = NULL;
-	PIMAGE_FILE_HEADER pFileHeader = NULL;
-	PVOID pNewTempBuffer = NULL;
-	DWORD New_File_Size = 0;
-	
-	
-	//新增节
-	New_File_Size = file_size + 0x1000;
-	pNewTempBuffer = (PVOID)malloc(New_File_Size);
-	// 判断开辟空间是否成功
-	if (!pNewTempBuffer)
-	{
-		printf("pNewTempBuffer开辟空间失败!\n");
-		return 0;
-	}
-	// 初始化内存
-	memset(pNewTempBuffer, 0, New_File_Size);
-	// 将旧空间的内容copy到新的空间
-	memcpy(pNewTempBuffer, FileBuffer, file_size);
-
-	//读取信息
-	pDOSHeader = (PIMAGE_DOS_HEADER)(pNewTempBuffer);
-	pNTHeader = (PIMAGE_NT_HEADERS32)((DWORD)pNewTempBuffer + pDOSHeader-&gt;e_lfanew);
-	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTHeader + 4);
-	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + sizeof(IMAGE_FILE_HEADER));
-	pSection = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + sizeof(IMAGE_OPTIONAL_HEADER32));
-
-	//找到节表的最后位置
-	PIMAGE_SECTION_HEADER pfinal_Section = &amp;(pSection[pFileHeader-&gt;NumberOfSections - 1]);
-
-	//判断能否插入节表,因为在文件和内存中PE头和DOS头大小不变，直接计算即可
-	DWORD remain_size = (pOptionalHeader-&gt;SizeOfHeaders - pDOSHeader-&gt;e_lfanew - 4 - sizeof(IMAGE_FILE_HEADER) - sizeof(IMAGE_OPTIONAL_HEADER32) - sizeof(IMAGE_SECTION_HEADER) * pFileHeader-&gt;NumberOfSections);
-	if (remain_size &lt; 2 * sizeof(IMAGE_SECTION_HEADER))
-	{
-		printf("位置不够捏，想想其他办法吧~\n");
-	}
-	
-
-	//修改信息
-	// 初始化新增节信息
-	PVOID pSecName = &amp;pSection[pFileHeader-&gt;NumberOfSections].Name;
-	PDWORD pSecMisc = &amp;pSection[pFileHeader-&gt;NumberOfSections].Misc.VirtualSize;
-	PDWORD pSecVirtualAddress = &amp;pSection[pFileHeader-&gt;NumberOfSections].VirtualAddress;
-	PDWORD pSecSizeofRawData = &amp;pSection[pFileHeader-&gt;NumberOfSections].SizeOfRawData;
-	PDWORD pSecPointerToRawData = &amp;pSection[pFileHeader-&gt;NumberOfSections].PointerToRawData;
-	PDWORD pSecCharacteristic = &amp;pSection[pFileHeader-&gt;NumberOfSections].Characteristics;
-	//名字
-	memcpy(pSecName, ".mycode", 8);
-	//Misc
-	*pSecMisc = 0x1000;
-	//计算VirtualAddress=前一个节的VA+sizeofrawdata或者virtualSize内存对齐大小
-	DWORD Sec_Size = (pfinal_Section-&gt;SizeOfRawData &gt; pfinal_Section-&gt;Misc.VirtualSize) ? pfinal_Section-&gt;SizeOfRawData : pfinal_Section-&gt;Misc.VirtualSize;
-	//内存对齐
-	Sec_Size= (Sec_Size % pOptionalHeader-&gt;SectionAlignment) ? ((Sec_Size / pOptionalHeader-&gt;SectionAlignment) + 1) * pOptionalHeader-&gt;SectionAlignment : Sec_Size;
-	//修改VirtualAddress
-	*pSecVirtualAddress = pfinal_Section-&gt;VirtualAddress + Sec_Size;
-	//修改sizeofRawData
-	*pSecSizeofRawData = 0x1000;
-	//修改Pointer
-	DWORD size = pfinal_Section-&gt;SizeOfRawData;
-	DWORD File_Size= (size % pOptionalHeader-&gt;FileAlignment) ? ((size / pOptionalHeader-&gt;FileAlignment) + 1) * pOptionalHeader-&gt;FileAlignment : size;
-	*pSecPointerToRawData = pfinal_Section-&gt;PointerToRawData + File_Size;
-
-	*pSecCharacteristic = 0xFFFFFFFF;
-
-	//头部信息,先计算增加的长度在内存和文件拉伸的长度
-	DWORD Sec_ADD = (New_Buffer_Size % pOptionalHeader-&gt;SectionAlignment) ? ((New_Buffer_Size / pOptionalHeader-&gt;SectionAlignment) + 1) * pOptionalHeader-&gt;SectionAlignment : New_Buffer_Size;
-	DWORD File_ADD = 
-	pOptionalHeader-&gt;SizeOfImage += Sec_ADD;
-	pFileHeader-&gt;NumberOfSections += 1;
-
-	*pNewBuffer = pNewTempBuffer;
-	pNewTempBuffer = NULL;
-	return New_File_Size;
-}
-void Write_To_Newfile(DWORD New_File_Size, LPVOID pNewBuffer)
-{
-	FILE* fp;
-	fp = fopen(Final_Path, "wb");
-	fwrite(pNewBuffer, New_File_Size, 1, fp);
-	fclose(fp);
-	return ;
-}
-void PE_operate()
-{
-	DWORD new_file_size = 0;
-	PVOID pNewBuffer = NULL;
-	PVOID FileBuffer = NULL;
-	DWORD file_size = 0;
-	DWORD New_File_Size = 0;
-	//打开文件读取信息
-	file_size = Open_File(&amp;FileBuffer);
-	//新增节并且修改信息
-	New_File_Size=Add_Section(FileBuffer,&amp;pNewBuffer,file_size);
-
-	Write_To_Newfile(New_File_Size, pNewBuffer);
-}
-int main()
-{
-	PE_operate();
-	return 0;
-}</code></pre>
-
-
+                
                 
             </div>
             <hr/>
@@ -1009,7 +529,7 @@ int main()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/03/11/PE%E8%A7%A3%E6%9E%90%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/">https://gift1a.github.io/2022/03/11/PE%E8%A7%A3%E6%9E%90%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/</a>
+                    <a href="https://gift1a.github.io/2022/03/23/sha256/">https://gift1a.github.io/2022/03/23/sha256/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1047,8 +567,8 @@ int main()
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/PE/">
-                                    <span class="chip bg-color">PE</span>
+                                <a href="/tags/Reverse/">
+                                    <span class="chip bg-color">Reverse</span>
                                 </a>
                             
                         </div>
@@ -1223,9 +743,56 @@ int main()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/03/23/sha256/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="sha256">
+                        
+                        <span class="card-title">sha256</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            sha256学习
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Gift1a
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Reverse/">
+                        <span class="chip bg-color">Reverse</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/">
                     <div class="card-image">
@@ -1243,53 +810,8 @@ int main()
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-11
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            Gift1a
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/PE/">
-                        <span class="chip bg-color">PE</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="PE文件结构">
-                        
-                        <span class="card-title">PE文件结构</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            PE学习之路0
-                        
-                    </div>
-                    <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-03
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-11
                             </span>
                         <span class="publish-author">
                             
