@@ -6,7 +6,7 @@
   <link href="https://gift1a.github.io/atom.xml" rel="self"/>
   
   <link href="https://gift1a.github.io/"/>
-  <updated>2022-03-25T08:24:35.396Z</updated>
+  <updated>2022-03-25T12:01:13.584Z</updated>
   <id>https://gift1a.github.io/</id>
   
   <author>
@@ -21,11 +21,20 @@
     <link href="https://gift1a.github.io/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/"/>
     <id>https://gift1a.github.io/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/</id>
     <published>2022-03-25T08:24:35.000Z</published>
-    <updated>2022-03-25T08:24:35.396Z</updated>
+    <updated>2022-03-25T12:01:13.584Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Vim键盘图"><a href="#Vim键盘图" class="headerlink" title="Vim键盘图"></a>Vim键盘图</h1><p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648206284939.png" alt="Vim键盘图"></p><h1 id="Vim模式"><a href="#Vim模式" class="headerlink" title="Vim模式"></a>Vim模式</h1><p>vim分成三种模式，分别是命令模式、输入模式、底线命令模式</p><h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><p>用户刚进入vim，便进入命令模式</p><p>这时我们敲击键盘的动作被识别为命令</p><p>以下是常用的几个命令</p><p>i：进入输入模式</p><p>x：删除当前光标所在处的字符</p><p>：：切换到底线命令模式，这样我们就可以在最底一行输入命令</p><h2 id="输入模式"><a href="#输入模式" class="headerlink" title="输入模式"></a>输入模式</h2><p>1、字符按键和shift组合：输入字符</p><p>2、ENTER：回车键，换行</p><p>3、BaceSpace：退格键，删除光标前一个字符</p><p>4、DEL：删除键，删除光标后一个字符</p><p>5、方向键：移动光标</p><p>6、HOME/END：移动光标到行首、行尾</p><p>7、Page Up/Page Down：上/下翻页</p><p>8、Insert： 切换光标为输入/替换模式，光标将变成竖线/下划线 </p><p>9、 退出输入模式，切换到命令模式 </p><h2 id="底线命令模式"><a href="#底线命令模式" class="headerlink" title="底线命令模式"></a>底线命令模式</h2><p>省略掉冒号的基本命令</p><p>1、q：退出程序</p><p>2、w：保存文件</p><p>3、命令末尾加上!表示强制执行</p><h1 id="更多命令"><a href="#更多命令" class="headerlink" title="更多命令"></a>更多命令</h1><p><a href="https://www.runoob.com/linux/linux-vim.html">https://www.runoob.com/linux/linux-vim.html</a></p><p>vim复制粘贴-这里wo</p><p><a href="https://www.cnblogs.com/huahuayu/p/12235242.html">https://www.cnblogs.com/huahuayu/p/12235242.html</a></p><p>Vim配置</p><p><a href="https://blog.csdn.net/Doctor_xiong/article/details/78663590">https://blog.csdn.net/Doctor_xiong/article/details/78663590</a></p><h1 id="GCC生成可执行文件"><a href="#GCC生成可执行文件" class="headerlink" title="GCC生成可执行文件"></a>GCC生成可执行文件</h1><h2 id="Vim生成-c文件"><a href="#Vim生成-c文件" class="headerlink" title="Vim生成.c文件"></a>Vim生成.c文件</h2><p>vim 文件名.c即可生成.c文件</p><h2 id="GCC编译成可执行文件"><a href="#GCC编译成可执行文件" class="headerlink" title="GCC编译成可执行文件"></a>GCC编译成可执行文件</h2><p>gcc 文件名.c -o 输入文件名</p><p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648209669071.png"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Vim键盘图&quot;&gt;&lt;a href=&quot;#Vim键盘图&quot; class=&quot;headerlink&quot; title=&quot;Vim键盘图&quot;&gt;&lt;/a&gt;Vim键盘图&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E</summary>
+      
     
     
     
     
+    <category term="Linux" scheme="https://gift1a.github.io/tags/Linux/"/>
     
   </entry>
   
@@ -344,7 +353,7 @@
     <link href="https://gift1a.github.io/2022/02/03/Hook/"/>
     <id>https://gift1a.github.io/2022/02/03/Hook/</id>
     <published>2022-02-03T06:53:10.000Z</published>
-    <updated>2022-03-11T05:11:47.165Z</updated>
+    <updated>2022-03-25T11:03:52.689Z</updated>
     
     <content type="html"><![CDATA[<h1 id="题目-BUUCTF-easystrcmp"><a href="#题目-BUUCTF-easystrcmp" class="headerlink" title="题目-BUUCTF-easystrcmp"></a>题目-BUUCTF-easystrcmp</h1><p>进入主函数</p><p><img src="/2022/02/03/Hook/1643884712406.png"></p><p>看似是一个简单的比较，但是输入之后发现并不对</p><p>应该是做了什么处理，动态调试</p><p>点进strcmp函数</p><p><img src="/2022/02/03/Hook/1643884961802.png"></p><p>发现跳转到了加密函数</p><p>原理分析</p><p>因为存在init段，去查看函数</p><p><img src="/2022/02/03/Hook/1643885017644.png"></p><p>这样可以查看函数列表进行跳转</p><p><img src="/2022/02/03/Hook/1643885047181.png"></p><p>进入off函数</p><p><img src="/2022/02/03/Hook/1643885073169.png"></p><p>第一个函数点进去没发现什么，第二个函数点进去</p><p><img src="/2022/02/03/Hook/1643885101701.png"></p><p>可以看到先把strcmp函数的地址赋值给qword_201090</p><p>然后把sub_6EA函数赋值给off-102028,点进去</p><p><img src="/2022/02/03/Hook/1643885199097.png"></p><p>发现正好是strcmp的地址，所以真正运行起来，函数会跳转到sub_6EA函数中，而不是strcmp函数，这样就实现了一个简单的hook</p><p>脚本</p><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;#include &lt;string.h&gt;int main(){char flag[]="********CENSORED********";char s[]={0x42, 0x09,   0x4A, 0x49, 0x35, 0x43, 0x0A, 0x41, 0xF0, 0x19, 0xE6, 0x0B,   0xF5, 0xF2, 0x0E, 0x0B, 0x2B, 0x28, 0x35, 0x4A, 0x06, 0x3A,   0x0A, 0x4F};  for(int i=0;i&lt;strlen(flag);++i)  {  flag[i]+=s[i];  }  printf("%s",flag);return 0; } </code></pre><p><a href="https://www.cnblogs.com/iBinary/p/7599789.html%E5%85%B7%E4%BD%93%E8%AE%B2%E8%A7%A3%E4%BB%80%E4%B9%88%E6%98%AFHook">https://www.cnblogs.com/iBinary/p/7599789.html具体讲解什么是Hook</a></p>]]></content>
     

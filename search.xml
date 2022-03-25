@@ -8,9 +8,15 @@
       <link href="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/"/>
       <url>/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="Vim键盘图"><a href="#Vim键盘图" class="headerlink" title="Vim键盘图"></a>Vim键盘图</h1><p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648206284939.png" alt="Vim键盘图"></p><h1 id="Vim模式"><a href="#Vim模式" class="headerlink" title="Vim模式"></a>Vim模式</h1><p>vim分成三种模式，分别是命令模式、输入模式、底线命令模式</p><h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><p>用户刚进入vim，便进入命令模式</p><p>这时我们敲击键盘的动作被识别为命令</p><p>以下是常用的几个命令</p><p>i：进入输入模式</p><p>x：删除当前光标所在处的字符</p><p>：：切换到底线命令模式，这样我们就可以在最底一行输入命令</p><h2 id="输入模式"><a href="#输入模式" class="headerlink" title="输入模式"></a>输入模式</h2><p>1、字符按键和shift组合：输入字符</p><p>2、ENTER：回车键，换行</p><p>3、BaceSpace：退格键，删除光标前一个字符</p><p>4、DEL：删除键，删除光标后一个字符</p><p>5、方向键：移动光标</p><p>6、HOME/END：移动光标到行首、行尾</p><p>7、Page Up/Page Down：上/下翻页</p><p>8、Insert： 切换光标为输入/替换模式，光标将变成竖线/下划线 </p><p>9、 退出输入模式，切换到命令模式 </p><h2 id="底线命令模式"><a href="#底线命令模式" class="headerlink" title="底线命令模式"></a>底线命令模式</h2><p>省略掉冒号的基本命令</p><p>1、q：退出程序</p><p>2、w：保存文件</p><p>3、命令末尾加上!表示强制执行</p><h1 id="更多命令"><a href="#更多命令" class="headerlink" title="更多命令"></a>更多命令</h1><p><a href="https://www.runoob.com/linux/linux-vim.html">https://www.runoob.com/linux/linux-vim.html</a></p><p>vim复制粘贴-这里wo</p><p><a href="https://www.cnblogs.com/huahuayu/p/12235242.html">https://www.cnblogs.com/huahuayu/p/12235242.html</a></p><p>Vim配置</p><p><a href="https://blog.csdn.net/Doctor_xiong/article/details/78663590">https://blog.csdn.net/Doctor_xiong/article/details/78663590</a></p><h1 id="GCC生成可执行文件"><a href="#GCC生成可执行文件" class="headerlink" title="GCC生成可执行文件"></a>GCC生成可执行文件</h1><h2 id="Vim生成-c文件"><a href="#Vim生成-c文件" class="headerlink" title="Vim生成.c文件"></a>Vim生成.c文件</h2><p>vim 文件名.c即可生成.c文件</p><h2 id="GCC编译成可执行文件"><a href="#GCC编译成可执行文件" class="headerlink" title="GCC编译成可执行文件"></a>GCC编译成可执行文件</h2><p>gcc 文件名.c -o 输入文件名</p><p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648209669071.png"></p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
       
     </entry>
     
