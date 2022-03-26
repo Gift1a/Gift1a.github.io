@@ -4,12 +4,10 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="zip, Hexo">
-    <meta name="description" content="伪加密伪加密原理及操作zip文件组成可以去里面看看，挺全的
-https://blog.csdn.net/qq_26187985/article/details/83654197
-例题这里找了一道大佬出的题，适合练练手
-《美丽的烟火》
-链接：">
+    <meta name="keywords" content="Gcc中在main前和后执行的函数, Hexo">
+    <meta name="description" content="gcc在主函数前后运行的函数逆向的时候我们直到elf文件在start函数中有main函数、init和fini函数，init就是初始化，即在主函数前运行的函数，fini就是在主函数之后执行的函数
+
+那么我们怎么实现呢，windows下我没找到">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -21,7 +19,7 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>zip | Hexo</title>
+    <title>Gcc中在main前和后执行的函数 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -326,12 +324,12 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">zip</h1>
+                    <h1 class="description center-align post-title">Gcc中在main前和后执行的函数</h1>
                 </div>
             </div>
         </div>
@@ -447,8 +445,8 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Misc/">
-                                <span class="chip bg-color">Misc</span>
+                            <a href="/tags/Linux/">
+                                <span class="chip bg-color">Linux</span>
                             </a>
                         
                     </div>
@@ -463,28 +461,28 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-15
+                    2022-03-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-11
+                    2022-03-26
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    207
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    1 分
                 </div>
                 
 
@@ -507,136 +505,29 @@ https://blog.csdn.net/qq_26187985/article/details/83654197
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="伪加密"><a href="#伪加密" class="headerlink" title="伪加密"></a>伪加密</h1><h2 id="伪加密原理及操作"><a href="#伪加密原理及操作" class="headerlink" title="伪加密原理及操作"></a>伪加密原理及操作</h2><h3 id="zip文件组成"><a href="#zip文件组成" class="headerlink" title="zip文件组成"></a>zip文件组成</h3><p>可以去里面看看，挺全的</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26187985/article/details/83654197">https://blog.csdn.net/qq_26187985/article/details/83654197</a></p>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>这里找了一道大佬出的题，适合练练手</p>
-<p>《美丽的烟火》</p>
-<p>链接：<a target="_blank" rel="noopener" href="http://ctf.bugku.com/challenges/detail/id/350.html">http://ctf.bugku.com/challenges/detail/id/350.html</a></p>
-<p>直接打开压缩包，可以得到被加密的文件</p>
-<p><img src="/2022/01/15/zip/1642245880907.png"></p>
-<p>痛苦，一般这种没有提示的(下面会有介绍)，一般就是伪加密了。</p>
-<p>拖进winhex，搜索504b0102（不知道为什么的速速去看前面那篇文章），这个按钮</p>
-<p><img src="/2022/01/15/zip/1642246321198.png"></p>
-<p>把09改成00，要仔细，这里有两个，我开始只看到一个</p>
-<p><img src="/2022/01/15/zip/1642246469204.png"></p>
-<p><img src="/2022/01/15/zip/1642246506196.png"></p>
-<p>重新打开压缩包</p>
-<p><img src="/2022/01/15/zip/1642246638206.png"></p>
-<p>心情愉悦~</p>
-<p>接下来就是进行解密了</p>
-<p>这里不细讲了，不然就跑偏了，png文件是stegpy隐写，密码是shumu，stegpy安装应该会有问题，具体安装请看图片隐写</p>
-<p><img src="/2022/01/15/zip/1642246877362.png"></p>
-<p>password解密是base64，base58，栅栏，</p>
-<p>这里推荐一篇博客</p>
-<p>得到的字符串是aes的key，然后直接aes在线解密</p>
-<p><img src="/2022/01/15/zip/1642247152438.png"></p>
-<p>flag：flag{yX73nAutbBozYhge6d2flG}</p>
-<p>网站也放这了：<a target="_blank" rel="noopener" href="https://the-x.cn/cryptography/Aes.aspx">https://the-x.cn/cryptography/Aes.aspx</a></p>
-<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><p>winrar可以修复伪加密，不过是部分的</p>
-<p><img src="/2022/01/15/zip/1642251859085.png"></p>
-<p>点开上面的工具-&gt; 修复压缩文件</p>
-<h1 id="套娃压缩包"><a href="#套娃压缩包" class="headerlink" title="套娃压缩包"></a>套娃压缩包</h1><p>顾名思义，就是压缩包套娃</p>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF">https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF</a></p>
-<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
+                <h1 id="gcc在主函数前后运行的函数"><a href="#gcc在主函数前后运行的函数" class="headerlink" title="gcc在主函数前后运行的函数"></a>gcc在主函数前后运行的函数</h1><p>逆向的时候我们直到elf文件在start函数中有main函数、init和fini函数，init就是初始化，即在主函数前运行的函数，fini就是在主函数之后执行的函数</p>
+<p><img src="/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/1648278715009.png"></p>
+<p>那么我们怎么实现呢，windows下我没找到好方法</p>
+<p>但是linux下则可以，我们需要用到gcc编译器</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>gcc支持_<em>attribute_</em>((constructor)) void FunctionName{}，这样这个函数就是在主函数运行前的函数，_<em>attribute_</em>((destructor)) void FunctionName{}是在主函数运行之后执行的。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+char string[]="123456";
 
-x = y = 200
-img = Image.new("RGB",(x,y))
-file = open('./qr.txt','r')
+__attribute__((constructor)) void FunctionName{}，{
+	printf("helloworld");
+}
 
-for width in range(0,x):
-    for height in range(0,y):
-        line = file.readline()
-        rgb = line.replace('(','').replace(')','').split(',')
-        img.putpixel((width,height),(int(rgb[0]),int(rgb[1]),int(rgb[2])))
-img.save('flag.jpg')
-</code></pre>
+int main()
+{
+	printf("%s",string);
+	return 0;
+}</code></pre>
 
+<p>效果</p>
+<p><img src="/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/1648279627114.png"></p>
+<h1 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h1><p>我们可以定义全局变量的密钥，然后在init中修改密钥，进而阻碍他人的静态分析</p>
 
-
-<h1 id="CRC32爆破"><a href="#CRC32爆破" class="headerlink" title="CRC32爆破"></a>CRC32爆破</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>CRC校验实用程序库 在数据存储和数据通讯领域，为了保证数据的正确，就不得不采用检错的手段。在诸多检错手段中，CRC是最著名的一种。CRC的全称是循环冗余校验。(这里还不是很懂，后续再看)</p>
-<p>总之每个文件都有唯一的CRC32值，即便数据中一个bit发生变化，也会导致CRC32值不同。若是知道一段数据的长度和CRC32值，便可穷举数据，与其CRC32对照，以此达到暴力猜解的目的。但通常只适用于较小文本文件。</p>
-<h3 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h3><p>打开里面有很多压缩包，里面存储的都是小数据文件</p>
-<p><img src="/2022/01/15/zip/1642249237942.png"></p>
-<p><img src="/2022/01/15/zip/1642249207274.png"></p>
-<p>直接上脚本(不是很会)</p>
-<pre class="language-python" data-language="python"><code class="language-python">#python3
-import zipfile
-import string
-import binascii
-
-def CrackCrc(crc):
-	for i in dic:
-		for j in dic:
-			for k in dic:
-				for h in dic:
-					s = i + j + k + h
-					if crc == (binascii.crc32(s.encode())):
-						f.write(s)
-						return
-
-def CrackZip():
-	for i in range(0,68):
-		file = 'D:\\new\\新建文件夹\\out'+str(i)+'.zip'
-		crc = zipfile.ZipFile(file,'r').getinfo('data.txt').CRC
-		CrackCrc(crc)
-		print('\r'+"loading：{:%}".format(float((i+1)/68)),end='')
-
-dic = string.ascii_letters + string.digits + '+/='
-f = open('printaaa.txt','w')
-print("\nCRC32begin")
-CrackZip()
-print("CRC32finished")
-f.close()
-</code></pre>
-
-<p>得到base64编码的东西</p>
-<pre class="language-none"><code class="language-none">z5BzAAANAAAAAAAAAKo+egCAIwBJAAAAVAAAAAKGNKv+a2MdSR0zAwABAAAAQ01UCRUUy91BT5UkSNPoj5hFEVFBRvefHSBCfG0ruGnKnygsMyj8SBaZHxsYHY84LEZ24cXtZ01y3k1K1YJ0vpK9HwqUzb6u9z8igEr3dCCQLQAdAAAAHQAAAAJi0efVT2MdSR0wCAAgAAAAZmxhZy50eHQAsDRpZmZpeCB0aGUgZmlsZSBhbmQgZ2V0IHRoZSBmbGFnxD17AEAHAA==
-</code></pre>
-
-<p>网站在线解码，这个网站挺好的，可以直接转换文件</p>
-<p><a target="_blank" rel="noopener" href="https://the-x.cn/base64/">https://the-x.cn/base64/</a></p>
-<p>解码后在尾部看到这句话</p>
-<p><img src="/2022/01/15/zip/1642250774952.png"></p>
-<p>他让我们修复文件，所以我们首先要先了解文件头和尾</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2">https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2</a></p>
-<p>修补好rar文件头在注释里得到flag</p>
-<p>flag{nev3r_enc0de_t00_sm4ll_fil3_w1th_zip}</p>
-<h1 id="压缩文件带注释"><a href="#压缩文件带注释" class="headerlink" title="压缩文件带注释"></a>压缩文件带注释</h1><p>有一些题目会在注释里面添加信息，直观的就不说了，现在说两种空白符，Whitespace <a target="_blank" rel="noopener" href="https://vii5ard.github.io/whitespace/">https://vii5ard.github.io/whitespace/</a> 和snow隐写，snow需要密码，有可执行文件</p>
-<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
-<p>无字天书</p>
-<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到流量包，导出HTTP对象</p>
-<p>得到几个文件，依次查看，注意要仔细看，流量包文件有时候会很多</p>
-<p><img src="/2022/01/15/zip/1642254197336.png"></p>
-<p>发现了504b0304，可以写脚本，也可以直接网站解码得到压缩包</p>
-<p><a target="_blank" rel="noopener" href="https://the-x.cn/zh-cn/encodings/Hex.aspx">https://the-x.cn/zh-cn/encodings/Hex.aspx</a></p>
-<p><img src="/2022/01/15/zip/1642254255927.png"></p>
-<p>也可以使用脚本</p>
-<pre class="language-python" data-language="python"><code class="language-python">s='填写16进制数据'
-import binascii
-out=open('2.jpg','wb')
-out.write(binascii.unhexlify(s))
-out.close()
-
-#Author: MoChu7
-import struct
-
-a = open("str.txt","r")#十六进制数据文件
-lines = a.read()
-res = [lines[i:i+2] for i in range(0,len(lines),2)]
-
-with open("res.jpg","wb") as f:
-	for i in res:
-		s = struct.pack('B',int(i,16))
-		f.write(s)
-</code></pre>
-
-<p>打开之后得到两个文件，打开里面什么都看不到，全选就会有显示，key.ws应该是snow的密码，拿去whitespace解密</p>
-<p><img src="/2022/01/15/zip/1642254325041.png"></p>
-<p>然后snow解密 命令：SNOW.EXE -p 密码 -C 文件</p>
-<p><img src="/2022/01/15/zip/1642254470293.png"></p>
-<p>cazy{C4n_y0u_underSt4nd_th3_b0oK_With0ut_Str1ng}</p>
-<h1 id="爆破压缩包"><a href="#爆破压缩包" class="headerlink" title="爆破压缩包"></a>爆破压缩包</h1><p>使用工具爆破，如Advanced Archive Password Recovery</p>
-<h2 id="已知明文攻击"><a href="#已知明文攻击" class="headerlink" title="已知明文攻击"></a>已知明文攻击</h2><h2 id="掩码攻击"><a href="#掩码攻击" class="headerlink" title="掩码攻击"></a>掩码攻击</h2>
                 
             </div>
             <hr/>
@@ -662,7 +553,7 @@ with open("res.jpg","wb") as f:
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/01/15/zip/">https://gift1a.github.io/2022/01/15/zip/</a>
+                    <a href="https://gift1a.github.io/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/">https://gift1a.github.io/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -700,8 +591,8 @@ with open("res.jpg","wb") as f:
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Misc/">
-                                    <span class="chip bg-color">Misc</span>
+                                <a href="/tags/Linux/">
+                                    <span class="chip bg-color">Linux</span>
                                 </a>
                             
                         </div>
@@ -876,17 +767,18 @@ with open("res.jpg","wb") as f:
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/01/17/SMC/">
+                <a href="/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="SMC">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Gcc中在main前和后执行的函数">
                         
-                        <span class="card-title">SMC</span>
+                        <span class="card-title">Gcc中在main前和后执行的函数</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -896,9 +788,9 @@ with open("res.jpg","wb") as f:
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-17
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -907,11 +799,12 @@ with open("res.jpg","wb") as f:
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Reverse/">
-                        <span class="chip bg-color">Reverse</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -925,24 +818,24 @@ with open("res.jpg","wb") as f:
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/">
+                <a href="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="文档隐写">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Vim编辑器使用">
                         
-                        <span class="card-title">文档隐写</span>
+                        <span class="card-title">Vim编辑器使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            Vim学习
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-25
                             </span>
                         <span class="publish-author">
                             
@@ -955,8 +848,8 @@ with open("res.jpg","wb") as f:
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Misc/">
-                        <span class="chip bg-color">Misc</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
