@@ -32,8 +32,8 @@
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -466,7 +466,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-15
+                    2022-03-27
                 </div>
                 
 
@@ -859,15 +859,15 @@ CHAR Name[1];//不定长,字符串
 <h4 id="IAT表-导入地址表"><a href="#IAT表-导入地址表" class="headerlink" title="IAT表-导入地址表"></a>IAT表-导入地址表</h4><p> 记录程序正在使用哪些库中的哪些函数 </p>
 <p>分为两个过程，在文件中存储的是存放函数的地址，在内存中存放函数</p>
 <p>在文件运行前类似于call [地址]</p>
-<p>在文件运行时类似于call [上面地址存放的值]</p>
+<p>在文件运行时类似于call [上面地址存放的值，也就是函数]</p>
 <h4 id="IAT表存在的原因"><a href="#IAT表存在的原因" class="headerlink" title="IAT表存在的原因"></a>IAT表存在的原因</h4><p> 一般程序在调用自身函数的时候，自身函数地址RAV是固定的；但是当程序在调用dll里的函数的时候，由于dll的地址会发生重定位，导致dll里的函数地址每次都会发生变化。 </p>
 <p>为了准确调用dll函数的地址，构造了IAT表来存储程序运行时，即DLL文件重定位之后的dll函数的位置</p>
 <h2 id="导入表加载过程"><a href="#导入表加载过程" class="headerlink" title="导入表加载过程"></a>导入表加载过程</h2><p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAzMjg0Ni5wbmc-1647000237348.png" alt="PE文件加载前"></p>
 <p>加载过程</p>
-<p>先找ＤＬＬ，再确定使用的函数</p>
+<p>先找DLL，再确定使用的函数</p>
 <h3 id="寻找DLL"><a href="#寻找DLL" class="headerlink" title="寻找DLL"></a>寻找DLL</h3><p>先根据导入表的NAME找到DLL名称和DLL的INT和IAT表，开始的时候INT和IAT数据相同，但是存储位置不同</p>
 <h3 id="查INT表"><a href="#查INT表" class="headerlink" title="查ＩＮＴ表"></a>查ＩＮＴ表</h3><p>因为导出的时候可以按序号导出也可以按函数名称导出，所以为了区分，ｉｍａｇｅ＿ｔｈｕｎｋ＿ｄａｔａ最高位为１时，表示其存储的是序号，而剩下的３１位表示序号，否则ｉｍａｇｅ＿ｔｈｕｎｋ＿ｄａｔａ存储的是函数名称的ＲＶＡ</p>
-<h3 id="修改IAT"><a href="#修改IAT" class="headerlink" title="修改ＩＡＴ"></a>修改ＩＡＴ</h3><p>使用ＧＥＴＰｒｏＡｄｄｒ（ｍｏｄｕｌｅ，）</p>
+<h3 id="修改IAT"><a href="#修改IAT" class="headerlink" title="修改ＩＡＴ"></a>修改ＩＡＴ</h3><p>使用ＧＥＴＰｒｏＡｄｄｒ（ｍｏｄｕｌｅ）</p>
 <p>将前面查找到的函数地址填充进ＩＡＴ表中</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAyNTEwMy5wbmc.png" alt="PE文件加载后"> </p>
 <p>可以看到IAT表变成了函数的地址</p>
@@ -1420,7 +1420,7 @@ CHAR Name[1];//不定长,字符串
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">47.6k</span>
+                        class="white-color">49.5k</span>
             
             
             
