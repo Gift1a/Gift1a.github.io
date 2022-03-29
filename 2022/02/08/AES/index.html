@@ -473,14 +473,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-11
+                    2022-03-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    619
+                    630
                 </div>
                 
 
@@ -519,7 +519,7 @@
 <p><img src="/2022/02/08/AES/1644303811694.png"></p>
 <p>子密钥放入矩阵，这里有省略号是因为后面会根据子密钥进行密钥扩展，初始变换取得是密钥扩展后的第0轮密钥</p>
 <p><img src="/2022/02/08/AES/1644303864629.png"></p>
-<p>明文矩阵和子密钥矩阵进行异或</p>
+<p>明文矩阵和子密钥矩阵进行异或-轮密钥加</p>
 <p>对应位置进行逐字节异或</p>
 <p><img src="/2022/02/08/AES/1644304005507.png"></p>
 <h2 id="字节代换"><a href="#字节代换" class="headerlink" title="字节代换"></a>字节代换</h2><p>AES算法会生成一个Sbox盒用于字节代换</p>
@@ -536,7 +536,7 @@
 <h4 id="矩阵的运算"><a href="#矩阵的运算" class="headerlink" title="矩阵的运算"></a>矩阵的运算</h4><p><img src="/2022/02/08/AES/1644308359054.png"></p>
 <p>要得到第一个数的结果，要先将第一个矩阵的第一行与第二个矩阵的第一列进行乘法，最后相加</p>
 <p>而在列混合中，加法被替换成了异或</p>
-<p>乘法也被修改了</p>
+<p>乘法也被修改了，注意是左移一位</p>
 <p><img src="/2022/02/08/AES/1644308799475.png"></p>
 <p>这里以第一个数为例</p>
 <p>02×d4+03×bf+01×5d+01×30，这里的+是异或</p>
@@ -1085,7 +1085,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">49.5k</span>
+                        class="white-color">51.5k</span>
             
             
             
