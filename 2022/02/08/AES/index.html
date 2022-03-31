@@ -473,21 +473,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-29
+                    2022-03-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    630
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    4 分
                 </div>
                 
 
@@ -543,6 +543,50 @@
 <p>02×d4过程</p>
 <p>00000010×11010100，因为d4首位是1，所以结果为10101000^00011011,得到10110011</p>
 <p>同理的到第一个数为04</p>
+<h4 id="基于有限域的运算"><a href="#基于有限域的运算" class="headerlink" title="基于有限域的运算"></a>基于有限域的运算</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/bupt073114/article/details/27382533">https://blog.csdn.net/bupt073114/article/details/27382533</a></p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Multiplication">https://en.wikipedia.org/wiki/Finite_field_arithmetic#Multiplication</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xiehongfeng100/p/4315395.html">https://www.cnblogs.com/xiehongfeng100/p/4315395.html</a></p>
+<h5 id="有限域"><a href="#有限域" class="headerlink" title="有限域"></a>有限域</h5><p>有限域亦称伽罗瓦域（galois field），是仅含有限个元素的域,它是伽罗瓦(Galois,E.)于18世纪30年代研究代数方程根式求解问题时引出的.有限域的特征数必为某一素数p</p>
+<h5 id="有限域的乘法"><a href="#有限域的乘法" class="headerlink" title="有限域的乘法"></a>有限域的乘法</h5><p>AES的有限域是GF(2^8)，也就是说从0到256都属于这个有限域内</p>
+<p> <img src="/2022/02/08/AES/051112046641282.png" alt="有限域的乘法"> </p>
+<p>将字符转为二进制，最高位为x的7次方，最低位为x的0次方，也就是1</p>
+<p>在AES的有限域二进制中，所有数都能通过01，02，04，08，10，20，40，80异或得到，下面是对应的二进制表示</p>
+<p> <img src="/2022/02/08/AES/20140528221753187.jpg"> </p>
+<p>后一个分别是前一个的2倍</p>
+<p>假设一个数a为3，那么他的二进制为00000011，也就是0x2^0x1，这里的异或在有限域中是加法</p>
+<p>而任意一个数x和a相乘可以表示为</p>
+<p>x×a=x×(0x2+0x1)</p>
+<p>所以我们只需计算出</p>
+<p> <img src="/2022/02/08/AES/20140528222133843.jpg"> </p>
+<p>然后异或所有结果即可</p>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>比如计算0x3a*0x24，0x3a的二进制为 00111010，</p>
+<p>分别求，这里要注意乘二相当于左移一位，而有限域为2^8，所以可能会溢出，所以要判断最高位是否为1，如果为1的话，左移之后会溢出，就需要除以同余式，而在AES的有限域中，八次不可约同余式，这里被定义为 x^8+x^4+x^3+x+1，也就是异或上0x1B</p>
+<p> <img src="/2022/02/08/AES/20140528222614812.jpg"> </p>
+<p> 0x24=00100100，所以0x3a<em>0x24=0x3a</em>00100100=0x04<em>0x3a^0x20</em>0x3a=0xe8^0x01=0xe9</p>
+<p>代码实现</p>
+<pre class="language-c" data-language="c"><code class="language-c">unsigned char XTIME(unsigned char x) 
+{
+    return ((x &lt;&lt; 1) ^ ((x &amp; 0x80) ? 0x1b : 0x00));
+}
+unsigned char multiply(unsigned char a, unsigned char b) 
+{
+    unsigned char temp[8] = { a };
+    unsigned char tempmultiply = 0x00;
+    int i = 0;
+    for (i = 1; i &lt; 8; i++) 
+    {
+        temp[i] = XTIME(temp[i - 1]);
+    }
+    tempmultiply = (b &amp; 0x01) * a;
+    for (i = 1; i &lt;= 7; i++) 
+    {
+        tempmultiply ^= (((b &gt;&gt; i) &amp; 0x01) * temp[i]);
+    }
+    return tempmultiply;
+}</code></pre>
+
+<p>第一个循环实现的是计算出异或01……的值</p>
+<p>第二个循环，逐位循环，判断是否保留该值，也就是是否要+上该值，这里的加是^</p>
 <h2 id="轮密钥加"><a href="#轮密钥加" class="headerlink" title="轮密钥加"></a>轮密钥加</h2><p>每一列进行进行异或操作</p>
 <p><img src="/2022/02/08/AES/1644306385450.png"></p>
 <h2 id="密钥扩展"><a href="#密钥扩展" class="headerlink" title="密钥扩展"></a>密钥扩展</h2><p>通过子密钥生成十轮需要的密钥</p>
@@ -1085,7 +1129,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">51.5k</span>
+                        class="white-color">53.3k</span>
             
             
             
@@ -1379,9 +1423,9 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 
 </html>

@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-23
+                    2022-03-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    834
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -503,7 +503,71 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94619052">https://zhuanlan.zhihu.com/p/94619052</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/forum.php">https://www.52pojie.cn/forum.php</a></p>
+<h1 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h1><h2 id="符号替换-使用函数"><a href="#符号替换-使用函数" class="headerlink" title="符号替换-使用函数"></a>符号替换-使用函数</h2><ul>
+<li><img src="https://www.zhihu.com/equation?tex=%5Coplus" alt="[公式]">: 按位异或</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Cwedge" alt="[公式]">: 按位与</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Cvee" alt="[公式]">: 按位或</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Clnot" alt="[公式]">: 补位</li>
+<li><img src="https://www.zhihu.com/equation?tex=+" alt="[公式]">: 相加以后对<img src="https://www.zhihu.com/equation?tex=2%5E%7B32%7D" alt="[公式]">求余</li>
+<li><img src="https://www.zhihu.com/equation?tex=R%5En" alt="[公式]">: 右移n位</li>
+<li><img src="https://www.zhihu.com/equation?tex=S%5En" alt="[公式]">: 循环右移n位</li>
+</ul>
+<p> <img src="/2022/03/23/sha256/equation-1648645011885.svg" alt="使用到的函数"> </p>
+<h2 id="消息预处理"><a href="#消息预处理" class="headerlink" title="消息预处理"></a>消息预处理</h2><h3 id="消息补位"><a href="#消息补位" class="headerlink" title="消息补位"></a>消息补位</h3><p>先对消息摘要实现补码，假设消息M的二进制编码长度为l位。那么我们现在消息末尾补上一位1，然后再补上k个0，其中k为下列方程的最小非负整数</p>
+<p> <img src="/2022/03/23/sha256/equation-1648645283142.svg" alt="计算K的公式"> </p>
+<blockquote>
+<p>特殊情况：当l长度为448时要填充加上512bits，449的话就填充511bits</p>
+<p>447的话直接填充一个1即可</p>
+</blockquote>
+<p>最后填充64位，这64位是l的二进制编码</p>
+<p>补完位的消息长度为512的倍数</p>
+<h3 id="将补位完的消息进行分组"><a href="#将补位完的消息进行分组" class="headerlink" title="将补位完的消息进行分组"></a>将补位完的消息进行分组</h3><p> 将补码处理后的消息以512位为单位分块为: <img src="/2022/03/23/sha256/equation-1648645770037.svg" alt="[公式]"> </p>
+<p>将每个消息块分为16×32bits， 前32位表示为: <img src="/2022/03/23/sha256/equation-1648645804943.svg" alt="[公式]">, 后面32位为: <img src="/2022/03/23/sha256/equation-1648645804934.svg" alt="[公式]">, 以此类推, 最后32位的消息块可表示为: <img src="/2022/03/23/sha256/equation-1648645804929.svg" alt="[公式]"> ，而在C语言中，32位正好对应unsigned int</p>
+<h3 id="消息块扩充"><a href="#消息块扩充" class="headerlink" title="消息块扩充"></a>消息块扩充</h3><p>这里我们得到的是16个32bits消息块，要把其扩展为64个32bits的消息块</p>
+<p>扩展代码</p>
+<pre class="language-c" data-language="c"><code class="language-c">for i from 16 to 63
+    s0 := (w[i-15] rightrotate 7) xor (w[i-15] rightrotate 18) xor(w[i-15] rightshift 3)
+    s1 := (w[i-2] rightrotate 17) xor (w[i-2] rightrotate 19) xor(w[i-2] rightshift 10)
+    w[i] := w[i-16] + s0 + w[i-7] + s1</code></pre>
+
+<h2 id="Hash主要加密流程"><a href="#Hash主要加密流程" class="headerlink" title="Hash主要加密流程"></a>Hash主要加密流程</h2><h3 id="常量初始化"><a href="#常量初始化" class="headerlink" title="常量初始化"></a>常量初始化</h3><p>初始哈希值取自自然数前8个素数(2,3,5,7,11,13,17,19)的平方根的小数部分的前32位的十六进制表示，比如：</p>
+<p><img src="/2022/03/23/sha256/equation-1648646228740.svg" alt="[公式]">小数部分约为0.414213562373095048 </p>
+<p> <img src="/2022/03/23/sha256/equation-1648646248870.svg" alt="根号2的十六进制表示"> </p>
+<p>于是，取出前32位对应0x6a09e667</p>
+<p>依次得到初始化的H值</p>
+<p> <img src="/2022/03/23/sha256/equation-1648646313831.svg" alt="初始化H值"> </p>
+<h3 id="sha256的64个常数"><a href="#sha256的64个常数" class="headerlink" title="sha256的64个常数"></a>sha256的64个常数</h3><p> 取自自然数中前面64个素数的立方根的小数部分的前32位的十六进制表示</p>
+<pre class="language-c" data-language="c"><code class="language-c">428a2f98 71374491 b5c0fbcf e9b5dba5
+3956c25b 59f111f1 923f82a4 ab1c5ed5
+d807aa98 12835b01 243185be 550c7dc3
+72be5d74 80deb1fe 9bdc06a7 c19bf174
+e49b69c1 efbe4786 0fc19dc6 240ca1cc
+2de92c6f 4a7484aa 5cb0a9dc 76f988da
+983e5152 a831c66d b00327c8 bf597fc7
+c6e00bf3 d5a79147 06ca6351 14292967
+27b70a85 2e1b2138 4d2c6dfc 53380d13
+650a7354 766a0abb 81c2c92e 92722c85
+a2bfe8a1 a81a664b c24b8b70 c76c51a3
+d192e819 d6990624 f40e3585 106aa070
+19a4c116 1e376c08 2748774c 34b0bcb5
+391c0cb3 4ed8aa4a 5b9cca4f 682e6ff3
+748f82ee 78a5636f 84c87814 8cc70208
+90befffa a4506ceb bef9a3f7 c67178f2</code></pre>
+
+<p>进行64次循环加密，流程图如下：</p>
+<p><img src="/2022/03/23/sha256/600px-SHA-2.svg.png" alt="主要加密"></p>
+<p>这里介绍一下ABCDEFGH的值以及K数组，W是我们扩展后的消息块</p>
+<p>先把第一个W块和K相加后mod2^32，但是在C语言中，会进行截断，超过32位直接不管超过的那一位</p>
+<p>接着先把H7和前一个得到的结果相加后mod2^32</p>
+<p>再把H4、H5、H6取出进行Ch加密，再和前一个结果相加后mod2^32</p>
+<p>将H4取出进行什么1操作，再和前一步的结果相加后mod2^32</p>
+<p>接下来分为两步，第一步把前一个的结果和H3相加后mod2^32并存储在H4，第二步，先把H0、H1、H2进行Ma操作，再和前一步的结果相加再mod2^32</p>
+<p>然后把H0取出进行什么0操作，再和前面第二步的结果相加后mod32后存储在H0</p>
+<p>最后进行移位存储操作，就是除了H0和H4，剩下的H值存入前一个的H值</p>
+<p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组就是该消息区块的Hash值</p>
+
                 
             </div>
             <hr/>
@@ -1027,7 +1091,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">51.5k</span>
+                        class="white-color">53.3k</span>
             
             
             
@@ -1321,9 +1385,9 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 
 </html>

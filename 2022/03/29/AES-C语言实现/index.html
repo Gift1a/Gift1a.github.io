@@ -473,14 +473,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    11 分
                 </div>
                 
 
@@ -505,7 +505,7 @@
             <div id="articleContent">
                 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://ppppz.net/2022/01/31/AES-P-Z/">https://ppppz.net/2022/01/31/AES-P-Z/</a></p>
 <p>无论是实现还是debug的时候都离不开大佬的博客</p>
-<p>实现的时候发现没学完整，导致中间实现的时候出现了问题，代码写的有点丑，我自己都看不下去了（</p>
+<h1 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h1><p>实现的时候发现没学完整，导致中间实现的时候出现了问题，代码写的有点丑，我自己都看不下去了（</p>
 <pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
 #include&lt;string.h&gt;
 #include&lt;Windows.h&gt;
@@ -941,6 +941,33 @@ int main()
 	return 0;
 }</code></pre>
 
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p>看完AES的代码，做点AES的题巩固一下</p>
+<h2 id="GWCTF2019-re3"><a href="#GWCTF2019-re3" class="headerlink" title="GWCTF2019-re3"></a>GWCTF2019-re3</h2><h3 id="考点-SMC、AES"><a href="#考点-SMC、AES" class="headerlink" title="考点-SMC、AES"></a>考点-SMC、AES</h3><h3 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h3><p>这一段是SMC的解密代码，加上前面的mprotect名称，也可以大致确定，动调跑一下即可</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542144906.png" alt="SMC"></p>
+<p>init_key函数</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542218644.png"></p>
+<p>看到了各种table，开始不知道是什么，但是不影响，因为并没有对我们的输入进行处理，到后面可以知道这是个生成密钥的函数</p>
+<p> <img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/IVT%7DV%7DA4I1PSHR2NX%60EP_F.png" alt="key_generate"> </p>
+<p>刚好长度为16，对应AES的密钥长度</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542330250.png" alt="encode函数"></p>
+<p>可以看到中间有三个函数，最后的循环对加密后的数据进行比较</p>
+<p>而三个函数中，有两个是一样的，这是因为将我们32长度的flag分成了两段进行加密，因为这是128bits的AES加密</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542489870.png" alt="key_add"></p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542517975.png" alt="key_add"></p>
+<p>对比AES的w表生成方式，不难看出这一段是生成w表，不过有点不同，因为我们是在矩阵中进行，并且每一次将一个w元素转为int型，倒是+0x3FFFFFFF那段不知道什么意思，网上说是无穷大的数，这里不是很影响我们的分析，就不纠结了</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542810371.png" alt="AES_Encode"></p>
+<p>可以看出这里就是加密过程，因为先进行第0轮的轮密钥加</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542901636.png" alt="Add_Round_Key"></p>
+<p>然后进行字节替换</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542937639.png" alt="ByteReplace"></p>
+<p>行移位，中间有很多暂时变量，然后实现互换</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542961376.png" alt="RowMov"></p>
+<p>列混合</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648543006962.png" alt="MixLine"></p>
+<p>重复进行9轮，最后进行第十轮（不包括列混合）</p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648543079057.png" alt="第十轮"></p>
+<p>至此key和密文都有了，解密</p>
+<p> <img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/GN37@K06OO18H7U6%5DX8W%5DYY.png"> </p>
 
                 
             </div>
@@ -1459,7 +1486,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">51.5k</span>
+                        class="white-color">53.3k</span>
             
             
             
@@ -1753,9 +1780,9 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
 
 </html>
