@@ -32,8 +32,8 @@
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 
@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-30
+                    2022-04-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    834
+                    1.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    3 分
+                    7 分
                 </div>
                 
 
@@ -566,7 +566,114 @@ d192e819 d6990624 f40e3585 106aa070
 <p>接下来分为两步，第一步把前一个的结果和H3相加后mod2^32并存储在H4，第二步，先把H0、H1、H2进行Ma操作，再和前一步的结果相加再mod2^32</p>
 <p>然后把H0取出进行什么0操作，再和前面第二步的结果相加后mod32后存储在H0</p>
 <p>最后进行移位存储操作，就是除了H0和H4，剩下的H值存入前一个的H值</p>
-<p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组就是该消息区块的Hash值</p>
+<p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组加上原来的中间Hash值就是该消息区块的Hash值</p>
+<h1 id="C语言实现"><a href="#C语言实现" class="headerlink" title="C语言实现"></a>C语言实现</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;Windows.h&gt;
+#define SHA256_ROTL(a,b) (((a&gt;&gt;(32-b))&amp;(0x7fffffff&gt;&gt;(31-b)))|(a&lt;&lt;b))
+#define SHA256_SR(a,b) ((a&gt;&gt;b)&amp;(0x7fffffff&gt;&gt;(b-1)))
+#define SHA256_CH(x,y,z) ((x&amp;y)^((~x)&amp;z))
+#define SHA256_Maj(x,y,z) ((x&amp;y)^(x&amp;z)^(y&amp;z))
+#define SHA256_E0(x) (SHA256_ROTL(x,30)^SHA256_ROTL(x,19)^SHA256_ROTL(x,10))
+#define SHA256_E1(x) (SHA256_ROTL(x,26)^SHA256_ROTL(x,21)^SHA256_ROTL(x,7))
+#define SHA256_O0(x) (SHA256_ROTL(x,25)^SHA256_ROTL(x,14)^SHA256_SR(x,3))
+#define SHA256_O1(x) (SHA256_ROTL(x,15)^SHA256_ROTL(x,13)^SHA256_SR(x,10)) 
+
+void SHA256_ENCODE(char* input, int len)
+{
+	int i;
+	char* pos,*posend;
+	long A, B, C, D, E, F, G, I;
+	long W[64] = { 0 };
+	//初始化常量数据
+	long long H[8] = {
+		0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,
+		0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19
+	};
+	unsigned int K[64] = {
+		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+		0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+		0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+		0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+		0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+		0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+		0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+	};
+	//消息补位,一个字符8位，而448位为56个字符,128个字符是1024位，512的两倍
+	long long len_final = len + ((len % 64 &gt;= 56) ? (128 - len % 64) : (64 - len % 64));
+	//printf("%d", len_final);
+	//开辟空间
+	if (!(pos = (char*)malloc(len_final)))
+	{
+		printf("开辟空间失败！\n");
+		exit(0);
+	}
+	//将字符串赋值到堆中，注意因为后面需要转为long类型运算，所以赋值时要注意大小端序的问题
+	for ( i = 0; i &lt; len; ++i)
+	{
+		pos[i + 3 - 2 * (i % 4)] = input[i];
+	}
+	//字符串后面的1和填充0
+	pos[i + 3 - 2 * (i % 4)] = 0x80;
+	i++;
+	for (; i &lt; len_final; ++i)
+	{
+		pos[i + 3 - 2 * (i % 4)] = 0;
+	}
+	//填充字符串的真实长度，并扩展为64位,64位也就是8个字符
+	*((long*)(pos + len_final - 4)) = len &lt;&lt; 3;
+	*((long*)(pos + len_final - 8)) = len &gt;&gt; 29;
+	//每512位进行加密
+	for (posend = pos + len_final; pos &lt; posend; pos += 64)
+	{
+		//先分组为16*32bit
+		for (int j = 0; j &lt; 16; ++j)
+		{
+			W[j] = ((long*)pos)[j];
+		}
+		//扩展为64*32bit
+		for (int j = 16; j &lt; 64; ++j)
+		{
+			W[j] = (SHA256_O1(W[j - 2]) + W[j - 7] + SHA256_O0(W[j - 15]) + W[j - 16]);
+		}
+		//下面开始进行64轮加密
+		//因为中间哈希值最后时为原来的+加密的哈希值，所以先储存
+		A = H[0], B = H[1], C = H[2], D = H[3], E = H[4], F = H[5], G = H[6], I = H[7];
+		for (i = 0; i &lt; 64; ++i)
+		{
+			//T1存储加密的前一部分,T2存储加密的后一部分
+			long T1 = I + SHA256_CH(E, F, G) + K[i] + W[i]+SHA256_E1(E);
+			long T2 = SHA256_Maj(A, B, C) + SHA256_E0(A);
+			//只能从后往前赋值，否则会覆盖
+			I = G;
+			G = F;
+			F = E;
+			E = D + T1;
+			D = C;
+			C = B;
+			B = A;
+			A = T1 + T2;
+		}
+		H[0] += A; H[1] += B;
+		H[2] += C; H[3] += D;
+		H[4] += E; H[5] += F;
+		H[6] += G; H[7] += I;
+		for (i = 0; i &lt; 8; ++i)
+		{
+			printf("%X", H[i]);
+		}
+	}
+	return;
+}
+int main()
+{
+	char input[] = "ze";
+	SHA256_ENCODE(input, strlen(input));
+	return 0;
+}</code></pre>
+
 
                 
             </div>
@@ -1091,7 +1198,7 @@ d192e819 d6990624 f40e3585 106aa070
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">54.6k</span>
+                        class="white-color">58.4k</span>
             
             
             
