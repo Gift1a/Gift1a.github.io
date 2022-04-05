@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="题目复现, Hexo">
+    <meta name="keywords" content="近期题目复现, Hexo">
     <meta name="description" content="一些比赛的复现">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>题目复现 | Hexo</title>
+    <title>近期题目复现 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -32,8 +32,8 @@
 
 <meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -322,12 +322,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">题目复现</h1>
+                    <h1 class="description center-align post-title">近期题目复现</h1>
                 </div>
             </div>
         </div>
@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-04
+                    2022-04-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    712
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    7 分
                 </div>
                 
 
@@ -620,6 +620,123 @@ print(flag.decode())</code></pre>
 <p>zer0pts{m0d1fy1ng_PE_1mp0rts_1s_4n_34sy_0bfusc4t10n}</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xxxxxxxxx/p/11544432.html">https://www.cnblogs.com/xxxxxxxxx/p/11544432.html</a></p>
 <p>这里介绍了itertools.product，其实目的就是生成2位字符的彩虹表，然后和密文对比</p>
+<h1 id="SpaceHeroesCtf2022-Shai-Hulud"><a href="#SpaceHeroesCtf2022-Shai-Hulud" class="headerlink" title="SpaceHeroesCtf2022-Shai-Hulud"></a>SpaceHeroesCtf2022-Shai-Hulud</h1><h2 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h2><p>比较有趣的一道题，当时专注于改源码搞定游戏，然后一直失败，主要是自己写的C语言生成的随机数和调试得到的不同（其实是没注意linux和windows生成随机数的不同），所以就想玩游戏得到flag</p>
+<p>另外的解法</p>
+<p><a target="_blank" rel="noopener" href="https://breaking-bits.gitbook.io/breaking-bits/spaceheros-ctf-2022/re-shai-hulud">https://breaking-bits.gitbook.io/breaking-bits/spaceheros-ctf-2022/re-shai-hulud</a></p>
+<h2 id="0x01-分析过程"><a href="#0x01-分析过程" class="headerlink" title="0x01-分析过程"></a>0x01-分析过程</h2><p>运行程序知道这是个贪吃蛇小游戏，通过不等于0x295判断这就是贪吃蛇长度，然后SHA256_Init可以看出这是sha256加密</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649148254617.png"></p>
+<p>前面的一些函数就是生成地图，初始化游戏等操作</p>
+<p>主要看下面这个函数，是随机生成需要吃掉的点的</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649148425600.png" alt="vibration"></p>
+<p>这两个函数是一些规则，告诉你wasd是移动</p>
+<p>主要看frame函数</p>
+<p>下面这个函数是说不能碰到尾巴，继续往下看</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649148585642.png" alt="判定退出"></p>
+<p>可以看到等于-2的时候，而-2刚好对应随机生产点函数的-2，然后对该值进行sha256加密，并且重新生成-2的点，然后长度+1</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649148702003.png"></p>
+<p>所以我们接下来只需要跑到最后的长度即可得到最后的sha256加密值，然后在print_flag函数中，最后进行了一次异或</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649148830700.png" alt="print_flag"></p>
+<p>本来修改好规则打算玩到0x294的，但是在长度为195的时候随机点找不到。所以只能老实做</p>
+<p>在导入表可以看到SHA256_Init，SHA256_Update，SHA256_Final函数，可以知道调用了OPENSSL，版本为1.1.0</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649148953206.png" alt="导入表"></p>
+<p>安装好之后，模仿该过程生成SHA256加密，注意因为每次都会Update，所以不能将最后一次生成的值直接SHA256加密，这样得到的结果不一样</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649153105553.png" alt="函数说明"></p>
+<p>这也就是前面说的，每加密完一次，hash初始值都会被改变</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;openssl/sha.h&gt;
+#include &lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+int main(int argc, char const* argv[])
+{
+	SHA256_CTX ctx;
+	srand(0x2454);
+	char output[256];
+	__int64_t buffer;
+	int x, y;
+	SHA256_Init(&amp;ctx);
+	for (int i = 0; i &lt; 0x294; ++i)
+	{
+		x = rand() % 33;
+		y = rand() % 20;
+		buffer = 16 * x + y;
+		SHA256_Update(&amp;ctx, &amp;buffer, 8);
+		SHA256_Final(output, &amp;ctx);
+	}
+	for(int i = 0; i&lt;32; i++) //将SHA256以16进制输出
+	{
+         printf("%02x", (int)output[i]&amp;0xff);
+    }
+     puts("\n");
+	return 0;
+</code></pre>
+
+<p>编译</p>
+<blockquote>
+<p>g++ -o openssl-sha256 openssl-sha256.c -std=c++11 -lssl -lcrypto</p>
+</blockquote>
+<p>也可以动调得到最后的sha256值</p>
+<p>最后异或一下即可</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+int main(int argc, char const* argv[])
+{
+	char data[33] = {
+	0xC2, 0x98, 0xD1, 0x8E, 0xC8, 0xBF, 0x99, 0x75, 0x50, 0x41, 0x54, 0x5D, 0x3C, 0x39, 0xA8, 0x05,
+	0x73, 0x7B, 0xDE, 0xEA, 0xA3, 0xBE, 0x4C, 0x40, 0x2B, 0xE2, 0x48, 0x90, 0x80, 0x7F, 0x7B, 0x8D };
+	unsigned char magic_bytes[32] = {
+	0xB2, 0xEA, 0xE5, 0xBF, 0xBB, 0x8C, 0xC6, 0x01, 0x38, 0x72, 0x0B, 0x2F, 0x0F, 0x54, 0x9C, 0x6E,
+	0x40, 0x24, 0xEA, 0x84, 0xC7, 0xE1, 0x7D, 0x34, 0x58, 0xBD, 0x2E, 0xE2, 0xB4, 0x12, 0x48, 0xFE
+	};
+	for (int i = 0; i &lt; strlen(data); ++i)
+	{
+		data[i] ^= magic_bytes[i];
+	}
+	printf("%s", data);
+	return 0;
+}</code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zyhse/article/details/108026800?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_default&amp;utm_relevant_index=2">https://blog.csdn.net/zyhse/article/details/108026800?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&amp;utm_relevant_index=2</a></p>
+<p>上面介绍了openssl的一些加密算法使用，下面这个是函数说明</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3c59291f8f98">https://www.jianshu.com/p/3c59291f8f98</a></p>
+<h1 id="SpaceHeroesCtf2022-Timesup"><a href="#SpaceHeroesCtf2022-Timesup" class="headerlink" title="SpaceHeroesCtf2022-Timesup"></a>SpaceHeroesCtf2022-Timesup</h1><p>进去就是输入三个数满足一个方程式</p>
+<p>计算方法就不多说了，可以看这篇wp</p>
+<p><a target="_blank" rel="noopener" href="https://ctftime.org/writeup/32973">https://ctftime.org/writeup/32973</a></p>
+<p>主要看第二个限制，可以看到这里有个限制应该是在16到17秒之间，但是wp里说的是17分，我自己写了代码发现第一个参数是秒，这里也有说明</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-localtime.html">https://www.runoob.com/cprogramming/c-function-localtime.html</a></p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649157668565.png"></p>
+<p>那么我们就需要借助工具来进行传送参数，需要pwntools</p>
+<pre class="language-none"><code class="language-none">process是连接本地连接
+remote是连接远端的，格式t=remote('网址',端口)
+
+我们可以发送数据过去，也可以接受数据</code></pre>
+
+<pre class="language-python" data-language="python"><code class="language-python">val = 0xa4c570
+
+a = 1
+b = (val * 7 - 4) // 2
+c = 1
+def testfunc(a, b, c):
+    return (a + b + c &lt;&lt; ((a % b) &amp; 0x1f)) // ((2 &lt;&lt; (a &amp; 0x1f) ^ 3) * c)
+
+result = testfunc(a, b, c)
+
+print(val)
+print(result, hex(result))
+
+print(hex(a), hex(b), hex(c))
+
+from pwn import *
+
+#s = process('./timesup')
+s = remote('0.cloud.chals.io', 26020)
+
+print(s.readuntil(b'&gt;&gt;&gt; ').decode())
+
+s.writeline('{} {} {}'.format(hex(a), hex(b), hex(c)).encode())
+
+s.interactive()</code></pre>
+
+<p>直接贴代码吧，感觉需要系统学pwntools</p>
 
                 
             </div>
@@ -1136,7 +1253,7 @@ print(flag.decode())</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">58.8k</span>
+                        class="white-color">59.9k</span>
             
             
             
