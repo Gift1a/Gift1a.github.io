@@ -4,13 +4,8 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="hgame-misc, Hexo">
-    <meta name="description" content="前言总算是结束了，下面就记录一下misc遇到的一些题目
-这个压缩包有点麻烦相关知识-压缩包解题过程
-可以看到在zip给出了密码的提示，六位纯数字，Advanced Archive Password Recovery爆破
-
-
-根据提示，给出的">
+    <meta name="keywords" content="PWN基本工具, Hexo">
+    <meta name="description" content="PWN的一些基本工具">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -22,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>hgame-misc | Hexo</title>
+    <title>PWN基本工具 | Hexo</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -327,12 +322,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">hgame-misc</h1>
+                    <h1 class="description center-align post-title">PWN基本工具</h1>
                 </div>
             </div>
         </div>
@@ -448,8 +443,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Competition/">
-                                <span class="chip bg-color">Competition</span>
+                            <a href="/tags/PWN/">
+                                <span class="chip bg-color">PWN</span>
                             </a>
                         
                     </div>
@@ -464,28 +459,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-02-19
+                    2022-04-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-11
+                    2022-04-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    621
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    5 分
                 </div>
                 
 
@@ -508,51 +503,138 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>总算是结束了，下面就记录一下misc遇到的一些题目</p>
-<h1 id="这个压缩包有点麻烦"><a href="#这个压缩包有点麻烦" class="headerlink" title="这个压缩包有点麻烦"></a>这个压缩包有点麻烦</h1><h2 id="相关知识-压缩包"><a href="#相关知识-压缩包" class="headerlink" title="相关知识-压缩包"></a>相关知识-压缩包</h2><h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p><img src="/2022/02/19/hgame-misc/1645212044252.png"></p>
-<p>可以看到在zip给出了密码的提示，六位纯数字，Advanced Archive Password Recovery爆破</p>
-<p><img src="/2022/02/19/hgame-misc/1645212152522.png"></p>
-<p><img src="/2022/02/19/hgame-misc/1645212207157.png"></p>
-<p>根据提示，给出的应该是字典，我们同样在爆破软件中选择字典</p>
-<p><img src="/2022/02/19/hgame-misc/1645212320305.png"></p>
-<p>继续下一步</p>
-<p><img src="/2022/02/19/hgame-misc/1645212429206.png"></p>
-<p>他让我们重新储存，把readme文件选择以存储的方式压缩发现</p>
-<p><img src="/2022/02/19/hgame-misc/1645212573216.png"></p>
-<p>这两个的CRC32的值是一样的，但是我们知道CRC32的值只有一个，所以使用明文攻击，这里4.5没跑出来，4.0跑出来了</p>
-<p>在jpg文件尾部发现了zip，另存一下，是伪加密</p>
-<p><img src="/2022/02/19/hgame-misc/1645213950846.png"></p>
-<p>修复后得到flag</p>
-<p><img src="/2022/02/19/hgame-misc/1645214098403.png"></p>
-<h1 id="你上当了-我的很大"><a href="#你上当了-我的很大" class="headerlink" title="你上当了 我的很大"></a>你上当了 我的很大</h1><h2 id="相关知识-二维码"><a href="#相关知识-二维码" class="headerlink" title="相关知识-二维码"></a>相关知识-二维码</h2><h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>解压之后得到很多的视频，但都是重复的，有用的就几个，主要记录一下各种二维码的样子，以免之后认不出来</p>
-<p><a target="_blank" rel="noopener" href="https://barcode.tec-it.com/zh/CodablockF">https://barcode.tec-it.com/zh/CodablockF</a></p>
-<p>这个网站可以生成不同的二维码，便于识别</p>
-<p><a target="_blank" rel="noopener" href="https://products.aspose.app/barcode/recognize#">https://products.aspose.app/barcode/recognize#</a></p>
-<p>这个网站识别比较全</p>
-<p><img src="/2022/02/19/hgame-misc/1645213399267.png"></p>
-<p><img src="/2022/02/19/hgame-misc/1645213453036.png"></p>
-<p><img src="/2022/02/19/hgame-misc/1645213467874.png"></p>
-<h1 id="谁不喜欢猫猫呢"><a href="#谁不喜欢猫猫呢" class="headerlink" title="谁不喜欢猫猫呢"></a>谁不喜欢猫猫呢</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mochu7777777/article/details/122631962-%E5%8F%AF%E4%BB%A5%E7%9C%8B%E7%9C%8B%EF%BC%8C%E8%84%9A%E6%9C%AC%E4%B8%8D%E4%BC%9A%E5%86%99">https://blog.csdn.net/mochu7777777/article/details/122631962-可以看看，脚本不会写</a></p>
-<h1 id="摆烂"><a href="#摆烂" class="headerlink" title="摆烂"></a>摆烂</h1><h2 id="相关知识-盲水印、APng、零宽隐写"><a href="#相关知识-盲水印、APng、零宽隐写" class="headerlink" title="相关知识-盲水印、APng、零宽隐写"></a>相关知识-盲水印、APng、零宽隐写</h2><h2 id="解题过程-2"><a href="#解题过程-2" class="headerlink" title="解题过程"></a>解题过程</h2><p>foremost分离压缩包得到png文件，也可以复制文件信息之后另存为，将png拖进010发现奇怪的地方</p>
-<p><img src="/2022/02/19/hgame-misc/1645214249445.png"></p>
-<p>正常的png文件是没有fdAT数据段的 APng-<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5333bcc20ba7">https://www.jianshu.com/p/5333bcc20ba7</a></p>
-<p>查阅资料发现是Apng，这里介绍一个分解Apng的网址</p>
-<p><a target="_blank" rel="noopener" href="https://ezgif.com/split">https://ezgif.com/split</a></p>
-<p>得到两张一模一样的图片，这时候就想到了盲水印</p>
-<p><img src="/2022/02/19/hgame-misc/1645214469303.png"></p>
-<p>得到带有密码的图片</p>
-<p><img src="/2022/02/19/hgame-misc/1645214585213.png"></p>
-<p>得到密钥解压压缩包，拼接二维码，扫码得到</p>
-<p><img src="/2022/02/19/hgame-misc/1645214612749.png"></p>
-<p>发现很多问号，应该就是零宽了，这里我手机扫码后的信息再拿去解密-<a target="_blank" rel="noopener" href="https://330k.github.io/misc_tools/unicode_steganography.html">https://330k.github.io/misc_tools/unicode_steganography.html</a></p>
-<p><img src="/2022/02/19/hgame-misc/1645214720413.png"></p>
-<h1 id="At0m的给你们的-迟到的-情人节礼物"><a href="#At0m的给你们的-迟到的-情人节礼物" class="headerlink" title="At0m的给你们的(迟到的)情人节礼物"></a>At0m的给你们的(迟到的)情人节礼物</h1><h2 id="相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具"><a href="#相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具" class="headerlink" title="相关知识-avi隐写、NTFS数据流、 MSU StegoVideo工具"></a>相关知识-avi隐写、NTFS数据流、 MSU StegoVideo工具</h2><h2 id="解题过程-3"><a href="#解题过程-3" class="headerlink" title="解题过程"></a>解题过程</h2><p>一般数据流隐写都采取winrar，所以要关注rar文件</p>
-<p>这里解压之后时候NTFS工具得到</p>
-<p><img src="/2022/02/19/hgame-misc/1645214827597.png"></p>
-<p>四个方向对应四进制，解码的到 6557225 </p>
-<p>还有一个avi文件，一般是MSU StegoVideo工具</p>
-<p>下载好之后选择好avi文件，并且指定写入的文本 ，输入密码即可</p>
-<p>hgame{Q1ng_R3n_J1e_Da_Sh4_CTF}                        </p>
+                <h1 id="0x00-GDB工具安装"><a href="#0x00-GDB工具安装" class="headerlink" title="0x00-GDB工具安装"></a>0x00-GDB工具安装</h1><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/129837931">https://zhuanlan.zhihu.com/p/129837931</a></p>
+<p>gdb这三个插件不能同时运行，可以使用命令</p>
+<pre class="language-none"><code class="language-none">vim ~/.gdbinit</code></pre>
+
+<p><img src="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/1649212326580.png" alt="gdbinit"></p>
+<p>不需要使用哪个就注释掉哪个</p>
+<h1 id="0x01-GDB基本使用"><a href="#0x01-GDB基本使用" class="headerlink" title="0x01-GDB基本使用"></a>0x01-GDB基本使用</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>首先先使用gcc生成elf文件，-g表示可以debug</p>
+<pre class="language-none"><code class="language-none">gcc inputfile -o outputfile -g</code></pre>
+
+<p>使用下面命令打开</p>
+<pre class="language-none"><code class="language-none">gdb file</code></pre>
+
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhwer/p/12494317.html">https://www.cnblogs.com/zhwer/p/12494317.html</a></p>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><pre class="language-c" data-language="c"><code class="language-c">help//帮助
+i//info
+	i b//info break查看所有断点信息
+	i r//info registers 查看各个寄存器当前的值
+	i f//info function 查看所有函数名，保留符号
+show //和info相似，但是是查看调试器的基本信息
+	show args//查看参数
+	
+backtrace//查看调用堆栈
+q//quit退出</code></pre>
+
+<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><pre class="language-c" data-language="c"><code class="language-c">s//step，单步步入，跟进函数中，也就是step into，源码层面的一步，F7
+	si//同s，汇编层面的一步
+n//next，单步补过，F8，源码层面的一步
+	ni//同n，汇编层面的一步
+c//continue，F9，继续执行到断点
+r//run，重新开始执行</code></pre>
+
+<h3 id="断点指令-break"><a href="#断点指令-break" class="headerlink" title="断点指令-break"></a>断点指令-break</h3><pre class="language-c" data-language="c"><code class="language-c">b*(0x123456)//给0x123456地址的指令下断点
+	b*$rebase(0x123456)//$rebase在调试开PIE的程序的时候可以直接加上程序的随即地址
+b func_name//给函数func_name下断点，目标文件要保留符号才行
+    b file_name:func_name
+b file_name:15//给file_name的15行下断点，需要有源码
+    b 15
+b +0x10//在程序当前停住的位置下0x10的位置下断点，也可以-0x10，就是前0x10
+break fun if $rdi==5//条件断点，rdi的值为5的时候才断</code></pre>
+
+<p>删除、禁用断点的指令</p>
+<pre class="language-c" data-language="c"><code class="language-c">//先使用i b查看断点编号
+delete 5//删除5号断点，如果直接delete不加数字，表示删除所有断点
+disable 5//禁用5号断点
+    enable 5//启用5号断点
+clear//清除下面的所有断点</code></pre>
+
+<p>内存断点指令</p>
+<pre class="language-c" data-language="c"><code class="language-c">watch 0x123456//0x123456地址的数据改变的时候会断
+watch a//变量a改变的时候会断
+info watchpoints//查看watch断点信息</code></pre>
+
+<h3 id="打印指令"><a href="#打印指令" class="headerlink" title="打印指令"></a>打印指令</h3><p>查看内存指令x</p>
+<pre class="language-c" data-language="c"><code class="language-c">x /nuf 0x123456//x指令的格式是：x /nfu，nfu代表三个参数
+    n//代表显示几个单元（而不是显示几个字节，后面的u表示一个单元多少个字节），放在'/'后面
+    u//代表一个单元几个字节，b(一个字节),h(两个字节)，w(四字节)，g(八字节)
+    f//代表显示数据的格式，f和u的顺序可以互换，也可以只有一个或者不带n
+    	x 按十六进制格式显示变量。
+		d 按十进制格式显示变量。
+		u 按十六进制格式显示无符号整型。
+		o 按八进制格式显示变量。
+        t 按二进制格式显示变量。
+        a 按十六进制格式显示变量。
+        c 按字符格式显示变量。
+        f 按浮点数格式显示变量。
+        s 按字符串显示。
+        b 按字符显示。
+        i 显示汇编指令。
+x /10gx 0x123456//从0x123456开始每个单元八个字节，十六进制显示十个单元的数据
+x /10xd $rdi//从rdi指向的地址向后打印十个单元，每个单元四字节的十进制数
+x /10i 0x123456//从0x123456处向后显示十条汇编指令</code></pre>
+
+<p>打印指令p(print)</p>
+<pre class="language-c" data-language="c"><code class="language-c">p func_name//打印func_name的地址，需要保留符号
+p 0x10-0x8//计算0x10-0x8的结果
+p &amp;a//查看变量a的地址
+p *(0x123456)//查看0x123456的值
+p $rdi//显示rdi寄存器的值
+    p *($rdi)//显示rdi指向的值</code></pre>
+
+<p>打印汇编指令disass(disassemble)</p>
+<pre class="language-c" data-language="c"><code class="language-c">disass 0x123456//显示0x123456前后的汇编指令
+x /10i //前面说过了</code></pre>
+
+<p>打印源代码list</p>
+<pre class="language-c" data-language="c"><code class="language-c">list//查看当前附近10行的代码
+    list 38//查看28行附近10行的代码
+    list 1,10//查看1-10行代码
+    list main//查看main函数的开始10行</code></pre>
+
+<h3 id="查找指令"><a href="#查找指令" class="headerlink" title="查找指令"></a>查找指令</h3><pre class="language-c" data-language="c"><code class="language-c">search rdi//从当前位置向后查找包含rdi的指令
+find "hello"//查找hello字符串，pwndbg独有</code></pre>
+
+<h3 id="修改数据指令-set"><a href="#修改数据指令-set" class="headerlink" title="修改数据指令-set"></a>修改数据指令-set</h3><pre class="language-c" data-language="c"><code class="language-c">set $rdi=0x10//把寄存器的值变为0x10
+set *(0x123456)=0x10//把0x123456地址的值变为0x10，注意带星号
+set args "abc" "def" "gh"//给参数123赋值</code></pre>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre class="language-c" data-language="c"><code class="language-c">堆操作指令（pwndbg插件独有）
+arena //显示arena的详细信息
+arenas //显示所有arena的基本信息
+arenainfo //好看的显示所有arena的信息
+bins //常用，查看所有种类的堆块的链表情况
+fastbins //单独查看fastbins的链表情况
+largebins //同上，单独查看largebins的链表情况
+smallbins //同上，单独查看smallbins的链表情况
+unsortedbin //同上，单独查看unsortedbin链表情况
+tcachebins //同上，单独查看tcachebins的链表情况
+tcache //查看tcache详细信息
+heap //数据结构的形式显示所有堆块，会显示一大堆
+heapbase //查看堆起始地址
+heapinfo、heapinfoall //显示堆得信息，和bins的挺像的，没bins好用
+parseheap //显示堆结构，很好用
+tracemalloc //好用，会跟提示所有操作堆的地方
+其他pwndbg插件独有指令
+cyclc 50 //生成50个用来溢出的字符，如：aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama
+
+$reabse //开启PIE的情况的地址偏移
+
+b *$reabse(0x123456) //断住PIE状态下的二进制文件中0x123456的地方
+codebase //打印PIE偏移，与rebase不同，这是打印，rebase是使用
+stack //查看栈
+
+retaddr //打印包含返回地址的栈地址
+canary //直接看canary的值
+
+plt //查看plt表
+
+got //查看got表
+hexdump //像IDA那样显示数据，带字符串</code></pre>
+
+<h1 id="0x02-PWNTOOLS"><a href="#0x02-PWNTOOLS" class="headerlink" title="0x02-PWNTOOLS"></a>0x02-PWNTOOLS</h1><p>pip install pwntools即可</p>
 
                 
             </div>
@@ -579,7 +661,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://gift1a.github.io/2022/02/19/hgame-misc/">https://gift1a.github.io/2022/02/19/hgame-misc/</a>
+                    <a href="https://gift1a.github.io/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/">https://gift1a.github.io/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -617,8 +699,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Competition/">
-                                    <span class="chip bg-color">Competition</span>
+                                <a href="/tags/PWN/">
+                                    <span class="chip bg-color">PWN</span>
                                 </a>
                             
                         </div>
@@ -793,29 +875,30 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/">
+                <a href="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="hgame2022-WOW-patch数据段">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="PWN基本工具">
                         
-                        <span class="card-title">hgame2022-WOW-patch数据段</span>
+                        <span class="card-title">PWN基本工具</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            PWN的一些基本工具
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-02-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -824,11 +907,12 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Competition/">
-                        <span class="chip bg-color">Competition</span>
+                    <a href="/tags/PWN/">
+                        <span class="chip bg-color">PWN</span>
                     </a>
                     
                 </div>
@@ -842,24 +926,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/">
+                <a href="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="pyc加花指令">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="动态链接库创建与使用">
                         
-                        <span class="card-title">pyc加花指令</span>
+                        <span class="card-title">动态链接库创建与使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            动态链接库
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-04
                             </span>
                         <span class="publish-author">
                             
@@ -872,8 +956,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Reverse/">
-                        <span class="chip bg-color">Reverse</span>
+                    <a href="/tags/PE/">
+                        <span class="chip bg-color">PE</span>
                     </a>
                     
                 </div>
