@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-04-06
+                    2022-04-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    2.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    11 分
                 </div>
                 
 
@@ -737,6 +737,133 @@ s.writeline('{} {} {}'.format(hex(a), hex(b), hex(c)).encode())
 s.interactive()</code></pre>
 
 <p>直接贴代码吧，感觉需要系统学pwntools</p>
+<h1 id="Hgame2022-week4-hardasm"><a href="#Hgame2022-week4-hardasm" class="headerlink" title="Hgame2022-week4-hardasm"></a>Hgame2022-week4-hardasm</h1><p>一打开有几千行的汇编代码，先定位到关键判断</p>
+<p>可以看到有很多的比较+跳转，而跳转的位置都是error</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649300239189.png"></p>
+<p>那么只需要保证不符合等于0即可</p>
+<p>构造flag：hgame{12345678901234567890}动调</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649300476017.png" alt="比较内容"></p>
+<p>可以看到只要输入正确，最后得到的值是0xFF，不正确则为0，可以采取爆破的方式爆破出flag</p>
+<p>可以看到printf的参数是通过rcx传入的，所以我们可以patch程序，让他打印[rsp+70h+var_50]的值，而不是success或error</p>
+<p> <img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1c8291f15811477c8fbbd7d6a480bca0.png" alt="asm-print"> </p>
+<p>edit-&gt;patch Program-&gt;Assemble，不知道为什么KeyPatch改不了</p>
+<p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649301043777.png"></p>
+<h2 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h2><p> subprocess模块可以生成新的进程，连接到它们的input/output/error管道，同时获取它们的返回值</p>
+<p>我们可以使用该模块进行爆破</p>
+<pre class="language-python" data-language="python"><code class="language-python">import subprocess
+real_flag="hgame{"#绝对正确的前6个字符
+cur_index=6#当前爆破的位置
+while cur_index&lt;32:
+    for i in range(32,128):#当前爆破的位置上的字符
+        real_flag_arr = [0] * 32
+        for j in range(len(real_flag)):#正确的先复制一下
+            real_flag_arr[j]=ord(real_flag[j])
+
+        real_flag_arr[cur_index]=i#设置当前爆破的位置上的字符
+        real_flag_arr_s="".join(chr(k) for k in real_flag_arr)#输入到程序中的字符串
+        #上面都是一些初始化
+        p = subprocess.Popen(["D:\\new\\AD\\game\\hgame2022\\week4\\hardasm.exe"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p.stdin.write(real_flag_arr_s.encode())
+        p.stdin.close()#停止输入
+        out = p.stdout.read()
+        if len(out)&gt;cur_index:#判断程序打印出的0xFF的个数是否增加，增加则说明当前爆破的位置上的字符设置的是正确的，因为存储的内容为0时，printf不打印
+            real_flag+=chr(i)
+            cur_index+=1
+            print(real_flag)
+            break
+# hgame{r
+# hgame{ri
+# hgame{rig
+# hgame{righ
+# hgame{right
+# hgame{right_
+# hgame{right_y
+# hgame{right_yo
+# hgame{right_you
+# hgame{right_your
+# hgame{right_your_
+# hgame{right_your_a
+# hgame{right_your_as
+# hgame{right_your_asm
+# hgame{right_your_asm_
+# hgame{right_your_asm_i
+# hgame{right_your_asm_is
+# hgame{right_your_asm_is_
+# hgame{right_your_asm_is_g
+# hgame{right_your_asm_is_go
+# hgame{right_your_asm_is_goo
+# hgame{right_your_asm_is_good
+# hgame{right_your_asm_is_good!
+# hgame{right_your_asm_is_good!!
+# hgame{right_your_asm_is_good!!}
+# hgame{right_your_asm_is_good!!}</code></pre>
+
+<p>代码来源-<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45582916/article/details/122909419">https://blog.csdn.net/weixin_45582916/article/details/122909419</a></p>
+<p>POpen参数说明</p>
+<pre class="language-none"><code class="language-none">stdin stdout和stderr：
+
+stdin stdout和stderr，分别表示子程序的标准输入、标准输出和标准错误。可选的值有PIPE或者一个有效的文件描述符（其实是个正整数）或者一个文件对象，还有None。如果是PIPE，则表示需要创建一个新的管道，如果是None，不会做任何重定向工作，子进程的文件描述符会继承父进程的。另外，stderr的值还可以是STDOUT，表示子进程的标准错误也输出到标准输出。</code></pre>
+
+<pre class="language-python" data-language="python"><code class="language-python">stdin.write()#输入
+stdin.close()#关闭输入
+stout.read()#获取输出</code></pre>
+
+<h1 id="Foobarctf2022-Matrix"><a href="#Foobarctf2022-Matrix" class="headerlink" title="Foobarctf2022-Matrix"></a>Foobarctf2022-Matrix</h1><p>一道vm题+angr求解</p>
+<p>vm分析部分</p>
+<pre class="language-c" data-language="c"><code class="language-c">unsigned char opcode[124] = {
+    0x04, 0x0B, 0x1D, 0x1C, 0x1B, 0x1A, 
+	0x04, 0x0A, 0x5A, 0x50, 0x4E, 0x5D, //先把mov后面四个进行异或，然后将异或后的值与我们的输入异或 
+	0x00, 0x0A, 0x0B, 
+	0x00, 0x00, 0x0A, //0x00存的是我们的输入 
+	0x04, 0x0B, 0x2D, 0x2C, 0x2B, 0x2A, 
+	0x04, 0x0A, 0x56, 0x69, 0x58, 0x49, 
+	0x00, 0x0A, 0x0B, 
+	0x00, 0x01, 0x0A, 
+	0x04, 0x0B, 0x3D, 0x3C, 0x3B, 0x3A, 
+	0x04, 0x0A, 0x5C, 0x6C, 0x08, 0x65, 
+    0x00, 0x0A, 0x0B, 
+	0x00, 0x02, 0x0A, 
+	0x04, 0x0B, 0x4D, 0x4C, 0x4B, 0x4A, 
+	0x04, 0x0A, 0x7A, 0x04, 0x2E, 0x15, 
+	0x00, 0x0A, 0x0B, 
+	0x00, 0x03, 0x0A, 
+	0x04, 0x0B, 0x5D, 0x5C, 0x5B, 0x5A, 
+	0x04, 0x0A, 0x30, 0x1C, 0x0F, 0x08, 
+	0x00, 0x0A, 0x0B, 
+	0x00, 0x04, 0x0A, 
+	0x04, 0x0B, 0x6D, 0x6C, 0x6B, 0x6A, 
+    0x04, 0x0A, 0x24, 0x14, 0x16, 0x6A, 
+	0x00, 0x0A, 0x0B, 
+	0x00, 0x05, 0x0A, 
+	
+	0x02, 0x00, 0x01, 					//将我们异或后的值|=其后面一个值 
+	0x02, 0x00, 0x02, 
+	0x02, 0x00, 0x03, 
+	0x02, 0x00, 0x04, 
+	0x02, 0x00, 0x05, 
+	0xFF</code></pre>
+
+<p>angr求解，因为最后的结果字符串存在GLUG，所以直接angr</p>
+<pre class="language-python" data-language="python"><code class="language-python">import angr
+import claripy
+import sys
+
+
+
+proj = angr.Project("./matrix")#创建文件
+state = proj.factory.entry_state()
+
+simgr = proj.factory.simgr()
+simgr.run()
+
+
+if simgr.deadended:
+    for s in simgr.deadended:
+        tmp = s.posix.dumps(0)#获取最终结果
+        if b"glug" in tmp.lower():
+            print(tmp)</code></pre>
+
+<p>不知道为啥只能在linux跑，在windows跑会报错</p>
 
                 
             </div>
@@ -1253,7 +1380,7 @@ s.interactive()</code></pre>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">61.3k</span>
+                        class="white-color">62.5k</span>
             
             
             
