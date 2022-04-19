@@ -466,7 +466,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-14
+                    2022-04-08
                 </div>
                 
 
@@ -602,14 +602,15 @@
 <p>那么剩下的节表信息没用了，我们可以再次新增节</p>
 <h2 id="最终效果-1"><a href="#最终效果-1" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png"></p>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png"></p>
-<h1 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h1><p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
+<h1 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h1><p> <img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"> </p>
+<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
-<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>在数据目录找到导入表的RVA</p>
+<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>在数据目录找到导出表的RVA</p>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png"></p>
 <p>根据节的RVA和大小确定在哪个表</p>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png"></p>
-<p>计算FOA=Export .RVA-rdata.RVA+rdata. PointerToRawData</p>
+<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
 <p>计算得到F2270，跳转，根据Export.Size确定大小</p>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png"></p>
 <h2 id="新增节-1"><a href="#新增节-1" class="headerlink" title="新增节"></a>新增节</h2><p>前面说过，就不细🔒了</p>
@@ -1159,7 +1160,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">62.5k</span>
+                        class="white-color">82.2k</span>
             
             
             

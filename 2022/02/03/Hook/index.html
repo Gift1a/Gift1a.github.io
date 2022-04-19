@@ -5,17 +5,8 @@
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="Hook, Hexo">
-    <meta name="description" content="题目-BUUCTF-easystrcmp进入主函数
-
-看似是一个简单的比较，但是输入之后发现并不对
-应该是做了什么处理，动态调试
-点进strcmp函数
-
-发现跳转到了加密函数
-原理分析
-因为存在init段，去查看函数
-
-这样可以查看函数列表">
+    <meta name="description" content="0x00-Windows消息机制消息的产生通常根据消息产生的方式分为 硬件和软件信息。
+硬件信息：常指由硬件装置所产生的时间（如鼠标或键盘被按下），放在系统消息队列（System Queue）中，再由系统消息处理机构将消息发送至应用程序消息">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -476,21 +467,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-25
+                    2022-04-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    262
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    6 分
                 </div>
                 
 
@@ -513,7 +504,49 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="题目-BUUCTF-easystrcmp"><a href="#题目-BUUCTF-easystrcmp" class="headerlink" title="题目-BUUCTF-easystrcmp"></a>题目-BUUCTF-easystrcmp</h1><p>进入主函数</p>
+                <h1 id="0x00-Windows消息机制"><a href="#0x00-Windows消息机制" class="headerlink" title="0x00-Windows消息机制"></a>0x00-Windows消息机制</h1><h2 id="消息的产生"><a href="#消息的产生" class="headerlink" title="消息的产生"></a>消息的产生</h2><p>通常根据消息产生的方式分为 硬件和软件信息。</p>
+<p>硬件信息：常指由硬件装置所产生的时间（如鼠标或键盘被按下），放在系统消息队列（System Queue）中，再由系统消息处理机构将消息发送至应用程序消息队列中。</p>
+<p>软件信息：常指由WIndows系统或其它应用程序发送的信息，他直接放入应用程序消息队列中，再由应用程序消息处理机构将消息传递给相应的窗口。</p>
+<h2 id="消息的组成"><a href="#消息的组成" class="headerlink" title="消息的组成"></a>消息的组成</h2><p>一个消息由一个消息名称（UINT），和两个参数（WPARAM,LPARAM）。当用户进行了输入或者窗口的状态发生改变时系统都会发送消息到某一个窗口。例如当菜单中转之后会有WM_COMMAND消息发送，WPARAM的高字中(HIWORD(WPARAM))是命令的ID号，对菜单来讲就是菜单的ID。当然用户也可以定义自己的消息名称，也可以利用自定义消息来发送通知和传送数据</p>
+<h2 id="消息的接收者"><a href="#消息的接收者" class="headerlink" title="消息的接收者"></a>消息的接收者</h2><p>一个消息必须由一个窗口接收。在窗口过程（WNDPROC）中可以对消息进行分析，对应用程序要求处理的消息进行相应的处理工作，对于那些不需要应用程序处理的消息可以简单的调用缺省处理。例如你希望对菜单选择进行处理，那么你可以定义对WM_COMMAND进行处理的代码，如果希望在窗口中进行图形输出就必须对WM_PAINT进行处理</p>
+<h2 id="消息的处理"><a href="#消息的处理" class="headerlink" title="消息的处理"></a>消息的处理</h2><p>窗口接收到发送给自己的消息后，将消息结构作为参数，调用窗口过程对消息进行相应的处理。可以将窗口过程看作消息处理代码的集合，窗口过程函数的原型为</p>
+<blockquote>
+<p> long FAR PASCAL WndProc(HWND hWnd,WORD message,WORD wParam,LONG lParam);<br>  其中，hWnd为窗口句柄，message为消息名称，wParam,lParam为两个参数。 </p>
+</blockquote>
+<p>在Windows中，应用程序不直接调用任何窗口函数，而是等待Windows调用函数窗口，请求完成任务或返回信息。</p>
+<p>为保证Windows调用这个窗口函数，这个函数必须先向Windows登记，然后在Windows实施操作时回调，所以窗口函数又被称为回调函数。WndProc是一个主回调函数，Windows至少有一个回调函数。他是在应用程序进行窗口类注册时向Windows登记的。</p>
+<h1 id="0x01-HOOK"><a href="#0x01-HOOK" class="headerlink" title="0x01-HOOK"></a>0x01-HOOK</h1><p> <img src="/2022/02/03/Hook/20180613200129100"> </p>
+<blockquote>
+<p> 钩子是Windows消息处理机制的一个平台，应用程序可以在上面设置子程以监视指定窗口的某种消息，而且所监视的窗口可以是其他进程所创建的。</p>
+<p>当消息到达后，钩子可以在目标窗口处理函数之前处理它并且可以阻止消息的传递。</p>
+<p>每一个钩子都有一个与之相关联的指针列表，称之为钩子链表，该链表中的指针指向这个钩子的各个处理子程。钩子的种类很多，每种钩子可以拦截并处理相应种类的消息。</p>
+<p>当钩子所监视的消息出现时，Windows调用链表中的第一个钩子子程，第一个过程完成后将消息传递链表中的下一个钩子子程，直至链表中所有钩子子程都执行完成（注意：如果在其中有一个钩子在执行完成前不执行消息传递，其后面的钩子过程和原窗口过程都不会再接收到消息。）后将消息返回给窗口过程。 </p>
+</blockquote>
+<h2 id="钩子子程函数"><a href="#钩子子程函数" class="headerlink" title="钩子子程函数"></a>钩子子程函数</h2><p>钩子子程是一个应用程序定义的回调函数。用以监听系统或者某一类特定类型的事件，这些事件可以是与某一特定线程相关联的，也可以是系统中所有线程的事件。其函数原型为</p>
+<blockquote>
+<p> LRESULT CALLBACK HookProc  ( int nCode, WPARAM wParam, LPARAM lParam ); </p>
+</blockquote>
+<p>其中，nCode参数是Hook代码，Hook子程使用这个来确定任务。这个参数的值依赖于Hook类型，每一种Hook都有自己的Hook代码特征字符集。Windows系统提供了多种类型的钩子，每一种类型的Hook可以使应用程序能够监听不同类型的系统消息处理机制。</p>
+<p>WPARAM和PARAM参数的值依赖于Hook代码，但它们的典型值是包含了关于发送或者接受消息的信息。</p>
+<h2 id="钩子的安装与卸载"><a href="#钩子的安装与卸载" class="headerlink" title="钩子的安装与卸载"></a>钩子的安装与卸载</h2><p>钩子的安装是通过 SDK API函数SetWindowsHookEx()来实现的，它将钩子子程安装到系统钩子链表中</p>
+<p>其函数原型为</p>
+<blockquote>
+<p>  HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn,HINSTANCE hMod, DWORD dwThreadId ); </p>
+</blockquote>
+<p>其中，idHook是指钩子的类型</p>
+<p><img src="/2022/02/03/Hook/1649502050125.png"></p>
+<blockquote>
+<p>lpfn是指钩子子程的地址指针。如果dwThreadId参数为0 或是一个由别的进程创建的线程的标识，lpfn必 须指向DLL中的钩子子程。除此以外，lpfn可以指向当前进程的一段钩子子程代码。 </p>
+<p> hMod是指应用程序实例的句柄。标识包含lpfn所指的子程的DLL。如果dwThreadId 标识当前进程创建的一个线程，而且子程代码位于当前进程，hMod必须为NULL。 </p>
+<p>dwThreadId是指与安装的钩子子程相关联的线程的标识符，如果为0，钩子子程与所有的线程关联。</p>
+<p>函数成功则返回钩子的句柄，失败返回NULL。</p>
+</blockquote>
+<p>钩子在在使用完之后需要使用UnHookWindowsHookEx()卸载 </p>
+<blockquote>
+<p> UnHookWindowsHookEx ( HHOOK hhk ) </p>
+</blockquote>
+<p>参数hhk是etWindowsHookEx()函数返回钩子句柄，函数成功返回TRUE，否则返回FALSE </p>
+<h1 id="题目-BUUCTF-easystrcmp"><a href="#题目-BUUCTF-easystrcmp" class="headerlink" title="题目-BUUCTF-easystrcmp"></a>题目-BUUCTF-easystrcmp</h1><p>进入主函数</p>
 <p><img src="/2022/02/03/Hook/1643884712406.png"></p>
 <p>看似是一个简单的比较，但是输入之后发现并不对</p>
 <p>应该是做了什么处理，动态调试</p>
@@ -1076,7 +1109,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">62.5k</span>
+                        class="white-color">82.2k</span>
             
             
             

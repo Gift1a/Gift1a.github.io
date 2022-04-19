@@ -466,21 +466,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-21
+                    2022-04-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    3.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    13 分
+                    17 分
                 </div>
                 
 
@@ -980,6 +980,146 @@ void PE_operate()
 int main()
 {
 	PE_operate();
+	return 0;
+}</code></pre>
+
+<h1 id="打印导出表信息-按名称导出"><a href="#打印导出表信息-按名称导出" class="headerlink" title="打印导出表信息-按名称导出"></a>打印导出表信息-按名称导出</h1><pre class="language-c" data-language="c"><code class="language-c">#define  _CRT_SECURE_NO_WARNINGS
+#include&lt;stdio.h&gt;
+#include&lt;windows.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#define FilePath "D:\\OneDrive\\桌面\\reverse\\吾爱破解专用版Ollydbg\\DBGHELP.DLL"
+
+void ReadFileToBuffer(LPVOID *FileBuffer)
+{
+	LPVOID pTempBuffer;
+	//打开文件并读取到Buffer中
+	FILE* pfile = NULL;
+	pfile = fopen(FilePath, "r");
+	fseek(pfile, 0, SEEK_END);
+	//读取文件大小
+	DWORD file_size = ftell(pfile);
+	//设置到开头进行读取
+	fseek(pfile, 0, SEEK_SET);
+	//先开辟空间
+	pTempBuffer = (void*)malloc(file_size);
+	//读取信息
+	fread(pTempBuffer, file_size, 1, pfile);
+	//如果是一级指针，读取完之后就会被释放掉
+	*FileBuffer = pTempBuffer;
+	pTempBuffer = NULL;
+	fclose(pfile);
+	return ;
+}
+
+/*
+* RVA转FOA
+* 先看在哪个节区，减去该节区的RVA+该节区的PointerOfRawData
+*/
+DWORD RVATOFOA(PIMAGE_SECTION_HEADER pSectionHeader, DWORD RVA,DWORD NumberOfSection)
+{
+	DWORD FOA = 0;
+	for (int i = 0; i &lt; NumberOfSection; i++, pSectionHeader++)
+	{
+		//如果小于RVA+节区的大小，说明在节区内
+		if (RVA &lt; pSectionHeader-&gt;VirtualAddress + max(pSectionHeader-&gt;SizeOfRawData, pSectionHeader-&gt;Misc.VirtualSize))
+		{
+			FOA = RVA - pSectionHeader-&gt;VirtualAddress + pSectionHeader-&gt;PointerToRawData;
+			return FOA;
+		}
+	}
+}
+
+void PrintExportTable(LPVOID FileBuffer)
+{
+	PIMAGE_DOS_HEADER pDosHeader = NULL;
+	PIMAGE_NT_HEADERS32 pNtHeader = NULL;
+	PIMAGE_FILE_HEADER pFileHeader = NULL;
+	PIMAGE_OPTIONAL_HEADER32 pOptionalHeader = NULL;
+	PIMAGE_SECTION_HEADER pSectionHeader = NULL;
+	PIMAGE_EXPORT_DIRECTORY pExportTable = NULL;
+	PIMAGE_DATA_DIRECTORY pDataTable= NULL;
+	//读取DLL信息
+	pDosHeader = (PIMAGE_DOS_HEADER)(FileBuffer);
+	pNtHeader = (PIMAGE_NT_HEADERS32)((DWORD)FileBuffer + pDosHeader-&gt;e_lfanew);
+	pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNtHeader + 4);
+	pOptionalHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + sizeof(IMAGE_FILE_HEADER));
+	pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionalHeader + sizeof(IMAGE_OPTIONAL_HEADER32));
+	//获取导出表基本信息
+	pDataTable = (PIMAGE_DATA_DIRECTORY)(pOptionalHeader-&gt;DataDirectory);
+	printf("导出表的RVA为：%X\n", pDataTable[0].VirtualAddress);
+	printf("导出表的大小为：%X\n", pDataTable[0].Size);
+	//打印导出表
+	DWORD ExportTable_FOA = RVATOFOA(pSectionHeader, pDataTable[0].VirtualAddress,pFileHeader-&gt;NumberOfSections);
+	printf("导出表在文件中的位置为：%X\n", ExportTable_FOA);
+	//获取导出表信息
+	pExportTable = (PIMAGE_EXPORT_DIRECTORY)((DWORD)pDosHeader + ExportTable_FOA);
+
+	//打印导出表信息，获取DLL名称，导出函数名称表，导出函数地址表，导出函数序号表
+	//先打印导出表按名字导出函数的个数
+	printf("按名称导出的函数个数为：%X\n", pExportTable-&gt;NumberOfFunctions);
+	printf("按名称导出的函数个数为：%X\n", pExportTable-&gt;NumberOfNames);
+
+	//打印DLL名称，导出函数名称表，导出函数地址表，导出函数序号表
+	DWORD NameFOA = RVATOFOA(pSectionHeader, pExportTable-&gt;Name, pFileHeader-&gt;NumberOfSections);
+	char* nameofdll = (char*)((DWORD)pDosHeader + NameFOA);
+	printf("DLL的名称为：%s\n", nameofdll);
+	DWORD FOAOfName= RVATOFOA(pSectionHeader,pExportTable-&gt;AddressOfNames, pFileHeader-&gt;NumberOfSections);
+	DWORD FOAOfNameOdinals= RVATOFOA(pSectionHeader, pExportTable-&gt;AddressOfNameOrdinals, pFileHeader-&gt;NumberOfSections);
+	DWORD FOAOfFunctions= RVATOFOA(pSectionHeader, pExportTable-&gt;AddressOfFunctions, pFileHeader-&gt;NumberOfSections);
+	printf("文件中导出函数地址表为：%X\n文件中函数名称地址表为：%X\n文件中函数序号地址表为：%X\n", FOAOfFunctions, FOAOfName, FOAOfNameOdinals);
+	int * FuncTable = (int*)((DWORD)pDosHeader + FOAOfFunctions);
+	int* NameTable = (int*)((DWORD)pDosHeader + FOAOfName);
+	short* Ordinals = (short*)((DWORD)pDosHeader + FOAOfNameOdinals);
+
+	////注意下面是随机打印的
+	//for(int i = 0; i &lt; pExportTable-&gt;NumberOfNames; ++i)
+	//{
+	//	printf("导出函数地址为：%X ", RVATOFOA(pSectionHeader, *FuncTable, pFileHeader-&gt;NumberOfSections));
+	//	
+	//	char*name=(char*)pDosHeader + (RVATOFOA(pSectionHeader, *NameTable, pFileHeader-&gt;NumberOfSections));
+	//	printf("名称为：%s ", name);
+	//	//函数序号存储的不是RVA，而是序号,直接解引用即可，但是要注意是short型
+	//	printf("函数序号为：%X\n", *Ordinals);
+	//	NameTable++;
+	//	FuncTable++;
+	//	Ordinals++;
+	//}
+	
+
+	//按函数名称导出
+	char funcname[] = "WinDbgExtensionDllInit";
+	for (int i = 0; i &lt; pExportTable-&gt;NumberOfNames; ++i)
+	{
+		char* name = (char*)pDosHeader + (RVATOFOA(pSectionHeader, *NameTable, pFileHeader-&gt;NumberOfSections));
+		//printf("函数名称为：%s\n", name);
+		//如果找到我们的函数名时，先把下标去序号表找，然后取出里面的值，再拿去函数地址表找
+		if (strcmp(funcname, name) == 0)
+		{
+			Ordinals += i;
+			printf("函数名称为：%s\n", name);
+			printf("函数序号为：%X\n", *Ordinals);
+			printf("导出函数地址为：%X ", RVATOFOA(pSectionHeader, *(FuncTable+*Ordinals), pFileHeader-&gt;NumberOfSections));
+			break;
+		}
+		else//否则就是按照序号导出的，只需要将
+		{
+
+		}
+		NameTable++;
+	}
+	return;
+}
+void oprate_pe()
+{
+	LPVOID FileBuffer = NULL;
+	ReadFileToBuffer(&amp;FileBuffer);
+	PrintExportTable(FileBuffer);
+	return ;
+}
+int main()
+{
+	oprate_pe();
 	return 0;
 }</code></pre>
 
@@ -1507,7 +1647,7 @@ int main()
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">62.5k</span>
+                        class="white-color">82.2k</span>
             
             
             
