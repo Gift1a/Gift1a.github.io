@@ -1744,235 +1744,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Crackme算法</title>
-    <url>/2022/04/03/Crackme%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="0x00前言"><a href="#0x00前言" class="headerlink" title="0x00前言"></a>0x00前言</h1><p>因为汇编太水了，所以决定做一下CrackMe练习，可能不会一直弄，精力有限</p>
-<h1 id="0x01-笔记"><a href="#0x01-笔记" class="headerlink" title="0x01-笔记"></a>0x01-笔记</h1><blockquote>
-<p> XCHG（交换数据）指令交换两个操作数内容 </p>
-</blockquote>
-<blockquote>
-<p>mov和lea的区别</p>
-<p>mov:当mov eax,[]表示将[]中地址存储的值存放到eax中，当然也可以直接mov地址到eax中，如mov eax,地址</p>
-<p>lea:当lea eax,[]，表示将[]中的地址存放到eax中，相当于指针，主要是计算地址</p>
-</blockquote>
-<h1 id="002-abexcm5"><a href="#002-abexcm5" class="headerlink" title="002-abexcm5"></a>002-abexcm5</h1><p>首先先通过字符串引用定位到正确判断的位置</p>
-<blockquote>
-<p>调用函数前需要将参数压入堆栈中，并且靠前的参数后压入栈中</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964360285.png" alt="正确判断"></p>
-<p>接下来可以按x寻找调用位置，红色框中的就是跳转的位置</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964520801.png" alt="调用位置"></p>
-<p>再往上找比较函数</p>
-<p>可以看到这里调用了cmp函数，而且压入了两个参数，第一个是真正的注册码，第二个是我们的输入</p>
-<blockquote>
-<p>cmp:比较两个操作数，根据相减结果来改变零标志位，结果为0时，零标志位为1（Z位）</p>
-<p>当第一位小于第二位时，S位为1</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964586990.png" alt="比较函数"></p>
-<p>寻找对注册码的操作</p>
-<p>可以看到这里进行了两次拼接操作</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964780202.png" alt="两次拼接"></p>
-<p>这个拼接的字符串是已知的，再看另一个</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964832766.png"></p>
-<p>可以看到先通过GetVolumeInformationA获取驱动器信息，并生成字符串存储到aData4562Abex中，然后将字符串String2拼接到生成的字符串后</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964910270.png" alt="aData4562Abex操作"></p>
-<p>接下来重点讲讲ds段寄存器和重要的操作数</p>
-<blockquote>
-<p>ds:[地址]就相当于ds:地址，而且取出的是里面的内容，然后进行加一，</p>
-<p>dec dl是dl的值–，并且除了CF标志位，其他都会改变。</p>
-<p>dec dl对ZF标志位的影响，jnz跳转的条件是ZF==0，当dl的值为0时，设置ZF=1；否则设置为0</p>
-<p>而一开始mov dl,2就是初始化迭代的次数，那么从mov到jnz这一段就是一个循环。</p>
-</blockquote>
-<p>总的加密就是取出aData字符串的前四位进行两次+1</p>
-<p>所以我们还原一下过程即可得到注册码，但是我不明白GetVolumeInformationA生成的字符串，所以动调了</p>
-<p>最后注册码L2C-5781Fcvc4562-ABEX</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648965721476.png" alt="注册成功"></p>
-<h1 id="003-Cruehead-CrackMe-3"><a href="#003-Cruehead-CrackMe-3" class="headerlink" title="003-Cruehead-CrackMe-3"></a>003-Cruehead-CrackMe-3</h1><p>运行时发现是未cracked的</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648979391664.png" alt="运行时"></p>
-<p>了解到这是需要KEY文件才能正确crack的，我们从头开始分析</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648980725152.png" alt="CreateFileA"></p>
-<pre class="language-c" data-language="c"><code class="language-c">HANDLE CreateFileA(
-  [in]           LPCSTR                lpFileName,
-  [in]           DWORD                 dwDesiredAccess,
-  [in]           DWORD                 dwShareMode,
-  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,
-  [in]           DWORD                 dwCreationDisposition,
-  [in]           DWORD                 dwFlagsAndAttributes,
-  [in, optional] HANDLE                hTemplateFile
-);</code></pre>
-
-<p>具体参数参考<a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea">https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea</a></p>
-<p>注意压入栈的顺序即可，这里根据参数应该是打开CRACKME3.KEY文件，如果没有的话返回值设置为-1</p>
-<blockquote>
-<p>返回值一般存储在eax寄存器中</p>
-</blockquote>
-<blockquote>
-<p>CMP汇编指令会修改ZF和CF标志寄存器，如果相同的话设置ZF为1，否则为0</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981137536.png" alt="跳转"></p>
-<p>如果不相等，就跳转到401043，这里我们默认打开了</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981237587.png" alt="ReadFile"></p>
-<p>可以看到先把0x12存入eax，把字符串地址放入ebx中</p>
-<blockquote>
-<p>offset存储的是字符串的地址</p>
-</blockquote>
-<p>接下来调用ReadFile读取文件内容，长度是0x12，位置是字符串地址存储的内容</p>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL ReadFile(
-    HANDLE hFile,            //文件的句柄
-    LPVOID lpBuffer,          //用于保存读入数据的一个缓冲区
-    DWORD nNumberOfBytesToRead,    //要读入的字节数
-    LPDWORD lpNumberOfBytesRead,    //指向实际读取字节数的指针
-    LPOVERLAPPED lpOverlapped
-    //如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。
-    //该结构定义了一次异步读取操作。否则，应将这个参数设为NULL
-);</code></pre>
-
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981665617.png" alt="加密函数之一"></p>
-<p>先来看加密函数的初始化操作</p>
-<p>两个xor是将ecx和eax的值清空</p>
-<p>将esp+arg_0存储的值赋值到esi中，也就是读取字符串的地址</p>
-<blockquote>
-<p>这里可以看到arg_0=DWORD 4，esp+4就是我们压入栈中的参数，因为call会让ESP往低地址移动</p>
-</blockquote>
-<p>再将0x41赋值给bl</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981700071.png" alt="初始化操作"></p>
-<p>接下来看加密的操作，首先先将esi的存储的值看作地址，取出里面的内容放到al中，再将al异或上bl的值，再存放回原来的地址</p>
-<blockquote>
-<p>inc实现的是自增1</p>
-</blockquote>
-<p>esi存放的是地址，+1就相当于指针后移</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981955860.png" alt="加密操作"></p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982311802.png" alt="指针移动"></p>
-<p>然后将异或后的结果加到ds:dword_4020F9存储的内容中</p>
-<p>判断al的值是否为0，如果是的话，跳转到</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982477054.png" alt="当al为0时跳转的地址"></p>
-<p>接着就是cl++，然后判断bl的值是否为0x4F，因为初始时bl的值为0x41，所以加密数据的长度是0x4f-0x41</p>
-<p>最后，函数loc_401335结束前把ecx的值存放到ds段寄存器地址的内容中</p>
-<p>因为异或后相加的结果存储在dword_4020F9中，这里将它和0x12345678异或</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982757718.png"></p>
-<blockquote>
-<p>add esp,4是因为call的时候将其下一条指令压入栈中，所以需要add esp,4</p>
-</blockquote>
-<p>接下来又将我们加密后的内容压入栈，进行下一个函数的操作</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983002897.png" alt="第二轮操作"></p>
-<p>先把esp+4存储的内容也就是存储字符串的首地址存放到esi中，然后esi+0xE，也就是地址后移0xE，再将其存储的值放入eax中，0x12-0xE=4，也就是将最后四个存放到eax寄存器中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983018786.png" alt="第二轮操作"></p>
-<p>将最后四位与dword_4020F9，也就是刚才和0x12345678异或后的值比较</p>
-<blockquote>
-<p>setz al；如果ZF=1，则设置目标数为1，否则则为0</p>
-<p>test al,al;如果al&amp;al==0，也就是al的值为0，那么ZF会被设置为1，否则则为0</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983201869.png" alt="比较"></p>
-<p>接下来是一些创建窗口和弹出窗口的代码</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983983571.png" alt="窗口代码"></p>
-<p>看一下成功的部分代码</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984022368.png" alt="成功部分"></p>
-<p>主要看一下这个</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984126580.png" alt="移动字符串"></p>
-<blockquote>
-<p> 即字符串传送指令，这条指令按字节传送数据。通过SI和DI这两个寄存器控制字符串的源地址和目标地址，比如DS:SI这段地址的N个字节复制到ES:DI指向的地址，复制后DS:SI的内容保持不变。 </p>
-</blockquote>
-<p>先把DWORD_402149，也就是前面说的加密的长度</p>
-<p>也就是先把传入的两个参数的地址分别存入esi和edi中</p>
-<p>而第一个参数也就是arg_0(后压入栈)，被存放到esi中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984644479.png"></p>
-<p>同时，第一个参数也是前面存放我们字符串的地址</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984708951.png"></p>
-<p>然后edi指向的地址后移</p>
-<p>再循环将esi的值存入edi中，循环次数为ecx的值</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984226522.png"></p>
-<p>这段话就是将我们最后加密的字符串拼接到Cracked By:后面</p>
-<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>先打开CRACKME3.KEY文件，读取前十八个字符，然后对前14个字符异或加密，并且将异或后的值和0x12345678异或后与最后四位进行比较，前十四个密文为<a href="mailto:wanao@yahoo.cn">wanao@yahoo.cn</a>，然后动调得到最后四位字符，填充进去即可，注意大小端序</p>
-<p>前十四位字符脚本</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-int main()
-{
-	char name[]="wanao@yahoo.cn";
-	char key='A';
-	int num=0;
-	for(int i=0;i&lt;strlen(name);++i)
-	{
-		name[i]^=key++;
-		num+=name[i];
-	}
-	printf("%s\n",name);
-	printf("%d\n",num);
-	int key2=0x12345678;
-	return 0;
-	
- } </code></pre>
-
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985143096.png" alt="最后四位字符"></p>
-<p>最终效果</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985203991.png"></p>
-<h1 id="004-Acid-Bytes-2"><a href="#004-Acid-Bytes-2" class="headerlink" title="004-Acid Bytes.2"></a>004-Acid Bytes.2</h1><p>upx壳，去掉后很快就能找到比较</p>
-<h1 id="006-ArturDents-CrackMe-2"><a href="#006-ArturDents-CrackMe-2" class="headerlink" title="006-ArturDents-CrackMe#2"></a>006-ArturDents-CrackMe#2</h1><p>先找到成功的函数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033728711.png" alt="验证正确的函数"></p>
-<p>然后找到关键比较</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033782005.png" alt="关键函数和跳转"></p>
-<p>根据程序运行知道我们需要输入name和序列号，找到获取输入的函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">UINT GetDlgItemTextA(
-  [in]  HWND  hDlg,
-  [in]  int   nIDDlgItem,
-  [out] LPSTR lpString,
-  [in]  int   cchMax
-);
-//返回值是字符串的长度</code></pre>
-
-<p>lpstring就是我们的输入</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034100647.png" alt="关键函数"></p>
-<p>箭头处可以看到cmp esi,5，而前面将函数的返回值也就是eax的值存储到esi中，所以这是长度比较，可以看到jge下一段是说name长度必须大于5。</p>
-<p>再看下面红色框，获取我们的输入密码后，将input和password的地址存放到eax和ebx中，再把esi也就是name的长度存入ecx中</p>
-<p>看加密函数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034490927.png" alt="关键加密函数"></p>
-<p>先把eax存储的值取出，然后减去cl的值，再与ebx存放的值作比较</p>
-<p>下面那个跳转是跳转到离开的函数</p>
-<p>inc是自增，也就是让寄存器指向password和input下一个字符</p>
-<blockquote>
-<pre class="language-c" data-language="c"><code class="language-c">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)
-标号: (标明后面就是需要循环的循环体)
-    循环执行的程序代码
-    Loop 标号//注意：每执行一次loop，ecx的值都会减1</code></pre>
-</blockquote>
-<p>每执行一次loop，ecx的值都会减1</p>
-<p>所以注意这一点即可</p>
-<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p>name为99999，序列号为45678即可满足</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034817650.png" alt="成功"></p>
-<h1 id="007-reg"><a href="#007-reg" class="headerlink" title="007-reg"></a>007-reg</h1><p>这是一个共享软件，打开时需要我们输入UserName和SN，然后生成reg.dll，再打开软件验证。</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040536751.png" alt="reg.dll内容"></p>
-<p>先定位到关键的字符串</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040650078.png" alt="关键字符串"></p>
-<p>定位过去</p>
-<p>可以看到先把字符串也就是reg.dll移动到eax中，然后call，再对al进行验证，所以这个函数应该是打开这个文件，没有这个文件的话就返回0</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040684329.png"></p>
-<p>接下来这一段应该是将dll文件的username和sn读取出来</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040844910.png" alt="读取函数"></p>
-<p>可以看到先把刚才读取的username和sn存放到edx和eax中，然后调用函数，调用结束后进行test和跳转，所以这个函数应该是加密函数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040977142.png" alt="加密函数"></p>
-<p>加密函数中，先将变量的值清0，并且将username和sn存放到第一个和第二个参数中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041483499.png"></p>
-<p>往下看，这里先把第二个参数（序列号）的地址读取到eax中，然后返回值和0x10作比较，那么这段应该就是计算序列号的长度</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041704450.png" alt="关键比较"></p>
-<p>在函数出事的地方，可以看到var_8=-8，然后ebp-8就是存放的序列号</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042026513.png" alt="计算位置"></p>
-<p>看一下函数调用的堆栈图，EBP+x就是压入的参数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042190963.png" alt="堆栈图"></p>
-<p>下面这一段应该是对序列号验证，因为sub会让标志寄存器改变</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042492337.png" alt="验证"></p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042642683.png"></p>
-<p>FTSP汇编指令</p>
-<p><a href="https://blog.csdn.net/liujiayu2/article/details/77711838">https://blog.csdn.net/liujiayu2/article/details/77711838</a></p>
-<p>最后在这里的堆栈图找到了正确的序列号，长度正好是0x10</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042753681.png"></p>
-<p>先把两个参数存放的内容以及第三个参数也就是var_10的地址存储到ecx中，那么这个应该就是正确的序列号</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042840725.png" alt="在调用前面的函数前"></p>
-<p>函数有点复杂，有时间再看，据说后面有md5</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649043390270.png" alt="ZF标志位"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>C++</title>
     <url>/2022/03/31/C/</url>
     <content><![CDATA[<h1 id="C-类-this指针"><a href="#C-类-this指针" class="headerlink" title="C++类-this指针"></a>C++类-this指针</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>C语言中，结构体作为函数参数时传参传的是副本，而数组传递的是指针，所以我们将结构体作为参数时，最好传入指针</p>
@@ -2243,6 +2014,235 @@ student t;</code></pre>
       <tags>
         <tag>汇编</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Crackme算法</title>
+    <url>/2022/04/03/Crackme%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="0x00前言"><a href="#0x00前言" class="headerlink" title="0x00前言"></a>0x00前言</h1><p>因为汇编太水了，所以决定做一下CrackMe练习，可能不会一直弄，精力有限</p>
+<h1 id="0x01-笔记"><a href="#0x01-笔记" class="headerlink" title="0x01-笔记"></a>0x01-笔记</h1><blockquote>
+<p> XCHG（交换数据）指令交换两个操作数内容 </p>
+</blockquote>
+<blockquote>
+<p>mov和lea的区别</p>
+<p>mov:当mov eax,[]表示将[]中地址存储的值存放到eax中，当然也可以直接mov地址到eax中，如mov eax,地址</p>
+<p>lea:当lea eax,[]，表示将[]中的地址存放到eax中，相当于指针，主要是计算地址</p>
+</blockquote>
+<h1 id="002-abexcm5"><a href="#002-abexcm5" class="headerlink" title="002-abexcm5"></a>002-abexcm5</h1><p>首先先通过字符串引用定位到正确判断的位置</p>
+<blockquote>
+<p>调用函数前需要将参数压入堆栈中，并且靠前的参数后压入栈中</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964360285.png" alt="正确判断"></p>
+<p>接下来可以按x寻找调用位置，红色框中的就是跳转的位置</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964520801.png" alt="调用位置"></p>
+<p>再往上找比较函数</p>
+<p>可以看到这里调用了cmp函数，而且压入了两个参数，第一个是真正的注册码，第二个是我们的输入</p>
+<blockquote>
+<p>cmp:比较两个操作数，根据相减结果来改变零标志位，结果为0时，零标志位为1（Z位）</p>
+<p>当第一位小于第二位时，S位为1</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964586990.png" alt="比较函数"></p>
+<p>寻找对注册码的操作</p>
+<p>可以看到这里进行了两次拼接操作</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964780202.png" alt="两次拼接"></p>
+<p>这个拼接的字符串是已知的，再看另一个</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964832766.png"></p>
+<p>可以看到先通过GetVolumeInformationA获取驱动器信息，并生成字符串存储到aData4562Abex中，然后将字符串String2拼接到生成的字符串后</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964910270.png" alt="aData4562Abex操作"></p>
+<p>接下来重点讲讲ds段寄存器和重要的操作数</p>
+<blockquote>
+<p>ds:[地址]就相当于ds:地址，而且取出的是里面的内容，然后进行加一，</p>
+<p>dec dl是dl的值–，并且除了CF标志位，其他都会改变。</p>
+<p>dec dl对ZF标志位的影响，jnz跳转的条件是ZF==0，当dl的值为0时，设置ZF=1；否则设置为0</p>
+<p>而一开始mov dl,2就是初始化迭代的次数，那么从mov到jnz这一段就是一个循环。</p>
+</blockquote>
+<p>总的加密就是取出aData字符串的前四位进行两次+1</p>
+<p>所以我们还原一下过程即可得到注册码，但是我不明白GetVolumeInformationA生成的字符串，所以动调了</p>
+<p>最后注册码L2C-5781Fcvc4562-ABEX</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648965721476.png" alt="注册成功"></p>
+<h1 id="003-Cruehead-CrackMe-3"><a href="#003-Cruehead-CrackMe-3" class="headerlink" title="003-Cruehead-CrackMe-3"></a>003-Cruehead-CrackMe-3</h1><p>运行时发现是未cracked的</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648979391664.png" alt="运行时"></p>
+<p>了解到这是需要KEY文件才能正确crack的，我们从头开始分析</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648980725152.png" alt="CreateFileA"></p>
+<pre class="language-c" data-language="c"><code class="language-c">HANDLE CreateFileA(
+  [in]           LPCSTR                lpFileName,
+  [in]           DWORD                 dwDesiredAccess,
+  [in]           DWORD                 dwShareMode,
+  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,
+  [in]           DWORD                 dwCreationDisposition,
+  [in]           DWORD                 dwFlagsAndAttributes,
+  [in, optional] HANDLE                hTemplateFile
+);</code></pre>
+
+<p>具体参数参考<a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea">https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea</a></p>
+<p>注意压入栈的顺序即可，这里根据参数应该是打开CRACKME3.KEY文件，如果没有的话返回值设置为-1</p>
+<blockquote>
+<p>返回值一般存储在eax寄存器中</p>
+</blockquote>
+<blockquote>
+<p>CMP汇编指令会修改ZF和CF标志寄存器，如果相同的话设置ZF为1，否则为0</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981137536.png" alt="跳转"></p>
+<p>如果不相等，就跳转到401043，这里我们默认打开了</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981237587.png" alt="ReadFile"></p>
+<p>可以看到先把0x12存入eax，把字符串地址放入ebx中</p>
+<blockquote>
+<p>offset存储的是字符串的地址</p>
+</blockquote>
+<p>接下来调用ReadFile读取文件内容，长度是0x12，位置是字符串地址存储的内容</p>
+<pre class="language-c" data-language="c"><code class="language-c">BOOL ReadFile(
+    HANDLE hFile,            //文件的句柄
+    LPVOID lpBuffer,          //用于保存读入数据的一个缓冲区
+    DWORD nNumberOfBytesToRead,    //要读入的字节数
+    LPDWORD lpNumberOfBytesRead,    //指向实际读取字节数的指针
+    LPOVERLAPPED lpOverlapped
+    //如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。
+    //该结构定义了一次异步读取操作。否则，应将这个参数设为NULL
+);</code></pre>
+
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981665617.png" alt="加密函数之一"></p>
+<p>先来看加密函数的初始化操作</p>
+<p>两个xor是将ecx和eax的值清空</p>
+<p>将esp+arg_0存储的值赋值到esi中，也就是读取字符串的地址</p>
+<blockquote>
+<p>这里可以看到arg_0=DWORD 4，esp+4就是我们压入栈中的参数，因为call会让ESP往低地址移动</p>
+</blockquote>
+<p>再将0x41赋值给bl</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981700071.png" alt="初始化操作"></p>
+<p>接下来看加密的操作，首先先将esi的存储的值看作地址，取出里面的内容放到al中，再将al异或上bl的值，再存放回原来的地址</p>
+<blockquote>
+<p>inc实现的是自增1</p>
+</blockquote>
+<p>esi存放的是地址，+1就相当于指针后移</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981955860.png" alt="加密操作"></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982311802.png" alt="指针移动"></p>
+<p>然后将异或后的结果加到ds:dword_4020F9存储的内容中</p>
+<p>判断al的值是否为0，如果是的话，跳转到</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982477054.png" alt="当al为0时跳转的地址"></p>
+<p>接着就是cl++，然后判断bl的值是否为0x4F，因为初始时bl的值为0x41，所以加密数据的长度是0x4f-0x41</p>
+<p>最后，函数loc_401335结束前把ecx的值存放到ds段寄存器地址的内容中</p>
+<p>因为异或后相加的结果存储在dword_4020F9中，这里将它和0x12345678异或</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982757718.png"></p>
+<blockquote>
+<p>add esp,4是因为call的时候将其下一条指令压入栈中，所以需要add esp,4</p>
+</blockquote>
+<p>接下来又将我们加密后的内容压入栈，进行下一个函数的操作</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983002897.png" alt="第二轮操作"></p>
+<p>先把esp+4存储的内容也就是存储字符串的首地址存放到esi中，然后esi+0xE，也就是地址后移0xE，再将其存储的值放入eax中，0x12-0xE=4，也就是将最后四个存放到eax寄存器中</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983018786.png" alt="第二轮操作"></p>
+<p>将最后四位与dword_4020F9，也就是刚才和0x12345678异或后的值比较</p>
+<blockquote>
+<p>setz al；如果ZF=1，则设置目标数为1，否则则为0</p>
+<p>test al,al;如果al&amp;al==0，也就是al的值为0，那么ZF会被设置为1，否则则为0</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983201869.png" alt="比较"></p>
+<p>接下来是一些创建窗口和弹出窗口的代码</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983983571.png" alt="窗口代码"></p>
+<p>看一下成功的部分代码</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984022368.png" alt="成功部分"></p>
+<p>主要看一下这个</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984126580.png" alt="移动字符串"></p>
+<blockquote>
+<p> 即字符串传送指令，这条指令按字节传送数据。通过SI和DI这两个寄存器控制字符串的源地址和目标地址，比如DS:SI这段地址的N个字节复制到ES:DI指向的地址，复制后DS:SI的内容保持不变。 </p>
+</blockquote>
+<p>先把DWORD_402149，也就是前面说的加密的长度</p>
+<p>也就是先把传入的两个参数的地址分别存入esi和edi中</p>
+<p>而第一个参数也就是arg_0(后压入栈)，被存放到esi中</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984644479.png"></p>
+<p>同时，第一个参数也是前面存放我们字符串的地址</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984708951.png"></p>
+<p>然后edi指向的地址后移</p>
+<p>再循环将esi的值存入edi中，循环次数为ecx的值</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984226522.png"></p>
+<p>这段话就是将我们最后加密的字符串拼接到Cracked By:后面</p>
+<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>先打开CRACKME3.KEY文件，读取前十八个字符，然后对前14个字符异或加密，并且将异或后的值和0x12345678异或后与最后四位进行比较，前十四个密文为<a href="mailto:wanao@yahoo.cn">wanao@yahoo.cn</a>，然后动调得到最后四位字符，填充进去即可，注意大小端序</p>
+<p>前十四位字符脚本</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int main()
+{
+	char name[]="wanao@yahoo.cn";
+	char key='A';
+	int num=0;
+	for(int i=0;i&lt;strlen(name);++i)
+	{
+		name[i]^=key++;
+		num+=name[i];
+	}
+	printf("%s\n",name);
+	printf("%d\n",num);
+	int key2=0x12345678;
+	return 0;
+	
+ } </code></pre>
+
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985143096.png" alt="最后四位字符"></p>
+<p>最终效果</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985203991.png"></p>
+<h1 id="004-Acid-Bytes-2"><a href="#004-Acid-Bytes-2" class="headerlink" title="004-Acid Bytes.2"></a>004-Acid Bytes.2</h1><p>upx壳，去掉后很快就能找到比较</p>
+<h1 id="006-ArturDents-CrackMe-2"><a href="#006-ArturDents-CrackMe-2" class="headerlink" title="006-ArturDents-CrackMe#2"></a>006-ArturDents-CrackMe#2</h1><p>先找到成功的函数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033728711.png" alt="验证正确的函数"></p>
+<p>然后找到关键比较</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033782005.png" alt="关键函数和跳转"></p>
+<p>根据程序运行知道我们需要输入name和序列号，找到获取输入的函数</p>
+<pre class="language-c" data-language="c"><code class="language-c">UINT GetDlgItemTextA(
+  [in]  HWND  hDlg,
+  [in]  int   nIDDlgItem,
+  [out] LPSTR lpString,
+  [in]  int   cchMax
+);
+//返回值是字符串的长度</code></pre>
+
+<p>lpstring就是我们的输入</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034100647.png" alt="关键函数"></p>
+<p>箭头处可以看到cmp esi,5，而前面将函数的返回值也就是eax的值存储到esi中，所以这是长度比较，可以看到jge下一段是说name长度必须大于5。</p>
+<p>再看下面红色框，获取我们的输入密码后，将input和password的地址存放到eax和ebx中，再把esi也就是name的长度存入ecx中</p>
+<p>看加密函数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034490927.png" alt="关键加密函数"></p>
+<p>先把eax存储的值取出，然后减去cl的值，再与ebx存放的值作比较</p>
+<p>下面那个跳转是跳转到离开的函数</p>
+<p>inc是自增，也就是让寄存器指向password和input下一个字符</p>
+<blockquote>
+<pre class="language-c" data-language="c"><code class="language-c">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)
+标号: (标明后面就是需要循环的循环体)
+    循环执行的程序代码
+    Loop 标号//注意：每执行一次loop，ecx的值都会减1</code></pre>
+</blockquote>
+<p>每执行一次loop，ecx的值都会减1</p>
+<p>所以注意这一点即可</p>
+<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p>name为99999，序列号为45678即可满足</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034817650.png" alt="成功"></p>
+<h1 id="007-reg"><a href="#007-reg" class="headerlink" title="007-reg"></a>007-reg</h1><p>这是一个共享软件，打开时需要我们输入UserName和SN，然后生成reg.dll，再打开软件验证。</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040536751.png" alt="reg.dll内容"></p>
+<p>先定位到关键的字符串</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040650078.png" alt="关键字符串"></p>
+<p>定位过去</p>
+<p>可以看到先把字符串也就是reg.dll移动到eax中，然后call，再对al进行验证，所以这个函数应该是打开这个文件，没有这个文件的话就返回0</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040684329.png"></p>
+<p>接下来这一段应该是将dll文件的username和sn读取出来</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040844910.png" alt="读取函数"></p>
+<p>可以看到先把刚才读取的username和sn存放到edx和eax中，然后调用函数，调用结束后进行test和跳转，所以这个函数应该是加密函数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040977142.png" alt="加密函数"></p>
+<p>加密函数中，先将变量的值清0，并且将username和sn存放到第一个和第二个参数中</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041483499.png"></p>
+<p>往下看，这里先把第二个参数（序列号）的地址读取到eax中，然后返回值和0x10作比较，那么这段应该就是计算序列号的长度</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041704450.png" alt="关键比较"></p>
+<p>在函数出事的地方，可以看到var_8=-8，然后ebp-8就是存放的序列号</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042026513.png" alt="计算位置"></p>
+<p>看一下函数调用的堆栈图，EBP+x就是压入的参数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042190963.png" alt="堆栈图"></p>
+<p>下面这一段应该是对序列号验证，因为sub会让标志寄存器改变</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042492337.png" alt="验证"></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042642683.png"></p>
+<p>FTSP汇编指令</p>
+<p><a href="https://blog.csdn.net/liujiayu2/article/details/77711838">https://blog.csdn.net/liujiayu2/article/details/77711838</a></p>
+<p>最后在这里的堆栈图找到了正确的序列号，长度正好是0x10</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042753681.png"></p>
+<p>先把两个参数存放的内容以及第三个参数也就是var_10的地址存储到ecx中，那么这个应该就是正确的序列号</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042840725.png" alt="在调用前面的函数前"></p>
+<p>函数有点复杂，有时间再看，据说后面有md5</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649043390270.png" alt="ZF标志位"></p>
+]]></content>
   </entry>
   <entry>
     <title>C语言汇编2</title>
@@ -2707,36 +2707,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Gcc中在main前和后执行的函数</title>
-    <url>/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/</url>
-    <content><![CDATA[<h1 id="gcc在主函数前后运行的函数"><a href="#gcc在主函数前后运行的函数" class="headerlink" title="gcc在主函数前后运行的函数"></a>gcc在主函数前后运行的函数</h1><p>逆向的时候我们直到elf文件在start函数中有main函数、init和fini函数，init就是初始化，即在主函数前运行的函数，fini就是在主函数之后执行的函数</p>
-<p><img src="/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/1648278715009.png"></p>
-<p>那么我们怎么实现呢，windows下我没找到好方法</p>
-<p>但是linux下则可以，我们需要用到gcc编译器</p>
-<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>gcc支持_<em>attribute_</em>((constructor)) void FunctionName()，这样这个函数就是在主函数运行前的函数，_<em>attribute_</em>((destructor)) void FunctionName{}是在主函数运行之后执行的。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-char string[]="123456";
-
-__attribute__((constructor)) void FunctionName(){
-	printf("helloworld");
-}
-
-int main()
-{
-	printf("%s",string);
-	return 0;
-}</code></pre>
-
-<p>效果</p>
-<p><img src="/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/1648279627114.png"></p>
-<h1 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h1><p>我们可以定义全局变量的密钥，然后在init中修改密钥，进而阻碍他人的静态分析</p>
-]]></content>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Hook</title>
     <url>/2022/02/03/Hook/</url>
     <content><![CDATA[<h1 id="0x00-Windows消息机制"><a href="#0x00-Windows消息机制" class="headerlink" title="0x00-Windows消息机制"></a>0x00-Windows消息机制</h1><h2 id="消息的产生"><a href="#消息的产生" class="headerlink" title="消息的产生"></a>消息的产生</h2><p>通常根据消息产生的方式分为 硬件和软件信息。</p>
@@ -2826,21 +2796,33 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>LLVM程序集</title>
-    <url>/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/</url>
-    <content><![CDATA[<h1 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h1><p>这里我没办法细讲，因为也是第一次接触，后续深入了解后再补</p>
-<p><a href="https://www.1024sou.com/article/387833.html">https://www.1024sou.com/article/387833.html</a></p>
-<p>clang常用编译命令</p>
-<p><a href="https://blog.csdn.net/pc153262603/article/details/89553688">https://blog.csdn.net/pc153262603/article/details/89553688</a></p>
-<p>指令集</p>
-<p><a href="https://blog.csdn.net/qq_37206105/article/details/115274241">https://blog.csdn.net/qq_37206105/article/details/115274241</a></p>
-<h1 id="LLVM程序集转为ELF可执行文件"><a href="#LLVM程序集转为ELF可执行文件" class="headerlink" title="LLVM程序集转为ELF可执行文件"></a>LLVM程序集转为ELF可执行文件</h1><p>打开附件发现有点难看懂，搜索其中一段指令集后发现是LLVM指令集</p>
-<p><img src="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/1648121627952.png"></p>
-<h2 id="转为ELF可执行文件"><a href="#转为ELF可执行文件" class="headerlink" title="转为ELF可执行文件"></a>转为ELF可执行文件</h2><p> clang task.ll -mllvm -W -g -W1,-pie -o task.out </p>
-<p>使用上面的命令即可生成elf文件</p>
+    <title>Gcc中在main前和后执行的函数</title>
+    <url>/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/</url>
+    <content><![CDATA[<h1 id="gcc在主函数前后运行的函数"><a href="#gcc在主函数前后运行的函数" class="headerlink" title="gcc在主函数前后运行的函数"></a>gcc在主函数前后运行的函数</h1><p>逆向的时候我们直到elf文件在start函数中有main函数、init和fini函数，init就是初始化，即在主函数前运行的函数，fini就是在主函数之后执行的函数</p>
+<p><img src="/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/1648278715009.png"></p>
+<p>那么我们怎么实现呢，windows下我没找到好方法</p>
+<p>但是linux下则可以，我们需要用到gcc编译器</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>gcc支持_<em>attribute_</em>((constructor)) void FunctionName()，这样这个函数就是在主函数运行前的函数，_<em>attribute_</em>((destructor)) void FunctionName{}是在主函数运行之后执行的。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+char string[]="123456";
+
+__attribute__((constructor)) void FunctionName(){
+	printf("helloworld");
+}
+
+int main()
+{
+	printf("%s",string);
+	return 0;
+}</code></pre>
+
+<p>效果</p>
+<p><img src="/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/1648279627114.png"></p>
+<h1 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h1><p>我们可以定义全局变量的密钥，然后在init中修改密钥，进而阻碍他人的静态分析</p>
 ]]></content>
       <tags>
-        <tag>Reverse</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -2864,6 +2846,24 @@ int main()
 <p>写脚本，也可以使用工具CaptfEncoder-win-1.1.0</p>
 <p>得到flag</p>
 <p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871135186.png"></p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LLVM程序集</title>
+    <url>/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h1><p>这里我没办法细讲，因为也是第一次接触，后续深入了解后再补</p>
+<p><a href="https://www.1024sou.com/article/387833.html">https://www.1024sou.com/article/387833.html</a></p>
+<p>clang常用编译命令</p>
+<p><a href="https://blog.csdn.net/pc153262603/article/details/89553688">https://blog.csdn.net/pc153262603/article/details/89553688</a></p>
+<p>指令集</p>
+<p><a href="https://blog.csdn.net/qq_37206105/article/details/115274241">https://blog.csdn.net/qq_37206105/article/details/115274241</a></p>
+<h1 id="LLVM程序集转为ELF可执行文件"><a href="#LLVM程序集转为ELF可执行文件" class="headerlink" title="LLVM程序集转为ELF可执行文件"></a>LLVM程序集转为ELF可执行文件</h1><p>打开附件发现有点难看懂，搜索其中一段指令集后发现是LLVM指令集</p>
+<p><img src="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/1648121627952.png"></p>
+<h2 id="转为ELF可执行文件"><a href="#转为ELF可执行文件" class="headerlink" title="转为ELF可执行文件"></a>转为ELF可执行文件</h2><p> clang task.ll -mllvm -W -g -W1,-pie -o task.out </p>
+<p>使用上面的命令即可生成elf文件</p>
 ]]></content>
       <tags>
         <tag>Reverse</tag>
@@ -3411,149 +3411,6 @@ CHAR Name[1];//不定长,字符串
 ]]></content>
       <tags>
         <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PWN基本工具</title>
-    <url>/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
-    <content><![CDATA[<h1 id="0x00-GDB工具安装"><a href="#0x00-GDB工具安装" class="headerlink" title="0x00-GDB工具安装"></a>0x00-GDB工具安装</h1><p><a href="https://zhuanlan.zhihu.com/p/129837931">https://zhuanlan.zhihu.com/p/129837931</a></p>
-<p>gdb这三个插件不能同时运行，可以使用命令</p>
-<pre class="language-none"><code class="language-none">vim ~/.gdbinit</code></pre>
-
-<p><img src="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/1649212326580.png" alt="gdbinit"></p>
-<p>不需要使用哪个就注释掉哪个</p>
-<h1 id="0x01-GDB基本使用"><a href="#0x01-GDB基本使用" class="headerlink" title="0x01-GDB基本使用"></a>0x01-GDB基本使用</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>首先先使用gcc生成elf文件，-g表示可以debug</p>
-<pre class="language-none"><code class="language-none">gcc inputfile -o outputfile -g</code></pre>
-
-<p>使用下面命令打开</p>
-<pre class="language-none"><code class="language-none">gdb file</code></pre>
-
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><a href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
-<p><a href="https://www.cnblogs.com/zhwer/p/12494317.html">https://www.cnblogs.com/zhwer/p/12494317.html</a></p>
-<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><pre class="language-c" data-language="c"><code class="language-c">help//帮助
-i//info
-	i b//info break查看所有断点信息
-	i r//info registers 查看各个寄存器当前的值
-	i f//info function 查看所有函数名，保留符号
-show //和info相似，但是是查看调试器的基本信息
-	show args//查看参数
-	
-backtrace//查看调用堆栈
-q//quit退出</code></pre>
-
-<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><pre class="language-c" data-language="c"><code class="language-c">s//step，单步步入，跟进函数中，也就是step into，源码层面的一步，F7
-	si//同s，汇编层面的一步
-n//next，单步补过，F8，源码层面的一步
-	ni//同n，汇编层面的一步
-c//continue，F9，继续执行到断点
-r//run，重新开始执行</code></pre>
-
-<h3 id="断点指令-break"><a href="#断点指令-break" class="headerlink" title="断点指令-break"></a>断点指令-break</h3><pre class="language-c" data-language="c"><code class="language-c">b*(0x123456)//给0x123456地址的指令下断点
-	b*$rebase(0x123456)//$rebase在调试开PIE的程序的时候可以直接加上程序的随即地址
-b func_name//给函数func_name下断点，目标文件要保留符号才行
-    b file_name:func_name
-b file_name:15//给file_name的15行下断点，需要有源码
-    b 15
-b +0x10//在程序当前停住的位置下0x10的位置下断点，也可以-0x10，就是前0x10
-break fun if $rdi==5//条件断点，rdi的值为5的时候才断</code></pre>
-
-<p>删除、禁用断点的指令</p>
-<pre class="language-c" data-language="c"><code class="language-c">//先使用i b查看断点编号
-delete 5//删除5号断点，如果直接delete不加数字，表示删除所有断点
-disable 5//禁用5号断点
-    enable 5//启用5号断点
-clear//清除下面的所有断点</code></pre>
-
-<p>内存断点指令</p>
-<pre class="language-c" data-language="c"><code class="language-c">watch 0x123456//0x123456地址的数据改变的时候会断
-watch a//变量a改变的时候会断
-info watchpoints//查看watch断点信息</code></pre>
-
-<h3 id="打印指令"><a href="#打印指令" class="headerlink" title="打印指令"></a>打印指令</h3><p>查看内存指令x</p>
-<pre class="language-c" data-language="c"><code class="language-c">x /nuf 0x123456//x指令的格式是：x /nfu，nfu代表三个参数
-    n//代表显示几个单元（而不是显示几个字节，后面的u表示一个单元多少个字节），放在'/'后面
-    u//代表一个单元几个字节，b(一个字节),h(两个字节)，w(四字节)，g(八字节)
-    f//代表显示数据的格式，f和u的顺序可以互换，也可以只有一个或者不带n
-    	x 按十六进制格式显示变量。
-		d 按十进制格式显示变量。
-		u 按十六进制格式显示无符号整型。
-		o 按八进制格式显示变量。
-        t 按二进制格式显示变量。
-        a 按十六进制格式显示变量。
-        c 按字符格式显示变量。
-        f 按浮点数格式显示变量。
-        s 按字符串显示。
-        b 按字符显示。
-        i 显示汇编指令。
-x /10gx 0x123456//从0x123456开始每个单元八个字节，十六进制显示十个单元的数据
-x /10xd $rdi//从rdi指向的地址向后打印十个单元，每个单元四字节的十进制数
-x /10i 0x123456//从0x123456处向后显示十条汇编指令</code></pre>
-
-<p>打印指令p(print)</p>
-<pre class="language-c" data-language="c"><code class="language-c">p func_name//打印func_name的地址，需要保留符号
-p 0x10-0x8//计算0x10-0x8的结果
-p &amp;a//查看变量a的地址
-p *(0x123456)//查看0x123456的值
-p $rdi//显示rdi寄存器的值
-    p *($rdi)//显示rdi指向的值</code></pre>
-
-<p>打印汇编指令disass(disassemble)</p>
-<pre class="language-c" data-language="c"><code class="language-c">disass 0x123456//显示0x123456前后的汇编指令
-x /10i //前面说过了</code></pre>
-
-<p>打印源代码list</p>
-<pre class="language-c" data-language="c"><code class="language-c">list//查看当前附近10行的代码
-    list 38//查看28行附近10行的代码
-    list 1,10//查看1-10行代码
-    list main//查看main函数的开始10行</code></pre>
-
-<h3 id="查找指令"><a href="#查找指令" class="headerlink" title="查找指令"></a>查找指令</h3><pre class="language-c" data-language="c"><code class="language-c">search rdi//从当前位置向后查找包含rdi的指令
-find "hello"//查找hello字符串，pwndbg独有</code></pre>
-
-<h3 id="修改数据指令-set"><a href="#修改数据指令-set" class="headerlink" title="修改数据指令-set"></a>修改数据指令-set</h3><pre class="language-c" data-language="c"><code class="language-c">set $rdi=0x10//把寄存器的值变为0x10
-set *(0x123456)=0x10//把0x123456地址的值变为0x10，注意带星号
-set args "abc" "def" "gh"//给参数123赋值</code></pre>
-
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre class="language-c" data-language="c"><code class="language-c">堆操作指令（pwndbg插件独有）
-arena //显示arena的详细信息
-arenas //显示所有arena的基本信息
-arenainfo //好看的显示所有arena的信息
-bins //常用，查看所有种类的堆块的链表情况
-fastbins //单独查看fastbins的链表情况
-largebins //同上，单独查看largebins的链表情况
-smallbins //同上，单独查看smallbins的链表情况
-unsortedbin //同上，单独查看unsortedbin链表情况
-tcachebins //同上，单独查看tcachebins的链表情况
-tcache //查看tcache详细信息
-heap //数据结构的形式显示所有堆块，会显示一大堆
-heapbase //查看堆起始地址
-heapinfo、heapinfoall //显示堆得信息，和bins的挺像的，没bins好用
-parseheap //显示堆结构，很好用
-tracemalloc //好用，会跟提示所有操作堆的地方
-其他pwndbg插件独有指令
-cyclc 50 //生成50个用来溢出的字符，如：aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama
-
-$reabse //开启PIE的情况的地址偏移
-
-b *$reabse(0x123456) //断住PIE状态下的二进制文件中0x123456的地方
-codebase //打印PIE偏移，与rebase不同，这是打印，rebase是使用
-stack //查看栈
-
-retaddr //打印包含返回地址的栈地址
-canary //直接看canary的值
-
-plt //查看plt表
-
-got //查看got表
-hexdump //像IDA那样显示数据，带字符串</code></pre>
-
-
-
-
-
-]]></content>
-      <tags>
-        <tag>PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -4182,6 +4039,149 @@ int main()
 ]]></content>
       <tags>
         <tag>PE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PWN基本工具</title>
+    <url>/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<h1 id="0x00-GDB工具安装"><a href="#0x00-GDB工具安装" class="headerlink" title="0x00-GDB工具安装"></a>0x00-GDB工具安装</h1><p><a href="https://zhuanlan.zhihu.com/p/129837931">https://zhuanlan.zhihu.com/p/129837931</a></p>
+<p>gdb这三个插件不能同时运行，可以使用命令</p>
+<pre class="language-none"><code class="language-none">vim ~/.gdbinit</code></pre>
+
+<p><img src="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/1649212326580.png" alt="gdbinit"></p>
+<p>不需要使用哪个就注释掉哪个</p>
+<h1 id="0x01-GDB基本使用"><a href="#0x01-GDB基本使用" class="headerlink" title="0x01-GDB基本使用"></a>0x01-GDB基本使用</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>首先先使用gcc生成elf文件，-g表示可以debug</p>
+<pre class="language-none"><code class="language-none">gcc inputfile -o outputfile -g</code></pre>
+
+<p>使用下面命令打开</p>
+<pre class="language-none"><code class="language-none">gdb file</code></pre>
+
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><a href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
+<p><a href="https://www.cnblogs.com/zhwer/p/12494317.html">https://www.cnblogs.com/zhwer/p/12494317.html</a></p>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><pre class="language-c" data-language="c"><code class="language-c">help//帮助
+i//info
+	i b//info break查看所有断点信息
+	i r//info registers 查看各个寄存器当前的值
+	i f//info function 查看所有函数名，保留符号
+show //和info相似，但是是查看调试器的基本信息
+	show args//查看参数
+	
+backtrace//查看调用堆栈
+q//quit退出</code></pre>
+
+<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><pre class="language-c" data-language="c"><code class="language-c">s//step，单步步入，跟进函数中，也就是step into，源码层面的一步，F7
+	si//同s，汇编层面的一步
+n//next，单步补过，F8，源码层面的一步
+	ni//同n，汇编层面的一步
+c//continue，F9，继续执行到断点
+r//run，重新开始执行</code></pre>
+
+<h3 id="断点指令-break"><a href="#断点指令-break" class="headerlink" title="断点指令-break"></a>断点指令-break</h3><pre class="language-c" data-language="c"><code class="language-c">b*(0x123456)//给0x123456地址的指令下断点
+	b*$rebase(0x123456)//$rebase在调试开PIE的程序的时候可以直接加上程序的随即地址
+b func_name//给函数func_name下断点，目标文件要保留符号才行
+    b file_name:func_name
+b file_name:15//给file_name的15行下断点，需要有源码
+    b 15
+b +0x10//在程序当前停住的位置下0x10的位置下断点，也可以-0x10，就是前0x10
+break fun if $rdi==5//条件断点，rdi的值为5的时候才断</code></pre>
+
+<p>删除、禁用断点的指令</p>
+<pre class="language-c" data-language="c"><code class="language-c">//先使用i b查看断点编号
+delete 5//删除5号断点，如果直接delete不加数字，表示删除所有断点
+disable 5//禁用5号断点
+    enable 5//启用5号断点
+clear//清除下面的所有断点</code></pre>
+
+<p>内存断点指令</p>
+<pre class="language-c" data-language="c"><code class="language-c">watch 0x123456//0x123456地址的数据改变的时候会断
+watch a//变量a改变的时候会断
+info watchpoints//查看watch断点信息</code></pre>
+
+<h3 id="打印指令"><a href="#打印指令" class="headerlink" title="打印指令"></a>打印指令</h3><p>查看内存指令x</p>
+<pre class="language-c" data-language="c"><code class="language-c">x /nuf 0x123456//x指令的格式是：x /nfu，nfu代表三个参数
+    n//代表显示几个单元（而不是显示几个字节，后面的u表示一个单元多少个字节），放在'/'后面
+    u//代表一个单元几个字节，b(一个字节),h(两个字节)，w(四字节)，g(八字节)
+    f//代表显示数据的格式，f和u的顺序可以互换，也可以只有一个或者不带n
+    	x 按十六进制格式显示变量。
+		d 按十进制格式显示变量。
+		u 按十六进制格式显示无符号整型。
+		o 按八进制格式显示变量。
+        t 按二进制格式显示变量。
+        a 按十六进制格式显示变量。
+        c 按字符格式显示变量。
+        f 按浮点数格式显示变量。
+        s 按字符串显示。
+        b 按字符显示。
+        i 显示汇编指令。
+x /10gx 0x123456//从0x123456开始每个单元八个字节，十六进制显示十个单元的数据
+x /10xd $rdi//从rdi指向的地址向后打印十个单元，每个单元四字节的十进制数
+x /10i 0x123456//从0x123456处向后显示十条汇编指令</code></pre>
+
+<p>打印指令p(print)</p>
+<pre class="language-c" data-language="c"><code class="language-c">p func_name//打印func_name的地址，需要保留符号
+p 0x10-0x8//计算0x10-0x8的结果
+p &amp;a//查看变量a的地址
+p *(0x123456)//查看0x123456的值
+p $rdi//显示rdi寄存器的值
+    p *($rdi)//显示rdi指向的值</code></pre>
+
+<p>打印汇编指令disass(disassemble)</p>
+<pre class="language-c" data-language="c"><code class="language-c">disass 0x123456//显示0x123456前后的汇编指令
+x /10i //前面说过了</code></pre>
+
+<p>打印源代码list</p>
+<pre class="language-c" data-language="c"><code class="language-c">list//查看当前附近10行的代码
+    list 38//查看28行附近10行的代码
+    list 1,10//查看1-10行代码
+    list main//查看main函数的开始10行</code></pre>
+
+<h3 id="查找指令"><a href="#查找指令" class="headerlink" title="查找指令"></a>查找指令</h3><pre class="language-c" data-language="c"><code class="language-c">search rdi//从当前位置向后查找包含rdi的指令
+find "hello"//查找hello字符串，pwndbg独有</code></pre>
+
+<h3 id="修改数据指令-set"><a href="#修改数据指令-set" class="headerlink" title="修改数据指令-set"></a>修改数据指令-set</h3><pre class="language-c" data-language="c"><code class="language-c">set $rdi=0x10//把寄存器的值变为0x10
+set *(0x123456)=0x10//把0x123456地址的值变为0x10，注意带星号
+set args "abc" "def" "gh"//给参数123赋值</code></pre>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre class="language-c" data-language="c"><code class="language-c">堆操作指令（pwndbg插件独有）
+arena //显示arena的详细信息
+arenas //显示所有arena的基本信息
+arenainfo //好看的显示所有arena的信息
+bins //常用，查看所有种类的堆块的链表情况
+fastbins //单独查看fastbins的链表情况
+largebins //同上，单独查看largebins的链表情况
+smallbins //同上，单独查看smallbins的链表情况
+unsortedbin //同上，单独查看unsortedbin链表情况
+tcachebins //同上，单独查看tcachebins的链表情况
+tcache //查看tcache详细信息
+heap //数据结构的形式显示所有堆块，会显示一大堆
+heapbase //查看堆起始地址
+heapinfo、heapinfoall //显示堆得信息，和bins的挺像的，没bins好用
+parseheap //显示堆结构，很好用
+tracemalloc //好用，会跟提示所有操作堆的地方
+其他pwndbg插件独有指令
+cyclc 50 //生成50个用来溢出的字符，如：aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama
+
+$reabse //开启PIE的情况的地址偏移
+
+b *$reabse(0x123456) //断住PIE状态下的二进制文件中0x123456的地方
+codebase //打印PIE偏移，与rebase不同，这是打印，rebase是使用
+stack //查看栈
+
+retaddr //打印包含返回地址的栈地址
+canary //直接看canary的值
+
+plt //查看plt表
+
+got //查看got表
+hexdump //像IDA那样显示数据，带字符串</code></pre>
+
+
+
+
+
+]]></content>
+      <tags>
+        <tag>PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -5110,142 +5110,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>VEH</title>
-    <url>/2022/04/10/VEH/</url>
-    <content><![CDATA[<h1 id="0x00-VEH"><a href="#0x00-VEH" class="headerlink" title="0x00-VEH"></a>0x00-VEH</h1><p>VEH的中文名字为：向量化异常处理 （Vectored Exception Handling） ，是为操作系统提供的异常处理机制，类似于SEH，VEH的优先级高于SEH</p>
-<p> <img src="/2022/04/10/VEH/592902_92wf161s7cgif01.png" alt="应用层异常处理结构图"> </p>
-<h1 id="0x01-VEH回调函数详解"><a href="#0x01-VEH回调函数详解" class="headerlink" title="0x01-VEH回调函数详解"></a>0x01-VEH回调函数详解</h1><blockquote>
-<p>VEH由AddVectorExceptionHandler添加处理函数，处理函数有一个参数</p>
-<p>参数类型为PEXCEPTION_POINTERS结构体</p>
-<p>结构PEXCEPTION_POINTERS保存着当前异常的各个寄存器，堆栈，地址等多种信息</p>
-</blockquote>
-<p> <img src="/2022/04/10/VEH/592902_cvh37cwxtybvmyq.png" alt="pEXCEPTION_POINTER"> </p>
-<h1 id="0x02-VEH-Hook原理"><a href="#0x02-VEH-Hook原理" class="headerlink" title="0x02-VEH Hook原理"></a>0x02-VEH Hook原理</h1><blockquote>
-<p>1、异常处理结构中，VEH是唯一一个可以接收到所有异常信息的处理。换句话说：所有的异常信息都会经过VEH</p>
-<p>2、异常信息通常是由数组越界、内存访问出错、无效参数、int 3等造成的</p>
-<p>3、一旦发生异常，操作系统会立即遍历VEH，如果有处理函数，中断线程，并由处理函数处理</p>
-</blockquote>
-<p>思路</p>
-<p>如果我们要Hook消息框，首先要给API的首地址写入int 3断点，当执行时会产生异常，线程暂停，转交给异常处理函数处理，此时我们可以在处理函数中修改堆栈参数等</p>
-<p>相应操作完成后将int 3(0xCC)修改回源代码 修改EIP=addr(异常地址)，然后让此处的代码重新执行一次正确的代码</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
-#include&lt;stdio.h&gt;
-#pragma data_seg("ldata")
-
-char trapcode[] = "*";
-unsigned long long llcode = 204;//CC 00 00 00INT3
-#pragma data_seg()
-#pragma comment(linker,"/SECTION:ldata,RWE")
-void Decshellcode()
-{
-
-	llcode = 0xF333333333333333;
-	llcode &lt;&lt;= 2;
-	char* data = (char*)&amp;llcode;
-	/*
-	* 解密shellcode 并且执行
-	* len 解密后的指令长度
-	* data 把解密后的指令写入data
-	* 比如 push ebp 就向data写入0x55
-	* 每次解密一条指令 不要用超过7字节的指令和跳转指令
-	*/
-	MessageBoxA(0, "不要再打辣", "停下", MB_OK);
-	return ;
-}
-long _stdcall ExceptionHandle(PEXCEPTION_POINTERS val)
-{
-	//判断是否为int3断点
-	if (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)
-	{
-		Decshellcode();//执行shellcode
-		//修改EIP
-		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;
-		//表示成功处理，让程序继续执行
-		return EXCEPTION_CONTINUE_EXECUTION;
-	}
-	//继续往下搜索异常处理函数
-	else
-		return EXCEPTION_CONTINUE_SEARCH;
-}
-
-#pragma optimize("",off)
-int main()
-{
-	//创建VEH，当第一个参数不为0，则异常处理函数是第一个要调用的处理程序。如果参数为0，则处理程序是要调用的最后一个处理程序
-	//第二个参数是一个异常处理函数
-	AddVectoredExceptionHandler(1, ExceptionHandle);
-	int bilibili = 2020;
-	int arr[2] = { 1,2 };
-	int ti = 23;
-	arr[5] = (int)&amp;llcode;
-	return 0;
-}
-#pragma optimize("",on)</code></pre>
-
-<p><img src="/2022/04/10/VEH/1649639633494.png"></p>
-<p>这里修改EIP为我们的Print()函数，因为函数名表示的就是函数地址，所以就是让他执行我们的Print函数</p>
-<h1 id="0x03-VEH实现隐藏函数调用"><a href="#0x03-VEH实现隐藏函数调用" class="headerlink" title="0x03-VEH实现隐藏函数调用"></a>0x03-VEH实现隐藏函数调用</h1><p>我们知道函数调用时，会先把call的地址压入栈中，而在函数内部的返回ret指令就是从栈中取出call指令的下一条地址</p>
-<p>所以我们可以对栈中的地址进行修改让其调用我们的函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
-#include&lt;stdio.h&gt;
-
-void showflag()
-{
-	MessageBoxA(0, "this is flag", "flag", MB_OK);
-	return ;
-}
-
-long _stdcall ExceptionHandler(PEXCEPTION_POINTERS val)
-{
-	//将EIP也就是下一条执行的指令修改为ret
-	val-&gt;ContextRecord-&gt;Eip += 6;
-	//降低栈顶
-	val-&gt;ContextRecord-&gt;Esp -= 4;
-	//入栈,将ret下一条指令压入栈中
-	*(int*)val-&gt;ContextRecord-&gt;Esp = val-&gt;ContextRecord-&gt;Eip + 1;
-	//和上面一样，这次修改为我们想要执行的地址
-	val-&gt;ContextRecord-&gt;Esp -= 4;
-	*(int*)val-&gt;ContextRecord-&gt;Esp=*(int*)(val-&gt;ContextRecord-&gt;Ebp-8);
-	return EXCEPTION_CONTINUE_EXECUTION;
-}
-int main()
-{
-	AddVectoredExceptionHandler(1, ExceptionHandler);
-	DWORD a = (DWORD)showflag;
-	int k = 0;
-	int c;
-	c=a / k;//构造除0异常
-	__asm
-	{
-		ret
-	}
-	printf("Get flag!!!");
-	return 0;
-}</code></pre>
-
-<p>具体的可以先看汇编</p>
-<p><img src="/2022/04/10/VEH/1649645606291.png"></p>
-<p>触发除零异常后，PEXCEPTION_POINTERS val会接收此时的信息</p>
-<p>我们先将EIP修改为ret指令，然后将ret下一条指令压入栈中，再把我们要调用的函数压入栈，这时候栈的结构为</p>
-<p><img src="/2022/04/10/VEH/1649645936725.png"></p>
-<p>返回值为EXCEPTION_CONTINUE_EXECUTION，表示继续往下执行，这时候EIP是ret指令，取出栈顶元素，跳转过去，执行完我们的shellcode后也存在ret，此时的栈为</p>
-<p><img src="/2022/04/10/VEH/1649646048618.png"></p>
-<p>shellcode尾部的ret取出栈顶的值，跳转过去，回到我们正常的程序</p>
-<blockquote>
-<p>修改EIP的时候也可以</p>
-<pre class="language-none"><code class="language-none">val-&gt;ContextRecord-&gt;Eip = (DWORD)val-&gt;ExceptionRecord-&gt;ExceptionAddress+6;</code></pre>
-
-<p>ExceptionRecord-&gt;ExceptionAddress是触发异常的地址</p>
-<p>ExceptionRecord-&gt;ExceptionCode表示异常的类型</p>
-</blockquote>
-<p>异常类型</p>
-<p><img src="/2022/04/10/VEH/1649646418174.png"></p>
-]]></content>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Tea、XTea、XXTea原理和实现</title>
     <url>/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h1><p>1、特征量（一般是0x9e3779b9，它是黄金分割数和232的乘积），可以替换成其他的值，但是可能会出现问题</p>
@@ -5380,6 +5244,142 @@ int main()
 ]]></content>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>VEH</title>
+    <url>/2022/04/10/VEH/</url>
+    <content><![CDATA[<h1 id="0x00-VEH"><a href="#0x00-VEH" class="headerlink" title="0x00-VEH"></a>0x00-VEH</h1><p>VEH的中文名字为：向量化异常处理 （Vectored Exception Handling） ，是为操作系统提供的异常处理机制，类似于SEH，VEH的优先级高于SEH</p>
+<p> <img src="/2022/04/10/VEH/592902_92wf161s7cgif01.png" alt="应用层异常处理结构图"> </p>
+<h1 id="0x01-VEH回调函数详解"><a href="#0x01-VEH回调函数详解" class="headerlink" title="0x01-VEH回调函数详解"></a>0x01-VEH回调函数详解</h1><blockquote>
+<p>VEH由AddVectorExceptionHandler添加处理函数，处理函数有一个参数</p>
+<p>参数类型为PEXCEPTION_POINTERS结构体</p>
+<p>结构PEXCEPTION_POINTERS保存着当前异常的各个寄存器，堆栈，地址等多种信息</p>
+</blockquote>
+<p> <img src="/2022/04/10/VEH/592902_cvh37cwxtybvmyq.png" alt="pEXCEPTION_POINTER"> </p>
+<h1 id="0x02-VEH-Hook原理"><a href="#0x02-VEH-Hook原理" class="headerlink" title="0x02-VEH Hook原理"></a>0x02-VEH Hook原理</h1><blockquote>
+<p>1、异常处理结构中，VEH是唯一一个可以接收到所有异常信息的处理。换句话说：所有的异常信息都会经过VEH</p>
+<p>2、异常信息通常是由数组越界、内存访问出错、无效参数、int 3等造成的</p>
+<p>3、一旦发生异常，操作系统会立即遍历VEH，如果有处理函数，中断线程，并由处理函数处理</p>
+</blockquote>
+<p>思路</p>
+<p>如果我们要Hook消息框，首先要给API的首地址写入int 3断点，当执行时会产生异常，线程暂停，转交给异常处理函数处理，此时我们可以在处理函数中修改堆栈参数等</p>
+<p>相应操作完成后将int 3(0xCC)修改回源代码 修改EIP=addr(异常地址)，然后让此处的代码重新执行一次正确的代码</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
+#include&lt;stdio.h&gt;
+#pragma data_seg("ldata")
+
+char trapcode[] = "*";
+unsigned long long llcode = 204;//CC 00 00 00INT3
+#pragma data_seg()
+#pragma comment(linker,"/SECTION:ldata,RWE")
+void Decshellcode()
+{
+
+	llcode = 0xF333333333333333;
+	llcode &lt;&lt;= 2;
+	char* data = (char*)&amp;llcode;
+	/*
+	* 解密shellcode 并且执行
+	* len 解密后的指令长度
+	* data 把解密后的指令写入data
+	* 比如 push ebp 就向data写入0x55
+	* 每次解密一条指令 不要用超过7字节的指令和跳转指令
+	*/
+	MessageBoxA(0, "不要再打辣", "停下", MB_OK);
+	return ;
+}
+long _stdcall ExceptionHandle(PEXCEPTION_POINTERS val)
+{
+	//判断是否为int3断点
+	if (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)
+	{
+		Decshellcode();//执行shellcode
+		//修改EIP
+		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;
+		//表示成功处理，让程序继续执行
+		return EXCEPTION_CONTINUE_EXECUTION;
+	}
+	//继续往下搜索异常处理函数
+	else
+		return EXCEPTION_CONTINUE_SEARCH;
+}
+
+#pragma optimize("",off)
+int main()
+{
+	//创建VEH，当第一个参数不为0，则异常处理函数是第一个要调用的处理程序。如果参数为0，则处理程序是要调用的最后一个处理程序
+	//第二个参数是一个异常处理函数
+	AddVectoredExceptionHandler(1, ExceptionHandle);
+	int bilibili = 2020;
+	int arr[2] = { 1,2 };
+	int ti = 23;
+	arr[5] = (int)&amp;llcode;
+	return 0;
+}
+#pragma optimize("",on)</code></pre>
+
+<p><img src="/2022/04/10/VEH/1649639633494.png"></p>
+<p>这里修改EIP为我们的Print()函数，因为函数名表示的就是函数地址，所以就是让他执行我们的Print函数</p>
+<h1 id="0x03-VEH实现隐藏函数调用"><a href="#0x03-VEH实现隐藏函数调用" class="headerlink" title="0x03-VEH实现隐藏函数调用"></a>0x03-VEH实现隐藏函数调用</h1><p>我们知道函数调用时，会先把call的地址压入栈中，而在函数内部的返回ret指令就是从栈中取出call指令的下一条地址</p>
+<p>所以我们可以对栈中的地址进行修改让其调用我们的函数</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
+#include&lt;stdio.h&gt;
+
+void showflag()
+{
+	MessageBoxA(0, "this is flag", "flag", MB_OK);
+	return ;
+}
+
+long _stdcall ExceptionHandler(PEXCEPTION_POINTERS val)
+{
+	//将EIP也就是下一条执行的指令修改为ret
+	val-&gt;ContextRecord-&gt;Eip += 6;
+	//降低栈顶
+	val-&gt;ContextRecord-&gt;Esp -= 4;
+	//入栈,将ret下一条指令压入栈中
+	*(int*)val-&gt;ContextRecord-&gt;Esp = val-&gt;ContextRecord-&gt;Eip + 1;
+	//和上面一样，这次修改为我们想要执行的地址
+	val-&gt;ContextRecord-&gt;Esp -= 4;
+	*(int*)val-&gt;ContextRecord-&gt;Esp=*(int*)(val-&gt;ContextRecord-&gt;Ebp-8);
+	return EXCEPTION_CONTINUE_EXECUTION;
+}
+int main()
+{
+	AddVectoredExceptionHandler(1, ExceptionHandler);
+	DWORD a = (DWORD)showflag;
+	int k = 0;
+	int c;
+	c=a / k;//构造除0异常
+	__asm
+	{
+		ret
+	}
+	printf("Get flag!!!");
+	return 0;
+}</code></pre>
+
+<p>具体的可以先看汇编</p>
+<p><img src="/2022/04/10/VEH/1649645606291.png"></p>
+<p>触发除零异常后，PEXCEPTION_POINTERS val会接收此时的信息</p>
+<p>我们先将EIP修改为ret指令，然后将ret下一条指令压入栈中，再把我们要调用的函数压入栈，这时候栈的结构为</p>
+<p><img src="/2022/04/10/VEH/1649645936725.png"></p>
+<p>返回值为EXCEPTION_CONTINUE_EXECUTION，表示继续往下执行，这时候EIP是ret指令，取出栈顶元素，跳转过去，执行完我们的shellcode后也存在ret，此时的栈为</p>
+<p><img src="/2022/04/10/VEH/1649646048618.png"></p>
+<p>shellcode尾部的ret取出栈顶的值，跳转过去，回到我们正常的程序</p>
+<blockquote>
+<p>修改EIP的时候也可以</p>
+<pre class="language-none"><code class="language-none">val-&gt;ContextRecord-&gt;Eip = (DWORD)val-&gt;ExceptionRecord-&gt;ExceptionAddress+6;</code></pre>
+
+<p>ExceptionRecord-&gt;ExceptionAddress是触发异常的地址</p>
+<p>ExceptionRecord-&gt;ExceptionCode表示异常的类型</p>
+</blockquote>
+<p>异常类型</p>
+<p><img src="/2022/04/10/VEH/1649646418174.png"></p>
+]]></content>
+      <tags>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -6469,25 +6469,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Windows内核基础</title>
-    <url>/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h1 id="0x00-权限级别"><a href="#0x00-权限级别" class="headerlink" title="0x00-权限级别"></a>0x00-权限级别</h1><p>先来看一下特权级环，从里往外权限逐渐降低</p>
-<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650108857255.png" alt="特权级环"></p>
-<blockquote>
-<p><strong>系统内核层，又叫零环（Ring 0，简称“R0”；与此对应的应用层叫3环，即Ring 3，简称“R3”），实际上是CPU的4个运行级别中的一个</strong></p>
-</blockquote>
-<p>CPU设计者将CPU的运行级别从内往外分为4个，依次为R0、R1、R2、R3，运行权限从R0到R3依次降低。CPU设计制造商在设计之初是让R0运行内核，让R1、R2运行驱动设备，让R3运行应用程序的。</p>
-<p>操作系统设计者与开发商在设计操作系统（例如微软Windows和开源社区的Linus编写的Linux）的时候，为了让工作变得简单，<strong>并没有使用R1和R2两个级别，而是将设备驱动运行在与内核一个级别的R0级</strong></p>
-<p>在AMD64CPU诞生之后，CPU的设计者干脆也和操作吸引保持一致，只保留了R0和R3两个级别</p>
-<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109580425.png" alt="Windows XP体系结构简图"></p>
-<p>HAL是一个可加载的核心模块HAL.DLL，它为运行在Windows XP上的硬件平台提供低级接口。Windows XP的执行体是NTOSKRNL.EXE的上层（内核是其下层）。用户层导出并且可以调用的函数接口在NTDLL.DLL中，通过Win32 API或其他环境子系统对它们进行访问</p>
-<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109820013.png"></p>
-<h1 id="0x01-内存空间布局"><a href="#0x01-内存空间布局" class="headerlink" title="0x01-内存空间布局"></a>0x01-内存空间布局</h1>]]></content>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows核心编程</title>
     <url>/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="0x00-错误处理"><a href="#0x00-错误处理" class="headerlink" title="0x00-错误处理"></a>0x00-错误处理</h1><p>在WinError.h头文件中包含了Microsoft定义的错误代码列表，每个错误都有三种表示：一个消息ID(一个可在源代码使用的宏，用于与GetLastError的返回值进行比较)、消息文本(描述错误的英文文本)和一个编号(应该避免使用此编号，尽量使用消息ID)</p>
@@ -6522,182 +6503,22 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Z3</title>
-    <url>/2022/01/17/Z3/</url>
-    <content><![CDATA[<p>先来看官方文档</p>
-<p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
-<p>这个博客也不错</p>
-<p><a href="https://blog.csdn.net/qq_38154820/article/details/108656598">https://blog.csdn.net/qq_38154820/article/details/108656598</a></p>
-<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>  基本语句</p>
-<p>Op    Mnmonics    Description<br>            0    true    恒真<br>            1    flase    恒假<br>            2    =    相等<br>            3    distinct    不同<br>            4    ite    if-then-else<br>            5    and    n元 合取（其中条件必须全部满足）<br>            6    or    n元 析取（其中条件满足之一即可）<br>            7    iff    implication<br>            8    xor    异或<br>            9    not    否定<br>            10    implies    Bi-implications</p>
-<p>1、创建容器</p>
-<p>s=Solver()</p>
-<p>2、创建变量，变量有Int(整型)、BitVector(字节)、数组</p>
-<p>3、添加约束条件</p>
-<p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
-<p>4、判断是否存在</p>
-<pre class="language-python" data-language="python"><code class="language-python">if s.check() == sat:  
-    m = s.model()  
-    print(m)
-else:  
-    print("no answer")</code></pre>
-
-<h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
-<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
-<p>这里就直接放脚本了</p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
-
-s=Solver()
-v1=Int('v1')
-v2=Int('v2')
-v3=Int('v3')
-v4=Int('v4')
-v5=Int('v5')
-v6=Int('v6')
-v7=Int('v7')
-v8=Int('v8')
-v9=Int('v9')
-v11=Int('v11')
-
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
-s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
-s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
-s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
-s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
-s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
-s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
-s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
-
-if s.check()==sat:
-    result=s.model()
-
-print(result)</code></pre>
-
-
-
-<h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
-<h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
-#添加六个Int数据到s变量中
-s = [Int('s%d' % i) for i in range(6)]
-a=Solver()
-#多个约束条件可以使用逗号间隔
-a.add(s[2]-s[3]==2225223423,s[3]+s[4]==4201428739,s[2]-s[4]==1121399208,s[0]==0xdf48ef7e,s[5]==0x84f30420,s[1]==0x20caacf4)
-if a.check() == sat:
-    print(a.model())</code></pre>
-
-
-
-<p>这样得到的结果不会是数组的形式，如下得到的是数组形式</p>
-<p><img src="/2022/01/17/Z3/1642418166049.png"></p>
-<h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
-<p>先贴一下</p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import *
-# 9x9整数变量矩阵
-X = [ [ Int("x_%s_%s" % (i+1, j+1)) for j in range(9) ]
-      for i in range(9) ]
- 
- 
-# 每个单元格包含{1，…，9}中的值
-cells_c  = [ And(1 &lt;= X[i][j], X[i][j] &lt;= 9)
-             for i in range(9) for j in range(9) ]
- 
- 
-# 每行最多包含一个数字一次
-rows_c   = [ Distinct(X[i]) for i in range(9) ]
- 
- 
-# 每列最多包含一个数字
-cols_c   = [ Distinct([ X[i][j] for i in range(9) ])
-             for j in range(9) ]
- 
- 
-# 每个3x3正方形最多包含一个数字
-sq_c     = [ Distinct([ X[3*i0 + i][3*j0 + j]
-                        for i in range(3) for j in range(3) ])
-             for i0 in range(3) for j0 in range(3) ]
- 
- 
-sudoku_c = cells_c + rows_c + cols_c + sq_c
- 
- 
-# 数独实例，我们用'0'表示空单元格
-instance = ((0,0,0,0,9,4,0,3,0),
-            (0,0,0,5,1,0,0,0,7),
-            (0,8,9,0,0,0,0,4,0),
-            (0,0,0,0,0,0,2,0,8),
-            (0,6,0,2,0,1,0,5,0),
-            (1,0,2,0,0,0,0,0,0),
-            (0,7,0,0,0,0,5,2,0),
-            (9,0,0,0,6,5,0,0,0),
-            (0,4,0,9,7,0,0,0,0))
- 
- 
-instance_c = [ If(instance[i][j] == 0,
-                  True,
-                  X[i][j] == instance[i][j])
-               for i in range(9) for j in range(9) ]
- 
- 
-s = Solver()
-s.add(sudoku_c + instance_c)
-if s.check() == sat:
-    m = s.model()
-    r = [ [ m.evaluate(X[i][j]) for j in range(9) ]
-          for i in range(9) ]
-    print_matrix(r)
-else:
-    print("failed to solve")</code></pre>
-
-<h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
-<p><a href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
-<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><pre class="language-python" data-language="python"><code class="language-python">from z3 import *
-
-# 5*5整数变量矩阵
-X = [[Int("x_%s_%s" % (i + 1, j + 1)) for j in range(5)]
-     for i in range(5)]
-
-# 每个单元格包含{0，…，4}中的值
-cells_c = [And(0 &lt;= X[i][j], X[i][j] &lt;= 4)
-           for i in range(5) for j in range(5)]
-
-# 每行最多包含一个数字一次
-rows_c = [Distinct(X[i]) for i in range(5)]
-
-# 每列最多包含一个数字
-cols_c = [Distinct([X[i][j] for i in range(5)])
-          for j in range(5)]
-
-# 每个5x5正方形最多包含一个数字,i0和j0表示分为几组
-sq_c = [Distinct([X[5 * i0 + i][5 * j0 + j]
-                  for i in range(5) for j in range(5)])
-        for i0 in range(0) for j0 in range(0)]
-
-sudoku_c = cells_c + rows_c + cols_c + sq_c
-
-# 数独实例，我们用'5'表示空单元格
-instance = ((1,4,5,2,3),(3,0,5,1,5),(0,5,2,3,5),(5,3,5,5,5),(4,2,5,5,1))
-
-instance_c = [If(instance[i][j] == 5,
-                 True,
-                 X[i][j] == instance[i][j])
-              for i in range(5) for j in range(5)]
-
-s = Solver()
-s.add(sudoku_c + instance_c)
-if s.check() == sat:
-    m = s.model()
-    r = [[m.evaluate(X[i][j]) for j in range(5)]
-         for i in range(5)]
-    print_matrix(r)
-else:
-    print("failed to solve")</code></pre>
-
-]]></content>
+    <title>Windows内核基础</title>
+    <url>/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="0x00-权限级别"><a href="#0x00-权限级别" class="headerlink" title="0x00-权限级别"></a>0x00-权限级别</h1><p>先来看一下特权级环，从里往外权限逐渐降低</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650108857255.png" alt="特权级环"></p>
+<blockquote>
+<p><strong>系统内核层，又叫零环（Ring 0，简称“R0”；与此对应的应用层叫3环，即Ring 3，简称“R3”），实际上是CPU的4个运行级别中的一个</strong></p>
+</blockquote>
+<p>CPU设计者将CPU的运行级别从内往外分为4个，依次为R0、R1、R2、R3，运行权限从R0到R3依次降低。CPU设计制造商在设计之初是让R0运行内核，让R1、R2运行驱动设备，让R3运行应用程序的。</p>
+<p>操作系统设计者与开发商在设计操作系统（例如微软Windows和开源社区的Linus编写的Linux）的时候，为了让工作变得简单，<strong>并没有使用R1和R2两个级别，而是将设备驱动运行在与内核一个级别的R0级</strong></p>
+<p>在AMD64CPU诞生之后，CPU的设计者干脆也和操作吸引保持一致，只保留了R0和R3两个级别</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109580425.png" alt="Windows XP体系结构简图"></p>
+<p>HAL是一个可加载的核心模块HAL.DLL，它为运行在Windows XP上的硬件平台提供低级接口。Windows XP的执行体是NTOSKRNL.EXE的上层（内核是其下层）。用户层导出并且可以调用的函数接口在NTDLL.DLL中，通过Win32 API或其他环境子系统对它们进行访问</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109820013.png"></p>
+<h1 id="0x01-内存空间布局"><a href="#0x01-内存空间布局" class="headerlink" title="0x01-内存空间布局"></a>0x01-内存空间布局</h1>]]></content>
       <tags>
-        <tag>Reverse</tag>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -6929,6 +6750,204 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>Z3</title>
+    <url>/2022/01/17/Z3/</url>
+    <content><![CDATA[<p>先来看官方文档</p>
+<p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
+<p>这个博客也不错</p>
+<p><a href="https://blog.csdn.net/qq_38154820/article/details/108656598">https://blog.csdn.net/qq_38154820/article/details/108656598</a></p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>  基本语句</p>
+<p>Op    Mnmonics    Description<br>            0    true    恒真<br>            1    flase    恒假<br>            2    =    相等<br>            3    distinct    不同<br>            4    ite    if-then-else<br>            5    and    n元 合取（其中条件必须全部满足）<br>            6    or    n元 析取（其中条件满足之一即可）<br>            7    iff    implication<br>            8    xor    异或<br>            9    not    否定<br>            10    implies    Bi-implications</p>
+<p>1、创建容器</p>
+<p>s=Solver()</p>
+<p>2、创建变量，变量有Int(整型)、BitVector(字节)、数组</p>
+<p>3、添加约束条件</p>
+<p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
+<p>4、判断是否存在</p>
+<pre class="language-python" data-language="python"><code class="language-python">if s.check() == sat:  
+    m = s.model()  
+    print(m)
+else:  
+    print("no answer")</code></pre>
+
+<h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
+<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
+<p>这里就直接放脚本了</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
+
+s=Solver()
+v1=Int('v1')
+v2=Int('v2')
+v3=Int('v3')
+v4=Int('v4')
+v5=Int('v5')
+v6=Int('v6')
+v7=Int('v7')
+v8=Int('v8')
+v9=Int('v9')
+v11=Int('v11')
+
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
+s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
+s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
+s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
+s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
+s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
+s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
+s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
+
+if s.check()==sat:
+    result=s.model()
+
+print(result)</code></pre>
+
+
+
+<h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
+<h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
+#添加六个Int数据到s变量中
+s = [Int('s%d' % i) for i in range(6)]
+a=Solver()
+#多个约束条件可以使用逗号间隔
+a.add(s[2]-s[3]==2225223423,s[3]+s[4]==4201428739,s[2]-s[4]==1121399208,s[0]==0xdf48ef7e,s[5]==0x84f30420,s[1]==0x20caacf4)
+if a.check() == sat:
+    print(a.model())</code></pre>
+
+
+
+<p>这样得到的结果不会是数组的形式，如下得到的是数组形式</p>
+<p><img src="/2022/01/17/Z3/1642418166049.png"></p>
+<h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
+<p>先贴一下</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import *
+# 9x9整数变量矩阵
+X = [ [ Int("x_%s_%s" % (i+1, j+1)) for j in range(9) ]
+      for i in range(9) ]
+ 
+ 
+# 每个单元格包含{1，…，9}中的值
+cells_c  = [ And(1 &lt;= X[i][j], X[i][j] &lt;= 9)
+             for i in range(9) for j in range(9) ]
+ 
+ 
+# 每行最多包含一个数字一次
+rows_c   = [ Distinct(X[i]) for i in range(9) ]
+ 
+ 
+# 每列最多包含一个数字
+cols_c   = [ Distinct([ X[i][j] for i in range(9) ])
+             for j in range(9) ]
+ 
+ 
+# 每个3x3正方形最多包含一个数字
+sq_c     = [ Distinct([ X[3*i0 + i][3*j0 + j]
+                        for i in range(3) for j in range(3) ])
+             for i0 in range(3) for j0 in range(3) ]
+ 
+ 
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+ 
+ 
+# 数独实例，我们用'0'表示空单元格
+instance = ((0,0,0,0,9,4,0,3,0),
+            (0,0,0,5,1,0,0,0,7),
+            (0,8,9,0,0,0,0,4,0),
+            (0,0,0,0,0,0,2,0,8),
+            (0,6,0,2,0,1,0,5,0),
+            (1,0,2,0,0,0,0,0,0),
+            (0,7,0,0,0,0,5,2,0),
+            (9,0,0,0,6,5,0,0,0),
+            (0,4,0,9,7,0,0,0,0))
+ 
+ 
+instance_c = [ If(instance[i][j] == 0,
+                  True,
+                  X[i][j] == instance[i][j])
+               for i in range(9) for j in range(9) ]
+ 
+ 
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [ [ m.evaluate(X[i][j]) for j in range(9) ]
+          for i in range(9) ]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
+
+<h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
+<p><a href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
+<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><pre class="language-python" data-language="python"><code class="language-python">from z3 import *
+
+# 5*5整数变量矩阵
+X = [[Int("x_%s_%s" % (i + 1, j + 1)) for j in range(5)]
+     for i in range(5)]
+
+# 每个单元格包含{0，…，4}中的值
+cells_c = [And(0 &lt;= X[i][j], X[i][j] &lt;= 4)
+           for i in range(5) for j in range(5)]
+
+# 每行最多包含一个数字一次
+rows_c = [Distinct(X[i]) for i in range(5)]
+
+# 每列最多包含一个数字
+cols_c = [Distinct([X[i][j] for i in range(5)])
+          for j in range(5)]
+
+# 每个5x5正方形最多包含一个数字,i0和j0表示分为几组
+sq_c = [Distinct([X[5 * i0 + i][5 * j0 + j]
+                  for i in range(5) for j in range(5)])
+        for i0 in range(0) for j0 in range(0)]
+
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+
+# 数独实例，我们用'5'表示空单元格
+instance = ((1,4,5,2,3),(3,0,5,1,5),(0,5,2,3,5),(5,3,5,5,5),(4,2,5,5,1))
+
+instance_c = [If(instance[i][j] == 5,
+                 True,
+                 X[i][j] == instance[i][j])
+              for i in range(5) for j in range(5)]
+
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [[m.evaluate(X[i][j]) for j in range(5)]
+         for i in range(5)]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
+
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hgame2022-WOW-patch数据段</title>
+    <url>/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/</url>
+    <content><![CDATA[<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png"></p>
+<p>可以看到上面这一段是输入并且把加密后的输入赋值给Buf2，在这之后已经结束了判断，所以下面红色框的代码应该是解密代码，只需要把Buf在栈中进行修改为final字符串即可</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png"></p>
+<p>这里点过去发现并没有数据，这可能是一些数据没有反编译出来，但是在图中蓝色部分可以看到地址是ebp-54</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png">计算一下，在堆栈窗口按g进行跳转</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png"></p>
+<p>跳转之后</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png"></p>
+<p>然后右键Edit，或者按快捷键F2，然后进行修改，注意大小端序的问题，这里使用lazyida选择DWORD导出来就很方便，再次右键，应用修改</p>
+<p>然后运行即可，就可以在input看到flag了</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png"></p>
+]]></content>
+      <tags>
+        <tag>Competition</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hgame-misc</title>
     <url>/2022/02/19/hgame-misc/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>总算是结束了，下面就记录一下misc遇到的一些题目</p>
@@ -6976,25 +6995,6 @@ int main()
 <p>还有一个avi文件，一般是MSU StegoVideo工具</p>
 <p>下载好之后选择好avi文件，并且指定写入的文本 ，输入密码即可</p>
 <p>hgame{Q1ng_R3n_J1e_Da_Sh4_CTF}                        </p>
-]]></content>
-      <tags>
-        <tag>Competition</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hgame2022-WOW-patch数据段</title>
-    <url>/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/</url>
-    <content><![CDATA[<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png"></p>
-<p>可以看到上面这一段是输入并且把加密后的输入赋值给Buf2，在这之后已经结束了判断，所以下面红色框的代码应该是解密代码，只需要把Buf在栈中进行修改为final字符串即可</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png"></p>
-<p>这里点过去发现并没有数据，这可能是一些数据没有反编译出来，但是在图中蓝色部分可以看到地址是ebp-54</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png">计算一下，在堆栈窗口按g进行跳转</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png"></p>
-<p>跳转之后</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png"></p>
-<p>然后右键Edit，或者按快捷键F2，然后进行修改，注意大小端序的问题，这里使用lazyida选择DWORD导出来就很方便，再次右键，应用修改</p>
-<p>然后运行即可，就可以在input看到flag了</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png"></p>
 ]]></content>
       <tags>
         <tag>Competition</tag>
@@ -8944,143 +8944,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>zip</title>
-    <url>/2022/01/15/zip/</url>
-    <content><![CDATA[<h1 id="伪加密"><a href="#伪加密" class="headerlink" title="伪加密"></a>伪加密</h1><h2 id="伪加密原理及操作"><a href="#伪加密原理及操作" class="headerlink" title="伪加密原理及操作"></a>伪加密原理及操作</h2><h3 id="zip文件组成"><a href="#zip文件组成" class="headerlink" title="zip文件组成"></a>zip文件组成</h3><p>可以去里面看看，挺全的</p>
-<p><a href="https://blog.csdn.net/qq_26187985/article/details/83654197">https://blog.csdn.net/qq_26187985/article/details/83654197</a></p>
-<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>这里找了一道大佬出的题，适合练练手</p>
-<p>《美丽的烟火》</p>
-<p>链接：<a href="http://ctf.bugku.com/challenges/detail/id/350.html">http://ctf.bugku.com/challenges/detail/id/350.html</a></p>
-<p>直接打开压缩包，可以得到被加密的文件</p>
-<p><img src="/2022/01/15/zip/1642245880907.png"></p>
-<p>痛苦，一般这种没有提示的(下面会有介绍)，一般就是伪加密了。</p>
-<p>拖进winhex，搜索504b0102（不知道为什么的速速去看前面那篇文章），这个按钮</p>
-<p><img src="/2022/01/15/zip/1642246321198.png"></p>
-<p>把09改成00，要仔细，这里有两个，我开始只看到一个</p>
-<p><img src="/2022/01/15/zip/1642246469204.png"></p>
-<p><img src="/2022/01/15/zip/1642246506196.png"></p>
-<p>重新打开压缩包</p>
-<p><img src="/2022/01/15/zip/1642246638206.png"></p>
-<p>心情愉悦~</p>
-<p>接下来就是进行解密了</p>
-<p>这里不细讲了，不然就跑偏了，png文件是stegpy隐写，密码是shumu，stegpy安装应该会有问题，具体安装请看图片隐写</p>
-<p><img src="/2022/01/15/zip/1642246877362.png"></p>
-<p>password解密是base64，base58，栅栏，</p>
-<p>这里推荐一篇博客</p>
-<p>得到的字符串是aes的key，然后直接aes在线解密</p>
-<p><img src="/2022/01/15/zip/1642247152438.png"></p>
-<p>flag：flag{yX73nAutbBozYhge6d2flG}</p>
-<p>网站也放这了：<a href="https://the-x.cn/cryptography/Aes.aspx">https://the-x.cn/cryptography/Aes.aspx</a></p>
-<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><p>winrar可以修复伪加密，不过是部分的</p>
-<p><img src="/2022/01/15/zip/1642251859085.png"></p>
-<p>点开上面的工具-&gt; 修复压缩文件</p>
-<h1 id="套娃压缩包"><a href="#套娃压缩包" class="headerlink" title="套娃压缩包"></a>套娃压缩包</h1><p>顾名思义，就是压缩包套娃</p>
-<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a href="https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF">https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF</a></p>
-<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
-
-x = y = 200
-img = Image.new("RGB",(x,y))
-file = open('./qr.txt','r')
-
-for width in range(0,x):
-    for height in range(0,y):
-        line = file.readline()
-        rgb = line.replace('(','').replace(')','').split(',')
-        img.putpixel((width,height),(int(rgb[0]),int(rgb[1]),int(rgb[2])))
-img.save('flag.jpg')
-</code></pre>
-
-
-
-<h1 id="CRC32爆破"><a href="#CRC32爆破" class="headerlink" title="CRC32爆破"></a>CRC32爆破</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>CRC校验实用程序库 在数据存储和数据通讯领域，为了保证数据的正确，就不得不采用检错的手段。在诸多检错手段中，CRC是最著名的一种。CRC的全称是循环冗余校验。(这里还不是很懂，后续再看)</p>
-<p>总之每个文件都有唯一的CRC32值，即便数据中一个bit发生变化，也会导致CRC32值不同。若是知道一段数据的长度和CRC32值，便可穷举数据，与其CRC32对照，以此达到暴力猜解的目的。但通常只适用于较小文本文件。</p>
-<h3 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h3><p>打开里面有很多压缩包，里面存储的都是小数据文件</p>
-<p><img src="/2022/01/15/zip/1642249237942.png"></p>
-<p><img src="/2022/01/15/zip/1642249207274.png"></p>
-<p>直接上脚本(不是很会)</p>
-<pre class="language-python" data-language="python"><code class="language-python">#python3
-import zipfile
-import string
-import binascii
-
-def CrackCrc(crc):
-	for i in dic:
-		for j in dic:
-			for k in dic:
-				for h in dic:
-					s = i + j + k + h
-					if crc == (binascii.crc32(s.encode())):
-						f.write(s)
-						return
-
-def CrackZip():
-	for i in range(0,68):
-		file = 'D:\\new\\新建文件夹\\out'+str(i)+'.zip'
-		crc = zipfile.ZipFile(file,'r').getinfo('data.txt').CRC
-		CrackCrc(crc)
-		print('\r'+"loading：{:%}".format(float((i+1)/68)),end='')
-
-dic = string.ascii_letters + string.digits + '+/='
-f = open('printaaa.txt','w')
-print("\nCRC32begin")
-CrackZip()
-print("CRC32finished")
-f.close()
-</code></pre>
-
-<p>得到base64编码的东西</p>
-<pre class="language-none"><code class="language-none">z5BzAAANAAAAAAAAAKo+egCAIwBJAAAAVAAAAAKGNKv+a2MdSR0zAwABAAAAQ01UCRUUy91BT5UkSNPoj5hFEVFBRvefHSBCfG0ruGnKnygsMyj8SBaZHxsYHY84LEZ24cXtZ01y3k1K1YJ0vpK9HwqUzb6u9z8igEr3dCCQLQAdAAAAHQAAAAJi0efVT2MdSR0wCAAgAAAAZmxhZy50eHQAsDRpZmZpeCB0aGUgZmlsZSBhbmQgZ2V0IHRoZSBmbGFnxD17AEAHAA==
-</code></pre>
-
-<p>网站在线解码，这个网站挺好的，可以直接转换文件</p>
-<p><a href="https://the-x.cn/base64/">https://the-x.cn/base64/</a></p>
-<p>解码后在尾部看到这句话</p>
-<p><img src="/2022/01/15/zip/1642250774952.png"></p>
-<p>他让我们修复文件，所以我们首先要先了解文件头和尾</p>
-<p><a href="https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2">https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2</a></p>
-<p>修补好rar文件头在注释里得到flag</p>
-<p>flag{nev3r_enc0de_t00_sm4ll_fil3_w1th_zip}</p>
-<h1 id="压缩文件带注释"><a href="#压缩文件带注释" class="headerlink" title="压缩文件带注释"></a>压缩文件带注释</h1><p>有一些题目会在注释里面添加信息，直观的就不说了，现在说两种空白符，Whitespace <a href="https://vii5ard.github.io/whitespace/">https://vii5ard.github.io/whitespace/</a> 和snow隐写，snow需要密码，有可执行文件</p>
-<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
-<p>无字天书</p>
-<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到流量包，导出HTTP对象</p>
-<p>得到几个文件，依次查看，注意要仔细看，流量包文件有时候会很多</p>
-<p><img src="/2022/01/15/zip/1642254197336.png"></p>
-<p>发现了504b0304，可以写脚本，也可以直接网站解码得到压缩包</p>
-<p><a href="https://the-x.cn/zh-cn/encodings/Hex.aspx">https://the-x.cn/zh-cn/encodings/Hex.aspx</a></p>
-<p><img src="/2022/01/15/zip/1642254255927.png"></p>
-<p>也可以使用脚本</p>
-<pre class="language-python" data-language="python"><code class="language-python">s='填写16进制数据'
-import binascii
-out=open('2.jpg','wb')
-out.write(binascii.unhexlify(s))
-out.close()
-
-#Author: MoChu7
-import struct
-
-a = open("str.txt","r")#十六进制数据文件
-lines = a.read()
-res = [lines[i:i+2] for i in range(0,len(lines),2)]
-
-with open("res.jpg","wb") as f:
-	for i in res:
-		s = struct.pack('B',int(i,16))
-		f.write(s)
-</code></pre>
-
-<p>打开之后得到两个文件，打开里面什么都看不到，全选就会有显示，key.ws应该是snow的密码，拿去whitespace解密</p>
-<p><img src="/2022/01/15/zip/1642254325041.png"></p>
-<p>然后snow解密 命令：SNOW.EXE -p 密码 -C 文件</p>
-<p><img src="/2022/01/15/zip/1642254470293.png"></p>
-<p>cazy{C4n_y0u_underSt4nd_th3_b0oK_With0ut_Str1ng}</p>
-<h1 id="爆破压缩包"><a href="#爆破压缩包" class="headerlink" title="爆破压缩包"></a>爆破压缩包</h1><p>使用工具爆破，如Advanced Archive Password Recovery</p>
-<h2 id="已知明文攻击"><a href="#已知明文攻击" class="headerlink" title="已知明文攻击"></a>已知明文攻击</h2><h2 id="掩码攻击"><a href="#掩码攻击" class="headerlink" title="掩码攻击"></a>掩码攻击</h2>]]></content>
-      <tags>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>代码注入</title>
     <url>/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h1><p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
@@ -9403,6 +9266,143 @@ int main(int argc, char* argv[])
       </tags>
   </entry>
   <entry>
+    <title>zip</title>
+    <url>/2022/01/15/zip/</url>
+    <content><![CDATA[<h1 id="伪加密"><a href="#伪加密" class="headerlink" title="伪加密"></a>伪加密</h1><h2 id="伪加密原理及操作"><a href="#伪加密原理及操作" class="headerlink" title="伪加密原理及操作"></a>伪加密原理及操作</h2><h3 id="zip文件组成"><a href="#zip文件组成" class="headerlink" title="zip文件组成"></a>zip文件组成</h3><p>可以去里面看看，挺全的</p>
+<p><a href="https://blog.csdn.net/qq_26187985/article/details/83654197">https://blog.csdn.net/qq_26187985/article/details/83654197</a></p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>这里找了一道大佬出的题，适合练练手</p>
+<p>《美丽的烟火》</p>
+<p>链接：<a href="http://ctf.bugku.com/challenges/detail/id/350.html">http://ctf.bugku.com/challenges/detail/id/350.html</a></p>
+<p>直接打开压缩包，可以得到被加密的文件</p>
+<p><img src="/2022/01/15/zip/1642245880907.png"></p>
+<p>痛苦，一般这种没有提示的(下面会有介绍)，一般就是伪加密了。</p>
+<p>拖进winhex，搜索504b0102（不知道为什么的速速去看前面那篇文章），这个按钮</p>
+<p><img src="/2022/01/15/zip/1642246321198.png"></p>
+<p>把09改成00，要仔细，这里有两个，我开始只看到一个</p>
+<p><img src="/2022/01/15/zip/1642246469204.png"></p>
+<p><img src="/2022/01/15/zip/1642246506196.png"></p>
+<p>重新打开压缩包</p>
+<p><img src="/2022/01/15/zip/1642246638206.png"></p>
+<p>心情愉悦~</p>
+<p>接下来就是进行解密了</p>
+<p>这里不细讲了，不然就跑偏了，png文件是stegpy隐写，密码是shumu，stegpy安装应该会有问题，具体安装请看图片隐写</p>
+<p><img src="/2022/01/15/zip/1642246877362.png"></p>
+<p>password解密是base64，base58，栅栏，</p>
+<p>这里推荐一篇博客</p>
+<p>得到的字符串是aes的key，然后直接aes在线解密</p>
+<p><img src="/2022/01/15/zip/1642247152438.png"></p>
+<p>flag：flag{yX73nAutbBozYhge6d2flG}</p>
+<p>网站也放这了：<a href="https://the-x.cn/cryptography/Aes.aspx">https://the-x.cn/cryptography/Aes.aspx</a></p>
+<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><p>winrar可以修复伪加密，不过是部分的</p>
+<p><img src="/2022/01/15/zip/1642251859085.png"></p>
+<p>点开上面的工具-&gt; 修复压缩文件</p>
+<h1 id="套娃压缩包"><a href="#套娃压缩包" class="headerlink" title="套娃压缩包"></a>套娃压缩包</h1><p>顾名思义，就是压缩包套娃</p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a href="https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF">https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF</a></p>
+<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
+
+x = y = 200
+img = Image.new("RGB",(x,y))
+file = open('./qr.txt','r')
+
+for width in range(0,x):
+    for height in range(0,y):
+        line = file.readline()
+        rgb = line.replace('(','').replace(')','').split(',')
+        img.putpixel((width,height),(int(rgb[0]),int(rgb[1]),int(rgb[2])))
+img.save('flag.jpg')
+</code></pre>
+
+
+
+<h1 id="CRC32爆破"><a href="#CRC32爆破" class="headerlink" title="CRC32爆破"></a>CRC32爆破</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>CRC校验实用程序库 在数据存储和数据通讯领域，为了保证数据的正确，就不得不采用检错的手段。在诸多检错手段中，CRC是最著名的一种。CRC的全称是循环冗余校验。(这里还不是很懂，后续再看)</p>
+<p>总之每个文件都有唯一的CRC32值，即便数据中一个bit发生变化，也会导致CRC32值不同。若是知道一段数据的长度和CRC32值，便可穷举数据，与其CRC32对照，以此达到暴力猜解的目的。但通常只适用于较小文本文件。</p>
+<h3 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h3><p>打开里面有很多压缩包，里面存储的都是小数据文件</p>
+<p><img src="/2022/01/15/zip/1642249237942.png"></p>
+<p><img src="/2022/01/15/zip/1642249207274.png"></p>
+<p>直接上脚本(不是很会)</p>
+<pre class="language-python" data-language="python"><code class="language-python">#python3
+import zipfile
+import string
+import binascii
+
+def CrackCrc(crc):
+	for i in dic:
+		for j in dic:
+			for k in dic:
+				for h in dic:
+					s = i + j + k + h
+					if crc == (binascii.crc32(s.encode())):
+						f.write(s)
+						return
+
+def CrackZip():
+	for i in range(0,68):
+		file = 'D:\\new\\新建文件夹\\out'+str(i)+'.zip'
+		crc = zipfile.ZipFile(file,'r').getinfo('data.txt').CRC
+		CrackCrc(crc)
+		print('\r'+"loading：{:%}".format(float((i+1)/68)),end='')
+
+dic = string.ascii_letters + string.digits + '+/='
+f = open('printaaa.txt','w')
+print("\nCRC32begin")
+CrackZip()
+print("CRC32finished")
+f.close()
+</code></pre>
+
+<p>得到base64编码的东西</p>
+<pre class="language-none"><code class="language-none">z5BzAAANAAAAAAAAAKo+egCAIwBJAAAAVAAAAAKGNKv+a2MdSR0zAwABAAAAQ01UCRUUy91BT5UkSNPoj5hFEVFBRvefHSBCfG0ruGnKnygsMyj8SBaZHxsYHY84LEZ24cXtZ01y3k1K1YJ0vpK9HwqUzb6u9z8igEr3dCCQLQAdAAAAHQAAAAJi0efVT2MdSR0wCAAgAAAAZmxhZy50eHQAsDRpZmZpeCB0aGUgZmlsZSBhbmQgZ2V0IHRoZSBmbGFnxD17AEAHAA==
+</code></pre>
+
+<p>网站在线解码，这个网站挺好的，可以直接转换文件</p>
+<p><a href="https://the-x.cn/base64/">https://the-x.cn/base64/</a></p>
+<p>解码后在尾部看到这句话</p>
+<p><img src="/2022/01/15/zip/1642250774952.png"></p>
+<p>他让我们修复文件，所以我们首先要先了解文件头和尾</p>
+<p><a href="https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2">https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2</a></p>
+<p>修补好rar文件头在注释里得到flag</p>
+<p>flag{nev3r_enc0de_t00_sm4ll_fil3_w1th_zip}</p>
+<h1 id="压缩文件带注释"><a href="#压缩文件带注释" class="headerlink" title="压缩文件带注释"></a>压缩文件带注释</h1><p>有一些题目会在注释里面添加信息，直观的就不说了，现在说两种空白符，Whitespace <a href="https://vii5ard.github.io/whitespace/">https://vii5ard.github.io/whitespace/</a> 和snow隐写，snow需要密码，有可执行文件</p>
+<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
+<p>无字天书</p>
+<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到流量包，导出HTTP对象</p>
+<p>得到几个文件，依次查看，注意要仔细看，流量包文件有时候会很多</p>
+<p><img src="/2022/01/15/zip/1642254197336.png"></p>
+<p>发现了504b0304，可以写脚本，也可以直接网站解码得到压缩包</p>
+<p><a href="https://the-x.cn/zh-cn/encodings/Hex.aspx">https://the-x.cn/zh-cn/encodings/Hex.aspx</a></p>
+<p><img src="/2022/01/15/zip/1642254255927.png"></p>
+<p>也可以使用脚本</p>
+<pre class="language-python" data-language="python"><code class="language-python">s='填写16进制数据'
+import binascii
+out=open('2.jpg','wb')
+out.write(binascii.unhexlify(s))
+out.close()
+
+#Author: MoChu7
+import struct
+
+a = open("str.txt","r")#十六进制数据文件
+lines = a.read()
+res = [lines[i:i+2] for i in range(0,len(lines),2)]
+
+with open("res.jpg","wb") as f:
+	for i in res:
+		s = struct.pack('B',int(i,16))
+		f.write(s)
+</code></pre>
+
+<p>打开之后得到两个文件，打开里面什么都看不到，全选就会有显示，key.ws应该是snow的密码，拿去whitespace解密</p>
+<p><img src="/2022/01/15/zip/1642254325041.png"></p>
+<p>然后snow解密 命令：SNOW.EXE -p 密码 -C 文件</p>
+<p><img src="/2022/01/15/zip/1642254470293.png"></p>
+<p>cazy{C4n_y0u_underSt4nd_th3_b0oK_With0ut_Str1ng}</p>
+<h1 id="爆破压缩包"><a href="#爆破压缩包" class="headerlink" title="爆破压缩包"></a>爆破压缩包</h1><p>使用工具爆破，如Advanced Archive Password Recovery</p>
+<h2 id="已知明文攻击"><a href="#已知明文攻击" class="headerlink" title="已知明文攻击"></a>已知明文攻击</h2><h2 id="掩码攻击"><a href="#掩码攻击" class="headerlink" title="掩码攻击"></a>掩码攻击</h2>]]></content>
+      <tags>
+        <tag>Misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用汇编语言编写注入代码</title>
     <url>/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<h1 id="0x00-设置"><a href="#0x00-设置" class="headerlink" title="0x00-设置"></a>0x00-设置</h1><p>修改EIP</p>
@@ -9597,6 +9597,20 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>加密与解密第四版</title>
+    <url>/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/</url>
+    <content><![CDATA[<h1 id="0x00-基础知识"><a href="#0x00-基础知识" class="headerlink" title="0x00-基础知识"></a>0x00-基础知识</h1><h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814834555.png"></p>
+<h2 id="大小端序"><a href="#大小端序" class="headerlink" title="大小端序"></a>大小端序</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814898304.png"></p>
+<h2 id="Windows操作系统"><a href="#Windows操作系统" class="headerlink" title="Windows操作系统"></a>Windows操作系统</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814924513.png" alt="重要DLL"></p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814970448.png" alt="Unicode与ANSI函数"></p>
+<h2 id="WOW64"><a href="#WOW64" class="headerlink" title="WOW64"></a>WOW64</h2><p>WOW64是64位Windows操作系统的子系统，可以使大多数32位应用程序在不修改的情况下运行在64位操作系统上</p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649815151630.png" alt="WOW64操作过程"></p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>动态链接库创建与使用</title>
     <url>/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="0x00-参考文章"><a href="#0x00-参考文章" class="headerlink" title="0x00-参考文章"></a>0x00-参考文章</h1><p><a href="https://blog.csdn.net/LyRics1996/article/details/120246497">https://blog.csdn.net/LyRics1996/article/details/120246497</a></p>
@@ -9662,20 +9676,6 @@ extern "C" _declspec (dllexport)int add(int a, char b)
 ]]></content>
       <tags>
         <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>加密与解密第四版</title>
-    <url>/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/</url>
-    <content><![CDATA[<h1 id="0x00-基础知识"><a href="#0x00-基础知识" class="headerlink" title="0x00-基础知识"></a>0x00-基础知识</h1><h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814834555.png"></p>
-<h2 id="大小端序"><a href="#大小端序" class="headerlink" title="大小端序"></a>大小端序</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814898304.png"></p>
-<h2 id="Windows操作系统"><a href="#Windows操作系统" class="headerlink" title="Windows操作系统"></a>Windows操作系统</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814924513.png" alt="重要DLL"></p>
-<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814970448.png" alt="Unicode与ANSI函数"></p>
-<h2 id="WOW64"><a href="#WOW64" class="headerlink" title="WOW64"></a>WOW64</h2><p>WOW64是64位Windows操作系统的子系统，可以使大多数32位应用程序在不修改的情况下运行在64位操作系统上</p>
-<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649815151630.png" alt="WOW64操作过程"></p>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -9775,6 +9775,216 @@ extern "C" _declspec (dllexport)int add(int a, char b)
     <content><![CDATA[<p><a href="https://ctf-wiki.org/reverse/windows/anti-debug/example/">https://ctf-wiki.org/reverse/windows/anti-debug/example/</a> </p>
 <p><a href="https://anti-debug.checkpoint.com/techniques/assembly.html">https://anti-debug.checkpoint.com/techniques/assembly.html</a></p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>基础知识补充</title>
+    <url>/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
+    <content><![CDATA[<h1 id="0x00-typedef定义函数指针"><a href="#0x00-typedef定义函数指针" class="headerlink" title="0x00-typedef定义函数指针"></a>0x00-typedef定义函数指针</h1><h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针</p>
+<pre class="language-c" data-language="c"><code class="language-c">void hello()
+{
+	printf("this is hello!");
+}
+//函数指针定义
+void (*fp)()=hello;//函数指针定义时应保证函数返回值与参数个数、类型相同，在这里void是返回类型，(*fp)后面的()是函数参数
+/*也可以理解为
+void (*fp)();
+fp=hello;
+*/
+
+//通过函数指针调用函数
+fp();
+
+int add(int a,int b)
+{
+    return a+b;
+}
+
+//函数指针定义,形参可以不写变量名
+int (*fp1)(int,int)=add;
+//函数调用
+fp1(1,2);</code></pre>
+
+<h2 id="typedef与函数指针混合使用"><a href="#typedef与函数指针混合使用" class="headerlink" title="typedef与函数指针混合使用"></a>typedef与函数指针混合使用</h2><pre class="language-c" data-language="c"><code class="language-c">typedef int (*FP)(int,int);</code></pre>
+
+<p>那么我们在赋值的时候就可以改成</p>
+<pre class="language-c" data-language="c"><code class="language-c">FP fp1=add;//fp1就是返回值为int型，参数为两个int型的函数指针，FP表示函数指针的类型，通过类型名+变量名就可以定义函数指针
+fp1(1,2);</code></pre>
+
+<h1 id="0x01-回调函数"><a href="#0x01-回调函数" class="headerlink" title="0x01-回调函数"></a>0x01-回调函数</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>如果函数的参数具有函数指针，那么这样的函数就被称为回调函数</p>
+<p>函数指针就是当作接口使用的</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="language-c" data-language="c"><code class="language-c">//这里的call就是回调函数,这里传递函数指针和我们传入数组时使用函数指针是类似的，都是使用指针将首地址进行传递，而不是传整个函数
+void call(void(*fp)())
+{
+    fp();//这样调用的时候就不需要考虑函数指针的变量名，只要传递的函数是这样类型的即可在call函数中进行调用
+    return ;
+}
+//当然也可以使用typedef，让回调函数更简洁
+typedef void (*fp)();
+void call(fp)
+{
+    fp();
+    return ;
+}
+void hello()
+{
+    printf("hello");
+}
+void show()
+{
+    printf("show");
+}
+//如果不使用回调函数，调用时需要hello();show();
+int main()
+{
+    call(show);
+    call(hello);//使用回调函数调用，这样只需要传入不同参数即可完成调用
+    return 0;
+}</code></pre>
+
+<h1 id="0x02-复杂函数"><a href="#0x02-复杂函数" class="headerlink" title="0x02-复杂函数"></a>0x02-复杂函数</h1><p>定义复杂的回调函数</p>
+<pre class="language-c" data-language="c"><code class="language-c">void *handle(void*arg)
+{
+    printf("arg is %X\n",arg);
+    return arg;//返回值是void*
+}
+
+//我们要定义一个参数为函数指针，返回值为函数指针的回调函数
+//先来看参数，传入函数指针void* (*fp)(void *),另一个还要传入的是arg，这里定义为void*p
+//然后再定义一个以上面两个参数为函数参数，返回值是函数指针(这里是handle函数指针)的函数
+void *(*call(void *(fp)(void*),void*p))(void *)//在这里call是回调函数的变量名，void*是返回值，最后的(void*)是返回的函数指针的参数，call()里的两个是回调函数的参数
+{
+    fp(p);
+    return fp;
+}
+int main()
+{
+    int num=10;
+    void*(*fp)(void*)=call(handle,&amp;num);//使用对应类型的函数指针接收
+    return 0;
+}
+
+//为了方便理解，使用typedef
+typedef void*(*FP)(void*);
+FP call(FP fp1,void*p)
+{
+    fp1(p);
+    return fp;
+}</code></pre>
+
+<h1 id="0x03-一维数组内存"><a href="#0x03-一维数组内存" class="headerlink" title="0x03-一维数组内存"></a>0x03-一维数组内存</h1><pre class="language-c" data-language="c"><code class="language-c">int arr[6]={10,20,30,40};//当有初始值时，剩余没定义的默认为0，如果没有定义初始值，则为随机值</code></pre>
+
+<p>因为数组长度定义为6，类型为int，所以在内存中分配24个字节</p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649861619368.png" alt="数组在栈中的存储"></p>
+<h1 id="0x04-函数声明"><a href="#0x04-函数声明" class="headerlink" title="0x04-函数声明"></a>0x04-函数声明</h1><p>返回值+函数名+参数</p>
+<pre class="language-c" data-language="c"><code class="language-c">//函数声明
+int sum(int,int);
+
+int sum(int a,int b)
+{
+	return a+b;
+}</code></pre>
+
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649862553289.png" alt="原因"></p>
+<h1 id="0x05-调用约定"><a href="#0x05-调用约定" class="headerlink" title="0x05-调用约定"></a>0x05-调用约定</h1><p>为什么要有不同的调用约定——是因为调用函数之后需要清理栈，而不同的调用约定对应不同的清理方式</p>
+<blockquote>
+<p>__cdecl：调用者自己清理栈</p>
+<pre class="language-c" data-language="c"><code class="language-c">//函数外部
+call hello;函数
+add esp,立即数</code></pre>
+
+<p>__stdcall：函数自己清理栈</p>
+<pre class="language-c" data-language="c"><code class="language-c">//函数内部
+retn 立即数</code></pre>
+
+
+</blockquote>
+<p>如果使用__cdcel调用方式，因为不同编译器产生的栈不同，所以不能很好地清理栈，而stdcall则可以在函数内部完成清理栈。</p>
+<blockquote>
+<p> <strong>所以，在跨（开发）平台的调用中，我们都使用stdcall（有时是以WINAPI的样子出现）。那么为什么还需要_cdecl呢？当我们遇到这样的函数如fprintf()它的参数是可变的，不定长的，被调用者事先无法知道参数的长度，事后的清除工作也无法正常的进行，因此，这种情况我们只能使用cdecl</strong> </p>
+</blockquote>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898026998.png"></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898651751.png"></p>
+<h1 id="0x06-extern-“C”"><a href="#0x06-extern-“C”" class="headerlink" title="0x06-extern “C”"></a>0x06-extern “C”</h1><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898161708.png"></p>
+<p>也就是说如果不声明为extern “C”，我们导出的函数名会被修饰</p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898480365.png" alt="DLL代码"></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898496934.png" alt="导出的函数名称"></p>
+<p>可以看到我们的函数名被修饰了，在调用的时候我们无法通过GetProcAddress通过函数名调用</p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898566926.png" alt="代码"></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898581787.png" alt="导出的函数名称"></p>
+<p>可以看到我们的函数名没有被修饰</p>
+<blockquote>
+<p><strong>C++函数重载即函数名可以相等，只要该函数的参数类型或者个数不同即可</strong></p>
+</blockquote>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>标准文件头</p>
+<pre class="language-c" data-language="c"><code class="language-c">#ifndef __INCvxWorksh  /*防止该头文件被重复引用*/
+#define __INCvxWorksh
+
+#ifdef __cplusplus    //__cplusplus是cpp中自定义的一个宏
+extern "C" {          //告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的
+#endif
+
+    /**** some declaration or so *****/  
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __INCvxWorksh */</code></pre>
+
+<blockquote>
+<p> extern是C/C++语言中表明函数和全局变量作用范围（可见性）的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用 </p>
+</blockquote>
+<h1 id="0x07-HMOUDLE、HANDLE、HWND、HINSTANCE"><a href="#0x07-HMOUDLE、HANDLE、HWND、HINSTANCE" class="headerlink" title="0x07-HMOUDLE、HANDLE、HWND、HINSTANCE"></a>0x07-HMOUDLE、HANDLE、HWND、HINSTANCE</h1><p>这里就不看定义了，越看越晕（</p>
+<h2 id="HWND"><a href="#HWND" class="headerlink" title="HWND"></a>HWND</h2><p>HWND是线程相关的，可以通过HWND找到该窗口所属进程的句柄</p>
+<h2 id="HANDLE"><a href="#HANDLE" class="headerlink" title="HANDLE"></a>HANDLE</h2><p>Handle是代表系统的内核对象，如文件句柄，线程句柄，进程句柄</p>
+<blockquote>
+<p><strong>系统对内核对象以链表的形式进行管理，载入到内存中的内核对象都有一个线性地址，同时相对系统来说，在串列中有一个索引位置，这个索引位置就是内核对象的HANDLE</strong></p>
+</blockquote>
+<h2 id="HINSTANCE"><a href="#HINSTANCE" class="headerlink" title="HINSTANCE"></a>HINSTANCE</h2><p>HINSTANCE的本质是模块基地址，它仅在同一进程中才有意义，跨进程的HINSTANCE是没有意义的</p>
+<h2 id="HMODULE"><a href="#HMODULE" class="headerlink" title="HMODULE"></a>HMODULE</h2><blockquote>
+<p><strong>代表应用程序载入的模块，WIN32系统下通常是被载入模块的线性地址，比如exe, dll等模块等</strong></p>
+</blockquote>
+<blockquote>
+<p> HINSTANCE 在win32下与HMODULE是相同的东西(只有在16位windows上，二者有所不同) </p>
+</blockquote>
+<h1 id="0x08-命令行参数"><a href="#0x08-命令行参数" class="headerlink" title="0x08-命令行参数"></a>0x08-命令行参数</h1><p>我们知道main函数实际上是有两个参数的，但一般不会进行使用</p>
+<p>其原型如下</p>
+<pre class="language-c" data-language="c"><code class="language-c">main(int argc,char*argv[])</code></pre>
+
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008765976.png"></p>
+<p>这两个参数实际上与命令行相关</p>
+<pre class="language-c" data-language="c"><code class="language-c">//argc是一个整数，其代表了命令行参数个数
+//argv是一个指针数组，可以接收多个参数，第一个也就是argv[0]指向输入的程序路径及名称
+//如果在命令行中运行，argc为1，也就是只有一个参数</code></pre>
+
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008701868.png"></p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int main(int argc,char *argv[])
+{
+	printf("命令行参数个数为：%d\n", argc);
+	for (int i = 0; i &lt; argc; ++i)
+	{
+		printf("第%d个命令行参数为：%s\n", i, argv[i]);
+	}
+	return 0;
+}</code></pre>
+
+]]></content>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文档隐写</title>
+    <url>/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/</url>
+    <content><![CDATA[<p>可以看看这篇<a href="https://xz.aliyun.com/t/1883/">https://xz.aliyun.com/t/1883/</a></p>
+<h1 id="WORD"><a href="#WORD" class="headerlink" title="WORD"></a>WORD</h1><h2 id="xml隐藏信息"><a href="#xml隐藏信息" class="headerlink" title="xml隐藏信息"></a>xml隐藏信息</h2><h2 id="隐藏文字"><a href="#隐藏文字" class="headerlink" title="隐藏文字"></a>隐藏文字</h2><h2 id="隐藏文件"><a href="#隐藏文件" class="headerlink" title="隐藏文件"></a>隐藏文件</h2><h1 id="PDF"><a href="#PDF" class="headerlink" title="PDF"></a>PDF</h1><h2 id="图片遮挡"><a href="#图片遮挡" class="headerlink" title="图片遮挡"></a>图片遮挡</h2>]]></content>
+      <tags>
+        <tag>Misc</tag>
+      </tags>
   </entry>
   <entry>
     <title>图片隐写</title>
@@ -10013,207 +10223,6 @@ canvas.save('ok2.png')
       </tags>
   </entry>
   <entry>
-    <title>基础知识补充</title>
-    <url>/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
-    <content><![CDATA[<h1 id="0x00-typedef定义函数指针"><a href="#0x00-typedef定义函数指针" class="headerlink" title="0x00-typedef定义函数指针"></a>0x00-typedef定义函数指针</h1><h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针</p>
-<pre class="language-c" data-language="c"><code class="language-c">void hello()
-{
-	printf("this is hello!");
-}
-//函数指针定义
-void (*fp)()=hello;//函数指针定义时应保证函数返回值与参数个数、类型相同，在这里void是返回类型，(*fp)后面的()是函数参数
-/*也可以理解为
-void (*fp)();
-fp=hello;
-*/
-
-//通过函数指针调用函数
-fp();
-
-int add(int a,int b)
-{
-    return a+b;
-}
-
-//函数指针定义,形参可以不写变量名
-int (*fp1)(int,int)=add;
-//函数调用
-fp1(1,2);</code></pre>
-
-<h2 id="typedef与函数指针混合使用"><a href="#typedef与函数指针混合使用" class="headerlink" title="typedef与函数指针混合使用"></a>typedef与函数指针混合使用</h2><pre class="language-c" data-language="c"><code class="language-c">typedef int (*FP)(int,int);</code></pre>
-
-<p>那么我们在赋值的时候就可以改成</p>
-<pre class="language-c" data-language="c"><code class="language-c">FP fp1=add;//fp1就是返回值为int型，参数为两个int型的函数指针，FP表示函数指针的类型，通过类型名+变量名就可以定义函数指针
-fp1(1,2);</code></pre>
-
-<h1 id="0x01-回调函数"><a href="#0x01-回调函数" class="headerlink" title="0x01-回调函数"></a>0x01-回调函数</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>如果函数的参数具有函数指针，那么这样的函数就被称为回调函数</p>
-<p>函数指针就是当作接口使用的</p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="language-c" data-language="c"><code class="language-c">//这里的call就是回调函数,这里传递函数指针和我们传入数组时使用函数指针是类似的，都是使用指针将首地址进行传递，而不是传整个函数
-void call(void(*fp)())
-{
-    fp();//这样调用的时候就不需要考虑函数指针的变量名，只要传递的函数是这样类型的即可在call函数中进行调用
-    return ;
-}
-//当然也可以使用typedef，让回调函数更简洁
-typedef void (*fp)();
-void call(fp)
-{
-    fp();
-    return ;
-}
-void hello()
-{
-    printf("hello");
-}
-void show()
-{
-    printf("show");
-}
-//如果不使用回调函数，调用时需要hello();show();
-int main()
-{
-    call(show);
-    call(hello);//使用回调函数调用，这样只需要传入不同参数即可完成调用
-    return 0;
-}</code></pre>
-
-<h1 id="0x02-复杂函数"><a href="#0x02-复杂函数" class="headerlink" title="0x02-复杂函数"></a>0x02-复杂函数</h1><p>定义复杂的回调函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">void *handle(void*arg)
-{
-    printf("arg is %X\n",arg);
-    return arg;//返回值是void*
-}
-
-//我们要定义一个参数为函数指针，返回值为函数指针的回调函数
-//先来看参数，传入函数指针void* (*fp)(void *),另一个还要传入的是arg，这里定义为void*p
-//然后再定义一个以上面两个参数为函数参数，返回值是函数指针(这里是handle函数指针)的函数
-void *(*call(void *(fp)(void*),void*p))(void *)//在这里call是回调函数的变量名，void*是返回值，最后的(void*)是返回的函数指针的参数，call()里的两个是回调函数的参数
-{
-    fp(p);
-    return fp;
-}
-int main()
-{
-    int num=10;
-    void*(*fp)(void*)=call(handle,&amp;num);//使用对应类型的函数指针接收
-    return 0;
-}
-
-//为了方便理解，使用typedef
-typedef void*(*FP)(void*);
-FP call(FP fp1,void*p)
-{
-    fp1(p);
-    return fp;
-}</code></pre>
-
-<h1 id="0x03-一维数组内存"><a href="#0x03-一维数组内存" class="headerlink" title="0x03-一维数组内存"></a>0x03-一维数组内存</h1><pre class="language-c" data-language="c"><code class="language-c">int arr[6]={10,20,30,40};//当有初始值时，剩余没定义的默认为0，如果没有定义初始值，则为随机值</code></pre>
-
-<p>因为数组长度定义为6，类型为int，所以在内存中分配24个字节</p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649861619368.png" alt="数组在栈中的存储"></p>
-<h1 id="0x04-函数声明"><a href="#0x04-函数声明" class="headerlink" title="0x04-函数声明"></a>0x04-函数声明</h1><p>返回值+函数名+参数</p>
-<pre class="language-c" data-language="c"><code class="language-c">//函数声明
-int sum(int,int);
-
-int sum(int a,int b)
-{
-	return a+b;
-}</code></pre>
-
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649862553289.png" alt="原因"></p>
-<h1 id="0x05-调用约定"><a href="#0x05-调用约定" class="headerlink" title="0x05-调用约定"></a>0x05-调用约定</h1><p>为什么要有不同的调用约定——是因为调用函数之后需要清理栈，而不同的调用约定对应不同的清理方式</p>
-<blockquote>
-<p>__cdecl：调用者自己清理栈</p>
-<pre class="language-c" data-language="c"><code class="language-c">//函数外部
-call hello;函数
-add esp,立即数</code></pre>
-
-<p>__stdcall：函数自己清理栈</p>
-<pre class="language-c" data-language="c"><code class="language-c">//函数内部
-retn 立即数</code></pre>
-
-
-</blockquote>
-<p>如果使用__cdcel调用方式，因为不同编译器产生的栈不同，所以不能很好地清理栈，而stdcall则可以在函数内部完成清理栈。</p>
-<blockquote>
-<p> <strong>所以，在跨（开发）平台的调用中，我们都使用stdcall（有时是以WINAPI的样子出现）。那么为什么还需要_cdecl呢？当我们遇到这样的函数如fprintf()它的参数是可变的，不定长的，被调用者事先无法知道参数的长度，事后的清除工作也无法正常的进行，因此，这种情况我们只能使用cdecl</strong> </p>
-</blockquote>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898026998.png"></p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898651751.png"></p>
-<h1 id="0x06-extern-“C”"><a href="#0x06-extern-“C”" class="headerlink" title="0x06-extern “C”"></a>0x06-extern “C”</h1><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898161708.png"></p>
-<p>也就是说如果不声明为extern “C”，我们导出的函数名会被修饰</p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898480365.png" alt="DLL代码"></p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898496934.png" alt="导出的函数名称"></p>
-<p>可以看到我们的函数名被修饰了，在调用的时候我们无法通过GetProcAddress通过函数名调用</p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898566926.png" alt="代码"></p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898581787.png" alt="导出的函数名称"></p>
-<p>可以看到我们的函数名没有被修饰</p>
-<blockquote>
-<p><strong>C++函数重载即函数名可以相等，只要该函数的参数类型或者个数不同即可</strong></p>
-</blockquote>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>标准文件头</p>
-<pre class="language-c" data-language="c"><code class="language-c">#ifndef __INCvxWorksh  /*防止该头文件被重复引用*/
-#define __INCvxWorksh
-
-#ifdef __cplusplus    //__cplusplus是cpp中自定义的一个宏
-extern "C" {          //告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的
-#endif
-
-    /**** some declaration or so *****/  
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* __INCvxWorksh */</code></pre>
-
-<blockquote>
-<p> extern是C/C++语言中表明函数和全局变量作用范围（可见性）的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用 </p>
-</blockquote>
-<h1 id="0x07-HMOUDLE、HANDLE、HWND、HINSTANCE"><a href="#0x07-HMOUDLE、HANDLE、HWND、HINSTANCE" class="headerlink" title="0x07-HMOUDLE、HANDLE、HWND、HINSTANCE"></a>0x07-HMOUDLE、HANDLE、HWND、HINSTANCE</h1><p>这里就不看定义了，越看越晕（</p>
-<h2 id="HWND"><a href="#HWND" class="headerlink" title="HWND"></a>HWND</h2><p>HWND是线程相关的，可以通过HWND找到该窗口所属进程的句柄</p>
-<h2 id="HANDLE"><a href="#HANDLE" class="headerlink" title="HANDLE"></a>HANDLE</h2><p>Handle是代表系统的内核对象，如文件句柄，线程句柄，进程句柄</p>
-<blockquote>
-<p><strong>系统对内核对象以链表的形式进行管理，载入到内存中的内核对象都有一个线性地址，同时相对系统来说，在串列中有一个索引位置，这个索引位置就是内核对象的HANDLE</strong></p>
-</blockquote>
-<h2 id="HINSTANCE"><a href="#HINSTANCE" class="headerlink" title="HINSTANCE"></a>HINSTANCE</h2><p>HINSTANCE的本质是模块基地址，它仅在同一进程中才有意义，跨进程的HINSTANCE是没有意义的</p>
-<h2 id="HMODULE"><a href="#HMODULE" class="headerlink" title="HMODULE"></a>HMODULE</h2><blockquote>
-<p><strong>代表应用程序载入的模块，WIN32系统下通常是被载入模块的线性地址，比如exe, dll等模块等</strong></p>
-</blockquote>
-<blockquote>
-<p> HINSTANCE 在win32下与HMODULE是相同的东西(只有在16位windows上，二者有所不同) </p>
-</blockquote>
-<h1 id="0x08-命令行参数"><a href="#0x08-命令行参数" class="headerlink" title="0x08-命令行参数"></a>0x08-命令行参数</h1><p>我们知道main函数实际上是有两个参数的，但一般不会进行使用</p>
-<p>其原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">main(int argc,char*argv[])</code></pre>
-
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008765976.png"></p>
-<p>这两个参数实际上与命令行相关</p>
-<pre class="language-c" data-language="c"><code class="language-c">//argc是一个整数，其代表了命令行参数个数
-//argv是一个指针数组，可以接收多个参数，第一个也就是argv[0]指向输入的程序路径及名称
-//如果在命令行中运行，argc为1，也就是只有一个参数</code></pre>
-
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008701868.png"></p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-int main(int argc,char *argv[])
-{
-	printf("命令行参数个数为：%d\n", argc);
-	for (int i = 0; i &lt; argc; ++i)
-	{
-		printf("第%d个命令行参数为：%s\n", i, argv[i]);
-	}
-	return 0;
-}</code></pre>
-
-]]></content>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安卓知识</title>
     <url>/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<h1 id="APK基本结构"><a href="#APK基本结构" class="headerlink" title="APK基本结构"></a>APK基本结构</h1><p><a href="https://www.cnblogs.com/zhaijiahui/p/6916556.html">https://www.cnblogs.com/zhaijiahui/p/6916556.html</a></p>
@@ -10229,15 +10238,6 @@ int main(int argc,char *argv[])
 ]]></content>
       <tags>
         <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文档隐写</title>
-    <url>/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/</url>
-    <content><![CDATA[<p>可以看看这篇<a href="https://xz.aliyun.com/t/1883/">https://xz.aliyun.com/t/1883/</a></p>
-<h1 id="WORD"><a href="#WORD" class="headerlink" title="WORD"></a>WORD</h1><h2 id="xml隐藏信息"><a href="#xml隐藏信息" class="headerlink" title="xml隐藏信息"></a>xml隐藏信息</h2><h2 id="隐藏文字"><a href="#隐藏文字" class="headerlink" title="隐藏文字"></a>隐藏文字</h2><h2 id="隐藏文件"><a href="#隐藏文件" class="headerlink" title="隐藏文件"></a>隐藏文件</h2><h1 id="PDF"><a href="#PDF" class="headerlink" title="PDF"></a>PDF</h1><h2 id="图片遮挡"><a href="#图片遮挡" class="headerlink" title="图片遮挡"></a>图片遮挡</h2>]]></content>
-      <tags>
-        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -10347,6 +10347,16 @@ int main(int argc,char *argv[])
 ]]></content>
       <tags>
         <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>流量分析</title>
+    <url>/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>只试过直接导出HTTP流对象</p>
+<p><img src="/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/1642297780618.png"></p>
+]]></content>
+      <tags>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -10504,30 +10514,11 @@ int main(int argc, char* argv[])
       </tags>
   </entry>
   <entry>
-    <title>流量分析</title>
-    <url>/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>只试过直接导出HTTP流对象</p>
-<p><img src="/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/1642297780618.png"></p>
-]]></content>
-      <tags>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>视频隐写</title>
     <url>/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/</url>
     <content><![CDATA[<h1 id="Kinovea"><a href="#Kinovea" class="headerlink" title="Kinovea"></a>Kinovea</h1><p>可以一帧一帧地看视频，视频隐写目前只接触到在视频一些 帧里面藏信息</p>
 <p><a href="https://mochu.blog.csdn.net/article/details/109461931">https://mochu.blog.csdn.net/article/details/109461931</a></p>
 ]]></content>
-      <tags>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>音频隐写</title>
-    <url>/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/</url>
-    <content><![CDATA[<p>在这篇文章：<a href="https://blog.csdn.net/vanarrow/article/details/105667244">https://blog.csdn.net/vanarrow/article/details/105667244</a></p>
-<h1 id="摩斯电码"><a href="#摩斯电码" class="headerlink" title="摩斯电码"></a>摩斯电码</h1><h1 id="MP3steg"><a href="#MP3steg" class="headerlink" title="MP3steg"></a>MP3steg</h1>]]></content>
       <tags>
         <tag>Misc</tag>
       </tags>
@@ -10853,6 +10844,15 @@ pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code
 <h1 id="0x17-记事本WriteFIle-API钩取"><a href="#0x17-记事本WriteFIle-API钩取" class="headerlink" title="0x17-记事本WriteFIle()API钩取"></a>0x17-记事本WriteFIle()API钩取</h1>]]></content>
       <tags>
         <tag>Book</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>音频隐写</title>
+    <url>/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/</url>
+    <content><![CDATA[<p>在这篇文章：<a href="https://blog.csdn.net/vanarrow/article/details/105667244">https://blog.csdn.net/vanarrow/article/details/105667244</a></p>
+<h1 id="摩斯电码"><a href="#摩斯电码" class="headerlink" title="摩斯电码"></a>摩斯电码</h1><h1 id="MP3steg"><a href="#MP3steg" class="headerlink" title="MP3steg"></a>MP3steg</h1>]]></content>
+      <tags>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
