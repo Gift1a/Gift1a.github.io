@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="0x00-调试Helloworld程序  选择Release模式生成的可执行文件能使程序代码更简洁，方便调试-之前我都是debug模式的，难怪有一堆初始化操作  OD指令-Ctrl+F2，重新开始调试 ​                Ctrl+F9，一直在函数代码内部运行，知道遇到retn，跳出函数 ​                :可以给地址添加标签 ​                Ctr">
+    <meta name="description" content="《逆向工程核心原理》">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向工程核心原理">
 <meta property="og:url" content="https://gift1a.github.io/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0x00-调试Helloworld程序  选择Release模式生成的可执行文件能使程序代码更简洁，方便调试-之前我都是debug模式的，难怪有一堆初始化操作  OD指令-Ctrl+F2，重新开始调试 ​                Ctrl+F9，一直在函数代码内部运行，知道遇到retn，跳出函数 ​                :可以给地址添加标签 ​                Ctr">
+<meta property="og:description" content="《逆向工程核心原理》">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649326083343.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649326142470.png">
@@ -151,7 +151,7 @@
 <meta property="og:image" content="https://gift1a.github.io/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1650004326551.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1650004361901.png">
 <meta property="article:published_time" content="2022-04-07T09:19:45.000Z">
-<meta property="article:modified_time" content="2022-04-15T06:33:10.426Z">
+<meta property="article:modified_time" content="2022-04-20T05:41:22.460Z">
 <meta property="article:author" content="Gift1a">
 <meta property="article:tag" content="Book">
 <meta name="twitter:card" content="summary">
@@ -381,7 +381,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-15 14:33:10" itemprop="dateModified" datetime="2022-04-15T14:33:10+08:00">2022-04-15</time>
+      <time title="修改时间：2022-04-20 13:41:22" itemprop="dateModified" datetime="2022-04-20T13:41:22+08:00">2022-04-20</time>
     </span>
 
   
@@ -409,7 +409,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="0x00-调试Helloworld程序"><a href="#0x00-调试Helloworld程序" class="headerlink" title="0x00-调试Helloworld程序"></a>0x00-调试Helloworld程序</h1><p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649326083343.png"></p>
+        <p>《逆向工程核心原理》</p>
+<span id="more"></span> 
+
+<h1 id="0x00-调试Helloworld程序"><a href="#0x00-调试Helloworld程序" class="headerlink" title="0x00-调试Helloworld程序"></a>0x00-调试Helloworld程序</h1><p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649326083343.png"></p>
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649326142470.png"></p>
 <p>选择Release模式生成的可执行文件能使程序代码更简洁，方便调试-之前我都是debug模式的，难怪有一堆初始化操作</p>
 <blockquote>
@@ -683,7 +686,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:08</span>
+    <span title="站点阅读时长">4:09</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

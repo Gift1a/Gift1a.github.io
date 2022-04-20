@@ -642,7 +642,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-02 21:00:48" itemprop="dateModified" datetime="2022-04-02T21:00:48+08:00">2022-04-02</time>
+      <time title="修改时间：2022-04-20 13:27:29" itemprop="dateModified" datetime="2022-04-20T13:27:29+08:00">2022-04-20</time>
     </span>
 
   
@@ -670,120 +670,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="WINDOWS下的异常处理"><a href="#WINDOWS下的异常处理" class="headerlink" title="WINDOWS下的异常处理"></a>WINDOWS下的异常处理</h1><h2 id="异常列表"><a href="#异常列表" class="headerlink" title="异常列表"></a>异常列表</h2><p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220203125855.jpg"></p>
-<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82">https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82</a></p>
-<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-249592.htm">https://bbs.pediy.com/thread-249592.htm</a></p>
-<h1 id="SEH"><a href="#SEH" class="headerlink" title="SEH"></a>SEH</h1><h2 id="SEH介绍"><a href="#SEH介绍" class="headerlink" title="SEH介绍"></a>SEH介绍</h2><p> SEH(Structured Exception Handling)结构化异常处理,是windows操作系统默认的错误处理机制，它允许我们在程序产所错误时使用特定的异常处理函数处理这个异常，尽管提供的功能预取为处理异常，但由于其功能的特点，也往往大量用于反调试。 </p>
-<h2 id="重要成员介绍"><a href="#重要成员介绍" class="headerlink" title="重要成员介绍"></a>重要成员介绍</h2><h3 id="1、异常处理函数"><a href="#1、异常处理函数" class="headerlink" title="1、异常处理函数"></a>1、异常处理函数</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">EXCEPTION_DISPOSITION</span><br><span class="line"> __cdecl _except_handler(</span><br><span class="line">     struct _EXCEPTION_RECORD *ExceptionRecord,</span><br><span class="line">     <span class="keyword">void</span> * EstablisherFrame,</span><br><span class="line">     struct _CONTEXT *ContextRecord,</span><br><span class="line">     <span class="keyword">void</span> * DispatcherContext</span><br><span class="line">     );</span><br></pre></td></tr></tbody></table></figure>
-
-<p>第一个参数指向结构体EXCEPTION_RECORD </p>
-<h4 id="操作系统常见异常"><a href="#操作系统常见异常" class="headerlink" title="操作系统常见异常"></a>操作系统常见异常</h4><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">EXCEPTION_ACCESS_VIOLATION     <span class="number">0xC0000005</span>     程序企图读写一个不可访问的地址时引发的异常。例如企图读取<span class="number">0</span>地址处的内存。</span><br><span class="line">EXCEPTION_ARRAY_BOUNDS_EXCEEDED    <span class="number">0xC000008C</span>     数组访问越界时引发的异常。</span><br><span class="line">EXCEPTION_BREAKPOINT                           <span class="number">0x80000003</span>     触发断点时引发的异常。</span><br><span class="line">EXCEPTION_DATATYPE_MISALIGNMENT    <span class="number">0x80000002</span>     程序读取一个未经对齐的数据时引发的异常。</span><br><span class="line">EXCEPTION_FLT_DENORMAL_OPERAND     <span class="number">0xC000008D</span>     如果浮点数操作的操作数是非正常的，则引发该异常。所谓非正常，即它的值太小以至于不能用标准格式表示出来。</span><br><span class="line">EXCEPTION_FLT_DIVIDE_BY_ZERO                   <span class="number">0xC000008E</span>     浮点数除法的除数是<span class="number">0</span>时引发该异常。</span><br><span class="line">EXCEPTION_FLT_INEXACT_RESULT           <span class="number">0xC000008F</span>     浮点数操作的结果不能精确表示成小数时引发该异常。</span><br><span class="line">EXCEPTION_FLT_INVALID_OPERATION            <span class="number">0xC0000090</span>     该异常表示不包括在这个表内的其它浮点数异常。</span><br><span class="line">EXCEPTION_FLT_OVERFLOW                             <span class="number">0xC0000091</span>     浮点数的指数超过所能表示的最大值时引发该异常。</span><br><span class="line">EXCEPTION_FLT_STACK_CHECK                  <span class="number">0xC0000092</span>     进行浮点数运算时栈发生溢出或下溢时引发该异常。</span><br><span class="line">EXCEPTION_FLT_UNDERFLOW                    <span class="number">0xC0000093</span>     浮点数的指数小于所能表示的最小值时引发该异常。</span><br><span class="line">EXCEPTION_ILLEGAL_INSTRUCTION          <span class="number">0xC000001D</span>     程序企图执行一个无效的指令时引发该异常。</span><br><span class="line">EXCEPTION_IN_PAGE_ERROR                        <span class="number">0xC0000006</span>     程序要访问的内存页不在物理内存中时引发的异常。</span><br><span class="line">EXCEPTION_INT_DIVIDE_BY_ZERO                   <span class="number">0xC0000094</span>     整数除法的除数是<span class="number">0</span>时引发该异常。</span><br><span class="line">EXCEPTION_INT_OVERFLOW                             <span class="number">0xC0000095</span>     整数操作的结果溢出时引发该异常。</span><br><span class="line">EXCEPTION_INVALID_DISPOSITION                  <span class="number">0xC0000026</span>     异常处理器返回一个无效的处理的时引发该异常。</span><br><span class="line">EXCEPTION_NONCONTINUABLE_EXCEPTION     <span class="number">0xC0000025</span>     发生一个不可继续执行的异常时，如果程序继续执行，则会引发该异常。</span><br><span class="line">EXCEPTION_PRIV_INSTRUCTION                     <span class="number">0xC0000096</span>     程序企图执行一条当前CPU模式不允许的指令时引发该异常。</span><br><span class="line">EXCEPTION_SINGLE_STEP                          <span class="number">0x80000004</span>     标志寄存器的TF位为<span class="number">1</span>时，每执行一条指令就会引发该异常。主要用于单步调试。</span><br><span class="line">EXCEPTION_STACK_OVERFLOW                   <span class="number">0xC00000FD</span>     栈溢出时引发该异常。</span><br></pre></td></tr></tbody></table></figure>
-
-<p>异常回调函数_except_handler的第二个参数是一个指向establisher frame结构体的指针，这是SEH中一个很重要的参数，但是现在暂时忽略。</p>
-<p>第三个参数是一个指向结构体CONTEXT的指针，CONTEXT结构体定义在WINNT.H里，它代表了特定线程的注册值。当用在SEH时，CONTEXT就表示异常发生时的注册值。顺带说一句，这个CONTEXT结构体与GetThreadContext和SetThreadContext所使用的结构体是同一个。</p>
-<p>第四个参数DispatcherContext也可以暂时忽略。</p>
-<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>根据不同的返回值，确定是否处理</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span>种返回值及含义</span><br><span class="line">   <span class="number">1.</span>ExceptionContinueExecution(<span class="number">0</span>)：回调函数处理了异常，可以从异常发生的指令处重新执行。</span><br><span class="line">   <span class="number">2.</span>ExceptionContinueSearch(<span class="number">1</span>)：回调函数不能处理该异常，需要要SEH链中的其他回调函数处理。</span><br><span class="line">   <span class="number">3.</span>ExceptionNestedException(<span class="number">2</span>)：回调函数在执行中又发生了新的异常，即发生了嵌套异常</span><br><span class="line">   <span class="number">4.</span>ExceptionCollidedUnwind(<span class="number">3</span>)：发生了嵌套的展开操作</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="CONTEXT结构体"><a href="#CONTEXT结构体" class="headerlink" title="CONTEXT结构体"></a>CONTEXT结构体</h4><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">CONTEXT</span></span></span><br><span class="line"><span class="class"> {</span></span><br><span class="line">     DWORD ContextFlags;</span><br><span class="line">     DWORD   Dr0;</span><br><span class="line">     DWORD   Dr1;</span><br><span class="line">     DWORD   Dr2;</span><br><span class="line">     DWORD   Dr3;</span><br><span class="line">     DWORD   Dr6;</span><br><span class="line">     DWORD   Dr7;</span><br><span class="line">     FLOATING_SAVE_AREA FloatSave;</span><br><span class="line">     DWORD   SegGs;</span><br><span class="line">     DWORD   SegFs;</span><br><span class="line">     DWORD   SegEs;</span><br><span class="line">     DWORD   SegDs;</span><br><span class="line">     DWORD   Edi;</span><br><span class="line">     DWORD   Esi;</span><br><span class="line">     DWORD   Ebx;</span><br><span class="line">     DWORD   Edx;</span><br><span class="line">     DWORD   Ecx;</span><br><span class="line">     DWORD   Eax;</span><br><span class="line">     DWORD   Ebp;</span><br><span class="line">     DWORD   Eip;</span><br><span class="line">     DWORD   SegCs;</span><br><span class="line">     DWORD   EFlags;</span><br><span class="line">     DWORD   Esp;</span><br><span class="line">     DWORD   SegSs;</span><br><span class="line"> } CONTEXT;</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="2-、结构体EXCEPTION-RECORD"><a href="#2-、结构体EXCEPTION-RECORD" class="headerlink" title="2 、结构体EXCEPTION_RECORD"></a>2 、结构体EXCEPTION_RECORD</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_RECORD</span> {</span></span><br><span class="line"> DWORD ExceptionCode;</span><br><span class="line"> DWORD ExceptionFlags;</span><br><span class="line"> <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_RECORD</span> *<span class="title">ExceptionRecord</span>;</span></span><br><span class="line"> PVOID ExceptionAddress;</span><br><span class="line"> DWORD NumberParameters;</span><br><span class="line"> DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];</span><br><span class="line"> }  EXCEPTION_RECORD;</span><br></pre></td></tr></tbody></table></figure>
-
-<p>第一个参数ExceptionCode是一个由操作系统分配给异常的数值，在WINNT.H里用#define定义了一系列的由STATUS_为前缀的异常代码，比如STATUS_ACCESS_VIOLATION 的异常代码是 0xC0000005，我们可以从Windows NT DDK的头文件NTSTATUS.H中找到更加完备的异常代码。可以理解为异常的类型<br>第四个参数ExceptionAddress异常发生的地址。<br>其他的参数可以暂时忽略。</p>
-<h3 id="3-、EXCEPTION-REGISTRATION"><a href="#3-、EXCEPTION-REGISTRATION" class="headerlink" title="3 、EXCEPTION_REGISTRATION"></a>3 、EXCEPTION_REGISTRATION</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EXCEPTION_REGISTRATION struc</span><br><span class="line">     prev    dd      ?</span><br><span class="line">     handler dd      ?</span><br><span class="line"> _EXCEPTION_REGISTRATION ends</span><br></pre></td></tr></tbody></table></figure>
-
-<p>SEH是一个链表，而这个结构存储每个结点的信息，第一个成员指向下一个结点的handler，第二个成员handler指向处理异常的函数，每次添加一个异常就会添加在SEH链表的头结点位置，也就是头插法</p>
-<p>那么程序是怎么找到这个链表的呢</p>
-<blockquote>
-<p> <strong>线程信息块的第一个DWORD（在基于Intel CPU的机器上是FS:[0]）指向这个链表的头部。</strong> </p>
-</blockquote>
-<h3 id="5、线程信息块TIB-TEB"><a href="#5、线程信息块TIB-TEB" class="headerlink" title="5、线程信息块TIB/TEB"></a>5、线程信息块TIB/TEB</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">NT_TIB</span> {</span></span><br><span class="line">     <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_REGISTRATION_RECORD</span> *<span class="title">ExceptionList</span>;</span> <span class="comment">//异常的链表</span></span><br><span class="line"></span><br><span class="line">     PVOID StackBase;</span><br><span class="line">     PVOID StackLimit;</span><br><span class="line">     PVOID SubSystemTib;</span><br><span class="line"></span><br><span class="line">     <span class="class"><span class="keyword">union</span> {</span></span><br><span class="line">         PVOID FiberData;</span><br><span class="line">         DWORD Version;</span><br><span class="line">     };</span><br><span class="line"> </span><br><span class="line">     PVOID ArbitraryUserPointer;</span><br><span class="line">     <span class="class"><span class="keyword">struct</span> _<span class="title">NT_TIB</span> *<span class="title">Self</span>;</span></span><br><span class="line">} NT_TIB;</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h2><p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648189897008.png" alt="重要成员结构图"></p>
-<h2 id="异常处理流程"><a href="#异常处理流程" class="headerlink" title="异常处理流程"></a>异常处理流程</h2><p>当异常出现时，程序先判断是否处于调试状态，如果处于调试状态，那么就会向调试器发送EXCEPTION_DEBUG_EVENT事件。当异常抛给调试器后，调试器有两种选择</p>
-<p>1 修改触发异常的代码继续执行（程序会停在触发异常的代码处，导致异常的代码无法执行）</p>
-<p>2 忽略异常交给SEH执行</p>
-<p>这里假如选择第二种，那么 系统检查异常所处的线程并在这个线程环境中查看fs:[0]来确定是否安装SEH异常处理回调函数，如果有则调用它</p>
-<blockquote>
-<p>异常处理函数执行</p>
-<p>(1）回调函数尝试处理这个异常，如果可以正确处理的话，则修正错误并将返回值设置为ExceptionContinueExecution，这时系统将结束整个查找过程。</p>
-<p>（2）如果回调函数返回ExceptionContinueSearch，相当于告诉系统它无法处理这个异常，系统将根据SEH链中的prev字段得到前一个回调函数地址并重复步骤1，直至链中的某个回调函数返回ExceptionContinueExection为止，查找结束。</p>
-</blockquote>
-<p>如果调试器还是不去处理这个异常或进程没有被调试，那么系统检查有没有Final型的异常处理回调函数（也就是C语言中的__finally），如果有，就去调用它，当这个回调函数返回时，系统会根据这个函数的返回值做相应的动作。</p>
-<blockquote>
-<p>从这里我们也可以看到__finally的代码是一定会执行的</p>
-</blockquote>
-<p>如果没有安装Final型回调函数，系统直接调用默认的异常处理程序终止进程。</p>
-<h3 id="堆栈展开"><a href="#堆栈展开" class="headerlink" title="堆栈展开"></a>堆栈展开</h3><p>（1）什么是展开操作</p>
-<p>①当发生异常时，系统遍历EXCEPTION_REGISTRATION结构链表，从链表头，直到它找到一个处理这个异常的处理程序。一旦找到，系统就再次重新遍历这个链表，直到处理这个异常的节点为止（即返回ExceptionContinueExecution的节点）。在这第二次遍历中，系统将再次调用每个异常处理函数。关键的区别是，在第二次调用中，异常标志被设置为2。这个值被定义为EH_UNWINDING</p>
-<p>②注意展开操作是发生在出现异常时，这个异常回调函数拒绝处理的时候（即返回ExceptionContinueSearch）。这里系统会从链表头开始遍历（因异常的嵌套，可理解为由内层向外层，也就是多层的__try和except函数时，先从内部开始，然后往外），所以各异常回调函数会第1次被依次调用，直到找到同意处理的节点。然后，再重新从链表头开始（即由内向外）第2次调用以前那些曾经不处理异常的节点，直到同意处理的那个异常的节点为止。</p>
-<p> ③ 当异常被处理后，即异常代码执行完毕后，程序恢复的位置由处理该异常的函数决定。即，当异常已经被处理完毕，并且所有前面的异常帧都已经被展开之后，流程从处理异常的那个回调函数决定的地方开始继续执行。</p>
-<p>④展开操作完成后，同意处理异常的回调函数也必须负责把Fs:[0]恢复到处理这个异常的EXCEPTION_REGISTRATION上，即展开操作导致堆栈上处理异常的帧以下的堆栈区域上的所有内容都被移除，这个异常处理也就成了SEH链表的第1个节点。这样下次遇到异常时还能保证从内层到外层寻找的流程。</p>
-<h2 id="异常处理的实现"><a href="#异常处理的实现" class="headerlink" title="异常处理的实现"></a>异常处理的实现</h2><h3 id="1、-try、except和finally"><a href="#1、-try、except和finally" class="headerlink" title="1、__try、except和finally"></a>1、__try、except和finally</h3><p> Visual C++中的__try{}/__finally{}和__try{}/__except{}结构本质上是对Windows提供的SEH的封装。 </p>
-<p>try函数必须且只能跟着一个except或者一个finally，</p>
-<p> 当try块中的代码发生异常时，__except()中的过滤程序就被调用。 </p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">handle</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"handling\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	__try</span><br><span class="line">	{</span><br><span class="line">		__try</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> y = x / x;<span class="comment">//构造一个除0异常，交由handle进行处理</span></span><br><span class="line">		}</span><br><span class="line">		__finally</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"111\n"</span>);<span class="comment">//无论是否处理成功，都会执行</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	__except (handle())<span class="comment">//当返回值为-1，表示返回到原来的地方重新执行，0的话表示异常处理失败，1则为成功</span></span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"222\n"</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648191644943.png" alt="执行结果"></p>
-<p>这里我们构造了一个除零异常，遇到异常后抛给except的处理函数，返回1（EXCEPTION_EXECUTE_HANDLER）表示处理完成，然后再回来执行finally的代码，但是返回值改为-1的话，他会继续回到出现异常的地方，然后执行，那么就会一直在异常处理进行</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648191945865.png" alt="返回值为-1"></p>
-<p>返回值为EXCEPTION_CONTINUE_SEARCH(0)时，会往外层找，因为我们这里就只有一个except，所以无法往外找，所以我们修改一下代码</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">handle1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"成功解决\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> EXCEPTION_EXECUTE_HANDLER;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">handle</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"未被解决\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> EXCEPTION_CONTINUE_SEARCH;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	__try</span><br><span class="line">	{</span><br><span class="line">		__try</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> y = x / x;<span class="comment">//构造一个除0异常，交由handle进行处理</span></span><br><span class="line">		}</span><br><span class="line">		__except(handle())</span><br><span class="line">		{</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	__except (handle1())<span class="comment">//当返回值为-1，表示返回到原来的地方继续执行，0的话表示异常处理失败，1则为成功</span></span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"222\n"</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>这里我们嵌套了两层except，从内往外执行，因为内层的无法处理，即返回0，那么就往外找处理异常的函数</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192362391.png" alt="执行结果"></p>
-<p>ida中的效果</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192718040.png"></p>
-<p>可以看到ida会自动加注释</p>
-<h3 id="2、插入汇编代码构造"><a href="#2、插入汇编代码构造" class="headerlink" title="2、插入汇编代码构造"></a>2、插入汇编代码构造</h3><p>我们下面插入汇编来创建一个异常的结构体</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WIN32_LEAN_AND_MEAN</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">DWORD  scratch;</span><br><span class="line"></span><br><span class="line">EXCEPTION_DISPOSITION</span><br><span class="line">__cdecl</span><br><span class="line">_except_handler(</span><br><span class="line">    struct _EXCEPTION_RECORD* ExceptionRecord,</span><br><span class="line">    <span class="keyword">void</span>* EstablisherFrame,</span><br><span class="line">    struct _CONTEXT* ContextRecord,</span><br><span class="line">    <span class="keyword">void</span>* DispatcherContext)</span><br><span class="line">{</span><br><span class="line">    <span class="keyword">unsigned</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello from an exception handler\n"</span>);</span><br><span class="line"></span><br><span class="line">    ContextRecord-&gt;Eax = (DWORD)&amp;scratch;<span class="comment">//处理异常，将eax的值改为全局变量的地址</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ExceptionContinueExecution;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    DWORD handler = (DWORD)_except_handler;</span><br><span class="line"></span><br><span class="line">    __asm</span><br><span class="line">    {                           </span><br><span class="line">        push    handler        <span class="comment">//将我们的异常处理函数压入栈中</span></span><br><span class="line">        push    FS : [<span class="number">0</span>]       <span class="comment">//将原本的SEH链压入栈，这样就构造了新的EXCEPTION_REGISTRATION</span></span><br><span class="line">        mov     FS : [<span class="number">0</span>] , ESP     <span class="comment">//将当前线程信息块TIB的第一个DWORD放入新的EXCEPTION_REGISTRATION</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    __asm</span><br><span class="line">    {</span><br><span class="line">        mov     eax, <span class="number">0</span>  <span class="comment">//构造访问异常        </span></span><br><span class="line">        mov[eax], <span class="number">1</span>       </span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"After writing!\n"</span>);</span><br><span class="line"></span><br><span class="line">    __asm</span><br><span class="line">    {                          </span><br><span class="line">        mov     eax, [ESP]       </span><br><span class="line">        mov     FS : [<span class="number">0</span>] , EAX     <span class="comment">//还原为原来的SEH链</span></span><br><span class="line">        add     esp, <span class="number">8</span>          <span class="comment">//从栈中弹出新的EXCEPTION_REGISTRATION</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648195113558.png" alt="堆栈图"></p>
-<p>也就是先将我们处理异常的函数压入栈中，再把SEH链的头节点压入栈，这时候把ESP的值赋给FS:[0]也就是让SEH链指向这里，SEH链第一个节点（两个参数）第一个存储的就是原来链的地址，第二个是我们的处理函数，那么处理异常的时候，就会先让我们的异常处理函数执行，最后将ESP地址存储的值还给FS:[0]，也就是还原SEH链，add esp,8还原堆栈</p>
-<p>别人的另一种实现</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.挂入链表相当于这部分</span></span><br><span class="line"><span class="comment">//fs[0]-&gt; Exception</span></span><br><span class="line">	_asm</span><br><span class="line">	{</span><br><span class="line">		mov eax, fs:[<span class="number">0</span>]</span><br><span class="line">		mov temp,eax</span><br><span class="line">		lea ecx,Exception</span><br><span class="line">		mov fs:[<span class="number">0</span>],ecx</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//为SEH成员赋值</span></span><br><span class="line">	Exception.Next = (_EXCEPTION*)temp;</span><br><span class="line">	Exception.Handler = (DWORD)&amp;MyEexception_handler;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面是2，3</span></span><br><span class="line"><span class="function">EXCEPTION_DISPOSITION _cdecl <span class="title">MyEexception_handler</span></span></span><br><span class="line"><span class="function"><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">	struct _EXCEPTION_RECORD *ExceptionRecord,	<span class="comment">//异常结构体</span></span></span></span><br><span class="line"><span class="params"><span class="function">	PVOID EstablisherFrame,						<span class="comment">//SEH结构体地址</span></span></span></span><br><span class="line"><span class="params"><span class="function">	struct _CONTEXT *ContextRecord,				<span class="comment">//存储异常发生时的各种寄存器的值 栈位置等</span></span></span></span><br><span class="line"><span class="params"><span class="function">	PVOID DispatcherContext</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (ExceptionRecord-&gt;ExceptionCode == <span class="number">0xC0000094</span>)		<span class="comment">//2.异常过滤</span></span><br><span class="line">	{</span><br><span class="line">		ContextRecord-&gt;Eip = ContextRecord-&gt;Eip + <span class="number">2</span>;			<span class="comment">//3.异常处理</span></span><br><span class="line">		ContextRecord-&gt;Ecx = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> ExceptionContinueExecution;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ExceptionContinueSearch;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-
-
-<h2 id="参考文章-1"><a href="#参考文章-1" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yilang/p/11238201.html">https://www.cnblogs.com/yilang/p/11238201.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/DeeLMind/p/6866239.html">https://www.cnblogs.com/DeeLMind/p/6866239.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/salomon/archive/2012/06/20/2556134.html">https://www.cnblogs.com/salomon/archive/2012/06/20/2556134.html</a></p>
-<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-249592.htm">https://bbs.pediy.com/thread-249592.htm</a></p>
-<h2 id="SEH利用"><a href="#SEH利用" class="headerlink" title="SEH利用"></a>SEH利用</h2><p><a target="_blank" rel="noopener" href="https://idiotc4t.com/code-and-dll-process-injection/seh-code-execute">https://idiotc4t.com/code-and-dll-process-injection/seh-code-execute</a></p>
-<p><a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/06/29/0day/windows-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">https://introspelliam.github.io/2017/06/29/0day/windows-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/</a></p>
-<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-268036.htm">https://bbs.pediy.com/thread-268036.htm</a></p>
-<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-140970.htm">https://bbs.pediy.com/thread-140970.htm</a></p>
-<p>简单利用</p>
-<p>我们可以自己构造异常，然后先处理掉异常，再执行我们的shellcode</p>
-<h2 id="题目——hagme2022——week2——creakme2"><a href="#题目——hagme2022——week2——creakme2" class="headerlink" title="题目——hagme2022——week2——creakme2"></a>题目——hagme2022——week2——creakme2</h2><p>在静态分析中，只找到了tea加密算法，直接写脚本解不出来，去查看汇编代码（因为有时候ida没办法识别出一些汇编）</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643864939414.png"></p>
-<p>第一个框对应上上面那句代码，这里按/就会显示出来对应反编译过来的伪代码</p>
-<p>下面两个框的都是没被识别的语句</p>
-<p>在图中位置下断点进行动态调试，会报错</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865333034.png"></p>
-<p>因为除数不能为0，去看看汇编</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865908164.png"></p>
-<p>按；写下注释</p>
-<p>开始动态调试</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866006832.png"></p>
-<p>选择yes，发现进入到这段未被反编译的语句</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866024820.png"></p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866787250.png"></p>
-<p>第二次执行到这一段代码，可以看到ecx寄存器的值不是0，不会触发异常</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866890816.png"></p>
-<p>发现没有执行异或，而是继续往下执行，这就是下一步进行的反汇编语句</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866944920.png"></p>
-<p>因此可以知道，当变量num的最高位为0的时候，会触发异常，这时候系统会交给SEH进行处理，即__try代码</p>
-<p>__except会执行异常后代码</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867671850.png"></p>
-<p>按空格查看执行顺序</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867149242.png"></p>
-<p>会发现这样一段独立出来的汇编代码</p>
-<p>所以就可以写脚本，因为是unsigned int，右移31位就能知道最高位了</p>
-<p>脚本</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> tmp1, tmp2;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> init_num=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> Buf2[<span class="number">8</span>] = { <span class="number">0</span> };</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> key[<span class="number">10</span>] = { <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8.9</span>,<span class="number">0</span> };</span><br><span class="line">    Buf2[<span class="number">0</span>] = <span class="number">0x457E62CF</span>;</span><br><span class="line">    Buf2[<span class="number">1</span>] = <span class="number">0x9537896C</span>;</span><br><span class="line">    Buf2[<span class="number">2</span>] = <span class="number">0x1F7E7F72</span>;</span><br><span class="line">    Buf2[<span class="number">3</span>] = <span class="number">0xF7A073D8</span>;</span><br><span class="line">    Buf2[<span class="number">4</span>] = <span class="number">0x8E996868</span>;</span><br><span class="line">    Buf2[<span class="number">5</span>] = <span class="number">0x40AFAF99</span>;</span><br><span class="line">    Buf2[<span class="number">6</span>] = <span class="number">0xF990E34</span>;</span><br><span class="line">    Buf2[<span class="number">7</span>] = <span class="number">0x196F4086</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        init_num += <span class="number">2654435761</span>;</span><br><span class="line">        <span class="keyword">if</span> ((init_num &gt;&gt;<span class="number">31</span>) == <span class="number">0</span>)</span><br><span class="line">        {</span><br><span class="line">            init_num ^= <span class="number">0x1234567</span>;</span><br><span class="line">        }</span><br><span class="line">    }<span class="comment">//0C78E4D05</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j += <span class="number">2</span>)</span><br><span class="line">    {</span><br><span class="line">        tmp1 = Buf2[j], tmp2 = Buf2[j + <span class="number">1</span>];</span><br><span class="line">        num = init_num;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)</span><br><span class="line">        {</span><br><span class="line">            tmp2 -= (num + key[(num &gt;&gt; <span class="number">11</span>) &amp; <span class="number">3</span>]) ^ (tmp1 + ((<span class="number">16</span> * tmp1) ^ (tmp1 &gt;&gt; <span class="number">5</span>)));</span><br><span class="line">            <span class="keyword">if</span> ((num&gt;&gt;<span class="number">31</span>) == <span class="number">0</span>)</span><br><span class="line">            {</span><br><span class="line">                num ^= <span class="number">0x01234567</span>;</span><br><span class="line">            }</span><br><span class="line">            num -= <span class="number">2654435761</span>;</span><br><span class="line">            tmp1 -= (num + key[num &amp; <span class="number">3</span>]) ^ (tmp2 + ((<span class="number">16</span> * tmp2) ^ (tmp2 &gt;&gt; <span class="number">5</span>)));</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">        Buf2[j] = tmp1;</span><br><span class="line">        Buf2[j + <span class="number">1</span>] = tmp2;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%x\n"</span>, Buf2[i]);</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s"</span>, Buf2);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-
+          <p>SEH原理和例题</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -943,7 +838,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 13:13:03" itemprop="dateModified" datetime="2022-03-11T13:13:03+08:00">2022-03-11</time>
+      <time title="修改时间：2022-04-20 13:32:51" itemprop="dateModified" datetime="2022-04-20T13:32:51+08:00">2022-04-20</time>
     </span>
 
   
@@ -971,866 +866,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="Dasctf——EasyVm"><a href="#Dasctf——EasyVm" class="headerlink" title="Dasctf——EasyVm"></a>Dasctf——EasyVm</h1><p>一开始有个花指令，是比较常见的永真跳转，先对call指令按u取消定义，将e8改为90，再重新弄成函数就可以了</p>
-<p>先找到加密的函数</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951424173.png"></p>
-<p>点进去看看</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951469199.png"></p>
-<p>这里是base64变种，在最后加了一个异或操作，先把脚本写出来</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> base64_table[] = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findIndex</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (c == b64_table[i])</span><br><span class="line">			<span class="keyword">return</span> i;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">base64_decode</span><span class="params">(<span class="keyword">char</span> code[], <span class="keyword">char</span> str[], <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> memstr[<span class="number">200</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="built_in">memcpy</span>(memstr, code, <span class="built_in">strlen</span>(code));</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(code);</span><br><span class="line">	<span class="comment">/*while (code[len] != '!' &amp;&amp; code[len] != 0)</span></span><br><span class="line"><span class="comment">	{</span></span><br><span class="line"><span class="comment">		len++;</span></span><br><span class="line"><span class="comment">	}*/</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i_ = <span class="number">0</span>; i &lt; len; i += <span class="number">4</span>, i_ += <span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		str[i_] = (findIndex(memstr[i]^<span class="number">0xa</span>, b64_table) &lt;&lt; <span class="number">2</span>) | (findIndex(memstr[i + <span class="number">1</span>]^<span class="number">0xb</span>, b64_table) &amp; <span class="number">0x30</span>) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">		str[i_ + <span class="number">1</span>] = (findIndex(memstr[i + <span class="number">1</span>]^<span class="number">0xb</span>, b64_table) &amp; <span class="number">0xf</span>) &lt;&lt; <span class="number">4</span> | (findIndex(memstr[i + <span class="number">2</span>]^<span class="number">0xc</span>, b64_table) &amp; <span class="number">0x3c</span>) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">		str[i_ + <span class="number">2</span>] = (findIndex(memstr[i + <span class="number">2</span>]^<span class="number">0xc</span>, b64_table) &amp; <span class="number">0x03</span>) &lt;&lt; <span class="number">6</span> | (findIndex(memstr[i + <span class="number">3</span>]^<span class="number">0xd</span>, b64_table));</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">int</span> str_len = (len / <span class="number">4</span>) * <span class="number">3</span> + len % <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">if</span> (len % <span class="number">4</span>)</span><br><span class="line">	{</span><br><span class="line">		str_len -= <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	str[str_len] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> str;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> code[<span class="number">100</span>] = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">char</span> decode[] = { <span class="number">0</span> };</span><br><span class="line">	base64_decode(code, decode, base64_table);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, decode);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>接下来就是vm的部分</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951694407.png"></p>
-<p>先看func函数的类型，是指针数组</p>
-<p>这里需要结合动调看每条指令对应的操作</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953729321.png"></p>
-<p>在这里下断点之后F7进入函数</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953871966.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955403773.png"></p>
-<p>这就是func数组存放的东西，因为是指针，所以要先按d转为dd才会显示</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955602049.png"></p>
-<p>先把指令提取出来</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> ida_chars[] =</span><br><span class="line">{</span><br><span class="line">  <span class="number">0xCA</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xCB</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xCC</span>, <span class="number">0xCF</span>, <span class="number">0xC9</span>, <span class="number">0xEE</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xCF</span>, <span class="number">0xD1</span>, <span class="number">0xD3</span>,</span><br><span class="line">  <span class="number">0x01</span>, <span class="number">0xFE</span>, <span class="number">0xC2</span>, <span class="number">0xD2</span>, <span class="number">0x39</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xD4</span>, <span class="number">0xEC</span>,</span><br><span class="line">  <span class="number">0xFF</span>, <span class="number">0x00</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
-
-<p>F8单步调试</p>
-<p>0xCA</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955631076.png"></p>
-<p>0xCB</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955978948.png"></p>
-<p>0xCC</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955994447.png"></p>
-<p>0xCF</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956392630.png"></p>
-<p>每执行完再进入func[2]都能知道当前位置，便于查看指令</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956568041.png"></p>
-<p>0xc9</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956806744.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957130761.png"></p>
-<p>0xd1</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957467393.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957487310.png"></p>
-<p>这里本来赋值为0，1，2，为了保持字符相等的情况，把 this[5]全部赋值为1</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642987459030.png"></p>
-<p>0xd3</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988305784.png"></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988338522.png"></p>
-<p>0xc2</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988366450.png"></p>
-<p>0xd2</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988655617.png"></p>
-<p>长度判断</p>
-<p>0xd4</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988824766.png"></p>
-<p>0xcc</p>
-<p>接下来又回到0xcc，所以就能猜测是循环做了异或操作，然后判断</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642989162099.png"></p>
-<table>
-<thead>
-<tr>
-<th>func[1]</th>
-<th>指令集</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>func[2]</td>
-<td>加密后的flag的字符</td>
-</tr>
-<tr>
-<td>func[3]</td>
-<td>0</td>
-</tr>
-<tr>
-<td>func[4]</td>
-<td>索引</td>
-</tr>
-<tr>
-<td>func[5]</td>
-<td>判断字符相等</td>
-</tr>
-<tr>
-<td>func[6]</td>
-<td>对比的flag</td>
-</tr>
-<tr>
-<td>func[7]</td>
-<td>0</td>
-</tr>
-<tr>
-<td>func[8]</td>
-<td>加密后的字符串</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xca</td>
-<td>先将this[1]指令后的数据存放到this[3]，然后往后跳转5，正好对应了下一条指令,一开始this[1]后一个数据为0，要先转为 dword</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcb</td>
-<td>先将this[1]指令后的数据存放到this[4]，然后往后跳转5，这也是下一条指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcc</td>
-<td>把this[2]先赋值为this[8]+this[4]，这里this[4]是个整数，所以猜测this[4]是索引，然后继续执行下一指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcf</td>
-<td>将this[3]和this[2]的值异或后存放在this[3],进入下一条指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xc9</td>
-<td>先把this[1]下一个数据赋值给this[2],进入下一条指令，也就是0xee</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xcf</td>
-<td>将this[3]和this[2]的值异或后存放在this[3],进入下一条指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd1</td>
-<td>根据this[4]的索引来进行字符比较，这里是调试过程，所以为了进行下一步，需要修改汇编指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd3</td>
-<td>v1是指针，解引用是v1下一个位置，也就是0x1，整个就是0xee，这时候然后指向下三个位置，也就是c2指令</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xc2</td>
-<td>索引this[4]+1</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd2</td>
-<td>this[4]是索引，所以是判断是否结束，这里没结束，所以this[5]赋值为0</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>0xd4</td>
-<td>ec+2==ee</td>
-</tr>
-</tbody></table>
-<p>整个过程就是这样</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220124125427.jpg"></p>
-<p>因为偶数次的异或等于不变，所以只需对奇数次的进行异或即可</p>
-<p>最终脚本</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> base64_table[] = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findIndex</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (c == b64_table[i])</span><br><span class="line">			<span class="keyword">return</span> i;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">base64_decode</span><span class="params">(<span class="keyword">char</span> code[], <span class="keyword">char</span> str[], <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> memstr[<span class="number">200</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="built_in">memcpy</span>(memstr, code, <span class="built_in">strlen</span>(code));</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(code);</span><br><span class="line">	<span class="comment">/*while (code[len] != '!' &amp;&amp; code[len] != 0)</span></span><br><span class="line"><span class="comment">	{</span></span><br><span class="line"><span class="comment">		len++;</span></span><br><span class="line"><span class="comment">	}*/</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i_ = <span class="number">0</span>; i &lt; len; i += <span class="number">4</span>, i_ += <span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		str[i_] = (findIndex(memstr[i], b64_table) &lt;&lt; <span class="number">2</span>) | (findIndex(memstr[i + <span class="number">1</span>], b64_table) &amp; <span class="number">0x30</span>) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">		str[i_ + <span class="number">1</span>] = (findIndex(memstr[i + <span class="number">1</span>], b64_table) &amp; <span class="number">0xf</span>) &lt;&lt; <span class="number">4</span> | (findIndex(memstr[i + <span class="number">2</span>], b64_table) &amp; <span class="number">0x3c</span>) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">		str[i_ + <span class="number">2</span>] = (findIndex(memstr[i + <span class="number">2</span>], b64_table) &amp; <span class="number">0x03</span>) &lt;&lt; <span class="number">6</span> | (findIndex(memstr[i + <span class="number">3</span>], b64_table));</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">int</span> str_len = (len / <span class="number">4</span>) * <span class="number">3</span> + len % <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">if</span> (len % <span class="number">4</span>)</span><br><span class="line">	{</span><br><span class="line">		str_len -= <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	str[str_len] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> str;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> s[] =</span><br><span class="line">	{</span><br><span class="line">	  <span class="number">190</span>,  <span class="number">54</span>, <span class="number">172</span>,  <span class="number">39</span>, <span class="number">153</span>,  <span class="number">79</span>, <span class="number">222</span>,  <span class="number">68</span>, <span class="number">238</span>,  <span class="number">95</span>,</span><br><span class="line">	  <span class="number">218</span>,  <span class="number">11</span>, <span class="number">181</span>,  <span class="number">23</span>, <span class="number">184</span>, <span class="number">104</span>, <span class="number">194</span>,  <span class="number">78</span>, <span class="number">156</span>,  <span class="number">74</span>,</span><br><span class="line">	  <span class="number">225</span>,  <span class="number">67</span>, <span class="number">240</span>,  <span class="number">34</span>, <span class="number">138</span>,  <span class="number">59</span>, <span class="number">136</span>,  <span class="number">91</span>, <span class="number">229</span>,  <span class="number">84</span>,</span><br><span class="line">	  <span class="number">255</span>, <span class="number">104</span>, <span class="number">213</span>, <span class="number">103</span>, <span class="number">212</span>,   <span class="number">6</span>, <span class="number">173</span>,  <span class="number">11</span>, <span class="number">216</span>,  <span class="number">80</span>,</span><br><span class="line">	  <span class="number">249</span>,  <span class="number">88</span>, <span class="number">224</span>, <span class="number">111</span>, <span class="number">197</span>,  <span class="number">74</span>, <span class="number">253</span>,  <span class="number">47</span>, <span class="number">132</span>,  <span class="number">54</span>,</span><br><span class="line">	  <span class="number">133</span>,  <span class="number">82</span>, <span class="number">251</span>, <span class="number">115</span>, <span class="number">215</span>,  <span class="number">13</span>,<span class="number">0</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">char</span> s2[] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">56</span>; i+=<span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		s[i] ^= <span class="number">0xee</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">56</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		s2[i] = s[i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &gt; <span class="number">0</span>; k--)</span><br><span class="line">		{</span><br><span class="line">			s2[i] ^= (s2[k - <span class="number">1</span>]);<span class="comment">//该字符前面的全部都要异或上</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//printf("%s", s2);</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">56</span>; i = i + <span class="number">4</span>)</span><br><span class="line">	{</span><br><span class="line">		s2[i] ^= <span class="number">0xA</span>;</span><br><span class="line">		s2[i + <span class="number">1</span>] ^= <span class="number">0xB</span>;</span><br><span class="line">		s2[i + <span class="number">2</span>] ^= <span class="number">0xC</span>;</span><br><span class="line">		s2[i + <span class="number">3</span>] ^= <span class="number">0xD</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">char</span> decode[] = { <span class="number">0</span> };</span><br><span class="line">	base64_decode(s2, decode, base64_table);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, decode);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h1 id="hgame2022-week4-easyvm"><a href="#hgame2022-week4-easyvm" class="headerlink" title="hgame2022-week4-easyvm"></a>hgame2022-week4-easyvm</h1><p>第一次尝试写解释器，跟着别人的大致思路的</p>
-<p>首先VM就是模仿汇编，用指令代替汇编，用数据段来模拟寄存器和数据段，所以我们关键是要找到数据段和操作数、opcode，以及一些数据存放内容的含义</p>
-<p>先来给寄存器重新命名</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447619996.png"></p>
-<p>根据main函数中switch可以找到类寄存器的位置，重命名</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447726404.png"></p>
-<p>从switch的v3可以知道，前面给v3赋值的就是操作数</p>
-<p>r0[0]开始是0，所以操作指令第一个存储的位置是r0[109]，因为是int型，计算的时候×4，就可以找到地址</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447904556.png"></p>
-<p>按g跳转，使用lazyida dump下来</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447995063.png"></p>
-<p>接下来动调分析每条指令对应的汇编代码</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448145669.png"></p>
-<p>先++，再赋值给它，就相当于push指令的入栈操作，然后还有一个r4后移一位</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448615771.png"></p>
-<p>先–，再赋值给r5，相当于pop操作</p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448764344.png"></p>
-<p>又回到0x12，还是push，但是因为r4++，所以已经后移，我们根据计算也可以找到存储数据的地址并提取出数据</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448880740.png"></p>
-<p>回到汇编，这里的指令push了-5进入到堆栈，也就是寄存器下面的位置</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449458278.png"></p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r6</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449560687.png"></p>
-<p>获取输入，并存储到a1中，这里的a1对应r3</p>
-<table>
-<thead>
-<tr>
-<th>getchar</th>
-<th>r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449886162.png"></p>
-<p>熟悉的操作，把输入压入堆栈，记得栈顶往低处移动</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450099792.png"></p>
-<p>这里的a1是r2</p>
-<table>
-<thead>
-<tr>
-<th>add</th>
-<th>r2,1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450235632.png"></p>
-<table>
-<thead>
-<tr>
-<th>cmp</th>
-<th>r3,r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>根据前面的pop r5可以知道此时r5是0A，而我们的输入被存入了r3，也就是对我们的输入字符进行判断，那么r8应该就对应ZF标志位</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513351201.png"></p>
-<p>验证了上面的想法，这里的a1是r6，也就是-5，指令跳转回去，相当于进行循环，输入完成后会有一个换行符，getchar会吸收，这里也就是结束我们的循环</p>
-<table>
-<thead>
-<tr>
-<th>jnz</th>
-<th>r0-5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>直接在下一条指令下断点，F9运行</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513742181.png"></p>
-<p>这里的a1是r2，用于记录输入长度，因为最后有一个回车符，所以要–</p>
-<table>
-<thead>
-<tr>
-<th>r2–</th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>根据前面就可以先对数组进行注释</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514228495.png"></p>
-<p>r4没写上去，是内存中存储的一段数据</p>
-<p>继续往下走</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514299405.png"></p>
-<p>将内存段的下一个数据入栈，也就是0x20</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514469709.png"></p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r5,这里懒得改了，可以点过去查看</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>接下来是0x12和0x9</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pop</td>
-<td>r6</td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514666638.png"></p>
-<p>把r2的值赋给r3</p>
-<table>
-<thead>
-<tr>
-<th>mov</th>
-<th>r3,r2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514774277.png"></p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514918356.png"></p>
-<table>
-<thead>
-<tr>
-<th>cmp</th>
-<th>r3,r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>但是这次比较的是字符串的长度，也就是字符串长度是32</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515061894.png"></p>
-<table>
-<thead>
-<tr>
-<th>jnz</th>
-<th>r0+r6</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>这里r6存放的是2f，正好对应结束，所以这段就相当于exit</p>
-<p>下面是0x12和0x09</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pop</td>
-<td>r6</td>
-</tr>
-</tbody></table>
-<p>0x12和0x0A</p>
-<p>这是0x0a的代码</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515342308.png"></p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>pop</td>
-<td>r2</td>
-</tr>
-</tbody></table>
-<p>0x13</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515472275.png"></p>
-<p>r2此时为0，+9正好是堆栈的位置，也是存放我们输入数据的位置</p>
-<table>
-<thead>
-<tr>
-<th>mov</th>
-<th>r3,stack[count]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>从下面开始就是加密的部分了</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515606892.png"></p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x0B</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515758080.png"></p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r7</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x15</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515807493.png"></p>
-<table>
-<thead>
-<tr>
-<th>add</th>
-<th>r3,r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x03</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515866224.png"></p>
-<table>
-<thead>
-<tr>
-<th>xor</th>
-<th>r3,r7</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515954359.png"></p>
-<p>把处理完的数据重新放入栈中</p>
-<table>
-<thead>
-<tr>
-<th>mov</th>
-<th>stack[count],r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516003430.png"></p>
-<table>
-<thead>
-<tr>
-<th>add</th>
-<th>r2,1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516131712.png"></p>
-<table>
-<thead>
-<tr>
-<th>mov</th>
-<th>r3,r2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0xF</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516166189.png"></p>
-<table>
-<thead>
-<tr>
-<th>cmp</th>
-<th>r3,r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516207834.png"></p>
-<table>
-<thead>
-<tr>
-<th>jnz</th>
-<th>r0+r6</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>此时的r6是-10，也就是跳转回到前十条指令，这就是循环加密，现在就差最终的密文了，前面加密的部分直接运行过去</p>
-<p>再次来到0x12</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516848887.png"></p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0xA</p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517151788.png"></p>
-<p>接下来是三个0x12</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>data[r4++]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>push</td>
-<td>data[r4++]</td>
-</tr>
-<tr>
-<td>push</td>
-<td>data[r4++]</td>
-</tr>
-</tbody></table>
-<p>到了0x08，此时我们的比较数据已经被压入栈中</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517394177.png"></p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x13，将处理完的值重新从堆栈中取出</p>
-<table>
-<thead>
-<tr>
-<th>mov</th>
-<th>r3,satck[count]</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0xF</p>
-<table>
-<thead>
-<tr>
-<th>cmp</th>
-<th>r3,r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x07</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517670674.png"></p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x04</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517727020.png"></p>
-<table>
-<thead>
-<tr>
-<th>mov</th>
-<th>stack[count],r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x09</p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r6</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x0D</p>
-<p>r6是0x15，加上之后正好exit，和前面类似，压入栈是因为待会需要多次使用</p>
-<table>
-<thead>
-<tr>
-<th>jnz</th>
-<th>r0+r6</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>这里没有问题就会往下</p>
-<p>0x09</p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r6</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>此时把-17给到r6</p>
-<p>0x08</p>
-<table>
-<thead>
-<tr>
-<th>pop</th>
-<th>r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x05</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x06</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>r6</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x04</p>
-<table>
-<thead>
-<tr>
-<th>push</th>
-<th>r3</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x01</p>
-<table>
-<thead>
-<tr>
-<th>add</th>
-<th>r2,1</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x00</p>
-<table>
-<thead>
-<tr>
-<th>mov</th>
-<th>r3,r2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0x0F//长度判断</p>
-<table>
-<thead>
-<tr>
-<th>cmp</th>
-<th>r3,r5</th>
-</tr>
-</thead>
-<tbody><tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>0xd，重新进入循环</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645518636756.png"></p>
-<h2 id="最终的一些数据和分组和脚本"><a href="#最终的一些数据和分组和脚本" class="headerlink" title="最终的一些数据和分组和脚本"></a>最终的一些数据和分组和脚本</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> opcode[<span class="number">65</span>] = {</span><br><span class="line">    <span class="number">0x00000012</span>, <span class="number">0x00000008</span>, <span class="number">0x00000012</span>, <span class="number">0x00000009</span>, </span><br><span class="line">	<span class="number">0x00000010</span>, <span class="number">0x00000004</span>, <span class="number">0x00000001</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>, <span class="comment">//接受我们的输入 </span></span><br><span class="line">	<span class="number">0x00000002</span>, <span class="number">0x00000012</span>, <span class="number">0x00000008</span>, <span class="number">0x00000012</span>, <span class="number">0x00000009</span>, <span class="number">0x00000000</span>, <span class="number">0x00000004</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>,<span class="comment">//对flag进行存储操作，比较长度，因为getchar最后是32，所以flag长度为32 </span></span><br><span class="line">	<span class="number">0x00000012</span>, <span class="number">0x00000009</span>, <span class="number">0x00000012</span>, <span class="number">0x0000000A</span>, <span class="number">0x00000013</span>, <span class="number">0x00000012</span>, <span class="number">0x0000000B</span>, <span class="number">0x00000015</span>, <span class="number">0x00000003</span>, <span class="number">0x00000014</span>, <span class="number">0x00000001</span>, <span class="number">0x00000000</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>, <span class="comment">//flag加密，flag[i]*2^3c存储的值 </span></span><br><span class="line">    <span class="number">0x00000012</span>, <span class="number">0x0000000A</span>, <span class="number">0x00000012</span>, <span class="number">0x00000012</span>, <span class="number">0x00000012</span>, <span class="number">0x00000008</span>, <span class="number">0x00000013</span>, <span class="number">0x0000000F</span>, <span class="number">0x00000007</span>, <span class="number">0x00000004</span>, <span class="number">0x00000009</span>, <span class="number">0x0000000D</span>, <span class="number">0x00000009</span>, <span class="number">0x00000008</span>, <span class="number">0x00000005</span>, <span class="number">0x00000006</span>, <span class="number">0x00000004</span>, <span class="number">0x00000001</span>, <span class="number">0x00000000</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>, </span><br><span class="line">	<span class="comment">//字符串比较 </span></span><br><span class="line">	<span class="number">0x00000012</span>, <span class="number">0x00000009</span>, <span class="number">0x00000012</span>, </span><br><span class="line">    <span class="number">0x00000008</span>, <span class="number">0x00000012</span>, <span class="number">0x0000000A</span>, <span class="number">0x00000012</span>, <span class="number">0x00000007</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000C</span>, <span class="number">0x00000011</span>, <span class="comment">//打印 </span></span><br><span class="line">    <span class="number">0x0000000E</span></span><br><span class="line">};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> xor_table[<span class="number">32</span>]={</span><br><span class="line">		<span class="number">0x5e</span>,<span class="number">0x46</span>,<span class="number">0x61</span>,<span class="number">0x43</span>,<span class="number">0x0e</span>,<span class="number">0x53</span>,<span class="number">0x49</span>,<span class="number">0x1f</span>,</span><br><span class="line">		<span class="number">0x51</span>,<span class="number">0x5e</span>,<span class="number">0x36</span>,<span class="number">0x37</span>,<span class="number">0x29</span>,<span class="number">0x41</span>,<span class="number">0x63</span>,<span class="number">0x3b</span>,</span><br><span class="line">		<span class="number">0x64</span>,<span class="number">0x3b</span>,<span class="number">0x15</span>,<span class="number">0x18</span>,<span class="number">0x5b</span>,<span class="number">0x3e</span>,<span class="number">0x22</span>,<span class="number">0x50</span>,</span><br><span class="line">		<span class="number">0x46</span>,<span class="number">0x5e</span>,<span class="number">0x35</span>,<span class="number">0x4e</span>,<span class="number">0x43</span>,<span class="number">0x23</span>,<span class="number">0x60</span>,<span class="number">0x3b</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> enc[<span class="number">32</span>]={</span><br><span class="line">		<span class="number">0x8E</span>, <span class="number">0x88</span>, <span class="number">0xA3</span>, <span class="number">0x99</span>, <span class="number">0xC4</span>, <span class="number">0xA5</span>, <span class="number">0xC3</span>, <span class="number">0xDD</span>,</span><br><span class="line">		<span class="number">0x19</span>, <span class="number">0xEC</span>, <span class="number">0x6C</span>, <span class="number">0x9B</span>, <span class="number">0xF3</span>, <span class="number">0x1B</span>, <span class="number">0x8B</span>, <span class="number">0x5B</span>,</span><br><span class="line">		<span class="number">0x3E</span>, <span class="number">0x9B</span>, <span class="number">0xF1</span>, <span class="number">0x86</span>, <span class="number">0xF3</span>, <span class="number">0xF4</span>, <span class="number">0xA4</span>, <span class="number">0xF8</span>,</span><br><span class="line">		<span class="number">0xF8</span>, <span class="number">0x98</span>, <span class="number">0xAB</span>, <span class="number">0x86</span>, <span class="number">0x89</span>, <span class="number">0x61</span>, <span class="number">0x22</span>, <span class="number">0xC1</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> data[<span class="number">83</span>] = {</span><br><span class="line">	<span class="comment">//用于跳转和判断长度的数 </span></span><br><span class="line">    <span class="number">0x0000000A</span>, <span class="number">-5</span>, <span class="number">0x00000020</span>, <span class="number">0x0000002F</span>, <span class="number">-10</span>, <span class="number">0x00000000</span>, </span><br><span class="line">    <span class="comment">//异或数据 </span></span><br><span class="line">	<span class="number">0x0000005E</span>, <span class="number">0x00000046</span>, <span class="number">0x00000061</span>, <span class="number">0x00000043</span>, <span class="number">0x0000000E</span>, <span class="number">0x00000053</span>, <span class="number">0x00000049</span>, <span class="number">0x0000001F</span>, </span><br><span class="line">	<span class="number">0x00000051</span>, <span class="number">0x0000005E</span>, <span class="number">0x00000036</span>, <span class="number">0x00000037</span>, <span class="number">0x00000029</span>, <span class="number">0x00000041</span>, <span class="number">0x00000063</span>, <span class="number">0x0000003B</span>, </span><br><span class="line">	<span class="number">0x00000064</span>, <span class="number">0x0000003B</span>, <span class="number">0x00000015</span>, <span class="number">0x00000018</span>, <span class="number">0x0000005B</span>, <span class="number">0x0000003E</span>, <span class="number">0x00000022</span>, <span class="number">0x00000050</span>, </span><br><span class="line">	<span class="number">0x00000046</span>, <span class="number">0x0000005E</span>, <span class="number">0x00000035</span>, <span class="number">0x0000004E</span>, <span class="number">0x00000043</span>, <span class="number">0x00000023</span>, <span class="number">0x00000060</span>, <span class="number">0x0000003B</span>, </span><br><span class="line">	<span class="comment">//用于跳转，以及赋值初始索引 </span></span><br><span class="line">	<span class="number">0x00000000</span>, <span class="number">-17</span>, <span class="number">0x00000015</span>, </span><br><span class="line">	<span class="comment">//密文 </span></span><br><span class="line">	<span class="number">0x0000008E</span>, <span class="number">0x00000088</span>, <span class="number">0x000000A3</span>, <span class="number">0x00000099</span>, <span class="number">0x000000C4</span>, <span class="number">0x000000A5</span>, <span class="number">0x000000C3</span>, <span class="number">0x000000DD</span>, </span><br><span class="line">	<span class="number">0x00000019</span>, <span class="number">0x000000EC</span>, <span class="number">0x0000006C</span>, <span class="number">0x0000009B</span>, <span class="number">0x000000F3</span>, <span class="number">0x0000001B</span>, <span class="number">0x0000008B</span>, <span class="number">0x0000005B</span>, </span><br><span class="line">	<span class="number">0x0000003E</span>, <span class="number">0x0000009B</span>, <span class="number">0x000000F1</span>, <span class="number">0x00000086</span>, <span class="number">0x000000F3</span>, <span class="number">0x000000F4</span>, <span class="number">0x000000A4</span>, <span class="number">0x000000F8</span>,</span><br><span class="line">	<span class="number">0x000000F8</span>, <span class="number">0x00000098</span>, <span class="number">0x000000AB</span>, <span class="number">0x00000086</span>, <span class="number">0x00000089</span>, <span class="number">0x00000061</span>, <span class="number">0x00000022</span>, <span class="number">0x000000C1</span>, </span><br><span class="line">	</span><br><span class="line">	<span class="number">0x00000002</span>, <span class="number">0x00000000</span>, <span class="number">-6</span>, <span class="number">0x00000073</span>, <span class="number">0x00000075</span>, <span class="number">0x00000063</span>, <span class="number">0x00000063</span>, </span><br><span class="line">    <span class="number">0x00000065</span>, <span class="number">0x00000073</span>, <span class="number">0x00000073</span></span><br><span class="line">};</span><br><span class="line">	<span class="keyword">char</span> flag[<span class="number">32</span>]={<span class="number">0</span>};</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">32</span>;++i)</span><br><span class="line">	{</span><br><span class="line">		enc[i]=(enc[i]^xor_table[i])/<span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>,enc);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-
-
-
+          <p>VM逆向</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/23/VM%E9%80%86%E5%90%91/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1892,7 +936,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 13:13:21" itemprop="dateModified" datetime="2022-03-11T13:13:21+08:00">2022-03-11</time>
+      <time title="修改时间：2022-04-20 13:35:53" itemprop="dateModified" datetime="2022-04-20T13:35:53+08:00">2022-04-20</time>
     </span>
 
   
@@ -1902,7 +946,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>223</span>
+      <span>229</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1920,17 +964,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="APK基本结构"><a href="#APK基本结构" class="headerlink" title="APK基本结构"></a>APK基本结构</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhaijiahui/p/6916556.html">https://www.cnblogs.com/zhaijiahui/p/6916556.html</a></p>
-<p>因为java语言没办法直接控制硬件，所以要使用C/C++来写代码，保存在so文件中 </p>
-<p>反编译之后是smali代码，动态调试</p>
-<p>assets：存放未编译的资源</p>
-<p>lib：存放so文件，即本地代码</p>
-<p>libs：第三方包</p>
-<p>META-INF：存放签名</p>
-<p>res：编译后的资源</p>
-<p>AndroidManifest.xml：用于存放清单</p>
-<p>.dex文件：反编译后为smali代码</p>
-
+          <p>安卓基础知识</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2090,7 +1132,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 13:13:39" itemprop="dateModified" datetime="2022-03-11T13:13:39+08:00">2022-03-11</time>
+      <time title="修改时间：2022-04-20 13:42:35" itemprop="dateModified" datetime="2022-04-20T13:42:35+08:00">2022-04-20</time>
     </span>
 
   
@@ -2118,108 +1160,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="堆栈图"><a href="#堆栈图" class="headerlink" title="堆栈图"></a>堆栈图</h1><p>调用函数实现两数相加</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592553591.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592569833.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592579671.png"></p>
-<p>因为pop之后，有一部分的值还是之前保留下来的，所以要进行填充</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592639529.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592648442.png"></p>
-<h1 id="LEA和MOV的区别"><a href="#LEA和MOV的区别" class="headerlink" title="LEA和MOV的区别"></a>LEA和MOV的区别</h1><p>lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的操作数，例如：</p>
-<p>lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的内存地址里的数据赋给eax。</p>
-<p>而mov指令则恰恰相反，例如：</p>
-<p>mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>
-<h1 id="函数在汇编的结构"><a href="#函数在汇编的结构" class="headerlink" title="函数在汇编的结构"></a>函数在汇编的结构</h1><p>函数调用前，堆栈结构如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649724413.png"></p>
-<p>EBP栈底高位，ESP栈顶低位</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649843226.png"></p>
-<p>下面的三个PUSH是把函数的参数压入栈中，这里是立即数，也可以是寄存器里面的值，注意PUSH指令执行完ESP-4，即栈顶往低位移动</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650060363.png"></p>
-<p>堆栈图如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650200472.png"></p>
-<p>下一步是CALL指令，F7单步步入，CALL指令会修改EIP的值，将CALL指令下一条指令的地址压入栈顶 ，并且修改EIP的值，相当于一条PUSH和JMP指令，JMP只会修改EIP的值，EIP存放下一条会执行指令的地址</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650793595.png"></p>
-<p>堆栈图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651074289.png"></p>
-<p>这里JMP直接F8跳转过去，进入函数，入口是PUSH EBP</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651212988.png"></p>
-<p>可以看到ESP没有变化</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651299175.png"></p>
-<p>在函数调用中，这三步是提升栈顶，开辟空间</p>
-<p>运行完堆栈应该如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651845629.png"></p>
-<p>运行看看</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651761171.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651894330.png"></p>
-<p>接下来这三步是保存现场，因为在函数调用中，这些寄存器可能被用到，所以要先把里面原本的值压入栈中，此时堆栈图为</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652121644.png"></p>
-<p>EBP是FED0</p>
-<p>运行</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652204239.png"></p>
-<p>已经被压入栈中 </p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652304817.png"></p>
-<p>接下来这步是填充缓冲区</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652335865.png"></p>
-<p>可以看到堆栈图中开辟的空间里面的值并不是为0，这是因为在调用完函数之后，这些空间的值没有被清除，所以需要填充</p>
-<p>堆栈图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656762839.png"></p>
-<p>这里有一点需要说明，local.18是什么意思呢</p>
-<p>看下图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656813955.png"></p>
-<p>我们去OD修改设置</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656868498.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656879655.png"></p>
-<p>取消掉就可以了，刚才的指令发生了变化</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656905307.png"></p>
-<p>接下来解释这几句指令</p>
-<p>lea是取地址，意思是将ebp-0x48的地址存入EDI中</p>
-<p>ECX一般用来存放循环次数，这里是0x12，即18次，这个对应开辟空间的大小</p>
-<p>mov eax，0xCCCCCCCC是填充缓冲区</p>
-<p>最后一句rep表示重复次数，次数由ECX决定，stos dword这条指令表示将EAX内的值放入EDI指定的内存单元中，注意执行一次后EDI会移动4，加减由DF标志位决定</p>
-<p>DF决定movs执行完后esi和edi的移动方向，当为0时，加，否则为减。</p>
-<p>运行</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657323715.png"></p>
-<p>看接下来的几行指令</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657469555.png"></p>
-<p>1、将0x2赋给ebp地址的前一个内存单元，<strong>这里的0x2就是局部变量</strong></p>
-<p>2、将EBP+0xc的值赋给eax，eax的值压入栈中，下面也是，画堆栈图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657989835.png"></p>
-<p>这里压入栈的数值，将作为内部嵌套函数的参数</p>
-<p>执行完之后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658026768.png"></p>
-<p>接下来又是调用函数，将CALL指令下一条指令的地址压入栈顶，EIP修改</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658203867.png"></p>
-<p>F7步入</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658261575.png"></p>
-<p>F8之后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658343466.png"></p>
-<p>红框部分和前面一样，都是调用函数前提升栈顶、开辟空间、保存现场、填充缓冲区，主要看操作部分</p>
-<p>先把堆栈图画好</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659116555.png"></p>
-<p>接下来看操作</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659284922.png"></p>
-<p>这些都没有改变堆栈的值，第一条将0xA赋给EBP-0x4的内存单元，对应堆栈写出操作方式 EAX的值为1+2，最后+0xA，所以最后EAX的值为0xD</p>
-<p>运行</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659505718.png"></p>
-<p>此时函数的操作部分已经结束，接下来就是退出函数了</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659609650.png"></p>
-<p>对比一下，跟函数开始正好是反过来的</p>
-<p>POP是先出栈再移动 ，这几个POP就相当于恢复现场，要恢复到未调用函数前，这也是为什么要先把这些值压入栈中的原因。</p>
-<p>mov就是降低栈底，恢复到原来的位置</p>
-<p>retn指令相当于POP EIP，先将栈顶的值赋给EIP，然后栈顶指针移动</p>
-<p>堆栈图如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660789466.png"></p>
-<p>执行后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660837614.png"></p>
-<p>可以看到执行完之后，缓冲区的内容不会清理，这也是为什么需要填充缓冲区</p>
-<p>回到后我们发现一个问题，就是函数调用前后堆栈不平衡，堆栈平衡是指调用函数前后堆栈应该相等，这里是因为将函数的参数压入了栈，所以需要接下来的ADD平衡堆栈</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660910037.png"></p>
-<p>执行完之后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642661042648.png"></p>
-<p>和调用前一致，所以没问题了</p>
-<p>剩下的就是重复之前的操作了，先执行函数操作指令，然后POP还原现场，retn后ADD恢复堆栈平衡</p>
-<p>函数的参数存放在ebp+0x8开始因为call指令会将下一条指令地址压入栈中，而局部变量从ebp-0x4开始</p>
-
+          <p>汇编基础知识</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/19/%E6%B1%87%E7%BC%96/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2281,7 +1230,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 13:13:10" itemprop="dateModified" datetime="2022-03-11T13:13:10+08:00">2022-03-11</time>
+      <time title="修改时间：2022-04-20 13:34:49" itemprop="dateModified" datetime="2022-04-20T13:34:49+08:00">2022-04-20</time>
     </span>
 
   
@@ -2309,44 +1258,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>先来看官方文档</p>
-<p><a target="_blank" rel="noopener" href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
-<p>这个博客也不错</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38154820/article/details/108656598">https://blog.csdn.net/qq_38154820/article/details/108656598</a></p>
-<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>  基本语句</p>
-<p>Op    Mnmonics    Description<br>            0    true    恒真<br>            1    flase    恒假<br>            2    =    相等<br>            3    distinct    不同<br>            4    ite    if-then-else<br>            5    and    n元 合取（其中条件必须全部满足）<br>            6    or    n元 析取（其中条件满足之一即可）<br>            7    iff    implication<br>            8    xor    异或<br>            9    not    否定<br>            10    implies    Bi-implications</p>
-<p>1、创建容器</p>
-<p>s=Solver()</p>
-<p>2、创建变量，变量有Int(整型)、BitVector(字节)、数组</p>
-<p>3、添加约束条件</p>
-<p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
-<p>4、判断是否存在</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> s.check() == sat:  </span><br><span class="line">    m = s.model()  </span><br><span class="line">    <span class="built_in">print</span>(m)</span><br><span class="line"><span class="keyword">else</span>:  </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"no answer"</span>)</span><br></pre></td></tr></tbody></table></figure>
-
-<h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
-<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
-<p>这里就直接放脚本了</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span>*</span><br><span class="line"></span><br><span class="line">s=Solver()</span><br><span class="line">v1=Int(<span class="string">'v1'</span>)</span><br><span class="line">v2=Int(<span class="string">'v2'</span>)</span><br><span class="line">v3=Int(<span class="string">'v3'</span>)</span><br><span class="line">v4=Int(<span class="string">'v4'</span>)</span><br><span class="line">v5=Int(<span class="string">'v5'</span>)</span><br><span class="line">v6=Int(<span class="string">'v6'</span>)</span><br><span class="line">v7=Int(<span class="string">'v7'</span>)</span><br><span class="line">v8=Int(<span class="string">'v8'</span>)</span><br><span class="line">v9=Int(<span class="string">'v9'</span>)</span><br><span class="line">v11=Int(<span class="string">'v11'</span>)</span><br><span class="line"></span><br><span class="line">s.add(-<span class="number">85</span> * v9 + <span class="number">58</span> * v8 + <span class="number">97</span> * v6 + v7 + -<span class="number">45</span> * v5 + <span class="number">84</span> * v4 + <span class="number">95</span> * v2 - <span class="number">20</span> * v1 + <span class="number">12</span> * v3 == <span class="number">12613</span>)</span><br><span class="line">s.add(-<span class="number">85</span> * v9 + <span class="number">58</span> * v8 + <span class="number">97</span> * v6 + v7 + -<span class="number">45</span> * v5 + <span class="number">84</span> * v4 + <span class="number">95</span> * v2 - <span class="number">20</span> * v1 + <span class="number">12</span> * v3 == <span class="number">12613</span>)</span><br><span class="line">s.add(-<span class="number">103</span> * v11 + <span class="number">120</span> * v8 + <span class="number">108</span> * v7 + <span class="number">48</span> * v4 + -<span class="number">89</span> * v3 + <span class="number">78</span> * v1 - <span class="number">41</span> * v2 + <span class="number">31</span> * v5 - (v6 *<span class="number">64</span>) - <span class="number">120</span> * v9 == -<span class="number">10283</span>)</span><br><span class="line">s.add(<span class="number">71</span> * v6 + (v7 *<span class="number">128</span>) + <span class="number">99</span> * v5 + -<span class="number">111</span> * v3 + <span class="number">85</span> * v1 + <span class="number">79</span> * v2 - <span class="number">30</span> * v4 - <span class="number">119</span> * v8 + <span class="number">48</span> * v9 - <span class="number">16</span> * v11 == <span class="number">22855</span>)</span><br><span class="line">s.add(<span class="number">5</span> * v11 + <span class="number">23</span> * v9 + <span class="number">122</span> * v8 + -<span class="number">19</span> * v6 + <span class="number">99</span> * v7 + -<span class="number">117</span> * v5 + -<span class="number">69</span> * v3 + <span class="number">22</span> * v1 - <span class="number">98</span> * v2 + <span class="number">10</span> * v4 == -<span class="number">2944</span>)</span><br><span class="line">s.add(-<span class="number">54</span> * v11 + -<span class="number">23</span> * v8 + -<span class="number">82</span> * v3 + -<span class="number">85</span> * v2 + <span class="number">124</span> * v1 - <span class="number">11</span> * v4 - <span class="number">8</span> * v5 - <span class="number">60</span> * v7 + <span class="number">95</span> * v6 + <span class="number">100</span> * v9 == -<span class="number">2222</span>)</span><br><span class="line">s.add(-<span class="number">83</span> * v11 + -<span class="number">111</span> * v7 + -<span class="number">57</span> * v2 + <span class="number">41</span> * v1 + <span class="number">73</span> * v3 - <span class="number">18</span> * v4 + <span class="number">26</span> * v5 + <span class="number">16</span> * v6 + <span class="number">77</span> * v8 - <span class="number">63</span> * v9 == -<span class="number">13258</span>)</span><br><span class="line">s.add(<span class="number">81</span> * v11 + -<span class="number">48</span> * v9 + <span class="number">66</span> * v8 + -<span class="number">104</span> * v6 + -<span class="number">121</span> * v7 + <span class="number">95</span> * v5 + <span class="number">85</span> * v4 + <span class="number">60</span> * v3 + -<span class="number">85</span> * v2 + <span class="number">80</span> * v1 == -<span class="number">1559</span>)</span><br><span class="line">s.add(<span class="number">101</span> * v11 + -<span class="number">85</span> * v9 + <span class="number">7</span> * v6 + <span class="number">117</span> * v7 + -<span class="number">83</span> * v5 + -<span class="number">101</span> * v4 + <span class="number">90</span> * v3 + -<span class="number">28</span> * v1 + <span class="number">18</span> * v2 - v8 == <span class="number">6308</span>)</span><br><span class="line">s.add(<span class="number">99</span> * v11 + -<span class="number">28</span> * v9 + <span class="number">5</span> * v8 + <span class="number">93</span> * v6 + -<span class="number">18</span> * v7 + -<span class="number">127</span> * v5 + <span class="number">6</span> * v4 + -<span class="number">9</span> * v3 + -<span class="number">93</span> * v1 + <span class="number">58</span> * v2 == -<span class="number">1697</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> s.check()==sat:</span><br><span class="line">    result=s.model()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></tbody></table></figure>
-
-
-
-<h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
-<h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span>*</span><br><span class="line"><span class="comment">#添加六个Int数据到s变量中</span></span><br><span class="line">s = [Int(<span class="string">'s%d'</span> % i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)]</span><br><span class="line">a=Solver()</span><br><span class="line"><span class="comment">#多个约束条件可以使用逗号间隔</span></span><br><span class="line">a.add(s[<span class="number">2</span>]-s[<span class="number">3</span>]==<span class="number">2225223423</span>,s[<span class="number">3</span>]+s[<span class="number">4</span>]==<span class="number">4201428739</span>,s[<span class="number">2</span>]-s[<span class="number">4</span>]==<span class="number">1121399208</span>,s[<span class="number">0</span>]==<span class="number">0xdf48ef7e</span>,s[<span class="number">5</span>]==<span class="number">0x84f30420</span>,s[<span class="number">1</span>]==<span class="number">0x20caacf4</span>)</span><br><span class="line"><span class="keyword">if</span> a.check() == sat:</span><br><span class="line">    <span class="built_in">print</span>(a.model())</span><br></pre></td></tr></tbody></table></figure>
-
-
-
-<p>这样得到的结果不会是数组的形式，如下得到的是数组形式</p>
-<p><img src="/2022/01/17/Z3/1642418166049.png"></p>
-<h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
-<p>先贴一下</p>
-<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># 9x9整数变量矩阵</span></span><br><span class="line">X = [ [ Int(<span class="string">"x_%s_%s"</span> % (i+<span class="number">1</span>, j+<span class="number">1</span>)) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line">      <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每个单元格包含{1，…，9}中的值</span></span><br><span class="line">cells_c  = [ And(<span class="number">1</span> &lt;= X[i][j], X[i][j] &lt;= <span class="number">9</span>)</span><br><span class="line">             <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每行最多包含一个数字一次</span></span><br><span class="line">rows_c   = [ Distinct(X[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每列最多包含一个数字</span></span><br><span class="line">cols_c   = [ Distinct([ X[i][j] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ])</span><br><span class="line">             <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每个3x3正方形最多包含一个数字</span></span><br><span class="line">sq_c     = [ Distinct([ X[<span class="number">3</span>*i0 + i][<span class="number">3</span>*j0 + j]</span><br><span class="line">                        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) ])</span><br><span class="line">             <span class="keyword">for</span> i0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) <span class="keyword">for</span> j0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">sudoku_c = cells_c + rows_c + cols_c + sq_c</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 数独实例，我们用'0'表示空单元格</span></span><br><span class="line">instance = ((<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">7</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">8</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">6</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">9</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">9</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">instance_c = [ If(instance[i][j] == <span class="number">0</span>,</span><br><span class="line">                  <span class="literal">True</span>,</span><br><span class="line">                  X[i][j] == instance[i][j])</span><br><span class="line">               <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">s = Solver()</span><br><span class="line">s.add(sudoku_c + instance_c)</span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    m = s.model()</span><br><span class="line">    r = [ [ m.evaluate(X[i][j]) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line">          <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line">    print_matrix(r)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"failed to solve"</span>)</span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
-<p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
-<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5*5整数变量矩阵</span></span><br><span class="line">X = [[Int(<span class="string">"x_%s_%s"</span> % (i + <span class="number">1</span>, j + <span class="number">1</span>)) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个单元格包含{0，…，4}中的值</span></span><br><span class="line">cells_c = [And(<span class="number">0</span> &lt;= X[i][j], X[i][j] &lt;= <span class="number">4</span>)</span><br><span class="line">           <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每行最多包含一个数字一次</span></span><br><span class="line">rows_c = [Distinct(X[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每列最多包含一个数字</span></span><br><span class="line">cols_c = [Distinct([X[i][j] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)])</span><br><span class="line">          <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个5x5正方形最多包含一个数字,i0和j0表示分为几组</span></span><br><span class="line">sq_c = [Distinct([X[<span class="number">5</span> * i0 + i][<span class="number">5</span> * j0 + j]</span><br><span class="line">                  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)])</span><br><span class="line">        <span class="keyword">for</span> i0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>) <span class="keyword">for</span> j0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>)]</span><br><span class="line"></span><br><span class="line">sudoku_c = cells_c + rows_c + cols_c + sq_c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数独实例，我们用'5'表示空单元格</span></span><br><span class="line">instance = ((<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">3</span>),(<span class="number">3</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">5</span>),(<span class="number">0</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>),(<span class="number">5</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>),(<span class="number">4</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">instance_c = [If(instance[i][j] == <span class="number">5</span>,</span><br><span class="line">                 <span class="literal">True</span>,</span><br><span class="line">                 X[i][j] == instance[i][j])</span><br><span class="line">              <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">s = Solver()</span><br><span class="line">s.add(sudoku_c + instance_c)</span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    m = s.model()</span><br><span class="line">    r = [[m.evaluate(X[i][j]) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">         <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">    print_matrix(r)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"failed to solve"</span>)</span><br></pre></td></tr></tbody></table></figure>
-
-
+          <p>Z3学习</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/17/Z3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2408,7 +1328,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 13:13:27" itemprop="dateModified" datetime="2022-03-11T13:13:27+08:00">2022-03-11</time>
+      <time title="修改时间：2022-04-20 13:42:22" itemprop="dateModified" datetime="2022-04-20T13:42:22+08:00">2022-04-20</time>
     </span>
 
   
@@ -2436,94 +1356,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/208682">https://www.anquanke.com/post/id/208682</a></p>
-<h1 id="花指令原理"><a href="#花指令原理" class="headerlink" title="花指令原理"></a>花指令原理</h1><p>ida采用的是线性扫描反汇编算法，也就是一步一步往下识别，一旦在中间插入奇怪的立即数，ida可能就会识别出错，进而不能正确反编译</p>
-<h1 id="花指令实现"><a href="#花指令实现" class="headerlink" title="花指令实现"></a>花指令实现</h1><p>首先，我们插入花指令不能阻碍我们程序的正常运行，这是最基本的</p>
-<p>下面使用一段常规代码进行花指令的添加</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> s[] = <span class="string">"1234234"</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, k = <span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; <span class="number">10</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		k += i;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>, k);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>没插花指令前的反编译</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/MF%5DH0@C0%5BLZFAI%7BX83MEI.png"></p>
-<h2 id="永真跳转"><a href="#永真跳转" class="headerlink" title="永真跳转"></a>永真跳转</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">__asm {</span><br><span class="line">    	push eax;</span><br><span class="line">		<span class="keyword">xor</span> eax, eax;</span><br><span class="line">		test eax, eax;</span><br><span class="line">		jz LABEL1;</span><br><span class="line">		jnz  LABLE2;</span><br><span class="line">	LABLE2:</span><br><span class="line">		__emit <span class="number">0xe8</span>;</span><br><span class="line">	LABEL1:</span><br><span class="line">    	pop eax;</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>先来看看效果</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646113378508.png"></p>
-<p>可以看到ida不能正确反编译</p>
-<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>xor eax,eax能够保证eax的值为0，异或自己，相同为0</p>
-<p>根据目标操作数修改符号标志位、奇偶标志位、零标志位，经过这一步后，ZF为1</p>
-<p>test eax,eax是按位与操作，并且会根据值修改ZF标志位，并且只有当位都清 0 时，零标志位才置 1 </p>
-<p>ZF为1时，jz进行跳转，到LABEL1，因为里面没有其他值，所以代码正常执行，但是在 反编译的时候，因为是线性扫描，所以遇到了LABEL2里面的0xe8（call的机器码），就会将其后面的机器码当作要调用的地址，这样一来，jz就直接跳转到被错误识别的汇编代码中，所以会出现错误</p>
-<h3 id="去除"><a href="#去除" class="headerlink" title="去除"></a>去除</h3><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114167483.png"></p>
-<p>可以看到这里面的jz和jnz后面的地址存在+1，这就基本可以看出是花指令了，找到对应的地址，按u取消定义</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114596608.png"></p>
-<p>可以看到这里也是两个函数，对下面的按C弄成代码</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114739199.png"></p>
-<p>然后为了反编译，要把0xe8使用90填充，也就是nop，填充后按C即可</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114800614.png"></p>
-<p>按P弄成函数后反编译，和上面的基本一致</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114856426.png"></p>
-<h2 id="插入立即数"><a href="#插入立即数" class="headerlink" title="插入立即数"></a>插入立即数</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">__asm {</span><br><span class="line">		<span class="keyword">xor</span> eax, eax;</span><br><span class="line">		jz LABEL1;</span><br><span class="line">		__emit <span class="number">0x11</span>;</span><br><span class="line">		__emit <span class="number">0x22</span>;</span><br><span class="line">		__emit <span class="number">0x33</span>;</span><br><span class="line">	LABEL1:</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>效果</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646115623618.png"></p>
-<p>识别出错，原理和上面一样，感觉这种稍微恶心一点，因为有一段可能是正常的，需要一个一个试</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646115805153.png"></p>
-<p>直接nop掉即可</p>
-<h2 id="破坏堆栈"><a href="#破坏堆栈" class="headerlink" title="破坏堆栈"></a>破坏堆栈</h2><p>我们可以插入对esp和eip的操作进而破坏堆栈</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__asm {</span><br><span class="line">		<span class="keyword">xor</span> eax, eax;</span><br><span class="line">		jz LABEL1;</span><br><span class="line">		add esp, <span class="number">8</span>;</span><br><span class="line">	LABEL1:</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646116696374.png"></p>
-<p>ida能够正常反编译，但是在函数末端会发现堆栈错误提示</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646116781788.png"></p>
-<h2 id="call-amp-ret构造花指令"><a href="#call-amp-ret构造花指令" class="headerlink" title="call&amp;ret构造花指令"></a>call&amp;ret构造花指令</h2><p>call本质是先将其 下一条指令压入栈中，再jmp函数地址</p>
-<p>ret则是pop eip</p>
-<p>所以我们可以修改返回地址，然后在中前插入垃圾数</p>
-<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">__asm {</span><br><span class="line">		call LABEL1;</span><br><span class="line">		__emit <span class="number">0x83</span>;</span><br><span class="line">		</span><br><span class="line">	LABEL1:</span><br><span class="line">		add dword ptr ss : [esp] , <span class="number">8</span>;</span><br><span class="line">		ret;</span><br><span class="line">    	__emit <span class="number">0xf3</span>;</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>效果</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646118501242.png"></p>
-<p>这里我们插入的不是机器码，所以没有识别成奇怪的代码，但是还是让ida出现了错误</p>
-<h3 id="去除-1"><a href="#去除-1" class="headerlink" title="去除"></a>去除</h3><p>全部nop掉即可</p>
-<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646122556219.png"></p>
-<p>这里之所以程序能够进行正常的运行，是因为call会把其下一条指令的地址压入栈中，也就是41459F，（不知道为什么这里会多出一个db 36h -.-)，接下来执行将当前esp地址的值+8，也就是栈顶存储的值+8，也就是返回地址加8，正好对应4145A7，下面的代码c之后是正常的代码，所以不会出错</p>
-<p>在此基础上，我们可以构造各种花指令</p>
-<p>下面连接有一些花指令</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv13177757">https://www.bilibili.com/read/cv13177757</a></p>
-<h2 id="call嵌套"><a href="#call嵌套" class="headerlink" title="call嵌套"></a>call嵌套</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">__asm {</span><br><span class="line">		call LABEL1;</span><br><span class="line">		_emit <span class="number">0xE8</span>;</span><br><span class="line">	LABEL2:</span><br><span class="line">		jmp LABEL3;</span><br><span class="line">		_emit <span class="number">0</span>;</span><br><span class="line">		_emit <span class="number">0</span>;</span><br><span class="line">		_emit <span class="number">0xE8</span>;</span><br><span class="line">		_emit <span class="number">0xf6</span>;</span><br><span class="line">		_emit <span class="number">0xff</span>;</span><br><span class="line">		_emit <span class="number">0xff</span>;</span><br><span class="line">		_emit <span class="number">0xff</span>;</span><br><span class="line">	LABEL1:</span><br><span class="line">		call LABEL2;</span><br><span class="line">	LABEL3:</span><br><span class="line">		add esp, <span class="number">8</span>;</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>效果</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646123989260.png"></p>
-<h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>这里之所以程序能够正常运行，是因为只有两个call对堆栈有影响，所以只需要在最后esp+8就可以回到原来的堆栈</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124342486.png"></p>
-<p>这里先callA9，然后0xE8和后面的结合成了call指令，这里可以看到call到了全是int 3的地方</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124399722.png"></p>
-<p>然后这个9f一直在call自己，所以可以判断是花指令</p>
-<p>把这两个函数nop掉之后</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124643631.png"></p>
-<p>所以这个调用也没用了</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124712766.png"></p>
-<p>同理这个也可以nop掉，那么堆栈会不平衡，add esp,8也要nop</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124803779.png"></p>
-<p>得到正常代码</p>
-<h2 id="jmp变形-SUSCTF2022-tttree"><a href="#jmp变形-SUSCTF2022-tttree" class="headerlink" title="jmp变形-SUSCTF2022-tttree"></a>jmp变形-SUSCTF2022-tttree</h2><p>感觉很巧妙，拿出来看看</p>
-<p>动调可以看得更清楚</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646126953595.png"></p>
-<p>前面的push没什么好说的，关键在call之后的</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127104589.png"></p>
-<p>当前的栈顶，call会将其之后的地址压入栈顶</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127228921.png"></p>
-<p>可以看到是B7D82FF9B0</p>
-<p>下面两步就是将当前栈顶的元素先+0x191b给到rax</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127367726.png"></p>
-<p>下一步是把rax里的值给到rsp+16</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127416441.png" alt="1646127416441"></p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127424928.png"></p>
-<p>经过两步pop，可以发现来到了存储原本返回值+0x191b的栈的位置</p>
-<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127512911.png"></p>
-<p>retn先将栈顶元素pop到eip，再jmp，而eip正好记录我们下一步执行的指令</p>
-<p>这样就是一个简单的jmp</p>
-<p>解决方法就是先计算跳转的地址，然后改成jmp即可</p>
-
+          <p>花指令</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2571,7 +1412,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:08</span>
+    <span title="站点阅读时长">4:09</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
