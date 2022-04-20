@@ -1,1366 +1,3694 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-CN">
-
-
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Hexo">
-    <meta name="description" content="Hexo">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
 
 
-    <title>Hexo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" href="/css/main.css">
 
-    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://gift1a.github.io/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Gift1a">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gift1a.github.io/page/4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/4/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
 
-
-   <style>
-    body{
-       background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
-       background-repeat:no-repeat;
-       background-size: 100% 100%;
-       background-attachment:fixed;
-    }
-</style>
-
-
-
-<body>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">Hexo</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
-
-
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">Hexo</div>
-        <div class="logo-desc">
-            
-            Never really desperate, only the lost of the soul.
-            
-        </div>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
+  </div>
 
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			首页
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/Gift1a" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
 </div>
 
 
-        </div>
 
+
+
+
+
+</div>
         
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
+  <aside class="sidebar">
 
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/Gift1a" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                    subtitle
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "从0到0的CTF之路",
-                            
-                                "Never really desperate, only the lost of the soul",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
         </div>
-    </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Gift1a</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
 </div>
 
 
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
 
-
+        </div>
+      </div>
     </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/" class="post-title-link" itemprop="url">RC4原理和实现</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-06 22:23:15" itemprop="dateCreated datePublished" datetime="2022-02-06T22:23:15+08:00">2022-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:12:26" itemprop="dateModified" datetime="2022-03-11T13:12:26+08:00">2022-03-11</time>
+    </span>
+
+  
 </div>
 
-
-<main class="content">
-
-    
+        </div>
+      </header>
 
     
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h1><p>RC4属于对称密码算法中的流密码加密算法</p>
+<p>密钥长度可变，面向字节操作</p>
+<p>以一个足够大的S表为基础，对表进行非线性变换，产生密钥流</p>
+<p>两次交换过程是为了增加随机性</p>
+<h1 id="加密过程"><a href="#加密过程" class="headerlink" title="加密过程"></a>加密过程</h1><h2 id="初始化S表"><a href="#初始化S表" class="headerlink" title="初始化S表"></a>初始化S表</h2><p>1、对S表进行先行填充，一般为256字节，且为unsigned类型</p>
+<p>2、用种子密钥填充另一个256字节的K表</p>
+<p>如果种子密钥长度不为256，将循环使用种子密钥对K表进行填充</p>
+<p>3、用 K表对S表进行初始置换</p>
+<h3 id="样例展示"><a href="#样例展示" class="headerlink" title="样例展示"></a>样例展示</h3><p>这里我们假设S表和K表都是7个字节的，密钥为345，填充结果如下</p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644168199163.png"></p>
+<p>使用K表对S表进行置换</p>
+<pre class="language-c" data-language="c"><code class="language-c">int j = 0;
+	for (int i = 0; i &lt; 7; ++i)
+	{
+		j = (j + S[i] + K[i]) % 7;
+		Swap(S[i], S[j]);
+	}</code></pre>
 
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="RC4原理和实现">
-                            
-                            <span class="card-title">RC4原理和实现</span>
-                        </div>
-                    </a>
+<p>得到被置换后的S表</p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644168394862.png"></p>
+<h2 id="生成密钥流"><a href="#生成密钥流" class="headerlink" title="生成密钥流"></a>生成密钥流</h2><p>作用：为每个待价密的字节生成一个伪随机数，用来异或</p>
+<p>注：S表完成初始化之后，种子密钥将不会再被使用</p>
+<p>使用置换后的S表生成密钥流</p>
+<pre class="language-c" data-language="c"><code class="language-c">int i, j = 0;
+for (int k = 0; k &lt; strlen(raw); ++k)
+{
+	i = (i + 1) % 7;
+	j = (j + S[i]) % 7;
+	Swap(S[i], S[j]);
+	int t = (S[i] + S[j]) % 7;
+	K[k] = S[t];
+}</code></pre>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                基本原理RC4属于对称密码算法中的流密码加密算法
-密钥长度可变，面向字节操作
-以一个足够大的S表为基础，对表进行非线性变换，产生密钥流
-两次交换过程是为了增加随机性
-加密过程初始化S表1、对S表进行先行填充，一般为256字节，且为unsig
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-06
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="base64实现及细节剖析">
-                            
-                            <span class="card-title">base64实现及细节剖析</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                源码#include&lt;stdio.h&gt;
+<h1 id="加密过程-1"><a href="#加密过程-1" class="headerlink" title="加密过程"></a>加密过程</h1><p>密钥流和明文进行异或得到密文</p>
+<h1 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h1><p>加密部分的j是用来打乱的，实现伪随机</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
 #include &lt;string.h&gt;
-char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrs
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-06
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
+void Rc4_init(unsigned char* S, unsigned char*K,unsigned char* key, unsigned long len)
+{
+	unsigned char  tmp = 0;
+	for (int i = 0; i &lt; 256; ++i)
+	{
+		S[i] = i;
+		K[i] = key[i % len];
+	}
+	int j = 0;
+	for (int i = 0; i &lt; 256; ++i)
+	{
+		j = (j + S[i] + K[i]) % 256;
+		tmp = S[i];
+		S[i] = S[j];
+		S[j] = tmp;
+	}
+	return;
+}
+void Rc4_encrypt(unsigned char* S, unsigned  char* flag,int len)
+{
+	int i = 0, j = 0,t = 0 ;
+	unsigned char key_liu[len] = { 0 };
+	unsigned char tmp = 0;
+	for (unsigned long k = 0; k &lt; len; ++k)
+	{
+		i = (i + 1) % 256;
+		j = (j + S[i]) % 256;
+		tmp = S[i];
+		S[i] = S[j];
+		S[j] = tmp;
+		t = (S[i] + S[j]) % 256;
+		key_liu[k] = S[t];
+	}
+	for (int i = 0; i &lt; len; ++i)
+	{
+		flag[i] ^= key_liu[i];
+	}
+}
+int main()
+{
+	unsigned char S[256] = { 0 };
+	unsigned char K[256] = { 0 };
+	char flag[512] = { 0xB6, 0x94, 0xFA, 0x8F, 0x3D, 0x5F, 0xB2, 0xE0,
+	0xEA, 0x0F, 0xD2, 0x66, 0x98, 0x6C, 0x9D, 0xE7,
+	0x1B, 0x08, 0x40, 0x71, 0xC5, 0xBE, 0x6F, 0x6D,
+	0x7C, 0x7B, 0x09, 0x8D, 0xA8, 0xBD, 0xF3, 0xF6};
+	char key[] = "w0wy0ugot1t";
+	unsigned long Len = strlen(flag);
+	Rc4_init(S, K,(unsigned char*)key, strlen(key));
+	Rc4_encrypt(S, (unsigned char*)flag, Len);
+	printf("%s", flag);
+	return 0;
+}</code></pre>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="ELF文件手脱upx变形壳">
-                            
-                            <span class="card-title">ELF文件手脱upx变形壳</span>
-                        </div>
-                    </a>
+<p>可以不保存密钥流，直接进行异或，逆向的时候我们可以动调得到密钥流，再与密文进行异或就可以得到明文了</p>
+<pre class="language-c" data-language="c"><code class="language-c">void Rc4_encrypt(unsigned char* S, unsigned  char* flag,char*flag1)
+{
+	int len = strlen(flag1);
+	int i = 0, j = 0,t = 0 ;
+	unsigned char tmp = 0;
+	for (unsigned long k = 0; k &lt; len; ++k)
+	{
+		i = (i + 1) % 256;
+		j = (j + S[i]) % 256;
+		tmp = S[i];
+		S[i] = S[j];
+		S[j] = tmp;
+		t = (S[i] + S[j]) % 256;
+		flag[k] ^= S[t];
+	}
+}</code></pre>
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                题目-hgame2022-week2-upx magic1发现命令行脱壳没用，只能手脱，elf文件没办法使用esp定律，ida手脱
-进入ida
+<p>分别看一下加密过程的逆向代码</p>
+<p>直接异或，动调根据存储的寄存器进行提取</p>
+<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall Rc4_encrypt(unsigned __int8 *a1, unsigned __int8 *a2, char *a3)
+{
+  unsigned int v3; // eax
+  unsigned __int8 v4; // ST2B_1
+  __int64 result; // rax
+  unsigned int v6; // [rsp+30h] [rbp-10h]
+  unsigned int i; // [rsp+34h] [rbp-Ch]
+  int v8; // [rsp+38h] [rbp-8h]
+  signed int v9; // [rsp+3Ch] [rbp-4h]
+  unsigned __int8 *v10; // [rsp+50h] [rbp+10h]
+  unsigned __int8 *v11; // [rsp+58h] [rbp+18h]
 
-在第一个call下断点，进行动态调试
-F7单步进入
+  v10 = a1;
+  v11 = a2;
+  v6 = strlen(a3);
+  v9 = 0;
+  v8 = 0;
+  for ( i = 0; ; ++i )
+  {
+    result = v6;
+    if ( v6 &lt;= i )
+      break;
+    v9 = (unsigned __int8)(((unsigned int)((v9 + 1) &gt;&gt; 31) &gt;&gt; 24) + v9 + 1) - ((unsigned int)((v9 + 1) &gt;&gt; 31) &gt;&gt; 24);
+    v3 = (unsigned int)((v8 + v10[v9]) &gt;&gt; 31) &gt;&gt; 24;
+    v8 = (unsigned __int8)(v3 + v8 + v10[v9]) - v3;
+    v4 = v10[v9];
+    v10[v9] = v10[v8];
+    v10[v8] = v4;
+    v11[i] ^= v10[(unsigned __int8)(v10[v9] + v10[v8])];
+  }
+  return result;
+}</code></pre>
 
-到了第二个call再次F7进入
+<p>先保存再异或</p>
+<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall Rc4_encrypt(unsigned __int8 *a1, unsigned __int8 *a2, signed int a3)
+{
+  void *v3; // rsp
+  char *v4; // rax
+  signed __int64 i; // rdx
+  unsigned int v6; // eax
+  __int64 result; // rax
+  __int64 v8; // [rsp+0h] [rbp-30h]
+  __int64 *v9; // [rsp+8h] [rbp-28h]
+  __int64 v10; // [rsp+10h] [rbp-20h]
+  int v11; // [rsp+1Ch] [rbp-14h]
+  unsigned int k; // [rsp+20h] [rbp-10h]
+  unsigned int j; // [rsp+24h] [rbp-Ch]
+  unsigned int v14; // [rsp+28h] [rbp-8h]
+  unsigned int v15; // [rsp+2Ch] [rbp-4h]
+  unsigned __int8 *v16; // [rsp+58h] [rbp+28h]
 
-一路f
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
+  v16 = a2;
+  v15 = 0;
+  v14 = 0;
+  v11 = 0;
+  v10 = a3 - 1i64;
+  v3 = alloca(16 * ((unsigned __int64)(a3 + 15i64) &gt;&gt; 4));
+  v9 = &amp;v8;
+  LOBYTE(v8) = 0;
+  v4 = (char *)&amp;v8 + 1;
+  for ( i = a3 - 2i64; i != -1; --i )
+    *v4++ = 0;
+  HIBYTE(v8) = 0;
+  for ( j = 0; a3 &gt; j; ++j )
+  {
+    v15 = (unsigned __int8)(((unsigned int)((signed int)(v15 + 1) &gt;&gt; 31) &gt;&gt; 24) + v15 + 1)
+        - ((unsigned int)((signed int)(v15 + 1) &gt;&gt; 31) &gt;&gt; 24);
+    v6 = (unsigned int)((signed int)(v14 + a1[v15]) &gt;&gt; 31) &gt;&gt; 24;
+    v14 = (unsigned __int8)(v6 + v14 + a1[v15]) - v6;
+    HIBYTE(v8) = a1[v15];
+    a1[v15] = a1[v14];
+    a1[v14] = HIBYTE(v8);
+    v11 = (unsigned __int8)(a1[v15] + a1[v14]);
+    *((_BYTE *)v9 + j) = a1[v11];
+  }
+  for ( k = 0; ; ++k )
+  {
+    result = k;
+    if ( (signed int)k &gt;= a3 )
+      break;
+    v16[k] ^= *((_BYTE *)v9 + (signed int)k);
+  }
+  return result;
+}</code></pre>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/02/03/Hook/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="Hook">
-                            
-                            <span class="card-title">Hook</span>
-                        </div>
-                    </a>
+<p>可以看到密钥流存储在v9，动调之后可以直接提取</p>
+<p>Vs2022生成的exe文件反编译</p>
+<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall sub_140015E30(__int64 a1, __int64 a2, char *a3)
+{
+  __int64 result; // rax
+  __int64 v4; // kr00_8
+  unsigned __int8 v5; // dl
+  char v6; // STA4_1
+  int v7; // edx
+  unsigned int v8; // [rsp+24h] [rbp+4h]
+  int v9; // [rsp+44h] [rbp+24h]
+  int v10; // [rsp+64h] [rbp+44h]
+  unsigned int i; // [rsp+C4h] [rbp+A4h]
+  __int64 v12; // [rsp+1C0h] [rbp+1A0h]
+  __int64 v13; // [rsp+1C8h] [rbp+1A8h]
+  const char *Str; // [rsp+1D0h] [rbp+1B0h]
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                0x00-Windows消息机制消息的产生通常根据消息产生的方式分为 硬件和软件信息。
-硬件信息：常指由硬件装置所产生的时间（如鼠标或键盘被按下），放在系统消息队列（System Queue）中，再由系统消息处理机构将消息发送至应用程序消息
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
+  Str = a3;
+  v13 = a2;
+  v12 = a1;
+  sub_140011361(&amp;unk_14002200E);
+  v8 = j_strlen(Str);
+  v9 = 0;
+  v10 = 0;
+  for ( i = 0; ; ++i )
+  {
+    result = v8;
+    if ( i &gt;= v8 )
+      break;
+    v4 = v9 + 1;
+    v9 = (BYTE4(v4) + v9 + 1) - BYTE4(v4);
+    v5 = (*(v12 + v9) + v10) &gt;&gt; 31;
+    v10 = (v5 + *(v12 + v9) + v10) - v5;
+    v6 = *(v12 + v9);
+    *(v12 + v9) = *(v12 + v10);
+    *(v12 + v10) = v6;
+    v7 = (*(v12 + v10) + *(v12 + v9)) &gt;&gt; 31;
+    *(v13 + i) ^= *(v12 + (v7 + *(v12 + v10) + *(v12 + v9)) - v7);
+  }
+  return result;
+}</code></pre>
 
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Init初始化">
-                            
-                            <span class="card-title">Init初始化</span>
-                        </div>
-                    </a>
+<p>看着跟别的不一样</p>
+<h1 id="题目——BUU-GUET-CTF2019-encrypt"><a href="#题目——BUU-GUET-CTF2019-encrypt" class="headerlink" title="题目——BUU-[GUET-CTF2019]encrypt"></a>题目——BUU-[GUET-CTF2019]encrypt</h1><p>拖进ida，对一些变量和函数名进行识别和改名</p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644325364867.png"></p>
+<p>点进加密函数进行查看</p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644339350075.png"></p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644339358773.png"></p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644339366532.png"></p>
+<p>整体就是先RC4，然后将加密后的三个字符变为四个字符</p>
+<p>逆向过来先将四个字符转为三个字符，然后直接将转换后的结果和密钥流进行异或得到明文</p>
+<p>密钥流可以通过动调得到</p>
+<p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644339479964.png"></p>
+<p>脚本</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
 
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                ELF文件结构https://carrychen.website/2021/05/14/elf-format/
- .init节定义了一个_init函数，用于可执行目标文件开始时的初始化工作。当进入主程序之前，系统先执行.init节的指令代码
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="SEH原理和例题">
-                            
-                            <span class="card-title">SEH原理和例题</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                WINDOWS下的异常处理异常列表
-参考文章https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-03
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/PE/">
-                            <span class="chip bg-color">PE</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="C语言汇编2">
-                            
-                            <span class="card-title">C语言汇编2</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                指针
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-02-02
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%B1%87%E7%BC%96/">
-                            <span class="chip bg-color">汇编</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/23/VM%E9%80%86%E5%90%91/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="VM逆向">
-                            
-                            <span class="card-title">VM逆向</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Dasctf——EasyVm一开始有个花指令，是比较常见的永真跳转，先对call指令按u取消定义，将e8改为90，再重新弄成函数就可以了
-先找到加密的函数
-
-点进去看看
-
-这里是base64变种，在最后加了一个异或操作，先把脚本写出来
-#i
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-23
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="安卓知识">
-                            
-                            <span class="card-title">安卓知识</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                APK基本结构https://www.cnblogs.com/zhaijiahui/p/6916556.html
-因为java语言没办法直接控制硬件，所以要使用C/C++来写代码，保存在so文件中 
-反编译之后是smali代码，动态调试
-a
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="C语言汇编">
-                            
-                            <span class="card-title">C语言汇编</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                VC6基础操作F7：编译、F5：调试、F9：设置断点、F10：单步步过、F11：单步进入、shift+F5：结束调试
-调试过程打开寄存器窗口和反汇编窗口
+int main()
+{
+	char raw[52]={0x5a,
+    0x60, 0x54, 0x7A, 0x7A, 0x54, 0x72, 0x44, 0x7C, 0x66, 0x51, 0x50, 0x5B, 0x5F, 0x56, 0x56, 0x4C,
+    0x7C, 0x79, 0x6E, 0x65, 0x55, 0x52, 0x79, 0x55, 0x6D, 0x46, 0x6B, 0x6C, 0x56, 0x4A, 0x67, 0x4C,
+    0x61, 0x73, 0x4A, 0x72, 0x6F, 0x5A, 0x70, 0x48, 0x52, 0x78, 0x49, 0x55, 0x6C, 0x48, 0x5C, 0x76,
+    0x5A, 0x45, 0x3D};
+	char decode[39]={0};
+	for(int i=0;i&lt;52;++i)
+	{
+		raw[i]-=61;
+	}
+	for(int i=0,i_=0;i&lt;52;i+=4,i_+=3)
+	{
+		decode[i_]=((raw[i])&lt;&lt;2)|((raw[i+1])&gt;&gt;4);
+		decode[i_+1]=((raw[i+1]&amp;0xf)&lt;&lt;4)|((raw[i+2]&amp;0x3c)&gt;&gt;2);
+		decode[i_+2]=((raw[i+2]&amp;0xF)&lt;&lt;6)|(raw[i+3]);
+	}
+	char v[90]={0x10,0x59,0x9C,0x92,0x06,0x22,0xCF,0xA5,
+	0x72,0x1E,0x45,0x6A,0x06,0xCB,0x08,0xC3,
+	0xE4,0x49,0x5A,0x63,0x0C,0xDF,0xF6,0x5F,
+	0x08,0x28,0xBD,0xE2,0x10,0x15,0x1F,0x6E,
+	0xAA,0x5A,0xCA,0xEC,0x80,0xAF,0x9B,0x16,
+	0xBB,0x3D,0x13,0x2F,0x6A,0xA4,0xC7,0x2E,
+	0xBC,0x4B,0x60,0x9A,0xAF,0xE9,0xCE,0xDA,
+	0x67,0x39,0xBA,0x3B,0x85,0xEB,0xD2,0x6B,
+	0xAB,0x06,0x6B,0x10,0x57,0x2C,0x88,0x70,
+	0xF7,0x4F,0xAA,0x7F,0x12,0x47,0xD6,0xDE,
+	0x74,0xB2,0x1D,0xA4,0xD7,0x76,0x9A,0xE0
+	};
+	for(int i=0;i&lt;39;++i)
+	{
+		decode[i]^=v[i];
+	}
+	printf("%s",decode);
+	return 0;
+}</code></pre>
 
 
-裸函数编译器不会管的函数
-
-__declspec(naked) Func()
-调用
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-20
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%B1%87%E7%BC%96/">
-                            <span class="chip bg-color">汇编</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/19/%E6%B1%87%E7%BC%96/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="汇编">
-                            
-                            <span class="card-title">汇编</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                堆栈图调用函数实现两数相加
-
-
-
-因为pop之后，有一部分的值还是之前保留下来的，所以要进行填充
-
-
-LEA和MOV的区别lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-19
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/%E6%B1%87%E7%BC%96/">
-                            <span class="chip bg-color">汇编</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/17/Z3/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="Z3">
-                            
-                            <span class="card-title">Z3</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                先来看官方文档
-https://ericpony.github.io/z3py-tutorial/guide-examples.htm
-这个博客也不错
-https://blog.csdn.net/qq_38154820/article/de
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-        </div>
-    </article>
-
-</main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/3/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">4 / 5</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/5/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
+      
     </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
 
 
 
-    <footer class="page-footer bg-color">
     
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
 
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
-        
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
 
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
+<div class="post-block">
+  
+  
 
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/">
 
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/06/base64%E5%AE%9E%E7%8E%B0%E5%8F%8A%E7%BB%86%E8%8A%82%E5%89%96%E6%9E%90/" class="post-title-link" itemprop="url">base64实现及细节剖析</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-06 20:55:09" itemprop="dateCreated datePublished" datetime="2022-02-06T20:55:09+08:00">2022-02-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:09:48" itemprop="dateModified" datetime="2022-03-11T13:09:48+08:00">2022-03-11</time>
+    </span>
+
+  
 </div>
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
-
-    
-
-    <div class="container row center-align"
-         style="margin-bottom: 15px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
-                <span id="year">2021-2022</span>
-            
-            <a href="/about" target="_blank">Gift1a</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">82.2k</span>
-            
-            
-            
-                
-            
-            
-                <span id="busuanzi_container_site_pv">
-                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
-                    <span id="busuanzi_value_site_pv" class="white-color"></span>
-            </span>
-            
-            
-                <span id="busuanzi_container_site_uv">
-                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
-                    <span id="busuanzi_value_site_uv" class="white-color"></span>
-            </span>
-            
-            <br>
-
-            <!-- 运行天数提醒. -->
-            
-                <span id="sitetime"> Loading ...</span>
-                <script>
-                    var calcSiteTime = function () {
-                        var seconds = 1000;
-                        var minutes = seconds * 60;
-                        var hours = minutes * 60;
-                        var days = hours * 24;
-                        var years = days * 365;
-                        var today = new Date();
-                        var startYear = "2021";
-                        var startMonth = "12";
-                        var startDate = "27";
-                        var startHour = "0";
-                        var startMinute = "0";
-                        var startSecond = "0";
-                        var todayYear = today.getFullYear();
-                        var todayMonth = today.getMonth() + 1;
-                        var todayDate = today.getDate();
-                        var todayHour = today.getHours();
-                        var todayMinute = today.getMinutes();
-                        var todaySecond = today.getSeconds();
-                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
-                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
-                        var diff = t2 - t1;
-                        var diffYears = Math.floor(diff / years);
-                        var diffDays = Math.floor((diff / days) - diffYears * 365);
-
-                        // 区分是否有年份.
-                        var language = 'zh-CN';
-                        if (startYear === String(todayYear)) {
-                            document.getElementById("year").innerHTML = todayYear;
-                            var daysTip = 'This site has been running for ' + diffDays + ' days';
-                            if (language === 'zh-CN') {
-                                daysTip = '本站已运行 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                daysTip = '本站已運行 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = daysTip;
-                        } else {
-                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
-                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
-                                + diffDays + ' days';
-                            if (language === 'zh-CN') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
-                        }
-                    }
-
-                    calcSiteTime();
-                </script>
-            
-            <br>
-            
         </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/Gift1a/Gift1a.github.io" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
+      </header>
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include &lt;string.h&gt;
+char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+void base64_encode(char raw[], char encode[])
+{
+	int code_len = strlen(raw);
+	int final_len = 0;
+	if (code_len % 3)
+	{
+		final_len = (code_len / 3 + 1) * 4;
+	}
+	else
+		final_len = (code_len / 3) * 4;
+	int i = 0, i_ = 0;
+	for (; i &lt; code_len; i += 3, i_ += 4)
+	{
+		encode[i_] = base64_table[raw[i] &gt;&gt; 2];
+		encode[i_ + 1] = base64_table[((raw[i] &amp; 0x03) &lt;&lt; 4) | ((raw[i + 1] &amp; 0xf0) &gt;&gt; 4)];
+		encode[i_ + 2] = base64_table[((raw[i + 1] &amp; 0x0f) &lt;&lt; 2) | ((raw[i + 2] &amp; 0xc0) &gt;&gt; 6)];
+		encode[i_ + 3] = base64_table[raw[i + 2] &amp; 0x3f];
+	}
+	if (code_len % 3 == 1)
+	{
+		encode[i_ - 1] = '=';
+		encode[i_ - 2] = '=';
+	}
+	else if (code_len % 3 == 2)
+	{
+		encode[i_ - 1] = '=';
+	}
+	return;
+}
+int Findindex(char c)
+{
+	for (int i = 0; i &lt; strlen(base64_table); ++i)
+	{
+		if (c == base64_table[i])
+			return i;
+	}
+}
+void base64_decode(char* encode, char* decode)
+{
+	int decode_len=0;
+	int encode_len = strlen(encode);
+	if (strstr(encode, "=="))
+		decode_len = (encode_len / 4) * 3 - 2;
+	else if (strstr(encode, "="))
+		decode_len = (encode_len / 4) * 3 - 1;
+	else
+		decode_len = (encode_len / 4) * 3;
+	int i = 0, i_ = 0;
+	for (; i &lt; encode_len; i_ += 4, i += 3)
+	{
+		decode[i] = (Findindex(encode[i_]) &lt;&lt; 2) | (Findindex(encode[i_ + 1]) &amp; 0x30) &gt;&gt; 4;
+		decode[i + 1] = ((Findindex(encode[i_ + 1]) &amp; 0xf) &lt;&lt; 4) | ((Findindex(encode[i_ + 2]) &amp; 0x3c) &gt;&gt; 2);
+		decode[i + 2] = ((Findindex(encode[i_ + 2]) &amp; 0x3) &lt;&lt; 6) | ((Findindex(encode[i_ + 3])));
+	}
+	decode[decode_len] = 0;
+	return;
+}
+int main()
+{
+	char raw[] = "hgame{123456}";
+	char encode[100] = { 0 };
+	char decode[100] = { 0 };
+	base64_encode(raw, encode);
+	printf("%s", encode);
+	base64_decode(encode, decode);
+	printf("\n%s", decode);
+}</code></pre>
 
+<h1 id="细节剖析"><a href="#细节剖析" class="headerlink" title="细节剖析"></a>细节剖析</h1><h2 id="编码部分"><a href="#编码部分" class="headerlink" title="编码部分"></a>编码部分</h2><h3 id="记录长度"><a href="#记录长度" class="headerlink" title="记录长度"></a>记录长度</h3><p>首先要先计算长度，base64就是将三个字节扩展为四个字节，所以要分成有余数和整除两种情况</p>
+<pre class="language-c" data-language="c"><code class="language-c">int code_len = strlen(raw);
+	int final_len = 0;
+	if (code_len % 3)
+	{
+		final_len = (code_len / 3 + 1) * 4;
+	}
+	else
+		final_len = (code_len / 3) * 4;</code></pre>
 
-    <a href="mailto:2973414642@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
+<h3 id="编码部分-1"><a href="#编码部分-1" class="headerlink" title="编码部分"></a>编码部分</h3><p>首先先介绍一下两个工具，&amp;和|，和一些数据做&amp;运算可以取到我们想要的位，而|运算可以将两部分结合在一起</p>
+<p>编码后的索引最多为六位，原先的数据可以是八位的</p>
+<h4 id="encode-i"><a href="#encode-i" class="headerlink" title="encode[i]"></a>encode[i]</h4><p>这个其实是最好实现的，因为只需要取到前六位，所以直接&gt;&gt;2就可以实现</p>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_] = base64_table[raw[i] &gt;&gt; 2];</code></pre>
 
+<h4 id="encode-i-1"><a href="#encode-i-1" class="headerlink" title="encode[i+1]"></a>encode[i+1]</h4><p>先明确我们的需求，从第一个数据获取最后的两位与第二个数据获取的前四位结合。需要用到&amp;，这里的结合就需要用到|。</p>
+<p>首先要保证我们取到的是两位的，需要&amp;0x03</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>因为只有最后两位是1，根据按位&amp;，当有一个是0时运算后结果必定为0，所以就可以取到最后两位</p>
+<p>下一步是移到正确的位置，需要用到位移运算符</p>
+<p>这里第一个数的最后两位编码后是放在前面两位的位置，所以需要&lt;&lt;4</p>
+<p>接下来取剩余的四位</p>
+<p>剩余的四位来自第二个数的前四位</p>
+<p>可以先&amp;0xf0使得后四位都为0，当然也可以不用，直接&gt;&gt;4</p>
+<p>最后使用|结合起来</p>
+<table>
+<thead>
+<tr>
+<th>0</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+<th>1</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>与</td>
+<td>运</td>
+<td>算</td>
+<td></td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 1] = base64_table[((raw[i] &amp; 0x03) &lt;&lt; 4) | ((raw[i + 1]) &gt;&gt; 4)];</code></pre>
 
+<h4 id="encode-i-2"><a href="#encode-i-2" class="headerlink" title="encode[i+2]"></a>encode[i+2]</h4><p>要用到第二个数据的后四位和第三个数据的前两位</p>
+<p>同理，要保留第二个数据的后四位并且去除前四位，就需要&amp;0xf，移到正确的位置&lt;&lt;2，剩余两位留给第三个数据的前两位</p>
+<p>要取到第三个数据的前两位</p>
+<p>可以直接&gt;&gt;6保证前两位移动到最后的两位，也可以先用&amp;0xc0清除后四位，因为是00110000，最后结合起来就可以了</p>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 2] = base64_table[((raw[i + 1] &amp; 0x0f) &lt;&lt; 2) | ((raw[i + 2] ) &gt;&gt; 6)];</code></pre>
 
+<h4 id="encode-i-3"><a href="#encode-i-3" class="headerlink" title="encode[i+3]"></a>encode[i+3]</h4><p>只需要取到第三个数据的后六位就可以了</p>
+<p>直接&amp;0x3f，因为0x3f的二进制是00111111</p>
+<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 3] = base64_table[raw[i + 2] &amp; 0x3f];</code></pre>
 
+<h4 id="填加"><a href="#填加" class="headerlink" title="填加="></a>填加=</h4><p>如果编码前的数据长度%3不等于0，需要使用=填充</p>
+<p>如果多出一位的话，根据经过上述过程会变成两位，所以最后两位需要用到=来填充</p>
+<p>多出两位，经过上述过程变成三位，所以只需填充最后一位为=</p>
+<pre class="language-c" data-language="c"><code class="language-c">if (code_len % 3 == 1)
+	{
+		encode[i_ - 1] = '=';
+		encode[i_ - 2] = '=';
+	}
+	else if (code_len % 3 == 2)
+	{
+		encode[i_ - 1] = '=';
+	}</code></pre>
 
+<h3 id="解码部分"><a href="#解码部分" class="headerlink" title="解码部分"></a>解码部分</h3><p>六位还原为八位</p>
+<h4 id="去除"><a href="#去除" class="headerlink" title="去除="></a>去除=</h4><p>先计算解码后的长度，每四个对应三个，最后减去=的长度</p>
+<pre class="language-c" data-language="c"><code class="language-c">int decode_len=0;
+	int encode_len = strlen(encode);
+	if (strstr(encode, "=="))
+		decode_len = (encode_len / 4) * 3 - 2;
+	else if (strstr(encode, "="))
+		decode_len = (encode_len / 4) * 3 - 1;
+	else
+		decode_len = (encode_len / 4) * 3;</code></pre>
 
+<h4 id="decode-i"><a href="#decode-i" class="headerlink" title="decode[i]"></a>decode[i]</h4><p>其实和上面过程正好相反，取第一个编码数据的后六位（因为前两位是填充的0）和第二个编码数据的前两位，在此之前需要先去除前两位填充的0，所以要&amp;0x30，根据上面的过程，我们需要的是00110000，正好是0x30</p>
+<p>再用|结合</p>
+<pre class="language-c" data-language="c"><code class="language-c">decode[i] = (Findindex(encode[i_]) &lt;&lt; 2) | (Findindex(encode[i_ + 1]) &amp; 0x30) &gt;&gt; 4;</code></pre>
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2973414642" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2973414642" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
+<h4 id="decode-i-1"><a href="#decode-i-1" class="headerlink" title="decode[i+1]"></a>decode[i+1]</h4><p>需要第二个编码数据的后四位和第三个编码数据的前四位，也是需要先去除填充的0</p>
+<p>所以第二个数据&amp;0xf保证取到后四位，&lt;&lt;4移到前四位</p>
+<p>第三个数据&amp;0x3c（00111100）进行去除填充的前两位0以及取到需要的那四位，再&gt;&gt;2，最后使用|结合</p>
+<pre class="language-c" data-language="c"><code class="language-c">decode[i + 1] = ((Findindex(encode[i_ + 1]) &amp; 0xf) &lt;&lt; 4) | ((Findindex(encode[i_ + 2]) &amp; 0x3c) &gt;&gt; 2);</code></pre>
 
+<h4 id="decode-i-2"><a href="#decode-i-2" class="headerlink" title="decode[i+2]"></a>decode[i+2]</h4><p>第三个编码数据的后两位和第四个编码数据的那六位</p>
+<p>和上述过程类似，就不赘述了</p>
+<h4 id="字符数组结束"><a href="#字符数组结束" class="headerlink" title="字符数组结束"></a>字符数组结束</h4><p>最后记得填加字符数组结束符</p>
+<pre class="language-c" data-language="c"><code class="language-c">decode[decode_len] = 0;</code></pre>
 
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>base64还可以魔改，进行变表操作或者在编码过程中参杂异或（Dasctf2022）</p>
 
-
-
-
-
-</div>
+      
     </div>
-</footer>
 
-<div class="progress-bar"></div>
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
 
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/" class="post-title-link" itemprop="url">ELF文件手脱upx变形壳</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-03 14:58:16" itemprop="dateCreated datePublished" datetime="2022-02-03T14:58:16+08:00">2022-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:10:23" itemprop="dateModified" datetime="2022-03-11T13:10:23+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
         </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script type="text/javascript">
-$(function () {
-    var searchFunc = function (path, search_id, content_id) {
-        'use strict';
-        $.ajax({
-            url: path,
-            dataType: "xml",
-            success: function (xmlResponse) {
-                // get the contents from search data
-                var datas = $("entry", xmlResponse).map(function () {
-                    return {
-                        title: $("title", this).text(),
-                        content: $("content", this).text(),
-                        url: $("url", this).text()
-                    };
-                }).get();
-                var $input = document.getElementById(search_id);
-                var $resultContent = document.getElementById(content_id);
-                $input.addEventListener('input', function () {
-                    var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                    $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
-                        return;
-                    }
-                    // perform local searching
-                    datas.forEach(function (data) {
-                        var isMatch = true;
-                        var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                        var data_url = data.url;
-                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
-                        var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
-                            keywords.forEach(function (keyword, i) {
-                                index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
-                                    isMatch = false;
-                                } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
-                                }
-                            });
-                        }
-                        // show search results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
-                            str += "</li>";
-                        }
-                    });
-                    str += "</ul>";
-                    $resultContent.innerHTML = str;
-                });
-            }
-        });
-    };
-
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
-
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
-</div>
-
-
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
+      </header>
 
     
-
     
-
-    <!-- 雪花特效 -->
     
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="题目-hgame2022-week2-upx-magic1"><a href="#题目-hgame2022-week2-upx-magic1" class="headerlink" title="题目-hgame2022-week2-upx magic1"></a>题目-hgame2022-week2-upx magic1</h1><p>发现命令行脱壳没用，只能手脱，elf文件没办法使用esp定律，ida手脱</p>
+<p>进入ida</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643878891388.png"></p>
+<p>在第一个call下断点，进行动态调试</p>
+<p>F7单步进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879064585.png"></p>
+<p>到了第二个call再次F7进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879092434.png"></p>
+<p>一路f8</p>
+<p>retn后到</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879119459.png"></p>
+<p>F7进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879160619.png"></p>
+<p>有三个向上的跳转</p>
+<p>在第三个跳转之后F4</p>
+<p>一直F8到达程序真正的入口点</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879196863.png"></p>
+<p>此时需要dumpfile</p>
+<p>ALT+F7运行脚本，脚本需要修改后缀为idc</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;idc.idc&gt;
+#define PT_LOAD              1
+#define PT_DYNAMIC           2
+static main(void)
+{
+         auto ImageBase,StartImg,EndImg;
+         auto e_phoff;
+         auto e_phnum,p_offset;
+         auto i,dumpfile;
+         ImageBase=0x400000;
+         StartImg=0x400000;
+         EndImg=0x0;
+         if (Dword(ImageBase)==0x7f454c46 || Dword(ImageBase)==0x464c457f )
+  {
+    if(dumpfile=fopen("D:\\dumpfile2","wb"))//这路可以更改路径
+    {
+      e_phoff=ImageBase+Qword(ImageBase+0x20);
+      Message("e_phoff = 0x%x\n", e_phoff);
+      e_phnum=Word(ImageBase+0x38);
+      Message("e_phnum = 0x%x\n", e_phnum);
+      for(i=0;i&lt;e_phnum;i++)
+      {
+         if (Dword(e_phoff)==PT_LOAD || Dword(e_phoff)==PT_DYNAMIC)
+                         { 
+                                 p_offset=Qword(e_phoff+0x8);
+                                 StartImg=Qword(e_phoff+0x10);
+                                 EndImg=StartImg+Qword(e_phoff+0x28);
+                                 Message("start = 0x%x, end = 0x%x, offset = 0x%x\n", StartImg, EndImg, p_offset);
+                                 dump(dumpfile,StartImg,EndImg,p_offset);
+                                 Message("dump segment %d ok.\n",i);
+                         }    
+         e_phoff=e_phoff+0x38;
+      }
 
-    <!-- 鼠标星星特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
-            }
-        </script>
-    
+      fseek(dumpfile,0x3c,0);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
 
-     
-        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
-        <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
-    
+      fseek(dumpfile,0x28,0);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
 
-    <!-- Baidu Analytics -->
-
-    <!-- Baidu Push -->
-
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+      fclose(dumpfile);
+        }else Message("dump err.");
+ }
+}
+static dump(dumpfile,startimg,endimg,offset) 
+{
+        auto i;
+        auto size;
+        size=endimg-startimg;
+        fseek(dumpfile,offset,0);
+        for ( i=0; i &lt; size; i=i+1 ) 
+        {
+        fputc(Byte(startimg+i),dumpfile);
         }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
+}
+</code></pre>
+
+<p>得到dumpfile2，拖进ida得到正常的代码</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879324566.png"></p>
+<h3 id="爆破脚本"><a href="#爆破脚本" class="headerlink" title="爆破脚本"></a>爆破脚本</h3><p>这里要按位与上0xffff，因为这里最后只赋值了最后十六位，所以需要使用&amp;0xffff来限制位数，保证取到最后的十六位</p>
+<p>有时候还存在左移溢出的问题：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013658041/article/details/78116449">https://blog.csdn.net/u013658041/article/details/78116449</a></p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1644069404698.png"></p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt; 
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+	int s[]={0x8d68,0x9d49,0x2a12,0xab1a,0xcbdc,0xb92b,0x2e32,0x9f59,0xddcd,0x9d49,0xa90a,0xe70,0xf5cf,0x5ed5,0x3c03,0x7c87,0x2672,0xab1a,0xa50,0x5af5,0xff9f,0x9f59,0xbd0b,0x58e5,0x3823,0xbf1b,0x78a7,0xab1a,0x48c4,0xa90a,0x2c22,0x9f59,0x5cc5,0x5ed5,0x78a7,0x2672,0x5695};
+	for(int i=0;i&lt;40;++i)
+	{
+		for(int j=32;j&lt;=127;++j)
+		{
+			int temp=(j&lt;&lt;8)&amp;0xffff;
+			for(int  k=0;k&lt;8;++k)
+			{
+				if((temp&amp;0x8000)!=0)
+				{
+					temp=((2*temp)^0x1021)&amp;0xffff;
+				}
+				else
+					temp=(2*temp)&amp;0xffff;
+			}
+			if(temp==s[i])
+			{
+				printf("%c",j);
+			}
+		}
+	}
+
+	return 0;
+}</code></pre>
+
+
+      
+    </div>
 
     
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
-
-    
-
-    
-
-    <!--腾讯兔小巢-->
     
     
 
-    
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/02/03/Hook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/03/Hook/" class="post-title-link" itemprop="url">Hook</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-03 14:53:10" itemprop="dateCreated datePublished" datetime="2022-02-03T14:53:10+08:00">2022-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-09 19:02:44" itemprop="dateModified" datetime="2022-04-09T19:02:44+08:00">2022-04-09</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-Windows消息机制"><a href="#0x00-Windows消息机制" class="headerlink" title="0x00-Windows消息机制"></a>0x00-Windows消息机制</h1><h2 id="消息的产生"><a href="#消息的产生" class="headerlink" title="消息的产生"></a>消息的产生</h2><p>通常根据消息产生的方式分为 硬件和软件信息。</p>
+<p>硬件信息：常指由硬件装置所产生的时间（如鼠标或键盘被按下），放在系统消息队列（System Queue）中，再由系统消息处理机构将消息发送至应用程序消息队列中。</p>
+<p>软件信息：常指由WIndows系统或其它应用程序发送的信息，他直接放入应用程序消息队列中，再由应用程序消息处理机构将消息传递给相应的窗口。</p>
+<h2 id="消息的组成"><a href="#消息的组成" class="headerlink" title="消息的组成"></a>消息的组成</h2><p>一个消息由一个消息名称（UINT），和两个参数（WPARAM,LPARAM）。当用户进行了输入或者窗口的状态发生改变时系统都会发送消息到某一个窗口。例如当菜单中转之后会有WM_COMMAND消息发送，WPARAM的高字中(HIWORD(WPARAM))是命令的ID号，对菜单来讲就是菜单的ID。当然用户也可以定义自己的消息名称，也可以利用自定义消息来发送通知和传送数据</p>
+<h2 id="消息的接收者"><a href="#消息的接收者" class="headerlink" title="消息的接收者"></a>消息的接收者</h2><p>一个消息必须由一个窗口接收。在窗口过程（WNDPROC）中可以对消息进行分析，对应用程序要求处理的消息进行相应的处理工作，对于那些不需要应用程序处理的消息可以简单的调用缺省处理。例如你希望对菜单选择进行处理，那么你可以定义对WM_COMMAND进行处理的代码，如果希望在窗口中进行图形输出就必须对WM_PAINT进行处理</p>
+<h2 id="消息的处理"><a href="#消息的处理" class="headerlink" title="消息的处理"></a>消息的处理</h2><p>窗口接收到发送给自己的消息后，将消息结构作为参数，调用窗口过程对消息进行相应的处理。可以将窗口过程看作消息处理代码的集合，窗口过程函数的原型为</p>
+<blockquote>
+<p> long FAR PASCAL WndProc(HWND hWnd,WORD message,WORD wParam,LONG lParam);<br>  其中，hWnd为窗口句柄，message为消息名称，wParam,lParam为两个参数。 </p>
+</blockquote>
+<p>在Windows中，应用程序不直接调用任何窗口函数，而是等待Windows调用函数窗口，请求完成任务或返回信息。</p>
+<p>为保证Windows调用这个窗口函数，这个函数必须先向Windows登记，然后在Windows实施操作时回调，所以窗口函数又被称为回调函数。WndProc是一个主回调函数，Windows至少有一个回调函数。他是在应用程序进行窗口类注册时向Windows登记的。</p>
+<h1 id="0x01-HOOK"><a href="#0x01-HOOK" class="headerlink" title="0x01-HOOK"></a>0x01-HOOK</h1><p> <img src="/2022/02/03/Hook/20180613200129100"> </p>
+<blockquote>
+<p> 钩子是Windows消息处理机制的一个平台，应用程序可以在上面设置子程以监视指定窗口的某种消息，而且所监视的窗口可以是其他进程所创建的。</p>
+<p>当消息到达后，钩子可以在目标窗口处理函数之前处理它并且可以阻止消息的传递。</p>
+<p>每一个钩子都有一个与之相关联的指针列表，称之为钩子链表，该链表中的指针指向这个钩子的各个处理子程。钩子的种类很多，每种钩子可以拦截并处理相应种类的消息。</p>
+<p>当钩子所监视的消息出现时，Windows调用链表中的第一个钩子子程，第一个过程完成后将消息传递链表中的下一个钩子子程，直至链表中所有钩子子程都执行完成（注意：如果在其中有一个钩子在执行完成前不执行消息传递，其后面的钩子过程和原窗口过程都不会再接收到消息。）后将消息返回给窗口过程。 </p>
+</blockquote>
+<h2 id="钩子子程函数"><a href="#钩子子程函数" class="headerlink" title="钩子子程函数"></a>钩子子程函数</h2><p>钩子子程是一个应用程序定义的回调函数。用以监听系统或者某一类特定类型的事件，这些事件可以是与某一特定线程相关联的，也可以是系统中所有线程的事件。其函数原型为</p>
+<blockquote>
+<p> LRESULT CALLBACK HookProc  ( int nCode, WPARAM wParam, LPARAM lParam ); </p>
+</blockquote>
+<p>其中，nCode参数是Hook代码，Hook子程使用这个来确定任务。这个参数的值依赖于Hook类型，每一种Hook都有自己的Hook代码特征字符集。Windows系统提供了多种类型的钩子，每一种类型的Hook可以使应用程序能够监听不同类型的系统消息处理机制。</p>
+<p>WPARAM和PARAM参数的值依赖于Hook代码，但它们的典型值是包含了关于发送或者接受消息的信息。</p>
+<h2 id="钩子的安装与卸载"><a href="#钩子的安装与卸载" class="headerlink" title="钩子的安装与卸载"></a>钩子的安装与卸载</h2><p>钩子的安装是通过 SDK API函数SetWindowsHookEx()来实现的，它将钩子子程安装到系统钩子链表中</p>
+<p>其函数原型为</p>
+<blockquote>
+<p>  HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn,HINSTANCE hMod, DWORD dwThreadId ); </p>
+</blockquote>
+<p>其中，idHook是指钩子的类型</p>
+<p><img src="/2022/02/03/Hook/1649502050125.png"></p>
+<blockquote>
+<p>lpfn是指钩子子程的地址指针。如果dwThreadId参数为0 或是一个由别的进程创建的线程的标识，lpfn必 须指向DLL中的钩子子程。除此以外，lpfn可以指向当前进程的一段钩子子程代码。 </p>
+<p> hMod是指应用程序实例的句柄。标识包含lpfn所指的子程的DLL。如果dwThreadId 标识当前进程创建的一个线程，而且子程代码位于当前进程，hMod必须为NULL。 </p>
+<p>dwThreadId是指与安装的钩子子程相关联的线程的标识符，如果为0，钩子子程与所有的线程关联。</p>
+<p>函数成功则返回钩子的句柄，失败返回NULL。</p>
+</blockquote>
+<p>钩子在在使用完之后需要使用UnHookWindowsHookEx()卸载 </p>
+<blockquote>
+<p> UnHookWindowsHookEx ( HHOOK hhk ) </p>
+</blockquote>
+<p>参数hhk是etWindowsHookEx()函数返回钩子句柄，函数成功返回TRUE，否则返回FALSE </p>
+<h1 id="题目-BUUCTF-easystrcmp"><a href="#题目-BUUCTF-easystrcmp" class="headerlink" title="题目-BUUCTF-easystrcmp"></a>题目-BUUCTF-easystrcmp</h1><p>进入主函数</p>
+<p><img src="/2022/02/03/Hook/1643884712406.png"></p>
+<p>看似是一个简单的比较，但是输入之后发现并不对</p>
+<p>应该是做了什么处理，动态调试</p>
+<p>点进strcmp函数</p>
+<p><img src="/2022/02/03/Hook/1643884961802.png"></p>
+<p>发现跳转到了加密函数</p>
+<p>原理分析</p>
+<p>因为存在init段，去查看函数</p>
+<p><img src="/2022/02/03/Hook/1643885017644.png"></p>
+<p>这样可以查看函数列表进行跳转</p>
+<p><img src="/2022/02/03/Hook/1643885047181.png"></p>
+<p>进入off函数</p>
+<p><img src="/2022/02/03/Hook/1643885073169.png"></p>
+<p>第一个函数点进去没发现什么，第二个函数点进去</p>
+<p><img src="/2022/02/03/Hook/1643885101701.png"></p>
+<p>可以看到先把strcmp函数的地址赋值给qword_201090</p>
+<p>然后把sub_6EA函数赋值给off-102028,点进去</p>
+<p><img src="/2022/02/03/Hook/1643885199097.png"></p>
+<p>发现正好是strcmp的地址，所以真正运行起来，函数会跳转到sub_6EA函数中，而不是strcmp函数，这样就实现了一个简单的hook</p>
+<p>脚本</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include &lt;string.h&gt;
+int main()
+{
+	char flag[]="********CENSORED********";
+	char s[]={0x42, 0x09, 
+  0x4A, 0x49, 0x35, 0x43, 0x0A, 0x41, 0xF0, 0x19, 0xE6, 0x0B, 
+  0xF5, 0xF2, 0x0E, 0x0B, 0x2B, 0x28, 0x35, 0x4A, 0x06, 0x3A, 
+  0x0A, 0x4F};
+  for(int i=0;i&lt;strlen(flag);++i)
+  {
+  	flag[i]+=s[i];
+  }
+  printf("%s",flag);
+	return 0;
+ } </code></pre>
+
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iBinary/p/7599789.html%E5%85%B7%E4%BD%93%E8%AE%B2%E8%A7%A3%E4%BB%80%E4%B9%88%E6%98%AFHook">https://www.cnblogs.com/iBinary/p/7599789.html具体讲解什么是Hook</a></p>
+
+      
+    </div>
+
+    
+    
     
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/" class="post-title-link" itemprop="url">Init初始化</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-03 11:47:11" itemprop="dateCreated datePublished" datetime="2022-02-03T11:47:11+08:00">2022-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:11:54" itemprop="dateModified" datetime="2022-03-11T13:11:54+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ELF文件结构"><a href="#ELF文件结构" class="headerlink" title="ELF文件结构"></a>ELF文件结构</h1><p><a target="_blank" rel="noopener" href="https://carrychen.website/2021/05/14/elf-format/">https://carrychen.website/2021/05/14/elf-format/</a></p>
+<p> .init节定义了一个_init函数，用于可执行目标文件开始时的初始化工作。当进入主程序之前，系统先执行.init节的指令代码初始化 </p>
+<h1 id="例题-hgame2022-week2-fakeshell"><a href="#例题-hgame2022-week2-fakeshell" class="headerlink" title="例题-hgame2022-week2-fakeshell"></a>例题-hgame2022-week2-fakeshell</h1><p>先去看看init段进行了什么处理</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870839069.png"></p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870867197.png"></p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870876729.png"></p>
+<p>在第二个函数发现了处理</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870922345.png"></p>
+<p>查看aHappyh4me交叉引用</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870957940.png"></p>
+<p>可以看到后面还有操作</p>
+<p>定位到加密函数</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870991851.png"></p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871002931.png"></p>
+<p>可以知道是rc4加密，密钥在init段被修改了</p>
+<p>写脚本，也可以使用工具CaptfEncoder-win-1.1.0</p>
+<p>得到flag</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871135186.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/" class="post-title-link" itemprop="url">SEH原理和例题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-03 11:46:31" itemprop="dateCreated datePublished" datetime="2022-02-03T11:46:31+08:00">2022-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-02 21:00:48" itemprop="dateModified" datetime="2022-04-02T21:00:48+08:00">2022-04-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="WINDOWS下的异常处理"><a href="#WINDOWS下的异常处理" class="headerlink" title="WINDOWS下的异常处理"></a>WINDOWS下的异常处理</h1><h2 id="异常列表"><a href="#异常列表" class="headerlink" title="异常列表"></a>异常列表</h2><p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220203125855.jpg"></p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82">https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-249592.htm">https://bbs.pediy.com/thread-249592.htm</a></p>
+<h1 id="SEH"><a href="#SEH" class="headerlink" title="SEH"></a>SEH</h1><h2 id="SEH介绍"><a href="#SEH介绍" class="headerlink" title="SEH介绍"></a>SEH介绍</h2><p> SEH(Structured Exception Handling)结构化异常处理,是windows操作系统默认的错误处理机制，它允许我们在程序产所错误时使用特定的异常处理函数处理这个异常，尽管提供的功能预取为处理异常，但由于其功能的特点，也往往大量用于反调试。 </p>
+<h2 id="重要成员介绍"><a href="#重要成员介绍" class="headerlink" title="重要成员介绍"></a>重要成员介绍</h2><h3 id="1、异常处理函数"><a href="#1、异常处理函数" class="headerlink" title="1、异常处理函数"></a>1、异常处理函数</h3><pre class="language-c" data-language="c"><code class="language-c">EXCEPTION_DISPOSITION
+ __cdecl _except_handler(
+     struct _EXCEPTION_RECORD *ExceptionRecord,
+     void * EstablisherFrame,
+     struct _CONTEXT *ContextRecord,
+     void * DispatcherContext
+     );</code></pre>
+
+<p>第一个参数指向结构体EXCEPTION_RECORD </p>
+<h4 id="操作系统常见异常"><a href="#操作系统常见异常" class="headerlink" title="操作系统常见异常"></a>操作系统常见异常</h4><pre class="language-c" data-language="c"><code class="language-c">EXCEPTION_ACCESS_VIOLATION     0xC0000005     程序企图读写一个不可访问的地址时引发的异常。例如企图读取0地址处的内存。
+EXCEPTION_ARRAY_BOUNDS_EXCEEDED    0xC000008C     数组访问越界时引发的异常。
+EXCEPTION_BREAKPOINT                           0x80000003     触发断点时引发的异常。
+EXCEPTION_DATATYPE_MISALIGNMENT    0x80000002     程序读取一个未经对齐的数据时引发的异常。
+EXCEPTION_FLT_DENORMAL_OPERAND     0xC000008D     如果浮点数操作的操作数是非正常的，则引发该异常。所谓非正常，即它的值太小以至于不能用标准格式表示出来。
+EXCEPTION_FLT_DIVIDE_BY_ZERO                   0xC000008E     浮点数除法的除数是0时引发该异常。
+EXCEPTION_FLT_INEXACT_RESULT           0xC000008F     浮点数操作的结果不能精确表示成小数时引发该异常。
+EXCEPTION_FLT_INVALID_OPERATION            0xC0000090     该异常表示不包括在这个表内的其它浮点数异常。
+EXCEPTION_FLT_OVERFLOW                             0xC0000091     浮点数的指数超过所能表示的最大值时引发该异常。
+EXCEPTION_FLT_STACK_CHECK                  0xC0000092     进行浮点数运算时栈发生溢出或下溢时引发该异常。
+EXCEPTION_FLT_UNDERFLOW                    0xC0000093     浮点数的指数小于所能表示的最小值时引发该异常。
+EXCEPTION_ILLEGAL_INSTRUCTION          0xC000001D     程序企图执行一个无效的指令时引发该异常。
+EXCEPTION_IN_PAGE_ERROR                        0xC0000006     程序要访问的内存页不在物理内存中时引发的异常。
+EXCEPTION_INT_DIVIDE_BY_ZERO                   0xC0000094     整数除法的除数是0时引发该异常。
+EXCEPTION_INT_OVERFLOW                             0xC0000095     整数操作的结果溢出时引发该异常。
+EXCEPTION_INVALID_DISPOSITION                  0xC0000026     异常处理器返回一个无效的处理的时引发该异常。
+EXCEPTION_NONCONTINUABLE_EXCEPTION     0xC0000025     发生一个不可继续执行的异常时，如果程序继续执行，则会引发该异常。
+EXCEPTION_PRIV_INSTRUCTION                     0xC0000096     程序企图执行一条当前CPU模式不允许的指令时引发该异常。
+EXCEPTION_SINGLE_STEP                          0x80000004     标志寄存器的TF位为1时，每执行一条指令就会引发该异常。主要用于单步调试。
+EXCEPTION_STACK_OVERFLOW                   0xC00000FD     栈溢出时引发该异常。</code></pre>
+
+<p>异常回调函数_except_handler的第二个参数是一个指向establisher frame结构体的指针，这是SEH中一个很重要的参数，但是现在暂时忽略。</p>
+<p>第三个参数是一个指向结构体CONTEXT的指针，CONTEXT结构体定义在WINNT.H里，它代表了特定线程的注册值。当用在SEH时，CONTEXT就表示异常发生时的注册值。顺带说一句，这个CONTEXT结构体与GetThreadContext和SetThreadContext所使用的结构体是同一个。</p>
+<p>第四个参数DispatcherContext也可以暂时忽略。</p>
+<h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>根据不同的返回值，确定是否处理</p>
+<pre class="language-c" data-language="c"><code class="language-c">4种返回值及含义
+   1.ExceptionContinueExecution(0)：回调函数处理了异常，可以从异常发生的指令处重新执行。
+   2.ExceptionContinueSearch(1)：回调函数不能处理该异常，需要要SEH链中的其他回调函数处理。
+   3.ExceptionNestedException(2)：回调函数在执行中又发生了新的异常，即发生了嵌套异常
+   4.ExceptionCollidedUnwind(3)：发生了嵌套的展开操作</code></pre>
+
+<h4 id="CONTEXT结构体"><a href="#CONTEXT结构体" class="headerlink" title="CONTEXT结构体"></a>CONTEXT结构体</h4><pre class="language-c" data-language="c"><code class="language-c">typedef struct _CONTEXT
+ {
+     DWORD ContextFlags;
+     DWORD   Dr0;
+     DWORD   Dr1;
+     DWORD   Dr2;
+     DWORD   Dr3;
+     DWORD   Dr6;
+     DWORD   Dr7;
+     FLOATING_SAVE_AREA FloatSave;
+     DWORD   SegGs;
+     DWORD   SegFs;
+     DWORD   SegEs;
+     DWORD   SegDs;
+     DWORD   Edi;
+     DWORD   Esi;
+     DWORD   Ebx;
+     DWORD   Edx;
+     DWORD   Ecx;
+     DWORD   Eax;
+     DWORD   Ebp;
+     DWORD   Eip;
+     DWORD   SegCs;
+     DWORD   EFlags;
+     DWORD   Esp;
+     DWORD   SegSs;
+ } CONTEXT;</code></pre>
+
+<h3 id="2-、结构体EXCEPTION-RECORD"><a href="#2-、结构体EXCEPTION-RECORD" class="headerlink" title="2 、结构体EXCEPTION_RECORD"></a>2 、结构体EXCEPTION_RECORD</h3><pre class="language-c" data-language="c"><code class="language-c">typedef struct _EXCEPTION_RECORD {
+ DWORD ExceptionCode;
+ DWORD ExceptionFlags;
+ struct _EXCEPTION_RECORD *ExceptionRecord;
+ PVOID ExceptionAddress;
+ DWORD NumberParameters;
+ DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
+ }  EXCEPTION_RECORD;</code></pre>
+
+<p>第一个参数ExceptionCode是一个由操作系统分配给异常的数值，在WINNT.H里用#define定义了一系列的由STATUS_为前缀的异常代码，比如STATUS_ACCESS_VIOLATION 的异常代码是 0xC0000005，我们可以从Windows NT DDK的头文件NTSTATUS.H中找到更加完备的异常代码。可以理解为异常的类型<br>第四个参数ExceptionAddress异常发生的地址。<br>其他的参数可以暂时忽略。</p>
+<h3 id="3-、EXCEPTION-REGISTRATION"><a href="#3-、EXCEPTION-REGISTRATION" class="headerlink" title="3 、EXCEPTION_REGISTRATION"></a>3 、EXCEPTION_REGISTRATION</h3><pre class="language-c" data-language="c"><code class="language-c">EXCEPTION_REGISTRATION struc
+     prev    dd      ?
+     handler dd      ?
+ _EXCEPTION_REGISTRATION ends</code></pre>
+
+<p>SEH是一个链表，而这个结构存储每个结点的信息，第一个成员指向下一个结点的handler，第二个成员handler指向处理异常的函数，每次添加一个异常就会添加在SEH链表的头结点位置，也就是头插法</p>
+<p>那么程序是怎么找到这个链表的呢</p>
+<blockquote>
+<p> <strong>线程信息块的第一个DWORD（在基于Intel CPU的机器上是FS:[0]）指向这个链表的头部。</strong> </p>
+</blockquote>
+<h3 id="5、线程信息块TIB-TEB"><a href="#5、线程信息块TIB-TEB" class="headerlink" title="5、线程信息块TIB/TEB"></a>5、线程信息块TIB/TEB</h3><pre class="language-c" data-language="c"><code class="language-c">typedef struct _NT_TIB {
+     struct _EXCEPTION_REGISTRATION_RECORD *ExceptionList; //异常的链表
+
+     PVOID StackBase;
+     PVOID StackLimit;
+     PVOID SubSystemTib;
+
+     union {
+         PVOID FiberData;
+         DWORD Version;
+     };
+ 
+     PVOID ArbitraryUserPointer;
+     struct _NT_TIB *Self;
+} NT_TIB;</code></pre>
+
+<h2 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h2><p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648189897008.png" alt="重要成员结构图"></p>
+<h2 id="异常处理流程"><a href="#异常处理流程" class="headerlink" title="异常处理流程"></a>异常处理流程</h2><p>当异常出现时，程序先判断是否处于调试状态，如果处于调试状态，那么就会向调试器发送EXCEPTION_DEBUG_EVENT事件。当异常抛给调试器后，调试器有两种选择</p>
+<p>1 修改触发异常的代码继续执行（程序会停在触发异常的代码处，导致异常的代码无法执行）</p>
+<p>2 忽略异常交给SEH执行</p>
+<p>这里假如选择第二种，那么 系统检查异常所处的线程并在这个线程环境中查看fs:[0]来确定是否安装SEH异常处理回调函数，如果有则调用它</p>
+<blockquote>
+<p>异常处理函数执行</p>
+<p>(1）回调函数尝试处理这个异常，如果可以正确处理的话，则修正错误并将返回值设置为ExceptionContinueExecution，这时系统将结束整个查找过程。</p>
+<p>（2）如果回调函数返回ExceptionContinueSearch，相当于告诉系统它无法处理这个异常，系统将根据SEH链中的prev字段得到前一个回调函数地址并重复步骤1，直至链中的某个回调函数返回ExceptionContinueExection为止，查找结束。</p>
+</blockquote>
+<p>如果调试器还是不去处理这个异常或进程没有被调试，那么系统检查有没有Final型的异常处理回调函数（也就是C语言中的__finally），如果有，就去调用它，当这个回调函数返回时，系统会根据这个函数的返回值做相应的动作。</p>
+<blockquote>
+<p>从这里我们也可以看到__finally的代码是一定会执行的</p>
+</blockquote>
+<p>如果没有安装Final型回调函数，系统直接调用默认的异常处理程序终止进程。</p>
+<h3 id="堆栈展开"><a href="#堆栈展开" class="headerlink" title="堆栈展开"></a>堆栈展开</h3><p>（1）什么是展开操作</p>
+<p>①当发生异常时，系统遍历EXCEPTION_REGISTRATION结构链表，从链表头，直到它找到一个处理这个异常的处理程序。一旦找到，系统就再次重新遍历这个链表，直到处理这个异常的节点为止（即返回ExceptionContinueExecution的节点）。在这第二次遍历中，系统将再次调用每个异常处理函数。关键的区别是，在第二次调用中，异常标志被设置为2。这个值被定义为EH_UNWINDING</p>
+<p>②注意展开操作是发生在出现异常时，这个异常回调函数拒绝处理的时候（即返回ExceptionContinueSearch）。这里系统会从链表头开始遍历（因异常的嵌套，可理解为由内层向外层，也就是多层的__try和except函数时，先从内部开始，然后往外），所以各异常回调函数会第1次被依次调用，直到找到同意处理的节点。然后，再重新从链表头开始（即由内向外）第2次调用以前那些曾经不处理异常的节点，直到同意处理的那个异常的节点为止。</p>
+<p> ③ 当异常被处理后，即异常代码执行完毕后，程序恢复的位置由处理该异常的函数决定。即，当异常已经被处理完毕，并且所有前面的异常帧都已经被展开之后，流程从处理异常的那个回调函数决定的地方开始继续执行。</p>
+<p>④展开操作完成后，同意处理异常的回调函数也必须负责把Fs:[0]恢复到处理这个异常的EXCEPTION_REGISTRATION上，即展开操作导致堆栈上处理异常的帧以下的堆栈区域上的所有内容都被移除，这个异常处理也就成了SEH链表的第1个节点。这样下次遇到异常时还能保证从内层到外层寻找的流程。</p>
+<h2 id="异常处理的实现"><a href="#异常处理的实现" class="headerlink" title="异常处理的实现"></a>异常处理的实现</h2><h3 id="1、-try、except和finally"><a href="#1、-try、except和finally" class="headerlink" title="1、__try、except和finally"></a>1、__try、except和finally</h3><p> Visual C++中的__try{}/__finally{}和__try{}/__except{}结构本质上是对Windows提供的SEH的封装。 </p>
+<p>try函数必须且只能跟着一个except或者一个finally，</p>
+<p> 当try块中的代码发生异常时，__except()中的过滤程序就被调用。 </p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;Windows.h&gt;
+int handle()
+{
+	printf("handling\n");
+	return 1;
+}
+int main()
+{
+	__try
+	{
+		__try
+		{
+			int x = 0;
+			int y = x / x;//构造一个除0异常，交由handle进行处理
+		}
+		__finally
+		{
+			printf("111\n");//无论是否处理成功，都会执行
+		}
+	}
+	__except (handle())//当返回值为-1，表示返回到原来的地方重新执行，0的话表示异常处理失败，1则为成功
+	{
+		printf("222\n");
+	}
+	return 0;
+}</code></pre>
+
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648191644943.png" alt="执行结果"></p>
+<p>这里我们构造了一个除零异常，遇到异常后抛给except的处理函数，返回1（EXCEPTION_EXECUTE_HANDLER）表示处理完成，然后再回来执行finally的代码，但是返回值改为-1的话，他会继续回到出现异常的地方，然后执行，那么就会一直在异常处理进行</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648191945865.png" alt="返回值为-1"></p>
+<p>返回值为EXCEPTION_CONTINUE_SEARCH(0)时，会往外层找，因为我们这里就只有一个except，所以无法往外找，所以我们修改一下代码</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;Windows.h&gt;
+int handle1()
+{
+	printf("成功解决\n");
+	return EXCEPTION_EXECUTE_HANDLER;
+}
+int handle()
+{
+	printf("未被解决\n");
+	return EXCEPTION_CONTINUE_SEARCH;
+}
+int main()
+{
+	__try
+	{
+		__try
+		{
+			int x = 0;
+			int y = x / x;//构造一个除0异常，交由handle进行处理
+		}
+		__except(handle())
+		{
+		}
+	}
+	__except (handle1())//当返回值为-1，表示返回到原来的地方继续执行，0的话表示异常处理失败，1则为成功
+	{
+		printf("222\n");
+	}
+	return 0;
+}</code></pre>
+
+<p>这里我们嵌套了两层except，从内往外执行，因为内层的无法处理，即返回0，那么就往外找处理异常的函数</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192362391.png" alt="执行结果"></p>
+<p>ida中的效果</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192718040.png"></p>
+<p>可以看到ida会自动加注释</p>
+<h3 id="2、插入汇编代码构造"><a href="#2、插入汇编代码构造" class="headerlink" title="2、插入汇编代码构造"></a>2、插入汇编代码构造</h3><p>我们下面插入汇编来创建一个异常的结构体</p>
+<pre class="language-c" data-language="c"><code class="language-c">#define WIN32_LEAN_AND_MEAN
+#include &lt;windows.h&gt;
+#include &lt;stdio.h&gt;
+
+DWORD  scratch;
+
+EXCEPTION_DISPOSITION
+__cdecl
+_except_handler(
+    struct _EXCEPTION_RECORD* ExceptionRecord,
+    void* EstablisherFrame,
+    struct _CONTEXT* ContextRecord,
+    void* DispatcherContext)
+{
+    unsigned i;
+
+    printf("Hello from an exception handler\n");
+
+    ContextRecord-&gt;Eax = (DWORD)&amp;scratch;//处理异常，将eax的值改为全局变量的地址
+
+    return ExceptionContinueExecution;
+}
+
+int main()
+{
+    DWORD handler = (DWORD)_except_handler;
+
+    __asm
+    {                           
+        push    handler        //将我们的异常处理函数压入栈中
+        push    FS : [0]       //将原本的SEH链压入栈，这样就构造了新的EXCEPTION_REGISTRATION
+        mov     FS : [0] , ESP     //将当前线程信息块TIB的第一个DWORD放入新的EXCEPTION_REGISTRATION
+    }
+
+    __asm
+    {
+        mov     eax, 0  //构造访问异常        
+        mov[eax], 1       
+    }
+
+    printf("After writing!\n");
+
+    __asm
+    {                          
+        mov     eax, [ESP]       
+        mov     FS : [0] , EAX     //还原为原来的SEH链
+        add     esp, 8          //从栈中弹出新的EXCEPTION_REGISTRATION
+    }
+
+    return 0;
+}</code></pre>
+
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648195113558.png" alt="堆栈图"></p>
+<p>也就是先将我们处理异常的函数压入栈中，再把SEH链的头节点压入栈，这时候把ESP的值赋给FS:[0]也就是让SEH链指向这里，SEH链第一个节点（两个参数）第一个存储的就是原来链的地址，第二个是我们的处理函数，那么处理异常的时候，就会先让我们的异常处理函数执行，最后将ESP地址存储的值还给FS:[0]，也就是还原SEH链，add esp,8还原堆栈</p>
+<p>别人的另一种实现</p>
+<pre class="language-c" data-language="c"><code class="language-c">//1.挂入链表相当于这部分
+//fs[0]-&gt; Exception
+	_asm
+	{
+		mov eax, fs:[0]
+		mov temp,eax
+		lea ecx,Exception
+		mov fs:[0],ecx
+	}
+	//为SEH成员赋值
+	Exception.Next = (_EXCEPTION*)temp;
+	Exception.Handler = (DWORD)&amp;MyEexception_handler;
+
+//下面是2，3
+EXCEPTION_DISPOSITION _cdecl MyEexception_handler
+(
+	struct _EXCEPTION_RECORD *ExceptionRecord,	//异常结构体
+	PVOID EstablisherFrame,						//SEH结构体地址
+	struct _CONTEXT *ContextRecord,				//存储异常发生时的各种寄存器的值 栈位置等
+	PVOID DispatcherContext
+)
+{
+	if (ExceptionRecord-&gt;ExceptionCode == 0xC0000094)		//2.异常过滤
+	{
+		ContextRecord-&gt;Eip = ContextRecord-&gt;Eip + 2;			//3.异常处理
+		ContextRecord-&gt;Ecx = 100;
+
+		return ExceptionContinueExecution;
+	}
+	return ExceptionContinueSearch;
+}</code></pre>
+
+
+
+<h2 id="参考文章-1"><a href="#参考文章-1" class="headerlink" title="参考文章"></a>参考文章</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yilang/p/11238201.html">https://www.cnblogs.com/yilang/p/11238201.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/DeeLMind/p/6866239.html">https://www.cnblogs.com/DeeLMind/p/6866239.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/salomon/archive/2012/06/20/2556134.html">https://www.cnblogs.com/salomon/archive/2012/06/20/2556134.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-249592.htm">https://bbs.pediy.com/thread-249592.htm</a></p>
+<h2 id="SEH利用"><a href="#SEH利用" class="headerlink" title="SEH利用"></a>SEH利用</h2><p><a target="_blank" rel="noopener" href="https://idiotc4t.com/code-and-dll-process-injection/seh-code-execute">https://idiotc4t.com/code-and-dll-process-injection/seh-code-execute</a></p>
+<p><a target="_blank" rel="noopener" href="https://introspelliam.github.io/2017/06/29/0day/windows-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/">https://introspelliam.github.io/2017/06/29/0day/windows-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E4%B8%AD%E7%9A%84%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8/</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-268036.htm">https://bbs.pediy.com/thread-268036.htm</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-140970.htm">https://bbs.pediy.com/thread-140970.htm</a></p>
+<p>简单利用</p>
+<p>我们可以自己构造异常，然后先处理掉异常，再执行我们的shellcode</p>
+<h2 id="题目——hagme2022——week2——creakme2"><a href="#题目——hagme2022——week2——creakme2" class="headerlink" title="题目——hagme2022——week2——creakme2"></a>题目——hagme2022——week2——creakme2</h2><p>在静态分析中，只找到了tea加密算法，直接写脚本解不出来，去查看汇编代码（因为有时候ida没办法识别出一些汇编）</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643864939414.png"></p>
+<p>第一个框对应上上面那句代码，这里按/就会显示出来对应反编译过来的伪代码</p>
+<p>下面两个框的都是没被识别的语句</p>
+<p>在图中位置下断点进行动态调试，会报错</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865333034.png"></p>
+<p>因为除数不能为0，去看看汇编</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865908164.png"></p>
+<p>按；写下注释</p>
+<p>开始动态调试</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866006832.png"></p>
+<p>选择yes，发现进入到这段未被反编译的语句</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866024820.png"></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866787250.png"></p>
+<p>第二次执行到这一段代码，可以看到ecx寄存器的值不是0，不会触发异常</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866890816.png"></p>
+<p>发现没有执行异或，而是继续往下执行，这就是下一步进行的反汇编语句</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866944920.png"></p>
+<p>因此可以知道，当变量num的最高位为0的时候，会触发异常，这时候系统会交给SEH进行处理，即__try代码</p>
+<p>__except会执行异常后代码</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867671850.png"></p>
+<p>按空格查看执行顺序</p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867149242.png"></p>
+<p>会发现这样一段独立出来的汇编代码</p>
+<p>所以就可以写脚本，因为是unsigned int，右移31位就能知道最高位了</p>
+<p>脚本</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+
+
+int main()
+{
+    unsigned int tmp1, tmp2;
+    unsigned int num;
+    unsigned int init_num=0;
+    int Buf2[8] = { 0 };
+    unsigned int key[10] = { 1,2,3,4,5,6,7,8.9,0 };
+    Buf2[0] = 0x457E62CF;
+    Buf2[1] = 0x9537896C;
+    Buf2[2] = 0x1F7E7F72;
+    Buf2[3] = 0xF7A073D8;
+    Buf2[4] = 0x8E996868;
+    Buf2[5] = 0x40AFAF99;
+    Buf2[6] = 0xF990E34;
+    Buf2[7] = 0x196F4086;
+
+    for (int i = 0; i &lt; 32; i++)
+    {
+        init_num += 2654435761;
+        if ((init_num &gt;&gt;31) == 0)
+        {
+            init_num ^= 0x1234567;
+        }
+    }//0C78E4D05
+
+    for (int j = 0; j &lt; 8; j += 2)
+    {
+        tmp1 = Buf2[j], tmp2 = Buf2[j + 1];
+        num = init_num;
+        for (int i = 0; i &lt; 32; i++)
+        {
+            tmp2 -= (num + key[(num &gt;&gt; 11) &amp; 3]) ^ (tmp1 + ((16 * tmp1) ^ (tmp1 &gt;&gt; 5)));
+            if ((num&gt;&gt;31) == 0)
+            {
+                num ^= 0x01234567;
+            }
+            num -= 2654435761;
+            tmp1 -= (num + key[num &amp; 3]) ^ (tmp2 + ((16 * tmp2) ^ (tmp2 &gt;&gt; 5)));
+
+        }
+        Buf2[j] = tmp1;
+        Buf2[j + 1] = tmp2;
+    }
+    for (int i = 0; i &lt; 8; i++)
+    {
+        printf("%x\n", Buf2[i]);
+    }
+    printf("%s", Buf2);
+}</code></pre>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/" class="post-title-link" itemprop="url">C语言汇编2</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-02-02 00:04:39" itemprop="dateCreated datePublished" datetime="2022-02-02T00:04:39+08:00">2022-02-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:10:10" itemprop="dateModified" datetime="2022-03-11T13:10:10+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/23/VM%E9%80%86%E5%90%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/23/VM%E9%80%86%E5%90%91/" class="post-title-link" itemprop="url">VM逆向</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-23 23:21:28" itemprop="dateCreated datePublished" datetime="2022-01-23T23:21:28+08:00">2022-01-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:13:03" itemprop="dateModified" datetime="2022-03-11T13:13:03+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Dasctf——EasyVm"><a href="#Dasctf——EasyVm" class="headerlink" title="Dasctf——EasyVm"></a>Dasctf——EasyVm</h1><p>一开始有个花指令，是比较常见的永真跳转，先对call指令按u取消定义，将e8改为90，再重新弄成函数就可以了</p>
+<p>先找到加密的函数</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951424173.png"></p>
+<p>点进去看看</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951469199.png"></p>
+<p>这里是base64变种，在最后加了一个异或操作，先把脚本写出来</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+int findIndex(char c, char b64_table[])
+{
+	for (int i = 0; i &lt; 64; ++i)
+	{
+		if (c == b64_table[i])
+			return i;
+	}
+}
+char* base64_decode(char code[], char str[], char b64_table[])
+{
+	char memstr[200] = { 0 };
+	memcpy(memstr, code, strlen(code));
+	int len = strlen(code);
+	/*while (code[len] != '!' &amp;&amp; code[len] != 0)
+	{
+		len++;
+	}*/
+	for (int i = 0, i_ = 0; i &lt; len; i += 4, i_ += 3)
+	{
+		str[i_] = (findIndex(memstr[i]^0xa, b64_table) &lt;&lt; 2) | (findIndex(memstr[i + 1]^0xb, b64_table) &amp; 0x30) &gt;&gt; 4;
+		str[i_ + 1] = (findIndex(memstr[i + 1]^0xb, b64_table) &amp; 0xf) &lt;&lt; 4 | (findIndex(memstr[i + 2]^0xc, b64_table) &amp; 0x3c) &gt;&gt; 2;
+		str[i_ + 2] = (findIndex(memstr[i + 2]^0xc, b64_table) &amp; 0x03) &lt;&lt; 6 | (findIndex(memstr[i + 3]^0xd, b64_table));
+	}
+	int str_len = (len / 4) * 3 + len % 4;
+	if (len % 4)
+	{
+		str_len -= 1;
+	}
+	str[str_len] = 0;
+	return str;
+}
+
+
+int main()
+{
+	char code[100] = "";
+	char decode[] = { 0 };
+	base64_decode(code, decode, base64_table);
+	printf("%s", decode);
+	return 0;
+}</code></pre>
+
+<p>接下来就是vm的部分</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951694407.png"></p>
+<p>先看func函数的类型，是指针数组</p>
+<p>这里需要结合动调看每条指令对应的操作</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953729321.png"></p>
+<p>在这里下断点之后F7进入函数</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953871966.png"></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955403773.png"></p>
+<p>这就是func数组存放的东西，因为是指针，所以要先按d转为dd才会显示</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955602049.png"></p>
+<p>先把指令提取出来</p>
+<pre class="language-c" data-language="c"><code class="language-c">unsigned char ida_chars[] =
+{
+  0xCA, 0x00, 0x00, 0x00, 0x00, 0xCB, 0x00, 0x00, 0x00, 0x00,
+  0xCC, 0xCF, 0xC9, 0xEE, 0x00, 0x00, 0x00, 0xCF, 0xD1, 0xD3,
+  0x01, 0xFE, 0xC2, 0xD2, 0x39, 0x00, 0x00, 0x00, 0xD4, 0xEC,
+  0xFF, 0x00
+};</code></pre>
+
+<p>F8单步调试</p>
+<p>0xCA</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955631076.png"></p>
+<p>0xCB</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955978948.png"></p>
+<p>0xCC</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955994447.png"></p>
+<p>0xCF</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956392630.png"></p>
+<p>每执行完再进入func[2]都能知道当前位置，便于查看指令</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956568041.png"></p>
+<p>0xc9</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956806744.png"></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957130761.png"></p>
+<p>0xd1</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957467393.png"></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957487310.png"></p>
+<p>这里本来赋值为0，1，2，为了保持字符相等的情况，把 this[5]全部赋值为1</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642987459030.png"></p>
+<p>0xd3</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988305784.png"></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988338522.png"></p>
+<p>0xc2</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988366450.png"></p>
+<p>0xd2</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988655617.png"></p>
+<p>长度判断</p>
+<p>0xd4</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988824766.png"></p>
+<p>0xcc</p>
+<p>接下来又回到0xcc，所以就能猜测是循环做了异或操作，然后判断</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642989162099.png"></p>
+<table>
+<thead>
+<tr>
+<th>func[1]</th>
+<th>指令集</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>func[2]</td>
+<td>加密后的flag的字符</td>
+</tr>
+<tr>
+<td>func[3]</td>
+<td>0</td>
+</tr>
+<tr>
+<td>func[4]</td>
+<td>索引</td>
+</tr>
+<tr>
+<td>func[5]</td>
+<td>判断字符相等</td>
+</tr>
+<tr>
+<td>func[6]</td>
+<td>对比的flag</td>
+</tr>
+<tr>
+<td>func[7]</td>
+<td>0</td>
+</tr>
+<tr>
+<td>func[8]</td>
+<td>加密后的字符串</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xca</td>
+<td>先将this[1]指令后的数据存放到this[3]，然后往后跳转5，正好对应了下一条指令,一开始this[1]后一个数据为0，要先转为 dword</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xcb</td>
+<td>先将this[1]指令后的数据存放到this[4]，然后往后跳转5，这也是下一条指令</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xcc</td>
+<td>把this[2]先赋值为this[8]+this[4]，这里this[4]是个整数，所以猜测this[4]是索引，然后继续执行下一指令</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xcf</td>
+<td>将this[3]和this[2]的值异或后存放在this[3],进入下一条指令</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xc9</td>
+<td>先把this[1]下一个数据赋值给this[2],进入下一条指令，也就是0xee</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xcf</td>
+<td>将this[3]和this[2]的值异或后存放在this[3],进入下一条指令</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xd1</td>
+<td>根据this[4]的索引来进行字符比较，这里是调试过程，所以为了进行下一步，需要修改汇编指令</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xd3</td>
+<td>v1是指针，解引用是v1下一个位置，也就是0x1，整个就是0xee，这时候然后指向下三个位置，也就是c2指令</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xc2</td>
+<td>索引this[4]+1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xd2</td>
+<td>this[4]是索引，所以是判断是否结束，这里没结束，所以this[5]赋值为0</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>0xd4</td>
+<td>ec+2==ee</td>
+</tr>
+</tbody></table>
+<p>整个过程就是这样</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220124125427.jpg"></p>
+<p>因为偶数次的异或等于不变，所以只需对奇数次的进行异或即可</p>
+<p>最终脚本</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+int findIndex(char c, char b64_table[])
+{
+	for (int i = 0; i &lt; 64; ++i)
+	{
+		if (c == b64_table[i])
+			return i;
+	}
+}
+char* base64_decode(char code[], char str[], char b64_table[])
+{
+	char memstr[200] = { 0 };
+	memcpy(memstr, code, strlen(code));
+	int len = strlen(code);
+	/*while (code[len] != '!' &amp;&amp; code[len] != 0)
+	{
+		len++;
+	}*/
+	for (int i = 0, i_ = 0; i &lt; len; i += 4, i_ += 3)
+	{
+		str[i_] = (findIndex(memstr[i], b64_table) &lt;&lt; 2) | (findIndex(memstr[i + 1], b64_table) &amp; 0x30) &gt;&gt; 4;
+		str[i_ + 1] = (findIndex(memstr[i + 1], b64_table) &amp; 0xf) &lt;&lt; 4 | (findIndex(memstr[i + 2], b64_table) &amp; 0x3c) &gt;&gt; 2;
+		str[i_ + 2] = (findIndex(memstr[i + 2], b64_table) &amp; 0x03) &lt;&lt; 6 | (findIndex(memstr[i + 3], b64_table));
+	}
+	int str_len = (len / 4) * 3 + len % 4;
+	if (len % 4)
+	{
+		str_len -= 1;
+	}
+	str[str_len] = 0;
+	return str;
+}
+
+
+int main()
+{
+	char s[] =
+	{
+	  190,  54, 172,  39, 153,  79, 222,  68, 238,  95,
+	  218,  11, 181,  23, 184, 104, 194,  78, 156,  74,
+	  225,  67, 240,  34, 138,  59, 136,  91, 229,  84,
+	  255, 104, 213, 103, 212,   6, 173,  11, 216,  80,
+	  249,  88, 224, 111, 197,  74, 253,  47, 132,  54,
+	  133,  82, 251, 115, 215,  13,0
+	};
+	char s2[] = { 0 };
+	for (int i = 0; i &lt; 56; i+=2)
+	{
+		s[i] ^= 0xee;
+	}
+	for (int i = 0; i &lt; 56; ++i)
+	{
+		s2[i] = s[i];
+		for (int k = i; k &gt; 0; k--)
+		{
+			s2[i] ^= (s2[k - 1]);//该字符前面的全部都要异或上
+		}
+	}
+	//printf("%s", s2);
+	for (int i = 0; i &lt; 56; i = i + 4)
+	{
+		s2[i] ^= 0xA;
+		s2[i + 1] ^= 0xB;
+		s2[i + 2] ^= 0xC;
+		s2[i + 3] ^= 0xD;
+	}
+	char decode[] = { 0 };
+	base64_decode(s2, decode, base64_table);
+	printf("%s", decode);
+
+	return 0;
+}</code></pre>
+
+<h1 id="hgame2022-week4-easyvm"><a href="#hgame2022-week4-easyvm" class="headerlink" title="hgame2022-week4-easyvm"></a>hgame2022-week4-easyvm</h1><p>第一次尝试写解释器，跟着别人的大致思路的</p>
+<p>首先VM就是模仿汇编，用指令代替汇编，用数据段来模拟寄存器和数据段，所以我们关键是要找到数据段和操作数、opcode，以及一些数据存放内容的含义</p>
+<p>先来给寄存器重新命名</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447619996.png"></p>
+<p>根据main函数中switch可以找到类寄存器的位置，重命名</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447726404.png"></p>
+<p>从switch的v3可以知道，前面给v3赋值的就是操作数</p>
+<p>r0[0]开始是0，所以操作指令第一个存储的位置是r0[109]，因为是int型，计算的时候×4，就可以找到地址</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447904556.png"></p>
+<p>按g跳转，使用lazyida dump下来</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447995063.png"></p>
+<p>接下来动调分析每条指令对应的汇编代码</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448145669.png"></p>
+<p>先++，再赋值给它，就相当于push指令的入栈操作，然后还有一个r4后移一位</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448615771.png"></p>
+<p>先–，再赋值给r5，相当于pop操作</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448764344.png"></p>
+<p>又回到0x12，还是push，但是因为r4++，所以已经后移，我们根据计算也可以找到存储数据的地址并提取出数据</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448880740.png"></p>
+<p>回到汇编，这里的指令push了-5进入到堆栈，也就是寄存器下面的位置</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449458278.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449560687.png"></p>
+<p>获取输入，并存储到a1中，这里的a1对应r3</p>
+<table>
+<thead>
+<tr>
+<th>getchar</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449886162.png"></p>
+<p>熟悉的操作，把输入压入堆栈，记得栈顶往低处移动</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450099792.png"></p>
+<p>这里的a1是r2</p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r2,1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450235632.png"></p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>根据前面的pop r5可以知道此时r5是0A，而我们的输入被存入了r3，也就是对我们的输入字符进行判断，那么r8应该就对应ZF标志位</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513351201.png"></p>
+<p>验证了上面的想法，这里的a1是r6，也就是-5，指令跳转回去，相当于进行循环，输入完成后会有一个换行符，getchar会吸收，这里也就是结束我们的循环</p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0-5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>直接在下一条指令下断点，F9运行</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513742181.png"></p>
+<p>这里的a1是r2，用于记录输入长度，因为最后有一个回车符，所以要–</p>
+<table>
+<thead>
+<tr>
+<th>r2–</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>根据前面就可以先对数组进行注释</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514228495.png"></p>
+<p>r4没写上去，是内存中存储的一段数据</p>
+<p>继续往下走</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514299405.png"></p>
+<p>将内存段的下一个数据入栈，也就是0x20</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514469709.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5,这里懒得改了，可以点过去查看</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>接下来是0x12和0x9</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pop</td>
+<td>r6</td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514666638.png"></p>
+<p>把r2的值赋给r3</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514774277.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514918356.png"></p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>但是这次比较的是字符串的长度，也就是字符串长度是32</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515061894.png"></p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0+r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这里r6存放的是2f，正好对应结束，所以这段就相当于exit</p>
+<p>下面是0x12和0x09</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pop</td>
+<td>r6</td>
+</tr>
+</tbody></table>
+<p>0x12和0x0A</p>
+<p>这是0x0a的代码</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515342308.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pop</td>
+<td>r2</td>
+</tr>
+</tbody></table>
+<p>0x13</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515472275.png"></p>
+<p>r2此时为0，+9正好是堆栈的位置，也是存放我们输入数据的位置</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,stack[count]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>从下面开始就是加密的部分了</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515606892.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x0B</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515758080.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x15</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515807493.png"></p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r3,r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x03</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515866224.png"></p>
+<table>
+<thead>
+<tr>
+<th>xor</th>
+<th>r3,r7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515954359.png"></p>
+<p>把处理完的数据重新放入栈中</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>stack[count],r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516003430.png"></p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r2,1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516131712.png"></p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xF</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516166189.png"></p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516207834.png"></p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0+r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>此时的r6是-10，也就是跳转回到前十条指令，这就是循环加密，现在就差最终的密文了，前面加密的部分直接运行过去</p>
+<p>再次来到0x12</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516848887.png"></p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xA</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517151788.png"></p>
+<p>接下来是三个0x12</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>data[r4++]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>push</td>
+<td>data[r4++]</td>
+</tr>
+<tr>
+<td>push</td>
+<td>data[r4++]</td>
+</tr>
+</tbody></table>
+<p>到了0x08，此时我们的比较数据已经被压入栈中</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517394177.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x13，将处理完的值重新从堆栈中取出</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,satck[count]</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xF</p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x07</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517670674.png"></p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x04</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517727020.png"></p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>stack[count],r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x09</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x0D</p>
+<p>r6是0x15，加上之后正好exit，和前面类似，压入栈是因为待会需要多次使用</p>
+<table>
+<thead>
+<tr>
+<th>jnz</th>
+<th>r0+r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>这里没有问题就会往下</p>
+<p>0x09</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>此时把-17给到r6</p>
+<p>0x08</p>
+<table>
+<thead>
+<tr>
+<th>pop</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x05</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x06</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x04</p>
+<table>
+<thead>
+<tr>
+<th>push</th>
+<th>r3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x01</p>
+<table>
+<thead>
+<tr>
+<th>add</th>
+<th>r2,1</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x00</p>
+<table>
+<thead>
+<tr>
+<th>mov</th>
+<th>r3,r2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0x0F//长度判断</p>
+<table>
+<thead>
+<tr>
+<th>cmp</th>
+<th>r3,r5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>0xd，重新进入循环</p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645518636756.png"></p>
+<h2 id="最终的一些数据和分组和脚本"><a href="#最终的一些数据和分组和脚本" class="headerlink" title="最终的一些数据和分组和脚本"></a>最终的一些数据和分组和脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+
+int main()
+{
+	int opcode[65] = {
+    0x00000012, 0x00000008, 0x00000012, 0x00000009, 
+	0x00000010, 0x00000004, 0x00000001, 0x0000000F, 0x0000000D, //接受我们的输入 
+	0x00000002, 0x00000012, 0x00000008, 0x00000012, 0x00000009, 0x00000000, 0x00000004, 0x0000000F, 0x0000000D,//对flag进行存储操作，比较长度，因为getchar最后是32，所以flag长度为32 
+	0x00000012, 0x00000009, 0x00000012, 0x0000000A, 0x00000013, 0x00000012, 0x0000000B, 0x00000015, 0x00000003, 0x00000014, 0x00000001, 0x00000000, 0x0000000F, 0x0000000D, //flag加密，flag[i]*2^3c存储的值 
+    0x00000012, 0x0000000A, 0x00000012, 0x00000012, 0x00000012, 0x00000008, 0x00000013, 0x0000000F, 0x00000007, 0x00000004, 0x00000009, 0x0000000D, 0x00000009, 0x00000008, 0x00000005, 0x00000006, 0x00000004, 0x00000001, 0x00000000, 0x0000000F, 0x0000000D, 
+	//字符串比较 
+	0x00000012, 0x00000009, 0x00000012, 
+    0x00000008, 0x00000012, 0x0000000A, 0x00000012, 0x00000007, 0x0000000F, 0x0000000C, 0x00000011, //打印 
+    0x0000000E
+};
+	unsigned char xor_table[32]={
+		0x5e,0x46,0x61,0x43,0x0e,0x53,0x49,0x1f,
+		0x51,0x5e,0x36,0x37,0x29,0x41,0x63,0x3b,
+		0x64,0x3b,0x15,0x18,0x5b,0x3e,0x22,0x50,
+		0x46,0x5e,0x35,0x4e,0x43,0x23,0x60,0x3b
+	};
+	unsigned char enc[32]={
+		0x8E, 0x88, 0xA3, 0x99, 0xC4, 0xA5, 0xC3, 0xDD,
+		0x19, 0xEC, 0x6C, 0x9B, 0xF3, 0x1B, 0x8B, 0x5B,
+		0x3E, 0x9B, 0xF1, 0x86, 0xF3, 0xF4, 0xA4, 0xF8,
+		0xF8, 0x98, 0xAB, 0x86, 0x89, 0x61, 0x22, 0xC1
+	};
+	unsigned int data[83] = {
+	//用于跳转和判断长度的数 
+    0x0000000A, -5, 0x00000020, 0x0000002F, -10, 0x00000000, 
+    //异或数据 
+	0x0000005E, 0x00000046, 0x00000061, 0x00000043, 0x0000000E, 0x00000053, 0x00000049, 0x0000001F, 
+	0x00000051, 0x0000005E, 0x00000036, 0x00000037, 0x00000029, 0x00000041, 0x00000063, 0x0000003B, 
+	0x00000064, 0x0000003B, 0x00000015, 0x00000018, 0x0000005B, 0x0000003E, 0x00000022, 0x00000050, 
+	0x00000046, 0x0000005E, 0x00000035, 0x0000004E, 0x00000043, 0x00000023, 0x00000060, 0x0000003B, 
+	//用于跳转，以及赋值初始索引 
+	0x00000000, -17, 0x00000015, 
+	//密文 
+	0x0000008E, 0x00000088, 0x000000A3, 0x00000099, 0x000000C4, 0x000000A5, 0x000000C3, 0x000000DD, 
+	0x00000019, 0x000000EC, 0x0000006C, 0x0000009B, 0x000000F3, 0x0000001B, 0x0000008B, 0x0000005B, 
+	0x0000003E, 0x0000009B, 0x000000F1, 0x00000086, 0x000000F3, 0x000000F4, 0x000000A4, 0x000000F8,
+	0x000000F8, 0x00000098, 0x000000AB, 0x00000086, 0x00000089, 0x00000061, 0x00000022, 0x000000C1, 
+	
+	0x00000002, 0x00000000, -6, 0x00000073, 0x00000075, 0x00000063, 0x00000063, 
+    0x00000065, 0x00000073, 0x00000073
+};
+	char flag[32]={0};
+	for(int i=0;i&lt;32;++i)
+	{
+		enc[i]=(enc[i]^xor_table[i])/2;
+	}
+	printf("%s",enc);
+	return 0;
+}</code></pre>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">安卓知识</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-22 15:34:10" itemprop="dateCreated datePublished" datetime="2022-01-22T15:34:10+08:00">2022-01-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:13:21" itemprop="dateModified" datetime="2022-03-11T13:13:21+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="APK基本结构"><a href="#APK基本结构" class="headerlink" title="APK基本结构"></a>APK基本结构</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhaijiahui/p/6916556.html">https://www.cnblogs.com/zhaijiahui/p/6916556.html</a></p>
+<p>因为java语言没办法直接控制硬件，所以要使用C/C++来写代码，保存在so文件中 </p>
+<p>反编译之后是smali代码，动态调试</p>
+<p>assets：存放未编译的资源</p>
+<p>lib：存放so文件，即本地代码</p>
+<p>libs：第三方包</p>
+<p>META-INF：存放签名</p>
+<p>res：编译后的资源</p>
+<p>AndroidManifest.xml：用于存放清单</p>
+<p>.dex文件：反编译后为smali代码</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/" class="post-title-link" itemprop="url">C语言汇编</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-20 18:40:09" itemprop="dateCreated datePublished" datetime="2022-01-20T18:40:09+08:00">2022-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:10:00" itemprop="dateModified" datetime="2022-03-11T13:10:00+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="VC6基础操作"><a href="#VC6基础操作" class="headerlink" title="VC6基础操作"></a>VC6基础操作</h1><p>F7：编译、F5：调试、F9：设置断点、F10：单步步过、F11：单步进入、shift+F5：结束调试</p>
+<p>调试过程打开寄存器窗口和反汇编窗口</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643095481259.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643095520646.png"></p>
+<h1 id="裸函数"><a href="#裸函数" class="headerlink" title="裸函数"></a>裸函数</h1><p>编译器不会管的函数</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643097998389.png"></p>
+<p>__declspec(naked) Func()</p>
+<p>调用空的裸函数会出现错误，因为有call，却没有ret</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643123413854.png"></p>
+<p>进入后直接跳到int3，运行程序会报错</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643123914848.png"></p>
+<p>解决这种只需要加入汇编语句ret，在C语言程序加入汇编语句，需要用到__asm{}。也就是说可以自己在里面写汇编代码来实现需求。</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643126281063.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643126324265.png"></p>
+<p>执行完这段代码，ret回来了</p>
+<h1 id="调用约定"><a href="#调用约定" class="headerlink" title="调用约定"></a>调用约定</h1><table>
+<thead>
+<tr>
+<th>__cdecl（c、c++默认）</th>
+<th>从右至左入栈</th>
+<th>调用者清理栈</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>__stdcall</td>
+<td>从右至左入栈</td>
+<td>自身清理堆栈（内平栈）子函数平衡堆栈</td>
+</tr>
+<tr>
+<td>__fastcall</td>
+<td>ECX/EDX传送前两个，剩下的从右至左，寄存器传递速度更快。当只有两个参数传递进去，不需要平衡堆栈</td>
+<td>自身清理堆栈</td>
+</tr>
+</tbody></table>
+<p>所以不能通过ret来分析函数参数的个数</p>
+<p>__cdecl</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643125931583.png"></p>
+<p>外平栈</p>
+<p>内部只有ret</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643126021930.png"></p>
+<p>__stdcall</p>
+<p>右边的参数先入栈</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643126780828.png"></p>
+<p>可以看到这里call之后没有add来回复堆栈平衡，进入调用函数</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643126852766.png"></p>
+<p>可以看到ret变成了ret 8，这就是内平栈</p>
+<p>__fastcall</p>
+<p>两个参数存放在寄存器</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643127369433.png"></p>
+<p>没有修改堆栈，所以不需要add回复堆栈</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643127503312.png"></p>
+<p>有push和mov，外面没有add，进去看</p>
+<p>也是内平栈</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643127554833.png"></p>
+<h1 id="参数个数"><a href="#参数个数" class="headerlink" title="参数个数"></a>参数个数</h1><p>公式一：寄存器+ret 4=参数个数</p>
+<p>公式二：寄存器+[esp+8]+[ebp+0x]=参数个数</p>
+<h1 id="寻找程序入口"><a href="#寻找程序入口" class="headerlink" title="寻找程序入口"></a>寻找程序入口</h1><p>callstack，调用窗口</p>
+<p>main是我们写的程序的入口，但是不是真正程序的入口</p>
+<p>因为在main函数之前需要调用如下函数</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643127627555.png"></p>
+<p>在callstack发现这个函数</p>
+<p>Getversion()</p>
+<p>_headp_int()</p>
+<p>GetCommandLineA()</p>
+<p>_crtGetEnvironmentStringA()</p>
+<p>_setargv()</p>
+<p>_setenvp()</p>
+<p>_cinit()  </p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643127791606.png"></p>
+<p>main函数具有三个参数，所以要寻找具有三个参数的函数，找三个push，并且调用完会add 0xc</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643127884930.png"></p>
+<p>这里很符合</p>
+<p>下断点进入，这里才是main函数</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643127941350.png"></p>
+<h1 id="数据类型与数据存储"><a href="#数据类型与数据存储" class="headerlink" title="数据类型与数据存储"></a>数据类型与数据存储</h1><p>1、存储数据的宽度 </p>
+<p>2、存储数据的格式</p>
+<p>3、作用范围</p>
+<h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><h3 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h3><p>char、int、long、short：字节数1、4、4、2，对应上byte、dword、dword、word，long long在VC6对应__int 64</p>
+<p>只会根据数据宽度进行操作，超出数据宽度的不会做修改</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643188104181.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643128939675.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643128998071.png"></p>
+<p>g存储的只有0x56</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643129038958.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643129130357.png"></p>
+<p>数据窗口是小端序</p>
+<h4 id="有符号与无符号"><a href="#有符号与无符号" class="headerlink" title="有符号与无符号"></a>有符号与无符号</h4><p>C语言默认是有符号数</p>
+<p>在内存中存储时无区别，但是在类型转换、比较大小和数学运算时需要注意</p>
+<h3 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h3><p>float、double在存储方式遵从IEEE的规范</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643166176045.png"></p>
+<h1 id="局部变量和全局变量的区分"><a href="#局部变量和全局变量的区分" class="headerlink" title="局部变量和全局变量的区分"></a>局部变量和全局变量的区分</h1><p>局部变量是以ebp-开头的</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643180778946.png"></p>
+<p>全局变量在编译完之后地址就不会改变</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643180903634.png"></p>
+<p>直接放进地址，所以就是全局变量</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643181101615.png"></p>
+<p>在vs2022会因为编译器版本问题，出现不同的汇编指令，但都是大同小异</p>
+<h1 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h1><p>cmp+jcc指令</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643181892321.png"></p>
+<p>cmp相当于减法，前面一个减后面一个，因为x&gt;y时继续执行，所以跳转指令的条件是小于等于</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643182181368.png"></p>
+<p>改成&gt;=之后，汇编指令变成了jl，汇编指令是和C语言反着来的</p>
+<p>&lt;</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643182345813.png"></p>
+<p>==</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643182397987.png"></p>
+<h1 id="多分支语句"><a href="#多分支语句" class="headerlink" title="多分支语句"></a>多分支语句</h1><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643183573683.png"></p>
+<p>x&lt;=y的情况直接跳转到else中</p>
+<p>x&gt;y则往后执行，执行完之后jmp跳转到else语句的后面</p>
+<p>因为mov两边不能都是地址，所以需要用到寄存器</p>
+<h2 id="if、else-if、else"><a href="#if、else-if、else" class="headerlink" title="if、else if、else"></a>if、else if、else</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643184460823.png"></p>
+<h1 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h1><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643187985614.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643187574671.png"></p>
+<p>内部得到eax的值，eax一般用来存储返回值</p>
+<p>参数传递4个字节</p>
+<p>压栈的时候都是eax</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643188571362.png"></p>
+<h1 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h1><h2 id="switch语句反汇编"><a href="#switch语句反汇编" class="headerlink" title="switch语句反汇编"></a>switch语句反汇编</h2><p>当分支较少时采取if……else if ……else的方式</p>
+<h3 id="case连续"><a href="#case连续" class="headerlink" title="case连续"></a>case连续</h3><p>创建大表</p>
+<p> <img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643726580401.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643726615144.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643726837151.png"></p>
+<p>sub</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727141397.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727234505.png"></p>
+<p>这里修改参数为103，case条件也修改，发现sub的值发生了变化，所以可以知道sub的值对应最小的case条件的值，这样对应上了大表的位置，所以sub是为了跳转到生成的大表</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727350589.png"></p>
+<p>正好是case 103的地址</p>
+<h3 id="case连续但中断"><a href="#case连续但中断" class="headerlink" title="case连续但中断"></a>case连续但中断</h3><p>101、102、103的情况使用default的地址填充</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727925669.png"></p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728035747.png"></p>
+<p>只要有断开的，就会浪费一片内存地址，所以当间隔太远就不会使用这种方式</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728378338.png"></p>
+<p>但是当间隔比较大的时候，出现了新情况</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728454178.png"></p>
+<p>因为已经清空了edx，所以可使用该寄存器，这句话相当于把0x004010dd+eax的值对应地址的内容放入到dl中，dl是八位，对应1个字节，这个就是小表</p>
+<p>当连续但相差较远时会采用小表</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643728595269.png"></p>
+<h3 id="case不连续"><a href="#case不连续" class="headerlink" title="case不连续"></a>case不连续</h3><p>当差值太大，不会生成大表，会直接采取if……else结构</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643727643051.png"></p>
+<p>先判断大于je，再判断等于cmp+jmp</p>
+<h2 id="while循环反汇编"><a href="#while循环反汇编" class="headerlink" title="while循环反汇编"></a>while循环反汇编</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643730937945.png"></p>
+<p>je是当ZF标志位为0是跳转，test是按位与操作，用于判断寄存器的值是否为0</p>
+<h2 id="do……while反汇编"><a href="#do……while反汇编" class="headerlink" title="do……while反汇编"></a>do……while反汇编</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643731312416.png"></p>
+<h2 id="for循环反汇编"><a href="#for循环反汇编" class="headerlink" title="for循环反汇编"></a>for循环反汇编</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643730507558.png"></p>
+<h1 id="数组在内存的存储和寻址"><a href="#数组在内存的存储和寻址" class="headerlink" title="数组在内存的存储和寻址"></a>数组在内存的存储和寻址</h1><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643368384236.png"></p>
+<p>这里数组的存储是从高位往低位存储，也就是从右到左开始存储到缓冲区中，替换缓冲区的数值</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643368588775.png"></p>
+<p>可以看到数组的存储</p>
+<p>再看看数组引用</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643368768572.png"></p>
+<p>[ebp-4]是第一个形参的地址</p>
+<p>[ebp-1ch]对应上数组首元素的地址，eax是存储着第一个形参，****<em>4是因为是int型数组，如果是short，则</em>2</p>
+<p>，数组比较常见的形式就是[ebp+寄存器*数组类型对应的字节大小-数字]</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643369846681.png"></p>
+<p>因为数组下标存在变量，而mov两边不能同时是地址，所以需要先用寄存器存储下标，而直接引用就不需要，即arr[1]</p>
+<h2 id="字符串存储"><a href="#字符串存储" class="headerlink" title="字符串存储"></a>字符串存储</h2><p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643371348362.png"></p>
+<p>因为每个寄存器最多存储四个字节，所以需要用到多个寄存器来存储</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643371421546.png"></p>
+<p>在数据窗口中是这样存放的</p>
+<p>寄存器可以重复使用，比如长度不够的情况</p>
+<p><img src="/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/1643371753305.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/19/%E6%B1%87%E7%BC%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/19/%E6%B1%87%E7%BC%96/" class="post-title-link" itemprop="url">汇编</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-19 19:40:24" itemprop="dateCreated datePublished" datetime="2022-01-19T19:40:24+08:00">2022-01-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:13:39" itemprop="dateModified" datetime="2022-03-11T13:13:39+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="堆栈图"><a href="#堆栈图" class="headerlink" title="堆栈图"></a>堆栈图</h1><p>调用函数实现两数相加</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592553591.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592569833.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592579671.png"></p>
+<p>因为pop之后，有一部分的值还是之前保留下来的，所以要进行填充</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592639529.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592648442.png"></p>
+<h1 id="LEA和MOV的区别"><a href="#LEA和MOV的区别" class="headerlink" title="LEA和MOV的区别"></a>LEA和MOV的区别</h1><p>lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的操作数，例如：</p>
+<p>lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的内存地址里的数据赋给eax。</p>
+<p>而mov指令则恰恰相反，例如：</p>
+<p>mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>
+<h1 id="函数在汇编的结构"><a href="#函数在汇编的结构" class="headerlink" title="函数在汇编的结构"></a>函数在汇编的结构</h1><p>函数调用前，堆栈结构如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649724413.png"></p>
+<p>EBP栈底高位，ESP栈顶低位</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649843226.png"></p>
+<p>下面的三个PUSH是把函数的参数压入栈中，这里是立即数，也可以是寄存器里面的值，注意PUSH指令执行完ESP-4，即栈顶往低位移动</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650060363.png"></p>
+<p>堆栈图如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650200472.png"></p>
+<p>下一步是CALL指令，F7单步步入，CALL指令会修改EIP的值，将CALL指令下一条指令的地址压入栈顶 ，并且修改EIP的值，相当于一条PUSH和JMP指令，JMP只会修改EIP的值，EIP存放下一条会执行指令的地址</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650793595.png"></p>
+<p>堆栈图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651074289.png"></p>
+<p>这里JMP直接F8跳转过去，进入函数，入口是PUSH EBP</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651212988.png"></p>
+<p>可以看到ESP没有变化</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651299175.png"></p>
+<p>在函数调用中，这三步是提升栈顶，开辟空间</p>
+<p>运行完堆栈应该如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651845629.png"></p>
+<p>运行看看</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651761171.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651894330.png"></p>
+<p>接下来这三步是保存现场，因为在函数调用中，这些寄存器可能被用到，所以要先把里面原本的值压入栈中，此时堆栈图为</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652121644.png"></p>
+<p>EBP是FED0</p>
+<p>运行</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652204239.png"></p>
+<p>已经被压入栈中 </p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652304817.png"></p>
+<p>接下来这步是填充缓冲区</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652335865.png"></p>
+<p>可以看到堆栈图中开辟的空间里面的值并不是为0，这是因为在调用完函数之后，这些空间的值没有被清除，所以需要填充</p>
+<p>堆栈图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656762839.png"></p>
+<p>这里有一点需要说明，local.18是什么意思呢</p>
+<p>看下图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656813955.png"></p>
+<p>我们去OD修改设置</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656868498.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656879655.png"></p>
+<p>取消掉就可以了，刚才的指令发生了变化</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656905307.png"></p>
+<p>接下来解释这几句指令</p>
+<p>lea是取地址，意思是将ebp-0x48的地址存入EDI中</p>
+<p>ECX一般用来存放循环次数，这里是0x12，即18次，这个对应开辟空间的大小</p>
+<p>mov eax，0xCCCCCCCC是填充缓冲区</p>
+<p>最后一句rep表示重复次数，次数由ECX决定，stos dword这条指令表示将EAX内的值放入EDI指定的内存单元中，注意执行一次后EDI会移动4，加减由DF标志位决定</p>
+<p>DF决定movs执行完后esi和edi的移动方向，当为0时，加，否则为减。</p>
+<p>运行</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657323715.png"></p>
+<p>看接下来的几行指令</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657469555.png"></p>
+<p>1、将0x2赋给ebp地址的前一个内存单元，<strong>这里的0x2就是局部变量</strong></p>
+<p>2、将EBP+0xc的值赋给eax，eax的值压入栈中，下面也是，画堆栈图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657989835.png"></p>
+<p>这里压入栈的数值，将作为内部嵌套函数的参数</p>
+<p>执行完之后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658026768.png"></p>
+<p>接下来又是调用函数，将CALL指令下一条指令的地址压入栈顶，EIP修改</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658203867.png"></p>
+<p>F7步入</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658261575.png"></p>
+<p>F8之后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658343466.png"></p>
+<p>红框部分和前面一样，都是调用函数前提升栈顶、开辟空间、保存现场、填充缓冲区，主要看操作部分</p>
+<p>先把堆栈图画好</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659116555.png"></p>
+<p>接下来看操作</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659284922.png"></p>
+<p>这些都没有改变堆栈的值，第一条将0xA赋给EBP-0x4的内存单元，对应堆栈写出操作方式 EAX的值为1+2，最后+0xA，所以最后EAX的值为0xD</p>
+<p>运行</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659505718.png"></p>
+<p>此时函数的操作部分已经结束，接下来就是退出函数了</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659609650.png"></p>
+<p>对比一下，跟函数开始正好是反过来的</p>
+<p>POP是先出栈再移动 ，这几个POP就相当于恢复现场，要恢复到未调用函数前，这也是为什么要先把这些值压入栈中的原因。</p>
+<p>mov就是降低栈底，恢复到原来的位置</p>
+<p>retn指令相当于POP EIP，先将栈顶的值赋给EIP，然后栈顶指针移动</p>
+<p>堆栈图如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660789466.png"></p>
+<p>执行后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660837614.png"></p>
+<p>可以看到执行完之后，缓冲区的内容不会清理，这也是为什么需要填充缓冲区</p>
+<p>回到后我们发现一个问题，就是函数调用前后堆栈不平衡，堆栈平衡是指调用函数前后堆栈应该相等，这里是因为将函数的参数压入了栈，所以需要接下来的ADD平衡堆栈</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660910037.png"></p>
+<p>执行完之后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642661042648.png"></p>
+<p>和调用前一致，所以没问题了</p>
+<p>剩下的就是重复之前的操作了，先执行函数操作指令，然后POP还原现场，retn后ADD恢复堆栈平衡</p>
+<p>函数的参数存放在ebp+0x8开始因为call指令会将下一条指令地址压入栈中，而局部变量从ebp-0x4开始</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/17/Z3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/17/Z3/" class="post-title-link" itemprop="url">Z3</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-17 15:49:41" itemprop="dateCreated datePublished" datetime="2022-01-17T15:49:41+08:00">2022-01-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:13:10" itemprop="dateModified" datetime="2022-03-11T13:13:10+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>先来看官方文档</p>
+<p><a target="_blank" rel="noopener" href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
+<p>这个博客也不错</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38154820/article/details/108656598">https://blog.csdn.net/qq_38154820/article/details/108656598</a></p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>  基本语句</p>
+<p>Op    Mnmonics    Description<br>            0    true    恒真<br>            1    flase    恒假<br>            2    =    相等<br>            3    distinct    不同<br>            4    ite    if-then-else<br>            5    and    n元 合取（其中条件必须全部满足）<br>            6    or    n元 析取（其中条件满足之一即可）<br>            7    iff    implication<br>            8    xor    异或<br>            9    not    否定<br>            10    implies    Bi-implications</p>
+<p>1、创建容器</p>
+<p>s=Solver()</p>
+<p>2、创建变量，变量有Int(整型)、BitVector(字节)、数组</p>
+<p>3、添加约束条件</p>
+<p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
+<p>4、判断是否存在</p>
+<pre class="language-python" data-language="python"><code class="language-python">if s.check() == sat:  
+    m = s.model()  
+    print(m)
+else:  
+    print("no answer")</code></pre>
+
+<h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
+<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
+<p>这里就直接放脚本了</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
+
+s=Solver()
+v1=Int('v1')
+v2=Int('v2')
+v3=Int('v3')
+v4=Int('v4')
+v5=Int('v5')
+v6=Int('v6')
+v7=Int('v7')
+v8=Int('v8')
+v9=Int('v9')
+v11=Int('v11')
+
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
+s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
+s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
+s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
+s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
+s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
+s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
+s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
+
+if s.check()==sat:
+    result=s.model()
+
+print(result)</code></pre>
+
+
+
+<h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
+<h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
+#添加六个Int数据到s变量中
+s = [Int('s%d' % i) for i in range(6)]
+a=Solver()
+#多个约束条件可以使用逗号间隔
+a.add(s[2]-s[3]==2225223423,s[3]+s[4]==4201428739,s[2]-s[4]==1121399208,s[0]==0xdf48ef7e,s[5]==0x84f30420,s[1]==0x20caacf4)
+if a.check() == sat:
+    print(a.model())</code></pre>
+
+
+
+<p>这样得到的结果不会是数组的形式，如下得到的是数组形式</p>
+<p><img src="/2022/01/17/Z3/1642418166049.png"></p>
+<h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
+<p>先贴一下</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import *
+# 9x9整数变量矩阵
+X = [ [ Int("x_%s_%s" % (i+1, j+1)) for j in range(9) ]
+      for i in range(9) ]
+ 
+ 
+# 每个单元格包含{1，…，9}中的值
+cells_c  = [ And(1 &lt;= X[i][j], X[i][j] &lt;= 9)
+             for i in range(9) for j in range(9) ]
+ 
+ 
+# 每行最多包含一个数字一次
+rows_c   = [ Distinct(X[i]) for i in range(9) ]
+ 
+ 
+# 每列最多包含一个数字
+cols_c   = [ Distinct([ X[i][j] for i in range(9) ])
+             for j in range(9) ]
+ 
+ 
+# 每个3x3正方形最多包含一个数字
+sq_c     = [ Distinct([ X[3*i0 + i][3*j0 + j]
+                        for i in range(3) for j in range(3) ])
+             for i0 in range(3) for j0 in range(3) ]
+ 
+ 
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+ 
+ 
+# 数独实例，我们用'0'表示空单元格
+instance = ((0,0,0,0,9,4,0,3,0),
+            (0,0,0,5,1,0,0,0,7),
+            (0,8,9,0,0,0,0,4,0),
+            (0,0,0,0,0,0,2,0,8),
+            (0,6,0,2,0,1,0,5,0),
+            (1,0,2,0,0,0,0,0,0),
+            (0,7,0,0,0,0,5,2,0),
+            (9,0,0,0,6,5,0,0,0),
+            (0,4,0,9,7,0,0,0,0))
+ 
+ 
+instance_c = [ If(instance[i][j] == 0,
+                  True,
+                  X[i][j] == instance[i][j])
+               for i in range(9) for j in range(9) ]
+ 
+ 
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [ [ m.evaluate(X[i][j]) for j in range(9) ]
+          for i in range(9) ]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
+
+<h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
+<p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
+<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><pre class="language-python" data-language="python"><code class="language-python">from z3 import *
+
+# 5*5整数变量矩阵
+X = [[Int("x_%s_%s" % (i + 1, j + 1)) for j in range(5)]
+     for i in range(5)]
+
+# 每个单元格包含{0，…，4}中的值
+cells_c = [And(0 &lt;= X[i][j], X[i][j] &lt;= 4)
+           for i in range(5) for j in range(5)]
+
+# 每行最多包含一个数字一次
+rows_c = [Distinct(X[i]) for i in range(5)]
+
+# 每列最多包含一个数字
+cols_c = [Distinct([X[i][j] for i in range(5)])
+          for j in range(5)]
+
+# 每个5x5正方形最多包含一个数字,i0和j0表示分为几组
+sq_c = [Distinct([X[5 * i0 + i][5 * j0 + j]
+                  for i in range(5) for j in range(5)])
+        for i0 in range(0) for j0 in range(0)]
+
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+
+# 数独实例，我们用'5'表示空单元格
+instance = ((1,4,5,2,3),(3,0,5,1,5),(0,5,2,3,5),(5,3,5,5,5),(4,2,5,5,1))
+
+instance_c = [If(instance[i][j] == 5,
+                 True,
+                 X[i][j] == instance[i][j])
+              for i in range(5) for j in range(5)]
+
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [[m.evaluate(X[i][j]) for j in range(5)]
+         for i in range(5)]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gift1a</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

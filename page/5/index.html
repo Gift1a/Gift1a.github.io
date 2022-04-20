@@ -1,1257 +1,2435 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="zh-CN">
-
-
 <head>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="Hexo">
-    <meta name="description" content="Hexo">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
 
 
-    <title>Hexo</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" href="/css/main.css">
 
-    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
 
-<meta name="generator" content="Hexo 5.4.0">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="https://gift1a.github.io/page/5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Gift1a">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://gift1a.github.io/page/5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/5/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
 
-
-   <style>
-    body{
-       background-image: url(https://cdn.jsdelivr.net/gh/Tokisaki-Galaxy/res/site/medias/background.jpg);
-       background-repeat:no-repeat;
-       background-size: 100% 100%;
-       background-attachment:fixed;
-    }
-</style>
-
-
-
-<body>
-    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                    
-                    <span class="logo-span">Hexo</span>
-                </a>
-            </div>
-            
-
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
-<ul class="right nav-menu">
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/" class="waves-effect waves-light">
-      
-      <i class="fas fa-home" style="zoom: 0.6;"></i>
-      
-      <span>首页</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/tags" class="waves-effect waves-light">
-      
-      <i class="fas fa-tags" style="zoom: 0.6;"></i>
-      
-      <span>标签</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/archives" class="waves-effect waves-light">
-      
-      <i class="fas fa-archive" style="zoom: 0.6;"></i>
-      
-      <span>归档</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/about" class="waves-effect waves-light">
-      
-      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
-      
-      <span>关于</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
-  <li>
-    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
-    </a>
-  </li>
-</ul>
-
-
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">Hexo</div>
-        <div class="logo-desc">
-            
-            Never really desperate, only the lost of the soul.
-            
-        </div>
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
+  </div>
 
-    <ul class="menu-list mobile-menu-list">
-        
-        <li class="m-nav-item">
-	  
-		<a href="/" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-home"></i>
-			
-			首页
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/tags" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-tags"></i>
-			
-			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/archives" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-archive"></i>
-			
-			归档
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/about" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-user-circle"></i>
-			
-			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
-        
-        <li><div class="divider"></div></li>
-        <li>
-            <a href="https://github.com/Gift1a" class="waves-effect waves-light" target="_blank">
-                <i class="fab fa-github-square fa-fw"></i>Fork Me
-            </a>
-        </li>
-        
-    </ul>
-</div>
+  <div class="site-meta">
 
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Hexo</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
 
-        </div>
-
-        
-            <style>
-    .nav-transparent .github-corner {
-        display: none !important;
-    }
-
-    .github-corner {
-        position: absolute;
-        z-index: 10;
-        top: 0;
-        right: 0;
-        border: 0;
-        transform: scale(1.1);
-    }
-
-    .github-corner svg {
-        color: #0f9d58;
-        fill: #fff;
-        height: 64px;
-        width: 64px;
-    }
-
-    .github-corner:hover .octo-arm {
-        animation: a 0.56s ease-in-out;
-    }
-
-    .github-corner .octo-arm {
-        animation: none;
-    }
-
-    @keyframes a {
-        0%,
-        to {
-            transform: rotate(0);
-        }
-        20%,
-        60% {
-            transform: rotate(-25deg);
-        }
-        40%,
-        80% {
-            transform: rotate(10deg);
-        }
-    }
-</style>
-
-<a href="https://github.com/Gift1a" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
-   data-tooltip="Fork Me" data-position="left" data-delay="50">
-    <svg viewBox="0 0 250 250" aria-hidden="true">
-        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
-              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
-        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
-              fill="currentColor" class="octo-body"></path>
-    </svg>
-</a>
-        
-    </nav>
-
-</header>
-
-    
-    <div class="bg-cover pd-header about-cover">
-    <div class="container">
-    <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                    subtitle
-                
-            </div>
-
-            <div class="description center-align">
-                
-                <span id="subtitle"></span>
-                <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
-                <script>
-                    var typed = new Typed("#subtitle", {
-                        strings: [ 
-                            
-                                "从0到0的CTF之路",
-                            
-                                "Never really desperate, only the lost of the soul",
-                            
-                        ],
-                        startDelay: 300,
-                        typeSpeed: 100,
-                        loop: true,
-                        backSpeed: 50,
-                        showCursor: true
-                    });
-                </script>
-                
-            </div>
-        </div>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
-</div>
-
-
-<script>
-    // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
-    $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
-</script>
-
-
-    </div>
-</div>
-
-
-<main class="content">
-
-    
-
-    
-
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="花指令">
-                            
-                            <span class="card-title">花指令</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                https://www.anquanke.com/post/id/208682
-花指令原理ida采用的是线性扫描反汇编算法，也就是一步一步往下识别，一旦在中间插入奇怪的立即数，ida可能就会识别出错，进而不能正确反编译
-花指令实现首先，我们
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/17/SMC/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="SMC">
-                            
-                            <span class="card-title">SMC</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                参考文章：https://www.anquanke.com/post/id/238645
-https://blog.csdn.net/PandaOS/article/details/46575441?spm=1001.2101.3001.6
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Reverse/">
-                            <span class="chip bg-color">Reverse</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/15/zip/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="zip">
-                            
-                            <span class="card-title">zip</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                伪加密伪加密原理及操作zip文件组成可以去里面看看，挺全的
-https://blog.csdn.net/qq_26187985/article/details/83654197
-例题这里找了一道大佬出的题，适合练练手
-《美丽的烟火》
-链接：
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Misc/">
-                            <span class="chip bg-color">Misc</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="文档隐写">
-                            
-                            <span class="card-title">文档隐写</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                可以看看这篇https://xz.aliyun.com/t/1883/
-WORDxml隐藏信息隐藏文字隐藏文件PDF图片遮挡
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Misc/">
-                            <span class="chip bg-color">Misc</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="视频隐写">
-                            
-                            <span class="card-title">视频隐写</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Kinovea可以一帧一帧地看视频，视频隐写目前只接触到在视频一些 帧里面藏信息
-https://mochu.blog.csdn.net/article/details/109461931
-
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Misc/">
-                            <span class="chip bg-color">Misc</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="流量分析">
-                            
-                            <span class="card-title">流量分析</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                HTTP只试过直接导出HTTP流对象
-
-
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Misc/">
-                            <span class="chip bg-color">Misc</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="内存取证">
-                            
-                            <span class="card-title">内存取证</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                工具volatility是内存取证的工具，这里我使用的是打包好了的可执行文件
-volatility下载地址：https://www.volatilityfoundation.org/releases
-
-题目题目链接：
-https://www
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Misc/">
-                            <span class="chip bg-color">Misc</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="音频隐写">
-                            
-                            <span class="card-title">音频隐写</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                在这篇文章：https://blog.csdn.net/vanarrow/article/details/105667244
-摩斯电码MP3steg
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Misc/">
-                            <span class="chip bg-color">Misc</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="图片隐写">
-                            
-                            <span class="card-title">图片隐写</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                PNG和JPG文件结构PNG：https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html   （有题目需要修改PNG宽高），结尾是IEND
-https://en.wikipedia.o
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/Misc/">
-                            <span class="chip bg-color">Misc</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-             <!-- 隐藏某个文章 -->
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2021/12/27/A-D1/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="A&amp;D1">
-                            
-                            <span class="card-title">A&amp;D1</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                IsDebugger Present原理
-
-​          反调试，该API查询PEB结构中的IsDebugger标志位， 未调试返回0，调试状态返回1。
-绕过
-
-
-nop指令
- mov rax ; IsDebuggerPresent
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-12-27
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fas fa-user fa-fw"></i>
-                                Gift1a
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/AD/">
-                            <span class="chip bg-color">AD</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-              <!-- 隐藏某个文章 -->
-            
-        </div>
-    </article>
-
-</main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a href="/page/4/"
-               class="left btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fas fa-angle-left"></i>
-            </a>
-            
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">5 / 5</div>
-        </div>
-        <div class="col s6 m4 l4">
-            
-            <a class="right btn-floating btn-large disabled">
-                <i class="fas fa-angle-right"></i>
-            </a>
-            
-        </div>
-    </div>
+  </div>
 </div>
 
 
 
 
-    <footer class="page-footer bg-color">
-    
-        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
-<style>
-    .aplayer .aplayer-lrc p {
-        
-        display: none;
-        
-        font-size: 12px;
-        font-weight: 700;
-        line-height: 16px !important;
-    }
 
-    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+
+
+</div>
         
-        display: none;
-        
-        font-size: 15px;
-        color: #42b983;
-    }
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
 
-    
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
-        left: -66px !important;
-    }
+  <aside class="sidebar">
 
-    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
-        left: 0px !important;
-    }
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
 
-    
-</style>
-<div class="">
-    
-    <div class="row">
-        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
-                   server="netease"
-                   type="playlist"
-                   id="503838841"
-                   fixed='true'
-                   autoplay='false'
-                   theme='#42b983'
-                   loop='all'
-                   order='random'
-                   preload='auto'
-                   volume='0.7'
-                   list-folded='true'
-        >
-        </meting-js>
-    </div>
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Gift1a</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
 </div>
 
-<script src="/libs/aplayer/APlayer.min.js"></script>
-<script src="/libs/aplayer/Meting.min.js"></script>
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner index posts-expand">
 
     
 
-    <div class="container row center-align"
-         style="margin-bottom: 15px !important;">
-        <div class="col s12 m8 l8 copy-right">
-            Copyright&nbsp;&copy;
-            
-                <span id="year">2021-2022</span>
-            
-            <a href="/about" target="_blank">Gift1a</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
-            <br>
-            
-                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">82.2k</span>
-            
-            
-            
-                
-            
-            
-                <span id="busuanzi_container_site_pv">
-                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
-                    <span id="busuanzi_value_site_pv" class="white-color"></span>
-            </span>
-            
-            
-                <span id="busuanzi_container_site_uv">
-                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
-                    <span id="busuanzi_value_site_uv" class="white-color"></span>
-            </span>
-            
-            <br>
 
-            <!-- 运行天数提醒. -->
-            
-                <span id="sitetime"> Loading ...</span>
-                <script>
-                    var calcSiteTime = function () {
-                        var seconds = 1000;
-                        var minutes = seconds * 60;
-                        var hours = minutes * 60;
-                        var days = hours * 24;
-                        var years = days * 365;
-                        var today = new Date();
-                        var startYear = "2021";
-                        var startMonth = "12";
-                        var startDate = "27";
-                        var startHour = "0";
-                        var startMinute = "0";
-                        var startSecond = "0";
-                        var todayYear = today.getFullYear();
-                        var todayMonth = today.getMonth() + 1;
-                        var todayDate = today.getDate();
-                        var todayHour = today.getHours();
-                        var todayMinute = today.getMinutes();
-                        var todaySecond = today.getSeconds();
-                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
-                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
-                        var diff = t2 - t1;
-                        var diffYears = Math.floor(diff / years);
-                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+<div class="post-block">
+  
+  
 
-                        // 区分是否有年份.
-                        var language = 'zh-CN';
-                        if (startYear === String(todayYear)) {
-                            document.getElementById("year").innerHTML = todayYear;
-                            var daysTip = 'This site has been running for ' + diffDays + ' days';
-                            if (language === 'zh-CN') {
-                                daysTip = '本站已运行 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                daysTip = '本站已運行 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = daysTip;
-                        } else {
-                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
-                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
-                                + diffDays + ' days';
-                            if (language === 'zh-CN') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            } else if (language === 'zh-HK') {
-                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
-                            }
-                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">花指令</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-17 15:49:29" itemprop="dateCreated datePublished" datetime="2022-01-17T15:49:29+08:00">2022-01-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:13:27" itemprop="dateModified" datetime="2022-03-11T13:13:27+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/208682">https://www.anquanke.com/post/id/208682</a></p>
+<h1 id="花指令原理"><a href="#花指令原理" class="headerlink" title="花指令原理"></a>花指令原理</h1><p>ida采用的是线性扫描反汇编算法，也就是一步一步往下识别，一旦在中间插入奇怪的立即数，ida可能就会识别出错，进而不能正确反编译</p>
+<h1 id="花指令实现"><a href="#花指令实现" class="headerlink" title="花指令实现"></a>花指令实现</h1><p>首先，我们插入花指令不能阻碍我们程序的正常运行，这是最基本的</p>
+<p>下面使用一段常规代码进行花指令的添加</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
+#include&lt;windows.h&gt;
+int main(int argc, char* argv[])
+{
+	char s[] = "1234234";
+	int i = 0, k = 1;
+	
+	for (; i &lt; 10; ++i)
+	{
+		k += i;
+	}
+	printf("%d", k);
+	return 0;
+}</code></pre>
+
+<p>没插花指令前的反编译</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/MF%5DH0@C0%5BLZFAI%7BX83MEI.png"></p>
+<h2 id="永真跳转"><a href="#永真跳转" class="headerlink" title="永真跳转"></a>永真跳转</h2><pre class="language-c" data-language="c"><code class="language-c">__asm {
+    	push eax;
+		xor eax, eax;
+		test eax, eax;
+		jz LABEL1;
+		jnz  LABLE2;
+	LABLE2:
+		__emit 0xe8;
+	LABEL1:
+    	pop eax;
+	}</code></pre>
+
+<p>先来看看效果</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646113378508.png"></p>
+<p>可以看到ida不能正确反编译</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>xor eax,eax能够保证eax的值为0，异或自己，相同为0</p>
+<p>根据目标操作数修改符号标志位、奇偶标志位、零标志位，经过这一步后，ZF为1</p>
+<p>test eax,eax是按位与操作，并且会根据值修改ZF标志位，并且只有当位都清 0 时，零标志位才置 1 </p>
+<p>ZF为1时，jz进行跳转，到LABEL1，因为里面没有其他值，所以代码正常执行，但是在 反编译的时候，因为是线性扫描，所以遇到了LABEL2里面的0xe8（call的机器码），就会将其后面的机器码当作要调用的地址，这样一来，jz就直接跳转到被错误识别的汇编代码中，所以会出现错误</p>
+<h3 id="去除"><a href="#去除" class="headerlink" title="去除"></a>去除</h3><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114167483.png"></p>
+<p>可以看到这里面的jz和jnz后面的地址存在+1，这就基本可以看出是花指令了，找到对应的地址，按u取消定义</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114596608.png"></p>
+<p>可以看到这里也是两个函数，对下面的按C弄成代码</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114739199.png"></p>
+<p>然后为了反编译，要把0xe8使用90填充，也就是nop，填充后按C即可</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114800614.png"></p>
+<p>按P弄成函数后反编译，和上面的基本一致</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646114856426.png"></p>
+<h2 id="插入立即数"><a href="#插入立即数" class="headerlink" title="插入立即数"></a>插入立即数</h2><pre class="language-c" data-language="c"><code class="language-c">__asm {
+		xor eax, eax;
+		jz LABEL1;
+		__emit 0x11;
+		__emit 0x22;
+		__emit 0x33;
+	LABEL1:
+	}</code></pre>
+
+<p>效果</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646115623618.png"></p>
+<p>识别出错，原理和上面一样，感觉这种稍微恶心一点，因为有一段可能是正常的，需要一个一个试</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646115805153.png"></p>
+<p>直接nop掉即可</p>
+<h2 id="破坏堆栈"><a href="#破坏堆栈" class="headerlink" title="破坏堆栈"></a>破坏堆栈</h2><p>我们可以插入对esp和eip的操作进而破坏堆栈</p>
+<pre class="language-c" data-language="c"><code class="language-c">__asm {
+		xor eax, eax;
+		jz LABEL1;
+		add esp, 8;
+	LABEL1:
+	}</code></pre>
+
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646116696374.png"></p>
+<p>ida能够正常反编译，但是在函数末端会发现堆栈错误提示</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646116781788.png"></p>
+<h2 id="call-amp-ret构造花指令"><a href="#call-amp-ret构造花指令" class="headerlink" title="call&amp;ret构造花指令"></a>call&amp;ret构造花指令</h2><p>call本质是先将其 下一条指令压入栈中，再jmp函数地址</p>
+<p>ret则是pop eip</p>
+<p>所以我们可以修改返回地址，然后在中前插入垃圾数</p>
+<pre class="language-c" data-language="c"><code class="language-c">__asm {
+		call LABEL1;
+		__emit 0x83;
+		
+	LABEL1:
+		add dword ptr ss : [esp] , 8;
+		ret;
+    	__emit 0xf3;
+	}</code></pre>
+
+<p>效果</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646118501242.png"></p>
+<p>这里我们插入的不是机器码，所以没有识别成奇怪的代码，但是还是让ida出现了错误</p>
+<h3 id="去除-1"><a href="#去除-1" class="headerlink" title="去除"></a>去除</h3><p>全部nop掉即可</p>
+<h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646122556219.png"></p>
+<p>这里之所以程序能够进行正常的运行，是因为call会把其下一条指令的地址压入栈中，也就是41459F，（不知道为什么这里会多出一个db 36h -.-)，接下来执行将当前esp地址的值+8，也就是栈顶存储的值+8，也就是返回地址加8，正好对应4145A7，下面的代码c之后是正常的代码，所以不会出错</p>
+<p>在此基础上，我们可以构造各种花指令</p>
+<p>下面连接有一些花指令</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/read/cv13177757">https://www.bilibili.com/read/cv13177757</a></p>
+<h2 id="call嵌套"><a href="#call嵌套" class="headerlink" title="call嵌套"></a>call嵌套</h2><pre class="language-c" data-language="c"><code class="language-c">__asm {
+		call LABEL1;
+		_emit 0xE8;
+	LABEL2:
+		jmp LABEL3;
+		_emit 0;
+		_emit 0;
+		_emit 0xE8;
+		_emit 0xf6;
+		_emit 0xff;
+		_emit 0xff;
+		_emit 0xff;
+	LABEL1:
+		call LABEL2;
+	LABEL3:
+		add esp, 8;
+	}</code></pre>
+
+<p>效果</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646123989260.png"></p>
+<h3 id="原理-2"><a href="#原理-2" class="headerlink" title="原理"></a>原理</h3><p>这里之所以程序能够正常运行，是因为只有两个call对堆栈有影响，所以只需要在最后esp+8就可以回到原来的堆栈</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124342486.png"></p>
+<p>这里先callA9，然后0xE8和后面的结合成了call指令，这里可以看到call到了全是int 3的地方</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124399722.png"></p>
+<p>然后这个9f一直在call自己，所以可以判断是花指令</p>
+<p>把这两个函数nop掉之后</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124643631.png"></p>
+<p>所以这个调用也没用了</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124712766.png"></p>
+<p>同理这个也可以nop掉，那么堆栈会不平衡，add esp,8也要nop</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646124803779.png"></p>
+<p>得到正常代码</p>
+<h2 id="jmp变形-SUSCTF2022-tttree"><a href="#jmp变形-SUSCTF2022-tttree" class="headerlink" title="jmp变形-SUSCTF2022-tttree"></a>jmp变形-SUSCTF2022-tttree</h2><p>感觉很巧妙，拿出来看看</p>
+<p>动调可以看得更清楚</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646126953595.png"></p>
+<p>前面的push没什么好说的，关键在call之后的</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127104589.png"></p>
+<p>当前的栈顶，call会将其之后的地址压入栈顶</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127228921.png"></p>
+<p>可以看到是B7D82FF9B0</p>
+<p>下面两步就是将当前栈顶的元素先+0x191b给到rax</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127367726.png"></p>
+<p>下一步是把rax里的值给到rsp+16</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127416441.png" alt="1646127416441"></p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127424928.png"></p>
+<p>经过两步pop，可以发现来到了存储原本返回值+0x191b的栈的位置</p>
+<p><img src="/2022/01/17/%E8%8A%B1%E6%8C%87%E4%BB%A4/1646127512911.png"></p>
+<p>retn先将栈顶元素pop到eip，再jmp，而eip正好记录我们下一步执行的指令</p>
+<p>这样就是一个简单的jmp</p>
+<p>解决方法就是先计算跳转的地址，然后改成jmp即可</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/17/SMC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/17/SMC/" class="post-title-link" itemprop="url">SMC</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-17 15:49:14" itemprop="dateCreated datePublished" datetime="2022-01-17T15:49:14+08:00">2022-01-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-25 08:30:45" itemprop="dateModified" datetime="2022-03-25T08:30:45+08:00">2022-03-25</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>参考文章：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/238645">https://www.anquanke.com/post/id/238645</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/PandaOS/article/details/46575441?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_antiscanv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_antiscanv2&amp;utm_relevant_index=2">https://blog.csdn.net/PandaOS/article/details/46575441?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_antiscanv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_antiscanv2&amp;utm_relevant_index=2</a></p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>SMC，是self-modifying-code的缩写 ，即自我修改的代码，通过程序运行后执行相关代码功能，对加密的代码数据进行解密，让其恢复正常功能</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>1、要有两个函数，一个用于加密，一个用于解密，两个是对应的</p>
+<p>2、找到要SMC的代码地址，然后提前在程序开始的地方设置对该地址数据的解密函数</p>
+<p>3、取出要进行SMC的代码的字节码，对其使用准备好的加密函数进行加密</p>
+<p>4、用这串加密的数据替换原代码的字节码</p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]jocker">https://buuoj.cn/challenges#[%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84]jocker</a></p>
+<h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><p>打开ida反编译看到</p>
+<p><img src="/2022/01/17/SMC/1642563702820.png"></p>
+<p>点进这个函数ida直接报错</p>
+<p><img src="/2022/01/17/SMC/1642563778289.png"></p>
+<p>查看汇编代码</p>
+<p><img src="/2022/01/17/SMC/1642563800178.png"></p>
+<p>点击函数跟进</p>
+<p><img src="/2022/01/17/SMC/1642563901545.png"></p>
+<p>发现一长串没被识别的数据段，这种情况可能是花指令导致，也可能是SMC，结合之前有一个循环异或，可以猜测是SMC，接下来有两种方法解密 </p>
+<h2 id="使用IDC对加密数据进行解密"><a href="#使用IDC对加密数据进行解密" class="headerlink" title="使用IDC对加密数据进行解密"></a>使用IDC对加密数据进行解密</h2><p>首先要找到被加密数据段的初始地址以及加密数据段的长度，这里长度在for循环里面，初始位置</p>
+<p><img src="/2022/01/17/SMC/1642566995107.png"></p>
+<p>点击函数跳转</p>
+<p><img src="/2022/01/17/SMC/1642567097998.png"></p>
+<p>黄色段就是初始地址，可以看到这里函数入口并不是pop开始，所以也可以猜到被加密了</p>
+<p>idc脚本如下(shift+f2)打开</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;idc.idc&gt;
+
+static main()
+{
+    auto addr = 0x401500;
+    auto i = 0;
+    for(i=0;i&lt;187;i++)
+    {
+        PatchByte(addr+i,Byte(addr+i)^0x41);
+    }
+}
+</code></pre>
+
+<p>得到了解密的数据段</p>
+<p><img src="/2022/01/17/SMC/1642567365432.png"></p>
+<h2 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h2><p>因为程序自带解密函数，只需要在解密函数后面下断点，运行到断点处，被加密的数据段就能成功解密</p>
+<p><img src="/2022/01/17/SMC/1642565058450.png"></p>
+<p>这是未解密的，运行后</p>
+<p><img src="/2022/01/17/SMC/1642565236932.png"></p>
+<p>这时候只需要先对函数按U，取消定义，然后选中按C——force转为汇编代码</p>
+<p><img src="/2022/01/17/SMC/1642565348450.png"></p>
+<p>然后按p定义成函数，再按F5就可以正常反编译了</p>
+<p><img src="/2022/01/17/SMC/1642565393714.png"></p>
+<h1 id="SMC-反调试技术"><a href="#SMC-反调试技术" class="headerlink" title="SMC+反调试技术"></a>SMC+反调试技术</h1><p>因为smc可以采取动态调试来还原加密代码，所以可以采用反调试技术来阻止动态调试，所以这时候就需要绕过</p>
+<h2 id="狗狗的秘密"><a href="#狗狗的秘密" class="headerlink" title="狗狗的秘密"></a>狗狗的秘密</h2><p><img src="/2022/01/17/SMC/1643034259013.png"></p>
+<p>在数据段发现这里类型SMC，猜测是SMC自修改，所以需要定位到解密函数</p>
+<p>在exports发现了一个函数</p>
+<p>TLS回调函数会在oep也就是程序入口前执行</p>
+<p><img src="/2022/01/17/SMC/1643034347085.png"></p>
+<p>这个函数会在main函数之前执行，所以先进去看看</p>
+<p><img src="/2022/01/17/SMC/1643034411621.png"></p>
+<p>把鼠标放在上面发现他是个指针，被赋值为smc的函数段，v8同理，所以接下来这一段应该就是smc解密代码</p>
+<p><img src="/2022/01/17/SMC/1643034535760.png"></p>
+<p>很明显是tea，不会写idctea脚本，所以打算采取动调，但是前面有几个反调试，需要绕过，保证能走到解密代码这一步 </p>
+<p><img src="/2022/01/17/SMC/1643034646186.png"></p>
+<p>对于if语句，只需要用jnz或jz替换即可</p>
+<p>所以相对来说还行，主要是要先定位到这里</p>
+<p><img src="/2022/01/17/SMC/1643034751964.png"></p>
+<p>也可以去这些函数列表看一看</p>
+<p>动调完成还是发现出错，所以里面的值可能被引用修改，对着变量按x查看交叉引用</p>
+<p><img src="/2022/01/17/SMC/1643034871276.png"></p>
+<p>发现在此之前被修改过，但是动调的时候显示是0，很奇怪，不知道什么时候赋值的，所以第一次进入 tea函数需要先对dword_915168的值在hex窗口进行修改</p>
+<p><img src="/2022/01/17/SMC/1643035000708.png"></p>
+<p>要注意在这个窗口中数据以小端序存储</p>
+<p>修改好之后，下好断点后f9让程序跑起来就可以了</p>
+<p><img src="/2022/01/17/SMC/1643035086013.png"></p>
+<p>之后就是前面说的，先取消定义，然后转为代码，再定义函数</p>
+<p>寻找怎么修改hex值的时候发现了 可以添加查看窗口，就很方便，在VM逆向里面可能会看起来更方便</p>
+<p><img src="/2022/01/17/SMC/1643035222239.png"></p>
+<p><img src="/2022/01/17/SMC/1643035235237.png"></p>
+<h1 id="SMC实现"><a href="#SMC实现" class="headerlink" title="SMC实现"></a>SMC实现</h1><p>下面所说的段就是节</p>
+<p>先贴源码</p>
+<pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;Windows.h&gt;
+#include&lt;malloc.h&gt;
+
+#pragma code_seg(".scode")
+void _declspec(naked) Func()//我这里声明一个裸函数，自己开辟堆栈和释放堆栈，避开检测堆栈的函数，防止函数地址重定位的影响
+{//通过特征块定位到函数开头
+    __asm {
+        nop
+        nop
+        nop
+        nop
+    }
+    __asm
+    {
+        push        ebp
+        mov         ebp, esp
+        sub         esp, 0C0h
+    }
+    printf("helloworld");
+    __asm {
+        add         esp, 0C0h
+        pop         ebp
+        ret
+    }
+}
+#pragma code_seg()
+#pragma comment(linker, "/SECTION:.scode,ERW")
+
+void decode()
+{
+   //通过获取线程句柄可以得到我们的基地址
+    LPVOID pModule = GetModuleHandle(NULL);//传入参数为NULL时，表示获取当前程序的基址，也就是MZ
+    //初始化结构体指针
+    PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)(pModule);
+    PIMAGE_NT_HEADERS32 pNTheader = (PIMAGE_NT_HEADERS32)((DWORD)pModule + pDosHeader-&gt;e_lfanew);
+    PIMAGE_FILE_HEADER pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTheader + 4);
+    PIMAGE_OPTIONAL_HEADER32 pOptionHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + sizeof(IMAGE_FILE_HEADER));
+    PIMAGE_SECTION_HEADER pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionHeader + sizeof(IMAGE_OPTIONAL_HEADER32));
+    
+    //遍历节表得到我们的解密节表
+    for (int i = 0; i &lt; pFileHeader-&gt;NumberOfSections; i++, pSectionHeader++)
+    {
+        if (!strcmp((const char*)pSectionHeader-&gt;Name, ".scode"))
+        {
+            PBYTE pSection = (PBYTE)((DWORD)pModule + pSectionHeader-&gt;VirtualAddress);
+            for (DWORD k = 0; k &lt; pSectionHeader-&gt;SizeOfRawData; ++k)
+            {
+                if (*(PDWORD)pSection == 0xC4C4C4C4)
+                {
+                    char comp[] = {0xcc,0xcc,0xcc,0xcc,0xcc,0xcc};
+                    printf("找到函数段");
+                    for (;; ++k)
+                    {
+                        if (strncmp((const char*)(pSection), comp, 6))
+                        {
+                            *(pSection) ^= 0x54;
+                            printf("%02X", *(pSection));
+                            pSection++;
                         }
-                    }
-
-                    calcSiteTime();
-                </script>
-            
-            <br>
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/Gift1a/Gift1a.github.io" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fab fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:2973414642@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fas fa-envelope-open"></i>
-    </a>
-
-
-
-
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2973414642" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2973414642" data-position="top" data-delay="50">
-        <i class="fab fa-qq"></i>
-    </a>
-
-
-
-
-
-
-
-</div>
-    </div>
-</footer>
-
-<div class="progress-bar"></div>
-
-
-    <!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script type="text/javascript">
-$(function () {
-    var searchFunc = function (path, search_id, content_id) {
-        'use strict';
-        $.ajax({
-            url: path,
-            dataType: "xml",
-            success: function (xmlResponse) {
-                // get the contents from search data
-                var datas = $("entry", xmlResponse).map(function () {
-                    return {
-                        title: $("title", this).text(),
-                        content: $("content", this).text(),
-                        url: $("url", this).text()
-                    };
-                }).get();
-                var $input = document.getElementById(search_id);
-                var $resultContent = document.getElementById(content_id);
-                $input.addEventListener('input', function () {
-                    var str = '<ul class=\"search-result-list\">';
-                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-                    $resultContent.innerHTML = "";
-                    if (this.value.trim().length <= 0) {
-                        return;
-                    }
-                    // perform local searching
-                    datas.forEach(function (data) {
-                        var isMatch = true;
-                        var data_title = data.title.trim().toLowerCase();
-                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
-                        var data_url = data.url;
-                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
-                        var index_title = -1;
-                        var index_content = -1;
-                        var first_occur = -1;
-                        // only match artiles with not empty titles and contents
-                        if (data_title !== '' && data_content !== '') {
-                            keywords.forEach(function (keyword, i) {
-                                index_title = data_title.indexOf(keyword);
-                                index_content = data_content.indexOf(keyword);
-                                if (index_title < 0 && index_content < 0) {
-                                    isMatch = false;
-                                } else {
-                                    if (index_content < 0) {
-                                        index_content = 0;
-                                    }
-                                    if (i === 0) {
-                                        first_occur = index_content;
-                                    }
-                                }
-                            });
+                        else
+                        {
+                            printf("不在函数段内,退出加密");
+                            return;
                         }
-                        // show search results
-                        if (isMatch) {
-                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
-                            var content = data.content.trim().replace(/<[^>]+>/g, "");
-                            if (first_occur >= 0) {
-                                // cut out 100 characters
-                                var start = first_occur - 20;
-                                var end = first_occur + 80;
-                                if (start < 0) {
-                                    start = 0;
-                                }
-                                if (start === 0) {
-                                    end = 100;
-                                }
-                                if (end > content.length) {
-                                    end = content.length;
-                                }
-                                var match_content = content.substr(start, end);
-                                // highlight all keywords
-                                keywords.forEach(function (keyword) {
-                                    var regS = new RegExp(keyword, "gi");
-                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
-                                });
-
-                                str += "<p class=\"search-result\">" + match_content + "...</p>"
-                            }
-                            str += "</li>";
-                        }
-                    });
-                    str += "</ul>";
-                    $resultContent.innerHTML = str;
-                });
+                   }
+               }
+                pSection += 4;
             }
-        });
-    };
+            printf("解密成功\n");
+        }
+    }
+}
+int main()
+{
+    decode();
+    Func();
+	return 0;
+}</code></pre>
 
-    searchFunc('/search.xml', 'searchInput', 'searchResult');
-});
-</script>
+<p>这里只做了一个简单的异或加密</p>
+<p>解释一下一些实现的步骤，如果要实现比较难的加密算法，需要先将原本数据DUMP下来，加密后再重新放入exe文件中，exe文件存放解密代码</p>
+<h2 id="插入段"><a href="#插入段" class="headerlink" title="插入段"></a>插入段</h2><p>1、生成段</p>
+<p>生成名称为.socde的段，如果不填写则默认添加到.text段后面</p>
+<pre class="language-c" data-language="c"><code class="language-c">#pragma code_seg(".scode")</code></pre>
 
-    <!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fas fa-arrow-up"></i>
-    </a>
+<p>2、段结尾</p>
+<pre class="language-c" data-language="c"><code class="language-c">#pragma code_seg()</code></pre>
+
+<p>通过上面两行代码可以生成一个段</p>
+<p>3、设置段的属性</p>
+<pre class="language-c" data-language="c"><code class="language-c">#pragma comment(linker, "/SECTION:.scode,ERW")</code></pre>
+
+<p>三个字母分别对应可执行、可读和可写</p>
+<h2 id="在段中插入函数"><a href="#在段中插入函数" class="headerlink" title="在段中插入函数"></a>在段中插入函数</h2><p>前面第一和第二行代码之间插入代码-函数，当然是可以直接插入函数的，这里是自己用汇编代码构造的函数</p>
+<p>解释一下为什么前面先插了几个nop，首先我们要知道不同编译器使用生成段的代码得到结果是不同的</p>
+<p><img src="/2022/01/17/SMC/1647950648709.png" alt="VC6生成段"></p>
+<p><img src="/2022/01/17/SMC/1647950674759.png" alt="VS2022生成段"></p>
+<p>可以看到VS2022中我们写的函数在生成段的中间，那么就需要定位，而VC6又不一样了，具体情况具体分析吧</p>
+<p>所以在VS2022中，我们要先定位到插入的函数，而不能直接将整个段加密，这也是为什么插入nop的原因，nop可以用作特征码来识别，当然也可以替换或不用</p>
+<h2 id="定位到段的位置"><a href="#定位到段的位置" class="headerlink" title="定位到段的位置"></a>定位到段的位置</h2><p>先来介绍一个函数，GetModuleHandle可以得到进程的句柄，当传入的参数为NULL时，可以得到当前运行程序的基址，也就是ImageBase，这一块还需要多了解，就先简单介绍</p>
+<p>得到基址之后我们就可以根据windows.h提供的结构体指针，得到PE头、DOS头、节表的信息</p>
+<pre class="language-c" data-language="c"><code class="language-c">//通过获取线程句柄可以得到我们的基地址
+    LPVOID pModule = GetModuleHandle(NULL);//传入参数为NULL时，表示获取当前程序的基址，也就是MZ
+    //初始化结构体指针
+    PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)(pModule);
+    PIMAGE_NT_HEADERS32 pNTheader = (PIMAGE_NT_HEADERS32)((DWORD)pModule + pDosHeader-&gt;e_lfanew);
+    PIMAGE_FILE_HEADER pFileHeader = (PIMAGE_FILE_HEADER)((DWORD)pNTheader + 4);
+    PIMAGE_OPTIONAL_HEADER32 pOptionHeader = (PIMAGE_OPTIONAL_HEADER32)((DWORD)pFileHeader + sizeof(IMAGE_FILE_HEADER));
+    PIMAGE_SECTION_HEADER pSectionHeader = (PIMAGE_SECTION_HEADER)((DWORD)pOptionHeader + sizeof(IMAGE_OPTIONAL_HEADER32));</code></pre>
+
+<p>接着就是遍历，比较段的名字，这样就可以定位到我们插入的段</p>
+<h2 id="定位段位置"><a href="#定位段位置" class="headerlink" title="定位段位置"></a>定位段位置</h2><p>我们先前得到的句柄+该节的VirtualAddress就是节开始的地方</p>
+<p>因为我们加密时是单字节加密，所以转为(PBYTE)型</p>
+<h2 id="根据特征代码定位"><a href="#根据特征代码定位" class="headerlink" title="根据特征代码定位"></a>根据特征代码定位</h2><p>因为SMC会在程序运行中进行解密，所以我们要定位到函数位置</p>
+<p>nop的机器码是0x90，异或加密后是0xC4，注意这里的小段序问题</p>
+<h2 id="判断结束位置"><a href="#判断结束位置" class="headerlink" title="判断结束位置"></a>判断结束位置</h2><p>在这个例子中，结束代码之后都是0xCC，这样就可以使用字符串比较，然后判断是否到达末尾</p>
+<pre class="language-c" data-language="c"><code class="language-c">if (strncmp((const char*)(pSection), comp, 6))
+                        {
+                            *(pSection) ^= 0x54;
+                            printf("%02X", *(pSection));
+                            pSection++;
+                        }
+                        else
+                        {
+                            printf("不在函数段内,退出加密");
+                            return;
+                        }</code></pre>
+
+<h2 id="修改exe文件"><a href="#修改exe文件" class="headerlink" title="修改exe文件"></a>修改exe文件</h2><p>这里我把加密后的数据打印了出来，方便贴到exe中</p>
+<p><img src="/2022/01/17/SMC/1647951555438.png" alt="修改后的字节"></p>
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p>运行exe发现</p>
+<p><img src="/2022/01/17/SMC/1647951602713.png"></p>
+<p>最后打印的就是段中的代码结果</p>
+<p>ida中，可以看到已经无法正常反编译</p>
+<p><img src="/2022/01/17/SMC/1647951757121.png" alt="ida中函数情况"></p>
+<h1 id="另外实现"><a href="#另外实现" class="headerlink" title="另外实现"></a>另外实现</h1><p>更多的可以看去文章头部的链接看看</p>
+<p>我们可以手动定位到加密的位置，这样就比较麻烦，因为还要计算大小，不过代码倒是比较简单</p>
+<pre class="language-c" data-language="c"><code class="language-c">for (DWORD i = 0; i &lt; 30; ++i)
+   {
+       *(unsigned char*)(0x00411780 + i) ^= 0x54;
+       printf("%02X", *(unsigned char*)(0x00411780 + i));
+   }
+   printf("解密成功\n");</code></pre>
+
+<p>理论上还有另外一种实现方法，直接读取文件中的信息，然后将foa转为rva，这样的话我们就可以找到我们smc的地址，这里可以新建段也可以直接在.text段尾部插入，但是要注意长度够不够，同样现插入特征码，使用strncmp进行比较，因为空的节表剩余是0，长度计算可以使用strlen，估计的。晚点再实现</p>
+<p>foa转rva的话就是计算相对该段的pointerofrawdata的偏移，然后转为在内存中的偏移即可也就是imagebase+该段的virtualaddress+偏移，加密替换即可</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 </div>
 
 
-    <script src="/libs/materialize/materialize.min.js"></script>
-    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
-    <script src="/libs/aos/aos.js"></script>
-    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="/js/matery.js"></script>
+
 
     
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/15/zip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/15/zip/" class="post-title-link" itemprop="url">zip</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-15 18:27:57" itemprop="dateCreated datePublished" datetime="2022-01-15T18:27:57+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:13:57" itemprop="dateModified" datetime="2022-03-11T13:13:57+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="伪加密"><a href="#伪加密" class="headerlink" title="伪加密"></a>伪加密</h1><h2 id="伪加密原理及操作"><a href="#伪加密原理及操作" class="headerlink" title="伪加密原理及操作"></a>伪加密原理及操作</h2><h3 id="zip文件组成"><a href="#zip文件组成" class="headerlink" title="zip文件组成"></a>zip文件组成</h3><p>可以去里面看看，挺全的</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26187985/article/details/83654197">https://blog.csdn.net/qq_26187985/article/details/83654197</a></p>
+<h3 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h3><p>这里找了一道大佬出的题，适合练练手</p>
+<p>《美丽的烟火》</p>
+<p>链接：<a target="_blank" rel="noopener" href="http://ctf.bugku.com/challenges/detail/id/350.html">http://ctf.bugku.com/challenges/detail/id/350.html</a></p>
+<p>直接打开压缩包，可以得到被加密的文件</p>
+<p><img src="/2022/01/15/zip/1642245880907.png"></p>
+<p>痛苦，一般这种没有提示的(下面会有介绍)，一般就是伪加密了。</p>
+<p>拖进winhex，搜索504b0102（不知道为什么的速速去看前面那篇文章），这个按钮</p>
+<p><img src="/2022/01/15/zip/1642246321198.png"></p>
+<p>把09改成00，要仔细，这里有两个，我开始只看到一个</p>
+<p><img src="/2022/01/15/zip/1642246469204.png"></p>
+<p><img src="/2022/01/15/zip/1642246506196.png"></p>
+<p>重新打开压缩包</p>
+<p><img src="/2022/01/15/zip/1642246638206.png"></p>
+<p>心情愉悦~</p>
+<p>接下来就是进行解密了</p>
+<p>这里不细讲了，不然就跑偏了，png文件是stegpy隐写，密码是shumu，stegpy安装应该会有问题，具体安装请看图片隐写</p>
+<p><img src="/2022/01/15/zip/1642246877362.png"></p>
+<p>password解密是base64，base58，栅栏，</p>
+<p>这里推荐一篇博客</p>
+<p>得到的字符串是aes的key，然后直接aes在线解密</p>
+<p><img src="/2022/01/15/zip/1642247152438.png"></p>
+<p>flag：flag{yX73nAutbBozYhge6d2flG}</p>
+<p>网站也放这了：<a target="_blank" rel="noopener" href="https://the-x.cn/cryptography/Aes.aspx">https://the-x.cn/cryptography/Aes.aspx</a></p>
+<h3 id="注"><a href="#注" class="headerlink" title="注"></a>注</h3><p>winrar可以修复伪加密，不过是部分的</p>
+<p><img src="/2022/01/15/zip/1642251859085.png"></p>
+<p>点开上面的工具-&gt; 修复压缩文件</p>
+<h1 id="套娃压缩包"><a href="#套娃压缩包" class="headerlink" title="套娃压缩包"></a>套娃压缩包</h1><p>顾名思义，就是压缩包套娃</p>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF">https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF</a></p>
+<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
+
+x = y = 200
+img = Image.new("RGB",(x,y))
+file = open('./qr.txt','r')
+
+for width in range(0,x):
+    for height in range(0,y):
+        line = file.readline()
+        rgb = line.replace('(','').replace(')','').split(',')
+        img.putpixel((width,height),(int(rgb[0]),int(rgb[1]),int(rgb[2])))
+img.save('flag.jpg')
+</code></pre>
+
+
+
+<h1 id="CRC32爆破"><a href="#CRC32爆破" class="headerlink" title="CRC32爆破"></a>CRC32爆破</h1><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>CRC校验实用程序库 在数据存储和数据通讯领域，为了保证数据的正确，就不得不采用检错的手段。在诸多检错手段中，CRC是最著名的一种。CRC的全称是循环冗余校验。(这里还不是很懂，后续再看)</p>
+<p>总之每个文件都有唯一的CRC32值，即便数据中一个bit发生变化，也会导致CRC32值不同。若是知道一段数据的长度和CRC32值，便可穷举数据，与其CRC32对照，以此达到暴力猜解的目的。但通常只适用于较小文本文件。</p>
+<h3 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h3><p>打开里面有很多压缩包，里面存储的都是小数据文件</p>
+<p><img src="/2022/01/15/zip/1642249237942.png"></p>
+<p><img src="/2022/01/15/zip/1642249207274.png"></p>
+<p>直接上脚本(不是很会)</p>
+<pre class="language-python" data-language="python"><code class="language-python">#python3
+import zipfile
+import string
+import binascii
+
+def CrackCrc(crc):
+	for i in dic:
+		for j in dic:
+			for k in dic:
+				for h in dic:
+					s = i + j + k + h
+					if crc == (binascii.crc32(s.encode())):
+						f.write(s)
+						return
+
+def CrackZip():
+	for i in range(0,68):
+		file = 'D:\\new\\新建文件夹\\out'+str(i)+'.zip'
+		crc = zipfile.ZipFile(file,'r').getinfo('data.txt').CRC
+		CrackCrc(crc)
+		print('\r'+"loading：{:%}".format(float((i+1)/68)),end='')
+
+dic = string.ascii_letters + string.digits + '+/='
+f = open('printaaa.txt','w')
+print("\nCRC32begin")
+CrackZip()
+print("CRC32finished")
+f.close()
+</code></pre>
+
+<p>得到base64编码的东西</p>
+<pre class="language-none"><code class="language-none">z5BzAAANAAAAAAAAAKo+egCAIwBJAAAAVAAAAAKGNKv+a2MdSR0zAwABAAAAQ01UCRUUy91BT5UkSNPoj5hFEVFBRvefHSBCfG0ruGnKnygsMyj8SBaZHxsYHY84LEZ24cXtZ01y3k1K1YJ0vpK9HwqUzb6u9z8igEr3dCCQLQAdAAAAHQAAAAJi0efVT2MdSR0wCAAgAAAAZmxhZy50eHQAsDRpZmZpeCB0aGUgZmlsZSBhbmQgZ2V0IHRoZSBmbGFnxD17AEAHAA==
+</code></pre>
+
+<p>网站在线解码，这个网站挺好的，可以直接转换文件</p>
+<p><a target="_blank" rel="noopener" href="https://the-x.cn/base64/">https://the-x.cn/base64/</a></p>
+<p>解码后在尾部看到这句话</p>
+<p><img src="/2022/01/15/zip/1642250774952.png"></p>
+<p>他让我们修复文件，所以我们首先要先了解文件头和尾</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2">https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2</a></p>
+<p>修补好rar文件头在注释里得到flag</p>
+<p>flag{nev3r_enc0de_t00_sm4ll_fil3_w1th_zip}</p>
+<h1 id="压缩文件带注释"><a href="#压缩文件带注释" class="headerlink" title="压缩文件带注释"></a>压缩文件带注释</h1><p>有一些题目会在注释里面添加信息，直观的就不说了，现在说两种空白符，Whitespace <a target="_blank" rel="noopener" href="https://vii5ard.github.io/whitespace/">https://vii5ard.github.io/whitespace/</a> 和snow隐写，snow需要密码，有可执行文件</p>
+<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
+<p>无字天书</p>
+<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到流量包，导出HTTP对象</p>
+<p>得到几个文件，依次查看，注意要仔细看，流量包文件有时候会很多</p>
+<p><img src="/2022/01/15/zip/1642254197336.png"></p>
+<p>发现了504b0304，可以写脚本，也可以直接网站解码得到压缩包</p>
+<p><a target="_blank" rel="noopener" href="https://the-x.cn/zh-cn/encodings/Hex.aspx">https://the-x.cn/zh-cn/encodings/Hex.aspx</a></p>
+<p><img src="/2022/01/15/zip/1642254255927.png"></p>
+<p>也可以使用脚本</p>
+<pre class="language-python" data-language="python"><code class="language-python">s='填写16进制数据'
+import binascii
+out=open('2.jpg','wb')
+out.write(binascii.unhexlify(s))
+out.close()
+
+#Author: MoChu7
+import struct
+
+a = open("str.txt","r")#十六进制数据文件
+lines = a.read()
+res = [lines[i:i+2] for i in range(0,len(lines),2)]
+
+with open("res.jpg","wb") as f:
+	for i in res:
+		s = struct.pack('B',int(i,16))
+		f.write(s)
+</code></pre>
+
+<p>打开之后得到两个文件，打开里面什么都看不到，全选就会有显示，key.ws应该是snow的密码，拿去whitespace解密</p>
+<p><img src="/2022/01/15/zip/1642254325041.png"></p>
+<p>然后snow解密 命令：SNOW.EXE -p 密码 -C 文件</p>
+<p><img src="/2022/01/15/zip/1642254470293.png"></p>
+<p>cazy{C4n_y0u_underSt4nd_th3_b0oK_With0ut_Str1ng}</p>
+<h1 id="爆破压缩包"><a href="#爆破压缩包" class="headerlink" title="爆破压缩包"></a>爆破压缩包</h1><p>使用工具爆破，如Advanced Archive Password Recovery</p>
+<h2 id="已知明文攻击"><a href="#已知明文攻击" class="headerlink" title="已知明文攻击"></a>已知明文攻击</h2><h2 id="掩码攻击"><a href="#掩码攻击" class="headerlink" title="掩码攻击"></a>掩码攻击</h2>
+      
+    </div>
+
+    
+    
     
 
-    <!-- 雪花特效 -->
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
-    <!-- 鼠标星星特效 -->
-     
-        <script type="text/javascript">
-            // 只在桌面版网页启用特效
-            var windowWidth = $(window).width();
-            if (windowWidth > 768) {
-                document.write('<script type="text/javascript" src="/libs/others/star.js"><\/script>');
-            }
-        </script>
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/" class="post-title-link" itemprop="url">文档隐写</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-15 16:03:53" itemprop="dateCreated datePublished" datetime="2022-01-15T16:03:53+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:14:41" itemprop="dateModified" datetime="2022-03-11T13:14:41+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>可以看看这篇<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/1883/">https://xz.aliyun.com/t/1883/</a></p>
+<h1 id="WORD"><a href="#WORD" class="headerlink" title="WORD"></a>WORD</h1><h2 id="xml隐藏信息"><a href="#xml隐藏信息" class="headerlink" title="xml隐藏信息"></a>xml隐藏信息</h2><h2 id="隐藏文字"><a href="#隐藏文字" class="headerlink" title="隐藏文字"></a>隐藏文字</h2><h2 id="隐藏文件"><a href="#隐藏文件" class="headerlink" title="隐藏文件"></a>隐藏文件</h2><h1 id="PDF"><a href="#PDF" class="headerlink" title="PDF"></a>PDF</h1><h2 id="图片遮挡"><a href="#图片遮挡" class="headerlink" title="图片遮挡"></a>图片遮挡</h2>
+      
+    </div>
+
+    
+    
     
 
-     
-        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
-        <script src="/libs/others/TencentCaptcha.js"></script>
-        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
     
 
-    <!-- Baidu Analytics -->
 
-    <!-- Baidu Push -->
+<div class="post-block">
+  
+  
 
-<script>
-    (function () {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/" class="post-title-link" itemprop="url">视频隐写</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-15 14:00:07" itemprop="dateCreated datePublished" datetime="2022-01-15T14:00:07+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:14:28" itemprop="dateModified" datetime="2022-03-11T13:14:28+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Kinovea"><a href="#Kinovea" class="headerlink" title="Kinovea"></a>Kinovea</h1><p>可以一帧一帧地看视频，视频隐写目前只接触到在视频一些 帧里面藏信息</p>
+<p><a target="_blank" rel="noopener" href="https://mochu.blog.csdn.net/article/details/109461931">https://mochu.blog.csdn.net/article/details/109461931</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">流量分析</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-15 13:59:22" itemprop="dateCreated datePublished" datetime="2022-01-15T13:59:22+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:14:10" itemprop="dateModified" datetime="2022-03-11T13:14:10+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>只试过直接导出HTTP流对象</p>
+<p><img src="/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/1642297780618.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/" class="post-title-link" itemprop="url">内存取证</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-15 13:57:09" itemprop="dateCreated datePublished" datetime="2022-01-15T13:57:09+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:14:18" itemprop="dateModified" datetime="2022-03-11T13:14:18+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>volatility是内存取证的工具，这里我使用的是打包好了的可执行文件</p>
+<p>volatility下载地址：<a target="_blank" rel="noopener" href="https://www.volatilityfoundation.org/releases">https://www.volatilityfoundation.org/releases</a></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png"></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>题目链接：</p>
+<p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
+<p>朴实无华的取证</p>
+<h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><h2 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h2><p>先使用命令volatility -f 朴实无华的取证.raw iamgeinfo查看系统信息</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png"></p>
+<p>上面的系统都有可能，主要是第一个</p>
+<h2 id="查看运行程序列表"><a href="#查看运行程序列表" class="headerlink" title="查看运行程序列表"></a>查看运行程序列表</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 pslist</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png"></p>
+<p>这里有三处需要注意，mspaint是画图工具，360zip是解压工具，notepad是笔记本，接下来重点放在这几处</p>
+<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan，这里可以使用grep来指定搜索的字符串 格式如下：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan | grep flag</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png"></p>
+<p>可以看到过滤出了flag的相关数据</p>
+<h2 id="提取文件"><a href="#提取文件" class="headerlink" title="提取文件"></a>提取文件</h2><p>接下来需要把文件dump下来，命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 dumpfiles -Q 偏移量 -D ./(-D指定文件夹，这里aaa表示存储到aaa文件夹中)</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png"></p>
+<p>可以在aaa文件夹中找到dump下来的文件</p>
+<p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png"></p>
+<p>还有一个加了密的zip文件，这时候注意我们的notepad还没有被使用，可以去看看信息</p>
+<h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 notepad</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png"></p>
+<p>这样就得到了encrypt的密码</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt; 
+
+int main()
+{
+	char str[]="FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]";
+	for(int i = 0; i &lt; strlen(str); i++)
+	{
+		str[i] += 32;
+		if(str[i] &gt;='a'+3 &amp;&amp; str[i]&lt;='w'+3)
+			str[i]-=3;
+		else if(str[i]=='a')
+			str[i]='x';
+		else if(str[i]=='b')
+			str[i]='y';
+		else if(str[i]=='c')
+			str[i]='z';	
+		else if(str[i]=='|')
+			str[i]='_';
+	}
+	printf("%s",str);
+	return 0;
+}</code></pre>
+
+<p>得到flag：cazy{Xian_will_certainIy_succeed_in_fighting_the_epidemic}</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/15/%E9%9F%B3%E9%A2%91%E9%9A%90%E5%86%99/" class="post-title-link" itemprop="url">音频隐写</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-15 13:56:57" itemprop="dateCreated datePublished" datetime="2022-01-15T13:56:57+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:14:48" itemprop="dateModified" datetime="2022-03-11T13:14:48+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/vanarrow/article/details/105667244">https://blog.csdn.net/vanarrow/article/details/105667244</a></p>
+<h1 id="摩斯电码"><a href="#摩斯电码" class="headerlink" title="摩斯电码"></a>摩斯电码</h1><h1 id="MP3steg"><a href="#MP3steg" class="headerlink" title="MP3steg"></a>MP3steg</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/" class="post-title-link" itemprop="url">图片隐写</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-01-15 13:56:18" itemprop="dateCreated datePublished" datetime="2022-01-15T13:56:18+08:00">2022-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:14:34" itemprop="dateModified" datetime="2022-03-11T13:14:34+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="PNG和JPG文件结构"><a href="#PNG和JPG文件结构" class="headerlink" title="PNG和JPG文件结构"></a>PNG和JPG文件结构</h1><p>PNG：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html">https://www.cnblogs.com/ECJTUACM-873284962/p/8986391.html</a>   （有题目需要修改PNG宽高），结尾是IEND</p>
+<p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Portable_Network_Graphics#File_format">https://en.wikipedia.org/wiki/Portable_Network_Graphics#File_format</a></p>
+<p>JPG：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/bandy/p/4956086.html">https://www.cnblogs.com/bandy/p/4956086.html</a></p>
+<p>jpg的一些隐写：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24054040">https://zhuanlan.zhihu.com/p/24054040</a></p>
+<p>无论是png还是jpg，只会识别到文件尾，所以可以在文件尾加入信息</p>
+<h1 id="F5隐写"><a href="#F5隐写" class="headerlink" title="F5隐写"></a>F5隐写</h1><h1 id="Stegpy隐写"><a href="#Stegpy隐写" class="headerlink" title="Stegpy隐写"></a>Stegpy隐写</h1><p>之前有过题了，就不说了，讲讲下载</p>
+<p>看这篇就够了</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Amherstieae/article/details/109010064">https://blog.csdn.net/Amherstieae/article/details/109010064</a></p>
+<h1 id="Steghide"><a href="#Steghide" class="headerlink" title="Steghide"></a>Steghide</h1><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c3679f805a0c">https://www.jianshu.com/p/c3679f805a0c</a></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF">https://buuoj.cn/challenges#%E4%B9%9D%E8%BF%9E%E7%8E%AF</a></p>
+<h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解文件</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302431480.png"></p>
+<p>伪加密</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302894034.png"></p>
+<p>得到图片和加密压缩包</p>
+<p>对图片使用steghide</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642302996915.png"></p>
+<p>steghide info 文件查看隐藏信息，输入y后提取，也可以直接：steghide extract 文件 </p>
+<p>找到ko.txt,得到压缩包密码</p>
+<p>flag{1RTo8w@&amp;4nK@z*XL}</p>
+<h1 id="Binwalk、Winrar——图片隐藏文件"><a href="#Binwalk、Winrar——图片隐藏文件" class="headerlink" title="Binwalk、Winrar——图片隐藏文件"></a>Binwalk、Winrar——图片隐藏文件</h1><p>binwalk使用：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wxh0000mm/article/details/85683661">https://blog.csdn.net/wxh0000mm/article/details/85683661</a></p>
+<p>可以直接binwalk提取文件，命令：binwalk -e 文件，这个比较常见，就不说了</p>
+<p>winrar也可以直接打开被隐藏的文件</p>
+<h1 id="修改图片宽高"><a href="#修改图片宽高" class="headerlink" title="修改图片宽高"></a>修改图片宽高</h1><pre class="language-python" data-language="python"><code class="language-python">import binascii
+import struct
+import sys
+
+file = input("图片地址：")
+fr = open(file,'rb').read()
+data = bytearray(fr[0x0c:0x1d])
+crc32key = eval('0x'+str(binascii.b2a_hex(fr[0x1d:0x21]))[2:-1])
+#原来的代码: crc32key = eval(str(fr[29:33]).replace('\\x','').replace("b'",'0x').replace("'",''))
+n = 4095
+for w in range(n):
+    width = bytearray(struct.pack('&gt;i', w))
+    for h in range(n):
+        height = bytearray(struct.pack('&gt;i', h))
+        for x in range(4):
+            data[x+4] = width[x]
+            data[x+8] = height[x]
+        crc32result = binascii.crc32(data) &amp; 0xffffffff
+        if crc32result == crc32key:
+            print(width,height)
+            newpic = bytearray(fr)
+            for x in range(4):
+                newpic[x+16] = width[x]
+                newpic[x+20] = height[x]
+            fw = open(file+'.png','wb')
+            fw.write(newpic)
+            fw.close
+            sys.exit()</code></pre>
+
+
+
+<h1 id="二进制转二维码"><a href="#二进制转二维码" class="headerlink" title="二进制转二维码"></a>二进制转二维码</h1><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
+from zlib import *
+
+MAX = 25
+pic = Image.new("RGB",(MAX,MAX))
+str ='''0000000001110010000000000000000000001111010000000000000000011100010000000000000000010111100000000000000000001010101000000000000000000011000101000000000000000010101010100000000000000000100000110000000011000111011101101000110000001000010110010010010100010011110100001110111001100111101001010110010010011000001001100001001101000111100011111101110010100010110111110011011111101111000110110010010101101100100011110011111111111011100000000101100011000101000000000010010100101010001000000001010101010001100100000000001001111111100100000000000011001011110111000000000100110010010000100000000110000110110110010000000011010000101110101'''
+i=0
+for y in range(0,MAX):
+    for x in range(0,MAX):
+        if(str[i] == '1'):
+            pic.putpixel([x,y],(0,0,0))
+        else:pic.putpixel([x,y],(255,255,255))
+        i = i+1
+pic.show()
+pic.save("flag.png")
+
+</code></pre>
+
+
+
+<h1 id="坐标画图"><a href="#坐标画图" class="headerlink" title="坐标画图"></a>坐标画图</h1><h2 id="gnuplot"><a href="#gnuplot" class="headerlink" title="gnuplot"></a>gnuplot</h2><p>linux，直接sudo apt install gnuplot，使用 直接gnuplot进入后，plot 文件名，就可以了</p>
+<h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%E6%A2%85%E8%8A%B1%E9%A6%99%E4%B9%8B%E8%8B%A6%E5%AF%92%E6%9D%A5">https://buuoj.cn/challenges#%E6%A2%85%E8%8A%B1%E9%A6%99%E4%B9%8B%E8%8B%A6%E5%AF%92%E6%9D%A5</a></p>
+<h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642300357300.png"></p>
+<p>在文件尾之后发现大量十六进制数据，这里我使用010editor复制，这样比较快，复制后转为字符</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642300558126.png"></p>
+<p>这样的格式不能被识别，所以需要替换，我使用的是VS</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642301030524.png"></p>
+<p>替换这里不用填写，直接替换全部，然后保存到txt中，再使用工具</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642301392143.png"></p>
+<h1 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h1><p>在stegsolve可以实现，逐帧查看，注意不要漏了</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642304858835.png"></p>
+<h1 id="LSB隐写"><a href="#LSB隐写" class="headerlink" title="LSB隐写"></a>LSB隐写</h1><h1 id="文件头尾倒置"><a href="#文件头尾倒置" class="headerlink" title="文件头尾倒置"></a>文件头尾倒置</h1><h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
+<p>pipicc</p>
+<h2 id="解题过程-2"><a href="#解题过程-2" class="headerlink" title="解题过程"></a>解题过程</h2><p>得到一张图片</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642303873774.png"></p>
+<p>有噪点，应该是修改了像素点，是需要修复的</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306122403.png"></p>
+<p>缺少png文件头，修补文件头</p>
+<p>接下来找到IEND块,将多余部分删去，改为png</p>
+<p>得到</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306518311.png"></p>
+<p>拖进stegsolve</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306719043.png"></p>
+<p>在蓝色低位发现了d9ff，这正好是jpg的文件尾反过来，save bin 下来，搜索d8ff，对应倒置的文件头</p>
+<p>010editor有工具</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306907507.png"></p>
+<p>需要安装</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306934016.png"></p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642306975753.png"></p>
+<p>逆序后保存改为jpg后缀，得到图片</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642307072291.png"></p>
+<p>也可以使用脚本</p>
+<pre class="language-python" data-language="python"><code class="language-python">input = open('D:\\new\\5', 'rb')
+input_all = input.read()
+ss = input_all[::-1]
+output = open('m0re.jpg', 'wb')
+output.write(ss)
+input.close()
+output.close()
+</code></pre>
+
+
+
+<h1 id="Base64隐写"><a href="#Base64隐写" class="headerlink" title="Base64隐写"></a>Base64隐写</h1><pre class="language-python" data-language="python"><code class="language-python">
+import base64
+path = input("请输入加密文件路径\n")
+file = open(path)
+a = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+aaa = ''
+while True:
+    text = file.readline()  # 只读取一行内容
+    # 判断是否读取到内容
+    text = text.replace("\n", "")
+    if not text:
+        break
+    if text.count('=') == 1:
+        aaa = aaa + \
+            str('{:02b}'.format((a.find(text[len(text)-2])) % 4))
+    if text.count('=') == 2:
+        aaa = aaa + \
+            str('{:04b}'.format((a.find(text[len(text)-3])) % 16))
+file.close()
+t = ""
+ttt = len(aaa)
+ttt = ttt//8*8
+for i in range(0,ttt,8):
+    t = t + chr(int( aaa[i:i+8],2))
+print(t)</code></pre>
+
+
+
+<h1 id="StegSolve"><a href="#StegSolve" class="headerlink" title="StegSolve"></a>StegSolve</h1><h2 id="两张图片拼接"><a href="#两张图片拼接" class="headerlink" title="两张图片拼接"></a>两张图片拼接</h2><p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312404099.png"></p>
+<p>提取http对象</p>
+<p>把scanlines拖进stegsolve，在多个通道发现了一条横线</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312485498.png"></p>
+<p>而logo正好缺了一段</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312592372.png"></p>
+<p>使用stegsolve的图像结合</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312633974.png"></p>
+<p>得到flag</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642312671617.png"></p>
+<h1 id="添加文件头"><a href="#添加文件头" class="headerlink" title="添加文件头"></a>添加文件头</h1><h1 id="文件属性藏信息"><a href="#文件属性藏信息" class="headerlink" title="文件属性藏信息"></a>文件属性藏信息</h1><p>图片属性可以隐藏信息</p>
+<h1 id="outguess隐写"><a href="#outguess隐写" class="headerlink" title="outguess隐写"></a>outguess隐写</h1><h2 id="题目-3"><a href="#题目-3" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo">https://buuoj.cn/challenges#[WUSTCTF2020]alison_likes_jojo</a></p>
+<h2 id="解题过程-3"><a href="#解题过程-3" class="headerlink" title="解题过程"></a>解题过程</h2><p>binwalk分解boki.png得到压缩包，是真加密</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311449760.png"></p>
+<p>尝试爆破</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311499706.png"></p>
+<p>得到一段字符串</p>
+<p>base64三次得到killerqueen</p>
+<p>另一张图片是outguess隐写</p>
+<p><img src="/2022/01/15/%E5%9B%BE%E7%89%87%E9%9A%90%E5%86%99/1642311787198.png"></p>
+<p>打开flag1.txt文件</p>
+<p>wctf2020{pretty_girl_alison_likes_jojo}</p>
+<h1 id="盲水印"><a href="#盲水印" class="headerlink" title="盲水印"></a>盲水印</h1><h2 id="BlindWaterMark"><a href="#BlindWaterMark" class="headerlink" title="BlindWaterMark"></a>BlindWaterMark</h2><h1 id="点阵提取"><a href="#点阵提取" class="headerlink" title="点阵提取"></a>点阵提取</h1><pre class="language-python" data-language="python"><code class="language-python"># from PIL import Image
+#
+# img = Image.open('D:\\new\\cat.png')
+# width, height = img.size
+# pixs_list = []
+# for w in range(5, width, 11):
+# 	for h in range(5, height, 11):
+# 		pix = img.getpixel((w, h))
+# 		pixs_list.append(pix)
+# #分解下pixs_list的长度，就可以得到生成图片的宽高
+# new_width, new_height = 215, 215
+# new_img = Image.new('RGB', (new_width, new_height))
+# idx = 0
+# for n_w in range(new_width):
+# 	for n_h in range(new_height):
+# 		new_img.putpixel((n_w, n_h), pixs_list[idx])
+# 		idx += 1
+# new_img.save('ok.png')
+# new_img.show()
+# from PIL import Image
+#
+# img = Image.open('ok.png')
+# width, height = img.size
+# pixs_list = []
+# for w in range(2, width, 5):
+# 	for h in range(2, height, 5):
+# 		pix = img.getpixel((w, h))
+# 		pixs_list.append(pix)
+# #分解pixs_list的长度，
+# new_width, new_height = 43, 43
+# new_img = Image.new('RGB', (new_width, new_height))
+# idx = 0
+# for n_w in range(new_width):
+# 	for n_h in range(new_height):
+# 		new_img.putpixel((n_w, n_h), pixs_list[idx])
+# 		idx += 1
+# new_img.save('ok1.png')
+# new_img.show()
+
+from PIL import Image
+
+img = Image.open('ok1.png')
+if img.mode == "P":
+    img = img.convert("RGB")
+assert img.size[0] == img.size[1]
+dim = width, height = img.size
+
+st = 1
+a = 9
+b = 39
+for _ in range(st):
+    with Image.new(img.mode, dim) as canvas:
+        for nx in range(img.size[0]):
+            for ny in range(img.size[0]):
+                y = (ny - nx * a) % width
+                x = (nx - y * b) % height
+                canvas.putpixel((y, x), img.getpixel((ny, nx)))
+canvas.show()
+canvas.save('ok2.png')
+</code></pre>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2021/12/27/A-D1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2021/12/27/A-D1/" class="post-title-link" itemprop="url">A&D1</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-27 22:48:27" itemprop="dateCreated datePublished" datetime="2021-12-27T22:48:27+08:00">2021-12-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-03-11 13:09:08" itemprop="dateModified" datetime="2022-03-11T13:09:08+08:00">2022-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="IsDebugger-Present"><a href="#IsDebugger-Present" class="headerlink" title="IsDebugger Present"></a>IsDebugger Present</h1><p><strong>原理</strong></p>
+<hr>
+<p>​          反调试，该API查询PEB结构中的IsDebugger标志位， 未调试返回0，调试状态返回1。</p>
+<p><strong>绕过</strong></p>
+<hr>
+<ol>
+<li><p>nop指令</p>
+ <pre class="language-none"><code class="language-none">mov rax ; IsDebuggerPresent
+call rax ; IsDebuggerPresent</code></pre></li>
+<li><p>jnz和jz</p>
+<hr>
+<p> jnz在结果不为0时跳转，jz在结果为0时跳转</p>
+ <pre class="language-none"><code class="language-none">sub_4019F4()
+{
+    return ISDebuggerPresent;
+}
+if(!sub_4019F4)
+{
+     puts();
+}</code></pre>
+
+<p> 这个时候如果处于调试状态，返回1，不会执行put，这时候只需要去汇编指令处把jnz改为jz，重新汇编后会变成</p>
+ <pre class="language-none"><code class="language-none">sub_4019F4()
+{
+    return ISDebuggerPresent;
+}
+if(sub_4019F4)
+{
+     puts();
+}</code></pre>
+
+<p> 3.Attach to process</p>
+ <pre class="language-none"><code class="language-none">sub_4019F4();
+printf("%d",n);
+scanf("%d",&amp;m);</code></pre>
+
+<p> 可以先让程序运行，这时候已经步过了反调试函数，然后Attach to process就可以调试了</p>
+<p> 4.修改EIP：jump、call、ret指令</p>
+</li>
+</ol>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><ol>
+<li><p>函数介绍</p>
+ <pre class="language-none"><code class="language-none">1 CreateThread 创建线程
+2 CloseHandle 关闭线程
+3 WaitForSingleObject() 实现线程转换</code></pre></li>
+</ol>
+<p>​      2.题目——Youngter drive</p>
+<pre class="language-none"><code class="language-none">int __cdecl main_0(int argc, const char **argv, const char **envp)
+{
+  HANDLE v4; // [esp+D0h] [ebp-14h]
+  HANDLE hObject; // [esp+DCh] [ebp-8h]
+
+  ((void (*)(void))sub_4110FF)();
+  ::hObject = CreateMutexW(0, 0, 0);
+  j_strcpy(Destination, &amp;Source);
+  hObject = CreateThread(0, 0, StartAddress, 0, 0, 0);
+  v4 = CreateThread(0, 0, sub_41119F, 0, 0, 0);
+  CloseHandle(hObject);
+  CloseHandle(v4);
+  while ( dword_418008 != -1 )
+    ;
+  sub_411190();
+  CloseHandle(::hObject);
+  return 0;
+}</code></pre>
+
+<pre class="language-none"><code class="language-none">void __stdcall StartAddress_0(int a1)
+{
+  while ( 1 )
+  {
+    WaitForSingleObject(hObject, 0xFFFFFFFF);
+    if ( dword_418008 &gt; -1 )
+    {
+      sub_41112C(&amp;Source, dword_418008);
+      --dword_418008;
+      Sleep(0x64u);
+    }
+    ReleaseMutex(hObject);
+  }
+}</code></pre>
+
+<pre class="language-none"><code class="language-none">void __stdcall sub_411B10(int a1)
+{
+  while ( 1 )
+  {
+    WaitForSingleObject(hObject, 0xFFFFFFFF);
+    if ( dword_418008 &gt; -1 )
+    {
+      Sleep(0x64u);
+      --dword_418008;
+    }
+    ReleaseMutex(hObject);
+  }
+}</code></pre>
+
+<p>实际上就是每隔两位对数组元素做一次处理</p>
+<h1 id="Z3"><a href="#Z3" class="headerlink" title="Z3"></a>Z3</h1><ol>
+<li><p>基础</p>
+ <pre class="language-none"><code class="language-none">1 声明整数x = Int('x')
+2 声明实数x = Real('x')
+3 声明布尔类型x = Bool('x')
+
+1 创建solver求解器
+   例：s = Solver()
+2 添加约束条件
+   例：s.add(x+y==10)
+3 检查solver中的约束是否满足
+   例：s.check()
+4 利用model()输出运算结果
+   例：s.model()
+</code></pre>
+
+<p> 2.题目——Universe_final_answer</p>
+ <pre class="language-none"><code class="language-none">__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  char v4[32]; // [rsp+0h] [rbp-A8h] BYREF
+  char input[104]; // [rsp+20h] [rbp-88h] BYREF
+  unsigned __int64 v6; // [rsp+88h] [rbp-20h]
+
+  v6 = __readfsqword(0x28u);
+  __printf_chk(1LL, "Please give me the key string:", a3);
+  scanf("%s", input);
+  if ( sub_860(input) )
+  {
+    sub_C50(input, v4);
+    __printf_chk(1LL, "Judgement pass! flag is actf{%s_%s}\n", input);
+  }
+  else
+  {
+    puts("False key!");
+  }
+  return 0LL;
+}
+</code></pre>
+
+ <pre class="language-none"><code class="language-none">bool __fastcall sub_860(char *input)
+{
+  int v1; // ecx
+  int v2; // esi
+  int v3; // edx
+  int v4; // er9
+  int v5; // er11
+  int v6; // ebp
+  int v7; // ebx
+  int v8; // er8
+  int v9; // er10
+  bool result; // al
+  int v11; // [rsp+0h] [rbp-38h]
+
+  v1 = input[1];
+  v2 = *input;
+  v3 = input[2];
+  v4 = input[3];
+  v5 = input[4];
+  v6 = input[6];
+  v7 = input[5];
+  v8 = input[7];
+  v9 = input[8];
+  result = 0;
+  if ( -85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613 )
+  {
+    v11 = input[9];
+    if ( 30 * v11 + -70 * v9 + -122 * v6 + -81 * v7 + -66 * v5 + -115 * v4 + -41 * v3 + -86 * v1 - 15 * v2 - 30 * v8 == -54400
+      &amp;&amp; -103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 &lt;&lt; 6) - 120 * v9 == -10283
+      &amp;&amp; 71 * v6 + (v7 &lt;&lt; 7) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855
+      &amp;&amp; 5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944
+      &amp;&amp; -54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222
+      &amp;&amp; -83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258
+      &amp;&amp; 81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559
+      &amp;&amp; 101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308 )
+    {
+      result = 99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697;
+    }
+  }
+  return result;
+}
+</code></pre>
+
+<p> 脚本</p>
+ <pre class="language-none"><code class="language-none">from z3 import*
+
+s=Solver()
+v1=Int('v1')
+v2=Int('v2')
+v3=Int('v3')
+v4=Int('v4')
+v5=Int('v5')
+v6=Int('v6')
+v7=Int('v7')
+v8=Int('v8')
+v9=Int('v9')
+v11=Int('v11')
+
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
+s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
+s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
+s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
+s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
+s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
+s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
+s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
+
+if s.check()==sat:
+    result=s.model()
+
+print(result)
+</code></pre>
+
+<p> 这里的移位操作不能被识别，需要手动转换。</p>
+<p> 其实这道题带了个简单的混淆</p>
+ <pre class="language-none"><code class="language-none">unsigned __int64 __fastcall sub_C50(const char *a1, _BYTE *a2)
+{
+  size_t v4; // rax
+  unsigned int v5; // edx
+  int v6; // edi
+  int v7; // ecx
+  __int64 v8; // r8
+  __int128 *v9; // rsi
+  unsigned int v10; // ecx
+  int v11; // eax
+  int v12; // edi
+  int v13; // edx
+  int v14; // eax
+  _BYTE *v15; // rsi
+  _BYTE *v16; // rcx
+  _BYTE *v17; // r8
+  int *i; // rax
+  unsigned __int64 result; // rax
+  __int128 v20[2]; // [rsp+0h] [rbp-48h] BYREF
+  __int64 v21; // [rsp+20h] [rbp-28h]
+  unsigned __int64 v22; // [rsp+28h] [rbp-20h]
+
+  v22 = __readfsqword(0x28u);
+  v20[0] = 0LL;
+  v21 = 0LL;
+  v20[1] = 0LL;
+  v4 = strlen(a1);
+  v5 = 0;
+  v6 = 9;
+  while ( v5 &lt; v4 )
+  {
+    v7 = a1[v5++];
+    v6 ^= v7;
+  }
+  if ( v6 )
+  {
+    v8 = 0LL;
+    v9 = v20;
+    while ( 1 )
+    {
+      v9 = (__int128 *)((char *)v9 + 4);
+      v10 = v8 + 1;
+      v11 = v6 / 10;
+      v12 = v6 % 10;
+      *((_DWORD *)v9 - 1) = v12;
+      LOBYTE(v13) = v12;
+      v6 = v11;
+      if ( !v11 )
+        break;
+      v8 = v10;
+    }
+    v14 = v8 - 1;
+    v15 = a2;
+    v16 = &amp;a2[v10];
+    v17 = &amp;a2[v8];
+    for ( i = (int *)v20 + v14; ; --i )
+    {
+      *v15 = v13 + 48;
+      if ( v17 == v15 )
+        break;
+      v13 = *i;
+      ++v15;
+    }
+  }
+  else
+  {
+    v16 = a2;
+  }
+  result = __readfsqword(0x28u) ^ v22;
+  *v16 = 0;
+  return result;
+}
+</code></pre>
+
+<p> 这里面的函数没有对输入进行处理，所以不用管</p>
+</li>
+</ol>
+<h1 id="修改二进制文件汇编指令"><a href="#修改二进制文件汇编指令" class="headerlink" title="修改二进制文件汇编指令"></a>修改二进制文件汇编指令</h1><p>1.题目——Overlong</p>
+<p>运行程序，得到</p>
+<pre class="language-none"><code class="language-none">I never broke the encoding：
+</code></pre>
+
+<pre class="language-none"><code class="language-none">int __stdcall start(int a1, int a2, int a3, int a4)
+{
+  CHAR Text[128]; // [esp+0h] [ebp-84h] BYREF
+  int v6; // [esp+80h] [ebp-4h]
+
+  v6 = sub_401160(Text, &amp;unk_402008, 28);
+  Text[v6] = 0;
+  MessageBoxA(0, Text, Caption, 0);
+  return 0;
+}
+</code></pre>
+
+<p>这里只取出了TEXT的前28位，而程序运行后的输出长度正好是28，加上题目overlong提示和：结尾，猜测部分长度没显示</p>
+<p>所以需要修改二进制文件汇编指令</p>
+<pre class="language-none"><code class="language-none">.text:004011C0                 push    ebp
+.text:004011C1                 mov     ebp, esp
+.text:004011C3                 sub     esp, 84h
+.text:004011C9                 push    1Ch
+.text:004011CB                 push    offset unk_402008
+.text:004011D0                 lea     eax, [ebp+Text]
+</code></pre>
+
+<p>1c对应28，所以需要将1c改大</p>
+<p>1、ida修改–&gt; 点击菜单项“Edit”–“Patch program”–“Assemble” –&gt; 点击菜单项“Edit”–“Patch program”–“Apply patches to input file”，在弹出的对话框中点击OK按钮，则成功完成指令修改。</p>
+<p>点击确认按钮时，可能会弹出无法写入对话框，只需去除该文件的只读属性，再次执行第三步即可。</p>
+<p>2、OD修改–&gt;根据汇编指令定位–&gt;右键–&gt;二进制–&gt;编辑 ,其他的可以直接修改指令，但是这里修改之后后面的汇编代码全变了，虽然不知道为啥。</p>
+<p>3、winhex修改–&gt;定位——先去ida的patch byte找到push 1c对应6A 1C 68 08 20 40 00 8D 85 7C FF FF FF 50 E8 84–&gt;去winhex修改1c，然后重新保存运行</p>
+<h1 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h1><p>1、题目——Signin</p>
+<pre class="language-none"><code class="language-none">__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  char v4[16]; // [rsp+0h] [rbp-4A0h] BYREF
+  char v5[16]; // [rsp+10h] [rbp-490h] BYREF
+  char v6[16]; // [rsp+20h] [rbp-480h] BYREF
+  char v7[16]; // [rsp+30h] [rbp-470h] BYREF
+  char v8[112]; // [rsp+40h] [rbp-460h] BYREF
+  char v9[1000]; // [rsp+B0h] [rbp-3F0h] BYREF
+  unsigned __int64 v10; // [rsp+498h] [rbp-8h]
+
+  v10 = __readfsqword(0x28u);
+  puts("[sign in]");
+  printf("[input your flag]: ");
+  __isoc99_scanf("%99s", v8);
+  sub_96A(v8, v9);//加密函数直接linux远调就可以知道是转十六进制数；
+  __gmpz_init_set_str(v7, "ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35", 16LL);//十六进制
+  __gmpz_init_set_str(v6, v9, 16LL);
+  __gmpz_init_set_str(v4, "103461035900816914121390101299049044413950405173712170434161686539878160984549", 10LL);//十进制
+  __gmpz_init_set_str(v5, "65537", 10LL);
+  __gmpz_powm(v6, v6, v5, v4);
+  if ( (unsigned int)__gmpz_cmp(v6, v7) )
+    puts("GG!");
+  else
+    puts("TTTTTTTTTTql!");
+  return 0LL;
+}
+</code></pre>
+
+<p>看到65537，加上查了__gmpz_powm()函数，也相当于__mpz_powm()函数，可以判断这是rsa加密</p>
+<pre class="language-none"><code class="language-none">void mpz_powm (mpz_t rop, const mpz_t base, const mpz_t exp, const mpz_t mod) [Function]
+Set rop to base^exp mod mod.
+</code></pre>
+
+<p> 其实就是计算 base 的 exp 次方，并对 mod 取模，最后将结果写入 rop 中 </p>
+<p>剩下的就是解出p、q，然后写脚本了</p>
+<pre class="language-none"><code class="language-none">C=M^E mod N
+C是密文，M是明文，E是公钥（E和 φ(N)互为质数），N是公共模数（质数 P 、Q相乘得到N），MOD就是模运算
+M=C^D mod N
+
+求D：E * D % φ(N) = 1
+    φ(N) = (P-1)(Q-1)
+   
+</code></pre>
+
+<p>2、rsa</p>
+<p>题目给出了公钥和flag.enc文件</p>
+<pre class="language-none"><code class="language-none">(N,e)是公钥， (N, d)是私钥
+</code></pre>
+
+<p>公钥和密钥生成</p>
+<pre class="language-none"><code class="language-none">4.1 求N
+我们准备两个很小对质数，
+p ＝ 17
+q ＝ 19
+N ＝ p ＊ q ＝ 323
+
+4.2 求L
+L ＝ lcm（p－1， q－1）＝ lcm(16，18） ＝ 144
+144为16和18对最小公倍数
+
+4.3 求E
+求E必须要满足2个条件：1 &lt; E &lt; L ，gcd（E，L）=1
+即1 &lt; E &lt; 144，gcd（E，144） ＝ 1 #gcd，最大公因数
+E和144互为质数，5显然满足上述2个条件
+故E ＝ 5        此时公钥=(E，N）＝ （5，323）
+
+4.4 求D
+求D也必须满足2个条件：1 &lt; D &lt; L，E＊D mod L ＝ 1
+即1 &lt; D &lt; 144，5 ＊ D mod 144 ＝ 1
+显然当D＝ 29 时满足上述两个条件
+1 &lt; 29 &lt; 144
+5＊29 mod 144 ＝ 145 mod 144 ＝ 1
+此时私钥＝（D，N）＝（29，323）
+</code></pre>
+
+<p>私钥和公钥都可以拿去解析</p>
+<p>这里解析得到</p>
+<pre class="language-none"><code class="language-none">e = 65537
+n=86934482296048119190666062003494800588905656017203025617216654058378322103517(n拿去分解)
+p = 285960468890451637935629440372639283459
+q = 304008741604601924494328155975272418463
+</code></pre>
+
+<p>从文件读取公钥或者私钥</p>
+<pre class="language-none"><code class="language-none">with open('private.pem', mode='rb') as privatefile:
+	keydata = privatefile.read()#rb 是以二进制形式打开文件
+privkey = rsa.PrivateKey.load_pkcs1(keydata)
+</code></pre>
+
+<pre class="language-none"><code class="language-none">import gmpy2 
+import rsa 
+ 
+e = 65537
+n = 86934482296048119190666062003494800588905656017203025617216654058378322103517
+p = 285960468890451637935629440372639283459
+q = 304008741604601924494328155975272418463
+
+phin = (q-1)*(p-1)
+
+d = gmpy2.invert(e, phin)
+
+key = rsa.PrivateKey(n, e, int(d), p, q)#生成私钥
+
+with open("D:\\new\\题目\\output\\flag.enc", "rb+") as f:
+    f = f.read()
+    print(rsa.decrypt(f, key))
+
+</code></pre>
+
+<h1 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h1><p>Maze题一般都需要找到入口、出口还有移动方向</p>
+<p>题目——unctf20201—easymaze</p>
+<pre class="language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  __int64 *v3; // rax
+  char *v4; // rdi
+  unsigned __int64 v5; // rbx
+  const char *v6; // rdx
+  int v7; // eax
+  int v8; // er9
+  int v9; // er8
+  int v10; // edx
+  char v11; // cl
+  int v12; // ecx
+  int v13; // ecx
+  __int64 *v14; // rax
+
+  sub_1400011A0(argc, argv, envp);
+  dword_140006790[0] = 1;#把鼠标放上去显示int型
+  dword_140006794 = 1;
+  dword_1400067B4 = 1;
+  dword_1400067CC = 1;
+  dword_1400067EC = 1;
+  dword_1400067F0 = 1;
+  dword_1400067D4 = 1;
+  dword_1400067D8 = 1;
+  dword_1400067F8 = 1;
+  dword_140006810 = 1;
+  dword_14000682C = 1;
+  dword_140006844 = 1;
+  dword_140006840 = 1;
+  dword_140006864 = 1;
+  dword_140006868 = 1;
+  dword_140006884 = 1;
+  dword_1400068A0 = 1;
+  dword_1400068BC = 1;
+  dword_1400068DC = 1;
+  dword_14000689C = 1;
+  v3 = sub_140001800(std::cout, (__int64)"Plz inpu7 the P4th :");
+  std::ostream::operator&lt;&lt;(v3, sub_1400019D0);
+  v4 = input;
+  v5 = -1i64;
+  sub_140001AA0(std::cin, -1i64, input);
+  do
+    ++v5;
+  while ( input[v5] );
+  if ( v5 &gt; 0x11 )
+  {
+    v6 = "to0 lon9!t0o long!";
+    goto LABEL_26;
+  }
+  if ( v5 &lt; 0x11 )
+  {
+    v6 = (const char *)&amp;unk_140003770;
+    goto LABEL_26;
+  }
+  v7 = dword_140006710;
+  v8 = 0;
+  v9 = dword_140006714;
+  v10 = dword_140006710;
+  do
+  {
+    v11 = *v4;
+    if ( *v4 == 'A' )
+      goto LABEL_21;
+    if ( v11 == 'W' )
+    {
+      ++v10;
+      v12 = v7 % 2;
+      ++v7;
+      goto LABEL_20;
+    }
+    if ( v11 == 'E' )
+    {
+      ++v10;
+      v13 = v7 % 2;
+      ++v7;
+LABEL_16:
+      dword_140006710 = v7;
+      if ( v13 )
+        goto LABEL_23;
+      goto LABEL_17;
+    }
+    if ( v11 != 'D' )
+    {
+      if ( v11 != 'X' )
+      {
+        if ( v11 != 'Z' )
+        {
+          v6 = "What the fuck did you give me?";
+          goto LABEL_26;
         }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
-    })();
-</script>
+        --v10;
+        v12 = v7 % 2;
+        --v7;
+LABEL_20:
+        dword_140006710 = v7;
+        if ( !v12 )
+          goto LABEL_23;
+LABEL_21:
+        --v9;
+        goto LABEL_22;
+      }
+      --v10;
+      v13 = v7 % 2;
+      --v7;
+      goto LABEL_16;
+    }
+LABEL_17:
+    ++v9;
+LABEL_22:
+    dword_140006714 = v9;
+LABEL_23:
+    ++v8;
+    ++v4;
+  }
+  while ( v8 &lt; v5 );
+  v6 = "Congratulations on this forced to get the right flag, you entered is the correct answer!";
+  
+  if ( dword_140006790[7 * v7 + v9] != 1 )
+    
+    v6 = "Try it again little unlucky!";
+LABEL_26:
+  v14 = sub_140001800(std::cout, (__int64)v6);
+  std::ostream::operator&lt;&lt;(v14, sub_1400019D0);
+  return 0;
+}
+</code></pre>
+
+<p>动调就可以把AWEDXZ的移动弄出来</p>
+<p>在ida里面dd表示四个字节，db表示一个字节</p>
+<pre class="language-none"><code class="language-none">data:00007FF673BF6794 dword_7FF673BF6794 dd 0                 ; DATA XREF: main+27↑w
+.data:00007FF673BF6798 dd 0
+.data:00007FF673BF679C db    0
+.data:00007FF673BF679D db    0
+.data:00007FF673BF679E db    0
+.data:00007FF673BF679F db    0
+.data:00007FF673BF67A0 db    0
+.data:00007FF673BF67A1 db    0
+.data:00007FF673BF67A2 db    0
+.data:00007FF673BF67A3 db    0
+.data:00007FF673BF67A4 db    0
+.data:00007FF673BF67A5 db    0
+.data:00007FF673BF67A6 db    0
+.data:00007FF673BF67A7 db    0
+</code></pre>
+
+<p>要对着db按D转换数据类型，全部转为int型</p>
+<h1 id="base64变表"><a href="#base64变表" class="headerlink" title="base64变表"></a>base64变表</h1><p>1、base64变表实际上就是将base64编码表进行了修改</p>
+<p>2、题目——nctf2021 shadowbringer</p>
+<pre class="language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char v4[16]; // [rsp+20h] [rbp-60h] BYREF
+  char v5[15]; // [rsp+30h] [rbp-50h] BYREF
+  char v6; // [rsp+3Fh] [rbp-41h] BYREF
+  char v7[16]; // [rsp+40h] [rbp-40h] BYREF
+  char v8[16]; // [rsp+50h] [rbp-30h] BYREF
+  char v9[16]; // [rsp+60h] [rbp-20h] BYREF
+  char v10[32]; // [rsp+70h] [rbp-10h] BYREF
+
+  _main();
+  youknowwhat();
+  std::string::string((std::string *)v5);
+  std::allocator&lt;char&gt;::allocator(&amp;v6);
+  std::string::string(v4, "U&gt;F2UsQXN`5sXMELT=:7M_2&lt;X]^1ThaWF0=KM?9IUhAsTM5:T==_Ns&amp;&lt;Vhb!", &amp;v6);
+  std::allocator&lt;char&gt;::~allocator(&amp;v6);
+  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Welcome.Please input your flag:\n");
+  std::operator&gt;&gt;&lt;char&gt;(scanf, (std::string *)v5);
+  std::string::string((std::string *)v8, (const std::string *)v5);
+  
+  Emet(v7, v8);
+  
+  std::string::operator=(v5, v7);
+  std::string::~string((std::string *)v7);
+  std::string::~string((std::string *)v8);
+  std::string::string((std::string *)v10, (const std::string *)v5);
+  
+  Selch(v9, v10);
+  
+  std::string::operator=(v5, v9);               
+  std::string::~string((std::string *)v9);
+  std::string::~string((std::string *)v10);
+  if ( (unsigned __int8)std::operator==&lt;char&gt;(v5, v4) )
+    std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Right.");
+  else
+    std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Wrong.");
+  std::string::~string((std::string *)v4);
+  std::string::~string((std::string *)v5);
+  return 0;
+}
+</code></pre>
+
+<pre class="language-none"><code class="language-none">std::string *__fastcall Emet(std::string *a1, std::string *a2)
+{
+  int i; // ebx
+  char *v3; // rax
+  unsigned __int64 v4; // rax
+  int j; // ebx
+  unsigned int v6; // eax
+  char *v7; // rax
+  unsigned __int64 v9; // [rsp+20h] [rbp-90h] BYREF
+  char v10; // [rsp+2Eh] [rbp-82h] BYREF
+  char v11; // [rsp+2Fh] [rbp-81h] BYREF
+  char v12[16]; // [rsp+30h] [rbp-80h] BYREF
+  char v13[16]; // [rsp+40h] [rbp-70h] BYREF
+  char v14[16]; // [rsp+50h] [rbp-60h] BYREF
+  char v15[16]; // [rsp+60h] [rbp-50h] BYREF
+  char v16[16]; // [rsp+70h] [rbp-40h] BYREF
+  char v17[16]; // [rsp+80h] [rbp-30h] BYREF
+  char v18[16]; // [rsp+90h] [rbp-20h] BYREF
+  char v19[16]; // [rsp+A0h] [rbp-10h] BYREF
+
+  std::allocator&lt;char&gt;::allocator(&amp;v10);
+  std::string::string(&amp;v9, &amp;unk_48A000, &amp;v10);
+  std::allocator&lt;char&gt;::~allocator(&amp;v10);
+  std::allocator&lt;char&gt;::allocator(&amp;v11);
+  std::string::string(a1, &amp;unk_48A000, &amp;v11);
+  std::allocator&lt;char&gt;::~allocator(&amp;v11);
+  for ( i = 0; i &lt; (unsigned __int64)std::string::size(a2); ++i )
+  {
+    v3 = (char *)std::string::operator[](a2, i);
+    std::bitset&lt;8ull&gt;::bitset(v14, (unsigned int)*v3);
+    std::bitset&lt;8ull&gt;::to_string(v13, v14);
+    std::operator+&lt;char&gt;(v12, &amp;v9, v13);
+    std::string::operator=(&amp;v9, v12);
+    std::string::~string((std::string *)v12);
+    std::string::~string((std::string *)v13);
+  }
+  while ( 1 )
+  {
+    v4 = std::string::size((std::string *)&amp;v9);
+    if ( v4 == 6 * (v4 / 6) )
+      break;
+    std::operator+&lt;char&gt;(v15, &amp;v9, 48i64);
+    std::string::operator=(&amp;v9, v15);
+    std::string::~string((std::string *)v15);
+  }
+  for ( j = 0; j &lt; (unsigned __int64)std::string::size((std::string *)&amp;v9); j += 6 )
+  {
+    std::string::substr((std::string *)v18, (unsigned __int64)&amp;v9, j);
+    std::bitset&lt;6ull&gt;::bitset&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;(v17, v18, 0i64);
+    v6 = std::bitset&lt;6ull&gt;::to_ulong(v17);
+    v7 = (char *)std::string::operator[](&amp;hisoralce, v6);
+    std::operator+&lt;char&gt;(v16, a1, (unsigned int)*v7);
+    std::string::operator=(a1, v16);
+    std::string::~string((std::string *)v16);
+    std::string::~string((std::string *)v18);
+  }
+  while ( (std::string::size(a1) &amp; 3) != 0 )
+  {
+    std::operator+&lt;char&gt;(v19, a1, 33i64);
+    std::string::operator=(a1, v19);
+    std::string::~string((std::string *)v19);
+  }
+  std::string::~string((std::string *)&amp;v9);
+  return a1;
+}
+</code></pre>
+
+<p>这里的j+=6，像是base64，而&amp;hisorale是指针</p>
+<pre class="language-none"><code class="language-none">bss:00000000004AA030 hisoralce db  28h ; (                   ; DATA XREF: youknowwhat(void)+2A↑o
+.bss:00000000004AA030                                         ; youknowwhat(void)+40↑o ...
+.bss:00000000004AA031 db  3Dh ; =
+.bss:00000000004AA032 db 0BBh
+.bss:00000000004AA033 db    0
+.bss:00000000004AA034 db    0
+.bss:00000000004AA035 db    0
+.bss:00000000004AA036 db    0
+.bss:00000000004AA037 db    0
+</code></pre>
+
+<p>需要对着db按d转换类型，才能看到该地址存储的内容</p>
+
+      
+    </div>
 
     
-    <script src="/libs/others/clicklove.js" async="async"></script>
-    
-    
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
-    
-
-    
-
-    
-
-    <!--腾讯兔小巢-->
     
     
 
-    
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
 
-    
 
-    
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
-    
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gift1a</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
