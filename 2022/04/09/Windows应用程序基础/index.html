@@ -93,7 +93,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="leaf fa-fw"></i>links</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -291,7 +291,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>505</span>
+      <span>507</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -311,8 +311,8 @@
     <div class="post-body" itemprop="articleBody">
         <p>Windows基础</p>
 <span id="more"></span> 
-
-<h1 id="0x00-权限级别"><a href="#0x00-权限级别" class="headerlink" title="0x00-权限级别"></a>0x00-权限级别</h1><p>先来看一下特权级环，从里往外权限逐渐降低</p>
+<h1 id="0x00-权限级别"><a class="header-anchor" href="#0x00-权限级别">¶</a>0x00-权限级别</h1>
+<p>先来看一下特权级环，从里往外权限逐渐降低</p>
 <p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650108857255.png" alt="特权级环"></p>
 <blockquote>
 <p><strong>系统内核层，又叫零环（Ring 0，简称“R0”；与此对应的应用层叫3环，即Ring 3，简称“R3”），实际上是CPU的4个运行级别中的一个</strong></p>
@@ -322,8 +322,9 @@
 <p>在AMD64CPU诞生之后，CPU的设计者干脆也和操作吸引保持一致，只保留了R0和R3两个级别</p>
 <p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109580425.png" alt="Windows XP体系结构简图"></p>
 <p>HAL是一个可加载的核心模块HAL.DLL，它为运行在Windows XP上的硬件平台提供低级接口。Windows XP的执行体是NTOSKRNL.EXE的上层（内核是其下层）。用户层导出并且可以调用的函数接口在NTDLL.DLL中，通过Win32 API或其他环境子系统对它们进行访问</p>
-<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109820013.png"></p>
-<h1 id="0x01-内存空间布局"><a href="#0x01-内存空间布局" class="headerlink" title="0x01-内存空间布局"></a>0x01-内存空间布局</h1>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109820013.png" alt=""></p>
+<h1 id="0x01-内存空间布局"><a class="header-anchor" href="#0x01-内存空间布局">¶</a>0x01-内存空间布局</h1>
+
     </div>
 
     
@@ -379,7 +380,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">273k</span>
+    <span title="站点总字数">274k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

@@ -95,7 +95,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="leaf fa-fw"></i>links</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -312,26 +312,31 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="0x00-环境配置"><a href="#0x00-环境配置" class="headerlink" title="0x00-环境配置"></a>0x00-环境配置</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/KRDecad3/p/10798383.html">https://www.cnblogs.com/KRDecad3/p/10798383.html</a></p>
+        <h1 id="0x00-环境配置"><a class="header-anchor" href="#0x00-环境配置">¶</a>0x00-环境配置</h1>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/KRDecad3/p/10798383.html">https://www.cnblogs.com/KRDecad3/p/10798383.html</a></p>
 <p>Rinkeby获取测试币网站</p>
 <p><a target="_blank" rel="noopener" href="https://faucets.chain.link/rinkeby">https://faucets.chain.link/rinkeby</a></p>
 <p>其他的获取都没啥问题，选择购买-&gt;第二个即可</p>
-<p><img src="/2022/04/06/BlockChain/1649249439831.png"></p>
-<h1 id="0x01-基础使用"><a href="#0x01-基础使用" class="headerlink" title="0x01-基础使用"></a>0x01-基础使用</h1><p>可以本地化安装，也可以使用在线网站 <a target="_blank" rel="noopener" href="http://remix.ethereum.org/">http://remix.ethereum.org</a> </p>
-<h2 id="0x00-创建文件"><a href="#0x00-创建文件" class="headerlink" title="0x00-创建文件"></a>0x00-创建文件</h2><p>按照如下操作创建新文件，名称后缀为.sol</p>
-<p><img src="/2022/04/06/BlockChain/1649250592024.png"></p>
-<h2 id="0x01-源码编译"><a href="#0x01-源码编译" class="headerlink" title="0x01-源码编译"></a>0x01-源码编译</h2><p>源代码</p>
+<p><img src="/2022/04/06/BlockChain/1649249439831.png" alt=""></p>
+<h1 id="0x01-基础使用"><a class="header-anchor" href="#0x01-基础使用">¶</a>0x01-基础使用</h1>
+<p>可以本地化安装，也可以使用在线网站 <a target="_blank" rel="noopener" href="http://remix.ethereum.org">http://remix.ethereum.org</a></p>
+<h2 id="0x00-创建文件"><a class="header-anchor" href="#0x00-创建文件">¶</a>0x00-创建文件</h2>
+<p>按照如下操作创建新文件，名称后缀为.sol</p>
+<p><img src="/2022/04/06/BlockChain/1649250592024.png" alt=""></p>
+<h2 id="0x01-源码编译"><a class="header-anchor" href="#0x01-源码编译">¶</a>0x01-源码编译</h2>
+<p>源代码</p>
 <figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.23;</span><br><span class="line">contract Trans{</span><br><span class="line">    </span><br><span class="line">    string flag;</span><br><span class="line">    mapping(address =&gt; uint256) balances;</span><br><span class="line">    constructor () public {</span><br><span class="line">        //flag = WHAT_YOU_WANT;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function getBalance() public returns (bool){</span><br><span class="line">        balances[msg.sender] = 100;</span><br><span class="line">        return true;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function showBalance() public view returns (uint256){</span><br><span class="line">        return balances[msg.sender];</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function Transfer(address[] _addr, uint256 _value) public returns (bool){</span><br><span class="line">        uint times = _addr.length;</span><br><span class="line">        uint256 amount = uint256(times) * _value;</span><br><span class="line">        require(_value &gt; 0 &amp;&amp; balances[msg.sender] &gt;= amount);</span><br><span class="line">        require(times &gt; 0 &amp;&amp; times &lt; 10);</span><br><span class="line">        balances[msg.sender] -= amount;</span><br><span class="line">        for(uint i = 0; i &lt; times; i++){</span><br><span class="line">            balances[_addr[i]] += _value;</span><br><span class="line">        }</span><br><span class="line">        return true;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function getFlag() public view returns (string){</span><br><span class="line">        require(balances[msg.sender] &gt; 9999999);</span><br><span class="line">        return flag;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
 <p>一些说明</p>
 <p>我们选择的COMPILER需要和题目的源码的版本一致</p>
-<p><img src="/2022/04/06/BlockChain/1649250475741.png"></p>
+<p><img src="/2022/04/06/BlockChain/1649250475741.png" alt=""></p>
 <p>然后我选择了自动编译</p>
-<h2 id="0x02-配置题目合约"><a href="#0x02-配置题目合约" class="headerlink" title="0x02-配置题目合约"></a>0x02-配置题目合约</h2><p><img src="/2022/04/06/BlockChain/1649251440698.png" alt="一些说明"></p>
+<h2 id="0x02-配置题目合约"><a class="header-anchor" href="#0x02-配置题目合约">¶</a>0x02-配置题目合约</h2>
+<p><img src="/2022/04/06/BlockChain/1649251440698.png" alt="一些说明"></p>
 <p>弄好之后点击Deploy即可，然后他会连接并让我们确认支付</p>
 <p>然后这些就是函数</p>
-<p><img src="/2022/04/06/BlockChain/1649251873154.png"></p>
-<h1 id="0x02-刷题网站"><a href="#0x02-刷题网站" class="headerlink" title="0x02-刷题网站"></a>0x02-刷题网站</h1><p><a target="_blank" rel="noopener" href="https://chainflag.org/challenges">https://chainflag.org/challenges</a></p>
+<p><img src="/2022/04/06/BlockChain/1649251873154.png" alt=""></p>
+<h1 id="0x02-刷题网站"><a class="header-anchor" href="#0x02-刷题网站">¶</a>0x02-刷题网站</h1>
+<p><a target="_blank" rel="noopener" href="https://chainflag.org/challenges">https://chainflag.org/challenges</a></p>
 <p>因为智能合约基本是solidity语法，所以需要学习一下</p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/70aecda3212e">https://www.jianshu.com/p/70aecda3212e</a></p>
 
@@ -390,7 +395,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">273k</span>
+    <span title="站点总字数">274k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">

@@ -96,7 +96,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li><li class="menu-item menu-item-links"><a href="/links/" rel="section"><i class="leaf fa-fw"></i>links</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -153,7 +153,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">分析</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E6%9E%90-v7"><span class="nav-number">1.</span> <span class="nav-text">分析</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -294,7 +294,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>250</span>
+      <span>251</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -313,17 +313,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png"></p>
+        <h1 id="分析-v7"><a class="header-anchor" href="#分析-v7">¶</a>分析</h1>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png" alt=""></p>
 <p>可以看到上面这一段是输入并且把加密后的输入赋值给Buf2，在这之后已经结束了判断，所以下面红色框的代码应该是解密代码，只需要把Buf在栈中进行修改为final字符串即可</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png"></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png" alt=""></p>
 <p>这里点过去发现并没有数据，这可能是一些数据没有反编译出来，但是在图中蓝色部分可以看到地址是ebp-54</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png">计算一下，在堆栈窗口按g进行跳转</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png"></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png" alt="">计算一下，在堆栈窗口按g进行跳转</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png" alt=""></p>
 <p>跳转之后</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png"></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png" alt=""></p>
 <p>然后右键Edit，或者按快捷键F2，然后进行修改，注意大小端序的问题，这里使用lazyida选择DWORD导出来就很方便，再次右键，应用修改</p>
 <p>然后运行即可，就可以在input看到flag了</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png"></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png" alt=""></p>
 
     </div>
 
@@ -380,7 +381,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">273k</span>
+    <span title="站点总字数">274k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
