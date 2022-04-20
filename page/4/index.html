@@ -419,7 +419,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-09 19:02:44" itemprop="dateModified" datetime="2022-04-09T19:02:44+08:00">2022-04-09</time>
+      <time title="修改时间：2022-04-20 09:48:40" itemprop="dateModified" datetime="2022-04-20T09:48:40+08:00">2022-04-20</time>
     </span>
 
   
@@ -447,88 +447,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="0x00-Windows消息机制"><a href="#0x00-Windows消息机制" class="headerlink" title="0x00-Windows消息机制"></a>0x00-Windows消息机制</h1><h2 id="消息的产生"><a href="#消息的产生" class="headerlink" title="消息的产生"></a>消息的产生</h2><p>通常根据消息产生的方式分为 硬件和软件信息。</p>
-<p>硬件信息：常指由硬件装置所产生的时间（如鼠标或键盘被按下），放在系统消息队列（System Queue）中，再由系统消息处理机构将消息发送至应用程序消息队列中。</p>
-<p>软件信息：常指由WIndows系统或其它应用程序发送的信息，他直接放入应用程序消息队列中，再由应用程序消息处理机构将消息传递给相应的窗口。</p>
-<h2 id="消息的组成"><a href="#消息的组成" class="headerlink" title="消息的组成"></a>消息的组成</h2><p>一个消息由一个消息名称（UINT），和两个参数（WPARAM,LPARAM）。当用户进行了输入或者窗口的状态发生改变时系统都会发送消息到某一个窗口。例如当菜单中转之后会有WM_COMMAND消息发送，WPARAM的高字中(HIWORD(WPARAM))是命令的ID号，对菜单来讲就是菜单的ID。当然用户也可以定义自己的消息名称，也可以利用自定义消息来发送通知和传送数据</p>
-<h2 id="消息的接收者"><a href="#消息的接收者" class="headerlink" title="消息的接收者"></a>消息的接收者</h2><p>一个消息必须由一个窗口接收。在窗口过程（WNDPROC）中可以对消息进行分析，对应用程序要求处理的消息进行相应的处理工作，对于那些不需要应用程序处理的消息可以简单的调用缺省处理。例如你希望对菜单选择进行处理，那么你可以定义对WM_COMMAND进行处理的代码，如果希望在窗口中进行图形输出就必须对WM_PAINT进行处理</p>
-<h2 id="消息的处理"><a href="#消息的处理" class="headerlink" title="消息的处理"></a>消息的处理</h2><p>窗口接收到发送给自己的消息后，将消息结构作为参数，调用窗口过程对消息进行相应的处理。可以将窗口过程看作消息处理代码的集合，窗口过程函数的原型为</p>
-<blockquote>
-<p> long FAR PASCAL WndProc(HWND hWnd,WORD message,WORD wParam,LONG lParam);<br>  其中，hWnd为窗口句柄，message为消息名称，wParam,lParam为两个参数。 </p>
-</blockquote>
-<p>在Windows中，应用程序不直接调用任何窗口函数，而是等待Windows调用函数窗口，请求完成任务或返回信息。</p>
-<p>为保证Windows调用这个窗口函数，这个函数必须先向Windows登记，然后在Windows实施操作时回调，所以窗口函数又被称为回调函数。WndProc是一个主回调函数，Windows至少有一个回调函数。他是在应用程序进行窗口类注册时向Windows登记的。</p>
-<h1 id="0x01-HOOK"><a href="#0x01-HOOK" class="headerlink" title="0x01-HOOK"></a>0x01-HOOK</h1><p> <img src="/2022/02/03/Hook/20180613200129100"> </p>
-<blockquote>
-<p> 钩子是Windows消息处理机制的一个平台，应用程序可以在上面设置子程以监视指定窗口的某种消息，而且所监视的窗口可以是其他进程所创建的。</p>
-<p>当消息到达后，钩子可以在目标窗口处理函数之前处理它并且可以阻止消息的传递。</p>
-<p>每一个钩子都有一个与之相关联的指针列表，称之为钩子链表，该链表中的指针指向这个钩子的各个处理子程。钩子的种类很多，每种钩子可以拦截并处理相应种类的消息。</p>
-<p>当钩子所监视的消息出现时，Windows调用链表中的第一个钩子子程，第一个过程完成后将消息传递链表中的下一个钩子子程，直至链表中所有钩子子程都执行完成（注意：如果在其中有一个钩子在执行完成前不执行消息传递，其后面的钩子过程和原窗口过程都不会再接收到消息。）后将消息返回给窗口过程。 </p>
-</blockquote>
-<h2 id="钩子子程函数"><a href="#钩子子程函数" class="headerlink" title="钩子子程函数"></a>钩子子程函数</h2><p>钩子子程是一个应用程序定义的回调函数。用以监听系统或者某一类特定类型的事件，这些事件可以是与某一特定线程相关联的，也可以是系统中所有线程的事件。其函数原型为</p>
-<blockquote>
-<p> LRESULT CALLBACK HookProc  ( int nCode, WPARAM wParam, LPARAM lParam ); </p>
-</blockquote>
-<p>其中，nCode参数是Hook代码，Hook子程使用这个来确定任务。这个参数的值依赖于Hook类型，每一种Hook都有自己的Hook代码特征字符集。Windows系统提供了多种类型的钩子，每一种类型的Hook可以使应用程序能够监听不同类型的系统消息处理机制。</p>
-<p>WPARAM和PARAM参数的值依赖于Hook代码，但它们的典型值是包含了关于发送或者接受消息的信息。</p>
-<h2 id="钩子的安装与卸载"><a href="#钩子的安装与卸载" class="headerlink" title="钩子的安装与卸载"></a>钩子的安装与卸载</h2><p>钩子的安装是通过 SDK API函数SetWindowsHookEx()来实现的，它将钩子子程安装到系统钩子链表中</p>
-<p>其函数原型为</p>
-<blockquote>
-<p>  HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn,HINSTANCE hMod, DWORD dwThreadId ); </p>
-</blockquote>
-<p>其中，idHook是指钩子的类型</p>
-<p><img src="/2022/02/03/Hook/1649502050125.png"></p>
-<blockquote>
-<p>lpfn是指钩子子程的地址指针。如果dwThreadId参数为0 或是一个由别的进程创建的线程的标识，lpfn必 须指向DLL中的钩子子程。除此以外，lpfn可以指向当前进程的一段钩子子程代码。 </p>
-<p> hMod是指应用程序实例的句柄。标识包含lpfn所指的子程的DLL。如果dwThreadId 标识当前进程创建的一个线程，而且子程代码位于当前进程，hMod必须为NULL。 </p>
-<p>dwThreadId是指与安装的钩子子程相关联的线程的标识符，如果为0，钩子子程与所有的线程关联。</p>
-<p>函数成功则返回钩子的句柄，失败返回NULL。</p>
-</blockquote>
-<p>钩子在在使用完之后需要使用UnHookWindowsHookEx()卸载 </p>
-<blockquote>
-<p> UnHookWindowsHookEx ( HHOOK hhk ) </p>
-</blockquote>
-<p>参数hhk是etWindowsHookEx()函数返回钩子句柄，函数成功返回TRUE，否则返回FALSE </p>
-<h1 id="题目-BUUCTF-easystrcmp"><a href="#题目-BUUCTF-easystrcmp" class="headerlink" title="题目-BUUCTF-easystrcmp"></a>题目-BUUCTF-easystrcmp</h1><p>进入主函数</p>
-<p><img src="/2022/02/03/Hook/1643884712406.png"></p>
-<p>看似是一个简单的比较，但是输入之后发现并不对</p>
-<p>应该是做了什么处理，动态调试</p>
-<p>点进strcmp函数</p>
-<p><img src="/2022/02/03/Hook/1643884961802.png"></p>
-<p>发现跳转到了加密函数</p>
-<p>原理分析</p>
-<p>因为存在init段，去查看函数</p>
-<p><img src="/2022/02/03/Hook/1643885017644.png"></p>
-<p>这样可以查看函数列表进行跳转</p>
-<p><img src="/2022/02/03/Hook/1643885047181.png"></p>
-<p>进入off函数</p>
-<p><img src="/2022/02/03/Hook/1643885073169.png"></p>
-<p>第一个函数点进去没发现什么，第二个函数点进去</p>
-<p><img src="/2022/02/03/Hook/1643885101701.png"></p>
-<p>可以看到先把strcmp函数的地址赋值给qword_201090</p>
-<p>然后把sub_6EA函数赋值给off-102028,点进去</p>
-<p><img src="/2022/02/03/Hook/1643885199097.png"></p>
-<p>发现正好是strcmp的地址，所以真正运行起来，函数会跳转到sub_6EA函数中，而不是strcmp函数，这样就实现了一个简单的hook</p>
-<p>脚本</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include &lt;string.h&gt;
-int main()
-{
-	char flag[]="********CENSORED********";
-	char s[]={0x42, 0x09, 
-  0x4A, 0x49, 0x35, 0x43, 0x0A, 0x41, 0xF0, 0x19, 0xE6, 0x0B, 
-  0xF5, 0xF2, 0x0E, 0x0B, 0x2B, 0x28, 0x35, 0x4A, 0x06, 0x3A, 
-  0x0A, 0x4F};
-  for(int i=0;i&lt;strlen(flag);++i)
-  {
-  	flag[i]+=s[i];
-  }
-  printf("%s",flag);
-	return 0;
- } </code></pre>
-
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iBinary/p/7599789.html%E5%85%B7%E4%BD%93%E8%AE%B2%E8%A7%A3%E4%BB%80%E4%B9%88%E6%98%AFHook">https://www.cnblogs.com/iBinary/p/7599789.html具体讲解什么是Hook</a></p>
-
+          <p>Hook</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/03/Hook/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -590,7 +517,7 @@ int main()
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-11 13:11:54" itemprop="dateModified" datetime="2022-03-11T13:11:54+08:00">2022-03-11</time>
+      <time title="修改时间：2022-04-20 09:49:21" itemprop="dateModified" datetime="2022-04-20T09:49:21+08:00">2022-04-20</time>
     </span>
 
   
@@ -618,25 +545,15 @@ int main()
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="ELF文件结构"><a href="#ELF文件结构" class="headerlink" title="ELF文件结构"></a>ELF文件结构</h1><p><a target="_blank" rel="noopener" href="https://carrychen.website/2021/05/14/elf-format/">https://carrychen.website/2021/05/14/elf-format/</a></p>
-<p> .init节定义了一个_init函数，用于可执行目标文件开始时的初始化工作。当进入主程序之前，系统先执行.init节的指令代码初始化 </p>
-<h1 id="例题-hgame2022-week2-fakeshell"><a href="#例题-hgame2022-week2-fakeshell" class="headerlink" title="例题-hgame2022-week2-fakeshell"></a>例题-hgame2022-week2-fakeshell</h1><p>先去看看init段进行了什么处理</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870839069.png"></p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870867197.png"></p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870876729.png"></p>
-<p>在第二个函数发现了处理</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870922345.png"></p>
-<p>查看aHappyh4me交叉引用</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870957940.png"></p>
-<p>可以看到后面还有操作</p>
-<p>定位到加密函数</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870991851.png"></p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871002931.png"></p>
-<p>可以知道是rc4加密，密钥在init段被修改了</p>
-<p>写脚本，也可以使用工具CaptfEncoder-win-1.1.0</p>
-<p>得到flag</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871135186.png"></p>
-
+          <p>Init初始化</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -3277,7 +3194,7 @@ int main(int argc, char* argv[])
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
   
 
@@ -3291,5 +3208,5 @@ int main(int argc, char* argv[])
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

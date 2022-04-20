@@ -223,7 +223,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-03-25 20:40:42" itemprop="dateModified" datetime="2022-03-25T20:40:42+08:00">2022-03-25</time>
+      <time title="修改时间：2022-04-20 09:49:55" itemprop="dateModified" datetime="2022-04-20T09:49:55+08:00">2022-04-20</time>
     </span>
 
   
@@ -251,17 +251,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h1><p>这里我没办法细讲，因为也是第一次接触，后续深入了解后再补</p>
-<p><a target="_blank" rel="noopener" href="https://www.1024sou.com/article/387833.html">https://www.1024sou.com/article/387833.html</a></p>
-<p>clang常用编译命令</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/pc153262603/article/details/89553688">https://blog.csdn.net/pc153262603/article/details/89553688</a></p>
-<p>指令集</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37206105/article/details/115274241">https://blog.csdn.net/qq_37206105/article/details/115274241</a></p>
-<h1 id="LLVM程序集转为ELF可执行文件"><a href="#LLVM程序集转为ELF可执行文件" class="headerlink" title="LLVM程序集转为ELF可执行文件"></a>LLVM程序集转为ELF可执行文件</h1><p>打开附件发现有点难看懂，搜索其中一段指令集后发现是LLVM指令集</p>
-<p><img src="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/1648121627952.png"></p>
-<h2 id="转为ELF可执行文件"><a href="#转为ELF可执行文件" class="headerlink" title="转为ELF可执行文件"></a>转为ELF可执行文件</h2><p> clang task.ll -mllvm -W -g -W1,-pie -o task.out </p>
-<p>使用上面的命令即可生成elf文件</p>
-
+          <p>LLVM</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -584,7 +582,7 @@ int main()
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 16:59:25" itemprop="dateModified" datetime="2022-04-08T16:59:25+08:00">2022-04-08</time>
+      <time title="修改时间：2022-04-20 09:51:02" itemprop="dateModified" datetime="2022-04-20T09:51:02+08:00">2022-04-20</time>
     </span>
 
   
@@ -612,140 +610,15 @@ int main()
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="代码节空白节区添加代码"><a href="#代码节空白节区添加代码" class="headerlink" title="代码节空白节区添加代码"></a>代码节空白节区添加代码</h1><p>这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
-<h2 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h2><p> ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
-<p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
-<p>在标准PE头属性中的第一个值改为1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png"></p>
-<p>这样PE文件加载到内存中就不会随机化了</p>
-<h2 id="提取关键数据"><a href="#提取关键数据" class="headerlink" title="提取关键数据"></a>提取关键数据</h2><h3 id="可选PE头"><a href="#可选PE头" class="headerlink" title="可选PE头"></a>可选PE头</h3><p>DWORD AddressOfEntryPoint-10E5DBh</p>
-<p>DWORD ImageBase-400000h</p>
-<h3 id="节表信息"><a href="#节表信息" class="headerlink" title="节表信息"></a>节表信息</h3><p>MIsc.DWORD VirtualSize-17C51Eh</p>
-<p>DWORD VirtualAddress-1000h</p>
-<p>DWORD PointerToRawData-400h</p>
-<p>DWORD SizeOfRawData-17C600h</p>
-<h2 id="判断能否添加"><a href="#判断能否添加" class="headerlink" title="判断能否添加"></a>判断能否添加</h2><p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
-<h2 id="找到在文件中代码结束的位置"><a href="#找到在文件中代码结束的位置" class="headerlink" title="找到在文件中代码结束的位置"></a>找到在文件中代码结束的位置</h2><p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png"></p>
-<h2 id="添加硬编码"><a href="#添加硬编码" class="headerlink" title="添加硬编码"></a>添加硬编码</h2><p>MessageBoxA需要四个参数</p>
-<p>call指令长度为5</p>
-<p>jmp指令长度为5</p>
-<blockquote>
-<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
-</blockquote>
-<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png"></p>
-<h2 id="计算E8和E9的后四个字节"><a href="#计算E8和E9的后四个字节" class="headerlink" title="计算E8和E9的后四个字节"></a>计算E8和E9的后四个字节</h2><p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png"></p>
-<h3 id="E8后四字节计算"><a href="#E8后四字节计算" class="headerlink" title="E8后四字节计算"></a>E8后四字节计算</h3><p>真实地址为MessageBoxA的地址</p>
-<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
-<p>76BA5865</p>
-<h3 id="E9后四字节计算"><a href="#E9后四字节计算" class="headerlink" title="E9后四字节计算"></a>E9后四字节计算</h3><p>真实地址为原来的OEP</p>
-<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
-<p>为FFF910AB</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png"></p>
-<h2 id="修改AddressOfPoint"><a href="#修改AddressOfPoint" class="headerlink" title="修改AddressOfPoint"></a>修改AddressOfPoint</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png"></p>
-<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
-<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
-<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>先执行MessageBoxA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png"></p>
-<p>再运行程序</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png"></p>
-<h1 id="新增节"><a href="#新增节" class="headerlink" title="新增节"></a>新增节</h1><h2 id="大小判断"><a href="#大小判断" class="headerlink" title="大小判断"></a>大小判断</h2><p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
-<h2 id="修改节表数量"><a href="#修改节表数量" class="headerlink" title="修改节表数量"></a>修改节表数量</h2><p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png"></p>
-<h2 id="添加节表信息"><a href="#添加节表信息" class="headerlink" title="添加节表信息"></a>添加节表信息</h2><p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png"></p>
-<h2 id="确定插入的大小"><a href="#确定插入的大小" class="headerlink" title="确定插入的大小"></a>确定插入的大小</h2><p>根据情况自行选择，这里假设我们插入0x1000字节</p>
-<h2 id="修改内存对齐后的大小"><a href="#修改内存对齐后的大小" class="headerlink" title="修改内存对齐后的大小"></a>修改内存对齐后的大小</h2><p>SizeOfImage+插入的大小（按照内存对齐）</p>
-<h2 id="修正节表信息"><a href="#修正节表信息" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>先看关键数据</p>
-<p>DWORD VirtualAddress</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD PointerToRawData</p>
-<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
-<h3 id="计算VirtualAddress"><a href="#计算VirtualAddress" class="headerlink" title="计算VirtualAddress"></a>计算VirtualAddress</h3><p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
-<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png"></p>
-<h3 id="计算PointerToRawData"><a href="#计算PointerToRawData" class="headerlink" title="计算PointerToRawData"></a>计算PointerToRawData</h3><p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png"></p>
-<h3 id="最终修改"><a href="#最终修改" class="headerlink" title="最终修改"></a>最终修改</h3><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png"></p>
-<h2 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h2><p>在PointerToRawData插入0x1000字节</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png"></p>
-<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>在PE解析工具可以看到插入的节表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png"></p>
-<h1 id="新增节-节表信息后不够位置"><a href="#新增节-节表信息后不够位置" class="headerlink" title="新增节-节表信息后不够位置"></a>新增节-节表信息后不够位置</h1><p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
-<blockquote>
-<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
-</blockquote>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png"></p>
-<p>直接复制到垃圾数据的起始地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png"></p>
-<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
-<h1 id="扩大节"><a href="#扩大节" class="headerlink" title="扩大节"></a>扩大节</h1><p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
-<p>需要修改的数据</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD SizeOfImage</p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
-<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
-<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
-<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
-</ol>
-<h2 id="修正节表信息-1"><a href="#修正节表信息-1" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>这里我们假设扩大0x1000个字节</p>
-<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png"></p>
-<h2 id="修正SizeOfImage"><a href="#修正SizeOfImage" class="headerlink" title="修正SizeOfImage"></a>修正SizeOfImage</h2><p>直接加上0x1000即可</p>
-<h2 id="分配空间"><a href="#分配空间" class="headerlink" title="分配空间"></a>分配空间</h2><p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
-<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
-<p>求和得到2B6C00h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png"></p>
-<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png"></p>
-<h1 id="合并节"><a href="#合并节" class="headerlink" title="合并节"></a>合并节</h1><h2 id="修改节表个数"><a href="#修改节表个数" class="headerlink" title="修改节表个数"></a>修改节表个数</h2><p>合并之后节数量-1，这里改为7</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png"></p>
-<h2 id="修改节表信息"><a href="#修改节表信息" class="headerlink" title="修改节表信息"></a>修改节表信息</h2><p>要将节进行合并，就需要修改节表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png"></p>
-<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a href="#DWORD-SizeOfRawData和DWORD-VirtualSize" class="headerlink" title="DWORD SizeOfRawData和DWORD VirtualSize"></a>DWORD SizeOfRawData和DWORD VirtualSize</h3><p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
-<p>最后保存即可</p>
-<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
-<h2 id="最终效果-1"><a href="#最终效果-1" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png"></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png"></p>
-<h1 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h1><p> <img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"> </p>
-<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
-<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>在数据目录找到导出表的RVA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png"></p>
-<p>根据节的RVA和大小确定在哪个表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png"></p>
-<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
-<p>计算得到F2270，跳转，根据Export.Size确定大小</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png"></p>
-<h2 id="新增节-1"><a href="#新增节-1" class="headerlink" title="新增节"></a>新增节</h2><p>前面说过，就不细🔒了</p>
-<h2 id="复制数据"><a href="#复制数据" class="headerlink" title="复制数据"></a>复制数据</h2><p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png"></p>
-<p>这两个分别是dll名字和函数名称</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png"></p>
-<p>直接复制剩下的导出表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png"></p>
-<h2 id="修改RVA"><a href="#修改RVA" class="headerlink" title="修改RVA"></a>修改RVA</h2><p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
-<p>要修改的有</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png"></p>
-<h2 id="数据目录修改"><a href="#数据目录修改" class="headerlink" title="数据目录修改"></a>数据目录修改</h2><p>将Export.RVA指向我们复制导出表的初始位置</p>
-<h1 id="移动重定位表"><a href="#移动重定位表" class="headerlink" title="移动重定位表"></a>移动重定位表</h1><p>新增节-&gt;复制数据-&gt;数据目录修改重定位表位置</p>
-<h2 id="修改ImageBase"><a href="#修改ImageBase" class="headerlink" title="修改ImageBase"></a>修改ImageBase</h2><p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
-<p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
-<p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
-<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1><p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
-<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
-<h2 id="新增节区"><a href="#新增节区" class="headerlink" title="新增节区"></a>新增节区</h2><h2 id="复制导入表信息"><a href="#复制导入表信息" class="headerlink" title="复制导入表信息"></a>复制导入表信息</h2><p> 拷贝原来的导入表到新节中 </p>
-<h2 id="新增导入表"><a href="#新增导入表" class="headerlink" title="新增导入表"></a>新增导入表</h2><h2 id="新增INT表和IAT表"><a href="#新增INT表和IAT表" class="headerlink" title="新增INT表和IAT表"></a>新增INT表和IAT表</h2><p>至少八字节</p>
-<h2 id="修改Name"><a href="#修改Name" class="headerlink" title="修改Name"></a>修改Name</h2><p> 存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
-<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a href="#创建struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="创建struct _IMAGE_IMPORT_BY_NAME"></a>创建struct _IMAGE_IMPORT_BY_NAME</h2><p>将函数名称赋值给结构体的第二个变量</p>
-<h2 id="修改INT和IAT指向的地址"><a href="#修改INT和IAT指向的地址" class="headerlink" title="修改INT和IAT指向的地址"></a>修改INT和IAT指向的地址</h2><p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
-<h2 id="修改数据目录"><a href="#修改数据目录" class="headerlink" title="修改数据目录"></a>修改数据目录</h2><p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size </p>
-
+          <p>PE学习之路1</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -3494,7 +3367,7 @@ int main()
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
   
 
@@ -3508,5 +3381,5 @@ int main()
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>

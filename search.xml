@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>AES</title>
+    <url>/2022/02/08/AES/</url>
+    <content><![CDATA[<h1 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h1><p>AES属于分组加密算法，即加解密都是使用同一密钥，但是是分为几组进行加密</p>
+<p>明文长度固定为128位的倍数</p>
+<p>密钥长度可以是128、192、256位</p>
+<h1 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h1><p><img src="/2022/02/08/AES/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png"></p>
+<h2 id="初始变换"><a href="#初始变换" class="headerlink" title="初始变换"></a>初始变换</h2><p>这里以16字节为例子</p>
+<p>明文放入矩阵中</p>
+<p><img src="/2022/02/08/AES/1644303811694.png"></p>
+<p>子密钥放入矩阵，这里有省略号是因为后面会根据子密钥进行密钥扩展，初始变换取得是密钥扩展后的第0轮密钥</p>
+<p><img src="/2022/02/08/AES/1644303864629.png"></p>
+<p>明文矩阵和子密钥矩阵进行异或-轮密钥加</p>
+<p>对应位置进行逐字节异或</p>
+<p><img src="/2022/02/08/AES/1644304005507.png"></p>
+<h2 id="字节代换"><a href="#字节代换" class="headerlink" title="字节代换"></a>字节代换</h2><p>AES算法会生成一个Sbox盒用于字节代换</p>
+<p>代换方法：假如某个字节是D4，那么找到D4的位置，xy坐标结合就是代换后的结果，这里为19</p>
+<p><img src="/2022/02/08/AES/1644304381876.png"></p>
+<h2 id="行移位"><a href="#行移位" class="headerlink" title="行移位"></a>行移位</h2><p><img src="/2022/02/08/AES/1644304702612.png"></p>
+<h2 id="列混合"><a href="#列混合" class="headerlink" title="列混合"></a>列混合</h2><p>将输入的4×4矩阵<strong>左乘</strong>一个给定的4×4矩阵</p>
+<p>这里的+和×和矩阵里面的运算不同，待会介绍</p>
+<p>给定的正矩阵</p>
+<p><img src="/2022/02/08/AES/1644304934448.png"></p>
+<p>过程</p>
+<p><img src="/2022/02/08/AES/1644305201031.png"></p>
+<h3 id="列混合计算"><a href="#列混合计算" class="headerlink" title="列混合计算"></a>列混合计算</h3><p>基于有限域的二维运算</p>
+<h4 id="矩阵的运算"><a href="#矩阵的运算" class="headerlink" title="矩阵的运算"></a>矩阵的运算</h4><p><img src="/2022/02/08/AES/1644308359054.png"></p>
+<p>要得到第一个数的结果，要先将第一个矩阵的第一行与第二个矩阵的第一列进行乘法，最后相加</p>
+<p>而在列混合中，加法被替换成了异或</p>
+<p>乘法也被修改了，注意是左移一位</p>
+<p><img src="/2022/02/08/AES/1644308799475.png"></p>
+<p>这里以第一个数为例</p>
+<p>02×d4+03×bf+01×5d+01×30，这里的+是异或</p>
+<p>02×d4过程</p>
+<p>00000010×11010100，因为d4首位是1，所以结果为10101000^00011011,得到10110011</p>
+<p>同理的到第一个数为04</p>
+<h4 id="基于有限域的运算"><a href="#基于有限域的运算" class="headerlink" title="基于有限域的运算"></a>基于有限域的运算</h4><p><a href="https://blog.csdn.net/bupt073114/article/details/27382533">https://blog.csdn.net/bupt073114/article/details/27382533</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Multiplication">https://en.wikipedia.org/wiki/Finite_field_arithmetic#Multiplication</a></p>
+<p><a href="https://www.cnblogs.com/xiehongfeng100/p/4315395.html">https://www.cnblogs.com/xiehongfeng100/p/4315395.html</a></p>
+<h5 id="有限域"><a href="#有限域" class="headerlink" title="有限域"></a>有限域</h5><p>有限域亦称伽罗瓦域（galois field），是仅含有限个元素的域,它是伽罗瓦(Galois,E.)于18世纪30年代研究代数方程根式求解问题时引出的，有限域的特征数必为某一素数p</p>
+<h5 id="有限域的乘法"><a href="#有限域的乘法" class="headerlink" title="有限域的乘法"></a>有限域的乘法</h5><p>AES的有限域是GF(2^8)，也就是说从0到256都属于这个有限域内</p>
+<p> <img src="/2022/02/08/AES/051112046641282.png" alt="有限域的乘法"> </p>
+<p>将字符转为二进制，最高位为x的7次方，最低位为x的0次方，也就是1</p>
+<p>在AES的有限域二进制中，所有数都能通过01，02，04，08，10，20，40，80异或得到，下面是对应的二进制表示</p>
+<p> <img src="/2022/02/08/AES/20140528221753187.jpg"> </p>
+<p>后一个分别是前一个的2倍</p>
+<p>假设一个数a为3，那么他的二进制为00000011，也就是0x2^0x1，这里的异或在有限域中是加法</p>
+<p>而任意一个数x和a相乘可以表示为</p>
+<p>x×a=x×(0x2+0x1)</p>
+<p>所以我们只需计算出</p>
+<p> <img src="/2022/02/08/AES/20140528222133843.jpg"> </p>
+<p>然后异或所有结果即可</p>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>比如计算0x3a*0x24，0x3a的二进制为 00111010，</p>
+<p>分别求，这里要注意乘二相当于左移一位，而有限域为2^8，所以可能会溢出，所以要判断最高位是否为1，如果为1的话，左移之后会溢出，就需要除以同余式，而在AES的有限域中，八次不可约同余式，这里被定义为 x^8+x^4+x^3+x+1，也就是异或上0x1B</p>
+<p> <img src="/2022/02/08/AES/20140528222614812.jpg"> </p>
+<p> 0x24=00100100，所以0x3a<em>0x24=0x3a</em>00100100=0x04<em>0x3a^0x20</em>0x3a=0xe8^0x01=0xe9</p>
+<p>代码实现</p>
+<pre class="language-c" data-language="c"><code class="language-c">unsigned char XTIME(unsigned char x) 
+{
+    return ((x &lt;&lt; 1) ^ ((x &amp; 0x80) ? 0x1b : 0x00));
+}
+unsigned char multiply(unsigned char a, unsigned char b) 
+{
+    unsigned char temp[8] = { a };
+    unsigned char tempmultiply = 0x00;
+    int i = 0;
+    for (i = 1; i &lt; 8; i++) 
+    {
+        temp[i] = XTIME(temp[i - 1]);
+    }
+    tempmultiply = (b &amp; 0x01) * a;
+    for (i = 1; i &lt;= 7; i++) 
+    {
+        tempmultiply ^= (((b &gt;&gt; i) &amp; 0x01) * temp[i]);
+    }
+    return tempmultiply;
+}</code></pre>
+
+<p>第一个循环实现的是计算出异或01……的值</p>
+<p>第二个循环，逐位循环，判断是否保留该值，也就是是否要+上该值，这里的加是^</p>
+<h2 id="轮密钥加"><a href="#轮密钥加" class="headerlink" title="轮密钥加"></a>轮密钥加</h2><p>每一列进行进行异或操作</p>
+<p><img src="/2022/02/08/AES/1644306385450.png"></p>
+<h2 id="密钥扩展"><a href="#密钥扩展" class="headerlink" title="密钥扩展"></a>密钥扩展</h2><p>通过子密钥生成十轮需要的密钥</p>
+<h3 id="i不是4的倍数"><a href="#i不是4的倍数" class="headerlink" title="i不是4的倍数"></a>i不是4的倍数</h3><p>第i列计算公式：</p>
+<p>W[i]=W[i-4]^W[i-1]</p>
+<p><img src="/2022/02/08/AES/1644307284515.png"></p>
+<h3 id="i是4的倍数"><a href="#i是4的倍数" class="headerlink" title="i是4的倍数"></a>i是4的倍数</h3><p>W[i]=W[i-4]^T(W[i-1])</p>
+<p>T函数包括三部分：字循环、字节代换、轮常量异或</p>
+<h4 id="字循环"><a href="#字循环" class="headerlink" title="字循环"></a>字循环</h4><p>将一列中的四个字节循环左移一个字节，即输入[b0,b1,b2,b3]变换成[b1,b2,b3,b0],然后放在一列中</p>
+<p><img src="/2022/02/08/AES/1644307546072.png"></p>
+<h4 id="字节代换-1"><a href="#字节代换-1" class="headerlink" title="字节代换"></a>字节代换</h4><p>对字循环的结果使用S盒进行字节代换</p>
+<p><img src="/2022/02/08/AES/1644307740839.png"></p>
+<h4 id="轮常量异或"><a href="#轮常量异或" class="headerlink" title="轮常量异或"></a>轮常量异或</h4><p>将前两步的结果同轮常量Rcon[j]进行异或，其中j表示轮数。</p>
+<p>轮常量是给定的，因为要生成十个轮密钥，所以有十个轮常量</p>
+<p><img src="/2022/02/08/AES/1644307898552.png"></p>
+<p>过程</p>
+<p><img src="/2022/02/08/AES/1644308032666.png"></p>
+<p>最后，将得到的结果和W[i-4]异或即可</p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>A&amp;D1</title>
     <url>/2021/12/27/A-D1/</url>
     <content><![CDATA[<h1 id="IsDebugger-Present"><a href="#IsDebugger-Present" class="headerlink" title="IsDebugger Present"></a>IsDebugger Present</h1><p><strong>原理</strong></p>
@@ -1130,109 +1233,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>AES</title>
-    <url>/2022/02/08/AES/</url>
-    <content><![CDATA[<h1 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h1><p>AES属于分组加密算法，即加解密都是使用同一密钥，但是是分为几组进行加密</p>
-<p>明文长度固定为128位的倍数</p>
-<p>密钥长度可以是128、192、256位</p>
-<h1 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h1><p><img src="/2022/02/08/AES/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.png"></p>
-<h2 id="初始变换"><a href="#初始变换" class="headerlink" title="初始变换"></a>初始变换</h2><p>这里以16字节为例子</p>
-<p>明文放入矩阵中</p>
-<p><img src="/2022/02/08/AES/1644303811694.png"></p>
-<p>子密钥放入矩阵，这里有省略号是因为后面会根据子密钥进行密钥扩展，初始变换取得是密钥扩展后的第0轮密钥</p>
-<p><img src="/2022/02/08/AES/1644303864629.png"></p>
-<p>明文矩阵和子密钥矩阵进行异或-轮密钥加</p>
-<p>对应位置进行逐字节异或</p>
-<p><img src="/2022/02/08/AES/1644304005507.png"></p>
-<h2 id="字节代换"><a href="#字节代换" class="headerlink" title="字节代换"></a>字节代换</h2><p>AES算法会生成一个Sbox盒用于字节代换</p>
-<p>代换方法：假如某个字节是D4，那么找到D4的位置，xy坐标结合就是代换后的结果，这里为19</p>
-<p><img src="/2022/02/08/AES/1644304381876.png"></p>
-<h2 id="行移位"><a href="#行移位" class="headerlink" title="行移位"></a>行移位</h2><p><img src="/2022/02/08/AES/1644304702612.png"></p>
-<h2 id="列混合"><a href="#列混合" class="headerlink" title="列混合"></a>列混合</h2><p>将输入的4×4矩阵<strong>左乘</strong>一个给定的4×4矩阵</p>
-<p>这里的+和×和矩阵里面的运算不同，待会介绍</p>
-<p>给定的正矩阵</p>
-<p><img src="/2022/02/08/AES/1644304934448.png"></p>
-<p>过程</p>
-<p><img src="/2022/02/08/AES/1644305201031.png"></p>
-<h3 id="列混合计算"><a href="#列混合计算" class="headerlink" title="列混合计算"></a>列混合计算</h3><p>基于有限域的二维运算</p>
-<h4 id="矩阵的运算"><a href="#矩阵的运算" class="headerlink" title="矩阵的运算"></a>矩阵的运算</h4><p><img src="/2022/02/08/AES/1644308359054.png"></p>
-<p>要得到第一个数的结果，要先将第一个矩阵的第一行与第二个矩阵的第一列进行乘法，最后相加</p>
-<p>而在列混合中，加法被替换成了异或</p>
-<p>乘法也被修改了，注意是左移一位</p>
-<p><img src="/2022/02/08/AES/1644308799475.png"></p>
-<p>这里以第一个数为例</p>
-<p>02×d4+03×bf+01×5d+01×30，这里的+是异或</p>
-<p>02×d4过程</p>
-<p>00000010×11010100，因为d4首位是1，所以结果为10101000^00011011,得到10110011</p>
-<p>同理的到第一个数为04</p>
-<h4 id="基于有限域的运算"><a href="#基于有限域的运算" class="headerlink" title="基于有限域的运算"></a>基于有限域的运算</h4><p><a href="https://blog.csdn.net/bupt073114/article/details/27382533">https://blog.csdn.net/bupt073114/article/details/27382533</a></p>
-<p><a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Multiplication">https://en.wikipedia.org/wiki/Finite_field_arithmetic#Multiplication</a></p>
-<p><a href="https://www.cnblogs.com/xiehongfeng100/p/4315395.html">https://www.cnblogs.com/xiehongfeng100/p/4315395.html</a></p>
-<h5 id="有限域"><a href="#有限域" class="headerlink" title="有限域"></a>有限域</h5><p>有限域亦称伽罗瓦域（galois field），是仅含有限个元素的域,它是伽罗瓦(Galois,E.)于18世纪30年代研究代数方程根式求解问题时引出的，有限域的特征数必为某一素数p</p>
-<h5 id="有限域的乘法"><a href="#有限域的乘法" class="headerlink" title="有限域的乘法"></a>有限域的乘法</h5><p>AES的有限域是GF(2^8)，也就是说从0到256都属于这个有限域内</p>
-<p> <img src="/2022/02/08/AES/051112046641282.png" alt="有限域的乘法"> </p>
-<p>将字符转为二进制，最高位为x的7次方，最低位为x的0次方，也就是1</p>
-<p>在AES的有限域二进制中，所有数都能通过01，02，04，08，10，20，40，80异或得到，下面是对应的二进制表示</p>
-<p> <img src="/2022/02/08/AES/20140528221753187.jpg"> </p>
-<p>后一个分别是前一个的2倍</p>
-<p>假设一个数a为3，那么他的二进制为00000011，也就是0x2^0x1，这里的异或在有限域中是加法</p>
-<p>而任意一个数x和a相乘可以表示为</p>
-<p>x×a=x×(0x2+0x1)</p>
-<p>所以我们只需计算出</p>
-<p> <img src="/2022/02/08/AES/20140528222133843.jpg"> </p>
-<p>然后异或所有结果即可</p>
-<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>比如计算0x3a*0x24，0x3a的二进制为 00111010，</p>
-<p>分别求，这里要注意乘二相当于左移一位，而有限域为2^8，所以可能会溢出，所以要判断最高位是否为1，如果为1的话，左移之后会溢出，就需要除以同余式，而在AES的有限域中，八次不可约同余式，这里被定义为 x^8+x^4+x^3+x+1，也就是异或上0x1B</p>
-<p> <img src="/2022/02/08/AES/20140528222614812.jpg"> </p>
-<p> 0x24=00100100，所以0x3a<em>0x24=0x3a</em>00100100=0x04<em>0x3a^0x20</em>0x3a=0xe8^0x01=0xe9</p>
-<p>代码实现</p>
-<pre class="language-c" data-language="c"><code class="language-c">unsigned char XTIME(unsigned char x) 
-{
-    return ((x &lt;&lt; 1) ^ ((x &amp; 0x80) ? 0x1b : 0x00));
-}
-unsigned char multiply(unsigned char a, unsigned char b) 
-{
-    unsigned char temp[8] = { a };
-    unsigned char tempmultiply = 0x00;
-    int i = 0;
-    for (i = 1; i &lt; 8; i++) 
-    {
-        temp[i] = XTIME(temp[i - 1]);
-    }
-    tempmultiply = (b &amp; 0x01) * a;
-    for (i = 1; i &lt;= 7; i++) 
-    {
-        tempmultiply ^= (((b &gt;&gt; i) &amp; 0x01) * temp[i]);
-    }
-    return tempmultiply;
-}</code></pre>
-
-<p>第一个循环实现的是计算出异或01……的值</p>
-<p>第二个循环，逐位循环，判断是否保留该值，也就是是否要+上该值，这里的加是^</p>
-<h2 id="轮密钥加"><a href="#轮密钥加" class="headerlink" title="轮密钥加"></a>轮密钥加</h2><p>每一列进行进行异或操作</p>
-<p><img src="/2022/02/08/AES/1644306385450.png"></p>
-<h2 id="密钥扩展"><a href="#密钥扩展" class="headerlink" title="密钥扩展"></a>密钥扩展</h2><p>通过子密钥生成十轮需要的密钥</p>
-<h3 id="i不是4的倍数"><a href="#i不是4的倍数" class="headerlink" title="i不是4的倍数"></a>i不是4的倍数</h3><p>第i列计算公式：</p>
-<p>W[i]=W[i-4]^W[i-1]</p>
-<p><img src="/2022/02/08/AES/1644307284515.png"></p>
-<h3 id="i是4的倍数"><a href="#i是4的倍数" class="headerlink" title="i是4的倍数"></a>i是4的倍数</h3><p>W[i]=W[i-4]^T(W[i-1])</p>
-<p>T函数包括三部分：字循环、字节代换、轮常量异或</p>
-<h4 id="字循环"><a href="#字循环" class="headerlink" title="字循环"></a>字循环</h4><p>将一列中的四个字节循环左移一个字节，即输入[b0,b1,b2,b3]变换成[b1,b2,b3,b0],然后放在一列中</p>
-<p><img src="/2022/02/08/AES/1644307546072.png"></p>
-<h4 id="字节代换-1"><a href="#字节代换-1" class="headerlink" title="字节代换"></a>字节代换</h4><p>对字循环的结果使用S盒进行字节代换</p>
-<p><img src="/2022/02/08/AES/1644307740839.png"></p>
-<h4 id="轮常量异或"><a href="#轮常量异或" class="headerlink" title="轮常量异或"></a>轮常量异或</h4><p>将前两步的结果同轮常量Rcon[j]进行异或，其中j表示轮数。</p>
-<p>轮常量是给定的，因为要生成十个轮密钥，所以有十个轮常量</p>
-<p><img src="/2022/02/08/AES/1644307898552.png"></p>
-<p>过程</p>
-<p><img src="/2022/02/08/AES/1644308032666.png"></p>
-<p>最后，将得到的结果和W[i-4]异或即可</p>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>API钩取技术</title>
     <url>/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/</url>
     <content><![CDATA[]]></content>
@@ -1672,112 +1672,10 @@ int main()
 
 <p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650342054912.png"></p>
 <p>这样子就不会存在int型读取时小端序的问题</p>
-<h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
+<h1 id><a href="#" class="headerlink" title></a></h1>]]></content>
       <tags>
         <tag>Reverse</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>C++</title>
-    <url>/2022/03/31/C/</url>
-    <content><![CDATA[<h1 id="C-类-this指针"><a href="#C-类-this指针" class="headerlink" title="C++类-this指针"></a>C++类-this指针</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>C语言中，结构体作为函数参数时传参传的是副本，而数组传递的是指针，所以我们将结构体作为参数时，最好传入指针</p>
-<p>封装-就是将函数放入结构体内部，每次调用函数都会传递当前结构体的首地址，这样我们使用里面的变量就会比较方便</p>
-<p>类-这个结构体就叫做类，在结构体插入函数时，结构体大小不变，因为函数不在结构体内部，可以看到sizeoftest=8，也就是两个int</p>
-<p><img src="/2022/03/31/C/1648776748495.png"></p>
-<p>对象-当使用使用类型创建变量时，创建的名称就叫做对象，比如Base base，Base是类，那么base就叫做对象</p>
-<p>成员-里面的参数都是成员</p>
-<p>成员函数-顾名思义，结构体中函数类型的成员</p>
-<p><img src="/2022/03/31/C/1648776093255.png" alt="成员、类、对象"></p>
-<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p>在反汇编中，调用类中的函数之前会先把结构体对象的首地址传入ecx中，ecx存放的值就是this指针，我们可以通过它来使用结构体成员，this-&gt;x,this-&gt;y(在类的函数中)，当函数参数和结构体变量同名时，使用this可以帮助编译器区分</p>
-<p><img src="/2022/03/31/C/1648776666723.png" alt="调用类方法时的初始化操作"></p>
-<p>我们知道指针可以进行加法减法操作，但是this指针不能进行这些操作，编译器不允许</p>
-<h1 id="继承-构造-析构函数"><a href="#继承-构造-析构函数" class="headerlink" title="继承 构造-析构函数"></a>继承 构造-析构函数</h1><h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>首先他是个函数，其次他没有返回值，第三他跟当前的类名是完全一样的</p>
-<p>他跟成员函数不同，他是在创建对象的时候使用的</p>
-<p>作用：通过构造函数，在创建对象的同时给成员赋值</p>
-<p><img src="/2022/03/31/C/1648776892810.png" alt="使用构造函数初始化"></p>
-<p>注意事项：构造函数不是一定要有的，但是定义了构造函数就一定要使用，否则会报错</p>
-<p>重载构造函数：多个构造函数，但是构造函数的参数个数不能一样</p>
-<blockquote>
-<p>只要函数的参数个数或者参数类型不一样，就可以存在多个同名函数，这些函数就是重载函数-成员函数</p>
-</blockquote>
-<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><p>不是必须提供的</p>
-<p>在类中，当我们malloc时，在堆中开辟空间，但是堆中的空间使用完一般要释放，而我们无法知道什么时候才可以释放掉这个堆的空间-因为其他函数可能会继续使用。</p>
-<p>但是，当对象不再使用的时候（对象为局部变量时），堆就可以释放掉了</p>
-<p>析构函数-无需调用、不能重载、名字与类名相同并在其之前加个~</p>
-<pre class="language-c" data-language="c"><code class="language-c">~Persion()
-
-{
-
- 		free(arr);
-
-}</code></pre>
-
-<p><img src="/2022/03/31/C/1648777636920.png"></p>
-<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>本质是数据的复制</p>
-<p>当在多个结构体存在相同的成员时，我们可以将相同的成员提取出来创建一个新的结构体，在使用时只需要</p>
-<pre class="language-c" data-language="c"><code class="language-c">struct persion
-{
-	int age;
-	int sex;
-}
-
-struct student:persion
-{
-	int grade;
-	int count;
-}
-
-struct teacher:persion
-{
-	int level;
-	int p;
-}
-teacher s；
-student t;</code></pre>
-
-<p>上面的代码在teacher和student结构体都有四个成员，相同成员有两个</p>
-<p><img src="/2022/03/31/C/1648778055143.png" alt="相同部分"></p>
-<p><img src="/2022/03/31/C/1648778255917.png" alt="修改后以及Student结构体大小"></p>
-<p>1、Persion称为父类或者基类</p>
-<p>2、teacher、student称为子类或者派生类</p>
-<p>3、s、t称为对象或者实例</p>
-<p>4、可以用父类的指针指向子类的对象</p>
-<p>示例：</p>
-<pre class="language-none"><code class="language-none">persion*pt=&amp;t;</code></pre>
-
-<p><img src="/2022/03/31/C/1648713557915.png" alt="子、父类关系"></p>
-<p>所以我们取得子类对象地址，就可以通过其来访问父类成员，但是不能访问子类成员，因为是Persion类型的指针</p>
-<p><img src="/2022/03/31/C/1648778654017.png" alt="通过子类访问父类"></p>
-<p>但是不能用子类指针指向父类对象</p>
-<p>会一直往上继承父类</p>
-<p><img src="/2022/03/31/C/1648714159618.png" alt="多重继承"></p>
-<p>当多重继承出现相同的名称是，需要告诉编译器是谁的a，z.x::a,z.y::a​</p>
-<p>可以同时继承两个父类</p>
-<h1 id="权限控制"><a href="#权限控制" class="headerlink" title="权限控制"></a>权限控制</h1><blockquote>
-<p>在类中，如果我们将函数写入会让类变得十分庞大，所以可以在类中进行函数声明，然后再去类外实现，但是我们需要告诉编译器，该函数属于谁，就需要用到 void 类名::函数名(函数参数)</p>
-</blockquote>
-<p><img src="/2022/03/31/C/1648777822123.png" alt="函数声明"></p>
-<h2 id="public和private"><a href="#public和private" class="headerlink" title="public和private"></a>public和private</h2><p>存储的地方没变，只是告诉编译器不能直接访问private</p>
-<p>可以修饰函数也可以修饰变量</p>
-<p>public是指该成员在哪里都可以使用，不用担心被修改，所以一旦发布成public成员，是不能修改名字的。而private这个成员只用于内部使用，不要在其他地方使用</p>
-<p>一般不想被外部访问的或者以后还会修改的就发布为private</p>
-<p>常见的类的定义应该是把变量设为private，将修改private的方法-也就是函数发布为public，并在其中加入一定的限制</p>
-<p>使用指针可访问private成员</p>
-<p><img src="/2022/03/31/C/1648786703451.png" alt="class"></p>
-<h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><p>class和struct的不同是权限不一样，class默认为private，struct则为public，注意class的构造函数也需要声明为public</p>
-<h3 id="继承-1"><a href="#继承-1" class="headerlink" title="继承"></a>继承</h3><p>如果按照struct的格式进行继承，编译器会修改成员属性为private，所以如果需要访问，需要在继承时使用:public 父类名​​，可以看到我们只能继承public类的，一旦修改为private就会报错</p>
-<p><img src="/2022/03/31/C/1648787335642.png" alt="父类继承"></p>
-<p>private成员只能在当前类被使用，不能被继承</p>
-<blockquote>
-<p>编译器会默认生成构造函数，如果存在继承关系，他会先调用父类的构造函数，因为父辈的内容也需要初始化</p>
-</blockquote>
-<p><img src="/2022/03/31/C/1648792481902.png" alt="子类父类构造函数执行顺序"></p>
-<p>我们可以先得到子类的地址，然后访问，即使父类的成员是private，也会被复制过来，只是不能直接访问，下面可以看到这是3个int的大小</p>
-<p><img src="/2022/03/31/C/1648791796705.png"></p>
-<p>但是我们可以知道子类的地址，然后通过指针访问私有的父类</p>
-<p><img src="/2022/03/31/C/1648792223939.png" alt="指针访问私有父类"></p>
-<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1><p>decription</p>
-]]></content>
   </entry>
   <entry>
     <title>BlockChain</title>
@@ -2073,6 +1971,116 @@ int main()
 ]]></content>
   </entry>
   <entry>
+    <title>C++</title>
+    <url>/2022/03/31/C/</url>
+    <content><![CDATA[<h1 id="C-类-this指针"><a href="#C-类-this指针" class="headerlink" title="C++类-this指针"></a>C++类-this指针</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>C语言中，结构体作为函数参数时传参传的是副本，而数组传递的是指针，所以我们将结构体作为参数时，最好传入指针</p>
+<p>封装-就是将函数放入结构体内部，每次调用函数都会传递当前结构体的首地址，这样我们使用里面的变量就会比较方便</p>
+<p>类-这个结构体就叫做类，在结构体插入函数时，结构体大小不变，因为函数不在结构体内部，可以看到sizeoftest=8，也就是两个int</p>
+<p><img src="/2022/03/31/C/1648776748495.png"></p>
+<p>对象-当使用使用类型创建变量时，创建的名称就叫做对象，比如Base base，Base是类，那么base就叫做对象</p>
+<p>成员-里面的参数都是成员</p>
+<p>成员函数-顾名思义，结构体中函数类型的成员</p>
+<p><img src="/2022/03/31/C/1648776093255.png" alt="成员、类、对象"></p>
+<h2 id="this指针"><a href="#this指针" class="headerlink" title="this指针"></a>this指针</h2><p>在反汇编中，调用类中的函数之前会先把结构体对象的首地址传入ecx中，ecx存放的值就是this指针，我们可以通过它来使用结构体成员，this-&gt;x,this-&gt;y(在类的函数中)，当函数参数和结构体变量同名时，使用this可以帮助编译器区分</p>
+<p><img src="/2022/03/31/C/1648776666723.png" alt="调用类方法时的初始化操作"></p>
+<p>我们知道指针可以进行加法减法操作，但是this指针不能进行这些操作，编译器不允许</p>
+<h1 id="继承-构造-析构函数"><a href="#继承-构造-析构函数" class="headerlink" title="继承 构造-析构函数"></a>继承 构造-析构函数</h1><h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>首先他是个函数，其次他没有返回值，第三他跟当前的类名是完全一样的</p>
+<p>他跟成员函数不同，他是在创建对象的时候使用的</p>
+<p>作用：通过构造函数，在创建对象的同时给成员赋值</p>
+<p><img src="/2022/03/31/C/1648776892810.png" alt="使用构造函数初始化"></p>
+<p>注意事项：构造函数不是一定要有的，但是定义了构造函数就一定要使用，否则会报错</p>
+<p>重载构造函数：多个构造函数，但是构造函数的参数个数不能一样</p>
+<blockquote>
+<p>只要函数的参数个数或者参数类型不一样，就可以存在多个同名函数，这些函数就是重载函数-成员函数</p>
+</blockquote>
+<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><p>不是必须提供的</p>
+<p>在类中，当我们malloc时，在堆中开辟空间，但是堆中的空间使用完一般要释放，而我们无法知道什么时候才可以释放掉这个堆的空间-因为其他函数可能会继续使用。</p>
+<p>但是，当对象不再使用的时候（对象为局部变量时），堆就可以释放掉了</p>
+<p>析构函数-无需调用、不能重载、名字与类名相同并在其之前加个~</p>
+<pre class="language-c" data-language="c"><code class="language-c">~Persion()
+
+{
+
+ 		free(arr);
+
+}</code></pre>
+
+<p><img src="/2022/03/31/C/1648777636920.png"></p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>本质是数据的复制</p>
+<p>当在多个结构体存在相同的成员时，我们可以将相同的成员提取出来创建一个新的结构体，在使用时只需要</p>
+<pre class="language-c" data-language="c"><code class="language-c">struct persion
+{
+	int age;
+	int sex;
+}
+
+struct student:persion
+{
+	int grade;
+	int count;
+}
+
+struct teacher:persion
+{
+	int level;
+	int p;
+}
+teacher s；
+student t;</code></pre>
+
+<p>上面的代码在teacher和student结构体都有四个成员，相同成员有两个</p>
+<p><img src="/2022/03/31/C/1648778055143.png" alt="相同部分"></p>
+<p><img src="/2022/03/31/C/1648778255917.png" alt="修改后以及Student结构体大小"></p>
+<p>1、Persion称为父类或者基类</p>
+<p>2、teacher、student称为子类或者派生类</p>
+<p>3、s、t称为对象或者实例</p>
+<p>4、可以用父类的指针指向子类的对象</p>
+<p>示例：</p>
+<pre class="language-none"><code class="language-none">persion*pt=&amp;t;</code></pre>
+
+<p><img src="/2022/03/31/C/1648713557915.png" alt="子、父类关系"></p>
+<p>所以我们取得子类对象地址，就可以通过其来访问父类成员，但是不能访问子类成员，因为是Persion类型的指针</p>
+<p><img src="/2022/03/31/C/1648778654017.png" alt="通过子类访问父类"></p>
+<p>但是不能用子类指针指向父类对象</p>
+<p>会一直往上继承父类</p>
+<p><img src="/2022/03/31/C/1648714159618.png" alt="多重继承"></p>
+<p>当多重继承出现相同的名称是，需要告诉编译器是谁的a，z.x::a,z.y::a​</p>
+<p>可以同时继承两个父类</p>
+<h1 id="权限控制"><a href="#权限控制" class="headerlink" title="权限控制"></a>权限控制</h1><blockquote>
+<p>在类中，如果我们将函数写入会让类变得十分庞大，所以可以在类中进行函数声明，然后再去类外实现，但是我们需要告诉编译器，该函数属于谁，就需要用到 void 类名::函数名(函数参数)</p>
+</blockquote>
+<p><img src="/2022/03/31/C/1648777822123.png" alt="函数声明"></p>
+<h2 id="public和private"><a href="#public和private" class="headerlink" title="public和private"></a>public和private</h2><p>存储的地方没变，只是告诉编译器不能直接访问private</p>
+<p>可以修饰函数也可以修饰变量</p>
+<p>public是指该成员在哪里都可以使用，不用担心被修改，所以一旦发布成public成员，是不能修改名字的。而private这个成员只用于内部使用，不要在其他地方使用</p>
+<p>一般不想被外部访问的或者以后还会修改的就发布为private</p>
+<p>常见的类的定义应该是把变量设为private，将修改private的方法-也就是函数发布为public，并在其中加入一定的限制</p>
+<p>使用指针可访问private成员</p>
+<p><img src="/2022/03/31/C/1648786703451.png" alt="class"></p>
+<h2 id="class"><a href="#class" class="headerlink" title="class"></a>class</h2><p>class和struct的不同是权限不一样，class默认为private，struct则为public，注意class的构造函数也需要声明为public</p>
+<h3 id="继承-1"><a href="#继承-1" class="headerlink" title="继承"></a>继承</h3><p>如果按照struct的格式进行继承，编译器会修改成员属性为private，所以如果需要访问，需要在继承时使用:public 父类名​​，可以看到我们只能继承public类的，一旦修改为private就会报错</p>
+<p><img src="/2022/03/31/C/1648787335642.png" alt="父类继承"></p>
+<p>private成员只能在当前类被使用，不能被继承</p>
+<blockquote>
+<p>编译器会默认生成构造函数，如果存在继承关系，他会先调用父类的构造函数，因为父辈的内容也需要初始化</p>
+</blockquote>
+<p><img src="/2022/03/31/C/1648792481902.png" alt="子类父类构造函数执行顺序"></p>
+<p>我们可以先得到子类的地址，然后访问，即使父类的成员是private，也会被复制过来，只是不能直接访问，下面可以看到这是3个int的大小</p>
+<p><img src="/2022/03/31/C/1648791796705.png"></p>
+<p>但是我们可以知道子类的地址，然后通过指针访问私有的父类</p>
+<p><img src="/2022/03/31/C/1648792223939.png" alt="指针访问私有父类"></p>
+<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1><p>decription</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>C语言汇编2</title>
+    <url>/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/</url>
+    <content><![CDATA[<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1>]]></content>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C语言汇编</title>
     <url>/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/</url>
     <content><![CDATA[<h1 id="VC6基础操作"><a href="#VC6基础操作" class="headerlink" title="VC6基础操作"></a>VC6基础操作</h1><p>F7：编译、F5：调试、F9：设置断点、F10：单步步过、F11：单步进入、shift+F5：结束调试</p>
@@ -2243,11 +2251,138 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>C语言汇编2</title>
-    <url>/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/</url>
-    <content><![CDATA[<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1>]]></content>
+    <title>Detours学习</title>
+    <url>/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>ELF文件手脱upx变形壳</title>
+    <url>/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/</url>
+    <content><![CDATA[<h1 id="题目-hgame2022-week2-upx-magic1"><a href="#题目-hgame2022-week2-upx-magic1" class="headerlink" title="题目-hgame2022-week2-upx magic1"></a>题目-hgame2022-week2-upx magic1</h1><p>发现命令行脱壳没用，只能手脱，elf文件没办法使用esp定律，ida手脱</p>
+<p>进入ida</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643878891388.png"></p>
+<p>在第一个call下断点，进行动态调试</p>
+<p>F7单步进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879064585.png"></p>
+<p>到了第二个call再次F7进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879092434.png"></p>
+<p>一路f8</p>
+<p>retn后到</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879119459.png"></p>
+<p>F7进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879160619.png"></p>
+<p>有三个向上的跳转</p>
+<p>在第三个跳转之后F4</p>
+<p>一直F8到达程序真正的入口点</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879196863.png"></p>
+<p>此时需要dumpfile</p>
+<p>ALT+F7运行脚本，脚本需要修改后缀为idc</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;idc.idc&gt;
+#define PT_LOAD              1
+#define PT_DYNAMIC           2
+static main(void)
+{
+         auto ImageBase,StartImg,EndImg;
+         auto e_phoff;
+         auto e_phnum,p_offset;
+         auto i,dumpfile;
+         ImageBase=0x400000;
+         StartImg=0x400000;
+         EndImg=0x0;
+         if (Dword(ImageBase)==0x7f454c46 || Dword(ImageBase)==0x464c457f )
+  {
+    if(dumpfile=fopen("D:\\dumpfile2","wb"))//这路可以更改路径
+    {
+      e_phoff=ImageBase+Qword(ImageBase+0x20);
+      Message("e_phoff = 0x%x\n", e_phoff);
+      e_phnum=Word(ImageBase+0x38);
+      Message("e_phnum = 0x%x\n", e_phnum);
+      for(i=0;i&lt;e_phnum;i++)
+      {
+         if (Dword(e_phoff)==PT_LOAD || Dword(e_phoff)==PT_DYNAMIC)
+                         { 
+                                 p_offset=Qword(e_phoff+0x8);
+                                 StartImg=Qword(e_phoff+0x10);
+                                 EndImg=StartImg+Qword(e_phoff+0x28);
+                                 Message("start = 0x%x, end = 0x%x, offset = 0x%x\n", StartImg, EndImg, p_offset);
+                                 dump(dumpfile,StartImg,EndImg,p_offset);
+                                 Message("dump segment %d ok.\n",i);
+                         }    
+         e_phoff=e_phoff+0x38;
+      }
+
+      fseek(dumpfile,0x3c,0);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+
+      fseek(dumpfile,0x28,0);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+
+      fclose(dumpfile);
+        }else Message("dump err.");
+ }
+}
+static dump(dumpfile,startimg,endimg,offset) 
+{
+        auto i;
+        auto size;
+        size=endimg-startimg;
+        fseek(dumpfile,offset,0);
+        for ( i=0; i &lt; size; i=i+1 ) 
+        {
+        fputc(Byte(startimg+i),dumpfile);
+        }
+}
+</code></pre>
+
+<p>得到dumpfile2，拖进ida得到正常的代码</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879324566.png"></p>
+<h3 id="爆破脚本"><a href="#爆破脚本" class="headerlink" title="爆破脚本"></a>爆破脚本</h3><p>这里要按位与上0xffff，因为这里最后只赋值了最后十六位，所以需要使用&amp;0xffff来限制位数，保证取到最后的十六位</p>
+<p>有时候还存在左移溢出的问题：</p>
+<p><a href="https://blog.csdn.net/u013658041/article/details/78116449">https://blog.csdn.net/u013658041/article/details/78116449</a></p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1644069404698.png"></p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt; 
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+	int s[]={0x8d68,0x9d49,0x2a12,0xab1a,0xcbdc,0xb92b,0x2e32,0x9f59,0xddcd,0x9d49,0xa90a,0xe70,0xf5cf,0x5ed5,0x3c03,0x7c87,0x2672,0xab1a,0xa50,0x5af5,0xff9f,0x9f59,0xbd0b,0x58e5,0x3823,0xbf1b,0x78a7,0xab1a,0x48c4,0xa90a,0x2c22,0x9f59,0x5cc5,0x5ed5,0x78a7,0x2672,0x5695};
+	for(int i=0;i&lt;40;++i)
+	{
+		for(int j=32;j&lt;=127;++j)
+		{
+			int temp=(j&lt;&lt;8)&amp;0xffff;
+			for(int  k=0;k&lt;8;++k)
+			{
+				if((temp&amp;0x8000)!=0)
+				{
+					temp=((2*temp)^0x1021)&amp;0xffff;
+				}
+				else
+					temp=(2*temp)&amp;0xffff;
+			}
+			if(temp==s[i])
+			{
+				printf("%c",j);
+			}
+		}
+	}
+
+	return 0;
+}</code></pre>
+
+]]></content>
       <tags>
-        <tag>汇编</tag>
+        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -2597,141 +2732,6 @@ int main()
 ]]></content>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Detours学习</title>
-    <url>/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>ELF文件手脱upx变形壳</title>
-    <url>/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/</url>
-    <content><![CDATA[<h1 id="题目-hgame2022-week2-upx-magic1"><a href="#题目-hgame2022-week2-upx-magic1" class="headerlink" title="题目-hgame2022-week2-upx magic1"></a>题目-hgame2022-week2-upx magic1</h1><p>发现命令行脱壳没用，只能手脱，elf文件没办法使用esp定律，ida手脱</p>
-<p>进入ida</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643878891388.png"></p>
-<p>在第一个call下断点，进行动态调试</p>
-<p>F7单步进入</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879064585.png"></p>
-<p>到了第二个call再次F7进入</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879092434.png"></p>
-<p>一路f8</p>
-<p>retn后到</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879119459.png"></p>
-<p>F7进入</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879160619.png"></p>
-<p>有三个向上的跳转</p>
-<p>在第三个跳转之后F4</p>
-<p>一直F8到达程序真正的入口点</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879196863.png"></p>
-<p>此时需要dumpfile</p>
-<p>ALT+F7运行脚本，脚本需要修改后缀为idc</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include &lt;idc.idc&gt;
-#define PT_LOAD              1
-#define PT_DYNAMIC           2
-static main(void)
-{
-         auto ImageBase,StartImg,EndImg;
-         auto e_phoff;
-         auto e_phnum,p_offset;
-         auto i,dumpfile;
-         ImageBase=0x400000;
-         StartImg=0x400000;
-         EndImg=0x0;
-         if (Dword(ImageBase)==0x7f454c46 || Dword(ImageBase)==0x464c457f )
-  {
-    if(dumpfile=fopen("D:\\dumpfile2","wb"))//这路可以更改路径
-    {
-      e_phoff=ImageBase+Qword(ImageBase+0x20);
-      Message("e_phoff = 0x%x\n", e_phoff);
-      e_phnum=Word(ImageBase+0x38);
-      Message("e_phnum = 0x%x\n", e_phnum);
-      for(i=0;i&lt;e_phnum;i++)
-      {
-         if (Dword(e_phoff)==PT_LOAD || Dword(e_phoff)==PT_DYNAMIC)
-                         { 
-                                 p_offset=Qword(e_phoff+0x8);
-                                 StartImg=Qword(e_phoff+0x10);
-                                 EndImg=StartImg+Qword(e_phoff+0x28);
-                                 Message("start = 0x%x, end = 0x%x, offset = 0x%x\n", StartImg, EndImg, p_offset);
-                                 dump(dumpfile,StartImg,EndImg,p_offset);
-                                 Message("dump segment %d ok.\n",i);
-                         }    
-         e_phoff=e_phoff+0x38;
-      }
-
-      fseek(dumpfile,0x3c,0);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-
-      fseek(dumpfile,0x28,0);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-
-      fclose(dumpfile);
-        }else Message("dump err.");
- }
-}
-static dump(dumpfile,startimg,endimg,offset) 
-{
-        auto i;
-        auto size;
-        size=endimg-startimg;
-        fseek(dumpfile,offset,0);
-        for ( i=0; i &lt; size; i=i+1 ) 
-        {
-        fputc(Byte(startimg+i),dumpfile);
-        }
-}
-</code></pre>
-
-<p>得到dumpfile2，拖进ida得到正常的代码</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879324566.png"></p>
-<h3 id="爆破脚本"><a href="#爆破脚本" class="headerlink" title="爆破脚本"></a>爆破脚本</h3><p>这里要按位与上0xffff，因为这里最后只赋值了最后十六位，所以需要使用&amp;0xffff来限制位数，保证取到最后的十六位</p>
-<p>有时候还存在左移溢出的问题：</p>
-<p><a href="https://blog.csdn.net/u013658041/article/details/78116449">https://blog.csdn.net/u013658041/article/details/78116449</a></p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1644069404698.png"></p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt; 
-#include &lt;string.h&gt;
-#include &lt;stdlib.h&gt;
-int main()
-{
-	int s[]={0x8d68,0x9d49,0x2a12,0xab1a,0xcbdc,0xb92b,0x2e32,0x9f59,0xddcd,0x9d49,0xa90a,0xe70,0xf5cf,0x5ed5,0x3c03,0x7c87,0x2672,0xab1a,0xa50,0x5af5,0xff9f,0x9f59,0xbd0b,0x58e5,0x3823,0xbf1b,0x78a7,0xab1a,0x48c4,0xa90a,0x2c22,0x9f59,0x5cc5,0x5ed5,0x78a7,0x2672,0x5695};
-	for(int i=0;i&lt;40;++i)
-	{
-		for(int j=32;j&lt;=127;++j)
-		{
-			int temp=(j&lt;&lt;8)&amp;0xffff;
-			for(int  k=0;k&lt;8;++k)
-			{
-				if((temp&amp;0x8000)!=0)
-				{
-					temp=((2*temp)^0x1021)&amp;0xffff;
-				}
-				else
-					temp=(2*temp)&amp;0xffff;
-			}
-			if(temp==s[i])
-			{
-				printf("%c",j);
-			}
-		}
-	}
-
-	return 0;
-}</code></pre>
-
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -5106,143 +5106,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Tea、XTea、XXTea原理和实现</title>
-    <url>/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h1><p>1、特征量（一般是0x9e3779b9，它是黄金分割数和232的乘积），可以替换成其他的值，但是可能会出现问题</p>
-<p>2、主要加密部分进行异或和移位操作（一般都存在&lt;&lt;4、&gt;&gt;5）</p>
-<p>3、key为128bit</p>
-<h1 id="Tea"><a href="#Tea" class="headerlink" title="Tea"></a>Tea</h1><h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p>数组的奇数下标元素从右侧传入后进行了移位异或和相加操作，最后偶数下标加上上面操作完的值，所以可以把等式右边看成一个常数，这样写逆向脚本好理解</p>
-<p>结束第一步之后，奇数下标元素的偶数下标元素进行置换，再对奇数下标进行相同的加密</p>
-<p>第三步就是sum+=Delta</p>
-<p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/OIP-C.jfif"> </p>
-<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2><pre class="language-c" data-language="c"><code class="language-c">int main()
-{
-	unsigned int Data[8] = { 0 };
-	unsigned int key[4] = { 0 };
-	unsigned int tmp[2] = { 0 };
-	unsigned int sum = 0;
-	unsigned int delta = 0x9e3779b9;
-	for (int i = 0; i &lt; 8; i += 2)
-	{
-		tmp[0] = Data[i];
-		tmp[1] = Data[i + 1];
-        sum=0;
-		for (int i = 0; i &lt; 32; ++i)
-		{
-			sum += delta;
-			tmp[0] += ((tmp[1] &lt;&lt; 4) + key[0]) ^ (tmp[1] + sum) ^ ((tmp[1] &gt;&gt; 5) + key[1]);
-			tmp[1] += ((tmp[0] &lt;&lt; 4) + key[2]) ^ (tmp[0] + sum) ^ ((tmp[0] &gt;&gt; 5) + key[3]);
-		}
-		Data[i] = tmp[i];
-		Data[i + 1] = tmp[i + 1];
-	}
-	return 0;
-}</code></pre>
-
-<h3 id="解密代码"><a href="#解密代码" class="headerlink" title="解密代码"></a>解密代码</h3><pre class="language-c" data-language="c"><code class="language-c">#include&lt;string.h&gt;
-#include &lt;stdio.h&gt;
-
-int main()
-{
-	unsigned int Data[8] = { 0 };
-	unsigned int key[4] = { 0 };
-	unsigned int tmp[2] = { 0 };
-	unsigned int sum = 0;
-	unsigned int delta = 0x9e3779b9;
-	for (int i = 0; i &lt; 8; i += 2)
-	{
-		tmp[0] = Data[i];
-		tmp[1] = Data[i + 1];
-		sum = delta*32;
-		for (int i = 0; i &lt; 32; ++i)
-		{
-			tmp[1] -= ((tmp[0] &lt;&lt; 4) + key[2]) ^ (tmp[0] + sum) ^ ((tmp[0] &gt;&gt; 5) + key[3]);
-			tmp[0] -= ((tmp[1] &lt;&lt; 4) + key[0]) ^ (tmp[1] + sum) ^ ((tmp[1] &gt;&gt; 5) + key[1]);
-			sum -= delta;
-		}
-		Data[i] = tmp[i];
-		Data[i + 1] = tmp[i + 1];
-	}
-	return 0;
-}</code></pre>
-
-<p>解密的时候主要是要找到Key和密文，并且可能会有大小端序的问题</p>
-<h1 id="XTea"><a href="#XTea" class="headerlink" title="XTea"></a>XTea</h1><p>Xtea是Tea的升级版，添加了一些移位和异或操作</p>
-<h2 id="加密流程-1"><a href="#加密流程-1" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/20190112131633-3a396138-1629-1.png"> </p>
-<p>因为加密过程实际上没发生太多变化，就不贴加密和解密的代码了</p>
-<h1 id="XXTea"><a href="#XXTea" class="headerlink" title="XXTea"></a>XXTea</h1><h2 id="加密流程-2"><a href="#加密流程-2" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/921830_48K7JHRW383FZWR.jpg"> </p>
-<h2 id="加解密代码"><a href="#加解密代码" class="headerlink" title="加解密代码"></a>加解密代码</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;stdint.h&gt;
-#define DELTA 0x9e3779b9            //固定的一个常量
-#define MX (((z&gt;&gt;5^y&lt;&lt;2) + (y&gt;&gt;3^z&lt;&lt;4)) ^ ((sum^y) + (key[(p&amp;3)^e] ^ z)))   //固定的运算
-void btea(uint32_t *v, int n, uint32_t const key[4])   //v是要加密的两个元素的数组
-{                                                      //n为数组的长度
-    uint32_t y, z, sum;                                //无符号整型     
-    unsigned p, rounds, e;                            
-    if (n &gt; 1)            /* Coding Part */   
-    {
-        rounds = 6 + 52/n;               //固定的得出轮数
-        sum = 0;                        
-        z = v[n-1];                     
-        do
-        {
-            sum += DELTA;                //每次进行叠加
-            e = (sum &gt;&gt; 2) &amp; 3;          //固定运算
-            for (p=0; p&lt;n-1; p++)       
-            {
-                y = v[p+1];
-                v[p] += MX;
-                      z = v[p];     
-                        }
-            y = v[0];
-            z = v[n-1] += MX;
-        }
-        while (--rounds);
-    }
-    else if (n &lt; -1)      /* Decoding Part */
-    {
-        n = -n;
-        rounds = 6 + 52/n;
-        sum = rounds*DELTA;
-        y = v[0];
-        do
-        {
-            e = (sum &gt;&gt; 2) &amp; 3;
-            for (p=n-1; p&gt;0; p--)
-            {
-                z = v[p-1];
-                y = v[p] -= MX;
-            }
-            z = v[n-1];
-            y = v[0] -= MX;
-            sum -= DELTA;
-        }
-        while (--rounds);
-    }
-}
- 
-int main()
-{
-    uint32_t v[2]= {1,2};
-    uint32_t const k[4]= {2,2,3,4};
-    int n= 2; //n的绝对值表示v的长度，取正表示加密，取负表示解密
-    // v为要加密的数据是两个32位无符号整数
-  // k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位
-    printf("加密前原始数据：%u %u\n",v[0],v[1]);
-    btea(v, n, k);
-    printf("加密后的数据：%u %u\n",v[0],v[1]);
-    btea(v, -n, k);
-    printf("解密后的数据：%u %u\n",v[0],v[1]);
-    return 0;
-}</code></pre>
-
-<p>还没实现过，看着流程图不知道怎么入手</p>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VEH</title>
     <url>/2022/04/10/VEH/</url>
     <content><![CDATA[<h1 id="0x00-VEH"><a href="#0x00-VEH" class="headerlink" title="0x00-VEH"></a>0x00-VEH</h1><p>VEH的中文名字为：向量化异常处理 （Vectored Exception Handling） ，是为操作系统提供的异常处理机制，类似于SEH，VEH的优先级高于SEH</p>
@@ -5379,46 +5242,140 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Vim编辑器使用</title>
-    <url>/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h1 id="Vim键盘图"><a href="#Vim键盘图" class="headerlink" title="Vim键盘图"></a>Vim键盘图</h1><p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648206284939.png" alt="Vim键盘图"></p>
-<h1 id="Vim模式"><a href="#Vim模式" class="headerlink" title="Vim模式"></a>Vim模式</h1><p>vim分成三种模式，分别是命令模式、输入模式、底线命令模式</p>
-<h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><p>用户刚进入vim，便进入命令模式</p>
-<p>这时我们敲击键盘的动作被识别为命令</p>
-<p>以下是常用的几个命令</p>
-<p>i：进入输入模式</p>
-<p>x：删除当前光标所在处的字符</p>
-<p>：：切换到底线命令模式，这样我们就可以在最底一行输入命令</p>
-<h2 id="输入模式"><a href="#输入模式" class="headerlink" title="输入模式"></a>输入模式</h2><p>1、字符按键和shift组合：输入字符</p>
-<p>2、ENTER：回车键，换行</p>
-<p>3、BaceSpace：退格键，删除光标前一个字符</p>
-<p>4、DEL：删除键，删除光标后一个字符</p>
-<p>5、方向键：移动光标</p>
-<p>6、HOME/END：移动光标到行首、行尾</p>
-<p>7、Page Up/Page Down：上/下翻页</p>
-<p>8、Insert： 切换光标为输入/替换模式，光标将变成竖线/下划线 </p>
-<p>9、 退出输入模式，切换到命令模式 </p>
-<h2 id="底线命令模式"><a href="#底线命令模式" class="headerlink" title="底线命令模式"></a>底线命令模式</h2><p>省略掉冒号的基本命令</p>
-<p>1、q：退出程序</p>
-<p>2、w：保存文件</p>
-<p>3、命令末尾加上!表示强制执行</p>
-<h1 id="更多命令"><a href="#更多命令" class="headerlink" title="更多命令"></a>更多命令</h1><p><a href="https://www.runoob.com/linux/linux-vim.html">https://www.runoob.com/linux/linux-vim.html</a></p>
-<p>vim复制粘贴-这里wo</p>
-<p><a href="https://www.cnblogs.com/huahuayu/p/12235242.html">https://www.cnblogs.com/huahuayu/p/12235242.html</a></p>
-<p>Vim配置</p>
-<p><a href="https://blog.csdn.net/Doctor_xiong/article/details/78663590">https://blog.csdn.net/Doctor_xiong/article/details/78663590</a></p>
-<h1 id="GCC生成可执行文件"><a href="#GCC生成可执行文件" class="headerlink" title="GCC生成可执行文件"></a>GCC生成可执行文件</h1><h2 id="Vim生成-c文件"><a href="#Vim生成-c文件" class="headerlink" title="Vim生成.c文件"></a>Vim生成.c文件</h2><p>vim 文件名.c即可生成.c文件</p>
-<h2 id="GCC编译成可执行文件"><a href="#GCC编译成可执行文件" class="headerlink" title="GCC编译成可执行文件"></a>GCC编译成可执行文件</h2><p>gcc 文件名.c -o 输入文件名</p>
-<p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648209669071.png"></p>
-<h1 id="Vim复制和粘贴"><a href="#Vim复制和粘贴" class="headerlink" title="Vim复制和粘贴"></a>Vim复制和粘贴</h1><p>这个链接解决了系统粘贴板和vim粘贴板的共通</p>
-<p><a href="https://www.cnblogs.com/Biiigwang/p/12086514.html">https://www.cnblogs.com/Biiigwang/p/12086514.html</a></p>
-<p>我们先把光标移动到我们需要复制数据的起始位置，然后在命令模式中按v进入可视模式，然后移动光标来选中，按v就可以实现复制，按p粘贴</p>
-<h1 id="Vim的撤销与恢复撤销"><a href="#Vim的撤销与恢复撤销" class="headerlink" title="Vim的撤销与恢复撤销"></a>Vim的撤销与恢复撤销</h1><p>在命令模式中，我们按u可以撤销插入模式中的操作，而Ctrl+r可以恢复我们的撤销</p>
-<h1 id="Vim直接编译C"><a href="#Vim直接编译C" class="headerlink" title="Vim直接编译C"></a>Vim直接编译C</h1><p>配置好之后按F5即可运行，并生成可执行文件</p>
-<p><a href="https://blog.csdn.net/qq_33505303/article/details/66473907">https://blog.csdn.net/qq_33505303/article/details/66473907</a></p>
+    <title>Tea、XTea、XXTea原理和实现</title>
+    <url>/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h1><p>1、特征量（一般是0x9e3779b9，它是黄金分割数和232的乘积），可以替换成其他的值，但是可能会出现问题</p>
+<p>2、主要加密部分进行异或和移位操作（一般都存在&lt;&lt;4、&gt;&gt;5）</p>
+<p>3、key为128bit</p>
+<h1 id="Tea"><a href="#Tea" class="headerlink" title="Tea"></a>Tea</h1><h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p>数组的奇数下标元素从右侧传入后进行了移位异或和相加操作，最后偶数下标加上上面操作完的值，所以可以把等式右边看成一个常数，这样写逆向脚本好理解</p>
+<p>结束第一步之后，奇数下标元素的偶数下标元素进行置换，再对奇数下标进行相同的加密</p>
+<p>第三步就是sum+=Delta</p>
+<p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/OIP-C.jfif"> </p>
+<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2><pre class="language-c" data-language="c"><code class="language-c">int main()
+{
+	unsigned int Data[8] = { 0 };
+	unsigned int key[4] = { 0 };
+	unsigned int tmp[2] = { 0 };
+	unsigned int sum = 0;
+	unsigned int delta = 0x9e3779b9;
+	for (int i = 0; i &lt; 8; i += 2)
+	{
+		tmp[0] = Data[i];
+		tmp[1] = Data[i + 1];
+        sum=0;
+		for (int i = 0; i &lt; 32; ++i)
+		{
+			sum += delta;
+			tmp[0] += ((tmp[1] &lt;&lt; 4) + key[0]) ^ (tmp[1] + sum) ^ ((tmp[1] &gt;&gt; 5) + key[1]);
+			tmp[1] += ((tmp[0] &lt;&lt; 4) + key[2]) ^ (tmp[0] + sum) ^ ((tmp[0] &gt;&gt; 5) + key[3]);
+		}
+		Data[i] = tmp[i];
+		Data[i + 1] = tmp[i + 1];
+	}
+	return 0;
+}</code></pre>
+
+<h3 id="解密代码"><a href="#解密代码" class="headerlink" title="解密代码"></a>解密代码</h3><pre class="language-c" data-language="c"><code class="language-c">#include&lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+int main()
+{
+	unsigned int Data[8] = { 0 };
+	unsigned int key[4] = { 0 };
+	unsigned int tmp[2] = { 0 };
+	unsigned int sum = 0;
+	unsigned int delta = 0x9e3779b9;
+	for (int i = 0; i &lt; 8; i += 2)
+	{
+		tmp[0] = Data[i];
+		tmp[1] = Data[i + 1];
+		sum = delta*32;
+		for (int i = 0; i &lt; 32; ++i)
+		{
+			tmp[1] -= ((tmp[0] &lt;&lt; 4) + key[2]) ^ (tmp[0] + sum) ^ ((tmp[0] &gt;&gt; 5) + key[3]);
+			tmp[0] -= ((tmp[1] &lt;&lt; 4) + key[0]) ^ (tmp[1] + sum) ^ ((tmp[1] &gt;&gt; 5) + key[1]);
+			sum -= delta;
+		}
+		Data[i] = tmp[i];
+		Data[i + 1] = tmp[i + 1];
+	}
+	return 0;
+}</code></pre>
+
+<p>解密的时候主要是要找到Key和密文，并且可能会有大小端序的问题</p>
+<h1 id="XTea"><a href="#XTea" class="headerlink" title="XTea"></a>XTea</h1><p>Xtea是Tea的升级版，添加了一些移位和异或操作</p>
+<h2 id="加密流程-1"><a href="#加密流程-1" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/20190112131633-3a396138-1629-1.png"> </p>
+<p>因为加密过程实际上没发生太多变化，就不贴加密和解密的代码了</p>
+<h1 id="XXTea"><a href="#XXTea" class="headerlink" title="XXTea"></a>XXTea</h1><h2 id="加密流程-2"><a href="#加密流程-2" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/921830_48K7JHRW383FZWR.jpg"> </p>
+<h2 id="加解密代码"><a href="#加解密代码" class="headerlink" title="加解密代码"></a>加解密代码</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;stdint.h&gt;
+#define DELTA 0x9e3779b9            //固定的一个常量
+#define MX (((z&gt;&gt;5^y&lt;&lt;2) + (y&gt;&gt;3^z&lt;&lt;4)) ^ ((sum^y) + (key[(p&amp;3)^e] ^ z)))   //固定的运算
+void btea(uint32_t *v, int n, uint32_t const key[4])   //v是要加密的两个元素的数组
+{                                                      //n为数组的长度
+    uint32_t y, z, sum;                                //无符号整型     
+    unsigned p, rounds, e;                            
+    if (n &gt; 1)            /* Coding Part */   
+    {
+        rounds = 6 + 52/n;               //固定的得出轮数
+        sum = 0;                        
+        z = v[n-1];                     
+        do
+        {
+            sum += DELTA;                //每次进行叠加
+            e = (sum &gt;&gt; 2) &amp; 3;          //固定运算
+            for (p=0; p&lt;n-1; p++)       
+            {
+                y = v[p+1];
+                v[p] += MX;
+                      z = v[p];     
+                        }
+            y = v[0];
+            z = v[n-1] += MX;
+        }
+        while (--rounds);
+    }
+    else if (n &lt; -1)      /* Decoding Part */
+    {
+        n = -n;
+        rounds = 6 + 52/n;
+        sum = rounds*DELTA;
+        y = v[0];
+        do
+        {
+            e = (sum &gt;&gt; 2) &amp; 3;
+            for (p=n-1; p&gt;0; p--)
+            {
+                z = v[p-1];
+                y = v[p] -= MX;
+            }
+            z = v[n-1];
+            y = v[0] -= MX;
+            sum -= DELTA;
+        }
+        while (--rounds);
+    }
+}
+ 
+int main()
+{
+    uint32_t v[2]= {1,2};
+    uint32_t const k[4]= {2,2,3,4};
+    int n= 2; //n的绝对值表示v的长度，取正表示加密，取负表示解密
+    // v为要加密的数据是两个32位无符号整数
+  // k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位
+    printf("加密前原始数据：%u %u\n",v[0],v[1]);
+    btea(v, n, k);
+    printf("加密后的数据：%u %u\n",v[0],v[1]);
+    btea(v, -n, k);
+    printf("解密后的数据：%u %u\n",v[0],v[1]);
+    return 0;
+}</code></pre>
+
+<p>还没实现过，看着流程图不知道怎么入手</p>
 ]]></content>
       <tags>
-        <tag>Linux</tag>
+        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -6484,37 +6441,46 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Windows核心编程</title>
-    <url>/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<h1 id="0x00-错误处理"><a href="#0x00-错误处理" class="headerlink" title="0x00-错误处理"></a>0x00-错误处理</h1><p>在WinError.h头文件中包含了Microsoft定义的错误代码列表，每个错误都有三种表示：一个消息ID(一个可在源代码使用的宏，用于与GetLastError的返回值进行比较)、消息文本(描述错误的英文文本)和一个编号(应该避免使用此编号，尽量使用消息ID)</p>
-<p>所以在Windows函数失败之后，应该立马调用GetLastError()</p>
-<h1 id="0x01-字符和字符串处理"><a href="#0x01-字符和字符串处理" class="headerlink" title="0x01-字符和字符串处理"></a>0x01-字符和字符串处理</h1><h2 id="ANSI与UNCODE"><a href="#ANSI与UNCODE" class="headerlink" title="ANSI与UNCODE"></a>ANSI与UNCODE</h2><blockquote>
-<p>在Windows Vista中，每个Unicode字符都使用UTF-16编码，UTF-16将每个字符编码为2个字节也就是16位</p>
-</blockquote>
-<p>我们知道在C语言中，char数据类型表示一个8位ANSI字符，也就是一个字节</p>
-<p>当我们声明Unicode字符和字符串时，只需要在字符串前加上”L“，表示以UTF-16来编码每个字符</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813453705.png"></p>
-<h2 id="Unicode函数与ANSI函数"><a href="#Unicode函数与ANSI函数" class="headerlink" title="Unicode函数与ANSI函数"></a>Unicode函数与ANSI函数</h2><p>自Windows NT起，Windows所有的版本都完全用Unicode来构建。也就是说所有核心函数(创建窗口、显示文本、进行字符串处理)都需要Unicode字符串</p>
-<p>在Windows中，Windows函数通常具有两个版本，用于接收不同的字符串</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813717040.png"></p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813766466.png" alt="默认版本"></p>
-<h2 id="C运行库中的Unicode函数和ANSI函数"><a href="#C运行库中的Unicode函数和ANSI函数" class="headerlink" title="C运行库中的Unicode函数和ANSI函数"></a>C运行库中的Unicode函数和ANSI函数</h2><p>和Windows函数一样，C运行库提供了一系列函数处理ANSI字符和字符串，并提供了一系列函数来处理Unicode字符与字符串</p>
-<p>在C运行库中，strlen就是一个能返回ANSI字符串长度的函数。与之对应的是wcslen，这个C运行库函数能返回Unicode字符串的长度，这两个函数都在string.h中</p>
-<h2 id="C运行库中的安全字符串函数"><a href="#C运行库中的安全字符串函数" class="headerlink" title="C运行库中的安全字符串函数"></a>C运行库中的安全字符串函数</h2><blockquote>
-<p><strong>任何修改字符串的函数都存在一个安全隐患：如果目标字符串缓冲区不够大，无法容纳所生成的字符串，就会导致内存中的数据被破坏</strong></p>
-</blockquote>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011578747.png" alt="例子"></p>
-<p>为了防止被被恶意软件肆意滥用，微软提供了一系列新的函数来取代C运行库的不安全的字符串处理函数</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011917625.png"></p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012022950.png"></p>
-<p>书中没有详细介绍，可以自行查找</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012306710.png" alt="安全字符串函数"></p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012361902.png" alt="安全字符串函数执行"></p>
-<h1 id="Windows字符串函数"><a href="#Windows字符串函数" class="headerlink" title="Windows字符串函数"></a>Windows字符串函数</h1><p>不知道讲了些啥</p>
-<h2 id="为何要用Unicode"><a href="#为何要用Unicode" class="headerlink" title="为何要用Unicode"></a>为何要用Unicode</h2><p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012784209.png"></p>
+    <title>Vim编辑器使用</title>
+    <url>/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h1 id="Vim键盘图"><a href="#Vim键盘图" class="headerlink" title="Vim键盘图"></a>Vim键盘图</h1><p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648206284939.png" alt="Vim键盘图"></p>
+<h1 id="Vim模式"><a href="#Vim模式" class="headerlink" title="Vim模式"></a>Vim模式</h1><p>vim分成三种模式，分别是命令模式、输入模式、底线命令模式</p>
+<h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><p>用户刚进入vim，便进入命令模式</p>
+<p>这时我们敲击键盘的动作被识别为命令</p>
+<p>以下是常用的几个命令</p>
+<p>i：进入输入模式</p>
+<p>x：删除当前光标所在处的字符</p>
+<p>：：切换到底线命令模式，这样我们就可以在最底一行输入命令</p>
+<h2 id="输入模式"><a href="#输入模式" class="headerlink" title="输入模式"></a>输入模式</h2><p>1、字符按键和shift组合：输入字符</p>
+<p>2、ENTER：回车键，换行</p>
+<p>3、BaceSpace：退格键，删除光标前一个字符</p>
+<p>4、DEL：删除键，删除光标后一个字符</p>
+<p>5、方向键：移动光标</p>
+<p>6、HOME/END：移动光标到行首、行尾</p>
+<p>7、Page Up/Page Down：上/下翻页</p>
+<p>8、Insert： 切换光标为输入/替换模式，光标将变成竖线/下划线 </p>
+<p>9、 退出输入模式，切换到命令模式 </p>
+<h2 id="底线命令模式"><a href="#底线命令模式" class="headerlink" title="底线命令模式"></a>底线命令模式</h2><p>省略掉冒号的基本命令</p>
+<p>1、q：退出程序</p>
+<p>2、w：保存文件</p>
+<p>3、命令末尾加上!表示强制执行</p>
+<h1 id="更多命令"><a href="#更多命令" class="headerlink" title="更多命令"></a>更多命令</h1><p><a href="https://www.runoob.com/linux/linux-vim.html">https://www.runoob.com/linux/linux-vim.html</a></p>
+<p>vim复制粘贴-这里wo</p>
+<p><a href="https://www.cnblogs.com/huahuayu/p/12235242.html">https://www.cnblogs.com/huahuayu/p/12235242.html</a></p>
+<p>Vim配置</p>
+<p><a href="https://blog.csdn.net/Doctor_xiong/article/details/78663590">https://blog.csdn.net/Doctor_xiong/article/details/78663590</a></p>
+<h1 id="GCC生成可执行文件"><a href="#GCC生成可执行文件" class="headerlink" title="GCC生成可执行文件"></a>GCC生成可执行文件</h1><h2 id="Vim生成-c文件"><a href="#Vim生成-c文件" class="headerlink" title="Vim生成.c文件"></a>Vim生成.c文件</h2><p>vim 文件名.c即可生成.c文件</p>
+<h2 id="GCC编译成可执行文件"><a href="#GCC编译成可执行文件" class="headerlink" title="GCC编译成可执行文件"></a>GCC编译成可执行文件</h2><p>gcc 文件名.c -o 输入文件名</p>
+<p><img src="/2022/03/25/Vim%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8/1648209669071.png"></p>
+<h1 id="Vim复制和粘贴"><a href="#Vim复制和粘贴" class="headerlink" title="Vim复制和粘贴"></a>Vim复制和粘贴</h1><p>这个链接解决了系统粘贴板和vim粘贴板的共通</p>
+<p><a href="https://www.cnblogs.com/Biiigwang/p/12086514.html">https://www.cnblogs.com/Biiigwang/p/12086514.html</a></p>
+<p>我们先把光标移动到我们需要复制数据的起始位置，然后在命令模式中按v进入可视模式，然后移动光标来选中，按v就可以实现复制，按p粘贴</p>
+<h1 id="Vim的撤销与恢复撤销"><a href="#Vim的撤销与恢复撤销" class="headerlink" title="Vim的撤销与恢复撤销"></a>Vim的撤销与恢复撤销</h1><p>在命令模式中，我们按u可以撤销插入模式中的操作，而Ctrl+r可以恢复我们的撤销</p>
+<h1 id="Vim直接编译C"><a href="#Vim直接编译C" class="headerlink" title="Vim直接编译C"></a>Vim直接编译C</h1><p>配置好之后按F5即可运行，并生成可执行文件</p>
+<p><a href="https://blog.csdn.net/qq_33505303/article/details/66473907">https://blog.csdn.net/qq_33505303/article/details/66473907</a></p>
 ]]></content>
       <tags>
-        <tag>Windows</tag>
+        <tag>Linux</tag>
       </tags>
   </entry>
   <entry>
@@ -6694,6 +6660,112 @@ else:
 ]]></content>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows核心编程</title>
+    <url>/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="0x00-错误处理"><a href="#0x00-错误处理" class="headerlink" title="0x00-错误处理"></a>0x00-错误处理</h1><p>在WinError.h头文件中包含了Microsoft定义的错误代码列表，每个错误都有三种表示：一个消息ID(一个可在源代码使用的宏，用于与GetLastError的返回值进行比较)、消息文本(描述错误的英文文本)和一个编号(应该避免使用此编号，尽量使用消息ID)</p>
+<p>所以在Windows函数失败之后，应该立马调用GetLastError()</p>
+<h1 id="0x01-字符和字符串处理"><a href="#0x01-字符和字符串处理" class="headerlink" title="0x01-字符和字符串处理"></a>0x01-字符和字符串处理</h1><h2 id="ANSI与UNCODE"><a href="#ANSI与UNCODE" class="headerlink" title="ANSI与UNCODE"></a>ANSI与UNCODE</h2><blockquote>
+<p>在Windows Vista中，每个Unicode字符都使用UTF-16编码，UTF-16将每个字符编码为2个字节也就是16位</p>
+</blockquote>
+<p>我们知道在C语言中，char数据类型表示一个8位ANSI字符，也就是一个字节</p>
+<p>当我们声明Unicode字符和字符串时，只需要在字符串前加上”L“，表示以UTF-16来编码每个字符</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813453705.png"></p>
+<h2 id="Unicode函数与ANSI函数"><a href="#Unicode函数与ANSI函数" class="headerlink" title="Unicode函数与ANSI函数"></a>Unicode函数与ANSI函数</h2><p>自Windows NT起，Windows所有的版本都完全用Unicode来构建。也就是说所有核心函数(创建窗口、显示文本、进行字符串处理)都需要Unicode字符串</p>
+<p>在Windows中，Windows函数通常具有两个版本，用于接收不同的字符串</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813717040.png"></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813766466.png" alt="默认版本"></p>
+<h2 id="C运行库中的Unicode函数和ANSI函数"><a href="#C运行库中的Unicode函数和ANSI函数" class="headerlink" title="C运行库中的Unicode函数和ANSI函数"></a>C运行库中的Unicode函数和ANSI函数</h2><p>和Windows函数一样，C运行库提供了一系列函数处理ANSI字符和字符串，并提供了一系列函数来处理Unicode字符与字符串</p>
+<p>在C运行库中，strlen就是一个能返回ANSI字符串长度的函数。与之对应的是wcslen，这个C运行库函数能返回Unicode字符串的长度，这两个函数都在string.h中</p>
+<h2 id="C运行库中的安全字符串函数"><a href="#C运行库中的安全字符串函数" class="headerlink" title="C运行库中的安全字符串函数"></a>C运行库中的安全字符串函数</h2><blockquote>
+<p><strong>任何修改字符串的函数都存在一个安全隐患：如果目标字符串缓冲区不够大，无法容纳所生成的字符串，就会导致内存中的数据被破坏</strong></p>
+</blockquote>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011578747.png" alt="例子"></p>
+<p>为了防止被被恶意软件肆意滥用，微软提供了一系列新的函数来取代C运行库的不安全的字符串处理函数</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011917625.png"></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012022950.png"></p>
+<p>书中没有详细介绍，可以自行查找</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012306710.png" alt="安全字符串函数"></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012361902.png" alt="安全字符串函数执行"></p>
+<h1 id="Windows字符串函数"><a href="#Windows字符串函数" class="headerlink" title="Windows字符串函数"></a>Windows字符串函数</h1><p>不知道讲了些啥</p>
+<h2 id="为何要用Unicode"><a href="#为何要用Unicode" class="headerlink" title="为何要用Unicode"></a>为何要用Unicode</h2><p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012784209.png"></p>
+]]></content>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hgame-misc</title>
+    <url>/2022/02/19/hgame-misc/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>总算是结束了，下面就记录一下misc遇到的一些题目</p>
+<h1 id="这个压缩包有点麻烦"><a href="#这个压缩包有点麻烦" class="headerlink" title="这个压缩包有点麻烦"></a>这个压缩包有点麻烦</h1><h2 id="相关知识-压缩包"><a href="#相关知识-压缩包" class="headerlink" title="相关知识-压缩包"></a>相关知识-压缩包</h2><h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p><img src="/2022/02/19/hgame-misc/1645212044252.png"></p>
+<p>可以看到在zip给出了密码的提示，六位纯数字，Advanced Archive Password Recovery爆破</p>
+<p><img src="/2022/02/19/hgame-misc/1645212152522.png"></p>
+<p><img src="/2022/02/19/hgame-misc/1645212207157.png"></p>
+<p>根据提示，给出的应该是字典，我们同样在爆破软件中选择字典</p>
+<p><img src="/2022/02/19/hgame-misc/1645212320305.png"></p>
+<p>继续下一步</p>
+<p><img src="/2022/02/19/hgame-misc/1645212429206.png"></p>
+<p>他让我们重新储存，把readme文件选择以存储的方式压缩发现</p>
+<p><img src="/2022/02/19/hgame-misc/1645212573216.png"></p>
+<p>这两个的CRC32的值是一样的，但是我们知道CRC32的值只有一个，所以使用明文攻击，这里4.5没跑出来，4.0跑出来了</p>
+<p>在jpg文件尾部发现了zip，另存一下，是伪加密</p>
+<p><img src="/2022/02/19/hgame-misc/1645213950846.png"></p>
+<p>修复后得到flag</p>
+<p><img src="/2022/02/19/hgame-misc/1645214098403.png"></p>
+<h1 id="你上当了-我的很大"><a href="#你上当了-我的很大" class="headerlink" title="你上当了 我的很大"></a>你上当了 我的很大</h1><h2 id="相关知识-二维码"><a href="#相关知识-二维码" class="headerlink" title="相关知识-二维码"></a>相关知识-二维码</h2><h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>解压之后得到很多的视频，但都是重复的，有用的就几个，主要记录一下各种二维码的样子，以免之后认不出来</p>
+<p><a href="https://barcode.tec-it.com/zh/CodablockF">https://barcode.tec-it.com/zh/CodablockF</a></p>
+<p>这个网站可以生成不同的二维码，便于识别</p>
+<p><a href="https://products.aspose.app/barcode/recognize#">https://products.aspose.app/barcode/recognize#</a></p>
+<p>这个网站识别比较全</p>
+<p><img src="/2022/02/19/hgame-misc/1645213399267.png"></p>
+<p><img src="/2022/02/19/hgame-misc/1645213453036.png"></p>
+<p><img src="/2022/02/19/hgame-misc/1645213467874.png"></p>
+<h1 id="谁不喜欢猫猫呢"><a href="#谁不喜欢猫猫呢" class="headerlink" title="谁不喜欢猫猫呢"></a>谁不喜欢猫猫呢</h1><p><a href="https://blog.csdn.net/mochu7777777/article/details/122631962-%E5%8F%AF%E4%BB%A5%E7%9C%8B%E7%9C%8B%EF%BC%8C%E8%84%9A%E6%9C%AC%E4%B8%8D%E4%BC%9A%E5%86%99">https://blog.csdn.net/mochu7777777/article/details/122631962-可以看看，脚本不会写</a></p>
+<h1 id="摆烂"><a href="#摆烂" class="headerlink" title="摆烂"></a>摆烂</h1><h2 id="相关知识-盲水印、APng、零宽隐写"><a href="#相关知识-盲水印、APng、零宽隐写" class="headerlink" title="相关知识-盲水印、APng、零宽隐写"></a>相关知识-盲水印、APng、零宽隐写</h2><h2 id="解题过程-2"><a href="#解题过程-2" class="headerlink" title="解题过程"></a>解题过程</h2><p>foremost分离压缩包得到png文件，也可以复制文件信息之后另存为，将png拖进010发现奇怪的地方</p>
+<p><img src="/2022/02/19/hgame-misc/1645214249445.png"></p>
+<p>正常的png文件是没有fdAT数据段的 APng-<a href="https://www.jianshu.com/p/5333bcc20ba7">https://www.jianshu.com/p/5333bcc20ba7</a></p>
+<p>查阅资料发现是Apng，这里介绍一个分解Apng的网址</p>
+<p><a href="https://ezgif.com/split">https://ezgif.com/split</a></p>
+<p>得到两张一模一样的图片，这时候就想到了盲水印</p>
+<p><img src="/2022/02/19/hgame-misc/1645214469303.png"></p>
+<p>得到带有密码的图片</p>
+<p><img src="/2022/02/19/hgame-misc/1645214585213.png"></p>
+<p>得到密钥解压压缩包，拼接二维码，扫码得到</p>
+<p><img src="/2022/02/19/hgame-misc/1645214612749.png"></p>
+<p>发现很多问号，应该就是零宽了，这里我手机扫码后的信息再拿去解密-<a href="https://330k.github.io/misc_tools/unicode_steganography.html">https://330k.github.io/misc_tools/unicode_steganography.html</a></p>
+<p><img src="/2022/02/19/hgame-misc/1645214720413.png"></p>
+<h1 id="At0m的给你们的-迟到的-情人节礼物"><a href="#At0m的给你们的-迟到的-情人节礼物" class="headerlink" title="At0m的给你们的(迟到的)情人节礼物"></a>At0m的给你们的(迟到的)情人节礼物</h1><h2 id="相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具"><a href="#相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具" class="headerlink" title="相关知识-avi隐写、NTFS数据流、 MSU StegoVideo工具"></a>相关知识-avi隐写、NTFS数据流、 MSU StegoVideo工具</h2><h2 id="解题过程-3"><a href="#解题过程-3" class="headerlink" title="解题过程"></a>解题过程</h2><p>一般数据流隐写都采取winrar，所以要关注rar文件</p>
+<p>这里解压之后时候NTFS工具得到</p>
+<p><img src="/2022/02/19/hgame-misc/1645214827597.png"></p>
+<p>四个方向对应四进制，解码的到 6557225 </p>
+<p>还有一个avi文件，一般是MSU StegoVideo工具</p>
+<p>下载好之后选择好avi文件，并且指定写入的文本 ，输入密码即可</p>
+<p>hgame{Q1ng_R3n_J1e_Da_Sh4_CTF}                        </p>
+]]></content>
+      <tags>
+        <tag>Competition</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hgame2022-WOW-patch数据段</title>
+    <url>/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/</url>
+    <content><![CDATA[<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png"></p>
+<p>可以看到上面这一段是输入并且把加密后的输入赋值给Buf2，在这之后已经结束了判断，所以下面红色框的代码应该是解密代码，只需要把Buf在栈中进行修改为final字符串即可</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png"></p>
+<p>这里点过去发现并没有数据，这可能是一些数据没有反编译出来，但是在图中蓝色部分可以看到地址是ebp-54</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png">计算一下，在堆栈窗口按g进行跳转</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png"></p>
+<p>跳转之后</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png"></p>
+<p>然后右键Edit，或者按快捷键F2，然后进行修改，注意大小端序的问题，这里使用lazyida选择DWORD导出来就很方便，再次右键，应用修改</p>
+<p>然后运行即可，就可以在input看到flag了</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png"></p>
+]]></content>
+      <tags>
+        <tag>Competition</tag>
       </tags>
   </entry>
   <entry>
@@ -6925,56 +6997,424 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>hgame-misc</title>
-    <url>/2022/02/19/hgame-misc/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>总算是结束了，下面就记录一下misc遇到的一些题目</p>
-<h1 id="这个压缩包有点麻烦"><a href="#这个压缩包有点麻烦" class="headerlink" title="这个压缩包有点麻烦"></a>这个压缩包有点麻烦</h1><h2 id="相关知识-压缩包"><a href="#相关知识-压缩包" class="headerlink" title="相关知识-压缩包"></a>相关知识-压缩包</h2><h2 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h2><p><img src="/2022/02/19/hgame-misc/1645212044252.png"></p>
-<p>可以看到在zip给出了密码的提示，六位纯数字，Advanced Archive Password Recovery爆破</p>
-<p><img src="/2022/02/19/hgame-misc/1645212152522.png"></p>
-<p><img src="/2022/02/19/hgame-misc/1645212207157.png"></p>
-<p>根据提示，给出的应该是字典，我们同样在爆破软件中选择字典</p>
-<p><img src="/2022/02/19/hgame-misc/1645212320305.png"></p>
-<p>继续下一步</p>
-<p><img src="/2022/02/19/hgame-misc/1645212429206.png"></p>
-<p>他让我们重新储存，把readme文件选择以存储的方式压缩发现</p>
-<p><img src="/2022/02/19/hgame-misc/1645212573216.png"></p>
-<p>这两个的CRC32的值是一样的，但是我们知道CRC32的值只有一个，所以使用明文攻击，这里4.5没跑出来，4.0跑出来了</p>
-<p>在jpg文件尾部发现了zip，另存一下，是伪加密</p>
-<p><img src="/2022/02/19/hgame-misc/1645213950846.png"></p>
-<p>修复后得到flag</p>
-<p><img src="/2022/02/19/hgame-misc/1645214098403.png"></p>
-<h1 id="你上当了-我的很大"><a href="#你上当了-我的很大" class="headerlink" title="你上当了 我的很大"></a>你上当了 我的很大</h1><h2 id="相关知识-二维码"><a href="#相关知识-二维码" class="headerlink" title="相关知识-二维码"></a>相关知识-二维码</h2><h2 id="解题过程-1"><a href="#解题过程-1" class="headerlink" title="解题过程"></a>解题过程</h2><p>解压之后得到很多的视频，但都是重复的，有用的就几个，主要记录一下各种二维码的样子，以免之后认不出来</p>
-<p><a href="https://barcode.tec-it.com/zh/CodablockF">https://barcode.tec-it.com/zh/CodablockF</a></p>
-<p>这个网站可以生成不同的二维码，便于识别</p>
-<p><a href="https://products.aspose.app/barcode/recognize#">https://products.aspose.app/barcode/recognize#</a></p>
-<p>这个网站识别比较全</p>
-<p><img src="/2022/02/19/hgame-misc/1645213399267.png"></p>
-<p><img src="/2022/02/19/hgame-misc/1645213453036.png"></p>
-<p><img src="/2022/02/19/hgame-misc/1645213467874.png"></p>
-<h1 id="谁不喜欢猫猫呢"><a href="#谁不喜欢猫猫呢" class="headerlink" title="谁不喜欢猫猫呢"></a>谁不喜欢猫猫呢</h1><p><a href="https://blog.csdn.net/mochu7777777/article/details/122631962-%E5%8F%AF%E4%BB%A5%E7%9C%8B%E7%9C%8B%EF%BC%8C%E8%84%9A%E6%9C%AC%E4%B8%8D%E4%BC%9A%E5%86%99">https://blog.csdn.net/mochu7777777/article/details/122631962-可以看看，脚本不会写</a></p>
-<h1 id="摆烂"><a href="#摆烂" class="headerlink" title="摆烂"></a>摆烂</h1><h2 id="相关知识-盲水印、APng、零宽隐写"><a href="#相关知识-盲水印、APng、零宽隐写" class="headerlink" title="相关知识-盲水印、APng、零宽隐写"></a>相关知识-盲水印、APng、零宽隐写</h2><h2 id="解题过程-2"><a href="#解题过程-2" class="headerlink" title="解题过程"></a>解题过程</h2><p>foremost分离压缩包得到png文件，也可以复制文件信息之后另存为，将png拖进010发现奇怪的地方</p>
-<p><img src="/2022/02/19/hgame-misc/1645214249445.png"></p>
-<p>正常的png文件是没有fdAT数据段的 APng-<a href="https://www.jianshu.com/p/5333bcc20ba7">https://www.jianshu.com/p/5333bcc20ba7</a></p>
-<p>查阅资料发现是Apng，这里介绍一个分解Apng的网址</p>
-<p><a href="https://ezgif.com/split">https://ezgif.com/split</a></p>
-<p>得到两张一模一样的图片，这时候就想到了盲水印</p>
-<p><img src="/2022/02/19/hgame-misc/1645214469303.png"></p>
-<p>得到带有密码的图片</p>
-<p><img src="/2022/02/19/hgame-misc/1645214585213.png"></p>
-<p>得到密钥解压压缩包，拼接二维码，扫码得到</p>
-<p><img src="/2022/02/19/hgame-misc/1645214612749.png"></p>
-<p>发现很多问号，应该就是零宽了，这里我手机扫码后的信息再拿去解密-<a href="https://330k.github.io/misc_tools/unicode_steganography.html">https://330k.github.io/misc_tools/unicode_steganography.html</a></p>
-<p><img src="/2022/02/19/hgame-misc/1645214720413.png"></p>
-<h1 id="At0m的给你们的-迟到的-情人节礼物"><a href="#At0m的给你们的-迟到的-情人节礼物" class="headerlink" title="At0m的给你们的(迟到的)情人节礼物"></a>At0m的给你们的(迟到的)情人节礼物</h1><h2 id="相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具"><a href="#相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具" class="headerlink" title="相关知识-avi隐写、NTFS数据流、 MSU StegoVideo工具"></a>相关知识-avi隐写、NTFS数据流、 MSU StegoVideo工具</h2><h2 id="解题过程-3"><a href="#解题过程-3" class="headerlink" title="解题过程"></a>解题过程</h2><p>一般数据流隐写都采取winrar，所以要关注rar文件</p>
-<p>这里解压之后时候NTFS工具得到</p>
-<p><img src="/2022/02/19/hgame-misc/1645214827597.png"></p>
-<p>四个方向对应四进制，解码的到 6557225 </p>
-<p>还有一个avi文件，一般是MSU StegoVideo工具</p>
-<p>下载好之后选择好avi文件，并且指定写入的文本 ，输入密码即可</p>
-<p>hgame{Q1ng_R3n_J1e_Da_Sh4_CTF}                        </p>
+    <title>pyc加花指令</title>
+    <url>/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/</url>
+    <content><![CDATA[<h1 id="VNCTF2022-BabyMaze"><a href="#VNCTF2022-BabyMaze" class="headerlink" title="VNCTF2022-BabyMaze"></a>VNCTF2022-BabyMaze</h1><p>pyc相关知识-<a href="https://zhuanlan.zhihu.com/p/145811103">https://zhuanlan.zhihu.com/p/145811103</a></p>
+<p>使用uncompyle6发现无法反编译，应该是添加了花指令</p>
+<p>先查看字节码</p>
+<p>脚本</p>
+<pre class="language-python" data-language="python"><code class="language-python">import marshal, dis
+f = open("D:\\new\\AD\\game\\vnctf2022\\re\\BabyMaze.pyc", "rb").read()
+code = marshal.loads(f[16:]) #这边从16位开始取因为是python3 python2从8位开始取
+dis.dis(code)</code></pre>
+
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848858641.png"></p>
+<p>发现这一段就是花指令</p>
+<p>去python的包里面搜索opcode.h，找到对应的字节码</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848986760.png"></p>
+<p>转为十六进制后去010editor修改，去掉即可</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849226023.png"></p>
+<p>但是发现还是不行，这是因为</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849421077.png"></p>
+<p>pyc文件有co_code，所以修改长度之后要修改它</p>
+<p>先打印出来长度，然后计算后修改</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849766935.png"></p>
+<p>2030-6=7E8</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849849453.png"></p>
+<p>重新uncompyle6</p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849958666.png"></p>
+<p>反编译成功，接下来就是maze图，打印出来之后手打</p>
+<h1 id="Pyc字节码阅读-unctf2021-pytrade"><a href="#Pyc字节码阅读-unctf2021-pytrade" class="headerlink" title="Pyc字节码阅读-unctf2021-pytrade"></a>Pyc字节码阅读-unctf2021-pytrade</h1><p>得到两个txt文件，一个是py的字节码，一个是输出</p>
+<p>对字节码进行分析</p>
+<p><a href="https://www.jianshu.com/p/557cfe36f0f0">https://www.jianshu.com/p/557cfe36f0f0</a></p>
+<p><a href="https://bbs.pediy.com/thread-246683.htm">https://bbs.pediy.com/thread-246683.htm</a></p>
+<p><a href="https://docs.python.org/zh-cn/3/library/dis.html">https://docs.python.org/zh-cn/3/library/dis.html</a>  这是python3的</p>
+<pre class="language-python" data-language="python"><code class="language-python">0 LOAD_CONST               1 ('XXXXXX')       //This is flag,try to figure it out ! Don't forget to fill it in flag{} !
+             2 STORE_FAST               0 (flag)</code></pre>
+
+<p>LOAD_CONST加载const变量，比如数值、字符串等，一般用于传给函数参数</p>
+<p>STORE_FAST 一般用于保存值到局部变量</p>
+<p>这句话意思是</p>
+<pre class="language-none"><code class="language-none">flag='XXXXXXXX'</code></pre>
+
+<p>第二段</p>
+<pre class="language-python" data-language="python"><code class="language-python">4 LOAD_CONST               2 (0) const变量，一般用于传给函数的参数
+             6 BUILD_LIST               1  创建列表
+             8 LOAD_CONST               3 (18)   const变量  num=[0]*18
+            10 BINARY_MULTIPLY    	
+            12 STORE_FAST               1 (num) 保存值到局部变量中</code></pre>
+
+<p>BINARY_MULTIPLY 是二元运算，即将栈顶的前两个元素取出进行计算，结果压回栈中 </p>
+<p>BUILD_LIST 创建列表</p>
+<pre class="language-none"><code class="language-none">num=[0]*18</code></pre>
+
+<p>第三段</p>
+<pre class="language-python" data-language="python"><code class="language-python">14 LOAD_CONST               2 (0)
+             16 STORE_FAST               2 (k)</code></pre>
+
+<pre class="language-python" data-language="python"><code class="language-python">k=0</code></pre>
+
+<p>第四段</p>
+<pre class="language-python" data-language="python"><code class="language-python">18 LOAD_GLOBAL              0 (range) 加载全局变量
+             20 LOAD_GLOBAL              1 (len) 
+             22 LOAD_FAST                0 (flag) 
+             24 CALL_FUNCTION            1	调用一个函数，在此之前要先赋值 len(flag)
+             26 CALL_FUNCTION            1  range(len(flag))
+             28 GET_ITER		取迭代器
+        &gt;&gt;   30 FOR_ITER               112 (to 144)  一直到144都是for循环
+             32 STORE_FAST               3 (i) </code></pre>
+
+<p> LOAD_GLOBAL 用来加载全局变量，包括指定函数名，类名，模块名等全局符号。当和函数搭配时，要注意有CALL_FUNCTION</p>
+<p>LOAD_FAST一般加载局部变量的值，也就是读取值，用于计算或者函数调用传参等。这里调用完len之后，要使用其传值，这里传入flag</p>
+<p>前半段意思是</p>
+<pre class="language-python" data-language="python"><code class="language-python">range(len(flag))</code></pre>
+
+<p>GET_ITER创建迭代器，一般是for循环</p>
+<p>FOR_ITER(to 144)表示迭代器一直到144</p>
+<p>STORE_FAST 创建局部变量，这里作为for循环的索引</p>
+<pre class="language-python" data-language="python"><code class="language-python">for i in range(len(flag)):</code></pre>
+
+<p>第五段</p>
+<pre class="language-python" data-language="python"><code class="language-python">7          34 LOAD_GLOBAL              2 (ord) 			
+            36 LOAD_FAST                0 (flag)
+            38 LOAD_FAST                3 (i)
+            40 BINARY_SUBSCR		索引运算
+            42 CALL_FUNCTION            1	ord(flag[i])
+            44 LOAD_FAST                3 (i)
+            46 BINARY_ADD		+i
+            48 LOAD_FAST                2 (k)	
+            50 LOAD_CONST               4 (3)	
+            52 BINARY_MODULO		//取模运算 k%3
+            54 LOAD_CONST               5 (1) 
+            56 BINARY_ADD		(k%3)+1
+            58 BINARY_XOR		(ord(flag[i])+i)^(k%3+1)
+            60 LOAD_FAST                1 (num)
+            62 LOAD_FAST                3 (i)
+            64 STORE_SUBSCR 		num[i]</code></pre>
+
+<p>BINARY_SUBSCR下标 访问操作</p>
+<p>BINARY_ADD也是二元运算，相加</p>
+<p>BINARY_MODULO，二元运算取模</p>
+<p>BINARY_XOR二元运算异或</p>
+<p>STORE_SUBSCR下标访问操作</p>
+<pre class="language-python" data-language="python"><code class="language-python">num[i]= (ord(flag[i]) + i) ^ (k % 3 + 1)</code></pre>
+
+<p>第六段</p>
+<pre class="language-python" data-language="python"><code class="language-python">8          66 LOAD_GLOBAL              2 (ord)
+             68 LOAD_FAST                0 (flag)
+             70 LOAD_GLOBAL              1 (len)
+             72 LOAD_FAST                0 (flag)
+             74 CALL_FUNCTION            1	len(flag)
+             76 LOAD_FAST                3 (i)	len(flag)-i
+             78 BINARY_SUBTRACT	
+             80 LOAD_CONST               5 (1)
+             82 BINARY_SUBTRACT	减法	len(flag)-i-1
+             84 BINARY_SUBSCR		索引运算	flag[len(flag)-i-1]
+             86 CALL_FUNCTION            1		ord(flag[len(flag)-i-1])
+             88 LOAD_GLOBAL              1 (len)
+             90 LOAD_FAST                0 (flag)
+             92 CALL_FUNCTION            1	len(flag)
+             94 BINARY_ADD		ord(flag[len(flag)-i-1])+len(flag)-i-1
+             96 LOAD_FAST                3 (i)	
+             98 BINARY_SUBTRACT
+            100 LOAD_CONST               5 (1)
+            102 BINARY_SUBTRACT
+            104 LOAD_FAST                2 (k)
+            106 LOAD_CONST               4 (3)
+            108 BINARY_MODULO	k%3
+            110 LOAD_CONST               5 (1)
+            112 BINARY_ADD		k%3+1
+            114 BINARY_XOR		ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)
+            116 LOAD_FAST                1 (num)
+            118 LOAD_GLOBAL              1 (len)
+            120 LOAD_FAST                0 (flag)	len(flag)
+            122 CALL_FUNCTION            1
+            124 LOAD_FAST                3 (i)
+            126 BINARY_SUBTRACT	len(flag)-i
+            128 LOAD_CONST               5 (1)	
+            130 BINARY_SUBTRACT	len(flag)-i-1
+            132 STORE_SUBSCR		num[len(flag)-i-1]=ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)</code></pre>
+
+<p>BINARY_SUBTRACT二元运算减法</p>
+<pre class="language-python" data-language="python"><code class="language-python">num[len(flag)-i-1]=ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)</code></pre>
+
+<p>第七段</p>
+<pre class="language-python" data-language="python"><code class="language-python">9         134 LOAD_FAST                2 (k)
+            136 LOAD_CONST               5 (1)
+            138 INPLACE_ADD	k++
+            140 STORE_FAST               2 (k)
+            142 JUMP_ABSOLUTE           30//循环结束
+</code></pre>
+
+<p>JUMP_ABSOLUTE绝对跳转，结束循环</p>
+<p>INPLACE_ADD  计算结果可以被操作数引用的到，每一个 二元运算，都对应一个inplace 运算 </p>
+<pre class="language-python" data-language="python"><code class="language-python">k+=1</code></pre>
+
+<p>第八段</p>
+<pre class="language-python" data-language="python"><code class="language-python">10     &gt;&gt;  144 LOAD_GLOBAL              3 (print)
+            146 LOAD_FAST                1 (num)
+            148 CALL_FUNCTION            1 print(num)
+            150 POP_TOP
+            152 LOAD_CONST               0 (None)
+            154 RETURN_VALUE</code></pre>
+
+<pre class="language-none"><code class="language-none">print(num)</code></pre>
+
+<h1 id="Easy-Re"><a href="#Easy-Re" class="headerlink" title="Easy_Re"></a>Easy_Re</h1><p>python3.9，无法uncompyle6，使用pycdc翻译成字节码</p>
+<pre class="language-python" data-language="python"><code class="language-python">main.pyc (Python 3.9)
+[Code]
+    File Name: main.py
+    Object Name: &lt;module&gt;
+    Arg Count: 0
+    Pos Only Arg Count: 0
+    KW Only Arg Count: 0
+    Locals: 0
+    Stack Size: 4
+    Flags: 0x00000040 (CO_NOFREE)
+    [Names]
+        'base64'
+        'encode'
+        'enCodeAgain'
+        'correct'
+        'flag'
+        'print'
+        'input'
+    [Var Names]
+    [Free Vars]
+    [Cell Vars]
+    [Constants]
+        0
+        None
+        [Code]
+            File Name: main.py
+            Object Name: encode
+            Arg Count: 1
+            Pos Only Arg Count: 0
+            KW Only Arg Count: 0
+            Locals: 4
+            Stack Size: 5
+            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)
+            [Names]
+                'chr'
+                'base64'
+                'b64encode'
+                'encode'
+            [Var Names]
+                'message'
+                's'
+                'i'
+                'x'
+            [Free Vars]
+            [Cell Vars]
+            [Constants]
+                None
+                ''
+                32
+                16
+                'utf-8'
+ [Disassembly]
+                0       LOAD_CONST              1: ''
+                2       STORE_FAST              1: s       s=''
+                4       LOAD_FAST               0: message
+                6       GET_ITER                
+                8       FOR_ITER                32 (to 42) for i in message:
+                10      STORE_FAST              2: i   
+                12      LOAD_FAST               2: i  
+                14      LOAD_CONST              2: 32
+                16      BINARY_XOR              		 i^32
+                18      STORE_FAST              3: x	x=i^32
+                20      LOAD_FAST               3: x	
+                22      LOAD_CONST              3: 16
+                24      BINARY_ADD              		x+16
+                26      STORE_FAST              3: x	x=x+16
+                28      LOAD_FAST               1: s	
+                30      LOAD_GLOBAL             0: chr
+                32      LOAD_FAST               3: x    
+                34      CALL_FUNCTION           1  chr(x)
+                36      INPLACE_ADD             s+chr(x)
+                38      STORE_FAST              1: s	s=s+chr(x)
+                40      JUMP_ABSOLUTE           8    循环结束
+                42      LOAD_GLOBAL             1: base64
+                44      LOAD_METHOD             2: b64encode	base64.b64
+                46      LOAD_FAST               1: s		
+                48      LOAD_METHOD             3: encode   LOAD_METHOD是加载类，CALL调用
+                50      LOAD_CONST              4: 'utf-8' 
+                52      CALL_METHOD             1  
+                54      CALL_METHOD             1 base64.b64(s.encode('utf-8'))
+                56      RETURN_VALUE            return  base64.b64(s.encode('utf-8'))
+        'encode'
+        [Code]
+            File Name: main.py
+            Object Name: enCodeAgain
+            Arg Count: 2
+            Pos Only Arg Count: 0
+            KW Only Arg Count: 0
+            Locals: 5
+            Stack Size: 5
+            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)
+            [Names]
+                'str'
+                'range'
+                'len'
+            [Var Names]
+                'string'
+                'space'
+                's'
+                'i'
+                'j'
+            [Free Vars]
+            [Cell Vars]
+            [Constants]
+                None
+                ''
+                'utf-8'
+                0
+            [Disassembly]
+                0       LOAD_CONST              1: ''  
+                2       STORE_FAST              2: s	s=''
+                4       LOAD_GLOBAL             0: str	
+                6       LOAD_FAST               0: string
+                8       LOAD_CONST              2: 'utf-8' 
+                10      CALL_FUNCTION           2//参数个数 str(string,'utf-8')
+                12      STORE_FAST              0: string string=str(string,'utf-8')
+                14      LOAD_GLOBAL             1: range 
+                16      LOAD_CONST              3: 0
+                18      LOAD_FAST               1: space
+                20      CALL_FUNCTION           2 range(0,space)
+                22      GET_ITER                //创建迭代器
+                24      FOR_ITER                50 (to 76) 
+                26      STORE_FAST              3: i	for i range(0,space):
+                28      LOAD_GLOBAL             1: range 	
+                30      LOAD_FAST               3: i
+                32      LOAD_GLOBAL             2: len
+                34      LOAD_FAST               0: string
+                36      CALL_FUNCTION           1	len(string)
+                38      LOAD_FAST               1: space
+                40      CALL_FUNCTION           3 
+                42      GET_ITER                
+                44      FOR_ITER                28 (to 74)
+                46      STORE_FAST              4: j  for j in range(i,len(string),space)
+                48      LOAD_FAST               4: j 
+                50      LOAD_GLOBAL             2: len
+                52      LOAD_FAST               0: string
+                54      CALL_FUNCTION           1  	len(string)
+                56      COMPARE_OP              0 (&lt;)	if(j&lt;len(string))
+                58      POP_JUMP_IF_FALSE       44	跳转
+                60      LOAD_FAST               2: s	
+                62      LOAD_FAST               0: string
+                64      LOAD_FAST               4: j
+                66      BINARY_SUBSCR           	string[j]
+                68      INPLACE_ADD             
+                70      STORE_FAST              2: s      s+=string[j]
+                72      JUMP_ABSOLUTE           44	第二个循环
+                74      JUMP_ABSOLUTE           24	第一个循环
+                76      LOAD_FAST               2: s
+                78      RETURN_VALUE             return s
+        'enCodeAgain'
+        'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
+        ''
+        'Input flag:'
+        'utf-8'
+        2
+        'correct'
+        'wrong'
+    [Disassembly]
+        0       LOAD_CONST              0: 0
+        2       LOAD_CONST              1: None
+        4       IMPORT_NAME             0: base64	
+        6       STORE_NAME              0: base64	import base64
+        8       LOAD_CONST              2: &lt;CODE&gt; encode
+        10      LOAD_CONST              3: 'encode' //函数
+        12      MAKE_FUNCTION           0
+        14      STORE_NAME              1: encode
+        16      LOAD_CONST              4: &lt;CODE&gt; enCodeAgain
+        18      LOAD_CONST              5: 'enCodeAgain'
+        20      MAKE_FUNCTION           0	//第二个函数
+        22      STORE_NAME              2: enCodeAgain
+        24      LOAD_CONST              6: 'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
+        26      STORE_NAME              3: correct	correct=VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ=
+        28      LOAD_CONST              7: ''
+        30      STORE_NAME              4: flag	flag=''
+        32      LOAD_NAME               5: print
+        34      LOAD_CONST              8: 'Input flag:'	
+        36      CALL_FUNCTION           1	print('Int flag:')
+        38      POP_TOP                 
+        40      LOAD_NAME               6: input
+        42      CALL_FUNCTION           0	input()
+        44      STORE_NAME              4: flag	flag=input()
+        46      LOAD_NAME               4: flag		
+        48      LOAD_METHOD             1: encode	
+        50      LOAD_CONST              9: 'utf-8'
+        52      CALL_METHOD             1
+        54      STORE_NAME              4: flag	flag=flag.encode('utf-8')
+        56      LOAD_NAME               5: print	
+        58      LOAD_NAME               2: enCodeAgain
+        60      LOAD_NAME               1: encode
+        62      LOAD_NAME               4: flag
+        64      CALL_FUNCTION           1	
+        66      LOAD_CONST              10: 2 其中一个参数
+        68      CALL_FUNCTION           2//两个参数
+        70      CALL_FUNCTION           1	print(enCodeAgain(encodee(flag),2))
+        72      POP_TOP                 	函数栈顶元素出栈
+        74      LOAD_NAME               2: enCodeAgain
+        76      LOAD_NAME               1: encode
+        78      LOAD_NAME               4: flag
+        80      CALL_FUNCTION           1
+        82      LOAD_CONST              10: 2
+        84      CALL_FUNCTION           2	(enCodeAgain(encodee(flag),2))
+        86      LOAD_NAME               3: correct
+        88      COMPARE_OP              2 (==)	//比较
+        90      POP_JUMP_IF_FALSE       102		跳转
+        92      LOAD_NAME               5: print	
+        94      LOAD_CONST              11: 'correct'
+        96      CALL_FUNCTION           1		print('correct')
+        98      POP_TOP                 
+        100     JUMP_FORWARD            8 (to 110)	结束
+        102     LOAD_NAME               5: print
+        104     LOAD_CONST              12: 'wrong'
+        106     CALL_FUNCTION           1		print('wrong)
+        108     POP_TOP                 
+        110     LOAD_CONST              1: None
+        112     RETURN_VALUE            
+</code></pre>
+
+<pre class="language-python" data-language="python"><code class="language-python">import base64
+
+
+def encode(message):
+    s = ''
+    for i in message:
+        x = i ^ 32
+        x += 16
+        s += chr(x)
+        return (base64.b64encode(s.encode('utf-8')))
+
+
+def enCodeAgain(string, space):
+    s = ''
+    string = str(string, 'utf-8')
+    for i in range(0, space):
+        for j in range(i, len(string), space):
+            if j &lt; len(string):
+                s += string[j]
+    return s
+
+
+correct = 'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
+flag = ''
+print('Input flag:')
+flag = input()
+flag = flag.encode('utf-8')
+print(enCodeAgain(encode(flag), 2))
+if enCodeAgain(encode(flag), 2) == correct:
+    print(correct)
+else:
+    print('wrong')
+</code></pre>
+
 ]]></content>
       <tags>
-        <tag>Competition</tag>
+        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -8031,446 +8471,6 @@ void BlowFish_Decrypt(PBLOWFISH_CTX blowCtx, unsigned int* left, unsigned int*
       </tags>
   </entry>
   <entry>
-    <title>hgame2022-WOW-patch数据段</title>
-    <url>/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/</url>
-    <content><![CDATA[<h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png"></p>
-<p>可以看到上面这一段是输入并且把加密后的输入赋值给Buf2，在这之后已经结束了判断，所以下面红色框的代码应该是解密代码，只需要把Buf在栈中进行修改为final字符串即可</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png"></p>
-<p>这里点过去发现并没有数据，这可能是一些数据没有反编译出来，但是在图中蓝色部分可以看到地址是ebp-54</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png">计算一下，在堆栈窗口按g进行跳转</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png"></p>
-<p>跳转之后</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png"></p>
-<p>然后右键Edit，或者按快捷键F2，然后进行修改，注意大小端序的问题，这里使用lazyida选择DWORD导出来就很方便，再次右键，应用修改</p>
-<p>然后运行即可，就可以在input看到flag了</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png"></p>
-]]></content>
-      <tags>
-        <tag>Competition</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>pyc加花指令</title>
-    <url>/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/</url>
-    <content><![CDATA[<h1 id="VNCTF2022-BabyMaze"><a href="#VNCTF2022-BabyMaze" class="headerlink" title="VNCTF2022-BabyMaze"></a>VNCTF2022-BabyMaze</h1><p>pyc相关知识-<a href="https://zhuanlan.zhihu.com/p/145811103">https://zhuanlan.zhihu.com/p/145811103</a></p>
-<p>使用uncompyle6发现无法反编译，应该是添加了花指令</p>
-<p>先查看字节码</p>
-<p>脚本</p>
-<pre class="language-python" data-language="python"><code class="language-python">import marshal, dis
-f = open("D:\\new\\AD\\game\\vnctf2022\\re\\BabyMaze.pyc", "rb").read()
-code = marshal.loads(f[16:]) #这边从16位开始取因为是python3 python2从8位开始取
-dis.dis(code)</code></pre>
-
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848858641.png"></p>
-<p>发现这一段就是花指令</p>
-<p>去python的包里面搜索opcode.h，找到对应的字节码</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848986760.png"></p>
-<p>转为十六进制后去010editor修改，去掉即可</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849226023.png"></p>
-<p>但是发现还是不行，这是因为</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849421077.png"></p>
-<p>pyc文件有co_code，所以修改长度之后要修改它</p>
-<p>先打印出来长度，然后计算后修改</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849766935.png"></p>
-<p>2030-6=7E8</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849849453.png"></p>
-<p>重新uncompyle6</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849958666.png"></p>
-<p>反编译成功，接下来就是maze图，打印出来之后手打</p>
-<h1 id="Pyc字节码阅读-unctf2021-pytrade"><a href="#Pyc字节码阅读-unctf2021-pytrade" class="headerlink" title="Pyc字节码阅读-unctf2021-pytrade"></a>Pyc字节码阅读-unctf2021-pytrade</h1><p>得到两个txt文件，一个是py的字节码，一个是输出</p>
-<p>对字节码进行分析</p>
-<p><a href="https://www.jianshu.com/p/557cfe36f0f0">https://www.jianshu.com/p/557cfe36f0f0</a></p>
-<p><a href="https://bbs.pediy.com/thread-246683.htm">https://bbs.pediy.com/thread-246683.htm</a></p>
-<p><a href="https://docs.python.org/zh-cn/3/library/dis.html">https://docs.python.org/zh-cn/3/library/dis.html</a>  这是python3的</p>
-<pre class="language-python" data-language="python"><code class="language-python">0 LOAD_CONST               1 ('XXXXXX')       //This is flag,try to figure it out ! Don't forget to fill it in flag{} !
-             2 STORE_FAST               0 (flag)</code></pre>
-
-<p>LOAD_CONST加载const变量，比如数值、字符串等，一般用于传给函数参数</p>
-<p>STORE_FAST 一般用于保存值到局部变量</p>
-<p>这句话意思是</p>
-<pre class="language-none"><code class="language-none">flag='XXXXXXXX'</code></pre>
-
-<p>第二段</p>
-<pre class="language-python" data-language="python"><code class="language-python">4 LOAD_CONST               2 (0) const变量，一般用于传给函数的参数
-             6 BUILD_LIST               1  创建列表
-             8 LOAD_CONST               3 (18)   const变量  num=[0]*18
-            10 BINARY_MULTIPLY    	
-            12 STORE_FAST               1 (num) 保存值到局部变量中</code></pre>
-
-<p>BINARY_MULTIPLY 是二元运算，即将栈顶的前两个元素取出进行计算，结果压回栈中 </p>
-<p>BUILD_LIST 创建列表</p>
-<pre class="language-none"><code class="language-none">num=[0]*18</code></pre>
-
-<p>第三段</p>
-<pre class="language-python" data-language="python"><code class="language-python">14 LOAD_CONST               2 (0)
-             16 STORE_FAST               2 (k)</code></pre>
-
-<pre class="language-python" data-language="python"><code class="language-python">k=0</code></pre>
-
-<p>第四段</p>
-<pre class="language-python" data-language="python"><code class="language-python">18 LOAD_GLOBAL              0 (range) 加载全局变量
-             20 LOAD_GLOBAL              1 (len) 
-             22 LOAD_FAST                0 (flag) 
-             24 CALL_FUNCTION            1	调用一个函数，在此之前要先赋值 len(flag)
-             26 CALL_FUNCTION            1  range(len(flag))
-             28 GET_ITER		取迭代器
-        &gt;&gt;   30 FOR_ITER               112 (to 144)  一直到144都是for循环
-             32 STORE_FAST               3 (i) </code></pre>
-
-<p> LOAD_GLOBAL 用来加载全局变量，包括指定函数名，类名，模块名等全局符号。当和函数搭配时，要注意有CALL_FUNCTION</p>
-<p>LOAD_FAST一般加载局部变量的值，也就是读取值，用于计算或者函数调用传参等。这里调用完len之后，要使用其传值，这里传入flag</p>
-<p>前半段意思是</p>
-<pre class="language-python" data-language="python"><code class="language-python">range(len(flag))</code></pre>
-
-<p>GET_ITER创建迭代器，一般是for循环</p>
-<p>FOR_ITER(to 144)表示迭代器一直到144</p>
-<p>STORE_FAST 创建局部变量，这里作为for循环的索引</p>
-<pre class="language-python" data-language="python"><code class="language-python">for i in range(len(flag)):</code></pre>
-
-<p>第五段</p>
-<pre class="language-python" data-language="python"><code class="language-python">7          34 LOAD_GLOBAL              2 (ord) 			
-            36 LOAD_FAST                0 (flag)
-            38 LOAD_FAST                3 (i)
-            40 BINARY_SUBSCR		索引运算
-            42 CALL_FUNCTION            1	ord(flag[i])
-            44 LOAD_FAST                3 (i)
-            46 BINARY_ADD		+i
-            48 LOAD_FAST                2 (k)	
-            50 LOAD_CONST               4 (3)	
-            52 BINARY_MODULO		//取模运算 k%3
-            54 LOAD_CONST               5 (1) 
-            56 BINARY_ADD		(k%3)+1
-            58 BINARY_XOR		(ord(flag[i])+i)^(k%3+1)
-            60 LOAD_FAST                1 (num)
-            62 LOAD_FAST                3 (i)
-            64 STORE_SUBSCR 		num[i]</code></pre>
-
-<p>BINARY_SUBSCR下标 访问操作</p>
-<p>BINARY_ADD也是二元运算，相加</p>
-<p>BINARY_MODULO，二元运算取模</p>
-<p>BINARY_XOR二元运算异或</p>
-<p>STORE_SUBSCR下标访问操作</p>
-<pre class="language-python" data-language="python"><code class="language-python">num[i]= (ord(flag[i]) + i) ^ (k % 3 + 1)</code></pre>
-
-<p>第六段</p>
-<pre class="language-python" data-language="python"><code class="language-python">8          66 LOAD_GLOBAL              2 (ord)
-             68 LOAD_FAST                0 (flag)
-             70 LOAD_GLOBAL              1 (len)
-             72 LOAD_FAST                0 (flag)
-             74 CALL_FUNCTION            1	len(flag)
-             76 LOAD_FAST                3 (i)	len(flag)-i
-             78 BINARY_SUBTRACT	
-             80 LOAD_CONST               5 (1)
-             82 BINARY_SUBTRACT	减法	len(flag)-i-1
-             84 BINARY_SUBSCR		索引运算	flag[len(flag)-i-1]
-             86 CALL_FUNCTION            1		ord(flag[len(flag)-i-1])
-             88 LOAD_GLOBAL              1 (len)
-             90 LOAD_FAST                0 (flag)
-             92 CALL_FUNCTION            1	len(flag)
-             94 BINARY_ADD		ord(flag[len(flag)-i-1])+len(flag)-i-1
-             96 LOAD_FAST                3 (i)	
-             98 BINARY_SUBTRACT
-            100 LOAD_CONST               5 (1)
-            102 BINARY_SUBTRACT
-            104 LOAD_FAST                2 (k)
-            106 LOAD_CONST               4 (3)
-            108 BINARY_MODULO	k%3
-            110 LOAD_CONST               5 (1)
-            112 BINARY_ADD		k%3+1
-            114 BINARY_XOR		ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)
-            116 LOAD_FAST                1 (num)
-            118 LOAD_GLOBAL              1 (len)
-            120 LOAD_FAST                0 (flag)	len(flag)
-            122 CALL_FUNCTION            1
-            124 LOAD_FAST                3 (i)
-            126 BINARY_SUBTRACT	len(flag)-i
-            128 LOAD_CONST               5 (1)	
-            130 BINARY_SUBTRACT	len(flag)-i-1
-            132 STORE_SUBSCR		num[len(flag)-i-1]=ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)</code></pre>
-
-<p>BINARY_SUBTRACT二元运算减法</p>
-<pre class="language-python" data-language="python"><code class="language-python">num[len(flag)-i-1]=ord(flag[len(flag)-i-1])+(len(flag)-i-1)^(k%3+1)</code></pre>
-
-<p>第七段</p>
-<pre class="language-python" data-language="python"><code class="language-python">9         134 LOAD_FAST                2 (k)
-            136 LOAD_CONST               5 (1)
-            138 INPLACE_ADD	k++
-            140 STORE_FAST               2 (k)
-            142 JUMP_ABSOLUTE           30//循环结束
-</code></pre>
-
-<p>JUMP_ABSOLUTE绝对跳转，结束循环</p>
-<p>INPLACE_ADD  计算结果可以被操作数引用的到，每一个 二元运算，都对应一个inplace 运算 </p>
-<pre class="language-python" data-language="python"><code class="language-python">k+=1</code></pre>
-
-<p>第八段</p>
-<pre class="language-python" data-language="python"><code class="language-python">10     &gt;&gt;  144 LOAD_GLOBAL              3 (print)
-            146 LOAD_FAST                1 (num)
-            148 CALL_FUNCTION            1 print(num)
-            150 POP_TOP
-            152 LOAD_CONST               0 (None)
-            154 RETURN_VALUE</code></pre>
-
-<pre class="language-none"><code class="language-none">print(num)</code></pre>
-
-<h1 id="Easy-Re"><a href="#Easy-Re" class="headerlink" title="Easy_Re"></a>Easy_Re</h1><p>python3.9，无法uncompyle6，使用pycdc翻译成字节码</p>
-<pre class="language-python" data-language="python"><code class="language-python">main.pyc (Python 3.9)
-[Code]
-    File Name: main.py
-    Object Name: &lt;module&gt;
-    Arg Count: 0
-    Pos Only Arg Count: 0
-    KW Only Arg Count: 0
-    Locals: 0
-    Stack Size: 4
-    Flags: 0x00000040 (CO_NOFREE)
-    [Names]
-        'base64'
-        'encode'
-        'enCodeAgain'
-        'correct'
-        'flag'
-        'print'
-        'input'
-    [Var Names]
-    [Free Vars]
-    [Cell Vars]
-    [Constants]
-        0
-        None
-        [Code]
-            File Name: main.py
-            Object Name: encode
-            Arg Count: 1
-            Pos Only Arg Count: 0
-            KW Only Arg Count: 0
-            Locals: 4
-            Stack Size: 5
-            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)
-            [Names]
-                'chr'
-                'base64'
-                'b64encode'
-                'encode'
-            [Var Names]
-                'message'
-                's'
-                'i'
-                'x'
-            [Free Vars]
-            [Cell Vars]
-            [Constants]
-                None
-                ''
-                32
-                16
-                'utf-8'
- [Disassembly]
-                0       LOAD_CONST              1: ''
-                2       STORE_FAST              1: s       s=''
-                4       LOAD_FAST               0: message
-                6       GET_ITER                
-                8       FOR_ITER                32 (to 42) for i in message:
-                10      STORE_FAST              2: i   
-                12      LOAD_FAST               2: i  
-                14      LOAD_CONST              2: 32
-                16      BINARY_XOR              		 i^32
-                18      STORE_FAST              3: x	x=i^32
-                20      LOAD_FAST               3: x	
-                22      LOAD_CONST              3: 16
-                24      BINARY_ADD              		x+16
-                26      STORE_FAST              3: x	x=x+16
-                28      LOAD_FAST               1: s	
-                30      LOAD_GLOBAL             0: chr
-                32      LOAD_FAST               3: x    
-                34      CALL_FUNCTION           1  chr(x)
-                36      INPLACE_ADD             s+chr(x)
-                38      STORE_FAST              1: s	s=s+chr(x)
-                40      JUMP_ABSOLUTE           8    循环结束
-                42      LOAD_GLOBAL             1: base64
-                44      LOAD_METHOD             2: b64encode	base64.b64
-                46      LOAD_FAST               1: s		
-                48      LOAD_METHOD             3: encode   LOAD_METHOD是加载类，CALL调用
-                50      LOAD_CONST              4: 'utf-8' 
-                52      CALL_METHOD             1  
-                54      CALL_METHOD             1 base64.b64(s.encode('utf-8'))
-                56      RETURN_VALUE            return  base64.b64(s.encode('utf-8'))
-        'encode'
-        [Code]
-            File Name: main.py
-            Object Name: enCodeAgain
-            Arg Count: 2
-            Pos Only Arg Count: 0
-            KW Only Arg Count: 0
-            Locals: 5
-            Stack Size: 5
-            Flags: 0x00000043 (CO_OPTIMIZED | CO_NEWLOCALS | CO_NOFREE)
-            [Names]
-                'str'
-                'range'
-                'len'
-            [Var Names]
-                'string'
-                'space'
-                's'
-                'i'
-                'j'
-            [Free Vars]
-            [Cell Vars]
-            [Constants]
-                None
-                ''
-                'utf-8'
-                0
-            [Disassembly]
-                0       LOAD_CONST              1: ''  
-                2       STORE_FAST              2: s	s=''
-                4       LOAD_GLOBAL             0: str	
-                6       LOAD_FAST               0: string
-                8       LOAD_CONST              2: 'utf-8' 
-                10      CALL_FUNCTION           2//参数个数 str(string,'utf-8')
-                12      STORE_FAST              0: string string=str(string,'utf-8')
-                14      LOAD_GLOBAL             1: range 
-                16      LOAD_CONST              3: 0
-                18      LOAD_FAST               1: space
-                20      CALL_FUNCTION           2 range(0,space)
-                22      GET_ITER                //创建迭代器
-                24      FOR_ITER                50 (to 76) 
-                26      STORE_FAST              3: i	for i range(0,space):
-                28      LOAD_GLOBAL             1: range 	
-                30      LOAD_FAST               3: i
-                32      LOAD_GLOBAL             2: len
-                34      LOAD_FAST               0: string
-                36      CALL_FUNCTION           1	len(string)
-                38      LOAD_FAST               1: space
-                40      CALL_FUNCTION           3 
-                42      GET_ITER                
-                44      FOR_ITER                28 (to 74)
-                46      STORE_FAST              4: j  for j in range(i,len(string),space)
-                48      LOAD_FAST               4: j 
-                50      LOAD_GLOBAL             2: len
-                52      LOAD_FAST               0: string
-                54      CALL_FUNCTION           1  	len(string)
-                56      COMPARE_OP              0 (&lt;)	if(j&lt;len(string))
-                58      POP_JUMP_IF_FALSE       44	跳转
-                60      LOAD_FAST               2: s	
-                62      LOAD_FAST               0: string
-                64      LOAD_FAST               4: j
-                66      BINARY_SUBSCR           	string[j]
-                68      INPLACE_ADD             
-                70      STORE_FAST              2: s      s+=string[j]
-                72      JUMP_ABSOLUTE           44	第二个循环
-                74      JUMP_ABSOLUTE           24	第一个循环
-                76      LOAD_FAST               2: s
-                78      RETURN_VALUE             return s
-        'enCodeAgain'
-        'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
-        ''
-        'Input flag:'
-        'utf-8'
-        2
-        'correct'
-        'wrong'
-    [Disassembly]
-        0       LOAD_CONST              0: 0
-        2       LOAD_CONST              1: None
-        4       IMPORT_NAME             0: base64	
-        6       STORE_NAME              0: base64	import base64
-        8       LOAD_CONST              2: &lt;CODE&gt; encode
-        10      LOAD_CONST              3: 'encode' //函数
-        12      MAKE_FUNCTION           0
-        14      STORE_NAME              1: encode
-        16      LOAD_CONST              4: &lt;CODE&gt; enCodeAgain
-        18      LOAD_CONST              5: 'enCodeAgain'
-        20      MAKE_FUNCTION           0	//第二个函数
-        22      STORE_NAME              2: enCodeAgain
-        24      LOAD_CONST              6: 'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
-        26      STORE_NAME              3: correct	correct=VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ=
-        28      LOAD_CONST              7: ''
-        30      STORE_NAME              4: flag	flag=''
-        32      LOAD_NAME               5: print
-        34      LOAD_CONST              8: 'Input flag:'	
-        36      CALL_FUNCTION           1	print('Int flag:')
-        38      POP_TOP                 
-        40      LOAD_NAME               6: input
-        42      CALL_FUNCTION           0	input()
-        44      STORE_NAME              4: flag	flag=input()
-        46      LOAD_NAME               4: flag		
-        48      LOAD_METHOD             1: encode	
-        50      LOAD_CONST              9: 'utf-8'
-        52      CALL_METHOD             1
-        54      STORE_NAME              4: flag	flag=flag.encode('utf-8')
-        56      LOAD_NAME               5: print	
-        58      LOAD_NAME               2: enCodeAgain
-        60      LOAD_NAME               1: encode
-        62      LOAD_NAME               4: flag
-        64      CALL_FUNCTION           1	
-        66      LOAD_CONST              10: 2 其中一个参数
-        68      CALL_FUNCTION           2//两个参数
-        70      CALL_FUNCTION           1	print(enCodeAgain(encodee(flag),2))
-        72      POP_TOP                 	函数栈顶元素出栈
-        74      LOAD_NAME               2: enCodeAgain
-        76      LOAD_NAME               1: encode
-        78      LOAD_NAME               4: flag
-        80      CALL_FUNCTION           1
-        82      LOAD_CONST              10: 2
-        84      CALL_FUNCTION           2	(enCodeAgain(encodee(flag),2))
-        86      LOAD_NAME               3: correct
-        88      COMPARE_OP              2 (==)	//比较
-        90      POP_JUMP_IF_FALSE       102		跳转
-        92      LOAD_NAME               5: print	
-        94      LOAD_CONST              11: 'correct'
-        96      CALL_FUNCTION           1		print('correct')
-        98      POP_TOP                 
-        100     JUMP_FORWARD            8 (to 110)	结束
-        102     LOAD_NAME               5: print
-        104     LOAD_CONST              12: 'wrong'
-        106     CALL_FUNCTION           1		print('wrong)
-        108     POP_TOP                 
-        110     LOAD_CONST              1: None
-        112     RETURN_VALUE            
-</code></pre>
-
-<pre class="language-python" data-language="python"><code class="language-python">import base64
-
-
-def encode(message):
-    s = ''
-    for i in message:
-        x = i ^ 32
-        x += 16
-        s += chr(x)
-        return (base64.b64encode(s.encode('utf-8')))
-
-
-def enCodeAgain(string, space):
-    s = ''
-    string = str(string, 'utf-8')
-    for i in range(0, space):
-        for j in range(i, len(string), space):
-            if j &lt; len(string):
-                s += string[j]
-    return s
-
-
-correct = 'VxVtd5dKIPjMw9wVb=lR2WVTcPWC2goWoeQ='
-flag = ''
-print('Input flag:')
-flag = input()
-flag = flag.encode('utf-8')
-print(enCodeAgain(encode(flag), 2))
-if enCodeAgain(encode(flag), 2) == correct:
-    print(correct)
-else:
-    print('wrong')
-</code></pre>
-
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>shellcode知识</title>
     <url>/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<h1 id="0x00-Shellcode"><a href="#0x00-Shellcode" class="headerlink" title="0x00-Shellcode"></a>0x00-Shellcode</h1><p>什么是shellcode</p>
@@ -9399,6 +9399,62 @@ int main(int argc, char* argv[])
       </tags>
   </entry>
   <entry>
+    <title>内存取证</title>
+    <url>/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</url>
+    <content><![CDATA[<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>volatility是内存取证的工具，这里我使用的是打包好了的可执行文件</p>
+<p>volatility下载地址：<a href="https://www.volatilityfoundation.org/releases">https://www.volatilityfoundation.org/releases</a></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png"></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>题目链接：</p>
+<p><a href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
+<p>朴实无华的取证</p>
+<h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><h2 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h2><p>先使用命令volatility -f 朴实无华的取证.raw iamgeinfo查看系统信息</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png"></p>
+<p>上面的系统都有可能，主要是第一个</p>
+<h2 id="查看运行程序列表"><a href="#查看运行程序列表" class="headerlink" title="查看运行程序列表"></a>查看运行程序列表</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 pslist</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png"></p>
+<p>这里有三处需要注意，mspaint是画图工具，360zip是解压工具，notepad是笔记本，接下来重点放在这几处</p>
+<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan，这里可以使用grep来指定搜索的字符串 格式如下：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan | grep flag</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png"></p>
+<p>可以看到过滤出了flag的相关数据</p>
+<h2 id="提取文件"><a href="#提取文件" class="headerlink" title="提取文件"></a>提取文件</h2><p>接下来需要把文件dump下来，命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 dumpfiles -Q 偏移量 -D ./(-D指定文件夹，这里aaa表示存储到aaa文件夹中)</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png"></p>
+<p>可以在aaa文件夹中找到dump下来的文件</p>
+<p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png"></p>
+<p>还有一个加了密的zip文件，这时候注意我们的notepad还没有被使用，可以去看看信息</p>
+<h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 notepad</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png"></p>
+<p>这样就得到了encrypt的密码</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
+#include &lt;string.h&gt; 
+
+int main()
+{
+	char str[]="FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]";
+	for(int i = 0; i &lt; strlen(str); i++)
+	{
+		str[i] += 32;
+		if(str[i] &gt;='a'+3 &amp;&amp; str[i]&lt;='w'+3)
+			str[i]-=3;
+		else if(str[i]=='a')
+			str[i]='x';
+		else if(str[i]=='b')
+			str[i]='y';
+		else if(str[i]=='c')
+			str[i]='z';	
+		else if(str[i]=='|')
+			str[i]='_';
+	}
+	printf("%s",str);
+	return 0;
+}</code></pre>
+
+<p>得到flag：cazy{Xian_will_certainIy_succeed_in_fighting_the_epidemic}</p>
+]]></content>
+      <tags>
+        <tag>Misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用汇编语言编写注入代码</title>
     <url>/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<h1 id="0x00-设置"><a href="#0x00-设置" class="headerlink" title="0x00-设置"></a>0x00-设置</h1><p>修改EIP</p>
@@ -9537,59 +9593,17 @@ int main(int argc,char*argv[])
       </tags>
   </entry>
   <entry>
-    <title>内存取证</title>
-    <url>/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</url>
-    <content><![CDATA[<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>volatility是内存取证的工具，这里我使用的是打包好了的可执行文件</p>
-<p>volatility下载地址：<a href="https://www.volatilityfoundation.org/releases">https://www.volatilityfoundation.org/releases</a></p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png"></p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>题目链接：</p>
-<p><a href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
-<p>朴实无华的取证</p>
-<h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><h2 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h2><p>先使用命令volatility -f 朴实无华的取证.raw iamgeinfo查看系统信息</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png"></p>
-<p>上面的系统都有可能，主要是第一个</p>
-<h2 id="查看运行程序列表"><a href="#查看运行程序列表" class="headerlink" title="查看运行程序列表"></a>查看运行程序列表</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 pslist</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png"></p>
-<p>这里有三处需要注意，mspaint是画图工具，360zip是解压工具，notepad是笔记本，接下来重点放在这几处</p>
-<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan，这里可以使用grep来指定搜索的字符串 格式如下：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan | grep flag</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png"></p>
-<p>可以看到过滤出了flag的相关数据</p>
-<h2 id="提取文件"><a href="#提取文件" class="headerlink" title="提取文件"></a>提取文件</h2><p>接下来需要把文件dump下来，命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 dumpfiles -Q 偏移量 -D ./(-D指定文件夹，这里aaa表示存储到aaa文件夹中)</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png"></p>
-<p>可以在aaa文件夹中找到dump下来的文件</p>
-<p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png"></p>
-<p>还有一个加了密的zip文件，这时候注意我们的notepad还没有被使用，可以去看看信息</p>
-<h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 notepad</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png"></p>
-<p>这样就得到了encrypt的密码</p>
-<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt; 
-
-int main()
-{
-	char str[]="FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]";
-	for(int i = 0; i &lt; strlen(str); i++)
-	{
-		str[i] += 32;
-		if(str[i] &gt;='a'+3 &amp;&amp; str[i]&lt;='w'+3)
-			str[i]-=3;
-		else if(str[i]=='a')
-			str[i]='x';
-		else if(str[i]=='b')
-			str[i]='y';
-		else if(str[i]=='c')
-			str[i]='z';	
-		else if(str[i]=='|')
-			str[i]='_';
-	}
-	printf("%s",str);
-	return 0;
-}</code></pre>
-
-<p>得到flag：cazy{Xian_will_certainIy_succeed_in_fighting_the_epidemic}</p>
+    <title>加密与解密第四版</title>
+    <url>/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/</url>
+    <content><![CDATA[<h1 id="0x00-基础知识"><a href="#0x00-基础知识" class="headerlink" title="0x00-基础知识"></a>0x00-基础知识</h1><h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814834555.png"></p>
+<h2 id="大小端序"><a href="#大小端序" class="headerlink" title="大小端序"></a>大小端序</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814898304.png"></p>
+<h2 id="Windows操作系统"><a href="#Windows操作系统" class="headerlink" title="Windows操作系统"></a>Windows操作系统</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814924513.png" alt="重要DLL"></p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814970448.png" alt="Unicode与ANSI函数"></p>
+<h2 id="WOW64"><a href="#WOW64" class="headerlink" title="WOW64"></a>WOW64</h2><p>WOW64是64位Windows操作系统的子系统，可以使大多数32位应用程序在不修改的情况下运行在64位操作系统上</p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649815151630.png" alt="WOW64操作过程"></p>
 ]]></content>
       <tags>
-        <tag>Misc</tag>
+        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -9661,18 +9675,11 @@ extern "C" _declspec (dllexport)int add(int a, char b)
       </tags>
   </entry>
   <entry>
-    <title>加密与解密第四版</title>
-    <url>/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/</url>
-    <content><![CDATA[<h1 id="0x00-基础知识"><a href="#0x00-基础知识" class="headerlink" title="0x00-基础知识"></a>0x00-基础知识</h1><h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814834555.png"></p>
-<h2 id="大小端序"><a href="#大小端序" class="headerlink" title="大小端序"></a>大小端序</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814898304.png"></p>
-<h2 id="Windows操作系统"><a href="#Windows操作系统" class="headerlink" title="Windows操作系统"></a>Windows操作系统</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814924513.png" alt="重要DLL"></p>
-<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814970448.png" alt="Unicode与ANSI函数"></p>
-<h2 id="WOW64"><a href="#WOW64" class="headerlink" title="WOW64"></a>WOW64</h2><p>WOW64是64位Windows操作系统的子系统，可以使大多数32位应用程序在不修改的情况下运行在64位操作系统上</p>
-<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649815151630.png" alt="WOW64操作过程"></p>
+    <title>反调试大杂烩</title>
+    <url>/2022/03/27/%E5%8F%8D%E8%B0%83%E8%AF%95%E5%A4%A7%E6%9D%82%E7%83%A9/</url>
+    <content><![CDATA[<p><a href="https://ctf-wiki.org/reverse/windows/anti-debug/example/">https://ctf-wiki.org/reverse/windows/anti-debug/example/</a> </p>
+<p><a href="https://anti-debug.checkpoint.com/techniques/assembly.html">https://anti-debug.checkpoint.com/techniques/assembly.html</a></p>
 ]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
   </entry>
   <entry>
     <title>压缩壳的学习</title>
@@ -9764,13 +9771,6 @@ extern "C" _declspec (dllexport)int add(int a, char b)
       <tags>
         <tag>Reverse</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>反调试大杂烩</title>
-    <url>/2022/03/27/%E5%8F%8D%E8%B0%83%E8%AF%95%E5%A4%A7%E6%9D%82%E7%83%A9/</url>
-    <content><![CDATA[<p><a href="https://ctf-wiki.org/reverse/windows/anti-debug/example/">https://ctf-wiki.org/reverse/windows/anti-debug/example/</a> </p>
-<p><a href="https://anti-debug.checkpoint.com/techniques/assembly.html">https://anti-debug.checkpoint.com/techniques/assembly.html</a></p>
-]]></content>
   </entry>
   <entry>
     <title>图片隐写</title>
@@ -10237,125 +10237,6 @@ int main(int argc,char *argv[])
       </tags>
   </entry>
   <entry>
-    <title>汇编</title>
-    <url>/2022/01/19/%E6%B1%87%E7%BC%96/</url>
-    <content><![CDATA[<h1 id="堆栈图"><a href="#堆栈图" class="headerlink" title="堆栈图"></a>堆栈图</h1><p>调用函数实现两数相加</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592553591.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592569833.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592579671.png"></p>
-<p>因为pop之后，有一部分的值还是之前保留下来的，所以要进行填充</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592639529.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592648442.png"></p>
-<h1 id="LEA和MOV的区别"><a href="#LEA和MOV的区别" class="headerlink" title="LEA和MOV的区别"></a>LEA和MOV的区别</h1><p>lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的操作数，例如：</p>
-<p>lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的内存地址里的数据赋给eax。</p>
-<p>而mov指令则恰恰相反，例如：</p>
-<p>mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>
-<h1 id="函数在汇编的结构"><a href="#函数在汇编的结构" class="headerlink" title="函数在汇编的结构"></a>函数在汇编的结构</h1><p>函数调用前，堆栈结构如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649724413.png"></p>
-<p>EBP栈底高位，ESP栈顶低位</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649843226.png"></p>
-<p>下面的三个PUSH是把函数的参数压入栈中，这里是立即数，也可以是寄存器里面的值，注意PUSH指令执行完ESP-4，即栈顶往低位移动</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650060363.png"></p>
-<p>堆栈图如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650200472.png"></p>
-<p>下一步是CALL指令，F7单步步入，CALL指令会修改EIP的值，将CALL指令下一条指令的地址压入栈顶 ，并且修改EIP的值，相当于一条PUSH和JMP指令，JMP只会修改EIP的值，EIP存放下一条会执行指令的地址</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650793595.png"></p>
-<p>堆栈图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651074289.png"></p>
-<p>这里JMP直接F8跳转过去，进入函数，入口是PUSH EBP</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651212988.png"></p>
-<p>可以看到ESP没有变化</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651299175.png"></p>
-<p>在函数调用中，这三步是提升栈顶，开辟空间</p>
-<p>运行完堆栈应该如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651845629.png"></p>
-<p>运行看看</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651761171.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651894330.png"></p>
-<p>接下来这三步是保存现场，因为在函数调用中，这些寄存器可能被用到，所以要先把里面原本的值压入栈中，此时堆栈图为</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652121644.png"></p>
-<p>EBP是FED0</p>
-<p>运行</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652204239.png"></p>
-<p>已经被压入栈中 </p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652304817.png"></p>
-<p>接下来这步是填充缓冲区</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652335865.png"></p>
-<p>可以看到堆栈图中开辟的空间里面的值并不是为0，这是因为在调用完函数之后，这些空间的值没有被清除，所以需要填充</p>
-<p>堆栈图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656762839.png"></p>
-<p>这里有一点需要说明，local.18是什么意思呢</p>
-<p>看下图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656813955.png"></p>
-<p>我们去OD修改设置</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656868498.png"></p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656879655.png"></p>
-<p>取消掉就可以了，刚才的指令发生了变化</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656905307.png"></p>
-<p>接下来解释这几句指令</p>
-<p>lea是取地址，意思是将ebp-0x48的地址存入EDI中</p>
-<p>ECX一般用来存放循环次数，这里是0x12，即18次，这个对应开辟空间的大小</p>
-<p>mov eax，0xCCCCCCCC是填充缓冲区</p>
-<p>最后一句rep表示重复次数，次数由ECX决定，stos dword这条指令表示将EAX内的值放入EDI指定的内存单元中，注意执行一次后EDI会移动4，加减由DF标志位决定</p>
-<p>DF决定movs执行完后esi和edi的移动方向，当为0时，加，否则为减。</p>
-<p>运行</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657323715.png"></p>
-<p>看接下来的几行指令</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657469555.png"></p>
-<p>1、将0x2赋给ebp地址的前一个内存单元，<strong>这里的0x2就是局部变量</strong></p>
-<p>2、将EBP+0xc的值赋给eax，eax的值压入栈中，下面也是，画堆栈图</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657989835.png"></p>
-<p>这里压入栈的数值，将作为内部嵌套函数的参数</p>
-<p>执行完之后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658026768.png"></p>
-<p>接下来又是调用函数，将CALL指令下一条指令的地址压入栈顶，EIP修改</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658203867.png"></p>
-<p>F7步入</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658261575.png"></p>
-<p>F8之后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658343466.png"></p>
-<p>红框部分和前面一样，都是调用函数前提升栈顶、开辟空间、保存现场、填充缓冲区，主要看操作部分</p>
-<p>先把堆栈图画好</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659116555.png"></p>
-<p>接下来看操作</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659284922.png"></p>
-<p>这些都没有改变堆栈的值，第一条将0xA赋给EBP-0x4的内存单元，对应堆栈写出操作方式 EAX的值为1+2，最后+0xA，所以最后EAX的值为0xD</p>
-<p>运行</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659505718.png"></p>
-<p>此时函数的操作部分已经结束，接下来就是退出函数了</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659609650.png"></p>
-<p>对比一下，跟函数开始正好是反过来的</p>
-<p>POP是先出栈再移动 ，这几个POP就相当于恢复现场，要恢复到未调用函数前，这也是为什么要先把这些值压入栈中的原因。</p>
-<p>mov就是降低栈底，恢复到原来的位置</p>
-<p>retn指令相当于POP EIP，先将栈顶的值赋给EIP，然后栈顶指针移动</p>
-<p>堆栈图如下</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660789466.png"></p>
-<p>执行后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660837614.png"></p>
-<p>可以看到执行完之后，缓冲区的内容不会清理，这也是为什么需要填充缓冲区</p>
-<p>回到后我们发现一个问题，就是函数调用前后堆栈不平衡，堆栈平衡是指调用函数前后堆栈应该相等，这里是因为将函数的参数压入了栈，所以需要接下来的ADD平衡堆栈</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660910037.png"></p>
-<p>执行完之后</p>
-<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642661042648.png"></p>
-<p>和调用前一致，所以没问题了</p>
-<p>剩下的就是重复之前的操作了，先执行函数操作指令，然后POP还原现场，retn后ADD恢复堆栈平衡</p>
-<p>函数的参数存放在ebp+0x8开始因为call指令会将下一条指令地址压入栈中，而局部变量从ebp-0x4开始</p>
-]]></content>
-      <tags>
-        <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>视频隐写</title>
-    <url>/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/</url>
-    <content><![CDATA[<h1 id="Kinovea"><a href="#Kinovea" class="headerlink" title="Kinovea"></a>Kinovea</h1><p>可以一帧一帧地看视频，视频隐写目前只接触到在视频一些 帧里面藏信息</p>
-<p><a href="https://mochu.blog.csdn.net/article/details/109461931">https://mochu.blog.csdn.net/article/details/109461931</a></p>
-]]></content>
-      <tags>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>流量分析</title>
     <url>/2022/01/15/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><p>只试过直接导出HTTP流对象</p>
@@ -10517,6 +10398,125 @@ int main(int argc, char* argv[])
 ]]></content>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>视频隐写</title>
+    <url>/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/</url>
+    <content><![CDATA[<h1 id="Kinovea"><a href="#Kinovea" class="headerlink" title="Kinovea"></a>Kinovea</h1><p>可以一帧一帧地看视频，视频隐写目前只接触到在视频一些 帧里面藏信息</p>
+<p><a href="https://mochu.blog.csdn.net/article/details/109461931">https://mochu.blog.csdn.net/article/details/109461931</a></p>
+]]></content>
+      <tags>
+        <tag>Misc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>汇编</title>
+    <url>/2022/01/19/%E6%B1%87%E7%BC%96/</url>
+    <content><![CDATA[<h1 id="堆栈图"><a href="#堆栈图" class="headerlink" title="堆栈图"></a>堆栈图</h1><p>调用函数实现两数相加</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592553591.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592569833.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592579671.png"></p>
+<p>因为pop之后，有一部分的值还是之前保留下来的，所以要进行填充</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592639529.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642592648442.png"></p>
+<h1 id="LEA和MOV的区别"><a href="#LEA和MOV的区别" class="headerlink" title="LEA和MOV的区别"></a>LEA和MOV的区别</h1><p>lea是“load effective address”的缩写，简单的说，lea指令可以用来将一个内存地址直接赋给目的操作数，例如：</p>
+<p>lea eax,[ebx+8]就是将ebx+8这个值直接赋给eax，而不是把ebx+8处的内存地址里的数据赋给eax。</p>
+<p>而mov指令则恰恰相反，例如：</p>
+<p>mov eax,[ebx+8]则是把内存地址为ebx+8处的数据赋给eax。</p>
+<h1 id="函数在汇编的结构"><a href="#函数在汇编的结构" class="headerlink" title="函数在汇编的结构"></a>函数在汇编的结构</h1><p>函数调用前，堆栈结构如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649724413.png"></p>
+<p>EBP栈底高位，ESP栈顶低位</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642649843226.png"></p>
+<p>下面的三个PUSH是把函数的参数压入栈中，这里是立即数，也可以是寄存器里面的值，注意PUSH指令执行完ESP-4，即栈顶往低位移动</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650060363.png"></p>
+<p>堆栈图如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650200472.png"></p>
+<p>下一步是CALL指令，F7单步步入，CALL指令会修改EIP的值，将CALL指令下一条指令的地址压入栈顶 ，并且修改EIP的值，相当于一条PUSH和JMP指令，JMP只会修改EIP的值，EIP存放下一条会执行指令的地址</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642650793595.png"></p>
+<p>堆栈图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651074289.png"></p>
+<p>这里JMP直接F8跳转过去，进入函数，入口是PUSH EBP</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651212988.png"></p>
+<p>可以看到ESP没有变化</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651299175.png"></p>
+<p>在函数调用中，这三步是提升栈顶，开辟空间</p>
+<p>运行完堆栈应该如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651845629.png"></p>
+<p>运行看看</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651761171.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642651894330.png"></p>
+<p>接下来这三步是保存现场，因为在函数调用中，这些寄存器可能被用到，所以要先把里面原本的值压入栈中，此时堆栈图为</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652121644.png"></p>
+<p>EBP是FED0</p>
+<p>运行</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652204239.png"></p>
+<p>已经被压入栈中 </p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652304817.png"></p>
+<p>接下来这步是填充缓冲区</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642652335865.png"></p>
+<p>可以看到堆栈图中开辟的空间里面的值并不是为0，这是因为在调用完函数之后，这些空间的值没有被清除，所以需要填充</p>
+<p>堆栈图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656762839.png"></p>
+<p>这里有一点需要说明，local.18是什么意思呢</p>
+<p>看下图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656813955.png"></p>
+<p>我们去OD修改设置</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656868498.png"></p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656879655.png"></p>
+<p>取消掉就可以了，刚才的指令发生了变化</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642656905307.png"></p>
+<p>接下来解释这几句指令</p>
+<p>lea是取地址，意思是将ebp-0x48的地址存入EDI中</p>
+<p>ECX一般用来存放循环次数，这里是0x12，即18次，这个对应开辟空间的大小</p>
+<p>mov eax，0xCCCCCCCC是填充缓冲区</p>
+<p>最后一句rep表示重复次数，次数由ECX决定，stos dword这条指令表示将EAX内的值放入EDI指定的内存单元中，注意执行一次后EDI会移动4，加减由DF标志位决定</p>
+<p>DF决定movs执行完后esi和edi的移动方向，当为0时，加，否则为减。</p>
+<p>运行</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657323715.png"></p>
+<p>看接下来的几行指令</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657469555.png"></p>
+<p>1、将0x2赋给ebp地址的前一个内存单元，<strong>这里的0x2就是局部变量</strong></p>
+<p>2、将EBP+0xc的值赋给eax，eax的值压入栈中，下面也是，画堆栈图</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642657989835.png"></p>
+<p>这里压入栈的数值，将作为内部嵌套函数的参数</p>
+<p>执行完之后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658026768.png"></p>
+<p>接下来又是调用函数，将CALL指令下一条指令的地址压入栈顶，EIP修改</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658203867.png"></p>
+<p>F7步入</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658261575.png"></p>
+<p>F8之后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642658343466.png"></p>
+<p>红框部分和前面一样，都是调用函数前提升栈顶、开辟空间、保存现场、填充缓冲区，主要看操作部分</p>
+<p>先把堆栈图画好</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659116555.png"></p>
+<p>接下来看操作</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659284922.png"></p>
+<p>这些都没有改变堆栈的值，第一条将0xA赋给EBP-0x4的内存单元，对应堆栈写出操作方式 EAX的值为1+2，最后+0xA，所以最后EAX的值为0xD</p>
+<p>运行</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659505718.png"></p>
+<p>此时函数的操作部分已经结束，接下来就是退出函数了</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642659609650.png"></p>
+<p>对比一下，跟函数开始正好是反过来的</p>
+<p>POP是先出栈再移动 ，这几个POP就相当于恢复现场，要恢复到未调用函数前，这也是为什么要先把这些值压入栈中的原因。</p>
+<p>mov就是降低栈底，恢复到原来的位置</p>
+<p>retn指令相当于POP EIP，先将栈顶的值赋给EIP，然后栈顶指针移动</p>
+<p>堆栈图如下</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660789466.png"></p>
+<p>执行后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660837614.png"></p>
+<p>可以看到执行完之后，缓冲区的内容不会清理，这也是为什么需要填充缓冲区</p>
+<p>回到后我们发现一个问题，就是函数调用前后堆栈不平衡，堆栈平衡是指调用函数前后堆栈应该相等，这里是因为将函数的参数压入了栈，所以需要接下来的ADD平衡堆栈</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642660910037.png"></p>
+<p>执行完之后</p>
+<p><img src="/2022/01/19/%E6%B1%87%E7%BC%96/1642661042648.png"></p>
+<p>和调用前一致，所以没问题了</p>
+<p>剩下的就是重复之前的操作了，先执行函数操作指令，然后POP还原现场，retn后ADD恢复堆栈平衡</p>
+<p>函数的参数存放在ebp+0x8开始因为call指令会将下一条指令地址压入栈中，而局部变量从ebp-0x4开始</p>
+]]></content>
+      <tags>
+        <tag>汇编</tag>
       </tags>
   </entry>
   <entry>

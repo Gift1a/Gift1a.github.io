@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="代码节空白节区添加代码这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++ 思路在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置 ASLR ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭 https:&#x2F;&#x2F;baijiahao.baidu.com&#x2F;s?i">
+    <meta name="description" content="PE学习之路1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PE-滴水逆向-手动实现">
 <meta property="og:url" content="https://gift1a.github.io/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="代码节空白节区添加代码这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++ 思路在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置 ASLR ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭 https:&#x2F;&#x2F;baijiahao.baidu.com&#x2F;s?i">
+<meta property="og:description" content="PE学习之路1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.github.io/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png">
@@ -61,7 +61,7 @@
 <meta property="og:image" content="https://gift1a.github.io/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png">
 <meta property="article:published_time" content="2022-03-11T12:03:07.000Z">
-<meta property="article:modified_time" content="2022-04-08T08:59:25.645Z">
+<meta property="article:modified_time" content="2022-04-20T01:51:02.005Z">
 <meta property="article:author" content="Gift1a">
 <meta property="article:tag" content="PE">
 <meta name="twitter:card" content="summary">
@@ -243,7 +243,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="PE-滴水逆向-手动实现 | Hexo">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="PE学习之路1">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -265,7 +265,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 16:59:25" itemprop="dateModified" datetime="2022-04-08T16:59:25+08:00">2022-04-08</time>
+      <time title="修改时间：2022-04-20 09:51:02" itemprop="dateModified" datetime="2022-04-20T09:51:02+08:00">2022-04-20</time>
     </span>
 
   
@@ -286,6 +286,7 @@
     </span>
 </div>
 
+            <div class="post-description">PE学习之路1</div>
         </div>
       </header>
 
@@ -515,7 +516,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
   
 
@@ -529,5 +530,5 @@
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
 </html>
