@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="0x00-Zer0pts2022-service分析过程先定位到正确的判断，进入加密函数  可以看到有几个api函数，并且只有所有的值都相等，才能实现return的值为1  但是动调的时候很多函数看不到，而且这里面有很多东西未被正确识别，所以使用X64DBG打开并定位到加密函数  首先我们要知道x64的函数调用机制  所以在call前的那几个mov就是函数的参数 先看循环的次数  很明显这段就是循">
+    <meta name="description" content="一些比赛的复现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="近期题目复现">
 <meta property="og:url" content="https://gift1a.github.io/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0x00-Zer0pts2022-service分析过程先定位到正确的判断，进入加密函数  可以看到有几个api函数，并且只有所有的值都相等，才能实现return的值为1  但是动调的时候很多函数看不到，而且这里面有很多东西未被正确识别，所以使用X64DBG打开并定位到加密函数  首先我们要知道x64的函数调用机制  所以在call前的那几个mov就是函数的参数 先看循环的次数  很明显这段就是循">
+<meta property="og:description" content="一些比赛的复现">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649057498918.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649057543911.png">
@@ -66,7 +66,7 @@
 <meta property="og:image" content="https://gift1a.github.io/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1650367843687.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1650367884507.png">
 <meta property="article:published_time" content="2022-04-04T07:15:00.000Z">
-<meta property="article:modified_time" content="2022-04-20T01:15:28.540Z">
+<meta property="article:modified_time" content="2022-04-20T05:46:06.978Z">
 <meta property="article:author" content="Gift1a">
 <meta property="article:tag" content="Competition">
 <meta name="twitter:card" content="summary">
@@ -296,7 +296,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 09:15:28" itemprop="dateModified" datetime="2022-04-20T09:15:28+08:00">2022-04-20</time>
+      <time title="修改时间：2022-04-20 13:46:06" itemprop="dateModified" datetime="2022-04-20T13:46:06+08:00">2022-04-20</time>
     </span>
 
   
@@ -324,7 +324,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="0x00-Zer0pts2022-service"><a href="#0x00-Zer0pts2022-service" class="headerlink" title="0x00-Zer0pts2022-service"></a>0x00-Zer0pts2022-service</h1><h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><p>先定位到正确的判断，进入加密函数</p>
+        <p>一些比赛的复现</p>
+<span id="more"></span> 
+
+<h1 id="0x00-Zer0pts2022-service"><a href="#0x00-Zer0pts2022-service" class="headerlink" title="0x00-Zer0pts2022-service"></a>0x00-Zer0pts2022-service</h1><h2 id="分析过程"><a href="#分析过程" class="headerlink" title="分析过程"></a>分析过程</h2><p>先定位到正确的判断，进入加密函数</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649057498918.png"></p>
 <p>可以看到有几个api函数，并且只有所有的值都相等，才能实现return的值为1</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649057543911.png"></p>
@@ -574,7 +577,7 @@
 
 
 
-  <script src="/js/third-party/fancybox.js"></script>
+  <script src="/js/third-party/fancybox.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
   
@@ -583,5 +586,5 @@
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>

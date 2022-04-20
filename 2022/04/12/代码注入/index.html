@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="0x00-前言感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限 于是翻阅到了这篇文章 https:&#x2F;&#x2F;www.52pojie.cn&#x2F;thread-1270499-1-1.html 0x01-原理在DLL注入中，我们通过远程线程在目标进程中调用LoadLibraryA()函数加载我们的DLL  实际上只要我们定义的函数符合CreateRemoteThread参数中定义的函数模板，就可以">
+    <meta name="description" content="代码注入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="代码注入">
 <meta property="og:url" content="https://gift1a.github.io/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0x00-前言感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限 于是翻阅到了这篇文章 https:&#x2F;&#x2F;www.52pojie.cn&#x2F;thread-1270499-1-1.html 0x01-原理在DLL注入中，我们通过远程线程在目标进程中调用LoadLibraryA()函数加载我们的DLL  实际上只要我们定义的函数符合CreateRemoteThread参数中定义的函数模板，就可以">
+<meta property="og:description" content="代码注入">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649738932188.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649916449939.png">
@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://gift1a.github.io/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922671867.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649923028194.png">
 <meta property="article:published_time" content="2022-04-12T03:41:45.000Z">
-<meta property="article:modified_time" content="2022-04-14T14:07:08.493Z">
+<meta property="article:modified_time" content="2022-04-20T05:46:47.067Z">
 <meta property="article:author" content="Gift1a">
 <meta property="article:tag" content="Windows">
 <meta name="twitter:card" content="summary">
@@ -265,7 +265,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-14 22:07:08" itemprop="dateModified" datetime="2022-04-14T22:07:08+08:00">2022-04-14</time>
+      <time title="修改时间：2022-04-20 13:46:47" itemprop="dateModified" datetime="2022-04-20T13:46:47+08:00">2022-04-20</time>
     </span>
 
   
@@ -293,7 +293,10 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h1><p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
+        <p>代码注入</p>
+<span id="more"></span> 
+
+<h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h1><p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
 <p>于是翻阅到了这篇文章</p>
 <p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1270499-1-1.html">https://www.52pojie.cn/thread-1270499-1-1.html</a></p>
 <h1 id="0x01-原理"><a href="#0x01-原理" class="headerlink" title="0x01-原理"></a>0x01-原理</h1><p>在DLL注入中，我们通过远程线程在目标进程中调用LoadLibraryA()函数加载我们的DLL</p>
@@ -445,7 +448,7 @@
 
 
 
-  <script src="/js/third-party/fancybox.js"></script>
+  <script src="/js/third-party/fancybox.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
   
@@ -454,5 +457,5 @@
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>
