@@ -19,15 +19,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="打印PE文件头部和节区信息#define _CRT_SECURE_NO_WARNINGS #include&lt;stdio.h&gt; #include&lt;string.h&gt; #include&lt;malloc.h&gt; #include&lt;Windows.h&gt;  &#x2F;&#x2F;宏定义，方便后续使用  &#x2F;&#x2F;定义变量 IMAGE_DOS_HEADER myDOS; LONG elf_">
+    <meta name="description" content="PE解析代码实现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PE解析代码实现">
 <meta property="og:url" content="https://gift1a.github.io/2022/03/11/PE%E8%A7%A3%E6%9E%90%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="打印PE文件头部和节区信息#define _CRT_SECURE_NO_WARNINGS #include&lt;stdio.h&gt; #include&lt;string.h&gt; #include&lt;malloc.h&gt; #include&lt;Windows.h&gt;  &#x2F;&#x2F;宏定义，方便后续使用  &#x2F;&#x2F;定义变量 IMAGE_DOS_HEADER myDOS; LONG elf_">
+<meta property="og:description" content="PE解析代码实现">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-11T05:19:10.000Z">
-<meta property="article:modified_time" content="2022-04-08T08:44:01.359Z">
+<meta property="article:modified_time" content="2022-04-20T01:51:29.603Z">
 <meta property="article:author" content="Gift1a">
 <meta property="article:tag" content="PE">
 <meta name="twitter:card" content="summary">
@@ -208,7 +208,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="PE解析代码实现 | Hexo">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="PE解析代码实现">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -230,7 +230,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-08 16:44:01" itemprop="dateModified" datetime="2022-04-08T16:44:01+08:00">2022-04-08</time>
+      <time title="修改时间：2022-04-20 09:51:29" itemprop="dateModified" datetime="2022-04-20T09:51:29+08:00">2022-04-20</time>
     </span>
 
   
@@ -251,6 +251,7 @@
     </span>
 </div>
 
+            <div class="post-description">PE解析代码实现</div>
         </div>
       </header>
 
@@ -967,7 +968,7 @@ int main()
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
 
   
 
@@ -981,5 +982,5 @@ int main()
 
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
