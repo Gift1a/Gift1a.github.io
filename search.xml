@@ -1678,6 +1678,70 @@ int main()
     <content><![CDATA[]]></content>
   </entry>
   <entry>
+    <title>BlockChain</title>
+    <url>/2022/04/06/BlockChain/</url>
+    <content><![CDATA[<h1 id="0x00-环境配置"><a href="#0x00-环境配置" class="headerlink" title="0x00-环境配置"></a>0x00-环境配置</h1><p><a href="https://www.cnblogs.com/KRDecad3/p/10798383.html">https://www.cnblogs.com/KRDecad3/p/10798383.html</a></p>
+<p>Rinkeby获取测试币网站</p>
+<p><a href="https://faucets.chain.link/rinkeby">https://faucets.chain.link/rinkeby</a></p>
+<p>其他的获取都没啥问题，选择购买-&gt;第二个即可</p>
+<p><img src="/2022/04/06/BlockChain/1649249439831.png"></p>
+<h1 id="0x01-基础使用"><a href="#0x01-基础使用" class="headerlink" title="0x01-基础使用"></a>0x01-基础使用</h1><p>可以本地化安装，也可以使用在线网站 <a href="http://remix.ethereum.org/">http://remix.ethereum.org</a> </p>
+<h2 id="0x00-创建文件"><a href="#0x00-创建文件" class="headerlink" title="0x00-创建文件"></a>0x00-创建文件</h2><p>按照如下操作创建新文件，名称后缀为.sol</p>
+<p><img src="/2022/04/06/BlockChain/1649250592024.png"></p>
+<h2 id="0x01-源码编译"><a href="#0x01-源码编译" class="headerlink" title="0x01-源码编译"></a>0x01-源码编译</h2><p>源代码</p>
+<pre class="language-solidity" data-language="solidity"><code class="language-solidity">pragma solidity ^0.4.23;
+contract Trans{
+    
+    string flag;
+    mapping(address =&gt; uint256) balances;
+    constructor () public {
+        //flag = WHAT_YOU_WANT;
+    }
+    
+    function getBalance() public returns (bool){
+        balances[msg.sender] = 100;
+        return true;
+    }
+    
+    function showBalance() public view returns (uint256){
+        return balances[msg.sender];
+    }
+    
+    function Transfer(address[] _addr, uint256 _value) public returns (bool){
+        uint times = _addr.length;
+        uint256 amount = uint256(times) * _value;
+        require(_value &gt; 0 &amp;&amp; balances[msg.sender] &gt;= amount);
+        require(times &gt; 0 &amp;&amp; times &lt; 10);
+        balances[msg.sender] -= amount;
+        for(uint i = 0; i &lt; times; i++){
+            balances[_addr[i]] += _value;
+        }
+        return true;
+    }
+    
+    function getFlag() public view returns (string){
+        require(balances[msg.sender] &gt; 9999999);
+        return flag;
+    }
+}</code></pre>
+
+<p>一些说明</p>
+<p>我们选择的COMPILER需要和题目的源码的版本一致</p>
+<p><img src="/2022/04/06/BlockChain/1649250475741.png"></p>
+<p>然后我选择了自动编译</p>
+<h2 id="0x02-配置题目合约"><a href="#0x02-配置题目合约" class="headerlink" title="0x02-配置题目合约"></a>0x02-配置题目合约</h2><p><img src="/2022/04/06/BlockChain/1649251440698.png" alt="一些说明"></p>
+<p>弄好之后点击Deploy即可，然后他会连接并让我们确认支付</p>
+<p>然后这些就是函数</p>
+<p><img src="/2022/04/06/BlockChain/1649251873154.png"></p>
+<h1 id="0x02-刷题网站"><a href="#0x02-刷题网站" class="headerlink" title="0x02-刷题网站"></a>0x02-刷题网站</h1><p><a href="https://chainflag.org/challenges">https://chainflag.org/challenges</a></p>
+<p>因为智能合约基本是solidity语法，所以需要学习一下</p>
+<p><a href="https://www.jianshu.com/p/70aecda3212e">https://www.jianshu.com/p/70aecda3212e</a></p>
+]]></content>
+      <tags>
+        <tag>BlockChain</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C++</title>
     <url>/2022/03/31/C/</url>
     <content><![CDATA[<h1 id="C-类-this指针"><a href="#C-类-this指针" class="headerlink" title="C++类-this指针"></a>C++类-this指针</h1><h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>C语言中，结构体作为函数参数时传参传的是副本，而数组传递的是指针，所以我们将结构体作为参数时，最好传入指针</p>
@@ -1776,7 +1840,8 @@ student t;</code></pre>
 <p><img src="/2022/03/31/C/1648791796705.png"></p>
 <p>但是我们可以知道子类的地址，然后通过指针访问私有的父类</p>
 <p><img src="/2022/03/31/C/1648792223939.png" alt="指针访问私有父类"></p>
-<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1>]]></content>
+<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1><p>decription</p>
+]]></content>
   </entry>
   <entry>
     <title>Crackme算法</title>
@@ -2008,6 +2073,14 @@ int main()
 ]]></content>
   </entry>
   <entry>
+    <title>C语言汇编2</title>
+    <url>/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/</url>
+    <content><![CDATA[<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1>]]></content>
+      <tags>
+        <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>C语言汇编</title>
     <url>/2022/01/20/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%96/</url>
     <content><![CDATA[<h1 id="VC6基础操作"><a href="#VC6基础操作" class="headerlink" title="VC6基础操作"></a>VC6基础操作</h1><p>F7：编译、F5：调试、F9：设置断点、F10：单步步过、F11：单步进入、shift+F5：结束调试</p>
@@ -2178,211 +2251,9 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>C语言汇编2</title>
-    <url>/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/</url>
-    <content><![CDATA[<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1>]]></content>
-      <tags>
-        <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>BlockChain</title>
-    <url>/2022/04/06/BlockChain/</url>
-    <content><![CDATA[<h1 id="0x00-环境配置"><a href="#0x00-环境配置" class="headerlink" title="0x00-环境配置"></a>0x00-环境配置</h1><p><a href="https://www.cnblogs.com/KRDecad3/p/10798383.html">https://www.cnblogs.com/KRDecad3/p/10798383.html</a></p>
-<p>Rinkeby获取测试币网站</p>
-<p><a href="https://faucets.chain.link/rinkeby">https://faucets.chain.link/rinkeby</a></p>
-<p>其他的获取都没啥问题，选择购买-&gt;第二个即可</p>
-<p><img src="/2022/04/06/BlockChain/1649249439831.png"></p>
-<h1 id="0x01-基础使用"><a href="#0x01-基础使用" class="headerlink" title="0x01-基础使用"></a>0x01-基础使用</h1><p>可以本地化安装，也可以使用在线网站 <a href="http://remix.ethereum.org/">http://remix.ethereum.org</a> </p>
-<h2 id="0x00-创建文件"><a href="#0x00-创建文件" class="headerlink" title="0x00-创建文件"></a>0x00-创建文件</h2><p>按照如下操作创建新文件，名称后缀为.sol</p>
-<p><img src="/2022/04/06/BlockChain/1649250592024.png"></p>
-<h2 id="0x01-源码编译"><a href="#0x01-源码编译" class="headerlink" title="0x01-源码编译"></a>0x01-源码编译</h2><p>源代码</p>
-<pre class="language-solidity" data-language="solidity"><code class="language-solidity">pragma solidity ^0.4.23;
-contract Trans{
-    
-    string flag;
-    mapping(address =&gt; uint256) balances;
-    constructor () public {
-        //flag = WHAT_YOU_WANT;
-    }
-    
-    function getBalance() public returns (bool){
-        balances[msg.sender] = 100;
-        return true;
-    }
-    
-    function showBalance() public view returns (uint256){
-        return balances[msg.sender];
-    }
-    
-    function Transfer(address[] _addr, uint256 _value) public returns (bool){
-        uint times = _addr.length;
-        uint256 amount = uint256(times) * _value;
-        require(_value &gt; 0 &amp;&amp; balances[msg.sender] &gt;= amount);
-        require(times &gt; 0 &amp;&amp; times &lt; 10);
-        balances[msg.sender] -= amount;
-        for(uint i = 0; i &lt; times; i++){
-            balances[_addr[i]] += _value;
-        }
-        return true;
-    }
-    
-    function getFlag() public view returns (string){
-        require(balances[msg.sender] &gt; 9999999);
-        return flag;
-    }
-}</code></pre>
-
-<p>一些说明</p>
-<p>我们选择的COMPILER需要和题目的源码的版本一致</p>
-<p><img src="/2022/04/06/BlockChain/1649250475741.png"></p>
-<p>然后我选择了自动编译</p>
-<h2 id="0x02-配置题目合约"><a href="#0x02-配置题目合约" class="headerlink" title="0x02-配置题目合约"></a>0x02-配置题目合约</h2><p><img src="/2022/04/06/BlockChain/1649251440698.png" alt="一些说明"></p>
-<p>弄好之后点击Deploy即可，然后他会连接并让我们确认支付</p>
-<p>然后这些就是函数</p>
-<p><img src="/2022/04/06/BlockChain/1649251873154.png"></p>
-<h1 id="0x02-刷题网站"><a href="#0x02-刷题网站" class="headerlink" title="0x02-刷题网站"></a>0x02-刷题网站</h1><p><a href="https://chainflag.org/challenges">https://chainflag.org/challenges</a></p>
-<p>因为智能合约基本是solidity语法，所以需要学习一下</p>
-<p><a href="https://www.jianshu.com/p/70aecda3212e">https://www.jianshu.com/p/70aecda3212e</a></p>
-]]></content>
-      <tags>
-        <tag>BlockChain</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Detours学习</title>
     <url>/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>ELF文件手脱upx变形壳</title>
-    <url>/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/</url>
-    <content><![CDATA[<h1 id="题目-hgame2022-week2-upx-magic1"><a href="#题目-hgame2022-week2-upx-magic1" class="headerlink" title="题目-hgame2022-week2-upx magic1"></a>题目-hgame2022-week2-upx magic1</h1><p>发现命令行脱壳没用，只能手脱，elf文件没办法使用esp定律，ida手脱</p>
-<p>进入ida</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643878891388.png"></p>
-<p>在第一个call下断点，进行动态调试</p>
-<p>F7单步进入</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879064585.png"></p>
-<p>到了第二个call再次F7进入</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879092434.png"></p>
-<p>一路f8</p>
-<p>retn后到</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879119459.png"></p>
-<p>F7进入</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879160619.png"></p>
-<p>有三个向上的跳转</p>
-<p>在第三个跳转之后F4</p>
-<p>一直F8到达程序真正的入口点</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879196863.png"></p>
-<p>此时需要dumpfile</p>
-<p>ALT+F7运行脚本，脚本需要修改后缀为idc</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include &lt;idc.idc&gt;
-#define PT_LOAD              1
-#define PT_DYNAMIC           2
-static main(void)
-{
-         auto ImageBase,StartImg,EndImg;
-         auto e_phoff;
-         auto e_phnum,p_offset;
-         auto i,dumpfile;
-         ImageBase=0x400000;
-         StartImg=0x400000;
-         EndImg=0x0;
-         if (Dword(ImageBase)==0x7f454c46 || Dword(ImageBase)==0x464c457f )
-  {
-    if(dumpfile=fopen("D:\\dumpfile2","wb"))//这路可以更改路径
-    {
-      e_phoff=ImageBase+Qword(ImageBase+0x20);
-      Message("e_phoff = 0x%x\n", e_phoff);
-      e_phnum=Word(ImageBase+0x38);
-      Message("e_phnum = 0x%x\n", e_phnum);
-      for(i=0;i&lt;e_phnum;i++)
-      {
-         if (Dword(e_phoff)==PT_LOAD || Dword(e_phoff)==PT_DYNAMIC)
-                         { 
-                                 p_offset=Qword(e_phoff+0x8);
-                                 StartImg=Qword(e_phoff+0x10);
-                                 EndImg=StartImg+Qword(e_phoff+0x28);
-                                 Message("start = 0x%x, end = 0x%x, offset = 0x%x\n", StartImg, EndImg, p_offset);
-                                 dump(dumpfile,StartImg,EndImg,p_offset);
-                                 Message("dump segment %d ok.\n",i);
-                         }    
-         e_phoff=e_phoff+0x38;
-      }
-
-      fseek(dumpfile,0x3c,0);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-
-      fseek(dumpfile,0x28,0);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-      fputc(0x00,dumpfile);
-
-      fclose(dumpfile);
-        }else Message("dump err.");
- }
-}
-static dump(dumpfile,startimg,endimg,offset) 
-{
-        auto i;
-        auto size;
-        size=endimg-startimg;
-        fseek(dumpfile,offset,0);
-        for ( i=0; i &lt; size; i=i+1 ) 
-        {
-        fputc(Byte(startimg+i),dumpfile);
-        }
-}
-</code></pre>
-
-<p>得到dumpfile2，拖进ida得到正常的代码</p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879324566.png"></p>
-<h3 id="爆破脚本"><a href="#爆破脚本" class="headerlink" title="爆破脚本"></a>爆破脚本</h3><p>这里要按位与上0xffff，因为这里最后只赋值了最后十六位，所以需要使用&amp;0xffff来限制位数，保证取到最后的十六位</p>
-<p>有时候还存在左移溢出的问题：</p>
-<p><a href="https://blog.csdn.net/u013658041/article/details/78116449">https://blog.csdn.net/u013658041/article/details/78116449</a></p>
-<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1644069404698.png"></p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt; 
-#include &lt;string.h&gt;
-#include &lt;stdlib.h&gt;
-int main()
-{
-	int s[]={0x8d68,0x9d49,0x2a12,0xab1a,0xcbdc,0xb92b,0x2e32,0x9f59,0xddcd,0x9d49,0xa90a,0xe70,0xf5cf,0x5ed5,0x3c03,0x7c87,0x2672,0xab1a,0xa50,0x5af5,0xff9f,0x9f59,0xbd0b,0x58e5,0x3823,0xbf1b,0x78a7,0xab1a,0x48c4,0xa90a,0x2c22,0x9f59,0x5cc5,0x5ed5,0x78a7,0x2672,0x5695};
-	for(int i=0;i&lt;40;++i)
-	{
-		for(int j=32;j&lt;=127;++j)
-		{
-			int temp=(j&lt;&lt;8)&amp;0xffff;
-			for(int  k=0;k&lt;8;++k)
-			{
-				if((temp&amp;0x8000)!=0)
-				{
-					temp=((2*temp)^0x1021)&amp;0xffff;
-				}
-				else
-					temp=(2*temp)&amp;0xffff;
-			}
-			if(temp==s[i])
-			{
-				printf("%c",j);
-			}
-		}
-	}
-
-	return 0;
-}</code></pre>
-
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
   </entry>
   <entry>
     <title>DLL注入</title>
@@ -2704,6 +2575,136 @@ BOOL APIENTRY DllMain( HMODULE hModule,
       </tags>
   </entry>
   <entry>
+    <title>ELF文件手脱upx变形壳</title>
+    <url>/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/</url>
+    <content><![CDATA[<h1 id="题目-hgame2022-week2-upx-magic1"><a href="#题目-hgame2022-week2-upx-magic1" class="headerlink" title="题目-hgame2022-week2-upx magic1"></a>题目-hgame2022-week2-upx magic1</h1><p>发现命令行脱壳没用，只能手脱，elf文件没办法使用esp定律，ida手脱</p>
+<p>进入ida</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643878891388.png"></p>
+<p>在第一个call下断点，进行动态调试</p>
+<p>F7单步进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879064585.png"></p>
+<p>到了第二个call再次F7进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879092434.png"></p>
+<p>一路f8</p>
+<p>retn后到</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879119459.png"></p>
+<p>F7进入</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879160619.png"></p>
+<p>有三个向上的跳转</p>
+<p>在第三个跳转之后F4</p>
+<p>一直F8到达程序真正的入口点</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879196863.png"></p>
+<p>此时需要dumpfile</p>
+<p>ALT+F7运行脚本，脚本需要修改后缀为idc</p>
+<pre class="language-c" data-language="c"><code class="language-c">#include &lt;idc.idc&gt;
+#define PT_LOAD              1
+#define PT_DYNAMIC           2
+static main(void)
+{
+         auto ImageBase,StartImg,EndImg;
+         auto e_phoff;
+         auto e_phnum,p_offset;
+         auto i,dumpfile;
+         ImageBase=0x400000;
+         StartImg=0x400000;
+         EndImg=0x0;
+         if (Dword(ImageBase)==0x7f454c46 || Dword(ImageBase)==0x464c457f )
+  {
+    if(dumpfile=fopen("D:\\dumpfile2","wb"))//这路可以更改路径
+    {
+      e_phoff=ImageBase+Qword(ImageBase+0x20);
+      Message("e_phoff = 0x%x\n", e_phoff);
+      e_phnum=Word(ImageBase+0x38);
+      Message("e_phnum = 0x%x\n", e_phnum);
+      for(i=0;i&lt;e_phnum;i++)
+      {
+         if (Dword(e_phoff)==PT_LOAD || Dword(e_phoff)==PT_DYNAMIC)
+                         { 
+                                 p_offset=Qword(e_phoff+0x8);
+                                 StartImg=Qword(e_phoff+0x10);
+                                 EndImg=StartImg+Qword(e_phoff+0x28);
+                                 Message("start = 0x%x, end = 0x%x, offset = 0x%x\n", StartImg, EndImg, p_offset);
+                                 dump(dumpfile,StartImg,EndImg,p_offset);
+                                 Message("dump segment %d ok.\n",i);
+                         }    
+         e_phoff=e_phoff+0x38;
+      }
+
+      fseek(dumpfile,0x3c,0);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+
+      fseek(dumpfile,0x28,0);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+      fputc(0x00,dumpfile);
+
+      fclose(dumpfile);
+        }else Message("dump err.");
+ }
+}
+static dump(dumpfile,startimg,endimg,offset) 
+{
+        auto i;
+        auto size;
+        size=endimg-startimg;
+        fseek(dumpfile,offset,0);
+        for ( i=0; i &lt; size; i=i+1 ) 
+        {
+        fputc(Byte(startimg+i),dumpfile);
+        }
+}
+</code></pre>
+
+<p>得到dumpfile2，拖进ida得到正常的代码</p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1643879324566.png"></p>
+<h3 id="爆破脚本"><a href="#爆破脚本" class="headerlink" title="爆破脚本"></a>爆破脚本</h3><p>这里要按位与上0xffff，因为这里最后只赋值了最后十六位，所以需要使用&amp;0xffff来限制位数，保证取到最后的十六位</p>
+<p>有时候还存在左移溢出的问题：</p>
+<p><a href="https://blog.csdn.net/u013658041/article/details/78116449">https://blog.csdn.net/u013658041/article/details/78116449</a></p>
+<p><img src="/2022/02/03/ELF%E6%96%87%E4%BB%B6%E6%89%8B%E8%84%B1upx%E5%8F%98%E5%BD%A2%E5%A3%B3/1644069404698.png"></p>
+<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt; 
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+int main()
+{
+	int s[]={0x8d68,0x9d49,0x2a12,0xab1a,0xcbdc,0xb92b,0x2e32,0x9f59,0xddcd,0x9d49,0xa90a,0xe70,0xf5cf,0x5ed5,0x3c03,0x7c87,0x2672,0xab1a,0xa50,0x5af5,0xff9f,0x9f59,0xbd0b,0x58e5,0x3823,0xbf1b,0x78a7,0xab1a,0x48c4,0xa90a,0x2c22,0x9f59,0x5cc5,0x5ed5,0x78a7,0x2672,0x5695};
+	for(int i=0;i&lt;40;++i)
+	{
+		for(int j=32;j&lt;=127;++j)
+		{
+			int temp=(j&lt;&lt;8)&amp;0xffff;
+			for(int  k=0;k&lt;8;++k)
+			{
+				if((temp&amp;0x8000)!=0)
+				{
+					temp=((2*temp)^0x1021)&amp;0xffff;
+				}
+				else
+					temp=(2*temp)&amp;0xffff;
+			}
+			if(temp==s[i])
+			{
+				printf("%c",j);
+			}
+		}
+	}
+
+	return 0;
+}</code></pre>
+
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Gcc中在main前和后执行的函数</title>
     <url>/2022/03/25/Gcc%E4%B8%AD%E5%9C%A8main%E5%89%8D%E5%92%8C%E5%90%8E%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0/</url>
     <content><![CDATA[<h1 id="gcc在主函数前后运行的函数"><a href="#gcc在主函数前后运行的函数" class="headerlink" title="gcc在主函数前后运行的函数"></a>gcc在主函数前后运行的函数</h1><p>逆向的时候我们直到elf文件在start函数中有main函数、init和fini函数，init就是初始化，即在主函数前运行的函数，fini就是在主函数之后执行的函数</p>
@@ -2731,6 +2732,32 @@ int main()
 ]]></content>
       <tags>
         <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Init初始化</title>
+    <url>/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="ELF文件结构"><a href="#ELF文件结构" class="headerlink" title="ELF文件结构"></a>ELF文件结构</h1><p><a href="https://carrychen.website/2021/05/14/elf-format/">https://carrychen.website/2021/05/14/elf-format/</a></p>
+<p> .init节定义了一个_init函数，用于可执行目标文件开始时的初始化工作。当进入主程序之前，系统先执行.init节的指令代码初始化 </p>
+<h1 id="例题-hgame2022-week2-fakeshell"><a href="#例题-hgame2022-week2-fakeshell" class="headerlink" title="例题-hgame2022-week2-fakeshell"></a>例题-hgame2022-week2-fakeshell</h1><p>先去看看init段进行了什么处理</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870839069.png"></p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870867197.png"></p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870876729.png"></p>
+<p>在第二个函数发现了处理</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870922345.png"></p>
+<p>查看aHappyh4me交叉引用</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870957940.png"></p>
+<p>可以看到后面还有操作</p>
+<p>定位到加密函数</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870991851.png"></p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871002931.png"></p>
+<p>可以知道是rc4加密，密钥在init段被修改了</p>
+<p>写脚本，也可以使用工具CaptfEncoder-win-1.1.0</p>
+<p>得到flag</p>
+<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871135186.png"></p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -2823,32 +2850,6 @@ int main()
       </tags>
   </entry>
   <entry>
-    <title>Init初始化</title>
-    <url>/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
-    <content><![CDATA[<h1 id="ELF文件结构"><a href="#ELF文件结构" class="headerlink" title="ELF文件结构"></a>ELF文件结构</h1><p><a href="https://carrychen.website/2021/05/14/elf-format/">https://carrychen.website/2021/05/14/elf-format/</a></p>
-<p> .init节定义了一个_init函数，用于可执行目标文件开始时的初始化工作。当进入主程序之前，系统先执行.init节的指令代码初始化 </p>
-<h1 id="例题-hgame2022-week2-fakeshell"><a href="#例题-hgame2022-week2-fakeshell" class="headerlink" title="例题-hgame2022-week2-fakeshell"></a>例题-hgame2022-week2-fakeshell</h1><p>先去看看init段进行了什么处理</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870839069.png"></p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870867197.png"></p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870876729.png"></p>
-<p>在第二个函数发现了处理</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870922345.png"></p>
-<p>查看aHappyh4me交叉引用</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870957940.png"></p>
-<p>可以看到后面还有操作</p>
-<p>定位到加密函数</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643870991851.png"></p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871002931.png"></p>
-<p>可以知道是rc4加密，密钥在init段被修改了</p>
-<p>写脚本，也可以使用工具CaptfEncoder-win-1.1.0</p>
-<p>得到flag</p>
-<p><img src="/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/1643871135186.png"></p>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>LLVM程序集</title>
     <url>/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/</url>
     <content><![CDATA[<h1 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h1><p>这里我没办法细讲，因为也是第一次接触，后续深入了解后再补</p>
@@ -2864,147 +2865,6 @@ int main()
 ]]></content>
       <tags>
         <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PE-滴水逆向-手动实现</title>
-    <url>/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="代码节空白节区添加代码"><a href="#代码节空白节区添加代码" class="headerlink" title="代码节空白节区添加代码"></a>代码节空白节区添加代码</h1><p>这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
-<h2 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h2><p> ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
-<p><a href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
-<p>在标准PE头属性中的第一个值改为1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png"></p>
-<p>这样PE文件加载到内存中就不会随机化了</p>
-<h2 id="提取关键数据"><a href="#提取关键数据" class="headerlink" title="提取关键数据"></a>提取关键数据</h2><h3 id="可选PE头"><a href="#可选PE头" class="headerlink" title="可选PE头"></a>可选PE头</h3><p>DWORD AddressOfEntryPoint-10E5DBh</p>
-<p>DWORD ImageBase-400000h</p>
-<h3 id="节表信息"><a href="#节表信息" class="headerlink" title="节表信息"></a>节表信息</h3><p>MIsc.DWORD VirtualSize-17C51Eh</p>
-<p>DWORD VirtualAddress-1000h</p>
-<p>DWORD PointerToRawData-400h</p>
-<p>DWORD SizeOfRawData-17C600h</p>
-<h2 id="判断能否添加"><a href="#判断能否添加" class="headerlink" title="判断能否添加"></a>判断能否添加</h2><p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
-<h2 id="找到在文件中代码结束的位置"><a href="#找到在文件中代码结束的位置" class="headerlink" title="找到在文件中代码结束的位置"></a>找到在文件中代码结束的位置</h2><p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png"></p>
-<h2 id="添加硬编码"><a href="#添加硬编码" class="headerlink" title="添加硬编码"></a>添加硬编码</h2><p>MessageBoxA需要四个参数</p>
-<p>call指令长度为5</p>
-<p>jmp指令长度为5</p>
-<blockquote>
-<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
-</blockquote>
-<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png"></p>
-<h2 id="计算E8和E9的后四个字节"><a href="#计算E8和E9的后四个字节" class="headerlink" title="计算E8和E9的后四个字节"></a>计算E8和E9的后四个字节</h2><p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png"></p>
-<h3 id="E8后四字节计算"><a href="#E8后四字节计算" class="headerlink" title="E8后四字节计算"></a>E8后四字节计算</h3><p>真实地址为MessageBoxA的地址</p>
-<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
-<p>76BA5865</p>
-<h3 id="E9后四字节计算"><a href="#E9后四字节计算" class="headerlink" title="E9后四字节计算"></a>E9后四字节计算</h3><p>真实地址为原来的OEP</p>
-<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
-<p>为FFF910AB</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png"></p>
-<h2 id="修改AddressOfPoint"><a href="#修改AddressOfPoint" class="headerlink" title="修改AddressOfPoint"></a>修改AddressOfPoint</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png"></p>
-<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
-<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
-<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>先执行MessageBoxA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png"></p>
-<p>再运行程序</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png"></p>
-<h1 id="新增节"><a href="#新增节" class="headerlink" title="新增节"></a>新增节</h1><h2 id="大小判断"><a href="#大小判断" class="headerlink" title="大小判断"></a>大小判断</h2><p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
-<h2 id="修改节表数量"><a href="#修改节表数量" class="headerlink" title="修改节表数量"></a>修改节表数量</h2><p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png"></p>
-<h2 id="添加节表信息"><a href="#添加节表信息" class="headerlink" title="添加节表信息"></a>添加节表信息</h2><p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png"></p>
-<h2 id="确定插入的大小"><a href="#确定插入的大小" class="headerlink" title="确定插入的大小"></a>确定插入的大小</h2><p>根据情况自行选择，这里假设我们插入0x1000字节</p>
-<h2 id="修改内存对齐后的大小"><a href="#修改内存对齐后的大小" class="headerlink" title="修改内存对齐后的大小"></a>修改内存对齐后的大小</h2><p>SizeOfImage+插入的大小（按照内存对齐）</p>
-<h2 id="修正节表信息"><a href="#修正节表信息" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>先看关键数据</p>
-<p>DWORD VirtualAddress</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD PointerToRawData</p>
-<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
-<h3 id="计算VirtualAddress"><a href="#计算VirtualAddress" class="headerlink" title="计算VirtualAddress"></a>计算VirtualAddress</h3><p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
-<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png"></p>
-<h3 id="计算PointerToRawData"><a href="#计算PointerToRawData" class="headerlink" title="计算PointerToRawData"></a>计算PointerToRawData</h3><p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png"></p>
-<h3 id="最终修改"><a href="#最终修改" class="headerlink" title="最终修改"></a>最终修改</h3><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png"></p>
-<h2 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h2><p>在PointerToRawData插入0x1000字节</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png"></p>
-<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>在PE解析工具可以看到插入的节表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png"></p>
-<h1 id="新增节-节表信息后不够位置"><a href="#新增节-节表信息后不够位置" class="headerlink" title="新增节-节表信息后不够位置"></a>新增节-节表信息后不够位置</h1><p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
-<blockquote>
-<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
-</blockquote>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png"></p>
-<p>直接复制到垃圾数据的起始地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png"></p>
-<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
-<h1 id="扩大节"><a href="#扩大节" class="headerlink" title="扩大节"></a>扩大节</h1><p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
-<p>需要修改的数据</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD SizeOfImage</p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
-<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
-<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
-<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
-</ol>
-<h2 id="修正节表信息-1"><a href="#修正节表信息-1" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>这里我们假设扩大0x1000个字节</p>
-<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png"></p>
-<h2 id="修正SizeOfImage"><a href="#修正SizeOfImage" class="headerlink" title="修正SizeOfImage"></a>修正SizeOfImage</h2><p>直接加上0x1000即可</p>
-<h2 id="分配空间"><a href="#分配空间" class="headerlink" title="分配空间"></a>分配空间</h2><p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
-<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
-<p>求和得到2B6C00h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png"></p>
-<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png"></p>
-<h1 id="合并节"><a href="#合并节" class="headerlink" title="合并节"></a>合并节</h1><h2 id="修改节表个数"><a href="#修改节表个数" class="headerlink" title="修改节表个数"></a>修改节表个数</h2><p>合并之后节数量-1，这里改为7</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png"></p>
-<h2 id="修改节表信息"><a href="#修改节表信息" class="headerlink" title="修改节表信息"></a>修改节表信息</h2><p>要将节进行合并，就需要修改节表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png"></p>
-<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a href="#DWORD-SizeOfRawData和DWORD-VirtualSize" class="headerlink" title="DWORD SizeOfRawData和DWORD VirtualSize"></a>DWORD SizeOfRawData和DWORD VirtualSize</h3><p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
-<p>最后保存即可</p>
-<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
-<h2 id="最终效果-1"><a href="#最终效果-1" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png"></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png"></p>
-<h1 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h1><p> <img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"> </p>
-<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
-<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>在数据目录找到导出表的RVA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png"></p>
-<p>根据节的RVA和大小确定在哪个表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png"></p>
-<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
-<p>计算得到F2270，跳转，根据Export.Size确定大小</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png"></p>
-<h2 id="新增节-1"><a href="#新增节-1" class="headerlink" title="新增节"></a>新增节</h2><p>前面说过，就不细🔒了</p>
-<h2 id="复制数据"><a href="#复制数据" class="headerlink" title="复制数据"></a>复制数据</h2><p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png"></p>
-<p>这两个分别是dll名字和函数名称</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png"></p>
-<p>直接复制剩下的导出表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png"></p>
-<h2 id="修改RVA"><a href="#修改RVA" class="headerlink" title="修改RVA"></a>修改RVA</h2><p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
-<p>要修改的有</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png"></p>
-<h2 id="数据目录修改"><a href="#数据目录修改" class="headerlink" title="数据目录修改"></a>数据目录修改</h2><p>将Export.RVA指向我们复制导出表的初始位置</p>
-<h1 id="移动重定位表"><a href="#移动重定位表" class="headerlink" title="移动重定位表"></a>移动重定位表</h1><p>新增节-&gt;复制数据-&gt;数据目录修改重定位表位置</p>
-<h2 id="修改ImageBase"><a href="#修改ImageBase" class="headerlink" title="修改ImageBase"></a>修改ImageBase</h2><p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
-<p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
-<p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
-<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1><p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
-<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
-<h2 id="新增节区"><a href="#新增节区" class="headerlink" title="新增节区"></a>新增节区</h2><h2 id="复制导入表信息"><a href="#复制导入表信息" class="headerlink" title="复制导入表信息"></a>复制导入表信息</h2><p> 拷贝原来的导入表到新节中 </p>
-<h2 id="新增导入表"><a href="#新增导入表" class="headerlink" title="新增导入表"></a>新增导入表</h2><h2 id="新增INT表和IAT表"><a href="#新增INT表和IAT表" class="headerlink" title="新增INT表和IAT表"></a>新增INT表和IAT表</h2><p>至少八字节</p>
-<h2 id="修改Name"><a href="#修改Name" class="headerlink" title="修改Name"></a>修改Name</h2><p> 存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
-<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a href="#创建struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="创建struct _IMAGE_IMPORT_BY_NAME"></a>创建struct _IMAGE_IMPORT_BY_NAME</h2><p>将函数名称赋值给结构体的第二个变量</p>
-<h2 id="修改INT和IAT指向的地址"><a href="#修改INT和IAT指向的地址" class="headerlink" title="修改INT和IAT指向的地址"></a>修改INT和IAT指向的地址</h2><p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
-<h2 id="修改数据目录"><a href="#修改数据目录" class="headerlink" title="修改数据目录"></a>修改数据目录</h2><p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size </p>
-]]></content>
-      <tags>
-        <tag>PE</tag>
       </tags>
   </entry>
   <entry>
@@ -3408,6 +3268,290 @@ CHAR Name[1];//不定长,字符串
 ]]></content>
       <tags>
         <tag>PE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PE-滴水逆向-手动实现</title>
+    <url>/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="代码节空白节区添加代码"><a href="#代码节空白节区添加代码" class="headerlink" title="代码节空白节区添加代码"></a>代码节空白节区添加代码</h1><p>这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
+<h2 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h2><p> ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
+<p>在标准PE头属性中的第一个值改为1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png"></p>
+<p>这样PE文件加载到内存中就不会随机化了</p>
+<h2 id="提取关键数据"><a href="#提取关键数据" class="headerlink" title="提取关键数据"></a>提取关键数据</h2><h3 id="可选PE头"><a href="#可选PE头" class="headerlink" title="可选PE头"></a>可选PE头</h3><p>DWORD AddressOfEntryPoint-10E5DBh</p>
+<p>DWORD ImageBase-400000h</p>
+<h3 id="节表信息"><a href="#节表信息" class="headerlink" title="节表信息"></a>节表信息</h3><p>MIsc.DWORD VirtualSize-17C51Eh</p>
+<p>DWORD VirtualAddress-1000h</p>
+<p>DWORD PointerToRawData-400h</p>
+<p>DWORD SizeOfRawData-17C600h</p>
+<h2 id="判断能否添加"><a href="#判断能否添加" class="headerlink" title="判断能否添加"></a>判断能否添加</h2><p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
+<h2 id="找到在文件中代码结束的位置"><a href="#找到在文件中代码结束的位置" class="headerlink" title="找到在文件中代码结束的位置"></a>找到在文件中代码结束的位置</h2><p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png"></p>
+<h2 id="添加硬编码"><a href="#添加硬编码" class="headerlink" title="添加硬编码"></a>添加硬编码</h2><p>MessageBoxA需要四个参数</p>
+<p>call指令长度为5</p>
+<p>jmp指令长度为5</p>
+<blockquote>
+<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
+</blockquote>
+<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png"></p>
+<h2 id="计算E8和E9的后四个字节"><a href="#计算E8和E9的后四个字节" class="headerlink" title="计算E8和E9的后四个字节"></a>计算E8和E9的后四个字节</h2><p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png"></p>
+<h3 id="E8后四字节计算"><a href="#E8后四字节计算" class="headerlink" title="E8后四字节计算"></a>E8后四字节计算</h3><p>真实地址为MessageBoxA的地址</p>
+<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
+<p>76BA5865</p>
+<h3 id="E9后四字节计算"><a href="#E9后四字节计算" class="headerlink" title="E9后四字节计算"></a>E9后四字节计算</h3><p>真实地址为原来的OEP</p>
+<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
+<p>为FFF910AB</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png"></p>
+<h2 id="修改AddressOfPoint"><a href="#修改AddressOfPoint" class="headerlink" title="修改AddressOfPoint"></a>修改AddressOfPoint</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png"></p>
+<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
+<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>先执行MessageBoxA</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png"></p>
+<p>再运行程序</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png"></p>
+<h1 id="新增节"><a href="#新增节" class="headerlink" title="新增节"></a>新增节</h1><h2 id="大小判断"><a href="#大小判断" class="headerlink" title="大小判断"></a>大小判断</h2><p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
+<h2 id="修改节表数量"><a href="#修改节表数量" class="headerlink" title="修改节表数量"></a>修改节表数量</h2><p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png"></p>
+<h2 id="添加节表信息"><a href="#添加节表信息" class="headerlink" title="添加节表信息"></a>添加节表信息</h2><p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png"></p>
+<h2 id="确定插入的大小"><a href="#确定插入的大小" class="headerlink" title="确定插入的大小"></a>确定插入的大小</h2><p>根据情况自行选择，这里假设我们插入0x1000字节</p>
+<h2 id="修改内存对齐后的大小"><a href="#修改内存对齐后的大小" class="headerlink" title="修改内存对齐后的大小"></a>修改内存对齐后的大小</h2><p>SizeOfImage+插入的大小（按照内存对齐）</p>
+<h2 id="修正节表信息"><a href="#修正节表信息" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>先看关键数据</p>
+<p>DWORD VirtualAddress</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD PointerToRawData</p>
+<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
+<h3 id="计算VirtualAddress"><a href="#计算VirtualAddress" class="headerlink" title="计算VirtualAddress"></a>计算VirtualAddress</h3><p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
+<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png"></p>
+<h3 id="计算PointerToRawData"><a href="#计算PointerToRawData" class="headerlink" title="计算PointerToRawData"></a>计算PointerToRawData</h3><p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png"></p>
+<h3 id="最终修改"><a href="#最终修改" class="headerlink" title="最终修改"></a>最终修改</h3><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png"></p>
+<h2 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h2><p>在PointerToRawData插入0x1000字节</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png"></p>
+<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>在PE解析工具可以看到插入的节表</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png"></p>
+<h1 id="新增节-节表信息后不够位置"><a href="#新增节-节表信息后不够位置" class="headerlink" title="新增节-节表信息后不够位置"></a>新增节-节表信息后不够位置</h1><p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
+<blockquote>
+<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
+</blockquote>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png"></p>
+<p>直接复制到垃圾数据的起始地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png"></p>
+<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
+<h1 id="扩大节"><a href="#扩大节" class="headerlink" title="扩大节"></a>扩大节</h1><p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
+<p>需要修改的数据</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD SizeOfImage</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
+<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
+<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
+</ol>
+<h2 id="修正节表信息-1"><a href="#修正节表信息-1" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>这里我们假设扩大0x1000个字节</p>
+<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png"></p>
+<h2 id="修正SizeOfImage"><a href="#修正SizeOfImage" class="headerlink" title="修正SizeOfImage"></a>修正SizeOfImage</h2><p>直接加上0x1000即可</p>
+<h2 id="分配空间"><a href="#分配空间" class="headerlink" title="分配空间"></a>分配空间</h2><p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
+<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
+<p>求和得到2B6C00h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png"></p>
+<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png"></p>
+<h1 id="合并节"><a href="#合并节" class="headerlink" title="合并节"></a>合并节</h1><h2 id="修改节表个数"><a href="#修改节表个数" class="headerlink" title="修改节表个数"></a>修改节表个数</h2><p>合并之后节数量-1，这里改为7</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png"></p>
+<h2 id="修改节表信息"><a href="#修改节表信息" class="headerlink" title="修改节表信息"></a>修改节表信息</h2><p>要将节进行合并，就需要修改节表信息</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png"></p>
+<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a href="#DWORD-SizeOfRawData和DWORD-VirtualSize" class="headerlink" title="DWORD SizeOfRawData和DWORD VirtualSize"></a>DWORD SizeOfRawData和DWORD VirtualSize</h3><p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
+<p>最后保存即可</p>
+<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
+<h2 id="最终效果-1"><a href="#最终效果-1" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png"></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png"></p>
+<h1 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h1><p> <img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"> </p>
+<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
+<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>在数据目录找到导出表的RVA</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png"></p>
+<p>根据节的RVA和大小确定在哪个表</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png"></p>
+<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
+<p>计算得到F2270，跳转，根据Export.Size确定大小</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png"></p>
+<h2 id="新增节-1"><a href="#新增节-1" class="headerlink" title="新增节"></a>新增节</h2><p>前面说过，就不细🔒了</p>
+<h2 id="复制数据"><a href="#复制数据" class="headerlink" title="复制数据"></a>复制数据</h2><p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png"></p>
+<p>这两个分别是dll名字和函数名称</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png"></p>
+<p>直接复制剩下的导出表信息</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png"></p>
+<h2 id="修改RVA"><a href="#修改RVA" class="headerlink" title="修改RVA"></a>修改RVA</h2><p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
+<p>要修改的有</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png"></p>
+<h2 id="数据目录修改"><a href="#数据目录修改" class="headerlink" title="数据目录修改"></a>数据目录修改</h2><p>将Export.RVA指向我们复制导出表的初始位置</p>
+<h1 id="移动重定位表"><a href="#移动重定位表" class="headerlink" title="移动重定位表"></a>移动重定位表</h1><p>新增节-&gt;复制数据-&gt;数据目录修改重定位表位置</p>
+<h2 id="修改ImageBase"><a href="#修改ImageBase" class="headerlink" title="修改ImageBase"></a>修改ImageBase</h2><p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
+<p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
+<p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
+<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1><p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
+<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
+<h2 id="新增节区"><a href="#新增节区" class="headerlink" title="新增节区"></a>新增节区</h2><h2 id="复制导入表信息"><a href="#复制导入表信息" class="headerlink" title="复制导入表信息"></a>复制导入表信息</h2><p> 拷贝原来的导入表到新节中 </p>
+<h2 id="新增导入表"><a href="#新增导入表" class="headerlink" title="新增导入表"></a>新增导入表</h2><h2 id="新增INT表和IAT表"><a href="#新增INT表和IAT表" class="headerlink" title="新增INT表和IAT表"></a>新增INT表和IAT表</h2><p>至少八字节</p>
+<h2 id="修改Name"><a href="#修改Name" class="headerlink" title="修改Name"></a>修改Name</h2><p> 存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
+<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a href="#创建struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="创建struct _IMAGE_IMPORT_BY_NAME"></a>创建struct _IMAGE_IMPORT_BY_NAME</h2><p>将函数名称赋值给结构体的第二个变量</p>
+<h2 id="修改INT和IAT指向的地址"><a href="#修改INT和IAT指向的地址" class="headerlink" title="修改INT和IAT指向的地址"></a>修改INT和IAT指向的地址</h2><p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
+<h2 id="修改数据目录"><a href="#修改数据目录" class="headerlink" title="修改数据目录"></a>修改数据目录</h2><p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size </p>
+]]></content>
+      <tags>
+        <tag>PE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PWN基本工具</title>
+    <url>/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<h1 id="0x00-GDB工具安装"><a href="#0x00-GDB工具安装" class="headerlink" title="0x00-GDB工具安装"></a>0x00-GDB工具安装</h1><p><a href="https://zhuanlan.zhihu.com/p/129837931">https://zhuanlan.zhihu.com/p/129837931</a></p>
+<p>gdb这三个插件不能同时运行，可以使用命令</p>
+<pre class="language-none"><code class="language-none">vim ~/.gdbinit</code></pre>
+
+<p><img src="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/1649212326580.png" alt="gdbinit"></p>
+<p>不需要使用哪个就注释掉哪个</p>
+<h1 id="0x01-GDB基本使用"><a href="#0x01-GDB基本使用" class="headerlink" title="0x01-GDB基本使用"></a>0x01-GDB基本使用</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>首先先使用gcc生成elf文件，-g表示可以debug</p>
+<pre class="language-none"><code class="language-none">gcc inputfile -o outputfile -g</code></pre>
+
+<p>使用下面命令打开</p>
+<pre class="language-none"><code class="language-none">gdb file</code></pre>
+
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><a href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
+<p><a href="https://www.cnblogs.com/zhwer/p/12494317.html">https://www.cnblogs.com/zhwer/p/12494317.html</a></p>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><pre class="language-c" data-language="c"><code class="language-c">help//帮助
+i//info
+	i b//info break查看所有断点信息
+	i r//info registers 查看各个寄存器当前的值
+	i f//info function 查看所有函数名，保留符号
+show //和info相似，但是是查看调试器的基本信息
+	show args//查看参数
+	
+backtrace//查看调用堆栈
+q//quit退出</code></pre>
+
+<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><pre class="language-c" data-language="c"><code class="language-c">s//step，单步步入，跟进函数中，也就是step into，源码层面的一步，F7
+	si//同s，汇编层面的一步
+n//next，单步补过，F8，源码层面的一步
+	ni//同n，汇编层面的一步
+c//continue，F9，继续执行到断点
+r//run，重新开始执行</code></pre>
+
+<h3 id="断点指令-break"><a href="#断点指令-break" class="headerlink" title="断点指令-break"></a>断点指令-break</h3><pre class="language-c" data-language="c"><code class="language-c">b*(0x123456)//给0x123456地址的指令下断点
+	b*$rebase(0x123456)//$rebase在调试开PIE的程序的时候可以直接加上程序的随即地址
+b func_name//给函数func_name下断点，目标文件要保留符号才行
+    b file_name:func_name
+b file_name:15//给file_name的15行下断点，需要有源码
+    b 15
+b +0x10//在程序当前停住的位置下0x10的位置下断点，也可以-0x10，就是前0x10
+break fun if $rdi==5//条件断点，rdi的值为5的时候才断</code></pre>
+
+<p>删除、禁用断点的指令</p>
+<pre class="language-c" data-language="c"><code class="language-c">//先使用i b查看断点编号
+delete 5//删除5号断点，如果直接delete不加数字，表示删除所有断点
+disable 5//禁用5号断点
+    enable 5//启用5号断点
+clear//清除下面的所有断点</code></pre>
+
+<p>内存断点指令</p>
+<pre class="language-c" data-language="c"><code class="language-c">watch 0x123456//0x123456地址的数据改变的时候会断
+watch a//变量a改变的时候会断
+info watchpoints//查看watch断点信息</code></pre>
+
+<h3 id="打印指令"><a href="#打印指令" class="headerlink" title="打印指令"></a>打印指令</h3><p>查看内存指令x</p>
+<pre class="language-c" data-language="c"><code class="language-c">x /nuf 0x123456//x指令的格式是：x /nfu，nfu代表三个参数
+    n//代表显示几个单元（而不是显示几个字节，后面的u表示一个单元多少个字节），放在'/'后面
+    u//代表一个单元几个字节，b(一个字节),h(两个字节)，w(四字节)，g(八字节)
+    f//代表显示数据的格式，f和u的顺序可以互换，也可以只有一个或者不带n
+    	x 按十六进制格式显示变量。
+		d 按十进制格式显示变量。
+		u 按十六进制格式显示无符号整型。
+		o 按八进制格式显示变量。
+        t 按二进制格式显示变量。
+        a 按十六进制格式显示变量。
+        c 按字符格式显示变量。
+        f 按浮点数格式显示变量。
+        s 按字符串显示。
+        b 按字符显示。
+        i 显示汇编指令。
+x /10gx 0x123456//从0x123456开始每个单元八个字节，十六进制显示十个单元的数据
+x /10xd $rdi//从rdi指向的地址向后打印十个单元，每个单元四字节的十进制数
+x /10i 0x123456//从0x123456处向后显示十条汇编指令</code></pre>
+
+<p>打印指令p(print)</p>
+<pre class="language-c" data-language="c"><code class="language-c">p func_name//打印func_name的地址，需要保留符号
+p 0x10-0x8//计算0x10-0x8的结果
+p &amp;a//查看变量a的地址
+p *(0x123456)//查看0x123456的值
+p $rdi//显示rdi寄存器的值
+    p *($rdi)//显示rdi指向的值</code></pre>
+
+<p>打印汇编指令disass(disassemble)</p>
+<pre class="language-c" data-language="c"><code class="language-c">disass 0x123456//显示0x123456前后的汇编指令
+x /10i //前面说过了</code></pre>
+
+<p>打印源代码list</p>
+<pre class="language-c" data-language="c"><code class="language-c">list//查看当前附近10行的代码
+    list 38//查看28行附近10行的代码
+    list 1,10//查看1-10行代码
+    list main//查看main函数的开始10行</code></pre>
+
+<h3 id="查找指令"><a href="#查找指令" class="headerlink" title="查找指令"></a>查找指令</h3><pre class="language-c" data-language="c"><code class="language-c">search rdi//从当前位置向后查找包含rdi的指令
+find "hello"//查找hello字符串，pwndbg独有</code></pre>
+
+<h3 id="修改数据指令-set"><a href="#修改数据指令-set" class="headerlink" title="修改数据指令-set"></a>修改数据指令-set</h3><pre class="language-c" data-language="c"><code class="language-c">set $rdi=0x10//把寄存器的值变为0x10
+set *(0x123456)=0x10//把0x123456地址的值变为0x10，注意带星号
+set args "abc" "def" "gh"//给参数123赋值</code></pre>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre class="language-c" data-language="c"><code class="language-c">堆操作指令（pwndbg插件独有）
+arena //显示arena的详细信息
+arenas //显示所有arena的基本信息
+arenainfo //好看的显示所有arena的信息
+bins //常用，查看所有种类的堆块的链表情况
+fastbins //单独查看fastbins的链表情况
+largebins //同上，单独查看largebins的链表情况
+smallbins //同上，单独查看smallbins的链表情况
+unsortedbin //同上，单独查看unsortedbin链表情况
+tcachebins //同上，单独查看tcachebins的链表情况
+tcache //查看tcache详细信息
+heap //数据结构的形式显示所有堆块，会显示一大堆
+heapbase //查看堆起始地址
+heapinfo、heapinfoall //显示堆得信息，和bins的挺像的，没bins好用
+parseheap //显示堆结构，很好用
+tracemalloc //好用，会跟提示所有操作堆的地方
+其他pwndbg插件独有指令
+cyclc 50 //生成50个用来溢出的字符，如：aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama
+
+$reabse //开启PIE的情况的地址偏移
+
+b *$reabse(0x123456) //断住PIE状态下的二进制文件中0x123456的地方
+codebase //打印PIE偏移，与rebase不同，这是打印，rebase是使用
+stack //查看栈
+
+retaddr //打印包含返回地址的栈地址
+canary //直接看canary的值
+
+plt //查看plt表
+
+got //查看got表
+hexdump //像IDA那样显示数据，带字符串</code></pre>
+
+
+
+
+
+]]></content>
+      <tags>
+        <tag>PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -4335,149 +4479,6 @@ int main()
 ]]></content>
       <tags>
         <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PWN基本工具</title>
-    <url>/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
-    <content><![CDATA[<h1 id="0x00-GDB工具安装"><a href="#0x00-GDB工具安装" class="headerlink" title="0x00-GDB工具安装"></a>0x00-GDB工具安装</h1><p><a href="https://zhuanlan.zhihu.com/p/129837931">https://zhuanlan.zhihu.com/p/129837931</a></p>
-<p>gdb这三个插件不能同时运行，可以使用命令</p>
-<pre class="language-none"><code class="language-none">vim ~/.gdbinit</code></pre>
-
-<p><img src="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/1649212326580.png" alt="gdbinit"></p>
-<p>不需要使用哪个就注释掉哪个</p>
-<h1 id="0x01-GDB基本使用"><a href="#0x01-GDB基本使用" class="headerlink" title="0x01-GDB基本使用"></a>0x01-GDB基本使用</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>首先先使用gcc生成elf文件，-g表示可以debug</p>
-<pre class="language-none"><code class="language-none">gcc inputfile -o outputfile -g</code></pre>
-
-<p>使用下面命令打开</p>
-<pre class="language-none"><code class="language-none">gdb file</code></pre>
-
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><a href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
-<p><a href="https://www.cnblogs.com/zhwer/p/12494317.html">https://www.cnblogs.com/zhwer/p/12494317.html</a></p>
-<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><pre class="language-c" data-language="c"><code class="language-c">help//帮助
-i//info
-	i b//info break查看所有断点信息
-	i r//info registers 查看各个寄存器当前的值
-	i f//info function 查看所有函数名，保留符号
-show //和info相似，但是是查看调试器的基本信息
-	show args//查看参数
-	
-backtrace//查看调用堆栈
-q//quit退出</code></pre>
-
-<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><pre class="language-c" data-language="c"><code class="language-c">s//step，单步步入，跟进函数中，也就是step into，源码层面的一步，F7
-	si//同s，汇编层面的一步
-n//next，单步补过，F8，源码层面的一步
-	ni//同n，汇编层面的一步
-c//continue，F9，继续执行到断点
-r//run，重新开始执行</code></pre>
-
-<h3 id="断点指令-break"><a href="#断点指令-break" class="headerlink" title="断点指令-break"></a>断点指令-break</h3><pre class="language-c" data-language="c"><code class="language-c">b*(0x123456)//给0x123456地址的指令下断点
-	b*$rebase(0x123456)//$rebase在调试开PIE的程序的时候可以直接加上程序的随即地址
-b func_name//给函数func_name下断点，目标文件要保留符号才行
-    b file_name:func_name
-b file_name:15//给file_name的15行下断点，需要有源码
-    b 15
-b +0x10//在程序当前停住的位置下0x10的位置下断点，也可以-0x10，就是前0x10
-break fun if $rdi==5//条件断点，rdi的值为5的时候才断</code></pre>
-
-<p>删除、禁用断点的指令</p>
-<pre class="language-c" data-language="c"><code class="language-c">//先使用i b查看断点编号
-delete 5//删除5号断点，如果直接delete不加数字，表示删除所有断点
-disable 5//禁用5号断点
-    enable 5//启用5号断点
-clear//清除下面的所有断点</code></pre>
-
-<p>内存断点指令</p>
-<pre class="language-c" data-language="c"><code class="language-c">watch 0x123456//0x123456地址的数据改变的时候会断
-watch a//变量a改变的时候会断
-info watchpoints//查看watch断点信息</code></pre>
-
-<h3 id="打印指令"><a href="#打印指令" class="headerlink" title="打印指令"></a>打印指令</h3><p>查看内存指令x</p>
-<pre class="language-c" data-language="c"><code class="language-c">x /nuf 0x123456//x指令的格式是：x /nfu，nfu代表三个参数
-    n//代表显示几个单元（而不是显示几个字节，后面的u表示一个单元多少个字节），放在'/'后面
-    u//代表一个单元几个字节，b(一个字节),h(两个字节)，w(四字节)，g(八字节)
-    f//代表显示数据的格式，f和u的顺序可以互换，也可以只有一个或者不带n
-    	x 按十六进制格式显示变量。
-		d 按十进制格式显示变量。
-		u 按十六进制格式显示无符号整型。
-		o 按八进制格式显示变量。
-        t 按二进制格式显示变量。
-        a 按十六进制格式显示变量。
-        c 按字符格式显示变量。
-        f 按浮点数格式显示变量。
-        s 按字符串显示。
-        b 按字符显示。
-        i 显示汇编指令。
-x /10gx 0x123456//从0x123456开始每个单元八个字节，十六进制显示十个单元的数据
-x /10xd $rdi//从rdi指向的地址向后打印十个单元，每个单元四字节的十进制数
-x /10i 0x123456//从0x123456处向后显示十条汇编指令</code></pre>
-
-<p>打印指令p(print)</p>
-<pre class="language-c" data-language="c"><code class="language-c">p func_name//打印func_name的地址，需要保留符号
-p 0x10-0x8//计算0x10-0x8的结果
-p &amp;a//查看变量a的地址
-p *(0x123456)//查看0x123456的值
-p $rdi//显示rdi寄存器的值
-    p *($rdi)//显示rdi指向的值</code></pre>
-
-<p>打印汇编指令disass(disassemble)</p>
-<pre class="language-c" data-language="c"><code class="language-c">disass 0x123456//显示0x123456前后的汇编指令
-x /10i //前面说过了</code></pre>
-
-<p>打印源代码list</p>
-<pre class="language-c" data-language="c"><code class="language-c">list//查看当前附近10行的代码
-    list 38//查看28行附近10行的代码
-    list 1,10//查看1-10行代码
-    list main//查看main函数的开始10行</code></pre>
-
-<h3 id="查找指令"><a href="#查找指令" class="headerlink" title="查找指令"></a>查找指令</h3><pre class="language-c" data-language="c"><code class="language-c">search rdi//从当前位置向后查找包含rdi的指令
-find "hello"//查找hello字符串，pwndbg独有</code></pre>
-
-<h3 id="修改数据指令-set"><a href="#修改数据指令-set" class="headerlink" title="修改数据指令-set"></a>修改数据指令-set</h3><pre class="language-c" data-language="c"><code class="language-c">set $rdi=0x10//把寄存器的值变为0x10
-set *(0x123456)=0x10//把0x123456地址的值变为0x10，注意带星号
-set args "abc" "def" "gh"//给参数123赋值</code></pre>
-
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><pre class="language-c" data-language="c"><code class="language-c">堆操作指令（pwndbg插件独有）
-arena //显示arena的详细信息
-arenas //显示所有arena的基本信息
-arenainfo //好看的显示所有arena的信息
-bins //常用，查看所有种类的堆块的链表情况
-fastbins //单独查看fastbins的链表情况
-largebins //同上，单独查看largebins的链表情况
-smallbins //同上，单独查看smallbins的链表情况
-unsortedbin //同上，单独查看unsortedbin链表情况
-tcachebins //同上，单独查看tcachebins的链表情况
-tcache //查看tcache详细信息
-heap //数据结构的形式显示所有堆块，会显示一大堆
-heapbase //查看堆起始地址
-heapinfo、heapinfoall //显示堆得信息，和bins的挺像的，没bins好用
-parseheap //显示堆结构，很好用
-tracemalloc //好用，会跟提示所有操作堆的地方
-其他pwndbg插件独有指令
-cyclc 50 //生成50个用来溢出的字符，如：aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama
-
-$reabse //开启PIE的情况的地址偏移
-
-b *$reabse(0x123456) //断住PIE状态下的二进制文件中0x123456的地方
-codebase //打印PIE偏移，与rebase不同，这是打印，rebase是使用
-stack //查看栈
-
-retaddr //打印包含返回地址的栈地址
-canary //直接看canary的值
-
-plt //查看plt表
-
-got //查看got表
-hexdump //像IDA那样显示数据，带字符串</code></pre>
-
-
-
-
-
-]]></content>
-      <tags>
-        <tag>PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -6464,6 +6465,25 @@ int main()
       </tags>
   </entry>
   <entry>
+    <title>Windows内核基础</title>
+    <url>/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h1 id="0x00-权限级别"><a href="#0x00-权限级别" class="headerlink" title="0x00-权限级别"></a>0x00-权限级别</h1><p>先来看一下特权级环，从里往外权限逐渐降低</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650108857255.png" alt="特权级环"></p>
+<blockquote>
+<p><strong>系统内核层，又叫零环（Ring 0，简称“R0”；与此对应的应用层叫3环，即Ring 3，简称“R3”），实际上是CPU的4个运行级别中的一个</strong></p>
+</blockquote>
+<p>CPU设计者将CPU的运行级别从内往外分为4个，依次为R0、R1、R2、R3，运行权限从R0到R3依次降低。CPU设计制造商在设计之初是让R0运行内核，让R1、R2运行驱动设备，让R3运行应用程序的。</p>
+<p>操作系统设计者与开发商在设计操作系统（例如微软Windows和开源社区的Linus编写的Linux）的时候，为了让工作变得简单，<strong>并没有使用R1和R2两个级别，而是将设备驱动运行在与内核一个级别的R0级</strong></p>
+<p>在AMD64CPU诞生之后，CPU的设计者干脆也和操作吸引保持一致，只保留了R0和R3两个级别</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109580425.png" alt="Windows XP体系结构简图"></p>
+<p>HAL是一个可加载的核心模块HAL.DLL，它为运行在Windows XP上的硬件平台提供低级接口。Windows XP的执行体是NTOSKRNL.EXE的上层（内核是其下层）。用户层导出并且可以调用的函数接口在NTDLL.DLL中，通过Win32 API或其他环境子系统对它们进行访问</p>
+<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109820013.png"></p>
+<h1 id="0x01-内存空间布局"><a href="#0x01-内存空间布局" class="headerlink" title="0x01-内存空间布局"></a>0x01-内存空间布局</h1>]]></content>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Windows核心编程</title>
     <url>/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h1 id="0x00-错误处理"><a href="#0x00-错误处理" class="headerlink" title="0x00-错误处理"></a>0x00-错误处理</h1><p>在WinError.h头文件中包含了Microsoft定义的错误代码列表，每个错误都有三种表示：一个消息ID(一个可在源代码使用的宏，用于与GetLastError的返回值进行比较)、消息文本(描述错误的英文文本)和一个编号(应该避免使用此编号，尽量使用消息ID)</p>
@@ -6495,204 +6515,6 @@ int main()
 ]]></content>
       <tags>
         <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows内核基础</title>
-    <url>/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h1 id="0x00-权限级别"><a href="#0x00-权限级别" class="headerlink" title="0x00-权限级别"></a>0x00-权限级别</h1><p>先来看一下特权级环，从里往外权限逐渐降低</p>
-<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650108857255.png" alt="特权级环"></p>
-<blockquote>
-<p><strong>系统内核层，又叫零环（Ring 0，简称“R0”；与此对应的应用层叫3环，即Ring 3，简称“R3”），实际上是CPU的4个运行级别中的一个</strong></p>
-</blockquote>
-<p>CPU设计者将CPU的运行级别从内往外分为4个，依次为R0、R1、R2、R3，运行权限从R0到R3依次降低。CPU设计制造商在设计之初是让R0运行内核，让R1、R2运行驱动设备，让R3运行应用程序的。</p>
-<p>操作系统设计者与开发商在设计操作系统（例如微软Windows和开源社区的Linus编写的Linux）的时候，为了让工作变得简单，<strong>并没有使用R1和R2两个级别，而是将设备驱动运行在与内核一个级别的R0级</strong></p>
-<p>在AMD64CPU诞生之后，CPU的设计者干脆也和操作吸引保持一致，只保留了R0和R3两个级别</p>
-<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109580425.png" alt="Windows XP体系结构简图"></p>
-<p>HAL是一个可加载的核心模块HAL.DLL，它为运行在Windows XP上的硬件平台提供低级接口。Windows XP的执行体是NTOSKRNL.EXE的上层（内核是其下层）。用户层导出并且可以调用的函数接口在NTDLL.DLL中，通过Win32 API或其他环境子系统对它们进行访问</p>
-<p><img src="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/1650109820013.png"></p>
-<h1 id="0x01-内存空间布局"><a href="#0x01-内存空间布局" class="headerlink" title="0x01-内存空间布局"></a>0x01-内存空间布局</h1>]]></content>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Z3</title>
-    <url>/2022/01/17/Z3/</url>
-    <content><![CDATA[<p>先来看官方文档</p>
-<p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
-<p>这个博客也不错</p>
-<p><a href="https://blog.csdn.net/qq_38154820/article/details/108656598">https://blog.csdn.net/qq_38154820/article/details/108656598</a></p>
-<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>  基本语句</p>
-<p>Op    Mnmonics    Description<br>            0    true    恒真<br>            1    flase    恒假<br>            2    =    相等<br>            3    distinct    不同<br>            4    ite    if-then-else<br>            5    and    n元 合取（其中条件必须全部满足）<br>            6    or    n元 析取（其中条件满足之一即可）<br>            7    iff    implication<br>            8    xor    异或<br>            9    not    否定<br>            10    implies    Bi-implications</p>
-<p>1、创建容器</p>
-<p>s=Solver()</p>
-<p>2、创建变量，变量有Int(整型)、BitVector(字节)、数组</p>
-<p>3、添加约束条件</p>
-<p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
-<p>4、判断是否存在</p>
-<pre class="language-python" data-language="python"><code class="language-python">if s.check() == sat:  
-    m = s.model()  
-    print(m)
-else:  
-    print("no answer")</code></pre>
-
-<h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
-<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
-<p>这里就直接放脚本了</p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
-
-s=Solver()
-v1=Int('v1')
-v2=Int('v2')
-v3=Int('v3')
-v4=Int('v4')
-v5=Int('v5')
-v6=Int('v6')
-v7=Int('v7')
-v8=Int('v8')
-v9=Int('v9')
-v11=Int('v11')
-
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
-s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
-s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
-s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
-s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
-s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
-s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
-s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
-
-if s.check()==sat:
-    result=s.model()
-
-print(result)</code></pre>
-
-
-
-<h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
-<h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
-#添加六个Int数据到s变量中
-s = [Int('s%d' % i) for i in range(6)]
-a=Solver()
-#多个约束条件可以使用逗号间隔
-a.add(s[2]-s[3]==2225223423,s[3]+s[4]==4201428739,s[2]-s[4]==1121399208,s[0]==0xdf48ef7e,s[5]==0x84f30420,s[1]==0x20caacf4)
-if a.check() == sat:
-    print(a.model())</code></pre>
-
-
-
-<p>这样得到的结果不会是数组的形式，如下得到的是数组形式</p>
-<p><img src="/2022/01/17/Z3/1642418166049.png"></p>
-<h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
-<p>先贴一下</p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import *
-# 9x9整数变量矩阵
-X = [ [ Int("x_%s_%s" % (i+1, j+1)) for j in range(9) ]
-      for i in range(9) ]
- 
- 
-# 每个单元格包含{1，…，9}中的值
-cells_c  = [ And(1 &lt;= X[i][j], X[i][j] &lt;= 9)
-             for i in range(9) for j in range(9) ]
- 
- 
-# 每行最多包含一个数字一次
-rows_c   = [ Distinct(X[i]) for i in range(9) ]
- 
- 
-# 每列最多包含一个数字
-cols_c   = [ Distinct([ X[i][j] for i in range(9) ])
-             for j in range(9) ]
- 
- 
-# 每个3x3正方形最多包含一个数字
-sq_c     = [ Distinct([ X[3*i0 + i][3*j0 + j]
-                        for i in range(3) for j in range(3) ])
-             for i0 in range(3) for j0 in range(3) ]
- 
- 
-sudoku_c = cells_c + rows_c + cols_c + sq_c
- 
- 
-# 数独实例，我们用'0'表示空单元格
-instance = ((0,0,0,0,9,4,0,3,0),
-            (0,0,0,5,1,0,0,0,7),
-            (0,8,9,0,0,0,0,4,0),
-            (0,0,0,0,0,0,2,0,8),
-            (0,6,0,2,0,1,0,5,0),
-            (1,0,2,0,0,0,0,0,0),
-            (0,7,0,0,0,0,5,2,0),
-            (9,0,0,0,6,5,0,0,0),
-            (0,4,0,9,7,0,0,0,0))
- 
- 
-instance_c = [ If(instance[i][j] == 0,
-                  True,
-                  X[i][j] == instance[i][j])
-               for i in range(9) for j in range(9) ]
- 
- 
-s = Solver()
-s.add(sudoku_c + instance_c)
-if s.check() == sat:
-    m = s.model()
-    r = [ [ m.evaluate(X[i][j]) for j in range(9) ]
-          for i in range(9) ]
-    print_matrix(r)
-else:
-    print("failed to solve")</code></pre>
-
-<h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
-<p><a href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
-<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><pre class="language-python" data-language="python"><code class="language-python">from z3 import *
-
-# 5*5整数变量矩阵
-X = [[Int("x_%s_%s" % (i + 1, j + 1)) for j in range(5)]
-     for i in range(5)]
-
-# 每个单元格包含{0，…，4}中的值
-cells_c = [And(0 &lt;= X[i][j], X[i][j] &lt;= 4)
-           for i in range(5) for j in range(5)]
-
-# 每行最多包含一个数字一次
-rows_c = [Distinct(X[i]) for i in range(5)]
-
-# 每列最多包含一个数字
-cols_c = [Distinct([X[i][j] for i in range(5)])
-          for j in range(5)]
-
-# 每个5x5正方形最多包含一个数字,i0和j0表示分为几组
-sq_c = [Distinct([X[5 * i0 + i][5 * j0 + j]
-                  for i in range(5) for j in range(5)])
-        for i0 in range(0) for j0 in range(0)]
-
-sudoku_c = cells_c + rows_c + cols_c + sq_c
-
-# 数独实例，我们用'5'表示空单元格
-instance = ((1,4,5,2,3),(3,0,5,1,5),(0,5,2,3,5),(5,3,5,5,5),(4,2,5,5,1))
-
-instance_c = [If(instance[i][j] == 5,
-                 True,
-                 X[i][j] == instance[i][j])
-              for i in range(5) for j in range(5)]
-
-s = Solver()
-s.add(sudoku_c + instance_c)
-if s.check() == sat:
-    m = s.model()
-    r = [[m.evaluate(X[i][j]) for j in range(5)]
-         for i in range(5)]
-    print_matrix(r)
-else:
-    print("failed to solve")</code></pre>
-
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -6918,6 +6740,185 @@ int main()
 <pre class="language-c" data-language="c"><code class="language-c">decode[decode_len] = 0;</code></pre>
 
 <h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>base64还可以魔改，进行变表操作或者在编码过程中参杂异或（Dasctf2022）</p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Z3</title>
+    <url>/2022/01/17/Z3/</url>
+    <content><![CDATA[<p>先来看官方文档</p>
+<p><a href="https://ericpony.github.io/z3py-tutorial/guide-examples.htm">https://ericpony.github.io/z3py-tutorial/guide-examples.htm</a></p>
+<p>这个博客也不错</p>
+<p><a href="https://blog.csdn.net/qq_38154820/article/details/108656598">https://blog.csdn.net/qq_38154820/article/details/108656598</a></p>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><p>  基本语句</p>
+<p>Op    Mnmonics    Description<br>            0    true    恒真<br>            1    flase    恒假<br>            2    =    相等<br>            3    distinct    不同<br>            4    ite    if-then-else<br>            5    and    n元 合取（其中条件必须全部满足）<br>            6    or    n元 析取（其中条件满足之一即可）<br>            7    iff    implication<br>            8    xor    异或<br>            9    not    否定<br>            10    implies    Bi-implications</p>
+<p>1、创建容器</p>
+<p>s=Solver()</p>
+<p>2、创建变量，变量有Int(整型)、BitVector(字节)、数组</p>
+<p>3、添加约束条件</p>
+<p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
+<p>4、判断是否存在</p>
+<pre class="language-python" data-language="python"><code class="language-python">if s.check() == sat:  
+    m = s.model()  
+    print(m)
+else:  
+    print("no answer")</code></pre>
+
+<h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
+<h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
+<p>这里就直接放脚本了</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
+
+s=Solver()
+v1=Int('v1')
+v2=Int('v2')
+v3=Int('v3')
+v4=Int('v4')
+v5=Int('v5')
+v6=Int('v6')
+v7=Int('v7')
+v8=Int('v8')
+v9=Int('v9')
+v11=Int('v11')
+
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
+s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
+s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
+s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
+s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
+s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
+s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
+s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
+s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
+
+if s.check()==sat:
+    result=s.model()
+
+print(result)</code></pre>
+
+
+
+<h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
+<h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
+#添加六个Int数据到s变量中
+s = [Int('s%d' % i) for i in range(6)]
+a=Solver()
+#多个约束条件可以使用逗号间隔
+a.add(s[2]-s[3]==2225223423,s[3]+s[4]==4201428739,s[2]-s[4]==1121399208,s[0]==0xdf48ef7e,s[5]==0x84f30420,s[1]==0x20caacf4)
+if a.check() == sat:
+    print(a.model())</code></pre>
+
+
+
+<p>这样得到的结果不会是数组的形式，如下得到的是数组形式</p>
+<p><img src="/2022/01/17/Z3/1642418166049.png"></p>
+<h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
+<p>先贴一下</p>
+<pre class="language-python" data-language="python"><code class="language-python">from z3 import *
+# 9x9整数变量矩阵
+X = [ [ Int("x_%s_%s" % (i+1, j+1)) for j in range(9) ]
+      for i in range(9) ]
+ 
+ 
+# 每个单元格包含{1，…，9}中的值
+cells_c  = [ And(1 &lt;= X[i][j], X[i][j] &lt;= 9)
+             for i in range(9) for j in range(9) ]
+ 
+ 
+# 每行最多包含一个数字一次
+rows_c   = [ Distinct(X[i]) for i in range(9) ]
+ 
+ 
+# 每列最多包含一个数字
+cols_c   = [ Distinct([ X[i][j] for i in range(9) ])
+             for j in range(9) ]
+ 
+ 
+# 每个3x3正方形最多包含一个数字
+sq_c     = [ Distinct([ X[3*i0 + i][3*j0 + j]
+                        for i in range(3) for j in range(3) ])
+             for i0 in range(3) for j0 in range(3) ]
+ 
+ 
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+ 
+ 
+# 数独实例，我们用'0'表示空单元格
+instance = ((0,0,0,0,9,4,0,3,0),
+            (0,0,0,5,1,0,0,0,7),
+            (0,8,9,0,0,0,0,4,0),
+            (0,0,0,0,0,0,2,0,8),
+            (0,6,0,2,0,1,0,5,0),
+            (1,0,2,0,0,0,0,0,0),
+            (0,7,0,0,0,0,5,2,0),
+            (9,0,0,0,6,5,0,0,0),
+            (0,4,0,9,7,0,0,0,0))
+ 
+ 
+instance_c = [ If(instance[i][j] == 0,
+                  True,
+                  X[i][j] == instance[i][j])
+               for i in range(9) for j in range(9) ]
+ 
+ 
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [ [ m.evaluate(X[i][j]) for j in range(9) ]
+          for i in range(9) ]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
+
+<h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
+<p><a href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
+<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><pre class="language-python" data-language="python"><code class="language-python">from z3 import *
+
+# 5*5整数变量矩阵
+X = [[Int("x_%s_%s" % (i + 1, j + 1)) for j in range(5)]
+     for i in range(5)]
+
+# 每个单元格包含{0，…，4}中的值
+cells_c = [And(0 &lt;= X[i][j], X[i][j] &lt;= 4)
+           for i in range(5) for j in range(5)]
+
+# 每行最多包含一个数字一次
+rows_c = [Distinct(X[i]) for i in range(5)]
+
+# 每列最多包含一个数字
+cols_c = [Distinct([X[i][j] for i in range(5)])
+          for j in range(5)]
+
+# 每个5x5正方形最多包含一个数字,i0和j0表示分为几组
+sq_c = [Distinct([X[5 * i0 + i][5 * j0 + j]
+                  for i in range(5) for j in range(5)])
+        for i0 in range(0) for j0 in range(0)]
+
+sudoku_c = cells_c + rows_c + cols_c + sq_c
+
+# 数独实例，我们用'5'表示空单元格
+instance = ((1,4,5,2,3),(3,0,5,1,5),(0,5,2,3,5),(5,3,5,5,5),(4,2,5,5,1))
+
+instance_c = [If(instance[i][j] == 5,
+                 True,
+                 X[i][j] == instance[i][j])
+              for i in range(5) for j in range(5)]
+
+s = Solver()
+s.add(sudoku_c + instance_c)
+if s.check() == sat:
+    m = s.model()
+    r = [[m.evaluate(X[i][j]) for j in range(5)]
+         for i in range(5)]
+    print_matrix(r)
+else:
+    print("failed to solve")</code></pre>
+
 ]]></content>
       <tags>
         <tag>Reverse</tag>
@@ -8470,191 +8471,6 @@ else:
       </tags>
   </entry>
   <entry>
-    <title>sha256</title>
-    <url>/2022/03/23/sha256/</url>
-    <content><![CDATA[<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://zhuanlan.zhihu.com/p/94619052">https://zhuanlan.zhihu.com/p/94619052</a></p>
-<p><a href="https://www.52pojie.cn/forum.php">https://www.52pojie.cn/forum.php</a></p>
-<h1 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h1><h2 id="符号替换-使用函数"><a href="#符号替换-使用函数" class="headerlink" title="符号替换-使用函数"></a>符号替换-使用函数</h2><ul>
-<li><img src="https://www.zhihu.com/equation?tex=%5Coplus" alt="[公式]">: 按位异或</li>
-<li><img src="https://www.zhihu.com/equation?tex=%5Cwedge" alt="[公式]">: 按位与</li>
-<li><img src="https://www.zhihu.com/equation?tex=%5Cvee" alt="[公式]">: 按位或</li>
-<li><img src="https://www.zhihu.com/equation?tex=%5Clnot" alt="[公式]">: 补位</li>
-<li><img src="https://www.zhihu.com/equation?tex=+" alt="[公式]">: 相加以后对<img src="https://www.zhihu.com/equation?tex=2%5E%7B32%7D" alt="[公式]">求余</li>
-<li><img src="https://www.zhihu.com/equation?tex=R%5En" alt="[公式]">: 右移n位</li>
-<li><img src="https://www.zhihu.com/equation?tex=S%5En" alt="[公式]">: 循环右移n位</li>
-</ul>
-<p> <img src="/2022/03/23/sha256/equation-1648645011885.svg" alt="使用到的函数"> </p>
-<h2 id="消息预处理"><a href="#消息预处理" class="headerlink" title="消息预处理"></a>消息预处理</h2><h3 id="消息补位"><a href="#消息补位" class="headerlink" title="消息补位"></a>消息补位</h3><p>先对消息摘要实现补码，假设消息M的二进制编码长度为l位。那么我们现在消息末尾补上一位1，然后再补上k个0，其中k为下列方程的最小非负整数</p>
-<p> <img src="/2022/03/23/sha256/equation-1648645283142.svg" alt="计算K的公式"> </p>
-<blockquote>
-<p>特殊情况：当l长度为448时要填充加上512bits，449的话就填充511bits</p>
-<p>447的话直接填充一个1即可</p>
-</blockquote>
-<p>最后填充64位，这64位是l的二进制编码</p>
-<p>补完位的消息长度为512的倍数</p>
-<h3 id="将补位完的消息进行分组"><a href="#将补位完的消息进行分组" class="headerlink" title="将补位完的消息进行分组"></a>将补位完的消息进行分组</h3><p> 将补码处理后的消息以512位为单位分块为: <img src="/2022/03/23/sha256/equation-1648645770037.svg" alt="[公式]"> </p>
-<p>将每个消息块分为16×32bits， 前32位表示为: <img src="/2022/03/23/sha256/equation-1648645804943.svg" alt="[公式]">, 后面32位为: <img src="/2022/03/23/sha256/equation-1648645804934.svg" alt="[公式]">, 以此类推, 最后32位的消息块可表示为: <img src="/2022/03/23/sha256/equation-1648645804929.svg" alt="[公式]"> ，而在C语言中，32位正好对应unsigned int</p>
-<h3 id="消息块扩充"><a href="#消息块扩充" class="headerlink" title="消息块扩充"></a>消息块扩充</h3><p>这里我们得到的是16个32bits消息块，要把其扩展为64个32bits的消息块</p>
-<p>扩展代码</p>
-<pre class="language-c" data-language="c"><code class="language-c">for i from 16 to 63
-    s0 := (w[i-15] rightrotate 7) xor (w[i-15] rightrotate 18) xor(w[i-15] rightshift 3)
-    s1 := (w[i-2] rightrotate 17) xor (w[i-2] rightrotate 19) xor(w[i-2] rightshift 10)
-    w[i] := w[i-16] + s0 + w[i-7] + s1</code></pre>
-
-<h2 id="Hash主要加密流程"><a href="#Hash主要加密流程" class="headerlink" title="Hash主要加密流程"></a>Hash主要加密流程</h2><h3 id="常量初始化"><a href="#常量初始化" class="headerlink" title="常量初始化"></a>常量初始化</h3><p>初始哈希值取自自然数前8个素数(2,3,5,7,11,13,17,19)的平方根的小数部分的前32位的十六进制表示，比如：</p>
-<p><img src="/2022/03/23/sha256/equation-1648646228740.svg" alt="[公式]">小数部分约为0.414213562373095048 </p>
-<p> <img src="/2022/03/23/sha256/equation-1648646248870.svg" alt="根号2的十六进制表示"> </p>
-<p>于是，取出前32位对应0x6a09e667</p>
-<p>依次得到初始化的H值</p>
-<p> <img src="/2022/03/23/sha256/equation-1648646313831.svg" alt="初始化H值"> </p>
-<h3 id="sha256的64个常数"><a href="#sha256的64个常数" class="headerlink" title="sha256的64个常数"></a>sha256的64个常数</h3><p> 取自自然数中前面64个素数的立方根的小数部分的前32位的十六进制表示</p>
-<pre class="language-c" data-language="c"><code class="language-c">428a2f98 71374491 b5c0fbcf e9b5dba5
-3956c25b 59f111f1 923f82a4 ab1c5ed5
-d807aa98 12835b01 243185be 550c7dc3
-72be5d74 80deb1fe 9bdc06a7 c19bf174
-e49b69c1 efbe4786 0fc19dc6 240ca1cc
-2de92c6f 4a7484aa 5cb0a9dc 76f988da
-983e5152 a831c66d b00327c8 bf597fc7
-c6e00bf3 d5a79147 06ca6351 14292967
-27b70a85 2e1b2138 4d2c6dfc 53380d13
-650a7354 766a0abb 81c2c92e 92722c85
-a2bfe8a1 a81a664b c24b8b70 c76c51a3
-d192e819 d6990624 f40e3585 106aa070
-19a4c116 1e376c08 2748774c 34b0bcb5
-391c0cb3 4ed8aa4a 5b9cca4f 682e6ff3
-748f82ee 78a5636f 84c87814 8cc70208
-90befffa a4506ceb bef9a3f7 c67178f2</code></pre>
-
-<p>进行64次循环加密，流程图如下：</p>
-<p><img src="/2022/03/23/sha256/600px-SHA-2.svg.png" alt="主要加密"></p>
-<p>这里介绍一下ABCDEFGH的值以及K数组，W是我们扩展后的消息块</p>
-<p>先把第一个W块和K相加后mod2^32，但是在C语言中，会进行截断，超过32位直接不管超过的那一位</p>
-<p>接着先把H7和前一个得到的结果相加后mod2^32</p>
-<p>再把H4、H5、H6取出进行Ch加密，再和前一个结果相加后mod2^32</p>
-<p>将H4取出进行什么1操作，再和前一步的结果相加后mod2^32</p>
-<p>接下来分为两步，第一步把前一个的结果和H3相加后mod2^32并存储在H4，第二步，先把H0、H1、H2进行Ma操作，再和前一步的结果相加再mod2^32</p>
-<p>然后把H0取出进行什么0操作，再和前面第二步的结果相加后mod32后存储在H0</p>
-<p>最后进行移位存储操作，就是除了H0和H4，剩下的H值存入前一个的H值</p>
-<p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组加上原来的中间Hash值就是该消息区块的Hash值</p>
-<h1 id="C语言实现"><a href="#C语言实现" class="headerlink" title="C语言实现"></a>C语言实现</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;Windows.h&gt;
-#define SHA256_ROTL(a,b) (((a&gt;&gt;(32-b))&amp;(0x7fffffff&gt;&gt;(31-b)))|(a&lt;&lt;b))
-#define SHA256_SR(a,b) ((a&gt;&gt;b)&amp;(0x7fffffff&gt;&gt;(b-1)))
-#define SHA256_CH(x,y,z) ((x&amp;y)^((~x)&amp;z))
-#define SHA256_Maj(x,y,z) ((x&amp;y)^(x&amp;z)^(y&amp;z))
-#define SHA256_E0(x) (SHA256_ROTL(x,30)^SHA256_ROTL(x,19)^SHA256_ROTL(x,10))
-#define SHA256_E1(x) (SHA256_ROTL(x,26)^SHA256_ROTL(x,21)^SHA256_ROTL(x,7))
-#define SHA256_O0(x) (SHA256_ROTL(x,25)^SHA256_ROTL(x,14)^SHA256_SR(x,3))
-#define SHA256_O1(x) (SHA256_ROTL(x,15)^SHA256_ROTL(x,13)^SHA256_SR(x,10)) 
-
-void SHA256_ENCODE(char* input, int len)
-{
-	int i;
-	char* pos,*posend;
-	long A, B, C, D, E, F, G, I;
-	long W[64] = { 0 };
-	//初始化常量数据
-	long long H[8] = {
-		0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,
-		0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19
-	};
-	unsigned int K[64] = {
-		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-		0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-		0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-		0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-		0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-		0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-		0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
-	};
-	//消息补位,一个字符8位，而448位为56个字符,128个字符是1024位，512的两倍
-	long long len_final = len + ((len % 64 &gt;= 56) ? (128 - len % 64) : (64 - len % 64));
-	//printf("%d", len_final);
-	//开辟空间
-	if (!(pos = (char*)malloc(len_final)))
-	{
-		printf("开辟空间失败！\n");
-		exit(0);
-	}
-	//将字符串赋值到堆中，注意因为后面需要转为long类型运算，所以赋值时要注意大小端序的问题
-	for ( i = 0; i &lt; len; ++i)
-	{
-		pos[i + 3 - 2 * (i % 4)] = input[i];
-	}
-	//字符串后面的1和填充0
-	pos[i + 3 - 2 * (i % 4)] = 0x80;
-	i++;
-	for (; i &lt; len_final; ++i)
-	{
-		pos[i + 3 - 2 * (i % 4)] = 0;
-	}
-	//填充字符串的真实长度，并扩展为64位,64位也就是8个字符
-	*((long*)(pos + len_final - 4)) = len &lt;&lt; 3;
-	*((long*)(pos + len_final - 8)) = len &gt;&gt; 29;
-	//每512位进行加密
-	for (posend = pos + len_final; pos &lt; posend; pos += 64)
-	{
-		//先分组为16*32bit
-		for (int j = 0; j &lt; 16; ++j)
-		{
-			W[j] = ((long*)pos)[j];
-		}
-		//扩展为64*32bit
-		for (int j = 16; j &lt; 64; ++j)
-		{
-			W[j] = (SHA256_O1(W[j - 2]) + W[j - 7] + SHA256_O0(W[j - 15]) + W[j - 16]);
-		}
-		//下面开始进行64轮加密
-		//因为中间哈希值最后时为原来的+加密的哈希值，所以先储存
-		A = H[0], B = H[1], C = H[2], D = H[3], E = H[4], F = H[5], G = H[6], I = H[7];
-		for (i = 0; i &lt; 64; ++i)
-		{
-			//T1存储加密的前一部分,T2存储加密的后一部分
-			long T1 = I + SHA256_CH(E, F, G) + K[i] + W[i]+SHA256_E1(E);
-			long T2 = SHA256_Maj(A, B, C) + SHA256_E0(A);
-			//只能从后往前赋值，否则会覆盖
-			I = G;
-			G = F;
-			F = E;
-			E = D + T1;
-			D = C;
-			C = B;
-			B = A;
-			A = T1 + T2;
-		}
-		H[0] += A; H[1] += B;
-		H[2] += C; H[3] += D;
-		H[4] += E; H[5] += F;
-		H[6] += G; H[7] += I;
-		for (i = 0; i &lt; 8; ++i)
-		{
-			printf("%X", H[i]);
-		}
-	}
-	return;
-}
-int main()
-{
-	char input[] = "ze";
-	SHA256_ENCODE(input, strlen(input));
-	return 0;
-}</code></pre>
-
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>……</title>
-    <url>/2022/04/07/%E2%80%A6%E2%80%A6/</url>
-    <content><![CDATA[<p>先放下手中的东西，去啃书了</p>
-]]></content>
-  </entry>
-  <entry>
     <title>shellcode知识</title>
     <url>/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<h1 id="0x00-Shellcode"><a href="#0x00-Shellcode" class="headerlink" title="0x00-Shellcode"></a>0x00-Shellcode</h1><p>什么是shellcode</p>
@@ -9082,6 +8898,185 @@ with open("res.jpg","wb") as f:
       </tags>
   </entry>
   <entry>
+    <title>sha256</title>
+    <url>/2022/03/23/sha256/</url>
+    <content><![CDATA[<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://zhuanlan.zhihu.com/p/94619052">https://zhuanlan.zhihu.com/p/94619052</a></p>
+<p><a href="https://www.52pojie.cn/forum.php">https://www.52pojie.cn/forum.php</a></p>
+<h1 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h1><h2 id="符号替换-使用函数"><a href="#符号替换-使用函数" class="headerlink" title="符号替换-使用函数"></a>符号替换-使用函数</h2><ul>
+<li><img src="https://www.zhihu.com/equation?tex=%5Coplus" alt="[公式]">: 按位异或</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Cwedge" alt="[公式]">: 按位与</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Cvee" alt="[公式]">: 按位或</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Clnot" alt="[公式]">: 补位</li>
+<li><img src="https://www.zhihu.com/equation?tex=+" alt="[公式]">: 相加以后对<img src="https://www.zhihu.com/equation?tex=2%5E%7B32%7D" alt="[公式]">求余</li>
+<li><img src="https://www.zhihu.com/equation?tex=R%5En" alt="[公式]">: 右移n位</li>
+<li><img src="https://www.zhihu.com/equation?tex=S%5En" alt="[公式]">: 循环右移n位</li>
+</ul>
+<p> <img src="/2022/03/23/sha256/equation-1648645011885.svg" alt="使用到的函数"> </p>
+<h2 id="消息预处理"><a href="#消息预处理" class="headerlink" title="消息预处理"></a>消息预处理</h2><h3 id="消息补位"><a href="#消息补位" class="headerlink" title="消息补位"></a>消息补位</h3><p>先对消息摘要实现补码，假设消息M的二进制编码长度为l位。那么我们现在消息末尾补上一位1，然后再补上k个0，其中k为下列方程的最小非负整数</p>
+<p> <img src="/2022/03/23/sha256/equation-1648645283142.svg" alt="计算K的公式"> </p>
+<blockquote>
+<p>特殊情况：当l长度为448时要填充加上512bits，449的话就填充511bits</p>
+<p>447的话直接填充一个1即可</p>
+</blockquote>
+<p>最后填充64位，这64位是l的二进制编码</p>
+<p>补完位的消息长度为512的倍数</p>
+<h3 id="将补位完的消息进行分组"><a href="#将补位完的消息进行分组" class="headerlink" title="将补位完的消息进行分组"></a>将补位完的消息进行分组</h3><p> 将补码处理后的消息以512位为单位分块为: <img src="/2022/03/23/sha256/equation-1648645770037.svg" alt="[公式]"> </p>
+<p>将每个消息块分为16×32bits， 前32位表示为: <img src="/2022/03/23/sha256/equation-1648645804943.svg" alt="[公式]">, 后面32位为: <img src="/2022/03/23/sha256/equation-1648645804934.svg" alt="[公式]">, 以此类推, 最后32位的消息块可表示为: <img src="/2022/03/23/sha256/equation-1648645804929.svg" alt="[公式]"> ，而在C语言中，32位正好对应unsigned int</p>
+<h3 id="消息块扩充"><a href="#消息块扩充" class="headerlink" title="消息块扩充"></a>消息块扩充</h3><p>这里我们得到的是16个32bits消息块，要把其扩展为64个32bits的消息块</p>
+<p>扩展代码</p>
+<pre class="language-c" data-language="c"><code class="language-c">for i from 16 to 63
+    s0 := (w[i-15] rightrotate 7) xor (w[i-15] rightrotate 18) xor(w[i-15] rightshift 3)
+    s1 := (w[i-2] rightrotate 17) xor (w[i-2] rightrotate 19) xor(w[i-2] rightshift 10)
+    w[i] := w[i-16] + s0 + w[i-7] + s1</code></pre>
+
+<h2 id="Hash主要加密流程"><a href="#Hash主要加密流程" class="headerlink" title="Hash主要加密流程"></a>Hash主要加密流程</h2><h3 id="常量初始化"><a href="#常量初始化" class="headerlink" title="常量初始化"></a>常量初始化</h3><p>初始哈希值取自自然数前8个素数(2,3,5,7,11,13,17,19)的平方根的小数部分的前32位的十六进制表示，比如：</p>
+<p><img src="/2022/03/23/sha256/equation-1648646228740.svg" alt="[公式]">小数部分约为0.414213562373095048 </p>
+<p> <img src="/2022/03/23/sha256/equation-1648646248870.svg" alt="根号2的十六进制表示"> </p>
+<p>于是，取出前32位对应0x6a09e667</p>
+<p>依次得到初始化的H值</p>
+<p> <img src="/2022/03/23/sha256/equation-1648646313831.svg" alt="初始化H值"> </p>
+<h3 id="sha256的64个常数"><a href="#sha256的64个常数" class="headerlink" title="sha256的64个常数"></a>sha256的64个常数</h3><p> 取自自然数中前面64个素数的立方根的小数部分的前32位的十六进制表示</p>
+<pre class="language-c" data-language="c"><code class="language-c">428a2f98 71374491 b5c0fbcf e9b5dba5
+3956c25b 59f111f1 923f82a4 ab1c5ed5
+d807aa98 12835b01 243185be 550c7dc3
+72be5d74 80deb1fe 9bdc06a7 c19bf174
+e49b69c1 efbe4786 0fc19dc6 240ca1cc
+2de92c6f 4a7484aa 5cb0a9dc 76f988da
+983e5152 a831c66d b00327c8 bf597fc7
+c6e00bf3 d5a79147 06ca6351 14292967
+27b70a85 2e1b2138 4d2c6dfc 53380d13
+650a7354 766a0abb 81c2c92e 92722c85
+a2bfe8a1 a81a664b c24b8b70 c76c51a3
+d192e819 d6990624 f40e3585 106aa070
+19a4c116 1e376c08 2748774c 34b0bcb5
+391c0cb3 4ed8aa4a 5b9cca4f 682e6ff3
+748f82ee 78a5636f 84c87814 8cc70208
+90befffa a4506ceb bef9a3f7 c67178f2</code></pre>
+
+<p>进行64次循环加密，流程图如下：</p>
+<p><img src="/2022/03/23/sha256/600px-SHA-2.svg.png" alt="主要加密"></p>
+<p>这里介绍一下ABCDEFGH的值以及K数组，W是我们扩展后的消息块</p>
+<p>先把第一个W块和K相加后mod2^32，但是在C语言中，会进行截断，超过32位直接不管超过的那一位</p>
+<p>接着先把H7和前一个得到的结果相加后mod2^32</p>
+<p>再把H4、H5、H6取出进行Ch加密，再和前一个结果相加后mod2^32</p>
+<p>将H4取出进行什么1操作，再和前一步的结果相加后mod2^32</p>
+<p>接下来分为两步，第一步把前一个的结果和H3相加后mod2^32并存储在H4，第二步，先把H0、H1、H2进行Ma操作，再和前一步的结果相加再mod2^32</p>
+<p>然后把H0取出进行什么0操作，再和前面第二步的结果相加后mod32后存储在H0</p>
+<p>最后进行移位存储操作，就是除了H0和H4，剩下的H值存入前一个的H值</p>
+<p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组加上原来的中间Hash值就是该消息区块的Hash值</p>
+<h1 id="C语言实现"><a href="#C语言实现" class="headerlink" title="C语言实现"></a>C语言实现</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
+#include&lt;stdio.h&gt;
+#include&lt;string.h&gt;
+#include&lt;Windows.h&gt;
+#define SHA256_ROTL(a,b) (((a&gt;&gt;(32-b))&amp;(0x7fffffff&gt;&gt;(31-b)))|(a&lt;&lt;b))
+#define SHA256_SR(a,b) ((a&gt;&gt;b)&amp;(0x7fffffff&gt;&gt;(b-1)))
+#define SHA256_CH(x,y,z) ((x&amp;y)^((~x)&amp;z))
+#define SHA256_Maj(x,y,z) ((x&amp;y)^(x&amp;z)^(y&amp;z))
+#define SHA256_E0(x) (SHA256_ROTL(x,30)^SHA256_ROTL(x,19)^SHA256_ROTL(x,10))
+#define SHA256_E1(x) (SHA256_ROTL(x,26)^SHA256_ROTL(x,21)^SHA256_ROTL(x,7))
+#define SHA256_O0(x) (SHA256_ROTL(x,25)^SHA256_ROTL(x,14)^SHA256_SR(x,3))
+#define SHA256_O1(x) (SHA256_ROTL(x,15)^SHA256_ROTL(x,13)^SHA256_SR(x,10)) 
+
+void SHA256_ENCODE(char* input, int len)
+{
+	int i;
+	char* pos,*posend;
+	long A, B, C, D, E, F, G, I;
+	long W[64] = { 0 };
+	//初始化常量数据
+	long long H[8] = {
+		0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,
+		0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19
+	};
+	unsigned int K[64] = {
+		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
+		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
+		0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
+		0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
+		0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
+		0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
+		0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+		0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
+	};
+	//消息补位,一个字符8位，而448位为56个字符,128个字符是1024位，512的两倍
+	long long len_final = len + ((len % 64 &gt;= 56) ? (128 - len % 64) : (64 - len % 64));
+	//printf("%d", len_final);
+	//开辟空间
+	if (!(pos = (char*)malloc(len_final)))
+	{
+		printf("开辟空间失败！\n");
+		exit(0);
+	}
+	//将字符串赋值到堆中，注意因为后面需要转为long类型运算，所以赋值时要注意大小端序的问题
+	for ( i = 0; i &lt; len; ++i)
+	{
+		pos[i + 3 - 2 * (i % 4)] = input[i];
+	}
+	//字符串后面的1和填充0
+	pos[i + 3 - 2 * (i % 4)] = 0x80;
+	i++;
+	for (; i &lt; len_final; ++i)
+	{
+		pos[i + 3 - 2 * (i % 4)] = 0;
+	}
+	//填充字符串的真实长度，并扩展为64位,64位也就是8个字符
+	*((long*)(pos + len_final - 4)) = len &lt;&lt; 3;
+	*((long*)(pos + len_final - 8)) = len &gt;&gt; 29;
+	//每512位进行加密
+	for (posend = pos + len_final; pos &lt; posend; pos += 64)
+	{
+		//先分组为16*32bit
+		for (int j = 0; j &lt; 16; ++j)
+		{
+			W[j] = ((long*)pos)[j];
+		}
+		//扩展为64*32bit
+		for (int j = 16; j &lt; 64; ++j)
+		{
+			W[j] = (SHA256_O1(W[j - 2]) + W[j - 7] + SHA256_O0(W[j - 15]) + W[j - 16]);
+		}
+		//下面开始进行64轮加密
+		//因为中间哈希值最后时为原来的+加密的哈希值，所以先储存
+		A = H[0], B = H[1], C = H[2], D = H[3], E = H[4], F = H[5], G = H[6], I = H[7];
+		for (i = 0; i &lt; 64; ++i)
+		{
+			//T1存储加密的前一部分,T2存储加密的后一部分
+			long T1 = I + SHA256_CH(E, F, G) + K[i] + W[i]+SHA256_E1(E);
+			long T2 = SHA256_Maj(A, B, C) + SHA256_E0(A);
+			//只能从后往前赋值，否则会覆盖
+			I = G;
+			G = F;
+			F = E;
+			E = D + T1;
+			D = C;
+			C = B;
+			B = A;
+			A = T1 + T2;
+		}
+		H[0] += A; H[1] += B;
+		H[2] += C; H[3] += D;
+		H[4] += E; H[5] += F;
+		H[6] += G; H[7] += I;
+		for (i = 0; i &lt; 8; ++i)
+		{
+			printf("%X", H[i]);
+		}
+	}
+	return;
+}
+int main()
+{
+	char input[] = "ze";
+	SHA256_ENCODE(input, strlen(input));
+	return 0;
+}</code></pre>
+
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代码注入</title>
     <url>/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="0x00-前言"><a href="#0x00-前言" class="headerlink" title="0x00-前言"></a>0x00-前言</h1><p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
@@ -9404,6 +9399,20 @@ int main(int argc, char* argv[])
       </tags>
   </entry>
   <entry>
+    <title>加密与解密第四版</title>
+    <url>/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/</url>
+    <content><![CDATA[<h1 id="0x00-基础知识"><a href="#0x00-基础知识" class="headerlink" title="0x00-基础知识"></a>0x00-基础知识</h1><h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814834555.png"></p>
+<h2 id="大小端序"><a href="#大小端序" class="headerlink" title="大小端序"></a>大小端序</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814898304.png"></p>
+<h2 id="Windows操作系统"><a href="#Windows操作系统" class="headerlink" title="Windows操作系统"></a>Windows操作系统</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814924513.png" alt="重要DLL"></p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814970448.png" alt="Unicode与ANSI函数"></p>
+<h2 id="WOW64"><a href="#WOW64" class="headerlink" title="WOW64"></a>WOW64</h2><p>WOW64是64位Windows操作系统的子系统，可以使大多数32位应用程序在不修改的情况下运行在64位操作系统上</p>
+<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649815151630.png" alt="WOW64操作过程"></p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>使用汇编语言编写注入代码</title>
     <url>/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<h1 id="0x00-设置"><a href="#0x00-设置" class="headerlink" title="0x00-设置"></a>0x00-设置</h1><p>修改EIP</p>
@@ -9663,20 +9672,6 @@ extern "C" _declspec (dllexport)int add(int a, char b)
 ]]></content>
       <tags>
         <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>加密与解密第四版</title>
-    <url>/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/</url>
-    <content><![CDATA[<h1 id="0x00-基础知识"><a href="#0x00-基础知识" class="headerlink" title="0x00-基础知识"></a>0x00-基础知识</h1><h2 id="字符集"><a href="#字符集" class="headerlink" title="字符集"></a>字符集</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814834555.png"></p>
-<h2 id="大小端序"><a href="#大小端序" class="headerlink" title="大小端序"></a>大小端序</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814898304.png"></p>
-<h2 id="Windows操作系统"><a href="#Windows操作系统" class="headerlink" title="Windows操作系统"></a>Windows操作系统</h2><p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814924513.png" alt="重要DLL"></p>
-<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649814970448.png" alt="Unicode与ANSI函数"></p>
-<h2 id="WOW64"><a href="#WOW64" class="headerlink" title="WOW64"></a>WOW64</h2><p>WOW64是64位Windows操作系统的子系统，可以使大多数32位应用程序在不修改的情况下运行在64位操作系统上</p>
-<p><img src="/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/1649815151630.png" alt="WOW64操作过程"></p>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -10014,24 +10009,6 @@ canvas.save('ok2.png')
       </tags>
   </entry>
   <entry>
-    <title>安卓知识</title>
-    <url>/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/</url>
-    <content><![CDATA[<h1 id="APK基本结构"><a href="#APK基本结构" class="headerlink" title="APK基本结构"></a>APK基本结构</h1><p><a href="https://www.cnblogs.com/zhaijiahui/p/6916556.html">https://www.cnblogs.com/zhaijiahui/p/6916556.html</a></p>
-<p>因为java语言没办法直接控制硬件，所以要使用C/C++来写代码，保存在so文件中 </p>
-<p>反编译之后是smali代码，动态调试</p>
-<p>assets：存放未编译的资源</p>
-<p>lib：存放so文件，即本地代码</p>
-<p>libs：第三方包</p>
-<p>META-INF：存放签名</p>
-<p>res：编译后的资源</p>
-<p>AndroidManifest.xml：用于存放清单</p>
-<p>.dex文件：反编译后为smali代码</p>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>基础知识补充</title>
     <url>/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/</url>
     <content><![CDATA[<h1 id="0x00-typedef定义函数指针"><a href="#0x00-typedef定义函数指针" class="headerlink" title="0x00-typedef定义函数指针"></a>0x00-typedef定义函数指针</h1><h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针</p>
@@ -10233,6 +10210,24 @@ int main(int argc,char *argv[])
       </tags>
   </entry>
   <entry>
+    <title>安卓知识</title>
+    <url>/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<h1 id="APK基本结构"><a href="#APK基本结构" class="headerlink" title="APK基本结构"></a>APK基本结构</h1><p><a href="https://www.cnblogs.com/zhaijiahui/p/6916556.html">https://www.cnblogs.com/zhaijiahui/p/6916556.html</a></p>
+<p>因为java语言没办法直接控制硬件，所以要使用C/C++来写代码，保存在so文件中 </p>
+<p>反编译之后是smali代码，动态调试</p>
+<p>assets：存放未编译的资源</p>
+<p>lib：存放so文件，即本地代码</p>
+<p>libs：第三方包</p>
+<p>META-INF：存放签名</p>
+<p>res：编译后的资源</p>
+<p>AndroidManifest.xml：用于存放清单</p>
+<p>.dex文件：反编译后为smali代码</p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>文档隐写</title>
     <url>/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/</url>
     <content><![CDATA[<p>可以看看这篇<a href="https://xz.aliyun.com/t/1883/">https://xz.aliyun.com/t/1883/</a></p>
@@ -10358,16 +10353,6 @@ int main(int argc,char *argv[])
 ]]></content>
       <tags>
         <tag>汇编</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>视频隐写</title>
-    <url>/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/</url>
-    <content><![CDATA[<h1 id="Kinovea"><a href="#Kinovea" class="headerlink" title="Kinovea"></a>Kinovea</h1><p>可以一帧一帧地看视频，视频隐写目前只接触到在视频一些 帧里面藏信息</p>
-<p><a href="https://mochu.blog.csdn.net/article/details/109461931">https://mochu.blog.csdn.net/article/details/109461931</a></p>
-]]></content>
-      <tags>
-        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
@@ -10522,6 +10507,16 @@ int main(int argc, char* argv[])
 ]]></content>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>视频隐写</title>
+    <url>/2022/01/15/%E8%A7%86%E9%A2%91%E9%9A%90%E5%86%99/</url>
+    <content><![CDATA[<h1 id="Kinovea"><a href="#Kinovea" class="headerlink" title="Kinovea"></a>Kinovea</h1><p>可以一帧一帧地看视频，视频隐写目前只接触到在视频一些 帧里面藏信息</p>
+<p><a href="https://mochu.blog.csdn.net/article/details/109461931">https://mochu.blog.csdn.net/article/details/109461931</a></p>
+]]></content>
+      <tags>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>

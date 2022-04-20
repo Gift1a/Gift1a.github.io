@@ -45,9 +45,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Welcome" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Welcome" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -126,7 +126,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -317,6 +317,13 @@
 
       <time title="创建时间：2022-04-15 15:26:14" itemprop="dateCreated datePublished" datetime="2022-04-15T15:26:14+08:00">2022-04-15</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-20 09:23:52" itemprop="dateModified" datetime="2022-04-20T09:23:52+08:00">2022-04-20</time>
+    </span>
 
   
     <span class="post-meta-break"></span>
@@ -343,7 +350,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          
+          <p>Detours</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -400,6 +415,13 @@
 
       <time title="创建时间：2022-04-15 14:28:13" itemprop="dateCreated datePublished" datetime="2022-04-15T14:28:13+08:00">2022-04-15</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-20 09:21:38" itemprop="dateModified" datetime="2022-04-20T09:21:38+08:00">2022-04-20</time>
+    </span>
 
   
     <span class="post-meta-break"></span>
@@ -426,7 +448,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          
+          <p>API钩取技术</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -2191,7 +2221,7 @@ int main()
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-14 18:43:56" itemprop="dateModified" datetime="2022-04-14T18:43:56+08:00">2022-04-14</time>
+      <time title="修改时间：2022-04-20 09:24:19" itemprop="dateModified" datetime="2022-04-20T09:24:19+08:00">2022-04-20</time>
     </span>
 
   
@@ -2219,318 +2249,15 @@ int main()
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="0x00-远程线程注入"><a href="#0x00-远程线程注入" class="headerlink" title="0x00-远程线程注入"></a>0x00-远程线程注入</h1><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>线程注入，是通过开启远程线程的方式，将DLL加载到目标宿主进程中的常用方式。</p>
-<p>由于WinNT系统下进程空间的独立性，获取其他进程的信息，就需要进入目标进程空间的方式，而使用线程注入可以轻松实现。</p>
-<blockquote>
-<p>使用LoadLibrary动态加载DLL</p>
-<p>使用GetProcAddress获取DLL中导出函数的指针</p>
-</blockquote>
-<h3 id="DLL的分类"><a href="#DLL的分类" class="headerlink" title="DLL的分类"></a>DLL的分类</h3><p>在VS的编译环境下，DLL又分为三类：</p>
-<blockquote>
-<p>非MFC的DLL——即使用SDK API进行编程，能被其他所有语言调用</p>
-<p>MFC规则DLL——可以使用MFC进行编程，能被其他所有语言调用</p>
-<p>MFC扩展DLL——可以使用MFC进行编程，但只能被用MFC编写的程序调用</p>
-</blockquote>
-<p>MFC——Microsoft Foundation Class-Library是微软用C++对API进行的封装，全部封装成了类，简化了使用</p>
-<h3 id="DLL的入口点和参数"><a href="#DLL的入口点和参数" class="headerlink" title="DLL的入口点和参数"></a>DLL的入口点和参数</h3><pre class="language-c" data-language="c"><code class="language-c">BOOL WINAPI DllMain(
-    HINSTANCE hinstDLL,  // handle to DLL module
-    DWORD fdwReason,     // reason for calling function
-    LPVOID lpReserved )  // reserved
-{
-    // Perform actions based on the reason for calling.
-    switch( fdwReason ) 
-    { 
-        case DLL_PROCESS_ATTACH:
-         // Initialize once for each new process.进程第一次链接DLL并通过它的入口点会得到这个参数
-         // Return FALSE to fail DLL load.
-            break;
-
-        case DLL_THREAD_ATTACH:
-         // Do thread-specific initialization.进程在空间中取消DLL的映射时会得到这个参数
-            break;
-
-        case DLL_THREAD_DETACH:
-         // Do thread-specific cleanup.每当新线程创建时，系统会对所有映射的DLL传入此参数调用入口函数
-            break;
-
-        case DLL_PROCESS_DETACH:
-         // Perform any necessary cleanup.每当线程退出或者返回时时，系统会对所有映射的DLL传入此参数要求执行对应清理工作
-            break;
-    }
-    return TRUE;  // Successful DLL_PROCESS_ATTACH.
-}</code></pre>
-
-<h2 id="DLL编写与导出"><a href="#DLL编写与导出" class="headerlink" title="DLL编写与导出"></a>DLL编写与导出</h2><p>DLL的导出函数使用</p>
-<blockquote>
-<p>extern “C” _declspec(dllexport)</p>
-</blockquote>
-<p>DLL的导入函数使用</p>
-<blockquote>
-<p>extern “C” _declspec(dllimport)</p>
-</blockquote>
-<p>其中，extern “C”作为一种编译约定，表示按照C语言的方式导出</p>
-<blockquote>
-<p> 由于C++支持函数重载，因此编译器编译函数的过程中会将函数的参数类型也加到编译后的代码中，而不仅仅是函数名；而C语言并不支持函数重载，因此编译C语言代码的函数时不会带上函数的参数类型，一般只包括函数名。 这样我们就可以直接通过函数名对DLL导出函数进行调用</p>
-</blockquote>
-<h3 id="DLL动态加载"><a href="#DLL动态加载" class="headerlink" title="DLL动态加载"></a>DLL动态加载</h3><p>既然我们要把DLL注入到进程中，那么需要先了解一下，进程是怎样调用DLL的</p>
-<pre class="language-c" data-language="c"><code class="language-c">//使用LoadLibrary加载所需的DLL
-//LoadLibraryA和LoadLibraryW分别对应ANSI编码下和Unicode编码下，因为一般都是Unicode，所以一般用w，路径记得改为\\
-HMODULE hMod = LoadLibraryA(DLL路径);
-
-//定义导入函数指针
-
-typedef int (*ADD_IMPORT)(int a,int b);//定义一个返回值为int型的函数指针,这样ADD_IMPORT就是一个函数指针
-
-//使用GetProcAddress获取函数入口点
-
-ADD_IMPORT add_proc=(ADD_IMPORT)GetProcAddress(hMod,"ADD");
-
-//直接调用
-
-int result = add_proc(1,2);
-
-//释放句柄
-FreeLibrary(hMod);</code></pre>
-
-<h2 id="线程注入"><a href="#线程注入" class="headerlink" title="线程注入"></a>线程注入</h2><h3 id="注入的可行性"><a href="#注入的可行性" class="headerlink" title="注入的可行性"></a>注入的可行性</h3><blockquote>
-<p>kernel32.dll和user32.dll是两个在大部分程序上都会调用的DLL</p>
-<p>同一个DLL，在不同进程中不一定被映射（加载）在同一个内存地址下</p>
-<p>但是kernel32.dll和user32.dll除外，它们总是被映射到进程的内存首选地址</p>
-<p>因此在所有使用这两个DLL的进程中，这两个DLL的内存地址是相同的</p>
-<p>因此<strong>我们在本进程获取的kernel32.dll中函数的地址，在目标进程也是一样的</strong></p>
-</blockquote>
-<h3 id="线程注入过程"><a href="#线程注入过程" class="headerlink" title="线程注入过程"></a>线程注入过程</h3><blockquote>
-<p>目标进程-&gt;开辟并传入DLL地址-&gt;开启远程线程-&gt;加载DLL-&gt;实现DLL的注入</p>
-</blockquote>
-<p>依次使用以下函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">OpenProcess()//获取目标进程的句柄
-VirtualAllocEx()//在进程中申请空间
-WriteProcessMemory()//向进程中写入DLL路径
-GetProcAddress()//取得函数LoadLibrary在DLL中的地址
-CreateRemoteThreadEx()//在目标进程中创建新线程使用LoadLibrary加载DLL
-WaitForSingleObject()//挂起线程，可以传递INFINITE指明要无限期等待下去，等待线程执行完再执行下一步
-CloseHandle()//关闭句柄</code></pre>
-
-<p> CreateRemoteThread()函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">HANDLE WINAPI CreateRemoteThread(
-    LPSECURITY_ATTRIBUTES   lpThreadAttributes, //线程安全相关的属性，常置为NULL
-    SIZE_T                  dwStackSize,        //新线程的初始化栈在大小，可设置为0
-    LPTHREAD_START_ROUTINE  lpStartAddress,     //被线程执行的回调函数，也称为线程函数
-    LPVOID                  lpParameter,        //传入线程函数的参数，不需传递参数时为NULL
-    DWORD                   dwCreationFlags,    //控制线程创建的标志
-    LPDWORD                 lpThreadId          //传出参数，用于获得线程ID，如果为NULL则不返回线程ID
-);</code></pre>
-
-<p>目标其实就是让目标进程调用<code>LoadLibrary()</code>加载dll </p>
-<blockquote>
-<p>将线程函数指定为LoadLibrary()函数，并且把DLL加载地址传递给线程参数，这样就在目标进程中成功调用了FreeLibrary函数</p>
-<p>CreateRemoteThread()原意是在外部进程调用执行线程函数，不过这里的线程函数换成了FreeLibrary()</p>
-</blockquote>
-<p>Inject.cpp</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include "windows.h"
-#include "tchar.h"
-
-BOOL InjectDll(DWORD dwPID, LPCTSTR szDllPath)
-{
-    HANDLE hProcess = NULL, hThread = NULL;
-    HMODULE hMod = NULL;
-    LPVOID pRemoteBuf = NULL;
-
-    //确定路径需要占用的缓冲区大小
-    DWORD dwBufSize = (DWORD)(_tcslen(szDllPath) + 1) * sizeof(TCHAR);
-    LPTHREAD_START_ROUTINE pThreadProc;
-
-    // #1. 使用OpenProcess函数获取目标进程句柄（PROCESS_ALL_ACCESS权限）
-    if (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, dwPID)))
-    {
-        _tprintf(L"OpenProcess(%d) failed!!! [%d]\n", dwPID, GetLastError());
-        return FALSE;
-    }
-
-    // #2. 使用VirtualAllocEx函数在目标进程中分配内存，大小为szDllName
-      // VirtualAllocEx函数返回的是hProcess指向的目标进程的分配所得缓冲区的内存地址,最后一个参数表示开辟内存的属性
-    pRemoteBuf = VirtualAllocEx(hProcess, NULL, dwBufSize, MEM_COMMIT, PAGE_READWRITE);
-
-    // #3.  将myhack.dll路径 ("c:\\myhack.dll")写入目标进程中分配到的内存
-    WriteProcessMemory(hProcess, pRemoteBuf, (LPVOID)szDllPath, dwBufSize, NULL);
-
-    // #4. 获取LoadLibraryA() API的地址
-      // 这里主要利用来了kernel32.dll文件在每个进程中的加载地址都相同这一特点，所以不管是获取加载到   
-      // InjectDll.exe还是notepad.exe进程的kernel32.dll中的LoadLibraryW函数的地址都是一样的。这里的加载地
-      // 址相同指的是在同一次系统运行中，如果再次启动系统kernel32.dll的加载地址会变，但是每个进程的
-      // kernerl32.dll的加载地址还是一样的。
-    hMod = GetModuleHandle(L"kernel32.dll");
-    pThreadProc = (LPTHREAD_START_ROUTINE)GetProcAddress(hMod, "LoadLibraryW");
-
-    // #5. 在目标进程notepad.exe中运行远程线程
-      // pThreadProc = notepad.exe进程内存中的LoadLibraryW()地址
-      // pRemoteBuf = notepad.exe进程内存中待加载注入dll的路径字符串的地址
-    hThread = CreateRemoteThread(hProcess, NULL, 0, pThreadProc, pRemoteBuf, 0, NULL);
-    WaitForSingleObject(hThread, INFINITE);
-
-    //同样，记得关闭句柄
-    CloseHandle(hThread);
-    CloseHandle(hProcess);
-
-    return TRUE;
-}
-
-int _tmain(int argc, TCHAR* argv[])
-{
-    if (argc != 3)
-    {
-        _tprintf(L"USAGE : %s &lt;pid&gt; &lt;dll_path&gt;\n", argv[0]);
-        return 1;
-    }
-
-    // inject dll
-    if (InjectDll((DWORD)_tstol(argv[1]), argv[2]))
-        _tprintf(L"InjectDll(\"%s\") success!!!\n", argv[2]);
-    else
-        _tprintf(L"InjectDll(\"%s\") failed!!!\n", argv[2]);
-
-    return 0;
-}</code></pre>
-
-<p>inject.dll</p>
-<pre class="language-c" data-language="c"><code class="language-c">// dllmain.cpp : 定义 DLL 应用程序的入口点。
-#include "pch.h"
-#include&lt;windows.h&gt;
-#include&lt;stdio.h&gt;
-extern "C" _declspec(dllexport) void Print()
-{
-    printf("helloworld");
-}
-BOOL APIENTRY DllMain( HMODULE hModule,
-                       DWORD  ul_reason_for_call,
-                       LPVOID lpReserved
-                     )
-{
-    switch (ul_reason_for_call)
-    {
-    case DLL_PROCESS_ATTACH:
-        MessageBoxA(0, "注入成功", "Hint", MB_OK);
-        break;
-    case DLL_THREAD_ATTACH:
-    case DLL_THREAD_DETACH:
-    case DLL_PROCESS_DETACH:
-        break;
-    }
-    return TRUE;
-}</code></pre>
-
-<h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655410419.png"></p>
-<p>可以看到在notepad.exe的进程中注入了inject.dll</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655358785.png"></p>
-<h3 id="附"><a href="#附" class="headerlink" title="附"></a>附</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiewneqi/article/details/4683888?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~TopBlog-1.topblog&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~TopBlog-1.topblog&amp;utm_relevant_index=1">https://blog.csdn.net/xiewneqi/article/details/4683888?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ETopBlog-1.topblog&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ETopBlog-1.topblog&amp;utm_relevant_index=1</a></p>
-<p>有时候需要提升进程权限</p>
-<blockquote>
-<p>在枚举/结束系统进程/或操作系统服务时，会出现自己权限不足而失败的情况，这时就需要提升自己进程到系统权限</p>
-</blockquote>
-<h4 id="前置知识-1"><a href="#前置知识-1" class="headerlink" title="前置知识"></a>前置知识</h4><blockquote>
-<p><strong>Windows的每个用户登录时，系统会产生一个访问令牌(access token)，其中关联了当前用户的权限信息，用户登录后创建的每一个进程都含有用户access token的拷贝。当进程试图执行某些需要特殊权限的操作或者是访问受保护的内核对象时，系统会检查其access token中的权限信息以决定是否授权操作。</strong></p>
-</blockquote>
-<p>Administrator组成员的access token中会含有一些可以执行系统级操作的特权(privileges)，如终止任意进程、关闭\重启系统、加载设备驱动和更改系统时间等，不过这些权限默认是被禁用的</p>
-<p> 当Administrator组成员创建的进程中包含一些需要特权的操作时，进程必须首先打开这些禁用的特权以提升自己的权限，否则系统将拒绝进程的操作。 </p>
-<blockquote>
-<p><strong>windows以字符串的形式表示系统特权，如”SeCreatePageFilePrivilege“表示该特权用于创建页面文件，”SeDebugPrivilege“表示该特权可用于调试及更改其他进程的内存，为了方便使用这些字符串，微软在winnt.h定义了一组宏，如#define SE_DEBUG_NAME TEXT(“SeDebugPrivilege”)</strong></p>
-</blockquote>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649725957948.png" alt="权限列表"></p>
-<p>在vs的定义也可以看到，这些宏定义对应了不同的权限，可以使用LookupPrivilege函数得到对应权限的LUID</p>
-<blockquote>
-<p><strong>虽然Windows使用字符串表示特权，但查询或更改特权的API需要LUID来引用相应的特权，LUID表示 local unique identifier ，在系统中是唯一的。为了提升进程权限到指定的特权，我们必须找到特权对应的LUID，这时候就需要调用LookupPrivilege函数，获取到特权对应的LUID时，我们要打开该特权，此时要用到LUID_AND_ATTRIBUTES结构</strong></p>
-</blockquote>
-<p>其定义如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">typedef struct _LUID_AND_ATTRIBUTES {
-    LUID Luid;
-    DWORD Attributes;
-} LUID_AND_ATTRIBUTES, * PLUID_AND_ATTRIBUTES;</code></pre>
-
-<p>当Attributes的值取SE_PRIVILEGE_ENABLED时将打开LUID对应的特权。设置完成后</p>
-<blockquote>
-<p><strong>AdjustTokenPrivileges函数通知操作系统将指定的access token权限中的特权置为打开状态，前面我们说过，进程执行需要特列权限的操作时，系统将检查其access token，因此更改了进程的access token特权设置，也就是更改了所属进程的特权设置</strong></p>
-</blockquote>
-<p>函数定义如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL WINAPI AdjustTokenPrivileges(
-  __in          HANDLE TokenHandle,
-  __in          BOOL DisableAllPrivileges,
-  __in_opt      PTOKEN_PRIVILEGES NewState,
-  __in          DWORD BufferLength,
-  __out_opt     PTOKEN_PRIVILEGES PreviousState,
-  __out_opt     PDWORD ReturnLength
-);</code></pre>
-
-<p>TokenHandle是要更改特权设置的access token的句柄，DisableAllPrivileges表示是否禁用该access token的所有特权，NewState用来传递新的特权设置，注意它的类型是PTOKEN_PRIVILEGES，它是TOKEN_PRIVILEGES结构的指针</p>
-<p>TOKEN_PRIVILEGES定义如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">typedef struct _TOKEN_PRIVILEGES {
-    DWORD PrivilegeCount;
-    LUID_AND_ATTRIBUTES Privileges[ANYSIZE_ARRAY];
-} TOKEN_PRIVILEGES, *PTOKEN_PRIVILEGES;</code></pre>
-
-<blockquote>
-<p><strong>其中ANYSIZE_ARRAY被定义为1，可以看到TOKEN_PRIVILEGES中包含了用于设置特权信息的LUID_AND_ATTRIBUTES结构，在使用时，只需要将PrivilegeCount赋为1，然后把Privileges数组的第1个元素（Privileges[0]）的Luid域设置为指定特权的Luid，再将其Attributes域设置为SE_PRIVILEGE_ENABLED，就可以完成TokenHandle表示的access token权限的提升了</strong></p>
-</blockquote>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL SetPrivilege(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege)
-{
-	TOKEN_PRIVILEGES tp;
-	HANDLE hToken;
-	LUID luid;
-	//获取当前进程的access token句柄
-	if (!OpenProcessToken(GetCurrentProcess(),
-		TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,
-		&amp;hToken))
-	{
-		_tprintf(L"OpenProcessToken error: %u\n", GetLastError());
-		return FALSE;
-	}
-	//查找newprivileges参数对应的Luid，并将结果写入tp.Privileges[0]的Luid域中
-	if (!LookupPrivilegeValue(NULL,           // lookup privilege on local system
-		lpszPrivilege,  // privilege to lookup 
-		&amp;luid))        // receives LUID of privilege
-	{
-		_tprintf(L"LookupPrivilegeValue error: %u\n", GetLastError());
-		return FALSE;
-	}
-	//设置tp的结构
-	tp.PrivilegeCount = 1;
-	tp.Privileges[0].Luid = luid;
-	if (bEnablePrivilege)
-		tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
-	else
-		tp.Privileges[0].Attributes = 0;
-	//通知操作系统更改权限
-	// Enable the privilege or disable all privileges.
-	if (!AdjustTokenPrivileges(hToken,
-		FALSE,
-		&amp;tp,
-		sizeof(TOKEN_PRIVILEGES),
-		(PTOKEN_PRIVILEGES)NULL,
-		(PDWORD)NULL))
-	{
-		_tprintf(L"AdjustTokenPrivileges error: %u\n", GetLastError());
-		return FALSE;
-	}
-
-	if (GetLastError() == ERROR_NOT_ALL_ASSIGNED)
-	{
-		_tprintf(L"The token does not have the specified privilege. \n");
-		return FALSE;
-	}
-
-	return TRUE;
-}</code></pre>
-
-<h1 id="0x01-注册表注入"><a href="#0x01-注册表注入" class="headerlink" title="0x01-注册表注入"></a>0x01-注册表注入</h1><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>Windows操作系统的注册表默认提供了AppInit_DLLs与LoadAppInit_DLLs两个注册表项</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658626858.png"></p>
-<p>在注册表编辑器中，将要注入的DLL路径字符串写入AppInit_DLLs项目，然后把LoadAppInit_DLLs的项目值设置为1.重启后，指定DLL会注入所有进程。</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658441593.png"></p>
-<h1 id="0x02-SetWindowsHookEx"><a href="#0x02-SetWindowsHookEx" class="headerlink" title="0x02-SetWindowsHookEx()"></a>0x02-SetWindowsHookEx()</h1><p>在另一篇文章Hook写了，就不过多介绍</p>
-<p>下面是更详细的解释</p>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1199648?msclkid=f79c9cc7b96011ecbdb2f47296f3b9d3">https://cloud.tencent.com/developer/article/1199648?msclkid=f79c9cc7b96011ecbdb2f47296f3b9d3</a></p>
-<p>注入DLL的第三个方法就是消息钩取</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658514411.png"></p>
-<h1 id="0x03-还有其他方法"><a href="#0x03-还有其他方法" class="headerlink" title="0x03-还有其他方法"></a>0x03-还有其他方法</h1><p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-253918.htm">https://bbs.pediy.com/thread-253918.htm</a></p>
-
+          <p>《逆向工程核心原理》DLL注入</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

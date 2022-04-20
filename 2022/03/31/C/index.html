@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="C++类-this指针基础概念C语言中，结构体作为函数参数时传参传的是副本，而数组传递的是指针，所以我们将结构体作为参数时，最好传入指针 封装-就是将函数放入结构体内部，每次调用函数都会传递当前结构体的首地址，这样我们使用里面的变量就会比较方便 类-这个结构体就叫做类，在结构体插入函数时，结构体大小不变，因为函数不在结构体内部，可以看到sizeoftest&#x3D;8，也就是两个int  对象-当使用使用">
+    <meta name="description" content="C++学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++">
 <meta property="og:url" content="https://gift1a.github.io/2022/03/31/C/index.html">
 <meta property="og:site_name" content="Welcome">
-<meta property="og:description" content="C++类-this指针基础概念C语言中，结构体作为函数参数时传参传的是副本，而数组传递的是指针，所以我们将结构体作为参数时，最好传入指针 封装-就是将函数放入结构体内部，每次调用函数都会传递当前结构体的首地址，这样我们使用里面的变量就会比较方便 类-这个结构体就叫做类，在结构体插入函数时，结构体大小不变，因为函数不在结构体内部，可以看到sizeoftest&#x3D;8，也就是两个int  对象-当使用使用">
+<meta property="og:description" content="C++学习">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.github.io/2022/03/31/C/1648776748495.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/03/31/C/1648776093255.png">
@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://gift1a.github.io/2022/03/31/C/1648791796705.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/03/31/C/1648792223939.png">
 <meta property="article:published_time" content="2022-03-31T06:08:13.000Z">
-<meta property="article:modified_time" content="2022-04-16T12:36:00.947Z">
+<meta property="article:modified_time" content="2022-04-20T01:22:38.694Z">
 <meta property="article:author" content="Gift1a">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gift1a.github.io/2022/03/31/C/1648776748495.png">
@@ -66,9 +66,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Welcome" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Welcome" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -148,7 +148,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -225,7 +225,7 @@
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
       <meta itemprop="name" content="C++ | Welcome">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="C++学习">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -247,7 +247,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-16 20:36:00" itemprop="dateModified" datetime="2022-04-16T20:36:00+08:00">2022-04-16</time>
+      <time title="修改时间：2022-04-20 09:22:38" itemprop="dateModified" datetime="2022-04-20T09:22:38+08:00">2022-04-20</time>
     </span>
 
   
@@ -268,6 +268,7 @@
     </span>
 </div>
 
+            <div class="post-description">C++学习</div>
         </div>
       </header>
 
@@ -371,7 +372,8 @@ student t;</code></pre>
 <p><img src="/2022/03/31/C/1648791796705.png"></p>
 <p>但是我们可以知道子类的地址，然后通过指针访问私有的父类</p>
 <p><img src="/2022/03/31/C/1648792223939.png" alt="指针访问私有父类"></p>
-<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1>
+<h1 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h1><p>decription</p>
+
     </div>
 
     
