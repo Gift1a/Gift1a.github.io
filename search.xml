@@ -154,11 +154,6 @@
       </tags>
   </entry>
   <entry>
-    <title>API钩取技术</title>
-    <url>/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>AES</title>
     <url>/2022/02/08/AES/</url>
     <content><![CDATA[<h1 id="简单介绍"><a class="header-anchor" href="#简单介绍">¶</a>简单介绍</h1>
@@ -259,6 +254,11 @@
       <tags>
         <tag>Reverse</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>API钩取技术</title>
+    <url>/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>BUU刷题记录</title>
@@ -969,6 +969,11 @@
       </tags>
   </entry>
   <entry>
+    <title>Detours学习</title>
+    <url>/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>DLL注入</title>
     <url>/2022/04/09/DLL%E6%B3%A8%E5%85%A5/</url>
     <content><![CDATA[<h1 id="0x00-远程线程注入"><a class="header-anchor" href="#0x00-远程线程注入">¶</a>0x00-远程线程注入</h1>
@@ -1088,11 +1093,6 @@
       <tags>
         <tag>Reverse</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Detours学习</title>
-    <url>/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>ELF文件手脱upx变形壳</title>
@@ -1285,202 +1285,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PE-滴水逆向-手动实现</title>
-    <url>/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="代码节空白节区添加代码"><a class="header-anchor" href="#代码节空白节区添加代码">¶</a>代码节空白节区添加代码</h1>
-<p>这里我们在notepad<ins>增加MessageBoxA函数，保证先调用我们的函数再运行notepad</ins></p>
-<h2 id="思路"><a class="header-anchor" href="#思路">¶</a>思路</h2>
-<p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
-<h2 id="ASLR"><a class="header-anchor" href="#ASLR">¶</a>ASLR</h2>
-<p>ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
-<p><a href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
-<p>在标准PE头属性中的第一个值改为1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png" alt=""></p>
-<p>这样PE文件加载到内存中就不会随机化了</p>
-<h2 id="提取关键数据"><a class="header-anchor" href="#提取关键数据">¶</a>提取关键数据</h2>
-<h3 id="可选PE头"><a class="header-anchor" href="#可选PE头">¶</a>可选PE头</h3>
-<p>DWORD AddressOfEntryPoint-10E5DBh</p>
-<p>DWORD ImageBase-400000h</p>
-<h3 id="节表信息"><a class="header-anchor" href="#节表信息">¶</a>节表信息</h3>
-<p>MIsc.DWORD VirtualSize-17C51Eh</p>
-<p>DWORD VirtualAddress-1000h</p>
-<p>DWORD PointerToRawData-400h</p>
-<p>DWORD SizeOfRawData-17C600h</p>
-<h2 id="判断能否添加"><a class="header-anchor" href="#判断能否添加">¶</a>判断能否添加</h2>
-<p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
-<h2 id="找到在文件中代码结束的位置"><a class="header-anchor" href="#找到在文件中代码结束的位置">¶</a>找到在文件中代码结束的位置</h2>
-<p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png" alt=""></p>
-<h2 id="添加硬编码"><a class="header-anchor" href="#添加硬编码">¶</a>添加硬编码</h2>
-<p>MessageBoxA需要四个参数</p>
-<p>call指令长度为5</p>
-<p>jmp指令长度为5</p>
-<blockquote>
-<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
-</blockquote>
-<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png" alt=""></p>
-<h2 id="计算E8和E9的后四个字节"><a class="header-anchor" href="#计算E8和E9的后四个字节">¶</a>计算E8和E9的后四个字节</h2>
-<p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png" alt=""></p>
-<h3 id="E8后四字节计算"><a class="header-anchor" href="#E8后四字节计算">¶</a>E8后四字节计算</h3>
-<p>真实地址为MessageBoxA的地址</p>
-<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
-<p>76BA5865</p>
-<h3 id="E9后四字节计算"><a class="header-anchor" href="#E9后四字节计算">¶</a>E9后四字节计算</h3>
-<p>真实地址为原来的OEP</p>
-<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
-<p>为FFF910AB</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png" alt=""></p>
-<h2 id="修改AddressOfPoint"><a class="header-anchor" href="#修改AddressOfPoint">¶</a>修改AddressOfPoint</h2>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png" alt=""></p>
-<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
-<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
-<h2 id="最终效果"><a class="header-anchor" href="#最终效果">¶</a>最终效果</h2>
-<p>先执行MessageBoxA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png" alt=""></p>
-<p>再运行程序</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png" alt=""></p>
-<h1 id="新增节"><a class="header-anchor" href="#新增节">¶</a>新增节</h1>
-<h2 id="大小判断"><a class="header-anchor" href="#大小判断">¶</a>大小判断</h2>
-<p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
-<h2 id="修改节表数量"><a class="header-anchor" href="#修改节表数量">¶</a>修改节表数量</h2>
-<p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png" alt=""></p>
-<h2 id="添加节表信息"><a class="header-anchor" href="#添加节表信息">¶</a>添加节表信息</h2>
-<p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png" alt=""></p>
-<h2 id="确定插入的大小"><a class="header-anchor" href="#确定插入的大小">¶</a>确定插入的大小</h2>
-<p>根据情况自行选择，这里假设我们插入0x1000字节</p>
-<h2 id="修改内存对齐后的大小"><a class="header-anchor" href="#修改内存对齐后的大小">¶</a>修改内存对齐后的大小</h2>
-<p>SizeOfImage+插入的大小（按照内存对齐）</p>
-<h2 id="修正节表信息"><a class="header-anchor" href="#修正节表信息">¶</a>修正节表信息</h2>
-<p>先看关键数据</p>
-<p>DWORD VirtualAddress</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD PointerToRawData</p>
-<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
-<h3 id="计算VirtualAddress"><a class="header-anchor" href="#计算VirtualAddress">¶</a>计算VirtualAddress</h3>
-<p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
-<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png" alt=""></p>
-<h3 id="计算PointerToRawData"><a class="header-anchor" href="#计算PointerToRawData">¶</a>计算PointerToRawData</h3>
-<p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png" alt=""></p>
-<h3 id="最终修改"><a class="header-anchor" href="#最终修改">¶</a>最终修改</h3>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png" alt=""></p>
-<h2 id="插入代码"><a class="header-anchor" href="#插入代码">¶</a>插入代码</h2>
-<p>在PointerToRawData插入0x1000字节</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png" alt=""></p>
-<h2 id="查看信息"><a class="header-anchor" href="#查看信息">¶</a>查看信息</h2>
-<p>在PE解析工具可以看到插入的节表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png" alt=""></p>
-<h1 id="新增节-节表信息后不够位置"><a class="header-anchor" href="#新增节-节表信息后不够位置">¶</a>新增节-节表信息后不够位置</h1>
-<p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
-<blockquote>
-<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
-</blockquote>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png" alt=""></p>
-<p>直接复制到垃圾数据的起始地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png" alt=""></p>
-<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
-<h1 id="扩大节"><a class="header-anchor" href="#扩大节">¶</a>扩大节</h1>
-<p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
-<p>需要修改的数据</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD SizeOfImage</p>
-<h2 id="流程"><a class="header-anchor" href="#流程">¶</a>流程</h2>
-<ol>
-<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
-<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
-<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
-</ol>
-<h2 id="修正节表信息-v2"><a class="header-anchor" href="#修正节表信息-v2">¶</a>修正节表信息</h2>
-<p>这里我们假设扩大0x1000个字节</p>
-<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png" alt=""></p>
-<h2 id="修正SizeOfImage"><a class="header-anchor" href="#修正SizeOfImage">¶</a>修正SizeOfImage</h2>
-<p>直接加上0x1000即可</p>
-<h2 id="分配空间"><a class="header-anchor" href="#分配空间">¶</a>分配空间</h2>
-<p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
-<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
-<p>求和得到2B6C00h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png" alt=""></p>
-<h2 id="最终-v2"><a class="header-anchor" href="#最终-v2">¶</a>最终</h2>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png" alt=""></p>
-<h1 id="合并节"><a class="header-anchor" href="#合并节">¶</a>合并节</h1>
-<h2 id="修改节表个数"><a class="header-anchor" href="#修改节表个数">¶</a>修改节表个数</h2>
-<p>合并之后节数量-1，这里改为7</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png" alt=""></p>
-<h2 id="修改节表信息"><a class="header-anchor" href="#修改节表信息">¶</a>修改节表信息</h2>
-<p>要将节进行合并，就需要修改节表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png" alt=""></p>
-<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a class="header-anchor" href="#DWORD-SizeOfRawData和DWORD-VirtualSize">¶</a>DWORD SizeOfRawData和DWORD VirtualSize</h3>
-<p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
-<p>最后保存即可</p>
-<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
-<h2 id="最终效果-v2"><a class="header-anchor" href="#最终效果-v2">¶</a>最终效果</h2>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png" alt=""></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png" alt=""></p>
-<h1 id="移动导出表"><a class="header-anchor" href="#移动导出表">¶</a>移动导出表</h1>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"></p>
-<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
-<h2 id="定位导出表"><a class="header-anchor" href="#定位导出表">¶</a>定位导出表</h2>
-<p>在数据目录找到导出表的RVA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png" alt=""></p>
-<p>根据节的RVA和大小确定在哪个表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png" alt=""></p>
-<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
-<p>计算得到F2270，跳转，根据Export.Size确定大小</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png" alt=""></p>
-<h2 id="新增节-v2"><a class="header-anchor" href="#新增节-v2">¶</a>新增节</h2>
-<p>前面说过，就不细🔒了</p>
-<h2 id="复制数据"><a class="header-anchor" href="#复制数据">¶</a>复制数据</h2>
-<p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png" alt=""></p>
-<p>这两个分别是dll名字和函数名称</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png" alt=""></p>
-<p>直接复制剩下的导出表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png" alt=""></p>
-<h2 id="修改RVA"><a class="header-anchor" href="#修改RVA">¶</a>修改RVA</h2>
-<p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
-<p>要修改的有</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png" alt=""></p>
-<h2 id="数据目录修改"><a class="header-anchor" href="#数据目录修改">¶</a>数据目录修改</h2>
-<p>将Export.RVA指向我们复制导出表的初始位置</p>
-<h1 id="移动重定位表"><a class="header-anchor" href="#移动重定位表">¶</a>移动重定位表</h1>
-<p>新增节-&gt;复制数据-&gt;数据目录修改重定位表位置</p>
-<h2 id="修改ImageBase"><a class="header-anchor" href="#修改ImageBase">¶</a>修改ImageBase</h2>
-<p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
-<p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
-<p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
-<h1 id="导入表注入"><a class="header-anchor" href="#导入表注入">¶</a>导入表注入</h1>
-<p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
-<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
-<h2 id="新增节区"><a class="header-anchor" href="#新增节区">¶</a>新增节区</h2>
-<h2 id="复制导入表信息"><a class="header-anchor" href="#复制导入表信息">¶</a>复制导入表信息</h2>
-<p>拷贝原来的导入表到新节中</p>
-<h2 id="新增导入表"><a class="header-anchor" href="#新增导入表">¶</a>新增导入表</h2>
-<h2 id="新增INT表和IAT表"><a class="header-anchor" href="#新增INT表和IAT表">¶</a>新增INT表和IAT表</h2>
-<p>至少八字节</p>
-<h2 id="修改Name"><a class="header-anchor" href="#修改Name">¶</a>修改Name</h2>
-<p>存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
-<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a class="header-anchor" href="#创建struct-IMAGE-IMPORT-BY-NAME">¶</a>创建struct _IMAGE_IMPORT_BY_NAME</h2>
-<p>将函数名称赋值给结构体的第二个变量</p>
-<h2 id="修改INT和IAT指向的地址"><a class="header-anchor" href="#修改INT和IAT指向的地址">¶</a>修改INT和IAT指向的地址</h2>
-<p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
-<h2 id="修改数据目录"><a class="header-anchor" href="#修改数据目录">¶</a>修改数据目录</h2>
-<p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size</p>
-]]></content>
-      <tags>
-        <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PE文件结构</title>
     <url>/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/</url>
     <content><![CDATA[<h1 id="PE文件"><a class="header-anchor" href="#PE文件">¶</a>PE文件</h1>
@@ -1518,7 +1322,7 @@
 <p>这里的102拆成二进制</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296388161.png" alt=""></p>
 <p>勾中即为1</p>
-<h3 id="可选PE头-v2"><a class="header-anchor" href="#可选PE头-v2">¶</a>可选PE头</h3>
+<h3 id="可选PE头"><a class="header-anchor" href="#可选PE头">¶</a>可选PE头</h3>
 <p>结构</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296662617.png" alt=""></p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296680675.png" alt=""></p>
@@ -1689,7 +1493,7 @@
 <p>3、导出函数地址表RVA-DWORD AddressOfFunctions</p>
 <p>4、函数名称地址表RVA-DWORD AddressOfNames</p>
 <p>5、函数序号地址表RVA-DWORD AddressOfNameOrdinals</p>
-<h2 id="定位导出表-v2"><a class="header-anchor" href="#定位导出表-v2">¶</a>定位导出表</h2>
+<h2 id="定位导出表"><a class="header-anchor" href="#定位导出表">¶</a>定位导出表</h2>
 <p>1、找出导出表RVA的偏移</p>
 <p>首先我们要在数据目录的导出表信息的第一项，也就是导出表地址的RVA偏移是多少</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621065982.png" alt=""></p>
@@ -1794,12 +1598,12 @@
 <p>计算需要修改的数据个数：(SizeOfBlock-8)/2，因为前面两个数据是8个字节，剩下的两个字节为1组</p>
 <h1 id="移动导出表-重定位表"><a class="header-anchor" href="#移动导出表-重定位表">¶</a>移动导出表-重定位表</h1>
 <p>表的数据也在节区中，加密代码时，表的信息也会被加密，这样程序无法初始化，所以要先增节，再移动表，学会移动各种表是对程序加密和破解的基础</p>
-<h2 id="移动导出表-v2"><a class="header-anchor" href="#移动导出表-v2">¶</a>移动导出表</h2>
+<h2 id="移动导出表"><a class="header-anchor" href="#移动导出表">¶</a>移动导出表</h2>
 <p>比较繁琐，因为要移动多张表</p>
 <h3 id="在DLL文件中新增节"><a class="header-anchor" href="#在DLL文件中新增节">¶</a>在DLL文件中新增节</h3>
 <p>先计算大小</p>
 <p>并且返回新增节的FOA，因为后面的数据还要从新增节的开头开始</p>
-<h3 id="复制数据-v2"><a class="header-anchor" href="#复制数据-v2">¶</a>复制数据</h3>
+<h3 id="复制数据"><a class="header-anchor" href="#复制数据">¶</a>复制数据</h3>
 <p>需要复制的数据类型和长度</p>
 <h4 id="复制AddressOfFunctions"><a class="header-anchor" href="#复制AddressOfFunctions">¶</a>复制AddressOfFunctions</h4>
 <p>长度：4×NumberOfFunctions</p>
@@ -1816,7 +1620,7 @@
 <p>函数地址表、序号表、名称表都需要修复</p>
 <h3 id="将目录项中的RVA修正"><a class="header-anchor" href="#将目录项中的RVA修正">¶</a>将目录项中的RVA修正</h3>
 <p>指向我们新的导出表的位置</p>
-<h2 id="移动重定位表-v2"><a class="header-anchor" href="#移动重定位表-v2">¶</a>移动重定位表</h2>
+<h2 id="移动重定位表"><a class="header-anchor" href="#移动重定位表">¶</a>移动重定位表</h2>
 <p>直接复制过去，修改RVA即可</p>
 <p>加载程序：（当前面已经有DLL被加载）</p>
 <p>1、将新的DLL复制到新的位置</p>
@@ -1907,6 +1711,202 @@
 <figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BOUND_FORWARDER_REF</span> {</span></span><br><span class="line">    DWORD   TimeDateStamp;</span><br><span class="line">    WORD    OffsetModuleName;</span><br><span class="line">    WORD    Reserved;</span><br><span class="line">} IMAGE_BOUND_FORWARDER_REF,*PIMAGE_BOUND_FORWARDER_REF;</span><br></pre></td></tr></tbody></table></figure>
 <p>除了第三个属性保留，其他与 _IMAGE_BOUND_IMPORT_DESCRIPTOR 相同。</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1647049008006.png" alt="绑定导入表"></p>
+]]></content>
+      <tags>
+        <tag>PE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PE-滴水逆向-手动实现</title>
+    <url>/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="代码节空白节区添加代码"><a class="header-anchor" href="#代码节空白节区添加代码">¶</a>代码节空白节区添加代码</h1>
+<p>这里我们在notepad<ins>增加MessageBoxA函数，保证先调用我们的函数再运行notepad</ins></p>
+<h2 id="思路"><a class="header-anchor" href="#思路">¶</a>思路</h2>
+<p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
+<h2 id="ASLR"><a class="header-anchor" href="#ASLR">¶</a>ASLR</h2>
+<p>ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
+<p>在标准PE头属性中的第一个值改为1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png" alt=""></p>
+<p>这样PE文件加载到内存中就不会随机化了</p>
+<h2 id="提取关键数据"><a class="header-anchor" href="#提取关键数据">¶</a>提取关键数据</h2>
+<h3 id="可选PE头-v2"><a class="header-anchor" href="#可选PE头-v2">¶</a>可选PE头</h3>
+<p>DWORD AddressOfEntryPoint-10E5DBh</p>
+<p>DWORD ImageBase-400000h</p>
+<h3 id="节表信息"><a class="header-anchor" href="#节表信息">¶</a>节表信息</h3>
+<p>MIsc.DWORD VirtualSize-17C51Eh</p>
+<p>DWORD VirtualAddress-1000h</p>
+<p>DWORD PointerToRawData-400h</p>
+<p>DWORD SizeOfRawData-17C600h</p>
+<h2 id="判断能否添加"><a class="header-anchor" href="#判断能否添加">¶</a>判断能否添加</h2>
+<p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
+<h2 id="找到在文件中代码结束的位置"><a class="header-anchor" href="#找到在文件中代码结束的位置">¶</a>找到在文件中代码结束的位置</h2>
+<p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png" alt=""></p>
+<h2 id="添加硬编码"><a class="header-anchor" href="#添加硬编码">¶</a>添加硬编码</h2>
+<p>MessageBoxA需要四个参数</p>
+<p>call指令长度为5</p>
+<p>jmp指令长度为5</p>
+<blockquote>
+<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
+</blockquote>
+<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png" alt=""></p>
+<h2 id="计算E8和E9的后四个字节"><a class="header-anchor" href="#计算E8和E9的后四个字节">¶</a>计算E8和E9的后四个字节</h2>
+<p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png" alt=""></p>
+<h3 id="E8后四字节计算"><a class="header-anchor" href="#E8后四字节计算">¶</a>E8后四字节计算</h3>
+<p>真实地址为MessageBoxA的地址</p>
+<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
+<p>76BA5865</p>
+<h3 id="E9后四字节计算"><a class="header-anchor" href="#E9后四字节计算">¶</a>E9后四字节计算</h3>
+<p>真实地址为原来的OEP</p>
+<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
+<p>为FFF910AB</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png" alt=""></p>
+<h2 id="修改AddressOfPoint"><a class="header-anchor" href="#修改AddressOfPoint">¶</a>修改AddressOfPoint</h2>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png" alt=""></p>
+<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
+<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
+<h2 id="最终效果"><a class="header-anchor" href="#最终效果">¶</a>最终效果</h2>
+<p>先执行MessageBoxA</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png" alt=""></p>
+<p>再运行程序</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png" alt=""></p>
+<h1 id="新增节"><a class="header-anchor" href="#新增节">¶</a>新增节</h1>
+<h2 id="大小判断"><a class="header-anchor" href="#大小判断">¶</a>大小判断</h2>
+<p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
+<h2 id="修改节表数量"><a class="header-anchor" href="#修改节表数量">¶</a>修改节表数量</h2>
+<p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png" alt=""></p>
+<h2 id="添加节表信息"><a class="header-anchor" href="#添加节表信息">¶</a>添加节表信息</h2>
+<p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png" alt=""></p>
+<h2 id="确定插入的大小"><a class="header-anchor" href="#确定插入的大小">¶</a>确定插入的大小</h2>
+<p>根据情况自行选择，这里假设我们插入0x1000字节</p>
+<h2 id="修改内存对齐后的大小"><a class="header-anchor" href="#修改内存对齐后的大小">¶</a>修改内存对齐后的大小</h2>
+<p>SizeOfImage+插入的大小（按照内存对齐）</p>
+<h2 id="修正节表信息"><a class="header-anchor" href="#修正节表信息">¶</a>修正节表信息</h2>
+<p>先看关键数据</p>
+<p>DWORD VirtualAddress</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD PointerToRawData</p>
+<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
+<h3 id="计算VirtualAddress"><a class="header-anchor" href="#计算VirtualAddress">¶</a>计算VirtualAddress</h3>
+<p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
+<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png" alt=""></p>
+<h3 id="计算PointerToRawData"><a class="header-anchor" href="#计算PointerToRawData">¶</a>计算PointerToRawData</h3>
+<p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png" alt=""></p>
+<h3 id="最终修改"><a class="header-anchor" href="#最终修改">¶</a>最终修改</h3>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png" alt=""></p>
+<h2 id="插入代码"><a class="header-anchor" href="#插入代码">¶</a>插入代码</h2>
+<p>在PointerToRawData插入0x1000字节</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png" alt=""></p>
+<h2 id="查看信息"><a class="header-anchor" href="#查看信息">¶</a>查看信息</h2>
+<p>在PE解析工具可以看到插入的节表</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png" alt=""></p>
+<h1 id="新增节-节表信息后不够位置"><a class="header-anchor" href="#新增节-节表信息后不够位置">¶</a>新增节-节表信息后不够位置</h1>
+<p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
+<blockquote>
+<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
+</blockquote>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png" alt=""></p>
+<p>直接复制到垃圾数据的起始地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png" alt=""></p>
+<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
+<h1 id="扩大节"><a class="header-anchor" href="#扩大节">¶</a>扩大节</h1>
+<p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
+<p>需要修改的数据</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD SizeOfImage</p>
+<h2 id="流程"><a class="header-anchor" href="#流程">¶</a>流程</h2>
+<ol>
+<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
+<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
+<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
+</ol>
+<h2 id="修正节表信息-v2"><a class="header-anchor" href="#修正节表信息-v2">¶</a>修正节表信息</h2>
+<p>这里我们假设扩大0x1000个字节</p>
+<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png" alt=""></p>
+<h2 id="修正SizeOfImage"><a class="header-anchor" href="#修正SizeOfImage">¶</a>修正SizeOfImage</h2>
+<p>直接加上0x1000即可</p>
+<h2 id="分配空间"><a class="header-anchor" href="#分配空间">¶</a>分配空间</h2>
+<p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
+<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
+<p>求和得到2B6C00h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png" alt=""></p>
+<h2 id="最终-v2"><a class="header-anchor" href="#最终-v2">¶</a>最终</h2>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png" alt=""></p>
+<h1 id="合并节"><a class="header-anchor" href="#合并节">¶</a>合并节</h1>
+<h2 id="修改节表个数"><a class="header-anchor" href="#修改节表个数">¶</a>修改节表个数</h2>
+<p>合并之后节数量-1，这里改为7</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png" alt=""></p>
+<h2 id="修改节表信息"><a class="header-anchor" href="#修改节表信息">¶</a>修改节表信息</h2>
+<p>要将节进行合并，就需要修改节表信息</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png" alt=""></p>
+<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a class="header-anchor" href="#DWORD-SizeOfRawData和DWORD-VirtualSize">¶</a>DWORD SizeOfRawData和DWORD VirtualSize</h3>
+<p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
+<p>最后保存即可</p>
+<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
+<h2 id="最终效果-v2"><a class="header-anchor" href="#最终效果-v2">¶</a>最终效果</h2>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png" alt=""></p>
+<h1 id="移动导出表-v2"><a class="header-anchor" href="#移动导出表-v2">¶</a>移动导出表</h1>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"></p>
+<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
+<h2 id="定位导出表-v2"><a class="header-anchor" href="#定位导出表-v2">¶</a>定位导出表</h2>
+<p>在数据目录找到导出表的RVA</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png" alt=""></p>
+<p>根据节的RVA和大小确定在哪个表</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png" alt=""></p>
+<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
+<p>计算得到F2270，跳转，根据Export.Size确定大小</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png" alt=""></p>
+<h2 id="新增节-v2"><a class="header-anchor" href="#新增节-v2">¶</a>新增节</h2>
+<p>前面说过，就不细🔒了</p>
+<h2 id="复制数据-v2"><a class="header-anchor" href="#复制数据-v2">¶</a>复制数据</h2>
+<p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png" alt=""></p>
+<p>这两个分别是dll名字和函数名称</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png" alt=""></p>
+<p>直接复制剩下的导出表信息</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png" alt=""></p>
+<h2 id="修改RVA"><a class="header-anchor" href="#修改RVA">¶</a>修改RVA</h2>
+<p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
+<p>要修改的有</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png" alt=""></p>
+<h2 id="数据目录修改"><a class="header-anchor" href="#数据目录修改">¶</a>数据目录修改</h2>
+<p>将Export.RVA指向我们复制导出表的初始位置</p>
+<h1 id="移动重定位表-v2"><a class="header-anchor" href="#移动重定位表-v2">¶</a>移动重定位表</h1>
+<p>新增节-&gt;复制数据-&gt;数据目录修改重定位表位置</p>
+<h2 id="修改ImageBase"><a class="header-anchor" href="#修改ImageBase">¶</a>修改ImageBase</h2>
+<p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
+<p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
+<p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
+<h1 id="导入表注入"><a class="header-anchor" href="#导入表注入">¶</a>导入表注入</h1>
+<p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
+<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
+<h2 id="新增节区"><a class="header-anchor" href="#新增节区">¶</a>新增节区</h2>
+<h2 id="复制导入表信息"><a class="header-anchor" href="#复制导入表信息">¶</a>复制导入表信息</h2>
+<p>拷贝原来的导入表到新节中</p>
+<h2 id="新增导入表"><a class="header-anchor" href="#新增导入表">¶</a>新增导入表</h2>
+<h2 id="新增INT表和IAT表"><a class="header-anchor" href="#新增INT表和IAT表">¶</a>新增INT表和IAT表</h2>
+<p>至少八字节</p>
+<h2 id="修改Name"><a class="header-anchor" href="#修改Name">¶</a>修改Name</h2>
+<p>存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
+<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a class="header-anchor" href="#创建struct-IMAGE-IMPORT-BY-NAME">¶</a>创建struct _IMAGE_IMPORT_BY_NAME</h2>
+<p>将函数名称赋值给结构体的第二个变量</p>
+<h2 id="修改INT和IAT指向的地址"><a class="header-anchor" href="#修改INT和IAT指向的地址">¶</a>修改INT和IAT指向的地址</h2>
+<p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
+<h2 id="修改数据目录"><a class="header-anchor" href="#修改数据目录">¶</a>修改数据目录</h2>
+<p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size</p>
 ]]></content>
       <tags>
         <tag>PE</tag>
@@ -3412,50 +3412,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Windows核心编程</title>
-    <url>/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</url>
-    <content><![CDATA[<p>Windows核心编程</p>
-<span id="more"></span> 
-<h1 id="0x00-错误处理"><a class="header-anchor" href="#0x00-错误处理">¶</a>0x00-错误处理</h1>
-<p>在WinError.h头文件中包含了Microsoft定义的错误代码列表，每个错误都有三种表示：一个消息ID(一个可在源代码使用的宏，用于与GetLastError的返回值进行比较)、消息文本(描述错误的英文文本)和一个编号(应该避免使用此编号，尽量使用消息ID)</p>
-<p>所以在Windows函数失败之后，应该立马调用GetLastError()</p>
-<h1 id="0x01-字符和字符串处理"><a class="header-anchor" href="#0x01-字符和字符串处理">¶</a>0x01-字符和字符串处理</h1>
-<h2 id="ANSI与UNCODE"><a class="header-anchor" href="#ANSI与UNCODE">¶</a>ANSI与UNCODE</h2>
-<blockquote>
-<p>在Windows Vista中，每个Unicode字符都使用UTF-16编码，UTF-16将每个字符编码为2个字节也就是16位</p>
-</blockquote>
-<p>我们知道在C语言中，char数据类型表示一个8位ANSI字符，也就是一个字节</p>
-<p>当我们声明Unicode字符和字符串时，只需要在字符串前加上”L“，表示以UTF-16来编码每个字符</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813453705.png" alt=""></p>
-<h2 id="Unicode函数与ANSI函数"><a class="header-anchor" href="#Unicode函数与ANSI函数">¶</a>Unicode函数与ANSI函数</h2>
-<p>自Windows NT起，Windows所有的版本都完全用Unicode来构建。也就是说所有核心函数(创建窗口、显示文本、进行字符串处理)都需要Unicode字符串</p>
-<p>在Windows中，Windows函数通常具有两个版本，用于接收不同的字符串</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813717040.png" alt=""></p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813766466.png" alt="默认版本"></p>
-<h2 id="C运行库中的Unicode函数和ANSI函数"><a class="header-anchor" href="#C运行库中的Unicode函数和ANSI函数">¶</a>C运行库中的Unicode函数和ANSI函数</h2>
-<p>和Windows函数一样，C运行库提供了一系列函数处理ANSI字符和字符串，并提供了一系列函数来处理Unicode字符与字符串</p>
-<p>在C运行库中，strlen就是一个能返回ANSI字符串长度的函数。与之对应的是wcslen，这个C运行库函数能返回Unicode字符串的长度，这两个函数都在string.h中</p>
-<h2 id="C运行库中的安全字符串函数"><a class="header-anchor" href="#C运行库中的安全字符串函数">¶</a>C运行库中的安全字符串函数</h2>
-<blockquote>
-<p><strong>任何修改字符串的函数都存在一个安全隐患：如果目标字符串缓冲区不够大，无法容纳所生成的字符串，就会导致内存中的数据被破坏</strong></p>
-</blockquote>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011578747.png" alt="例子"></p>
-<p>为了防止被被恶意软件肆意滥用，微软提供了一系列新的函数来取代C运行库的不安全的字符串处理函数</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011917625.png" alt=""></p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012022950.png" alt=""></p>
-<p>书中没有详细介绍，可以自行查找</p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012306710.png" alt="安全字符串函数"></p>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012361902.png" alt="安全字符串函数执行"></p>
-<h1 id="Windows字符串函数"><a class="header-anchor" href="#Windows字符串函数">¶</a>Windows字符串函数</h1>
-<p>不知道讲了些啥</p>
-<h2 id="为何要用Unicode"><a class="header-anchor" href="#为何要用Unicode">¶</a>为何要用Unicode</h2>
-<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012784209.png" alt=""></p>
-]]></content>
-      <tags>
-        <tag>Windows</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Windows内核基础</title>
     <url>/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p>Windows基础</p>
@@ -3535,6 +3491,50 @@
 ]]></content>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows核心编程</title>
+    <url>/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<p>Windows核心编程</p>
+<span id="more"></span> 
+<h1 id="0x00-错误处理"><a class="header-anchor" href="#0x00-错误处理">¶</a>0x00-错误处理</h1>
+<p>在WinError.h头文件中包含了Microsoft定义的错误代码列表，每个错误都有三种表示：一个消息ID(一个可在源代码使用的宏，用于与GetLastError的返回值进行比较)、消息文本(描述错误的英文文本)和一个编号(应该避免使用此编号，尽量使用消息ID)</p>
+<p>所以在Windows函数失败之后，应该立马调用GetLastError()</p>
+<h1 id="0x01-字符和字符串处理"><a class="header-anchor" href="#0x01-字符和字符串处理">¶</a>0x01-字符和字符串处理</h1>
+<h2 id="ANSI与UNCODE"><a class="header-anchor" href="#ANSI与UNCODE">¶</a>ANSI与UNCODE</h2>
+<blockquote>
+<p>在Windows Vista中，每个Unicode字符都使用UTF-16编码，UTF-16将每个字符编码为2个字节也就是16位</p>
+</blockquote>
+<p>我们知道在C语言中，char数据类型表示一个8位ANSI字符，也就是一个字节</p>
+<p>当我们声明Unicode字符和字符串时，只需要在字符串前加上”L“，表示以UTF-16来编码每个字符</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813453705.png" alt=""></p>
+<h2 id="Unicode函数与ANSI函数"><a class="header-anchor" href="#Unicode函数与ANSI函数">¶</a>Unicode函数与ANSI函数</h2>
+<p>自Windows NT起，Windows所有的版本都完全用Unicode来构建。也就是说所有核心函数(创建窗口、显示文本、进行字符串处理)都需要Unicode字符串</p>
+<p>在Windows中，Windows函数通常具有两个版本，用于接收不同的字符串</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813717040.png" alt=""></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1649813766466.png" alt="默认版本"></p>
+<h2 id="C运行库中的Unicode函数和ANSI函数"><a class="header-anchor" href="#C运行库中的Unicode函数和ANSI函数">¶</a>C运行库中的Unicode函数和ANSI函数</h2>
+<p>和Windows函数一样，C运行库提供了一系列函数处理ANSI字符和字符串，并提供了一系列函数来处理Unicode字符与字符串</p>
+<p>在C运行库中，strlen就是一个能返回ANSI字符串长度的函数。与之对应的是wcslen，这个C运行库函数能返回Unicode字符串的长度，这两个函数都在string.h中</p>
+<h2 id="C运行库中的安全字符串函数"><a class="header-anchor" href="#C运行库中的安全字符串函数">¶</a>C运行库中的安全字符串函数</h2>
+<blockquote>
+<p><strong>任何修改字符串的函数都存在一个安全隐患：如果目标字符串缓冲区不够大，无法容纳所生成的字符串，就会导致内存中的数据被破坏</strong></p>
+</blockquote>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011578747.png" alt="例子"></p>
+<p>为了防止被被恶意软件肆意滥用，微软提供了一系列新的函数来取代C运行库的不安全的字符串处理函数</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650011917625.png" alt=""></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012022950.png" alt=""></p>
+<p>书中没有详细介绍，可以自行查找</p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012306710.png" alt="安全字符串函数"></p>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012361902.png" alt="安全字符串函数执行"></p>
+<h1 id="Windows字符串函数"><a class="header-anchor" href="#Windows字符串函数">¶</a>Windows字符串函数</h1>
+<p>不知道讲了些啥</p>
+<h2 id="为何要用Unicode"><a class="header-anchor" href="#为何要用Unicode">¶</a>为何要用Unicode</h2>
+<p><img src="/2022/04/13/Windows%E6%A0%B8%E5%BF%83%E7%BC%96%E7%A8%8B/1650012784209.png" alt=""></p>
+]]></content>
+      <tags>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -3972,72 +3972,6 @@
       </tags>
   </entry>
   <entry>
-    <title>sha256</title>
-    <url>/2022/03/23/sha256/</url>
-    <content><![CDATA[<p>sha256</p>
-<span id="more"></span> 
-<h1 id="参考文章-v4"><a class="header-anchor" href="#参考文章-v4">¶</a>参考文章</h1>
-<p><a href="https://zhuanlan.zhihu.com/p/94619052">https://zhuanlan.zhihu.com/p/94619052</a></p>
-<p><a href="https://www.52pojie.cn/forum.php">https://www.52pojie.cn/forum.php</a></p>
-<h1 id="实现流程"><a class="header-anchor" href="#实现流程">¶</a>实现流程</h1>
-<h2 id="符号替换-使用函数"><a class="header-anchor" href="#符号替换-使用函数">¶</a>符号替换-使用函数</h2>
-<ul>
-<li><img src="https://www.zhihu.com/equation?tex=%5Coplus" alt="[公式]">: 按位异或</li>
-<li><img src="https://www.zhihu.com/equation?tex=%5Cwedge" alt="[公式]">: 按位与</li>
-<li><img src="https://www.zhihu.com/equation?tex=%5Cvee" alt="[公式]">: 按位或</li>
-<li><img src="https://www.zhihu.com/equation?tex=%5Clnot" alt="[公式]">: 补位</li>
-<li><img src="https://www.zhihu.com/equation?tex=%2B" alt="[公式]">: 相加以后对<img src="https://www.zhihu.com/equation?tex=2%5E%7B32%7D" alt="[公式]">求余</li>
-<li><img src="https://www.zhihu.com/equation?tex=R%5En" alt="[公式]">: 右移n位</li>
-<li><img src="https://www.zhihu.com/equation?tex=S%5En" alt="[公式]">: 循环右移n位</li>
-</ul>
-<p><img src="/2022/03/23/sha256/equation-1648645011885.svg" alt="使用到的函数"></p>
-<h2 id="消息预处理"><a class="header-anchor" href="#消息预处理">¶</a>消息预处理</h2>
-<h3 id="消息补位"><a class="header-anchor" href="#消息补位">¶</a>消息补位</h3>
-<p>先对消息摘要实现补码，假设消息M的二进制编码长度为l位。那么我们现在消息末尾补上一位1，然后再补上k个0，其中k为下列方程的最小非负整数</p>
-<p><img src="/2022/03/23/sha256/equation-1648645283142.svg" alt="计算K的公式"></p>
-<blockquote>
-<p>特殊情况：当l长度为448时要填充加上512bits，449的话就填充511bits</p>
-<p>447的话直接填充一个1即可</p>
-</blockquote>
-<p>最后填充64位，这64位是l的二进制编码</p>
-<p>补完位的消息长度为512的倍数</p>
-<h3 id="将补位完的消息进行分组"><a class="header-anchor" href="#将补位完的消息进行分组">¶</a>将补位完的消息进行分组</h3>
-<p>将补码处理后的消息以512位为单位分块为: <img src="/2022/03/23/sha256/equation-1648645770037.svg" alt="[公式]"></p>
-<p>将每个消息块分为16×32bits， 前32位表示为: <img src="/2022/03/23/sha256/equation-1648645804943.svg" alt="[公式]">, 后面32位为: <img src="/2022/03/23/sha256/equation-1648645804934.svg" alt="[公式]">, 以此类推, 最后32位的消息块可表示为: <img src="/2022/03/23/sha256/equation-1648645804929.svg" alt="[公式]"> ，而在C语言中，32位正好对应unsigned int</p>
-<h3 id="消息块扩充"><a class="header-anchor" href="#消息块扩充">¶</a>消息块扩充</h3>
-<p>这里我们得到的是16个32bits消息块，要把其扩展为64个32bits的消息块</p>
-<p>扩展代码</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i from <span class="number">16</span> to <span class="number">63</span></span><br><span class="line">    s0 := (w[i<span class="number">-15</span>] rightrotate <span class="number">7</span>) <span class="keyword">xor</span> (w[i<span class="number">-15</span>] rightrotate <span class="number">18</span>) <span class="keyword">xor</span>(w[i<span class="number">-15</span>] rightshift <span class="number">3</span>)</span><br><span class="line">    s1 := (w[i<span class="number">-2</span>] rightrotate <span class="number">17</span>) <span class="keyword">xor</span> (w[i<span class="number">-2</span>] rightrotate <span class="number">19</span>) <span class="keyword">xor</span>(w[i<span class="number">-2</span>] rightshift <span class="number">10</span>)</span><br><span class="line">    w[i] := w[i<span class="number">-16</span>] + s0 + w[i<span class="number">-7</span>] + s1</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="Hash主要加密流程"><a class="header-anchor" href="#Hash主要加密流程">¶</a>Hash主要加密流程</h2>
-<h3 id="常量初始化"><a class="header-anchor" href="#常量初始化">¶</a>常量初始化</h3>
-<p>初始哈希值取自自然数前8个素数(2,3,5,7,11,13,17,19)的平方根的小数部分的前32位的十六进制表示，比如：</p>
-<p><img src="/2022/03/23/sha256/equation-1648646228740.svg" alt="[公式]">小数部分约为0.414213562373095048</p>
-<p><img src="/2022/03/23/sha256/equation-1648646248870.svg" alt="根号2的十六进制表示"></p>
-<p>于是，取出前32位对应0x6a09e667</p>
-<p>依次得到初始化的H值</p>
-<p><img src="/2022/03/23/sha256/equation-1648646313831.svg" alt="初始化H值"></p>
-<h3 id="sha256的64个常数"><a class="header-anchor" href="#sha256的64个常数">¶</a>sha256的64个常数</h3>
-<p>取自自然数中前面64个素数的立方根的小数部分的前32位的十六进制表示</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="number">428</span>a2f98 <span class="number">71374491</span> b5c0fbcf e9b5dba5</span><br><span class="line"><span class="number">3956</span>c25b <span class="number">59f</span>111f1 <span class="number">923f</span>82a4 ab1c5ed5</span><br><span class="line">d807aa98 <span class="number">12835b</span>01 <span class="number">243185b</span>e <span class="number">550</span>c7dc3</span><br><span class="line"><span class="number">72b</span>e5d74 <span class="number">80</span>deb1fe <span class="number">9b</span>dc06a7 c19bf174</span><br><span class="line">e49b69c1 efbe4786 <span class="number">0f</span>c19dc6 <span class="number">240</span>ca1cc</span><br><span class="line"><span class="number">2</span>de92c6f <span class="number">4</span>a7484aa <span class="number">5</span>cb0a9dc <span class="number">76f</span>988da</span><br><span class="line"><span class="number">983e5152</span> a831c66d b00327c8 bf597fc7</span><br><span class="line">c6e00bf3 d5a79147 <span class="number">06</span>ca6351 <span class="number">14292967</span></span><br><span class="line"><span class="number">27b</span>70a85 <span class="number">2e1</span>b2138 <span class="number">4</span>d2c6dfc <span class="number">53380</span>d13</span><br><span class="line"><span class="number">650</span>a7354 <span class="number">766</span>a0abb <span class="number">81</span>c2c92e <span class="number">92722</span>c85</span><br><span class="line">a2bfe8a1 a81a664b c24b8b70 c76c51a3</span><br><span class="line">d192e819 d6990624 f40e3585 <span class="number">106</span>aa070</span><br><span class="line"><span class="number">19</span>a4c116 <span class="number">1e376</span>c08 <span class="number">2748774</span>c <span class="number">34b</span>0bcb5</span><br><span class="line"><span class="number">391</span>c0cb3 <span class="number">4</span>ed8aa4a <span class="number">5b</span>9cca4f <span class="number">682e6</span>ff3</span><br><span class="line"><span class="number">748f</span>82ee <span class="number">78</span>a5636f <span class="number">84</span>c87814 <span class="number">8</span>cc70208</span><br><span class="line"><span class="number">90b</span>efffa a4506ceb bef9a3f7 c67178f2</span><br></pre></td></tr></tbody></table></figure>
-<p>进行64次循环加密，流程图如下：</p>
-<p><img src="/2022/03/23/sha256/600px-SHA-2.svg.png" alt="主要加密"></p>
-<p>这里介绍一下ABCDEFGH的值以及K数组，W是我们扩展后的消息块</p>
-<p>先把第一个W块和K相加后mod2^32，但是在C语言中，会进行截断，超过32位直接不管超过的那一位</p>
-<p>接着先把H7和前一个得到的结果相加后mod2^32</p>
-<p>再把H4、H5、H6取出进行Ch加密，再和前一个结果相加后mod2^32</p>
-<p>将H4取出进行什么1操作，再和前一步的结果相加后mod2^32</p>
-<p>接下来分为两步，第一步把前一个的结果和H3相加后mod2<sup>32并存储在H4，第二步，先把H0、H1、H2进行Ma操作，再和前一步的结果相加再mod2</sup>32</p>
-<p>然后把H0取出进行什么0操作，再和前面第二步的结果相加后mod32后存储在H0</p>
-<p>最后进行移位存储操作，就是除了H0和H4，剩下的H值存入前一个的H值</p>
-<p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组加上原来的中间Hash值就是该消息区块的Hash值</p>
-<h1 id="C语言实现"><a class="header-anchor" href="#C语言实现">¶</a>C语言实现</h1>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_ROTL(a,b) (((a&gt;&gt;(32-b))&amp;(0x7fffffff&gt;&gt;(31-b)))|(a&lt;&lt;b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_SR(a,b) ((a&gt;&gt;b)&amp;(0x7fffffff&gt;&gt;(b-1)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_CH(x,y,z) ((x&amp;y)^((~x)&amp;z))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_Maj(x,y,z) ((x&amp;y)^(x&amp;z)^(y&amp;z))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_E0(x) (SHA256_ROTL(x,30)^SHA256_ROTL(x,19)^SHA256_ROTL(x,10))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_E1(x) (SHA256_ROTL(x,26)^SHA256_ROTL(x,21)^SHA256_ROTL(x,7))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_O0(x) (SHA256_ROTL(x,25)^SHA256_ROTL(x,14)^SHA256_SR(x,3))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_O1(x) (SHA256_ROTL(x,15)^SHA256_ROTL(x,13)^SHA256_SR(x,10)) </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SHA256_ENCODE</span><span class="params">(<span class="keyword">char</span>* input, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">char</span>* pos,*posend;</span><br><span class="line">	<span class="keyword">long</span> A, B, C, D, E, F, G, I;</span><br><span class="line">	<span class="keyword">long</span> W[<span class="number">64</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="comment">//初始化常量数据</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> H[<span class="number">8</span>] = {</span><br><span class="line">		<span class="number">0x6a09e667</span>,<span class="number">0xbb67ae85</span>,<span class="number">0x3c6ef372</span>,<span class="number">0xa54ff53a</span>,</span><br><span class="line">		<span class="number">0x510e527f</span>,<span class="number">0x9b05688c</span>,<span class="number">0x1f83d9ab</span>,<span class="number">0x5be0cd19</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> K[<span class="number">64</span>] = {</span><br><span class="line">		<span class="number">0x428a2f98</span>, <span class="number">0x71374491</span>, <span class="number">0xb5c0fbcf</span>, <span class="number">0xe9b5dba5</span>, <span class="number">0x3956c25b</span>, <span class="number">0x59f111f1</span>, <span class="number">0x923f82a4</span>, <span class="number">0xab1c5ed5</span>,</span><br><span class="line">		<span class="number">0xd807aa98</span>, <span class="number">0x12835b01</span>, <span class="number">0x243185be</span>, <span class="number">0x550c7dc3</span>, <span class="number">0x72be5d74</span>, <span class="number">0x80deb1fe</span>, <span class="number">0x9bdc06a7</span>, <span class="number">0xc19bf174</span>,</span><br><span class="line">		<span class="number">0xe49b69c1</span>, <span class="number">0xefbe4786</span>, <span class="number">0x0fc19dc6</span>, <span class="number">0x240ca1cc</span>, <span class="number">0x2de92c6f</span>, <span class="number">0x4a7484aa</span>, <span class="number">0x5cb0a9dc</span>, <span class="number">0x76f988da</span>,</span><br><span class="line">		<span class="number">0x983e5152</span>, <span class="number">0xa831c66d</span>, <span class="number">0xb00327c8</span>, <span class="number">0xbf597fc7</span>, <span class="number">0xc6e00bf3</span>, <span class="number">0xd5a79147</span>, <span class="number">0x06ca6351</span>, <span class="number">0x14292967</span>,</span><br><span class="line">		<span class="number">0x27b70a85</span>, <span class="number">0x2e1b2138</span>, <span class="number">0x4d2c6dfc</span>, <span class="number">0x53380d13</span>, <span class="number">0x650a7354</span>, <span class="number">0x766a0abb</span>, <span class="number">0x81c2c92e</span>, <span class="number">0x92722c85</span>,</span><br><span class="line">		<span class="number">0xa2bfe8a1</span>, <span class="number">0xa81a664b</span>, <span class="number">0xc24b8b70</span>, <span class="number">0xc76c51a3</span>, <span class="number">0xd192e819</span>, <span class="number">0xd6990624</span>, <span class="number">0xf40e3585</span>, <span class="number">0x106aa070</span>,</span><br><span class="line">		<span class="number">0x19a4c116</span>, <span class="number">0x1e376c08</span>, <span class="number">0x2748774c</span>, <span class="number">0x34b0bcb5</span>, <span class="number">0x391c0cb3</span>, <span class="number">0x4ed8aa4a</span>, <span class="number">0x5b9cca4f</span>, <span class="number">0x682e6ff3</span>,</span><br><span class="line">		<span class="number">0x748f82ee</span>, <span class="number">0x78a5636f</span>, <span class="number">0x84c87814</span>, <span class="number">0x8cc70208</span>, <span class="number">0x90befffa</span>, <span class="number">0xa4506ceb</span>, <span class="number">0xbef9a3f7</span>, <span class="number">0xc67178f2</span>,</span><br><span class="line">	};</span><br><span class="line">	<span class="comment">//消息补位,一个字符8位，而448位为56个字符,128个字符是1024位，512的两倍</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> len_final = len + ((len % <span class="number">64</span> &gt;= <span class="number">56</span>) ? (<span class="number">128</span> - len % <span class="number">64</span>) : (<span class="number">64</span> - len % <span class="number">64</span>));</span><br><span class="line">	<span class="comment">//printf("%d", len_final);</span></span><br><span class="line">	<span class="comment">//开辟空间</span></span><br><span class="line">	<span class="keyword">if</span> (!(pos = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(len_final)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"开辟空间失败！\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//将字符串赋值到堆中，注意因为后面需要转为long类型运算，所以赋值时要注意大小端序的问题</span></span><br><span class="line">	<span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; len; ++i)</span><br><span class="line">	{</span><br><span class="line">		pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = input[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//字符串后面的1和填充0</span></span><br><span class="line">	pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = <span class="number">0x80</span>;</span><br><span class="line">	i++;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; len_final; ++i)</span><br><span class="line">	{</span><br><span class="line">		pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = <span class="number">0</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//填充字符串的真实长度，并扩展为64位,64位也就是8个字符</span></span><br><span class="line">	*((<span class="keyword">long</span>*)(pos + len_final - <span class="number">4</span>)) = len &lt;&lt; <span class="number">3</span>;</span><br><span class="line">	*((<span class="keyword">long</span>*)(pos + len_final - <span class="number">8</span>)) = len &gt;&gt; <span class="number">29</span>;</span><br><span class="line">	<span class="comment">//每512位进行加密</span></span><br><span class="line">	<span class="keyword">for</span> (posend = pos + len_final; pos &lt; posend; pos += <span class="number">64</span>)</span><br><span class="line">	{</span><br><span class="line">		<span class="comment">//先分组为16*32bit</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">16</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			W[j] = ((<span class="keyword">long</span>*)pos)[j];</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">//扩展为64*32bit</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">16</span>; j &lt; <span class="number">64</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			W[j] = (SHA256_O1(W[j - <span class="number">2</span>]) + W[j - <span class="number">7</span>] + SHA256_O0(W[j - <span class="number">15</span>]) + W[j - <span class="number">16</span>]);</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">//下面开始进行64轮加密</span></span><br><span class="line">		<span class="comment">//因为中间哈希值最后时为原来的+加密的哈希值，所以先储存</span></span><br><span class="line">		A = H[<span class="number">0</span>], B = H[<span class="number">1</span>], C = H[<span class="number">2</span>], D = H[<span class="number">3</span>], E = H[<span class="number">4</span>], F = H[<span class="number">5</span>], G = H[<span class="number">6</span>], I = H[<span class="number">7</span>];</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			<span class="comment">//T1存储加密的前一部分,T2存储加密的后一部分</span></span><br><span class="line">			<span class="keyword">long</span> T1 = I + SHA256_CH(E, F, G) + K[i] + W[i]+SHA256_E1(E);</span><br><span class="line">			<span class="keyword">long</span> T2 = SHA256_Maj(A, B, C) + SHA256_E0(A);</span><br><span class="line">			<span class="comment">//只能从后往前赋值，否则会覆盖</span></span><br><span class="line">			I = G;</span><br><span class="line">			G = F;</span><br><span class="line">			F = E;</span><br><span class="line">			E = D + T1;</span><br><span class="line">			D = C;</span><br><span class="line">			C = B;</span><br><span class="line">			B = A;</span><br><span class="line">			A = T1 + T2;</span><br><span class="line">		}</span><br><span class="line">		H[<span class="number">0</span>] += A; H[<span class="number">1</span>] += B;</span><br><span class="line">		H[<span class="number">2</span>] += C; H[<span class="number">3</span>] += D;</span><br><span class="line">		H[<span class="number">4</span>] += E; H[<span class="number">5</span>] += F;</span><br><span class="line">		H[<span class="number">6</span>] += G; H[<span class="number">7</span>] += I;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%X"</span>, H[i]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> input[] = <span class="string">"ze"</span>;</span><br><span class="line">	SHA256_ENCODE(input, <span class="built_in">strlen</span>(input));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>shellcode知识</title>
     <url>/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<p>shellcode</p>
@@ -4145,66 +4079,69 @@
       </tags>
   </entry>
   <entry>
-    <title>代码注入</title>
-    <url>/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/</url>
-    <content><![CDATA[<p>代码注入</p>
+    <title>sha256</title>
+    <url>/2022/03/23/sha256/</url>
+    <content><![CDATA[<p>sha256</p>
 <span id="more"></span> 
-<h1 id="0x00-前言"><a class="header-anchor" href="#0x00-前言">¶</a>0x00-前言</h1>
-<p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
-<p>于是翻阅到了这篇文章</p>
-<p><a href="https://www.52pojie.cn/thread-1270499-1-1.html">https://www.52pojie.cn/thread-1270499-1-1.html</a></p>
-<h1 id="0x01-原理"><a class="header-anchor" href="#0x01-原理">¶</a>0x01-原理</h1>
-<p>在DLL注入中，我们通过远程线程在目标进程中调用LoadLibraryA()函数加载我们的DLL</p>
-<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649738932188.png" alt=""></p>
-<p>实际上只要我们定义的函数符合CreateRemoteThread参数中定义的函数模板，就可以通过远程线程的方式去执行它，而不限于LoadLibraryA</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  _In_ LPVOID lpParameter</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
-<p>所以我们只要定义一个只有一个参数的函数，把它转换成 LPTHREAD_START_ROUTINE（CreateRemoteThread的参数）即可。</p>
-<p>但是这里产生了一个问题，如果我们的函数具有多个参数怎么办呢，要成功调用函数的话，我们的参数也需要在目标进程的虚拟内存中</p>
+<h1 id="参考文章-v4"><a class="header-anchor" href="#参考文章-v4">¶</a>参考文章</h1>
+<p><a href="https://zhuanlan.zhihu.com/p/94619052">https://zhuanlan.zhihu.com/p/94619052</a></p>
+<p><a href="https://www.52pojie.cn/forum.php">https://www.52pojie.cn/forum.php</a></p>
+<h1 id="实现流程"><a class="header-anchor" href="#实现流程">¶</a>实现流程</h1>
+<h2 id="符号替换-使用函数"><a class="header-anchor" href="#符号替换-使用函数">¶</a>符号替换-使用函数</h2>
+<ul>
+<li><img src="https://www.zhihu.com/equation?tex=%5Coplus" alt="[公式]">: 按位异或</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Cwedge" alt="[公式]">: 按位与</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Cvee" alt="[公式]">: 按位或</li>
+<li><img src="https://www.zhihu.com/equation?tex=%5Clnot" alt="[公式]">: 补位</li>
+<li><img src="https://www.zhihu.com/equation?tex=%2B" alt="[公式]">: 相加以后对<img src="https://www.zhihu.com/equation?tex=2%5E%7B32%7D" alt="[公式]">求余</li>
+<li><img src="https://www.zhihu.com/equation?tex=R%5En" alt="[公式]">: 右移n位</li>
+<li><img src="https://www.zhihu.com/equation?tex=S%5En" alt="[公式]">: 循环右移n位</li>
+</ul>
+<p><img src="/2022/03/23/sha256/equation-1648645011885.svg" alt="使用到的函数"></p>
+<h2 id="消息预处理"><a class="header-anchor" href="#消息预处理">¶</a>消息预处理</h2>
+<h3 id="消息补位"><a class="header-anchor" href="#消息补位">¶</a>消息补位</h3>
+<p>先对消息摘要实现补码，假设消息M的二进制编码长度为l位。那么我们现在消息末尾补上一位1，然后再补上k个0，其中k为下列方程的最小非负整数</p>
+<p><img src="/2022/03/23/sha256/equation-1648645283142.svg" alt="计算K的公式"></p>
 <blockquote>
-<p>对于将我们的参数写入虚拟内存中，我们可以使用VirtualAllocEx函数向目标申请内存虚拟空间</p>
-<p>对于多个参数，我们可以构建一个结构体存放所有的参数，然后在调用的时候通过内存偏移来访问参数</p>
+<p>特殊情况：当l长度为448时要填充加上512bits，449的话就填充511bits</p>
+<p>447的话直接填充一个1即可</p>
 </blockquote>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">INJECT_DATA</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    <span class="keyword">char</span> lpText[<span class="number">8</span>];  <span class="comment">//参数1</span></span><br><span class="line">    <span class="keyword">char</span> lpCaption[<span class="number">8</span>];  <span class="comment">//参数2</span></span><br><span class="line">}INJECT_DATA;</span><br></pre></td></tr></tbody></table></figure>
-<p>下面以MessageBoxA函数为例</p>
-<h2 id="定义函数指针"><a class="header-anchor" href="#定义函数指针">¶</a>定义函数指针</h2>
-<p>首先先进行定义我们要使用到的函数指针</p>
-<p>因为我们要调用user32.dll中的MessageBoxA，所以要使用LoadLibraryA()加载user32.dll，并且使用GetProcAddress()获取MessageBoxA的函数地址</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//定义函数指针，方便调用HOMDULE是返回值，WINAPI也就是__stdcall，是调用约定，类型名为PFLOADLIBRARYA，lpLivFileName是参数</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">HMODULE</span><span class="params">(WINAPI *PFLOADLIBRARYA)</span><span class="params">(LPCSTR lpLibFileName)</span></span>;<span class="comment">//前面的是返回值，中间是类型</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">FARPROC</span><span class="params">(WINAPI *PFGETPROCADDRESS)</span><span class="params">(HMODULE hModule,LPCSTR lpProcName)</span></span>;<span class="comment">//返回值是一个回调函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(WINAPI *PFMESSAGEBOXA)</span><span class="params">(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="定义线程信息块"><a class="header-anchor" href="#定义线程信息块">¶</a>定义线程信息块</h2>
-<p>使用结构体存储我们要调用的函数信息</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//创建一个存储线程信息的结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">THREAD_PARAM</span>//定义线程信息</span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    FARPROC pFunc[<span class="number">2</span>];               <span class="comment">// LoadLibraryA(), GetProcAddress()  </span></span><br><span class="line">    <span class="keyword">char</span>    szBuf[<span class="number">4</span>][<span class="number">128</span>];          <span class="comment">// "user32.dll", "MessageBoxA", "Inject Success!!", "Hint"  </span></span><br><span class="line">} THREAD_PARAM, * PTHREAD_PARAM;<span class="comment">//分别是线程信息块和指向线程信息的指针</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<h2 id="线程信息块赋值"><a class="header-anchor" href="#线程信息块赋值">¶</a>线程信息块赋值</h2>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">hMod = GetModuleHandleA(<span class="string">"kernel32.dll"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//先给线程信息块赋值 </span></span><br><span class="line">param.pFunc[<span class="number">0</span>] = GetProcAddress(hMod, <span class="string">"LoadLibraryA"</span>);</span><br><span class="line">param.pFunc[<span class="number">1</span>] = GetProcAddress(hMod, <span class="string">"GetProcAddress"</span>);<span class="comment">//因为kernel32在内存中优先被装载，所以在不同进程中都一样</span></span><br><span class="line">strcpy_s(param.szBuf[<span class="number">0</span>], <span class="string">"user32.dll"</span>);</span><br><span class="line">strcpy_s(param.szBuf[<span class="number">1</span>], <span class="string">"MessageBoxA"</span>);</span><br><span class="line">strcpy_s(param.szBuf[<span class="number">2</span>], <span class="string">"InjectCode Success!!"</span>);</span><br><span class="line">strcpy_s(param.szBuf[<span class="number">3</span>], <span class="string">"Hint"</span>);</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="打开目标进程"><a class="header-anchor" href="#打开目标进程">¶</a>打开目标进程</h2>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//开启进程  </span></span><br><span class="line">    <span class="keyword">if</span> (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID)))              </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"OpenProcess() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="开辟内存并写入线程信息"><a class="header-anchor" href="#开辟内存并写入线程信息">¶</a>开辟内存并写入线程信息</h2>
-<p>第一次写入的是线程函数要调用的函数信息</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//为注入的线程信息块中的第一个函数开辟内存 </span></span><br><span class="line">    dwSize = <span class="keyword">sizeof</span>(THREAD_PARAM);</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">0</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_READWRITE)))    </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//写入线程信息块中函数的值和参数到进程中</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">0</span>],(LPVOID)&amp;param,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
-<p>第二次将线程函数写入内存</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//再次开辟  </span></span><br><span class="line">    dwSize = (DWORD)InjectCode - (DWORD)ThreadProc;</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">1</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_EXECUTE_READWRITE)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//函数调用</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">1</span>],(LPVOID)ThreadProc,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="开启远程线程"><a class="header-anchor" href="#开启远程线程">¶</a>开启远程线程</h2>
-<p>在目标线程中开启远程线程</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(hThread = CreateRemoteThread(hProcess,<span class="literal">NULL</span>,<span class="number">0</span>,(LPTHREAD_START_ROUTINE)pRemoteBuf[<span class="number">1</span>],pRemoteBuf[<span class="number">0</span>],<span class="number">0</span>,<span class="literal">NULL</span>)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"CreateRemoteThread() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="线程函数实现调用"><a class="header-anchor" href="#线程函数实现调用">¶</a>线程函数实现调用</h2>
-<p>开启线程后会调用线程函数，把我们写入进程内存中的信息读取到要调用的函数中，最后实现调用</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//这里的WINAPI是调用约定，相当于__stdcall</span></span><br><span class="line"><span class="comment">//线程函数，线程开始的地方</span></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(LPVOID lParam)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    PTHREAD_PARAM   pParam = (PTHREAD_PARAM)lParam;</span><br><span class="line">    HMODULE         hMod = <span class="literal">NULL</span>;</span><br><span class="line">    FARPROC         pFunc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LoadLibrary()，将pFunc[0]强制转换为这样类型的函数指针，pParam-&gt;szBuf[0]是该函数的参数</span></span><br><span class="line">    hMod = ((PFLOADLIBRARYA)pParam-&gt;pFunc[<span class="number">0</span>])(pParam-&gt;szBuf[<span class="number">0</span>]);    <span class="comment">// "user32.dll"，第二个括号内的是函数的参数</span></span><br><span class="line">    <span class="keyword">if</span> (!hMod)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// GetProcAddress()，返回值是回调函数，pFunc就是函数指针</span></span><br><span class="line">    pFunc = (FARPROC)((PFGETPROCADDRESS)pParam-&gt;pFunc[<span class="number">1</span>])(hMod, pParam-&gt;szBuf[<span class="number">1</span>]);  <span class="comment">// "MessageBoxA" ，获取到MessageBoxA的地址 </span></span><br><span class="line">    <span class="keyword">if</span> (!pFunc)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MessageBoxA()  </span></span><br><span class="line">    ((PFMESSAGEBOXA)pFunc)(<span class="literal">NULL</span>, pParam-&gt;szBuf[<span class="number">2</span>], pParam-&gt;szBuf[<span class="number">3</span>], MB_OK);<span class="comment">//最后的调用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="0x02-代码实现"><a class="header-anchor" href="#0x02-代码实现">¶</a>0x02-代码实现</h1>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span> </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个存储线程信息的结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">THREAD_PARAM</span>//定义线程信息</span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    FARPROC pFunc[<span class="number">2</span>];               <span class="comment">// LoadLibraryA(), GetProcAddress()  </span></span><br><span class="line">    <span class="keyword">char</span>    szBuf[<span class="number">4</span>][<span class="number">128</span>];          <span class="comment">// "user32.dll", "MessageBoxA", "www.reversecore.com", "ReverseCore"  </span></span><br><span class="line">} THREAD_PARAM, * PTHREAD_PARAM;<span class="comment">//分别是线程信息块和指向线程信息的指针</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义函数指针，方便调用HOMDULE是返回值，WINAPI也就是__stdcall，是调用约定，类型名为PFLOADLIBRARYA，lpLivFileName是参数</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">HMODULE</span><span class="params">(WINAPI *PFLOADLIBRARYA)</span><span class="params">(LPCSTR lpLibFileName)</span></span>;<span class="comment">//前面的是返回值，中间是类型</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">FARPROC</span><span class="params">(WINAPI *PFGETPROCADDRESS)</span><span class="params">(HMODULE hModule,LPCSTR lpProcName)</span></span>;<span class="comment">//返回值是一个回调函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(WINAPI *PFMESSAGEBOXA)</span><span class="params">(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里的WINAPI是调用约定，相当于__stdcall</span></span><br><span class="line"><span class="comment">//线程函数，线程开始的地方</span></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(LPVOID lParam)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    PTHREAD_PARAM   pParam = (PTHREAD_PARAM)lParam;</span><br><span class="line">    HMODULE         hMod = <span class="literal">NULL</span>;</span><br><span class="line">    FARPROC         pFunc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LoadLibrary()，将pFunc[0]强制转换为这样类型的函数指针，pParam-&gt;szBuf[0]是该函数的参数</span></span><br><span class="line">    hMod = ((PFLOADLIBRARYA)pParam-&gt;pFunc[<span class="number">0</span>])(pParam-&gt;szBuf[<span class="number">0</span>]);    <span class="comment">// "user32.dll"，第二个括号内的是函数的参数</span></span><br><span class="line">    <span class="keyword">if</span> (!hMod)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// GetProcAddress()，返回值是回调函数，pFunc就是函数指针</span></span><br><span class="line">    pFunc = (FARPROC)((PFGETPROCADDRESS)pParam-&gt;pFunc[<span class="number">1</span>])(hMod, pParam-&gt;szBuf[<span class="number">1</span>]);  <span class="comment">// "MessageBoxA" ，获取到MessageBoxA的地址 </span></span><br><span class="line">    <span class="keyword">if</span> (!pFunc)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MessageBoxA()  </span></span><br><span class="line">    ((PFMESSAGEBOXA)pFunc)(<span class="literal">NULL</span>, pParam-&gt;szBuf[<span class="number">2</span>], pParam-&gt;szBuf[<span class="number">3</span>], MB_OK);<span class="comment">//最后的调用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">InjectCode</span><span class="params">(DWORD dwPID)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    HMODULE         hMod = <span class="literal">NULL</span>;</span><br><span class="line">    THREAD_PARAM    param = { <span class="number">0</span>, };</span><br><span class="line">    HANDLE          hProcess = <span class="literal">NULL</span>;</span><br><span class="line">    HANDLE          hThread = <span class="literal">NULL</span>;</span><br><span class="line">    LPVOID          pRemoteBuf[<span class="number">2</span>] = { <span class="number">0</span>, };</span><br><span class="line">    DWORD           dwSize = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    hMod = GetModuleHandleA(<span class="string">"kernel32.dll"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//先给线程信息块赋值 </span></span><br><span class="line">    param.pFunc[<span class="number">0</span>] = GetProcAddress(hMod, <span class="string">"LoadLibraryA"</span>);</span><br><span class="line">    param.pFunc[<span class="number">1</span>] = GetProcAddress(hMod, <span class="string">"GetProcAddress"</span>);<span class="comment">//因为kernel32在内存中优先被装载，所以在不同进程中都一样</span></span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">0</span>], <span class="string">"user32.dll"</span>);</span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">1</span>], <span class="string">"MessageBoxA"</span>);</span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">2</span>], <span class="string">"InjectCode Success!!"</span>);</span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">3</span>], <span class="string">"Hint"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启进程  </span></span><br><span class="line">    <span class="keyword">if</span> (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID)))              </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"OpenProcess() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为注入的线程信息块中的第一个函数开辟内存 </span></span><br><span class="line">    dwSize = <span class="keyword">sizeof</span>(THREAD_PARAM);</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">0</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_READWRITE)))    </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//写入线程信息块中函数的值和参数到进程中</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">0</span>],(LPVOID)&amp;param,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//再次开辟  </span></span><br><span class="line">    dwSize = (DWORD)InjectCode - (DWORD)ThreadProc;</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">1</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_EXECUTE_READWRITE)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//函数调用</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">1</span>],(LPVOID)ThreadProc,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//开启远程线程，LPTHREAD_START_ROUTINE指向一个回调函数，pRemoteBuf[1]是函数，pRemoteBufe[0]是函数的值和参数</span></span><br><span class="line">    <span class="keyword">if</span> (!(hThread = CreateRemoteThread(hProcess,<span class="literal">NULL</span>,<span class="number">0</span>,(LPTHREAD_START_ROUTINE)pRemoteBuf[<span class="number">1</span>],pRemoteBuf[<span class="number">0</span>],<span class="number">0</span>,<span class="literal">NULL</span>)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"CreateRemoteThread() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    WaitForSingleObject(hThread, INFINITE);</span><br><span class="line"></span><br><span class="line">    CloseHandle(hThread);</span><br><span class="line">    CloseHandle(hProcess);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">SetPrivilege</span><span class="params">(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    TOKEN_PRIVILEGES tp;</span><br><span class="line">    HANDLE hToken;</span><br><span class="line">    LUID luid;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!OpenProcessToken(GetCurrentProcess(),</span><br><span class="line">        TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,</span><br><span class="line">        &amp;hToken))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"OpenProcessToken error: %u\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!LookupPrivilegeValue(<span class="literal">NULL</span>,           <span class="comment">// lookup privilege on local system  </span></span><br><span class="line">        lpszPrivilege,  <span class="comment">// privilege to lookup   </span></span><br><span class="line">        &amp;luid))        <span class="comment">// receives LUID of privilege  </span></span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"LookupPrivilegeValue error: %u\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    tp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line">    tp.Privileges[<span class="number">0</span>].Luid = luid;</span><br><span class="line">    <span class="keyword">if</span> (bEnablePrivilege)</span><br><span class="line">        tp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        tp.Privileges[<span class="number">0</span>].Attributes = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enable the privilege or disable all privileges.  </span></span><br><span class="line">    <span class="keyword">if</span> (!AdjustTokenPrivileges(hToken,</span><br><span class="line">        FALSE,</span><br><span class="line">        &amp;tp,</span><br><span class="line">        <span class="keyword">sizeof</span>(TOKEN_PRIVILEGES),</span><br><span class="line">        (PTOKEN_PRIVILEGES)<span class="literal">NULL</span>,</span><br><span class="line">        (PDWORD)<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"AdjustTokenPrivileges error: %u\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (GetLastError() == ERROR_NOT_ALL_ASSIGNED)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"The token does not have the specified privilege. \n"</span>);</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    DWORD dwPID = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n USAGE  : %s &lt;pid&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//进程提权</span></span><br><span class="line">    <span class="keyword">if</span> (!SetPrivilege(SE_DEBUG_NAME, TRUE))</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//code injection  </span></span><br><span class="line">    dwPID = (DWORD)atol(argv[<span class="number">1</span>]);</span><br><span class="line">    dwPID = <span class="number">9432</span>;</span><br><span class="line">    InjectCode(dwPID);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="0x03-最终效果"><a class="header-anchor" href="#0x03-最终效果">¶</a>0x03-最终效果</h1>
-<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649916449939.png" alt=""></p>
-<h1 id="0x04-代码注入调试练习"><a class="header-anchor" href="#0x04-代码注入调试练习">¶</a>0x04-代码注入调试练习</h1>
-<p>先使用OD打开notepad++，并F9直至notepad++处于运行状态</p>
-<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922555004.png" alt="进行设置"></p>
-<p>然后查看notepad++ PID并注入</p>
-<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922580481.png" alt=""></p>
-<p>注入之后会断在ThreadProc函数</p>
-<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922621425.png" alt=""></p>
-<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922671867.png" alt=""></p>
-<p>在x32中</p>
-<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649923028194.png" alt=""></p>
+<p>最后填充64位，这64位是l的二进制编码</p>
+<p>补完位的消息长度为512的倍数</p>
+<h3 id="将补位完的消息进行分组"><a class="header-anchor" href="#将补位完的消息进行分组">¶</a>将补位完的消息进行分组</h3>
+<p>将补码处理后的消息以512位为单位分块为: <img src="/2022/03/23/sha256/equation-1648645770037.svg" alt="[公式]"></p>
+<p>将每个消息块分为16×32bits， 前32位表示为: <img src="/2022/03/23/sha256/equation-1648645804943.svg" alt="[公式]">, 后面32位为: <img src="/2022/03/23/sha256/equation-1648645804934.svg" alt="[公式]">, 以此类推, 最后32位的消息块可表示为: <img src="/2022/03/23/sha256/equation-1648645804929.svg" alt="[公式]"> ，而在C语言中，32位正好对应unsigned int</p>
+<h3 id="消息块扩充"><a class="header-anchor" href="#消息块扩充">¶</a>消息块扩充</h3>
+<p>这里我们得到的是16个32bits消息块，要把其扩展为64个32bits的消息块</p>
+<p>扩展代码</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i from <span class="number">16</span> to <span class="number">63</span></span><br><span class="line">    s0 := (w[i<span class="number">-15</span>] rightrotate <span class="number">7</span>) <span class="keyword">xor</span> (w[i<span class="number">-15</span>] rightrotate <span class="number">18</span>) <span class="keyword">xor</span>(w[i<span class="number">-15</span>] rightshift <span class="number">3</span>)</span><br><span class="line">    s1 := (w[i<span class="number">-2</span>] rightrotate <span class="number">17</span>) <span class="keyword">xor</span> (w[i<span class="number">-2</span>] rightrotate <span class="number">19</span>) <span class="keyword">xor</span>(w[i<span class="number">-2</span>] rightshift <span class="number">10</span>)</span><br><span class="line">    w[i] := w[i<span class="number">-16</span>] + s0 + w[i<span class="number">-7</span>] + s1</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Hash主要加密流程"><a class="header-anchor" href="#Hash主要加密流程">¶</a>Hash主要加密流程</h2>
+<h3 id="常量初始化"><a class="header-anchor" href="#常量初始化">¶</a>常量初始化</h3>
+<p>初始哈希值取自自然数前8个素数(2,3,5,7,11,13,17,19)的平方根的小数部分的前32位的十六进制表示，比如：</p>
+<p><img src="/2022/03/23/sha256/equation-1648646228740.svg" alt="[公式]">小数部分约为0.414213562373095048</p>
+<p><img src="/2022/03/23/sha256/equation-1648646248870.svg" alt="根号2的十六进制表示"></p>
+<p>于是，取出前32位对应0x6a09e667</p>
+<p>依次得到初始化的H值</p>
+<p><img src="/2022/03/23/sha256/equation-1648646313831.svg" alt="初始化H值"></p>
+<h3 id="sha256的64个常数"><a class="header-anchor" href="#sha256的64个常数">¶</a>sha256的64个常数</h3>
+<p>取自自然数中前面64个素数的立方根的小数部分的前32位的十六进制表示</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="number">428</span>a2f98 <span class="number">71374491</span> b5c0fbcf e9b5dba5</span><br><span class="line"><span class="number">3956</span>c25b <span class="number">59f</span>111f1 <span class="number">923f</span>82a4 ab1c5ed5</span><br><span class="line">d807aa98 <span class="number">12835b</span>01 <span class="number">243185b</span>e <span class="number">550</span>c7dc3</span><br><span class="line"><span class="number">72b</span>e5d74 <span class="number">80</span>deb1fe <span class="number">9b</span>dc06a7 c19bf174</span><br><span class="line">e49b69c1 efbe4786 <span class="number">0f</span>c19dc6 <span class="number">240</span>ca1cc</span><br><span class="line"><span class="number">2</span>de92c6f <span class="number">4</span>a7484aa <span class="number">5</span>cb0a9dc <span class="number">76f</span>988da</span><br><span class="line"><span class="number">983e5152</span> a831c66d b00327c8 bf597fc7</span><br><span class="line">c6e00bf3 d5a79147 <span class="number">06</span>ca6351 <span class="number">14292967</span></span><br><span class="line"><span class="number">27b</span>70a85 <span class="number">2e1</span>b2138 <span class="number">4</span>d2c6dfc <span class="number">53380</span>d13</span><br><span class="line"><span class="number">650</span>a7354 <span class="number">766</span>a0abb <span class="number">81</span>c2c92e <span class="number">92722</span>c85</span><br><span class="line">a2bfe8a1 a81a664b c24b8b70 c76c51a3</span><br><span class="line">d192e819 d6990624 f40e3585 <span class="number">106</span>aa070</span><br><span class="line"><span class="number">19</span>a4c116 <span class="number">1e376</span>c08 <span class="number">2748774</span>c <span class="number">34b</span>0bcb5</span><br><span class="line"><span class="number">391</span>c0cb3 <span class="number">4</span>ed8aa4a <span class="number">5b</span>9cca4f <span class="number">682e6</span>ff3</span><br><span class="line"><span class="number">748f</span>82ee <span class="number">78</span>a5636f <span class="number">84</span>c87814 <span class="number">8</span>cc70208</span><br><span class="line"><span class="number">90b</span>efffa a4506ceb bef9a3f7 c67178f2</span><br></pre></td></tr></tbody></table></figure>
+<p>进行64次循环加密，流程图如下：</p>
+<p><img src="/2022/03/23/sha256/600px-SHA-2.svg.png" alt="主要加密"></p>
+<p>这里介绍一下ABCDEFGH的值以及K数组，W是我们扩展后的消息块</p>
+<p>先把第一个W块和K相加后mod2^32，但是在C语言中，会进行截断，超过32位直接不管超过的那一位</p>
+<p>接着先把H7和前一个得到的结果相加后mod2^32</p>
+<p>再把H4、H5、H6取出进行Ch加密，再和前一个结果相加后mod2^32</p>
+<p>将H4取出进行什么1操作，再和前一步的结果相加后mod2^32</p>
+<p>接下来分为两步，第一步把前一个的结果和H3相加后mod2<sup>32并存储在H4，第二步，先把H0、H1、H2进行Ma操作，再和前一步的结果相加再mod2</sup>32</p>
+<p>然后把H0取出进行什么0操作，再和前面第二步的结果相加后mod32后存储在H0</p>
+<p>最后进行移位存储操作，就是除了H0和H4，剩下的H值存入前一个的H值</p>
+<p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组加上原来的中间Hash值就是该消息区块的Hash值</p>
+<h1 id="C语言实现"><a class="header-anchor" href="#C语言实现">¶</a>C语言实现</h1>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_ROTL(a,b) (((a&gt;&gt;(32-b))&amp;(0x7fffffff&gt;&gt;(31-b)))|(a&lt;&lt;b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_SR(a,b) ((a&gt;&gt;b)&amp;(0x7fffffff&gt;&gt;(b-1)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_CH(x,y,z) ((x&amp;y)^((~x)&amp;z))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_Maj(x,y,z) ((x&amp;y)^(x&amp;z)^(y&amp;z))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_E0(x) (SHA256_ROTL(x,30)^SHA256_ROTL(x,19)^SHA256_ROTL(x,10))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_E1(x) (SHA256_ROTL(x,26)^SHA256_ROTL(x,21)^SHA256_ROTL(x,7))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_O0(x) (SHA256_ROTL(x,25)^SHA256_ROTL(x,14)^SHA256_SR(x,3))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_O1(x) (SHA256_ROTL(x,15)^SHA256_ROTL(x,13)^SHA256_SR(x,10)) </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SHA256_ENCODE</span><span class="params">(<span class="keyword">char</span>* input, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">char</span>* pos,*posend;</span><br><span class="line">	<span class="keyword">long</span> A, B, C, D, E, F, G, I;</span><br><span class="line">	<span class="keyword">long</span> W[<span class="number">64</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="comment">//初始化常量数据</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> H[<span class="number">8</span>] = {</span><br><span class="line">		<span class="number">0x6a09e667</span>,<span class="number">0xbb67ae85</span>,<span class="number">0x3c6ef372</span>,<span class="number">0xa54ff53a</span>,</span><br><span class="line">		<span class="number">0x510e527f</span>,<span class="number">0x9b05688c</span>,<span class="number">0x1f83d9ab</span>,<span class="number">0x5be0cd19</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> K[<span class="number">64</span>] = {</span><br><span class="line">		<span class="number">0x428a2f98</span>, <span class="number">0x71374491</span>, <span class="number">0xb5c0fbcf</span>, <span class="number">0xe9b5dba5</span>, <span class="number">0x3956c25b</span>, <span class="number">0x59f111f1</span>, <span class="number">0x923f82a4</span>, <span class="number">0xab1c5ed5</span>,</span><br><span class="line">		<span class="number">0xd807aa98</span>, <span class="number">0x12835b01</span>, <span class="number">0x243185be</span>, <span class="number">0x550c7dc3</span>, <span class="number">0x72be5d74</span>, <span class="number">0x80deb1fe</span>, <span class="number">0x9bdc06a7</span>, <span class="number">0xc19bf174</span>,</span><br><span class="line">		<span class="number">0xe49b69c1</span>, <span class="number">0xefbe4786</span>, <span class="number">0x0fc19dc6</span>, <span class="number">0x240ca1cc</span>, <span class="number">0x2de92c6f</span>, <span class="number">0x4a7484aa</span>, <span class="number">0x5cb0a9dc</span>, <span class="number">0x76f988da</span>,</span><br><span class="line">		<span class="number">0x983e5152</span>, <span class="number">0xa831c66d</span>, <span class="number">0xb00327c8</span>, <span class="number">0xbf597fc7</span>, <span class="number">0xc6e00bf3</span>, <span class="number">0xd5a79147</span>, <span class="number">0x06ca6351</span>, <span class="number">0x14292967</span>,</span><br><span class="line">		<span class="number">0x27b70a85</span>, <span class="number">0x2e1b2138</span>, <span class="number">0x4d2c6dfc</span>, <span class="number">0x53380d13</span>, <span class="number">0x650a7354</span>, <span class="number">0x766a0abb</span>, <span class="number">0x81c2c92e</span>, <span class="number">0x92722c85</span>,</span><br><span class="line">		<span class="number">0xa2bfe8a1</span>, <span class="number">0xa81a664b</span>, <span class="number">0xc24b8b70</span>, <span class="number">0xc76c51a3</span>, <span class="number">0xd192e819</span>, <span class="number">0xd6990624</span>, <span class="number">0xf40e3585</span>, <span class="number">0x106aa070</span>,</span><br><span class="line">		<span class="number">0x19a4c116</span>, <span class="number">0x1e376c08</span>, <span class="number">0x2748774c</span>, <span class="number">0x34b0bcb5</span>, <span class="number">0x391c0cb3</span>, <span class="number">0x4ed8aa4a</span>, <span class="number">0x5b9cca4f</span>, <span class="number">0x682e6ff3</span>,</span><br><span class="line">		<span class="number">0x748f82ee</span>, <span class="number">0x78a5636f</span>, <span class="number">0x84c87814</span>, <span class="number">0x8cc70208</span>, <span class="number">0x90befffa</span>, <span class="number">0xa4506ceb</span>, <span class="number">0xbef9a3f7</span>, <span class="number">0xc67178f2</span>,</span><br><span class="line">	};</span><br><span class="line">	<span class="comment">//消息补位,一个字符8位，而448位为56个字符,128个字符是1024位，512的两倍</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> len_final = len + ((len % <span class="number">64</span> &gt;= <span class="number">56</span>) ? (<span class="number">128</span> - len % <span class="number">64</span>) : (<span class="number">64</span> - len % <span class="number">64</span>));</span><br><span class="line">	<span class="comment">//printf("%d", len_final);</span></span><br><span class="line">	<span class="comment">//开辟空间</span></span><br><span class="line">	<span class="keyword">if</span> (!(pos = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(len_final)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"开辟空间失败！\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//将字符串赋值到堆中，注意因为后面需要转为long类型运算，所以赋值时要注意大小端序的问题</span></span><br><span class="line">	<span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; len; ++i)</span><br><span class="line">	{</span><br><span class="line">		pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = input[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//字符串后面的1和填充0</span></span><br><span class="line">	pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = <span class="number">0x80</span>;</span><br><span class="line">	i++;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; len_final; ++i)</span><br><span class="line">	{</span><br><span class="line">		pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = <span class="number">0</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//填充字符串的真实长度，并扩展为64位,64位也就是8个字符</span></span><br><span class="line">	*((<span class="keyword">long</span>*)(pos + len_final - <span class="number">4</span>)) = len &lt;&lt; <span class="number">3</span>;</span><br><span class="line">	*((<span class="keyword">long</span>*)(pos + len_final - <span class="number">8</span>)) = len &gt;&gt; <span class="number">29</span>;</span><br><span class="line">	<span class="comment">//每512位进行加密</span></span><br><span class="line">	<span class="keyword">for</span> (posend = pos + len_final; pos &lt; posend; pos += <span class="number">64</span>)</span><br><span class="line">	{</span><br><span class="line">		<span class="comment">//先分组为16*32bit</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">16</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			W[j] = ((<span class="keyword">long</span>*)pos)[j];</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">//扩展为64*32bit</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">16</span>; j &lt; <span class="number">64</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			W[j] = (SHA256_O1(W[j - <span class="number">2</span>]) + W[j - <span class="number">7</span>] + SHA256_O0(W[j - <span class="number">15</span>]) + W[j - <span class="number">16</span>]);</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">//下面开始进行64轮加密</span></span><br><span class="line">		<span class="comment">//因为中间哈希值最后时为原来的+加密的哈希值，所以先储存</span></span><br><span class="line">		A = H[<span class="number">0</span>], B = H[<span class="number">1</span>], C = H[<span class="number">2</span>], D = H[<span class="number">3</span>], E = H[<span class="number">4</span>], F = H[<span class="number">5</span>], G = H[<span class="number">6</span>], I = H[<span class="number">7</span>];</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			<span class="comment">//T1存储加密的前一部分,T2存储加密的后一部分</span></span><br><span class="line">			<span class="keyword">long</span> T1 = I + SHA256_CH(E, F, G) + K[i] + W[i]+SHA256_E1(E);</span><br><span class="line">			<span class="keyword">long</span> T2 = SHA256_Maj(A, B, C) + SHA256_E0(A);</span><br><span class="line">			<span class="comment">//只能从后往前赋值，否则会覆盖</span></span><br><span class="line">			I = G;</span><br><span class="line">			G = F;</span><br><span class="line">			F = E;</span><br><span class="line">			E = D + T1;</span><br><span class="line">			D = C;</span><br><span class="line">			C = B;</span><br><span class="line">			B = A;</span><br><span class="line">			A = T1 + T2;</span><br><span class="line">		}</span><br><span class="line">		H[<span class="number">0</span>] += A; H[<span class="number">1</span>] += B;</span><br><span class="line">		H[<span class="number">2</span>] += C; H[<span class="number">3</span>] += D;</span><br><span class="line">		H[<span class="number">4</span>] += E; H[<span class="number">5</span>] += F;</span><br><span class="line">		H[<span class="number">6</span>] += G; H[<span class="number">7</span>] += I;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%X"</span>, H[i]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> input[] = <span class="string">"ze"</span>;</span><br><span class="line">	SHA256_ENCODE(input, <span class="built_in">strlen</span>(input));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 ]]></content>
       <tags>
-        <tag>Windows</tag>
+        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -4321,7 +4258,7 @@
 <p>接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式</p>
 <p>得到</p>
 <figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> shellcode[] = {</span><br><span class="line"><span class="number">0x55</span>,<span class="number">0x8B</span>,<span class="number">0xEC</span>,<span class="number">0x8B</span>,<span class="number">0x75</span>,<span class="number">0x08</span>,<span class="number">0x68</span>,<span class="number">0x6C</span>,<span class="number">0x6C</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x33</span>,<span class="number">0x32</span>,<span class="number">0x2E</span>,<span class="number">0x64</span></span><br><span class="line">,<span class="number">0x68</span>,<span class="number">0x75</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x54</span>,<span class="number">0xFF</span>,<span class="number">0x16</span>,<span class="number">0x68</span>,<span class="number">0x6F</span>,<span class="number">0x78</span>,<span class="number">0x41</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x61</span>,<span class="number">0x67</span></span><br><span class="line">,<span class="number">0x65</span>,<span class="number">0x42</span>,<span class="number">0x68</span>,<span class="number">0x4D</span>,<span class="number">0x65</span>,<span class="number">0x73</span>,<span class="number">0x73</span>,<span class="number">0x54</span>,<span class="number">0x50</span>,<span class="number">0xFF</span>,<span class="number">0x56</span>,<span class="number">0x04</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xE8</span>,<span class="number">0x0C</span></span><br><span class="line">,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x52</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x43</span>,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x00</span>,<span class="number">0xE8</span></span><br><span class="line">,<span class="number">0x14</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x63</span></span><br><span class="line">,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xD0</span>,<span class="number">0x33</span>,<span class="number">0xC0</span>,<span class="number">0x8B</span>,<span class="number">0xE5</span></span><br><span class="line">,<span class="number">0x5D</span>,<span class="number">0xC3</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
-<h1 id="0x02-代码实现-v2"><a class="header-anchor" href="#0x02-代码实现-v2">¶</a>0x02-代码实现</h1>
+<h1 id="0x02-代码实现"><a class="header-anchor" href="#0x02-代码实现">¶</a>0x02-代码实现</h1>
 <figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">BYTE shellcode[] = {</span><br><span class="line"> <span class="number">0x55</span>,<span class="number">0x8B</span>,<span class="number">0xEC</span>,<span class="number">0x8B</span>,<span class="number">0x75</span>,<span class="number">0x08</span>,<span class="number">0x68</span>,<span class="number">0x6C</span>,<span class="number">0x6C</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x33</span>,<span class="number">0x32</span>,<span class="number">0x2E</span>,<span class="number">0x64</span></span><br><span class="line">,<span class="number">0x68</span>,<span class="number">0x75</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x54</span>,<span class="number">0xFF</span>,<span class="number">0x16</span>,<span class="number">0x68</span>,<span class="number">0x6F</span>,<span class="number">0x78</span>,<span class="number">0x41</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x61</span>,<span class="number">0x67</span></span><br><span class="line">,<span class="number">0x65</span>,<span class="number">0x42</span>,<span class="number">0x68</span>,<span class="number">0x4D</span>,<span class="number">0x65</span>,<span class="number">0x73</span>,<span class="number">0x73</span>,<span class="number">0x54</span>,<span class="number">0x50</span>,<span class="number">0xFF</span>,<span class="number">0x56</span>,<span class="number">0x04</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xE8</span>,<span class="number">0x0C</span></span><br><span class="line">,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x52</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x43</span>,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x00</span>,<span class="number">0xE8</span></span><br><span class="line">,<span class="number">0x14</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x63</span></span><br><span class="line">,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xD0</span>,<span class="number">0x33</span>,<span class="number">0xC0</span>,<span class="number">0x8B</span>,<span class="number">0xE5</span></span><br><span class="line">,<span class="number">0x5D</span>,<span class="number">0xC3</span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">Thread_Param</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">	FARPROC pFunc[<span class="number">2</span>];<span class="comment">//Loadlibrary,GetProcAddress</span></span><br><span class="line">}Thread_Param, * pThread_Param;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Asm_Inject</span><span class="params">(DWORD PID)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	HMODULE hMod = <span class="literal">NULL</span>;</span><br><span class="line">	HANDLE hProcess = <span class="literal">NULL</span>;</span><br><span class="line">	Thread_Param param[<span class="number">2</span>] = { <span class="number">0</span>, };</span><br><span class="line">	HANDLE hThread = <span class="literal">NULL</span>;</span><br><span class="line">	LPVOID pRemoteBuf[<span class="number">2</span>] = { <span class="number">0</span>, };</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取kernel32.dll的句柄</span></span><br><span class="line">	hMod = GetModuleHandleA(<span class="string">"kernel32.dll"</span>);</span><br><span class="line">	<span class="comment">//将需要使用的函数存储</span></span><br><span class="line">	param-&gt;pFunc[<span class="number">0</span>] = GetProcAddress(hMod, <span class="string">"LoadLibraryA"</span>);</span><br><span class="line">	param-&gt;pFunc[<span class="number">1</span>] = GetProcAddress(hMod, <span class="string">"GetProcAddress"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//开启进程</span></span><br><span class="line">	<span class="keyword">if</span> (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Open Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">//开辟空间并写入</span></span><br><span class="line">	<span class="keyword">if</span> (!(pRemoteBuf[<span class="number">0</span>] = VirtualAllocEx(hProcess, <span class="literal">NULL</span>, <span class="keyword">sizeof</span>(Thread_Param), MEM_COMMIT, PAGE_READWRITE)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"VirtualAlloc Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!WriteProcessMemory(hProcess, pRemoteBuf[<span class="number">0</span>], (LPVOID)&amp;param, <span class="keyword">sizeof</span>(Thread_Param), <span class="literal">NULL</span>))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"WriteProcess Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将我们的shellcode写入</span></span><br><span class="line">	<span class="keyword">if</span> (!(pRemoteBuf[<span class="number">1</span>] = VirtualAllocEx(hProcess, <span class="literal">NULL</span>, <span class="keyword">sizeof</span>(shellcode), MEM_COMMIT, PAGE_READWRITE)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"VirtualAlloc Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!WriteProcessMemory(hProcess, pRemoteBuf[<span class="number">1</span>], (LPVOID)&amp;shellcode, <span class="keyword">sizeof</span>(shellcode), <span class="literal">NULL</span>))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"WriteProcess Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	hThread = CreateRemoteThread(hProcess, <span class="literal">NULL</span>, <span class="number">0</span>, (LPTHREAD_START_ROUTINE)pRemoteBuf[<span class="number">1</span>], pRemoteBuf[<span class="number">0</span>], <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	WaitForSingleObject(hThread, INFINITE);</span><br><span class="line">	CloseHandle(hThread);</span><br><span class="line">	CloseHandle(hProcess);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>*argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	Asm_Inject((DWORD)atol(argv[<span class="number">1</span>]));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>本质上和代码注入没区别，主要是我们将字符串也包含在了注入的代码里面，所以在线程函数中不再需要使用字符数组存储</p>
 <h1 id="0x03-分析"><a class="header-anchor" href="#0x03-分析">¶</a>0x03-分析</h1>
@@ -4351,6 +4288,69 @@
 <p>可以看到我们的MessageBoxA的参数都在栈中了</p>
 <p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002770898.png" alt="调用MessageBoxA"></p>
 <p>最后就是清空eax和恢复堆栈了</p>
+]]></content>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码注入</title>
+    <url>/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/</url>
+    <content><![CDATA[<p>代码注入</p>
+<span id="more"></span> 
+<h1 id="0x00-前言"><a class="header-anchor" href="#0x00-前言">¶</a>0x00-前言</h1>
+<p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
+<p>于是翻阅到了这篇文章</p>
+<p><a href="https://www.52pojie.cn/thread-1270499-1-1.html">https://www.52pojie.cn/thread-1270499-1-1.html</a></p>
+<h1 id="0x01-原理"><a class="header-anchor" href="#0x01-原理">¶</a>0x01-原理</h1>
+<p>在DLL注入中，我们通过远程线程在目标进程中调用LoadLibraryA()函数加载我们的DLL</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649738932188.png" alt=""></p>
+<p>实际上只要我们定义的函数符合CreateRemoteThread参数中定义的函数模板，就可以通过远程线程的方式去执行它，而不限于LoadLibraryA</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  _In_ LPVOID lpParameter</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>所以我们只要定义一个只有一个参数的函数，把它转换成 LPTHREAD_START_ROUTINE（CreateRemoteThread的参数）即可。</p>
+<p>但是这里产生了一个问题，如果我们的函数具有多个参数怎么办呢，要成功调用函数的话，我们的参数也需要在目标进程的虚拟内存中</p>
+<blockquote>
+<p>对于将我们的参数写入虚拟内存中，我们可以使用VirtualAllocEx函数向目标申请内存虚拟空间</p>
+<p>对于多个参数，我们可以构建一个结构体存放所有的参数，然后在调用的时候通过内存偏移来访问参数</p>
+</blockquote>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">INJECT_DATA</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    <span class="keyword">char</span> lpText[<span class="number">8</span>];  <span class="comment">//参数1</span></span><br><span class="line">    <span class="keyword">char</span> lpCaption[<span class="number">8</span>];  <span class="comment">//参数2</span></span><br><span class="line">}INJECT_DATA;</span><br></pre></td></tr></tbody></table></figure>
+<p>下面以MessageBoxA函数为例</p>
+<h2 id="定义函数指针"><a class="header-anchor" href="#定义函数指针">¶</a>定义函数指针</h2>
+<p>首先先进行定义我们要使用到的函数指针</p>
+<p>因为我们要调用user32.dll中的MessageBoxA，所以要使用LoadLibraryA()加载user32.dll，并且使用GetProcAddress()获取MessageBoxA的函数地址</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//定义函数指针，方便调用HOMDULE是返回值，WINAPI也就是__stdcall，是调用约定，类型名为PFLOADLIBRARYA，lpLivFileName是参数</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">HMODULE</span><span class="params">(WINAPI *PFLOADLIBRARYA)</span><span class="params">(LPCSTR lpLibFileName)</span></span>;<span class="comment">//前面的是返回值，中间是类型</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">FARPROC</span><span class="params">(WINAPI *PFGETPROCADDRESS)</span><span class="params">(HMODULE hModule,LPCSTR lpProcName)</span></span>;<span class="comment">//返回值是一个回调函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(WINAPI *PFMESSAGEBOXA)</span><span class="params">(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="定义线程信息块"><a class="header-anchor" href="#定义线程信息块">¶</a>定义线程信息块</h2>
+<p>使用结构体存储我们要调用的函数信息</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//创建一个存储线程信息的结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">THREAD_PARAM</span>//定义线程信息</span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    FARPROC pFunc[<span class="number">2</span>];               <span class="comment">// LoadLibraryA(), GetProcAddress()  </span></span><br><span class="line">    <span class="keyword">char</span>    szBuf[<span class="number">4</span>][<span class="number">128</span>];          <span class="comment">// "user32.dll", "MessageBoxA", "Inject Success!!", "Hint"  </span></span><br><span class="line">} THREAD_PARAM, * PTHREAD_PARAM;<span class="comment">//分别是线程信息块和指向线程信息的指针</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="线程信息块赋值"><a class="header-anchor" href="#线程信息块赋值">¶</a>线程信息块赋值</h2>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">hMod = GetModuleHandleA(<span class="string">"kernel32.dll"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//先给线程信息块赋值 </span></span><br><span class="line">param.pFunc[<span class="number">0</span>] = GetProcAddress(hMod, <span class="string">"LoadLibraryA"</span>);</span><br><span class="line">param.pFunc[<span class="number">1</span>] = GetProcAddress(hMod, <span class="string">"GetProcAddress"</span>);<span class="comment">//因为kernel32在内存中优先被装载，所以在不同进程中都一样</span></span><br><span class="line">strcpy_s(param.szBuf[<span class="number">0</span>], <span class="string">"user32.dll"</span>);</span><br><span class="line">strcpy_s(param.szBuf[<span class="number">1</span>], <span class="string">"MessageBoxA"</span>);</span><br><span class="line">strcpy_s(param.szBuf[<span class="number">2</span>], <span class="string">"InjectCode Success!!"</span>);</span><br><span class="line">strcpy_s(param.szBuf[<span class="number">3</span>], <span class="string">"Hint"</span>);</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="打开目标进程"><a class="header-anchor" href="#打开目标进程">¶</a>打开目标进程</h2>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//开启进程  </span></span><br><span class="line">    <span class="keyword">if</span> (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID)))              </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"OpenProcess() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="开辟内存并写入线程信息"><a class="header-anchor" href="#开辟内存并写入线程信息">¶</a>开辟内存并写入线程信息</h2>
+<p>第一次写入的是线程函数要调用的函数信息</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//为注入的线程信息块中的第一个函数开辟内存 </span></span><br><span class="line">    dwSize = <span class="keyword">sizeof</span>(THREAD_PARAM);</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">0</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_READWRITE)))    </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//写入线程信息块中函数的值和参数到进程中</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">0</span>],(LPVOID)&amp;param,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<p>第二次将线程函数写入内存</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//再次开辟  </span></span><br><span class="line">    dwSize = (DWORD)InjectCode - (DWORD)ThreadProc;</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">1</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_EXECUTE_READWRITE)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//函数调用</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">1</span>],(LPVOID)ThreadProc,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="开启远程线程"><a class="header-anchor" href="#开启远程线程">¶</a>开启远程线程</h2>
+<p>在目标线程中开启远程线程</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(hThread = CreateRemoteThread(hProcess,<span class="literal">NULL</span>,<span class="number">0</span>,(LPTHREAD_START_ROUTINE)pRemoteBuf[<span class="number">1</span>],pRemoteBuf[<span class="number">0</span>],<span class="number">0</span>,<span class="literal">NULL</span>)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"CreateRemoteThread() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="线程函数实现调用"><a class="header-anchor" href="#线程函数实现调用">¶</a>线程函数实现调用</h2>
+<p>开启线程后会调用线程函数，把我们写入进程内存中的信息读取到要调用的函数中，最后实现调用</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//这里的WINAPI是调用约定，相当于__stdcall</span></span><br><span class="line"><span class="comment">//线程函数，线程开始的地方</span></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(LPVOID lParam)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    PTHREAD_PARAM   pParam = (PTHREAD_PARAM)lParam;</span><br><span class="line">    HMODULE         hMod = <span class="literal">NULL</span>;</span><br><span class="line">    FARPROC         pFunc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LoadLibrary()，将pFunc[0]强制转换为这样类型的函数指针，pParam-&gt;szBuf[0]是该函数的参数</span></span><br><span class="line">    hMod = ((PFLOADLIBRARYA)pParam-&gt;pFunc[<span class="number">0</span>])(pParam-&gt;szBuf[<span class="number">0</span>]);    <span class="comment">// "user32.dll"，第二个括号内的是函数的参数</span></span><br><span class="line">    <span class="keyword">if</span> (!hMod)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// GetProcAddress()，返回值是回调函数，pFunc就是函数指针</span></span><br><span class="line">    pFunc = (FARPROC)((PFGETPROCADDRESS)pParam-&gt;pFunc[<span class="number">1</span>])(hMod, pParam-&gt;szBuf[<span class="number">1</span>]);  <span class="comment">// "MessageBoxA" ，获取到MessageBoxA的地址 </span></span><br><span class="line">    <span class="keyword">if</span> (!pFunc)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MessageBoxA()  </span></span><br><span class="line">    ((PFMESSAGEBOXA)pFunc)(<span class="literal">NULL</span>, pParam-&gt;szBuf[<span class="number">2</span>], pParam-&gt;szBuf[<span class="number">3</span>], MB_OK);<span class="comment">//最后的调用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="0x02-代码实现-v2"><a class="header-anchor" href="#0x02-代码实现-v2">¶</a>0x02-代码实现</h1>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span> </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个存储线程信息的结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">THREAD_PARAM</span>//定义线程信息</span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">    FARPROC pFunc[<span class="number">2</span>];               <span class="comment">// LoadLibraryA(), GetProcAddress()  </span></span><br><span class="line">    <span class="keyword">char</span>    szBuf[<span class="number">4</span>][<span class="number">128</span>];          <span class="comment">// "user32.dll", "MessageBoxA", "www.reversecore.com", "ReverseCore"  </span></span><br><span class="line">} THREAD_PARAM, * PTHREAD_PARAM;<span class="comment">//分别是线程信息块和指向线程信息的指针</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义函数指针，方便调用HOMDULE是返回值，WINAPI也就是__stdcall，是调用约定，类型名为PFLOADLIBRARYA，lpLivFileName是参数</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">HMODULE</span><span class="params">(WINAPI *PFLOADLIBRARYA)</span><span class="params">(LPCSTR lpLibFileName)</span></span>;<span class="comment">//前面的是返回值，中间是类型</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">FARPROC</span><span class="params">(WINAPI *PFGETPROCADDRESS)</span><span class="params">(HMODULE hModule,LPCSTR lpProcName)</span></span>;<span class="comment">//返回值是一个回调函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(WINAPI *PFMESSAGEBOXA)</span><span class="params">(HWND hWnd,LPCSTR lpText,LPCSTR lpCaption,UINT uType)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//这里的WINAPI是调用约定，相当于__stdcall</span></span><br><span class="line"><span class="comment">//线程函数，线程开始的地方</span></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">ThreadProc</span><span class="params">(LPVOID lParam)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    PTHREAD_PARAM   pParam = (PTHREAD_PARAM)lParam;</span><br><span class="line">    HMODULE         hMod = <span class="literal">NULL</span>;</span><br><span class="line">    FARPROC         pFunc = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LoadLibrary()，将pFunc[0]强制转换为这样类型的函数指针，pParam-&gt;szBuf[0]是该函数的参数</span></span><br><span class="line">    hMod = ((PFLOADLIBRARYA)pParam-&gt;pFunc[<span class="number">0</span>])(pParam-&gt;szBuf[<span class="number">0</span>]);    <span class="comment">// "user32.dll"，第二个括号内的是函数的参数</span></span><br><span class="line">    <span class="keyword">if</span> (!hMod)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// GetProcAddress()，返回值是回调函数，pFunc就是函数指针</span></span><br><span class="line">    pFunc = (FARPROC)((PFGETPROCADDRESS)pParam-&gt;pFunc[<span class="number">1</span>])(hMod, pParam-&gt;szBuf[<span class="number">1</span>]);  <span class="comment">// "MessageBoxA" ，获取到MessageBoxA的地址 </span></span><br><span class="line">    <span class="keyword">if</span> (!pFunc)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MessageBoxA()  </span></span><br><span class="line">    ((PFMESSAGEBOXA)pFunc)(<span class="literal">NULL</span>, pParam-&gt;szBuf[<span class="number">2</span>], pParam-&gt;szBuf[<span class="number">3</span>], MB_OK);<span class="comment">//最后的调用</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">InjectCode</span><span class="params">(DWORD dwPID)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    HMODULE         hMod = <span class="literal">NULL</span>;</span><br><span class="line">    THREAD_PARAM    param = { <span class="number">0</span>, };</span><br><span class="line">    HANDLE          hProcess = <span class="literal">NULL</span>;</span><br><span class="line">    HANDLE          hThread = <span class="literal">NULL</span>;</span><br><span class="line">    LPVOID          pRemoteBuf[<span class="number">2</span>] = { <span class="number">0</span>, };</span><br><span class="line">    DWORD           dwSize = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    hMod = GetModuleHandleA(<span class="string">"kernel32.dll"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//先给线程信息块赋值 </span></span><br><span class="line">    param.pFunc[<span class="number">0</span>] = GetProcAddress(hMod, <span class="string">"LoadLibraryA"</span>);</span><br><span class="line">    param.pFunc[<span class="number">1</span>] = GetProcAddress(hMod, <span class="string">"GetProcAddress"</span>);<span class="comment">//因为kernel32在内存中优先被装载，所以在不同进程中都一样</span></span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">0</span>], <span class="string">"user32.dll"</span>);</span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">1</span>], <span class="string">"MessageBoxA"</span>);</span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">2</span>], <span class="string">"InjectCode Success!!"</span>);</span><br><span class="line">    strcpy_s(param.szBuf[<span class="number">3</span>], <span class="string">"Hint"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启进程  </span></span><br><span class="line">    <span class="keyword">if</span> (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID)))              </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"OpenProcess() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为注入的线程信息块中的第一个函数开辟内存 </span></span><br><span class="line">    dwSize = <span class="keyword">sizeof</span>(THREAD_PARAM);</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">0</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_READWRITE)))    </span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//写入线程信息块中函数的值和参数到进程中</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">0</span>],(LPVOID)&amp;param,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//再次开辟  </span></span><br><span class="line">    dwSize = (DWORD)InjectCode - (DWORD)ThreadProc;</span><br><span class="line">    <span class="keyword">if</span> (!(pRemoteBuf[<span class="number">1</span>] = VirtualAllocEx(hProcess,<span class="literal">NULL</span>,dwSize,MEM_COMMIT,PAGE_EXECUTE_READWRITE)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"VirtualAllocEx() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//函数调用</span></span><br><span class="line">    <span class="keyword">if</span> (!WriteProcessMemory(hProcess,pRemoteBuf[<span class="number">1</span>],(LPVOID)ThreadProc,dwSize,<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"WriteProcessMemory() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//开启远程线程，LPTHREAD_START_ROUTINE指向一个回调函数，pRemoteBuf[1]是函数，pRemoteBufe[0]是函数的值和参数</span></span><br><span class="line">    <span class="keyword">if</span> (!(hThread = CreateRemoteThread(hProcess,<span class="literal">NULL</span>,<span class="number">0</span>,(LPTHREAD_START_ROUTINE)pRemoteBuf[<span class="number">1</span>],pRemoteBuf[<span class="number">0</span>],<span class="number">0</span>,<span class="literal">NULL</span>)))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"CreateRemoteThread() fail : err_code = %d\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    WaitForSingleObject(hThread, INFINITE);</span><br><span class="line"></span><br><span class="line">    CloseHandle(hThread);</span><br><span class="line">    CloseHandle(hProcess);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL <span class="title">SetPrivilege</span><span class="params">(LPCTSTR lpszPrivilege, BOOL bEnablePrivilege)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    TOKEN_PRIVILEGES tp;</span><br><span class="line">    HANDLE hToken;</span><br><span class="line">    LUID luid;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!OpenProcessToken(GetCurrentProcess(),</span><br><span class="line">        TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY,</span><br><span class="line">        &amp;hToken))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"OpenProcessToken error: %u\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!LookupPrivilegeValue(<span class="literal">NULL</span>,           <span class="comment">// lookup privilege on local system  </span></span><br><span class="line">        lpszPrivilege,  <span class="comment">// privilege to lookup   </span></span><br><span class="line">        &amp;luid))        <span class="comment">// receives LUID of privilege  </span></span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"LookupPrivilegeValue error: %u\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    tp.PrivilegeCount = <span class="number">1</span>;</span><br><span class="line">    tp.Privileges[<span class="number">0</span>].Luid = luid;</span><br><span class="line">    <span class="keyword">if</span> (bEnablePrivilege)</span><br><span class="line">        tp.Privileges[<span class="number">0</span>].Attributes = SE_PRIVILEGE_ENABLED;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        tp.Privileges[<span class="number">0</span>].Attributes = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enable the privilege or disable all privileges.  </span></span><br><span class="line">    <span class="keyword">if</span> (!AdjustTokenPrivileges(hToken,</span><br><span class="line">        FALSE,</span><br><span class="line">        &amp;tp,</span><br><span class="line">        <span class="keyword">sizeof</span>(TOKEN_PRIVILEGES),</span><br><span class="line">        (PTOKEN_PRIVILEGES)<span class="literal">NULL</span>,</span><br><span class="line">        (PDWORD)<span class="literal">NULL</span>))</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"AdjustTokenPrivileges error: %u\n"</span>, GetLastError());</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (GetLastError() == ERROR_NOT_ALL_ASSIGNED)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"The token does not have the specified privilege. \n"</span>);</span><br><span class="line">        <span class="keyword">return</span> FALSE;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    DWORD dwPID = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (argc != <span class="number">2</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\n USAGE  : %s &lt;pid&gt;\n"</span>, argv[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">//进程提权</span></span><br><span class="line">    <span class="keyword">if</span> (!SetPrivilege(SE_DEBUG_NAME, TRUE))</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//code injection  </span></span><br><span class="line">    dwPID = (DWORD)atol(argv[<span class="number">1</span>]);</span><br><span class="line">    dwPID = <span class="number">9432</span>;</span><br><span class="line">    InjectCode(dwPID);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="0x03-最终效果"><a class="header-anchor" href="#0x03-最终效果">¶</a>0x03-最终效果</h1>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649916449939.png" alt=""></p>
+<h1 id="0x04-代码注入调试练习"><a class="header-anchor" href="#0x04-代码注入调试练习">¶</a>0x04-代码注入调试练习</h1>
+<p>先使用OD打开notepad++，并F9直至notepad++处于运行状态</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922555004.png" alt="进行设置"></p>
+<p>然后查看notepad++ PID并注入</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922580481.png" alt=""></p>
+<p>注入之后会断在ThreadProc函数</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922621425.png" alt=""></p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649922671867.png" alt=""></p>
+<p>在x32中</p>
+<p><img src="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/1649923028194.png" alt=""></p>
 ]]></content>
       <tags>
         <tag>Windows</tag>
@@ -4420,6 +4420,55 @@
       <tags>
         <tag>Reverse</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>动态链接库创建与使用</title>
+    <url>/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>动态链接库</p>
+<span id="more"></span> 
+<h1 id="0x00-参考文章"><a class="header-anchor" href="#0x00-参考文章">¶</a>0x00-参考文章</h1>
+<p><a href="https://blog.csdn.net/LyRics1996/article/details/120246497">https://blog.csdn.net/LyRics1996/article/details/120246497</a></p>
+<h1 id="0x01-创建动态链接库"><a class="header-anchor" href="#0x01-创建动态链接库">¶</a>0x01-创建动态链接库</h1>
+<p>下面以VS为例</p>
+<p>在创建新项目找到动态链接库DLL</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068184192.png" alt=""></p>
+<p>创建之后是这样的</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068250968.png" alt=""></p>
+<p>替换成我们待会要调用的函数</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070264273.png" alt="替换之后"></p>
+<p>之所以要在函数前面加上extern “C” __declspec(dllexport)</p>
+<p>是因为在导出的时候可能会增加一些符号，这样的话函数的名称会被修改，待会GetProcAddress就无法调用了</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070418832.png" alt="说明"></p>
+<h1 id="0x03-调用动态链接库"><a class="header-anchor" href="#0x03-调用动态链接库">¶</a>0x03-调用动态链接库</h1>
+<p>首先先要加载动态链接库，使用LoadLibrary，有两种方式</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">handle = LoadLibrary(_TEXT(<span class="string">"D:\\new\\AD\\C语言\\Dll1\\Debug\\Dll1.dll"</span>));</span><br></pre></td></tr></tbody></table></figure>
+<p>使用下面这种方式的话需要#include&lt;tcahr.h&gt;</p>
+<p>GetProcAddress调用DLL文件中的函数</p>
+<p>我们需要使用typedef为函数指针创建匹配类型的指针</p>
+<p>因为函数名就是函数的地址，所以可以直接赋值和调用，下面两种都可以调用函数，震惊！C语言白学了</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649072130088.png" alt=""></p>
+<p>代码如下</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tchar.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*Lpfunc)</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;<span class="comment">//先定义函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	HMODULE handle;</span><br><span class="line">	handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">	handle = LoadLibrary(_TEXT(<span class="string">"Dll1.dll"</span>));</span><br><span class="line">	Lpfunc add = <span class="literal">NULL</span>;</span><br><span class="line">	add = (Lpfunc)GetProcAddress(handle, <span class="string">"add"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, add(<span class="number">3</span>, <span class="number">4</span>));</span><br><span class="line">	FreeLibrary(handle);<span class="comment">//释放资源</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>typedef声明函数指针</p>
+<p><a href="https://blog.csdn.net/afei__/article/details/82011613">https://blog.csdn.net/afei__/article/details/82011613</a></p>
+<p>当然我们也可以多层调用</p>
+<p>dll文件中</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pch.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, k);</span><br><span class="line">}</span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    Print(c);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>python调用dll-ctype</p>
+<p><a href="https://docs.python.org/3/library/ctypes.html">https://docs.python.org/3/library/ctypes.html</a></p>
+]]></content>
+      <tags>
+        <tag>PE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>反调试大杂烩</title>
+    <url>/2022/03/27/%E5%8F%8D%E8%B0%83%E8%AF%95%E5%A4%A7%E6%9D%82%E7%83%A9/</url>
+    <content><![CDATA[<p>反调试介绍</p>
+<span id="more"></span> 
+<p><a href="https://ctf-wiki.org/reverse/windows/anti-debug/example/">https://ctf-wiki.org/reverse/windows/anti-debug/example/</a></p>
+<p><a href="https://anti-debug.checkpoint.com/techniques/assembly.html">https://anti-debug.checkpoint.com/techniques/assembly.html</a></p>
+]]></content>
   </entry>
   <entry>
     <title>压缩壳的学习</title>
@@ -4530,55 +4579,6 @@
       <tags>
         <tag>Reverse</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>动态链接库创建与使用</title>
-    <url>/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>动态链接库</p>
-<span id="more"></span> 
-<h1 id="0x00-参考文章"><a class="header-anchor" href="#0x00-参考文章">¶</a>0x00-参考文章</h1>
-<p><a href="https://blog.csdn.net/LyRics1996/article/details/120246497">https://blog.csdn.net/LyRics1996/article/details/120246497</a></p>
-<h1 id="0x01-创建动态链接库"><a class="header-anchor" href="#0x01-创建动态链接库">¶</a>0x01-创建动态链接库</h1>
-<p>下面以VS为例</p>
-<p>在创建新项目找到动态链接库DLL</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068184192.png" alt=""></p>
-<p>创建之后是这样的</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068250968.png" alt=""></p>
-<p>替换成我们待会要调用的函数</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070264273.png" alt="替换之后"></p>
-<p>之所以要在函数前面加上extern “C” __declspec(dllexport)</p>
-<p>是因为在导出的时候可能会增加一些符号，这样的话函数的名称会被修改，待会GetProcAddress就无法调用了</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070418832.png" alt="说明"></p>
-<h1 id="0x03-调用动态链接库"><a class="header-anchor" href="#0x03-调用动态链接库">¶</a>0x03-调用动态链接库</h1>
-<p>首先先要加载动态链接库，使用LoadLibrary，有两种方式</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">handle = LoadLibrary(_TEXT(<span class="string">"D:\\new\\AD\\C语言\\Dll1\\Debug\\Dll1.dll"</span>));</span><br></pre></td></tr></tbody></table></figure>
-<p>使用下面这种方式的话需要#include&lt;tcahr.h&gt;</p>
-<p>GetProcAddress调用DLL文件中的函数</p>
-<p>我们需要使用typedef为函数指针创建匹配类型的指针</p>
-<p>因为函数名就是函数的地址，所以可以直接赋值和调用，下面两种都可以调用函数，震惊！C语言白学了</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649072130088.png" alt=""></p>
-<p>代码如下</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tchar.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*Lpfunc)</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;<span class="comment">//先定义函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	HMODULE handle;</span><br><span class="line">	handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">	handle = LoadLibrary(_TEXT(<span class="string">"Dll1.dll"</span>));</span><br><span class="line">	Lpfunc add = <span class="literal">NULL</span>;</span><br><span class="line">	add = (Lpfunc)GetProcAddress(handle, <span class="string">"add"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, add(<span class="number">3</span>, <span class="number">4</span>));</span><br><span class="line">	FreeLibrary(handle);<span class="comment">//释放资源</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>typedef声明函数指针</p>
-<p><a href="https://blog.csdn.net/afei__/article/details/82011613">https://blog.csdn.net/afei__/article/details/82011613</a></p>
-<p>当然我们也可以多层调用</p>
-<p>dll文件中</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pch.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, k);</span><br><span class="line">}</span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    Print(c);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p>python调用dll-ctype</p>
-<p><a href="https://docs.python.org/3/library/ctypes.html">https://docs.python.org/3/library/ctypes.html</a></p>
-]]></content>
-      <tags>
-        <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>反调试大杂烩</title>
-    <url>/2022/03/27/%E5%8F%8D%E8%B0%83%E8%AF%95%E5%A4%A7%E6%9D%82%E7%83%A9/</url>
-    <content><![CDATA[<p>反调试介绍</p>
-<span id="more"></span> 
-<p><a href="https://ctf-wiki.org/reverse/windows/anti-debug/example/">https://ctf-wiki.org/reverse/windows/anti-debug/example/</a></p>
-<p><a href="https://anti-debug.checkpoint.com/techniques/assembly.html">https://anti-debug.checkpoint.com/techniques/assembly.html</a></p>
-]]></content>
   </entry>
   <entry>
     <title>图片隐写</title>
