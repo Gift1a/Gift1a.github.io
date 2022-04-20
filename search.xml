@@ -163,11 +163,6 @@
       </tags>
   </entry>
   <entry>
-    <title>API钩取技术</title>
-    <url>/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
     <title>AES</title>
     <url>/2022/02/08/AES/</url>
     <content><![CDATA[<h1 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h1><p>AES属于分组加密算法，即加解密都是使用同一密钥，但是是分为几组进行加密</p>
@@ -398,10 +393,15 @@
 
 <p><img src="/2022/04/18/BUU%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/1650342054912.png"></p>
 <p>这样子就不会存在int型读取时小端序的问题</p>
-<h1 id><a href="#" class="headerlink" title></a></h1>]]></content>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>
       <tags>
         <tag>Reverse</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>API钩取技术</title>
+    <url>/2022/04/15/API%E9%92%A9%E5%8F%96%E6%8A%80%E6%9C%AF/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>BlockChain</title>
@@ -432,195 +432,6 @@
       <tags>
         <tag>BlockChain</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Crackme算法</title>
-    <url>/2022/04/03/Crackme%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p>Crackme算法</p>
-<span id="more"></span> 
-
-<h1 id="0x00前言"><a href="#0x00前言" class="headerlink" title="0x00前言"></a>0x00前言</h1><p>因为汇编太水了，所以决定做一下CrackMe练习，可能不会一直弄，精力有限</p>
-<h1 id="0x01-笔记"><a href="#0x01-笔记" class="headerlink" title="0x01-笔记"></a>0x01-笔记</h1><blockquote>
-<p> XCHG（交换数据）指令交换两个操作数内容 </p>
-</blockquote>
-<blockquote>
-<p>mov和lea的区别</p>
-<p>mov:当mov eax,[]表示将[]中地址存储的值存放到eax中，当然也可以直接mov地址到eax中，如mov eax,地址</p>
-<p>lea:当lea eax,[]，表示将[]中的地址存放到eax中，相当于指针，主要是计算地址</p>
-</blockquote>
-<h1 id="002-abexcm5"><a href="#002-abexcm5" class="headerlink" title="002-abexcm5"></a>002-abexcm5</h1><p>首先先通过字符串引用定位到正确判断的位置</p>
-<blockquote>
-<p>调用函数前需要将参数压入堆栈中，并且靠前的参数后压入栈中</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964360285.png" alt="正确判断"></p>
-<p>接下来可以按x寻找调用位置，红色框中的就是跳转的位置</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964520801.png" alt="调用位置"></p>
-<p>再往上找比较函数</p>
-<p>可以看到这里调用了cmp函数，而且压入了两个参数，第一个是真正的注册码，第二个是我们的输入</p>
-<blockquote>
-<p>cmp:比较两个操作数，根据相减结果来改变零标志位，结果为0时，零标志位为1（Z位）</p>
-<p>当第一位小于第二位时，S位为1</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964586990.png" alt="比较函数"></p>
-<p>寻找对注册码的操作</p>
-<p>可以看到这里进行了两次拼接操作</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964780202.png" alt="两次拼接"></p>
-<p>这个拼接的字符串是已知的，再看另一个</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964832766.png"></p>
-<p>可以看到先通过GetVolumeInformationA获取驱动器信息，并生成字符串存储到aData4562Abex中，然后将字符串String2拼接到生成的字符串后</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964910270.png" alt="aData4562Abex操作"></p>
-<p>接下来重点讲讲ds段寄存器和重要的操作数</p>
-<blockquote>
-<p>ds:[地址]就相当于ds:地址，而且取出的是里面的内容，然后进行加一，</p>
-<p>dec dl是dl的值–，并且除了CF标志位，其他都会改变。</p>
-<p>dec dl对ZF标志位的影响，jnz跳转的条件是ZF==0，当dl的值为0时，设置ZF=1；否则设置为0</p>
-<p>而一开始mov dl,2就是初始化迭代的次数，那么从mov到jnz这一段就是一个循环。</p>
-</blockquote>
-<p>总的加密就是取出aData字符串的前四位进行两次+1</p>
-<p>所以我们还原一下过程即可得到注册码，但是我不明白GetVolumeInformationA生成的字符串，所以动调了</p>
-<p>最后注册码L2C-5781Fcvc4562-ABEX</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648965721476.png" alt="注册成功"></p>
-<h1 id="003-Cruehead-CrackMe-3"><a href="#003-Cruehead-CrackMe-3" class="headerlink" title="003-Cruehead-CrackMe-3"></a>003-Cruehead-CrackMe-3</h1><p>运行时发现是未cracked的</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648979391664.png" alt="运行时"></p>
-<p>了解到这是需要KEY文件才能正确crack的，我们从头开始分析</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648980725152.png" alt="CreateFileA"></p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">CreateFileA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           LPCSTR                lpFileName,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwDesiredAccess,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwShareMode,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwCreationDisposition,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwFlagsAndAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] HANDLE                hTemplateFile</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
-
-<p>具体参数参考<a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea">https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea</a></p>
-<p>注意压入栈的顺序即可，这里根据参数应该是打开CRACKME3.KEY文件，如果没有的话返回值设置为-1</p>
-<blockquote>
-<p>返回值一般存储在eax寄存器中</p>
-</blockquote>
-<blockquote>
-<p>CMP汇编指令会修改ZF和CF标志寄存器，如果相同的话设置ZF为1，否则为0</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981137536.png" alt="跳转"></p>
-<p>如果不相等，就跳转到401043，这里我们默认打开了</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981237587.png" alt="ReadFile"></p>
-<p>可以看到先把0x12存入eax，把字符串地址放入ebx中</p>
-<blockquote>
-<p>offset存储的是字符串的地址</p>
-</blockquote>
-<p>接下来调用ReadFile读取文件内容，长度是0x12，位置是字符串地址存储的内容</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">ReadFile</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    HANDLE hFile,            <span class="comment">//文件的句柄</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID lpBuffer,          <span class="comment">//用于保存读入数据的一个缓冲区</span></span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD nNumberOfBytesToRead,    <span class="comment">//要读入的字节数</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPDWORD lpNumberOfBytesRead,    <span class="comment">//指向实际读取字节数的指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPOVERLAPPED lpOverlapped</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//该结构定义了一次异步读取操作。否则，应将这个参数设为NULL</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981665617.png" alt="加密函数之一"></p>
-<p>先来看加密函数的初始化操作</p>
-<p>两个xor是将ecx和eax的值清空</p>
-<p>将esp+arg_0存储的值赋值到esi中，也就是读取字符串的地址</p>
-<blockquote>
-<p>这里可以看到arg_0=DWORD 4，esp+4就是我们压入栈中的参数，因为call会让ESP往低地址移动</p>
-</blockquote>
-<p>再将0x41赋值给bl</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981700071.png" alt="初始化操作"></p>
-<p>接下来看加密的操作，首先先将esi的存储的值看作地址，取出里面的内容放到al中，再将al异或上bl的值，再存放回原来的地址</p>
-<blockquote>
-<p>inc实现的是自增1</p>
-</blockquote>
-<p>esi存放的是地址，+1就相当于指针后移</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981955860.png" alt="加密操作"></p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982311802.png" alt="指针移动"></p>
-<p>然后将异或后的结果加到ds:dword_4020F9存储的内容中</p>
-<p>判断al的值是否为0，如果是的话，跳转到</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982477054.png" alt="当al为0时跳转的地址"></p>
-<p>接着就是cl++，然后判断bl的值是否为0x4F，因为初始时bl的值为0x41，所以加密数据的长度是0x4f-0x41</p>
-<p>最后，函数loc_401335结束前把ecx的值存放到ds段寄存器地址的内容中</p>
-<p>因为异或后相加的结果存储在dword_4020F9中，这里将它和0x12345678异或</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982757718.png"></p>
-<blockquote>
-<p>add esp,4是因为call的时候将其下一条指令压入栈中，所以需要add esp,4</p>
-</blockquote>
-<p>接下来又将我们加密后的内容压入栈，进行下一个函数的操作</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983002897.png" alt="第二轮操作"></p>
-<p>先把esp+4存储的内容也就是存储字符串的首地址存放到esi中，然后esi+0xE，也就是地址后移0xE，再将其存储的值放入eax中，0x12-0xE=4，也就是将最后四个存放到eax寄存器中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983018786.png" alt="第二轮操作"></p>
-<p>将最后四位与dword_4020F9，也就是刚才和0x12345678异或后的值比较</p>
-<blockquote>
-<p>setz al；如果ZF=1，则设置目标数为1，否则则为0</p>
-<p>test al,al;如果al&amp;al==0，也就是al的值为0，那么ZF会被设置为1，否则则为0</p>
-</blockquote>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983201869.png" alt="比较"></p>
-<p>接下来是一些创建窗口和弹出窗口的代码</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983983571.png" alt="窗口代码"></p>
-<p>看一下成功的部分代码</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984022368.png" alt="成功部分"></p>
-<p>主要看一下这个</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984126580.png" alt="移动字符串"></p>
-<blockquote>
-<p> 即字符串传送指令，这条指令按字节传送数据。通过SI和DI这两个寄存器控制字符串的源地址和目标地址，比如DS:SI这段地址的N个字节复制到ES:DI指向的地址，复制后DS:SI的内容保持不变。 </p>
-</blockquote>
-<p>先把DWORD_402149，也就是前面说的加密的长度</p>
-<p>也就是先把传入的两个参数的地址分别存入esi和edi中</p>
-<p>而第一个参数也就是arg_0(后压入栈)，被存放到esi中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984644479.png"></p>
-<p>同时，第一个参数也是前面存放我们字符串的地址</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984708951.png"></p>
-<p>然后edi指向的地址后移</p>
-<p>再循环将esi的值存入edi中，循环次数为ecx的值</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984226522.png"></p>
-<p>这段话就是将我们最后加密的字符串拼接到Cracked By:后面</p>
-<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>先打开CRACKME3.KEY文件，读取前十八个字符，然后对前14个字符异或加密，并且将异或后的值和0x12345678异或后与最后四位进行比较，前十四个密文为<a href="mailto:wanao@yahoo.cn">wanao@yahoo.cn</a>，然后动调得到最后四位字符，填充进去即可，注意大小端序</p>
-<p>前十四位字符脚本</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> name[]=<span class="string">"wanao@yahoo.cn"</span>;</span><br><span class="line">	<span class="keyword">char</span> key=<span class="string">'A'</span>;</span><br><span class="line">	<span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(name);++i)</span><br><span class="line">	{</span><br><span class="line">		name[i]^=key++;</span><br><span class="line">		num+=name[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,num);</span><br><span class="line">	<span class="keyword">int</span> key2=<span class="number">0x12345678</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line"> } </span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985143096.png" alt="最后四位字符"></p>
-<p>最终效果</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985203991.png"></p>
-<h1 id="004-Acid-Bytes-2"><a href="#004-Acid-Bytes-2" class="headerlink" title="004-Acid Bytes.2"></a>004-Acid Bytes.2</h1><p>upx壳，去掉后很快就能找到比较</p>
-<h1 id="006-ArturDents-CrackMe-2"><a href="#006-ArturDents-CrackMe-2" class="headerlink" title="006-ArturDents-CrackMe#2"></a>006-ArturDents-CrackMe#2</h1><p>先找到成功的函数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033728711.png" alt="验证正确的函数"></p>
-<p>然后找到关键比较</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033782005.png" alt="关键函数和跳转"></p>
-<p>根据程序运行知道我们需要输入name和序列号，找到获取输入的函数</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">UINT <span class="title">GetDlgItemTextA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  HWND  hDlg,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   nIDDlgItem,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out] LPSTR lpString,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   cchMax</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"><span class="comment">//返回值是字符串的长度</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>lpstring就是我们的输入</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034100647.png" alt="关键函数"></p>
-<p>箭头处可以看到cmp esi,5，而前面将函数的返回值也就是eax的值存储到esi中，所以这是长度比较，可以看到jge下一段是说name长度必须大于5。</p>
-<p>再看下面红色框，获取我们的输入密码后，将input和password的地址存放到eax和ebx中，再把esi也就是name的长度存入ecx中</p>
-<p>看加密函数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034490927.png" alt="关键加密函数"></p>
-<p>先把eax存储的值取出，然后减去cl的值，再与ebx存放的值作比较</p>
-<p>下面那个跳转是跳转到离开的函数</p>
-<p>inc是自增，也就是让寄存器指向password和input下一个字符</p>
-<blockquote>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)</span><br><span class="line">标号: (标明后面就是需要循环的循环体)</span><br><span class="line">    循环执行的程序代码</span><br><span class="line">    Loop 标号<span class="comment">//注意：每执行一次loop，ecx的值都会减1</span></span><br></pre></td></tr></tbody></table></figure>
-</blockquote>
-<p>每执行一次loop，ecx的值都会减1</p>
-<p>所以注意这一点即可</p>
-<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p>name为99999，序列号为45678即可满足</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034817650.png" alt="成功"></p>
-<h1 id="007-reg"><a href="#007-reg" class="headerlink" title="007-reg"></a>007-reg</h1><p>这是一个共享软件，打开时需要我们输入UserName和SN，然后生成reg.dll，再打开软件验证。</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040536751.png" alt="reg.dll内容"></p>
-<p>先定位到关键的字符串</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040650078.png" alt="关键字符串"></p>
-<p>定位过去</p>
-<p>可以看到先把字符串也就是reg.dll移动到eax中，然后call，再对al进行验证，所以这个函数应该是打开这个文件，没有这个文件的话就返回0</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040684329.png"></p>
-<p>接下来这一段应该是将dll文件的username和sn读取出来</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040844910.png" alt="读取函数"></p>
-<p>可以看到先把刚才读取的username和sn存放到edx和eax中，然后调用函数，调用结束后进行test和跳转，所以这个函数应该是加密函数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040977142.png" alt="加密函数"></p>
-<p>加密函数中，先将变量的值清0，并且将username和sn存放到第一个和第二个参数中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041483499.png"></p>
-<p>往下看，这里先把第二个参数（序列号）的地址读取到eax中，然后返回值和0x10作比较，那么这段应该就是计算序列号的长度</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041704450.png" alt="关键比较"></p>
-<p>在函数出事的地方，可以看到var_8=-8，然后ebp-8就是存放的序列号</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042026513.png" alt="计算位置"></p>
-<p>看一下函数调用的堆栈图，EBP+x就是压入的参数</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042190963.png" alt="堆栈图"></p>
-<p>下面这一段应该是对序列号验证，因为sub会让标志寄存器改变</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042492337.png" alt="验证"></p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042642683.png"></p>
-<p>FTSP汇编指令</p>
-<p><a href="https://blog.csdn.net/liujiayu2/article/details/77711838">https://blog.csdn.net/liujiayu2/article/details/77711838</a></p>
-<p>最后在这里的堆栈图找到了正确的序列号，长度正好是0x10</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042753681.png"></p>
-<p>先把两个参数存放的内容以及第三个参数也就是var_10的地址存储到ecx中，那么这个应该就是正确的序列号</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042840725.png" alt="在调用前面的函数前"></p>
-<p>函数有点复杂，有时间再看，据说后面有md5</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649043390270.png" alt="ZF标志位"></p>
-]]></content>
   </entry>
   <entry>
     <title>C++</title>
@@ -871,17 +682,201 @@
       </tags>
   </entry>
   <entry>
+    <title>Crackme算法</title>
+    <url>/2022/04/03/Crackme%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p>Crackme算法</p>
+<span id="more"></span> 
+
+<h1 id="0x00前言"><a href="#0x00前言" class="headerlink" title="0x00前言"></a>0x00前言</h1><p>因为汇编太水了，所以决定做一下CrackMe练习，可能不会一直弄，精力有限</p>
+<h1 id="0x01-笔记"><a href="#0x01-笔记" class="headerlink" title="0x01-笔记"></a>0x01-笔记</h1><blockquote>
+<p> XCHG（交换数据）指令交换两个操作数内容 </p>
+</blockquote>
+<blockquote>
+<p>mov和lea的区别</p>
+<p>mov:当mov eax,[]表示将[]中地址存储的值存放到eax中，当然也可以直接mov地址到eax中，如mov eax,地址</p>
+<p>lea:当lea eax,[]，表示将[]中的地址存放到eax中，相当于指针，主要是计算地址</p>
+</blockquote>
+<h1 id="002-abexcm5"><a href="#002-abexcm5" class="headerlink" title="002-abexcm5"></a>002-abexcm5</h1><p>首先先通过字符串引用定位到正确判断的位置</p>
+<blockquote>
+<p>调用函数前需要将参数压入堆栈中，并且靠前的参数后压入栈中</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964360285.png" alt="正确判断"></p>
+<p>接下来可以按x寻找调用位置，红色框中的就是跳转的位置</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964520801.png" alt="调用位置"></p>
+<p>再往上找比较函数</p>
+<p>可以看到这里调用了cmp函数，而且压入了两个参数，第一个是真正的注册码，第二个是我们的输入</p>
+<blockquote>
+<p>cmp:比较两个操作数，根据相减结果来改变零标志位，结果为0时，零标志位为1（Z位）</p>
+<p>当第一位小于第二位时，S位为1</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964586990.png" alt="比较函数"></p>
+<p>寻找对注册码的操作</p>
+<p>可以看到这里进行了两次拼接操作</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964780202.png" alt="两次拼接"></p>
+<p>这个拼接的字符串是已知的，再看另一个</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964832766.png"></p>
+<p>可以看到先通过GetVolumeInformationA获取驱动器信息，并生成字符串存储到aData4562Abex中，然后将字符串String2拼接到生成的字符串后</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964910270.png" alt="aData4562Abex操作"></p>
+<p>接下来重点讲讲ds段寄存器和重要的操作数</p>
+<blockquote>
+<p>ds:[地址]就相当于ds:地址，而且取出的是里面的内容，然后进行加一，</p>
+<p>dec dl是dl的值–，并且除了CF标志位，其他都会改变。</p>
+<p>dec dl对ZF标志位的影响，jnz跳转的条件是ZF==0，当dl的值为0时，设置ZF=1；否则设置为0</p>
+<p>而一开始mov dl,2就是初始化迭代的次数，那么从mov到jnz这一段就是一个循环。</p>
+</blockquote>
+<p>总的加密就是取出aData字符串的前四位进行两次+1</p>
+<p>所以我们还原一下过程即可得到注册码，但是我不明白GetVolumeInformationA生成的字符串，所以动调了</p>
+<p>最后注册码L2C-5781Fcvc4562-ABEX</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648965721476.png" alt="注册成功"></p>
+<h1 id="003-Cruehead-CrackMe-3"><a href="#003-Cruehead-CrackMe-3" class="headerlink" title="003-Cruehead-CrackMe-3"></a>003-Cruehead-CrackMe-3</h1><p>运行时发现是未cracked的</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648979391664.png" alt="运行时"></p>
+<p>了解到这是需要KEY文件才能正确crack的，我们从头开始分析</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648980725152.png" alt="CreateFileA"></p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">CreateFileA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           LPCSTR                lpFileName,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwDesiredAccess,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwShareMode,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwCreationDisposition,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwFlagsAndAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] HANDLE                hTemplateFile</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>具体参数参考<a href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea">https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea</a></p>
+<p>注意压入栈的顺序即可，这里根据参数应该是打开CRACKME3.KEY文件，如果没有的话返回值设置为-1</p>
+<blockquote>
+<p>返回值一般存储在eax寄存器中</p>
+</blockquote>
+<blockquote>
+<p>CMP汇编指令会修改ZF和CF标志寄存器，如果相同的话设置ZF为1，否则为0</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981137536.png" alt="跳转"></p>
+<p>如果不相等，就跳转到401043，这里我们默认打开了</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981237587.png" alt="ReadFile"></p>
+<p>可以看到先把0x12存入eax，把字符串地址放入ebx中</p>
+<blockquote>
+<p>offset存储的是字符串的地址</p>
+</blockquote>
+<p>接下来调用ReadFile读取文件内容，长度是0x12，位置是字符串地址存储的内容</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">ReadFile</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    HANDLE hFile,            <span class="comment">//文件的句柄</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID lpBuffer,          <span class="comment">//用于保存读入数据的一个缓冲区</span></span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD nNumberOfBytesToRead,    <span class="comment">//要读入的字节数</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPDWORD lpNumberOfBytesRead,    <span class="comment">//指向实际读取字节数的指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPOVERLAPPED lpOverlapped</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//该结构定义了一次异步读取操作。否则，应将这个参数设为NULL</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981665617.png" alt="加密函数之一"></p>
+<p>先来看加密函数的初始化操作</p>
+<p>两个xor是将ecx和eax的值清空</p>
+<p>将esp+arg_0存储的值赋值到esi中，也就是读取字符串的地址</p>
+<blockquote>
+<p>这里可以看到arg_0=DWORD 4，esp+4就是我们压入栈中的参数，因为call会让ESP往低地址移动</p>
+</blockquote>
+<p>再将0x41赋值给bl</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981700071.png" alt="初始化操作"></p>
+<p>接下来看加密的操作，首先先将esi的存储的值看作地址，取出里面的内容放到al中，再将al异或上bl的值，再存放回原来的地址</p>
+<blockquote>
+<p>inc实现的是自增1</p>
+</blockquote>
+<p>esi存放的是地址，+1就相当于指针后移</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981955860.png" alt="加密操作"></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982311802.png" alt="指针移动"></p>
+<p>然后将异或后的结果加到ds:dword_4020F9存储的内容中</p>
+<p>判断al的值是否为0，如果是的话，跳转到</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982477054.png" alt="当al为0时跳转的地址"></p>
+<p>接着就是cl++，然后判断bl的值是否为0x4F，因为初始时bl的值为0x41，所以加密数据的长度是0x4f-0x41</p>
+<p>最后，函数loc_401335结束前把ecx的值存放到ds段寄存器地址的内容中</p>
+<p>因为异或后相加的结果存储在dword_4020F9中，这里将它和0x12345678异或</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982757718.png"></p>
+<blockquote>
+<p>add esp,4是因为call的时候将其下一条指令压入栈中，所以需要add esp,4</p>
+</blockquote>
+<p>接下来又将我们加密后的内容压入栈，进行下一个函数的操作</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983002897.png" alt="第二轮操作"></p>
+<p>先把esp+4存储的内容也就是存储字符串的首地址存放到esi中，然后esi+0xE，也就是地址后移0xE，再将其存储的值放入eax中，0x12-0xE=4，也就是将最后四个存放到eax寄存器中</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983018786.png" alt="第二轮操作"></p>
+<p>将最后四位与dword_4020F9，也就是刚才和0x12345678异或后的值比较</p>
+<blockquote>
+<p>setz al；如果ZF=1，则设置目标数为1，否则则为0</p>
+<p>test al,al;如果al&amp;al==0，也就是al的值为0，那么ZF会被设置为1，否则则为0</p>
+</blockquote>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983201869.png" alt="比较"></p>
+<p>接下来是一些创建窗口和弹出窗口的代码</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648983983571.png" alt="窗口代码"></p>
+<p>看一下成功的部分代码</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984022368.png" alt="成功部分"></p>
+<p>主要看一下这个</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984126580.png" alt="移动字符串"></p>
+<blockquote>
+<p> 即字符串传送指令，这条指令按字节传送数据。通过SI和DI这两个寄存器控制字符串的源地址和目标地址，比如DS:SI这段地址的N个字节复制到ES:DI指向的地址，复制后DS:SI的内容保持不变。 </p>
+</blockquote>
+<p>先把DWORD_402149，也就是前面说的加密的长度</p>
+<p>也就是先把传入的两个参数的地址分别存入esi和edi中</p>
+<p>而第一个参数也就是arg_0(后压入栈)，被存放到esi中</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984644479.png"></p>
+<p>同时，第一个参数也是前面存放我们字符串的地址</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984708951.png"></p>
+<p>然后edi指向的地址后移</p>
+<p>再循环将esi的值存入edi中，循环次数为ecx的值</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984226522.png"></p>
+<p>这段话就是将我们最后加密的字符串拼接到Cracked By:后面</p>
+<h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>先打开CRACKME3.KEY文件，读取前十八个字符，然后对前14个字符异或加密，并且将异或后的值和0x12345678异或后与最后四位进行比较，前十四个密文为<a href="mailto:wanao@yahoo.cn">wanao@yahoo.cn</a>，然后动调得到最后四位字符，填充进去即可，注意大小端序</p>
+<p>前十四位字符脚本</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> name[]=<span class="string">"wanao@yahoo.cn"</span>;</span><br><span class="line">	<span class="keyword">char</span> key=<span class="string">'A'</span>;</span><br><span class="line">	<span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(name);++i)</span><br><span class="line">	{</span><br><span class="line">		name[i]^=key++;</span><br><span class="line">		num+=name[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,num);</span><br><span class="line">	<span class="keyword">int</span> key2=<span class="number">0x12345678</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line"> } </span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985143096.png" alt="最后四位字符"></p>
+<p>最终效果</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985203991.png"></p>
+<h1 id="004-Acid-Bytes-2"><a href="#004-Acid-Bytes-2" class="headerlink" title="004-Acid Bytes.2"></a>004-Acid Bytes.2</h1><p>upx壳，去掉后很快就能找到比较</p>
+<h1 id="006-ArturDents-CrackMe-2"><a href="#006-ArturDents-CrackMe-2" class="headerlink" title="006-ArturDents-CrackMe#2"></a>006-ArturDents-CrackMe#2</h1><p>先找到成功的函数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033728711.png" alt="验证正确的函数"></p>
+<p>然后找到关键比较</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033782005.png" alt="关键函数和跳转"></p>
+<p>根据程序运行知道我们需要输入name和序列号，找到获取输入的函数</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function">UINT <span class="title">GetDlgItemTextA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  HWND  hDlg,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   nIDDlgItem,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out] LPSTR lpString,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   cchMax</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"><span class="comment">//返回值是字符串的长度</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>lpstring就是我们的输入</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034100647.png" alt="关键函数"></p>
+<p>箭头处可以看到cmp esi,5，而前面将函数的返回值也就是eax的值存储到esi中，所以这是长度比较，可以看到jge下一段是说name长度必须大于5。</p>
+<p>再看下面红色框，获取我们的输入密码后，将input和password的地址存放到eax和ebx中，再把esi也就是name的长度存入ecx中</p>
+<p>看加密函数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034490927.png" alt="关键加密函数"></p>
+<p>先把eax存储的值取出，然后减去cl的值，再与ebx存放的值作比较</p>
+<p>下面那个跳转是跳转到离开的函数</p>
+<p>inc是自增，也就是让寄存器指向password和input下一个字符</p>
+<blockquote>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)</span><br><span class="line">标号: (标明后面就是需要循环的循环体)</span><br><span class="line">    循环执行的程序代码</span><br><span class="line">    Loop 标号<span class="comment">//注意：每执行一次loop，ecx的值都会减1</span></span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<p>每执行一次loop，ecx的值都会减1</p>
+<p>所以注意这一点即可</p>
+<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p>name为99999，序列号为45678即可满足</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034817650.png" alt="成功"></p>
+<h1 id="007-reg"><a href="#007-reg" class="headerlink" title="007-reg"></a>007-reg</h1><p>这是一个共享软件，打开时需要我们输入UserName和SN，然后生成reg.dll，再打开软件验证。</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040536751.png" alt="reg.dll内容"></p>
+<p>先定位到关键的字符串</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040650078.png" alt="关键字符串"></p>
+<p>定位过去</p>
+<p>可以看到先把字符串也就是reg.dll移动到eax中，然后call，再对al进行验证，所以这个函数应该是打开这个文件，没有这个文件的话就返回0</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040684329.png"></p>
+<p>接下来这一段应该是将dll文件的username和sn读取出来</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040844910.png" alt="读取函数"></p>
+<p>可以看到先把刚才读取的username和sn存放到edx和eax中，然后调用函数，调用结束后进行test和跳转，所以这个函数应该是加密函数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040977142.png" alt="加密函数"></p>
+<p>加密函数中，先将变量的值清0，并且将username和sn存放到第一个和第二个参数中</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041483499.png"></p>
+<p>往下看，这里先把第二个参数（序列号）的地址读取到eax中，然后返回值和0x10作比较，那么这段应该就是计算序列号的长度</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041704450.png" alt="关键比较"></p>
+<p>在函数出事的地方，可以看到var_8=-8，然后ebp-8就是存放的序列号</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042026513.png" alt="计算位置"></p>
+<p>看一下函数调用的堆栈图，EBP+x就是压入的参数</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042190963.png" alt="堆栈图"></p>
+<p>下面这一段应该是对序列号验证，因为sub会让标志寄存器改变</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042492337.png" alt="验证"></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042642683.png"></p>
+<p>FTSP汇编指令</p>
+<p><a href="https://blog.csdn.net/liujiayu2/article/details/77711838">https://blog.csdn.net/liujiayu2/article/details/77711838</a></p>
+<p>最后在这里的堆栈图找到了正确的序列号，长度正好是0x10</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042753681.png"></p>
+<p>先把两个参数存放的内容以及第三个参数也就是var_10的地址存储到ecx中，那么这个应该就是正确的序列号</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042840725.png" alt="在调用前面的函数前"></p>
+<p>函数有点复杂，有时间再看，据说后面有md5</p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649043390270.png" alt="ZF标志位"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>C语言汇编2</title>
     <url>/2022/02/02/C%E8%AF%AD%E8%A8%80%E6%B1%87%E7%BC%962/</url>
     <content><![CDATA[<h1 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h1>]]></content>
       <tags>
         <tag>汇编</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Detours学习</title>
-    <url>/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>DLL注入</title>
@@ -997,6 +992,11 @@
       <tags>
         <tag>Reverse</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Detours学习</title>
+    <url>/2022/04/15/Detours%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>ELF文件手脱upx变形壳</title>
@@ -1128,6 +1128,24 @@
       </tags>
   </entry>
   <entry>
+    <title>LLVM程序集</title>
+    <url>/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/</url>
+    <content><![CDATA[<h1 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h1><p>这里我没办法细讲，因为也是第一次接触，后续深入了解后再补</p>
+<p><a href="https://www.1024sou.com/article/387833.html">https://www.1024sou.com/article/387833.html</a></p>
+<p>clang常用编译命令</p>
+<p><a href="https://blog.csdn.net/pc153262603/article/details/89553688">https://blog.csdn.net/pc153262603/article/details/89553688</a></p>
+<p>指令集</p>
+<p><a href="https://blog.csdn.net/qq_37206105/article/details/115274241">https://blog.csdn.net/qq_37206105/article/details/115274241</a></p>
+<h1 id="LLVM程序集转为ELF可执行文件"><a href="#LLVM程序集转为ELF可执行文件" class="headerlink" title="LLVM程序集转为ELF可执行文件"></a>LLVM程序集转为ELF可执行文件</h1><p>打开附件发现有点难看懂，搜索其中一段指令集后发现是LLVM指令集</p>
+<p><img src="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/1648121627952.png"></p>
+<h2 id="转为ELF可执行文件"><a href="#转为ELF可执行文件" class="headerlink" title="转为ELF可执行文件"></a>转为ELF可执行文件</h2><p> clang task.ll -mllvm -W -g -W1,-pie -o task.out </p>
+<p>使用上面的命令即可生成elf文件</p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Init初始化</title>
     <url>/2022/02/03/Init%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
     <content><![CDATA[<h1 id="ELF文件结构"><a href="#ELF文件结构" class="headerlink" title="ELF文件结构"></a>ELF文件结构</h1><p><a href="https://carrychen.website/2021/05/14/elf-format/">https://carrychen.website/2021/05/14/elf-format/</a></p>
@@ -1154,21 +1172,144 @@
       </tags>
   </entry>
   <entry>
-    <title>LLVM程序集</title>
-    <url>/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/</url>
-    <content><![CDATA[<h1 id="学习链接"><a href="#学习链接" class="headerlink" title="学习链接"></a>学习链接</h1><p>这里我没办法细讲，因为也是第一次接触，后续深入了解后再补</p>
-<p><a href="https://www.1024sou.com/article/387833.html">https://www.1024sou.com/article/387833.html</a></p>
-<p>clang常用编译命令</p>
-<p><a href="https://blog.csdn.net/pc153262603/article/details/89553688">https://blog.csdn.net/pc153262603/article/details/89553688</a></p>
-<p>指令集</p>
-<p><a href="https://blog.csdn.net/qq_37206105/article/details/115274241">https://blog.csdn.net/qq_37206105/article/details/115274241</a></p>
-<h1 id="LLVM程序集转为ELF可执行文件"><a href="#LLVM程序集转为ELF可执行文件" class="headerlink" title="LLVM程序集转为ELF可执行文件"></a>LLVM程序集转为ELF可执行文件</h1><p>打开附件发现有点难看懂，搜索其中一段指令集后发现是LLVM指令集</p>
-<p><img src="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/1648121627952.png"></p>
-<h2 id="转为ELF可执行文件"><a href="#转为ELF可执行文件" class="headerlink" title="转为ELF可执行文件"></a>转为ELF可执行文件</h2><p> clang task.ll -mllvm -W -g -W1,-pie -o task.out </p>
-<p>使用上面的命令即可生成elf文件</p>
+    <title>PE-滴水逆向-手动实现</title>
+    <url>/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h1 id="代码节空白节区添加代码"><a href="#代码节空白节区添加代码" class="headerlink" title="代码节空白节区添加代码"></a>代码节空白节区添加代码</h1><p>这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
+<h2 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h2><p> ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
+<p><a href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
+<p>在标准PE头属性中的第一个值改为1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png"></p>
+<p>这样PE文件加载到内存中就不会随机化了</p>
+<h2 id="提取关键数据"><a href="#提取关键数据" class="headerlink" title="提取关键数据"></a>提取关键数据</h2><h3 id="可选PE头"><a href="#可选PE头" class="headerlink" title="可选PE头"></a>可选PE头</h3><p>DWORD AddressOfEntryPoint-10E5DBh</p>
+<p>DWORD ImageBase-400000h</p>
+<h3 id="节表信息"><a href="#节表信息" class="headerlink" title="节表信息"></a>节表信息</h3><p>MIsc.DWORD VirtualSize-17C51Eh</p>
+<p>DWORD VirtualAddress-1000h</p>
+<p>DWORD PointerToRawData-400h</p>
+<p>DWORD SizeOfRawData-17C600h</p>
+<h2 id="判断能否添加"><a href="#判断能否添加" class="headerlink" title="判断能否添加"></a>判断能否添加</h2><p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
+<h2 id="找到在文件中代码结束的位置"><a href="#找到在文件中代码结束的位置" class="headerlink" title="找到在文件中代码结束的位置"></a>找到在文件中代码结束的位置</h2><p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png"></p>
+<h2 id="添加硬编码"><a href="#添加硬编码" class="headerlink" title="添加硬编码"></a>添加硬编码</h2><p>MessageBoxA需要四个参数</p>
+<p>call指令长度为5</p>
+<p>jmp指令长度为5</p>
+<blockquote>
+<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
+</blockquote>
+<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png"></p>
+<h2 id="计算E8和E9的后四个字节"><a href="#计算E8和E9的后四个字节" class="headerlink" title="计算E8和E9的后四个字节"></a>计算E8和E9的后四个字节</h2><p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png"></p>
+<h3 id="E8后四字节计算"><a href="#E8后四字节计算" class="headerlink" title="E8后四字节计算"></a>E8后四字节计算</h3><p>真实地址为MessageBoxA的地址</p>
+<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
+<p>76BA5865</p>
+<h3 id="E9后四字节计算"><a href="#E9后四字节计算" class="headerlink" title="E9后四字节计算"></a>E9后四字节计算</h3><p>真实地址为原来的OEP</p>
+<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
+<p>为FFF910AB</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png"></p>
+<h2 id="修改AddressOfPoint"><a href="#修改AddressOfPoint" class="headerlink" title="修改AddressOfPoint"></a>修改AddressOfPoint</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png"></p>
+<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
+<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
+<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>先执行MessageBoxA</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png"></p>
+<p>再运行程序</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png"></p>
+<h1 id="新增节"><a href="#新增节" class="headerlink" title="新增节"></a>新增节</h1><h2 id="大小判断"><a href="#大小判断" class="headerlink" title="大小判断"></a>大小判断</h2><p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
+<h2 id="修改节表数量"><a href="#修改节表数量" class="headerlink" title="修改节表数量"></a>修改节表数量</h2><p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png"></p>
+<h2 id="添加节表信息"><a href="#添加节表信息" class="headerlink" title="添加节表信息"></a>添加节表信息</h2><p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png"></p>
+<h2 id="确定插入的大小"><a href="#确定插入的大小" class="headerlink" title="确定插入的大小"></a>确定插入的大小</h2><p>根据情况自行选择，这里假设我们插入0x1000字节</p>
+<h2 id="修改内存对齐后的大小"><a href="#修改内存对齐后的大小" class="headerlink" title="修改内存对齐后的大小"></a>修改内存对齐后的大小</h2><p>SizeOfImage+插入的大小（按照内存对齐）</p>
+<h2 id="修正节表信息"><a href="#修正节表信息" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>先看关键数据</p>
+<p>DWORD VirtualAddress</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD PointerToRawData</p>
+<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
+<h3 id="计算VirtualAddress"><a href="#计算VirtualAddress" class="headerlink" title="计算VirtualAddress"></a>计算VirtualAddress</h3><p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
+<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png"></p>
+<h3 id="计算PointerToRawData"><a href="#计算PointerToRawData" class="headerlink" title="计算PointerToRawData"></a>计算PointerToRawData</h3><p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png"></p>
+<h3 id="最终修改"><a href="#最终修改" class="headerlink" title="最终修改"></a>最终修改</h3><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png"></p>
+<h2 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h2><p>在PointerToRawData插入0x1000字节</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png"></p>
+<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>在PE解析工具可以看到插入的节表</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png"></p>
+<h1 id="新增节-节表信息后不够位置"><a href="#新增节-节表信息后不够位置" class="headerlink" title="新增节-节表信息后不够位置"></a>新增节-节表信息后不够位置</h1><p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
+<blockquote>
+<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
+</blockquote>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png"></p>
+<p>直接复制到垃圾数据的起始地址</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png"></p>
+<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
+<h1 id="扩大节"><a href="#扩大节" class="headerlink" title="扩大节"></a>扩大节</h1><p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
+<p>需要修改的数据</p>
+<p>DWORD SizeOfRawData</p>
+<p>Misc.DWORD VirtualSize</p>
+<p>DWORD SizeOfImage</p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
+<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
+<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
+<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
+</ol>
+<h2 id="修正节表信息-1"><a href="#修正节表信息-1" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>这里我们假设扩大0x1000个字节</p>
+<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png"></p>
+<h2 id="修正SizeOfImage"><a href="#修正SizeOfImage" class="headerlink" title="修正SizeOfImage"></a>修正SizeOfImage</h2><p>直接加上0x1000即可</p>
+<h2 id="分配空间"><a href="#分配空间" class="headerlink" title="分配空间"></a>分配空间</h2><p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
+<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
+<p>求和得到2B6C00h</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png"></p>
+<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png"></p>
+<h1 id="合并节"><a href="#合并节" class="headerlink" title="合并节"></a>合并节</h1><h2 id="修改节表个数"><a href="#修改节表个数" class="headerlink" title="修改节表个数"></a>修改节表个数</h2><p>合并之后节数量-1，这里改为7</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png"></p>
+<h2 id="修改节表信息"><a href="#修改节表信息" class="headerlink" title="修改节表信息"></a>修改节表信息</h2><p>要将节进行合并，就需要修改节表信息</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png"></p>
+<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a href="#DWORD-SizeOfRawData和DWORD-VirtualSize" class="headerlink" title="DWORD SizeOfRawData和DWORD VirtualSize"></a>DWORD SizeOfRawData和DWORD VirtualSize</h3><p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
+<p>最后保存即可</p>
+<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
+<h2 id="最终效果-1"><a href="#最终效果-1" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png"></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png"></p>
+<h1 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h1><p> <img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"> </p>
+<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
+<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>在数据目录找到导出表的RVA</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png"></p>
+<p>根据节的RVA和大小确定在哪个表</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png"></p>
+<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
+<p>计算得到F2270，跳转，根据Export.Size确定大小</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png"></p>
+<h2 id="新增节-1"><a href="#新增节-1" class="headerlink" title="新增节"></a>新增节</h2><p>前面说过，就不细🔒了</p>
+<h2 id="复制数据"><a href="#复制数据" class="headerlink" title="复制数据"></a>复制数据</h2><p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png"></p>
+<p>这两个分别是dll名字和函数名称</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png"></p>
+<p>直接复制剩下的导出表信息</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png"></p>
+<h2 id="修改RVA"><a href="#修改RVA" class="headerlink" title="修改RVA"></a>修改RVA</h2><p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
+<p>要修改的有</p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png"></p>
+<h2 id="数据目录修改"><a href="#数据目录修改" class="headerlink" title="数据目录修改"></a>数据目录修改</h2><p>将Export.RVA指向我们复制导出表的初始位置</p>
+<h1 id="移动重定位表"><a href="#移动重定位表" class="headerlink" title="移动重定位表"></a>移动重定位表</h1><p>新增节-&gt;复制数据-&gt;数据目录修改重定位表位置</p>
+<h2 id="修改ImageBase"><a href="#修改ImageBase" class="headerlink" title="修改ImageBase"></a>修改ImageBase</h2><p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
+<p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
+<p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
+<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1><p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
+<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
+<h2 id="新增节区"><a href="#新增节区" class="headerlink" title="新增节区"></a>新增节区</h2><h2 id="复制导入表信息"><a href="#复制导入表信息" class="headerlink" title="复制导入表信息"></a>复制导入表信息</h2><p> 拷贝原来的导入表到新节中 </p>
+<h2 id="新增导入表"><a href="#新增导入表" class="headerlink" title="新增导入表"></a>新增导入表</h2><h2 id="新增INT表和IAT表"><a href="#新增INT表和IAT表" class="headerlink" title="新增INT表和IAT表"></a>新增INT表和IAT表</h2><p>至少八字节</p>
+<h2 id="修改Name"><a href="#修改Name" class="headerlink" title="修改Name"></a>修改Name</h2><p> 存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
+<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a href="#创建struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="创建struct _IMAGE_IMPORT_BY_NAME"></a>创建struct _IMAGE_IMPORT_BY_NAME</h2><p>将函数名称赋值给结构体的第二个变量</p>
+<h2 id="修改INT和IAT指向的地址"><a href="#修改INT和IAT指向的地址" class="headerlink" title="修改INT和IAT指向的地址"></a>修改INT和IAT指向的地址</h2><p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
+<h2 id="修改数据目录"><a href="#修改数据目录" class="headerlink" title="修改数据目录"></a>修改数据目录</h2><p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size </p>
 ]]></content>
       <tags>
-        <tag>Reverse</tag>
+        <tag>PE</tag>
       </tags>
   </entry>
   <entry>
@@ -1535,147 +1676,6 @@
       </tags>
   </entry>
   <entry>
-    <title>PE-滴水逆向-手动实现</title>
-    <url>/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<h1 id="代码节空白节区添加代码"><a href="#代码节空白节区添加代码" class="headerlink" title="代码节空白节区添加代码"></a>代码节空白节区添加代码</h1><p>这里我们在notepad++增加MessageBoxA函数，保证先调用我们的函数再运行notepad++</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>在代码区先加入对函数的调用，再将原来的OEP修改为我们插入代码在内存中的位置</p>
-<h2 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h2><p> ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
-<p><a href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
-<p>在标准PE头属性中的第一个值改为1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png"></p>
-<p>这样PE文件加载到内存中就不会随机化了</p>
-<h2 id="提取关键数据"><a href="#提取关键数据" class="headerlink" title="提取关键数据"></a>提取关键数据</h2><h3 id="可选PE头"><a href="#可选PE头" class="headerlink" title="可选PE头"></a>可选PE头</h3><p>DWORD AddressOfEntryPoint-10E5DBh</p>
-<p>DWORD ImageBase-400000h</p>
-<h3 id="节表信息"><a href="#节表信息" class="headerlink" title="节表信息"></a>节表信息</h3><p>MIsc.DWORD VirtualSize-17C51Eh</p>
-<p>DWORD VirtualAddress-1000h</p>
-<p>DWORD PointerToRawData-400h</p>
-<p>DWORD SizeOfRawData-17C600h</p>
-<h2 id="判断能否添加"><a href="#判断能否添加" class="headerlink" title="判断能否添加"></a>判断能否添加</h2><p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
-<h2 id="找到在文件中代码结束的位置"><a href="#找到在文件中代码结束的位置" class="headerlink" title="找到在文件中代码结束的位置"></a>找到在文件中代码结束的位置</h2><p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png"></p>
-<h2 id="添加硬编码"><a href="#添加硬编码" class="headerlink" title="添加硬编码"></a>添加硬编码</h2><p>MessageBoxA需要四个参数</p>
-<p>call指令长度为5</p>
-<p>jmp指令长度为5</p>
-<blockquote>
-<p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
-</blockquote>
-<p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png"></p>
-<h2 id="计算E8和E9的后四个字节"><a href="#计算E8和E9的后四个字节" class="headerlink" title="计算E8和E9的后四个字节"></a>计算E8和E9的后四个字节</h2><p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png"></p>
-<h3 id="E8后四字节计算"><a href="#E8后四字节计算" class="headerlink" title="E8后四字节计算"></a>E8后四字节计算</h3><p>真实地址为MessageBoxA的地址</p>
-<p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
-<p>76BA5865</p>
-<h3 id="E9后四字节计算"><a href="#E9后四字节计算" class="headerlink" title="E9后四字节计算"></a>E9后四字节计算</h3><p>真实地址为原来的OEP</p>
-<p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
-<p>为FFF910AB</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png"></p>
-<h2 id="修改AddressOfPoint"><a href="#修改AddressOfPoint" class="headerlink" title="修改AddressOfPoint"></a>修改AddressOfPoint</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png"></p>
-<p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
-<p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
-<h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>先执行MessageBoxA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png"></p>
-<p>再运行程序</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png"></p>
-<h1 id="新增节"><a href="#新增节" class="headerlink" title="新增节"></a>新增节</h1><h2 id="大小判断"><a href="#大小判断" class="headerlink" title="大小判断"></a>大小判断</h2><p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
-<h2 id="修改节表数量"><a href="#修改节表数量" class="headerlink" title="修改节表数量"></a>修改节表数量</h2><p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png"></p>
-<h2 id="添加节表信息"><a href="#添加节表信息" class="headerlink" title="添加节表信息"></a>添加节表信息</h2><p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png"></p>
-<h2 id="确定插入的大小"><a href="#确定插入的大小" class="headerlink" title="确定插入的大小"></a>确定插入的大小</h2><p>根据情况自行选择，这里假设我们插入0x1000字节</p>
-<h2 id="修改内存对齐后的大小"><a href="#修改内存对齐后的大小" class="headerlink" title="修改内存对齐后的大小"></a>修改内存对齐后的大小</h2><p>SizeOfImage+插入的大小（按照内存对齐）</p>
-<h2 id="修正节表信息"><a href="#修正节表信息" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>先看关键数据</p>
-<p>DWORD VirtualAddress</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD PointerToRawData</p>
-<p>这里为了方便将Misc.DWORD VirtualSize和DWORD SizeOfRawData都改为0x1000，注意如果插入的是其他字节数，需要计算按照文件和内存对齐来调整</p>
-<h3 id="计算VirtualAddress"><a href="#计算VirtualAddress" class="headerlink" title="计算VirtualAddress"></a>计算VirtualAddress</h3><p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
-<p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png"></p>
-<h3 id="计算PointerToRawData"><a href="#计算PointerToRawData" class="headerlink" title="计算PointerToRawData"></a>计算PointerToRawData</h3><p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png"></p>
-<h3 id="最终修改"><a href="#最终修改" class="headerlink" title="最终修改"></a>最终修改</h3><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png"></p>
-<h2 id="插入代码"><a href="#插入代码" class="headerlink" title="插入代码"></a>插入代码</h2><p>在PointerToRawData插入0x1000字节</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png"></p>
-<h2 id="查看信息"><a href="#查看信息" class="headerlink" title="查看信息"></a>查看信息</h2><p>在PE解析工具可以看到插入的节表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png"></p>
-<h1 id="新增节-节表信息后不够位置"><a href="#新增节-节表信息后不够位置" class="headerlink" title="新增节-节表信息后不够位置"></a>新增节-节表信息后不够位置</h1><p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
-<blockquote>
-<p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
-</blockquote>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png"></p>
-<p>直接复制到垃圾数据的起始地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png"></p>
-<p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
-<h1 id="扩大节"><a href="#扩大节" class="headerlink" title="扩大节"></a>扩大节</h1><p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
-<p>需要修改的数据</p>
-<p>DWORD SizeOfRawData</p>
-<p>Misc.DWORD VirtualSize</p>
-<p>DWORD SizeOfImage</p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><ol>
-<li>将最后一个节的SizeOfRawData和VirtualSize改成N，N = 节内存对齐后的大小 + 要扩大的大小</li>
-<li>修改 SizeOfImage大小=SizeOfImage大小+要扩大的大小</li>
-<li>分配一块新的空间，大小为：节内存对齐增加的大小+要扩大的大小</li>
-</ol>
-<h2 id="修正节表信息-1"><a href="#修正节表信息-1" class="headerlink" title="修正节表信息"></a>修正节表信息</h2><p>这里我们假设扩大0x1000个字节</p>
-<p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png"></p>
-<h2 id="修正SizeOfImage"><a href="#修正SizeOfImage" class="headerlink" title="修正SizeOfImage"></a>修正SizeOfImage</h2><p>直接加上0x1000即可</p>
-<h2 id="分配空间"><a href="#分配空间" class="headerlink" title="分配空间"></a>分配空间</h2><p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
-<p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
-<p>求和得到2B6C00h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png"></p>
-<h2 id="最终"><a href="#最终" class="headerlink" title="最终"></a>最终</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png"></p>
-<h1 id="合并节"><a href="#合并节" class="headerlink" title="合并节"></a>合并节</h1><h2 id="修改节表个数"><a href="#修改节表个数" class="headerlink" title="修改节表个数"></a>修改节表个数</h2><p>合并之后节数量-1，这里改为7</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png"></p>
-<h2 id="修改节表信息"><a href="#修改节表信息" class="headerlink" title="修改节表信息"></a>修改节表信息</h2><p>要将节进行合并，就需要修改节表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png"></p>
-<h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a href="#DWORD-SizeOfRawData和DWORD-VirtualSize" class="headerlink" title="DWORD SizeOfRawData和DWORD VirtualSize"></a>DWORD SizeOfRawData和DWORD VirtualSize</h3><p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
-<p>最后保存即可</p>
-<p>那么剩下的节表信息没用了，我们可以再次新增节</p>
-<h2 id="最终效果-1"><a href="#最终效果-1" class="headerlink" title="最终效果"></a>最终效果</h2><p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png"></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png"></p>
-<h1 id="移动导出表"><a href="#移动导出表" class="headerlink" title="移动导出表"></a>移动导出表</h1><p> <img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"> </p>
-<p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647219750918.png" alt="移动前"></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
-<h2 id="定位导出表"><a href="#定位导出表" class="headerlink" title="定位导出表"></a>定位导出表</h2><p>在数据目录找到导出表的RVA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png"></p>
-<p>根据节的RVA和大小确定在哪个表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png"></p>
-<p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
-<p>计算得到F2270，跳转，根据Export.Size确定大小</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png"></p>
-<h2 id="新增节-1"><a href="#新增节-1" class="headerlink" title="新增节"></a>新增节</h2><p>前面说过，就不细🔒了</p>
-<h2 id="复制数据"><a href="#复制数据" class="headerlink" title="复制数据"></a>复制数据</h2><p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png"></p>
-<p>这两个分别是dll名字和函数名称</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png"></p>
-<p>直接复制剩下的导出表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png"></p>
-<h2 id="修改RVA"><a href="#修改RVA" class="headerlink" title="修改RVA"></a>修改RVA</h2><p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
-<p>要修改的有</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png"></p>
-<h2 id="数据目录修改"><a href="#数据目录修改" class="headerlink" title="数据目录修改"></a>数据目录修改</h2><p>将Export.RVA指向我们复制导出表的初始位置</p>
-<h1 id="移动重定位表"><a href="#移动重定位表" class="headerlink" title="移动重定位表"></a>移动重定位表</h1><p>新增节-&gt;复制数据-&gt;数据目录修改重定位表位置</p>
-<h2 id="修改ImageBase"><a href="#修改ImageBase" class="headerlink" title="修改ImageBase"></a>修改ImageBase</h2><p>我们修改ImageBase时，重定位表也需要修改，其他不用改，因为其他节表信息映射到内存中时，都是按照ImageBase进行的</p>
-<p>而重定位表是按照VirtualAddress+小表进行修复的，所以ImageBase修改了，重定位表的VirtualAddress也需要修改</p>
-<p>假如ImageBase+1000，重定位表的VirtualAddress也需要+1000</p>
-<h1 id="导入表注入"><a href="#导入表注入" class="headerlink" title="导入表注入"></a>导入表注入</h1><p>每个DLL对应一个导入表，DLL存放着我们的函数</p>
-<p>导入表后面还有一堆数据，我们不能直接添加，所以要新开辟节区，然后复制原来的导入表之后再在末尾添加导入表</p>
-<h2 id="新增节区"><a href="#新增节区" class="headerlink" title="新增节区"></a>新增节区</h2><h2 id="复制导入表信息"><a href="#复制导入表信息" class="headerlink" title="复制导入表信息"></a>复制导入表信息</h2><p> 拷贝原来的导入表到新节中 </p>
-<h2 id="新增导入表"><a href="#新增导入表" class="headerlink" title="新增导入表"></a>新增导入表</h2><h2 id="新增INT表和IAT表"><a href="#新增INT表和IAT表" class="headerlink" title="新增INT表和IAT表"></a>新增INT表和IAT表</h2><p>至少八字节</p>
-<h2 id="修改Name"><a href="#修改Name" class="headerlink" title="修改Name"></a>修改Name</h2><p> 存储要注入的dll的名称 ，并且将DLL名称的RVA赋值给新增导入表的Name</p>
-<h2 id="创建struct-IMAGE-IMPORT-BY-NAME"><a href="#创建struct-IMAGE-IMPORT-BY-NAME" class="headerlink" title="创建struct _IMAGE_IMPORT_BY_NAME"></a>创建struct _IMAGE_IMPORT_BY_NAME</h2><p>将函数名称赋值给结构体的第二个变量</p>
-<h2 id="修改INT和IAT指向的地址"><a href="#修改INT和IAT指向的地址" class="headerlink" title="修改INT和IAT指向的地址"></a>修改INT和IAT指向的地址</h2><p>将IMAGE_IMPORT_BY_NAME的RVA赋值给INT和IAT的第一项，因为INT和IAT都指向_IMAGE_IMPORT_BY_NAME</p>
-<h2 id="修改数据目录"><a href="#修改数据目录" class="headerlink" title="修改数据目录"></a>修改数据目录</h2><p>指向我们的新增位置， 修改IMAGE_DATA_DIRECTORY结构的VirtualAddress和Size </p>
-]]></content>
-      <tags>
-        <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>PE解析代码实现</title>
     <url>/2022/03/11/PE%E8%A7%A3%E6%9E%90%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h1 id="打印PE文件头部和节区信息"><a href="#打印PE文件头部和节区信息" class="headerlink" title="打印PE文件头部和节区信息"></a>打印PE文件头部和节区信息</h1><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;malloc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//宏定义，方便后续使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义变量</span></span><br><span class="line">IMAGE_DOS_HEADER myDOS;</span><br><span class="line">LONG elf_new;</span><br><span class="line">IMAGE_NT_HEADERS32 myNTheader;</span><br><span class="line">IMAGE_OPTIONAL_HEADER32 myOPTIONheader;</span><br><span class="line">IMAGE_SECTION_HEADER mysection[<span class="number">100</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> NUM_SECTION;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	FILE* pfile;</span><br><span class="line">	pfile = fopen(<span class="string">"D:\\new\\Notepadx32\\Notepad++.7.6.1.bin.x32\\Notepad++.7.6.1.bin.x32\\notepad++.exe"</span>, <span class="string">"r"</span>);<span class="comment">//打开文件</span></span><br><span class="line">	fseek(pfile, <span class="number">0</span>, SEEK_SET);<span class="comment">//参数说明，将fp指针从文件开头移动到0的位置</span></span><br><span class="line">	fread(&amp;myDOS, <span class="keyword">sizeof</span>(IMAGE_DOS_HEADER), <span class="number">1</span>, pfile);<span class="comment">//表示从fp开始的地方读取一次长度为sizeof(IMAGE_DOS_HEADER)的字节，存储到myDOS中</span></span><br><span class="line">	<span class="comment">//DOS</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"==============IMAGE_DOS_HEADER==============\n"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"DOS头：          %08X\n"</span>, myDOS.e_magic);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"NT头所在位置：   %08X\n"</span>, myDOS.e_lfanew);</span><br><span class="line">	elf_new = myDOS.e_lfanew;<span class="comment">//将NT头的偏移存储起来</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//NT头</span></span><br><span class="line">	fseek(pfile, elf_new, SEEK_SET);<span class="comment">//注意不是sizeof(elf_new)</span></span><br><span class="line">	fread(&amp;myNTheader, <span class="keyword">sizeof</span>(IMAGE_NT_HEADERS), <span class="number">1</span>, pfile);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"==============IMAGE_NT_HEADERS==============\n"</span>);</span><br><span class="line">	<span class="comment">//打印PE标志</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"PE标志：         %08X\n"</span>, myNTheader.Signature);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印标准PE头信息</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"==============IMAGE_FILE_HEADERS==============\n"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"节区数量：       %08X\n"</span>, myNTheader.FileHeader.NumberOfSections);</span><br><span class="line">	NUM_SECTION = myNTheader.FileHeader.NumberOfSections;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"可选PE头大小：   %08X\n"</span>, myNTheader.FileHeader.SizeOfOptionalHeader);</span><br><span class="line">	<span class="comment">//打印ASLR的信息，方便查看和修改</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"ASLR属性：       %08X\n"</span>, (myNTheader.FileHeader.Characteristics ) &amp; <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印可选PE头信息</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"==============IMAGE_OPTIONAL_HEADERS==============\n"</span>);</span><br><span class="line">	fseek(pfile, elf_new+<span class="keyword">sizeof</span>(IMAGE_FILE_HEADER)+<span class="keyword">sizeof</span>(myNTheader.Signature), SEEK_SET);<span class="comment">//因为标准PE头长度为20</span></span><br><span class="line">	fread(&amp;myOPTIONheader, <span class="keyword">sizeof</span>(IMAGE_OPTIONAL_HEADER), <span class="number">1</span>, pfile);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"DWORD AddressOfEntryPoint：   %08llX\n"</span>, myOPTIONheader.AddressOfEntryPoint);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"基址：				%08X\n"</span>, myOPTIONheader.ImageBase);<span class="comment">//注意这里的可选PE头类型必须是IMAGE_OPTIONAL_HEADER32</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"文件对齐大小：		%08X\n"</span>, myOPTIONheader.FileAlignment);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"内存对齐大小：		%08X\n"</span>, myOPTIONheader.SectionAlignment);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"文件头和节表大小：  %08X\n"</span>, myOPTIONheader.SizeOfHeaders);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"内存拉伸大小：		%08X\n"</span>, myOPTIONheader.SizeOfImage);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印节表信息，前面我们已经存储了节表数量了</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"==============IMAGE_SECTION_HEADER SectionHeaders==============\n"</span>);</span><br><span class="line">	fseek(pfile, elf_new + <span class="keyword">sizeof</span>(IMAGE_NT_HEADERS32), SEEK_SET);</span><br><span class="line">	fread(&amp;mysection, <span class="keyword">sizeof</span>(IMAGE_SECTION_HEADER) * NUM_SECTION, <span class="number">1</span>, pfile);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; NUM_SECTION; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"NAME：        %s\n"</span>, mysection[i].Name);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"DWORD VirtualAddress：        %08X\n"</span>, mysection[i].VirtualAddress);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"DWORD SizeOfRawData：        %08X\n"</span>, mysection[i].SizeOfRawData);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"DWORD PointerToRawData：        %08X\n"</span>, mysection[i].PointerToRawData);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"DWORD VirtualSize：        %08X\n"</span>, mysection[i].Misc.VirtualSize);</span><br><span class="line">	}</span><br><span class="line">	fclose(pfile);<span class="comment">//关闭文件</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
@@ -1691,62 +1691,6 @@
 ]]></content>
       <tags>
         <tag>PE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PWN基本工具</title>
-    <url>/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
-    <content><![CDATA[<h1 id="0x00-GDB工具安装"><a href="#0x00-GDB工具安装" class="headerlink" title="0x00-GDB工具安装"></a>0x00-GDB工具安装</h1><p><a href="https://zhuanlan.zhihu.com/p/129837931">https://zhuanlan.zhihu.com/p/129837931</a></p>
-<p>gdb这三个插件不能同时运行，可以使用命令</p>
-<figure class="highlight jboss-cli"><table><tbody><tr><td class="code"><pre><span class="line">vim ~<span class="string">/.gdbinit</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/1649212326580.png" alt="gdbinit"></p>
-<p>不需要使用哪个就注释掉哪个</p>
-<h1 id="0x01-GDB基本使用"><a href="#0x01-GDB基本使用" class="headerlink" title="0x01-GDB基本使用"></a>0x01-GDB基本使用</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>首先先使用gcc生成elf文件，-g表示可以debug</p>
-<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">gcc inputfile -o outputfile -g</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>使用下面命令打开</p>
-<figure class="highlight applescript"><table><tbody><tr><td class="code"><pre><span class="line">gdb <span class="built_in">file</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><a href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
-<p><a href="https://www.cnblogs.com/zhwer/p/12494317.html">https://www.cnblogs.com/zhwer/p/12494317.html</a></p>
-<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">help<span class="comment">//帮助</span></span><br><span class="line">i<span class="comment">//info</span></span><br><span class="line">	i b<span class="comment">//info break查看所有断点信息</span></span><br><span class="line">	i r<span class="comment">//info registers 查看各个寄存器当前的值</span></span><br><span class="line">	i f<span class="comment">//info function 查看所有函数名，保留符号</span></span><br><span class="line">show <span class="comment">//和info相似，但是是查看调试器的基本信息</span></span><br><span class="line">	show args<span class="comment">//查看参数</span></span><br><span class="line">	</span><br><span class="line">backtrace<span class="comment">//查看调用堆栈</span></span><br><span class="line">q<span class="comment">//quit退出</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">s<span class="comment">//step，单步步入，跟进函数中，也就是step into，源码层面的一步，F7</span></span><br><span class="line">	si<span class="comment">//同s，汇编层面的一步</span></span><br><span class="line">n<span class="comment">//next，单步补过，F8，源码层面的一步</span></span><br><span class="line">	ni<span class="comment">//同n，汇编层面的一步</span></span><br><span class="line">c<span class="comment">//continue，F9，继续执行到断点</span></span><br><span class="line">r<span class="comment">//run，重新开始执行</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="断点指令-break"><a href="#断点指令-break" class="headerlink" title="断点指令-break"></a>断点指令-break</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">b*(<span class="number">0x123456</span>)<span class="comment">//给0x123456地址的指令下断点</span></span><br><span class="line">	b*$rebase(<span class="number">0x123456</span>)<span class="comment">//$rebase在调试开PIE的程序的时候可以直接加上程序的随即地址</span></span><br><span class="line">b func_name<span class="comment">//给函数func_name下断点，目标文件要保留符号才行</span></span><br><span class="line">    b file_name:func_name</span><br><span class="line">b file_name:<span class="number">15</span><span class="comment">//给file_name的15行下断点，需要有源码</span></span><br><span class="line">    b <span class="number">15</span></span><br><span class="line">b +<span class="number">0x10</span><span class="comment">//在程序当前停住的位置下0x10的位置下断点，也可以-0x10，就是前0x10</span></span><br><span class="line"><span class="keyword">break</span> fun <span class="keyword">if</span> $rdi==<span class="number">5</span><span class="comment">//条件断点，rdi的值为5的时候才断</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>删除、禁用断点的指令</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//先使用i b查看断点编号</span></span><br><span class="line"><span class="keyword">delete</span> <span class="number">5</span><span class="comment">//删除5号断点，如果直接delete不加数字，表示删除所有断点</span></span><br><span class="line">disable <span class="number">5</span><span class="comment">//禁用5号断点</span></span><br><span class="line">    enable <span class="number">5</span><span class="comment">//启用5号断点</span></span><br><span class="line">clear<span class="comment">//清除下面的所有断点</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>内存断点指令</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">watch <span class="number">0x123456</span><span class="comment">//0x123456地址的数据改变的时候会断</span></span><br><span class="line">watch a<span class="comment">//变量a改变的时候会断</span></span><br><span class="line">info watchpoints<span class="comment">//查看watch断点信息</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="打印指令"><a href="#打印指令" class="headerlink" title="打印指令"></a>打印指令</h3><p>查看内存指令x</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">x /nuf <span class="number">0x123456</span><span class="comment">//x指令的格式是：x /nfu，nfu代表三个参数</span></span><br><span class="line">    n<span class="comment">//代表显示几个单元（而不是显示几个字节，后面的u表示一个单元多少个字节），放在'/'后面</span></span><br><span class="line">    u<span class="comment">//代表一个单元几个字节，b(一个字节),h(两个字节)，w(四字节)，g(八字节)</span></span><br><span class="line">    f<span class="comment">//代表显示数据的格式，f和u的顺序可以互换，也可以只有一个或者不带n</span></span><br><span class="line">    	x 按十六进制格式显示变量。</span><br><span class="line">		d 按十进制格式显示变量。</span><br><span class="line">		u 按十六进制格式显示无符号整型。</span><br><span class="line">		o 按八进制格式显示变量。</span><br><span class="line">        t 按二进制格式显示变量。</span><br><span class="line">        a 按十六进制格式显示变量。</span><br><span class="line">        c 按字符格式显示变量。</span><br><span class="line">        f 按浮点数格式显示变量。</span><br><span class="line">        s 按字符串显示。</span><br><span class="line">        b 按字符显示。</span><br><span class="line">        i 显示汇编指令。</span><br><span class="line">x /<span class="number">10</span>gx <span class="number">0x123456</span><span class="comment">//从0x123456开始每个单元八个字节，十六进制显示十个单元的数据</span></span><br><span class="line">x /<span class="number">10</span>xd $rdi<span class="comment">//从rdi指向的地址向后打印十个单元，每个单元四字节的十进制数</span></span><br><span class="line">x /<span class="number">10</span>i <span class="number">0x123456</span><span class="comment">//从0x123456处向后显示十条汇编指令</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>打印指令p(print)</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">p func_name<span class="comment">//打印func_name的地址，需要保留符号</span></span><br><span class="line">p <span class="number">0x10</span><span class="number">-0x8</span><span class="comment">//计算0x10-0x8的结果</span></span><br><span class="line">p &amp;a<span class="comment">//查看变量a的地址</span></span><br><span class="line">p *(<span class="number">0x123456</span>)<span class="comment">//查看0x123456的值</span></span><br><span class="line">p $rdi<span class="comment">//显示rdi寄存器的值</span></span><br><span class="line">    p *($rdi)<span class="comment">//显示rdi指向的值</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>打印汇编指令disass(disassemble)</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">disass <span class="number">0x123456</span><span class="comment">//显示0x123456前后的汇编指令</span></span><br><span class="line">x /<span class="number">10</span>i <span class="comment">//前面说过了</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>打印源代码list</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">list</span><span class="comment">//查看当前附近10行的代码</span></span><br><span class="line">    <span class="built_in">list</span> <span class="number">38</span><span class="comment">//查看28行附近10行的代码</span></span><br><span class="line">    <span class="built_in">list</span> <span class="number">1</span>,<span class="number">10</span><span class="comment">//查看1-10行代码</span></span><br><span class="line">    <span class="built_in">list</span> main<span class="comment">//查看main函数的开始10行</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="查找指令"><a href="#查找指令" class="headerlink" title="查找指令"></a>查找指令</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">search rdi<span class="comment">//从当前位置向后查找包含rdi的指令</span></span><br><span class="line">find <span class="string">"hello"</span><span class="comment">//查找hello字符串，pwndbg独有</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="修改数据指令-set"><a href="#修改数据指令-set" class="headerlink" title="修改数据指令-set"></a>修改数据指令-set</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> $rdi=<span class="number">0x10</span><span class="comment">//把寄存器的值变为0x10</span></span><br><span class="line"><span class="built_in">set</span> *(<span class="number">0x123456</span>)=<span class="number">0x10</span><span class="comment">//把0x123456地址的值变为0x10，注意带星号</span></span><br><span class="line"><span class="built_in">set</span> args <span class="string">"abc"</span> <span class="string">"def"</span> <span class="string">"gh"</span><span class="comment">//给参数123赋值</span></span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">堆操作指令（pwndbg插件独有）</span><br><span class="line">arena <span class="comment">//显示arena的详细信息</span></span><br><span class="line">arenas <span class="comment">//显示所有arena的基本信息</span></span><br><span class="line">arenainfo <span class="comment">//好看的显示所有arena的信息</span></span><br><span class="line">bins <span class="comment">//常用，查看所有种类的堆块的链表情况</span></span><br><span class="line">fastbins <span class="comment">//单独查看fastbins的链表情况</span></span><br><span class="line">largebins <span class="comment">//同上，单独查看largebins的链表情况</span></span><br><span class="line">smallbins <span class="comment">//同上，单独查看smallbins的链表情况</span></span><br><span class="line">unsortedbin <span class="comment">//同上，单独查看unsortedbin链表情况</span></span><br><span class="line">tcachebins <span class="comment">//同上，单独查看tcachebins的链表情况</span></span><br><span class="line">tcache <span class="comment">//查看tcache详细信息</span></span><br><span class="line">heap <span class="comment">//数据结构的形式显示所有堆块，会显示一大堆</span></span><br><span class="line">heapbase <span class="comment">//查看堆起始地址</span></span><br><span class="line">heapinfo、heapinfoall <span class="comment">//显示堆得信息，和bins的挺像的，没bins好用</span></span><br><span class="line">parseheap <span class="comment">//显示堆结构，很好用</span></span><br><span class="line">tracemalloc <span class="comment">//好用，会跟提示所有操作堆的地方</span></span><br><span class="line">其他pwndbg插件独有指令</span><br><span class="line">cyclc <span class="number">50</span> <span class="comment">//生成50个用来溢出的字符，如：aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama</span></span><br><span class="line"></span><br><span class="line">$reabse <span class="comment">//开启PIE的情况的地址偏移</span></span><br><span class="line"></span><br><span class="line">b *$reabse(<span class="number">0x123456</span>) <span class="comment">//断住PIE状态下的二进制文件中0x123456的地方</span></span><br><span class="line">codebase <span class="comment">//打印PIE偏移，与rebase不同，这是打印，rebase是使用</span></span><br><span class="line"><span class="built_in">stack</span> <span class="comment">//查看栈</span></span><br><span class="line"></span><br><span class="line">retaddr <span class="comment">//打印包含返回地址的栈地址</span></span><br><span class="line">canary <span class="comment">//直接看canary的值</span></span><br><span class="line"></span><br><span class="line">plt <span class="comment">//查看plt表</span></span><br><span class="line"></span><br><span class="line">got <span class="comment">//查看got表</span></span><br><span class="line">hexdump <span class="comment">//像IDA那样显示数据，带字符串</span></span><br></pre></td></tr></tbody></table></figure>
-
-
-
-
-
-]]></content>
-      <tags>
-        <tag>PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -1810,6 +1754,62 @@
 ]]></content>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>PWN基本工具</title>
+    <url>/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/</url>
+    <content><![CDATA[<h1 id="0x00-GDB工具安装"><a href="#0x00-GDB工具安装" class="headerlink" title="0x00-GDB工具安装"></a>0x00-GDB工具安装</h1><p><a href="https://zhuanlan.zhihu.com/p/129837931">https://zhuanlan.zhihu.com/p/129837931</a></p>
+<p>gdb这三个插件不能同时运行，可以使用命令</p>
+<figure class="highlight jboss-cli"><table><tbody><tr><td class="code"><pre><span class="line">vim ~<span class="string">/.gdbinit</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2022/04/06/PWN%E5%9F%BA%E6%9C%AC%E5%B7%A5%E5%85%B7/1649212326580.png" alt="gdbinit"></p>
+<p>不需要使用哪个就注释掉哪个</p>
+<h1 id="0x01-GDB基本使用"><a href="#0x01-GDB基本使用" class="headerlink" title="0x01-GDB基本使用"></a>0x01-GDB基本使用</h1><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>首先先使用gcc生成elf文件，-g表示可以debug</p>
+<figure class="highlight ebnf"><table><tbody><tr><td class="code"><pre><span class="line"><span class="attribute">gcc inputfile -o outputfile -g</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用下面命令打开</p>
+<figure class="highlight applescript"><table><tbody><tr><td class="code"><pre><span class="line">gdb <span class="built_in">file</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p><a href="https://blog.csdn.net/Breeze_CAT/article/details/103789233">https://blog.csdn.net/Breeze_CAT/article/details/103789233</a></p>
+<p><a href="https://www.cnblogs.com/zhwer/p/12494317.html">https://www.cnblogs.com/zhwer/p/12494317.html</a></p>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">help<span class="comment">//帮助</span></span><br><span class="line">i<span class="comment">//info</span></span><br><span class="line">	i b<span class="comment">//info break查看所有断点信息</span></span><br><span class="line">	i r<span class="comment">//info registers 查看各个寄存器当前的值</span></span><br><span class="line">	i f<span class="comment">//info function 查看所有函数名，保留符号</span></span><br><span class="line">show <span class="comment">//和info相似，但是是查看调试器的基本信息</span></span><br><span class="line">	show args<span class="comment">//查看参数</span></span><br><span class="line">	</span><br><span class="line">backtrace<span class="comment">//查看调用堆栈</span></span><br><span class="line">q<span class="comment">//quit退出</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">s<span class="comment">//step，单步步入，跟进函数中，也就是step into，源码层面的一步，F7</span></span><br><span class="line">	si<span class="comment">//同s，汇编层面的一步</span></span><br><span class="line">n<span class="comment">//next，单步补过，F8，源码层面的一步</span></span><br><span class="line">	ni<span class="comment">//同n，汇编层面的一步</span></span><br><span class="line">c<span class="comment">//continue，F9，继续执行到断点</span></span><br><span class="line">r<span class="comment">//run，重新开始执行</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="断点指令-break"><a href="#断点指令-break" class="headerlink" title="断点指令-break"></a>断点指令-break</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">b*(<span class="number">0x123456</span>)<span class="comment">//给0x123456地址的指令下断点</span></span><br><span class="line">	b*$rebase(<span class="number">0x123456</span>)<span class="comment">//$rebase在调试开PIE的程序的时候可以直接加上程序的随即地址</span></span><br><span class="line">b func_name<span class="comment">//给函数func_name下断点，目标文件要保留符号才行</span></span><br><span class="line">    b file_name:func_name</span><br><span class="line">b file_name:<span class="number">15</span><span class="comment">//给file_name的15行下断点，需要有源码</span></span><br><span class="line">    b <span class="number">15</span></span><br><span class="line">b +<span class="number">0x10</span><span class="comment">//在程序当前停住的位置下0x10的位置下断点，也可以-0x10，就是前0x10</span></span><br><span class="line"><span class="keyword">break</span> fun <span class="keyword">if</span> $rdi==<span class="number">5</span><span class="comment">//条件断点，rdi的值为5的时候才断</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>删除、禁用断点的指令</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">//先使用i b查看断点编号</span></span><br><span class="line"><span class="keyword">delete</span> <span class="number">5</span><span class="comment">//删除5号断点，如果直接delete不加数字，表示删除所有断点</span></span><br><span class="line">disable <span class="number">5</span><span class="comment">//禁用5号断点</span></span><br><span class="line">    enable <span class="number">5</span><span class="comment">//启用5号断点</span></span><br><span class="line">clear<span class="comment">//清除下面的所有断点</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>内存断点指令</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">watch <span class="number">0x123456</span><span class="comment">//0x123456地址的数据改变的时候会断</span></span><br><span class="line">watch a<span class="comment">//变量a改变的时候会断</span></span><br><span class="line">info watchpoints<span class="comment">//查看watch断点信息</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="打印指令"><a href="#打印指令" class="headerlink" title="打印指令"></a>打印指令</h3><p>查看内存指令x</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">x /nuf <span class="number">0x123456</span><span class="comment">//x指令的格式是：x /nfu，nfu代表三个参数</span></span><br><span class="line">    n<span class="comment">//代表显示几个单元（而不是显示几个字节，后面的u表示一个单元多少个字节），放在'/'后面</span></span><br><span class="line">    u<span class="comment">//代表一个单元几个字节，b(一个字节),h(两个字节)，w(四字节)，g(八字节)</span></span><br><span class="line">    f<span class="comment">//代表显示数据的格式，f和u的顺序可以互换，也可以只有一个或者不带n</span></span><br><span class="line">    	x 按十六进制格式显示变量。</span><br><span class="line">		d 按十进制格式显示变量。</span><br><span class="line">		u 按十六进制格式显示无符号整型。</span><br><span class="line">		o 按八进制格式显示变量。</span><br><span class="line">        t 按二进制格式显示变量。</span><br><span class="line">        a 按十六进制格式显示变量。</span><br><span class="line">        c 按字符格式显示变量。</span><br><span class="line">        f 按浮点数格式显示变量。</span><br><span class="line">        s 按字符串显示。</span><br><span class="line">        b 按字符显示。</span><br><span class="line">        i 显示汇编指令。</span><br><span class="line">x /<span class="number">10</span>gx <span class="number">0x123456</span><span class="comment">//从0x123456开始每个单元八个字节，十六进制显示十个单元的数据</span></span><br><span class="line">x /<span class="number">10</span>xd $rdi<span class="comment">//从rdi指向的地址向后打印十个单元，每个单元四字节的十进制数</span></span><br><span class="line">x /<span class="number">10</span>i <span class="number">0x123456</span><span class="comment">//从0x123456处向后显示十条汇编指令</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>打印指令p(print)</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">p func_name<span class="comment">//打印func_name的地址，需要保留符号</span></span><br><span class="line">p <span class="number">0x10</span><span class="number">-0x8</span><span class="comment">//计算0x10-0x8的结果</span></span><br><span class="line">p &amp;a<span class="comment">//查看变量a的地址</span></span><br><span class="line">p *(<span class="number">0x123456</span>)<span class="comment">//查看0x123456的值</span></span><br><span class="line">p $rdi<span class="comment">//显示rdi寄存器的值</span></span><br><span class="line">    p *($rdi)<span class="comment">//显示rdi指向的值</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>打印汇编指令disass(disassemble)</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">disass <span class="number">0x123456</span><span class="comment">//显示0x123456前后的汇编指令</span></span><br><span class="line">x /<span class="number">10</span>i <span class="comment">//前面说过了</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>打印源代码list</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">list</span><span class="comment">//查看当前附近10行的代码</span></span><br><span class="line">    <span class="built_in">list</span> <span class="number">38</span><span class="comment">//查看28行附近10行的代码</span></span><br><span class="line">    <span class="built_in">list</span> <span class="number">1</span>,<span class="number">10</span><span class="comment">//查看1-10行代码</span></span><br><span class="line">    <span class="built_in">list</span> main<span class="comment">//查看main函数的开始10行</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="查找指令"><a href="#查找指令" class="headerlink" title="查找指令"></a>查找指令</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">search rdi<span class="comment">//从当前位置向后查找包含rdi的指令</span></span><br><span class="line">find <span class="string">"hello"</span><span class="comment">//查找hello字符串，pwndbg独有</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="修改数据指令-set"><a href="#修改数据指令-set" class="headerlink" title="修改数据指令-set"></a>修改数据指令-set</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="built_in">set</span> $rdi=<span class="number">0x10</span><span class="comment">//把寄存器的值变为0x10</span></span><br><span class="line"><span class="built_in">set</span> *(<span class="number">0x123456</span>)=<span class="number">0x10</span><span class="comment">//把0x123456地址的值变为0x10，注意带星号</span></span><br><span class="line"><span class="built_in">set</span> args <span class="string">"abc"</span> <span class="string">"def"</span> <span class="string">"gh"</span><span class="comment">//给参数123赋值</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">堆操作指令（pwndbg插件独有）</span><br><span class="line">arena <span class="comment">//显示arena的详细信息</span></span><br><span class="line">arenas <span class="comment">//显示所有arena的基本信息</span></span><br><span class="line">arenainfo <span class="comment">//好看的显示所有arena的信息</span></span><br><span class="line">bins <span class="comment">//常用，查看所有种类的堆块的链表情况</span></span><br><span class="line">fastbins <span class="comment">//单独查看fastbins的链表情况</span></span><br><span class="line">largebins <span class="comment">//同上，单独查看largebins的链表情况</span></span><br><span class="line">smallbins <span class="comment">//同上，单独查看smallbins的链表情况</span></span><br><span class="line">unsortedbin <span class="comment">//同上，单独查看unsortedbin链表情况</span></span><br><span class="line">tcachebins <span class="comment">//同上，单独查看tcachebins的链表情况</span></span><br><span class="line">tcache <span class="comment">//查看tcache详细信息</span></span><br><span class="line">heap <span class="comment">//数据结构的形式显示所有堆块，会显示一大堆</span></span><br><span class="line">heapbase <span class="comment">//查看堆起始地址</span></span><br><span class="line">heapinfo、heapinfoall <span class="comment">//显示堆得信息，和bins的挺像的，没bins好用</span></span><br><span class="line">parseheap <span class="comment">//显示堆结构，很好用</span></span><br><span class="line">tracemalloc <span class="comment">//好用，会跟提示所有操作堆的地方</span></span><br><span class="line">其他pwndbg插件独有指令</span><br><span class="line">cyclc <span class="number">50</span> <span class="comment">//生成50个用来溢出的字符，如：aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaama</span></span><br><span class="line"></span><br><span class="line">$reabse <span class="comment">//开启PIE的情况的地址偏移</span></span><br><span class="line"></span><br><span class="line">b *$reabse(<span class="number">0x123456</span>) <span class="comment">//断住PIE状态下的二进制文件中0x123456的地方</span></span><br><span class="line">codebase <span class="comment">//打印PIE偏移，与rebase不同，这是打印，rebase是使用</span></span><br><span class="line"><span class="built_in">stack</span> <span class="comment">//查看栈</span></span><br><span class="line"></span><br><span class="line">retaddr <span class="comment">//打印包含返回地址的栈地址</span></span><br><span class="line">canary <span class="comment">//直接看canary的值</span></span><br><span class="line"></span><br><span class="line">plt <span class="comment">//查看plt表</span></span><br><span class="line"></span><br><span class="line">got <span class="comment">//查看got表</span></span><br><span class="line">hexdump <span class="comment">//像IDA那样显示数据，带字符串</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+]]></content>
+      <tags>
+        <tag>PWN</tag>
       </tags>
   </entry>
   <entry>
@@ -2059,36 +2059,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Tea、XTea、XXTea原理和实现</title>
-    <url>/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
-    <content><![CDATA[<p>TEA算法</p>
- <span id="more"></span> 
-
-<h1 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h1><p>1、特征量（一般是0x9e3779b9，它是黄金分割数和232的乘积），可以替换成其他的值，但是可能会出现问题</p>
-<p>2、主要加密部分进行异或和移位操作（一般都存在&lt;&lt;4、&gt;&gt;5）</p>
-<p>3、key为128bit</p>
-<h1 id="Tea"><a href="#Tea" class="headerlink" title="Tea"></a>Tea</h1><h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p>数组的奇数下标元素从右侧传入后进行了移位异或和相加操作，最后偶数下标加上上面操作完的值，所以可以把等式右边看成一个常数，这样写逆向脚本好理解</p>
-<p>结束第一步之后，奇数下标元素的偶数下标元素进行置换，再对奇数下标进行相同的加密</p>
-<p>第三步就是sum+=Delta</p>
-<p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/OIP-C.jfif"> </p>
-<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> Data[<span class="number">8</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> key[<span class="number">4</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> tmp[<span class="number">2</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> delta = <span class="number">0x9e3779b9</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i += <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		tmp[<span class="number">0</span>] = Data[i];</span><br><span class="line">		tmp[<span class="number">1</span>] = Data[i + <span class="number">1</span>];</span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			sum += delta;</span><br><span class="line">			tmp[<span class="number">0</span>] += ((tmp[<span class="number">1</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">0</span>]) ^ (tmp[<span class="number">1</span>] + sum) ^ ((tmp[<span class="number">1</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">1</span>]);</span><br><span class="line">			tmp[<span class="number">1</span>] += ((tmp[<span class="number">0</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">2</span>]) ^ (tmp[<span class="number">0</span>] + sum) ^ ((tmp[<span class="number">0</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">3</span>]);</span><br><span class="line">		}</span><br><span class="line">		Data[i] = tmp[i];</span><br><span class="line">		Data[i + <span class="number">1</span>] = tmp[i + <span class="number">1</span>];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="解密代码"><a href="#解密代码" class="headerlink" title="解密代码"></a>解密代码</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> Data[<span class="number">8</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> key[<span class="number">4</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> tmp[<span class="number">2</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> delta = <span class="number">0x9e3779b9</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i += <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		tmp[<span class="number">0</span>] = Data[i];</span><br><span class="line">		tmp[<span class="number">1</span>] = Data[i + <span class="number">1</span>];</span><br><span class="line">		sum = delta*<span class="number">32</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			tmp[<span class="number">1</span>] -= ((tmp[<span class="number">0</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">2</span>]) ^ (tmp[<span class="number">0</span>] + sum) ^ ((tmp[<span class="number">0</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">3</span>]);</span><br><span class="line">			tmp[<span class="number">0</span>] -= ((tmp[<span class="number">1</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">0</span>]) ^ (tmp[<span class="number">1</span>] + sum) ^ ((tmp[<span class="number">1</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">1</span>]);</span><br><span class="line">			sum -= delta;</span><br><span class="line">		}</span><br><span class="line">		Data[i] = tmp[i];</span><br><span class="line">		Data[i + <span class="number">1</span>] = tmp[i + <span class="number">1</span>];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>解密的时候主要是要找到Key和密文，并且可能会有大小端序的问题</p>
-<h1 id="XTea"><a href="#XTea" class="headerlink" title="XTea"></a>XTea</h1><p>Xtea是Tea的升级版，添加了一些移位和异或操作</p>
-<h2 id="加密流程-1"><a href="#加密流程-1" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/20190112131633-3a396138-1629-1.png"> </p>
-<p>因为加密过程实际上没发生太多变化，就不贴加密和解密的代码了</p>
-<h1 id="XXTea"><a href="#XXTea" class="headerlink" title="XXTea"></a>XXTea</h1><h2 id="加密流程-2"><a href="#加密流程-2" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/921830_48K7JHRW383FZWR.jpg"> </p>
-<h2 id="加解密代码"><a href="#加解密代码" class="headerlink" title="加解密代码"></a>加解密代码</h2><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DELTA 0x9e3779b9            <span class="comment">//固定的一个常量</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MX (((z&gt;&gt;5^y<span class="meta-string">&lt;&lt;2) + (y&gt;</span>&gt;3^z&lt;&lt;4)) ^ ((sum^y) + (key[(p&amp;3)^e] ^ z)))   <span class="comment">//固定的运算</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">btea</span><span class="params">(<span class="keyword">uint32_t</span> *v, <span class="keyword">int</span> n, <span class="keyword">uint32_t</span> <span class="keyword">const</span> key[<span class="number">4</span>])</span>   <span class="comment">//v是要加密的两个元素的数组</span></span></span><br><span class="line"><span class="function"></span>{                                                      <span class="comment">//n为数组的长度</span></span><br><span class="line">    <span class="keyword">uint32_t</span> y, z, sum;                                <span class="comment">//无符号整型     </span></span><br><span class="line">    <span class="keyword">unsigned</span> p, rounds, e;                            </span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">1</span>)            <span class="comment">/* Coding Part */</span>   </span><br><span class="line">    {</span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;               <span class="comment">//固定的得出轮数</span></span><br><span class="line">        sum = <span class="number">0</span>;                        </span><br><span class="line">        z = v[n<span class="number">-1</span>];                     </span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            sum += DELTA;                <span class="comment">//每次进行叠加</span></span><br><span class="line">            e = (sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;          <span class="comment">//固定运算</span></span><br><span class="line">            <span class="keyword">for</span> (p=<span class="number">0</span>; p&lt;n<span class="number">-1</span>; p++)       </span><br><span class="line">            {</span><br><span class="line">                y = v[p+<span class="number">1</span>];</span><br><span class="line">                v[p] += MX;</span><br><span class="line">                      z = v[p];     </span><br><span class="line">                        }</span><br><span class="line">            y = v[<span class="number">0</span>];</span><br><span class="line">            z = v[n<span class="number">-1</span>] += MX;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span> (--rounds);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">-1</span>)      <span class="comment">/* Decoding Part */</span></span><br><span class="line">    {</span><br><span class="line">        n = -n;</span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;</span><br><span class="line">        sum = rounds*DELTA;</span><br><span class="line">        y = v[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            e = (sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span> (p=n<span class="number">-1</span>; p&gt;<span class="number">0</span>; p--)</span><br><span class="line">            {</span><br><span class="line">                z = v[p<span class="number">-1</span>];</span><br><span class="line">                y = v[p] -= MX;</span><br><span class="line">            }</span><br><span class="line">            z = v[n<span class="number">-1</span>];</span><br><span class="line">            y = v[<span class="number">0</span>] -= MX;</span><br><span class="line">            sum -= DELTA;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span> (--rounds);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">uint32_t</span> v[<span class="number">2</span>]= {<span class="number">1</span>,<span class="number">2</span>};</span><br><span class="line">    <span class="keyword">uint32_t</span> <span class="keyword">const</span> k[<span class="number">4</span>]= {<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line">    <span class="keyword">int</span> n= <span class="number">2</span>; <span class="comment">//n的绝对值表示v的长度，取正表示加密，取负表示解密</span></span><br><span class="line">    <span class="comment">// v为要加密的数据是两个32位无符号整数</span></span><br><span class="line">  <span class="comment">// k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"加密前原始数据：%u %u\n"</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);</span><br><span class="line">    btea(v, n, k);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"加密后的数据：%u %u\n"</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);</span><br><span class="line">    btea(v, -n, k);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"解密后的数据：%u %u\n"</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>还没实现过，看着流程图不知道怎么入手</p>
-]]></content>
-      <tags>
-        <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>VEH</title>
     <url>/2022/04/10/VEH/</url>
     <content><![CDATA[<p>VEH</p>
@@ -2138,6 +2108,36 @@
 ]]></content>
       <tags>
         <tag>Windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tea、XTea、XXTea原理和实现</title>
+    <url>/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<p>TEA算法</p>
+ <span id="more"></span> 
+
+<h1 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h1><p>1、特征量（一般是0x9e3779b9，它是黄金分割数和232的乘积），可以替换成其他的值，但是可能会出现问题</p>
+<p>2、主要加密部分进行异或和移位操作（一般都存在&lt;&lt;4、&gt;&gt;5）</p>
+<p>3、key为128bit</p>
+<h1 id="Tea"><a href="#Tea" class="headerlink" title="Tea"></a>Tea</h1><h2 id="加密流程"><a href="#加密流程" class="headerlink" title="加密流程"></a>加密流程</h2><p>数组的奇数下标元素从右侧传入后进行了移位异或和相加操作，最后偶数下标加上上面操作完的值，所以可以把等式右边看成一个常数，这样写逆向脚本好理解</p>
+<p>结束第一步之后，奇数下标元素的偶数下标元素进行置换，再对奇数下标进行相同的加密</p>
+<p>第三步就是sum+=Delta</p>
+<p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/OIP-C.jfif"> </p>
+<h2 id="加密代码"><a href="#加密代码" class="headerlink" title="加密代码"></a>加密代码</h2><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> Data[<span class="number">8</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> key[<span class="number">4</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> tmp[<span class="number">2</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> delta = <span class="number">0x9e3779b9</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i += <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		tmp[<span class="number">0</span>] = Data[i];</span><br><span class="line">		tmp[<span class="number">1</span>] = Data[i + <span class="number">1</span>];</span><br><span class="line">        sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			sum += delta;</span><br><span class="line">			tmp[<span class="number">0</span>] += ((tmp[<span class="number">1</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">0</span>]) ^ (tmp[<span class="number">1</span>] + sum) ^ ((tmp[<span class="number">1</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">1</span>]);</span><br><span class="line">			tmp[<span class="number">1</span>] += ((tmp[<span class="number">0</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">2</span>]) ^ (tmp[<span class="number">0</span>] + sum) ^ ((tmp[<span class="number">0</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">3</span>]);</span><br><span class="line">		}</span><br><span class="line">		Data[i] = tmp[i];</span><br><span class="line">		Data[i + <span class="number">1</span>] = tmp[i + <span class="number">1</span>];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="解密代码"><a href="#解密代码" class="headerlink" title="解密代码"></a>解密代码</h3><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> Data[<span class="number">8</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> key[<span class="number">4</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> tmp[<span class="number">2</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> delta = <span class="number">0x9e3779b9</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i += <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		tmp[<span class="number">0</span>] = Data[i];</span><br><span class="line">		tmp[<span class="number">1</span>] = Data[i + <span class="number">1</span>];</span><br><span class="line">		sum = delta*<span class="number">32</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			tmp[<span class="number">1</span>] -= ((tmp[<span class="number">0</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">2</span>]) ^ (tmp[<span class="number">0</span>] + sum) ^ ((tmp[<span class="number">0</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">3</span>]);</span><br><span class="line">			tmp[<span class="number">0</span>] -= ((tmp[<span class="number">1</span>] &lt;&lt; <span class="number">4</span>) + key[<span class="number">0</span>]) ^ (tmp[<span class="number">1</span>] + sum) ^ ((tmp[<span class="number">1</span>] &gt;&gt; <span class="number">5</span>) + key[<span class="number">1</span>]);</span><br><span class="line">			sum -= delta;</span><br><span class="line">		}</span><br><span class="line">		Data[i] = tmp[i];</span><br><span class="line">		Data[i + <span class="number">1</span>] = tmp[i + <span class="number">1</span>];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>解密的时候主要是要找到Key和密文，并且可能会有大小端序的问题</p>
+<h1 id="XTea"><a href="#XTea" class="headerlink" title="XTea"></a>XTea</h1><p>Xtea是Tea的升级版，添加了一些移位和异或操作</p>
+<h2 id="加密流程-1"><a href="#加密流程-1" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/20190112131633-3a396138-1629-1.png"> </p>
+<p>因为加密过程实际上没发生太多变化，就不贴加密和解密的代码了</p>
+<h1 id="XXTea"><a href="#XXTea" class="headerlink" title="XXTea"></a>XXTea</h1><h2 id="加密流程-2"><a href="#加密流程-2" class="headerlink" title="加密流程"></a>加密流程</h2><p> <img src="/2022/02/07/Tea%E3%80%81XTea%E3%80%81XXTea%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/921830_48K7JHRW383FZWR.jpg"> </p>
+<h2 id="加解密代码"><a href="#加解密代码" class="headerlink" title="加解密代码"></a>加解密代码</h2><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DELTA 0x9e3779b9            <span class="comment">//固定的一个常量</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MX (((z&gt;&gt;5^y<span class="meta-string">&lt;&lt;2) + (y&gt;</span>&gt;3^z&lt;&lt;4)) ^ ((sum^y) + (key[(p&amp;3)^e] ^ z)))   <span class="comment">//固定的运算</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">btea</span><span class="params">(<span class="keyword">uint32_t</span> *v, <span class="keyword">int</span> n, <span class="keyword">uint32_t</span> <span class="keyword">const</span> key[<span class="number">4</span>])</span>   <span class="comment">//v是要加密的两个元素的数组</span></span></span><br><span class="line"><span class="function"></span>{                                                      <span class="comment">//n为数组的长度</span></span><br><span class="line">    <span class="keyword">uint32_t</span> y, z, sum;                                <span class="comment">//无符号整型     </span></span><br><span class="line">    <span class="keyword">unsigned</span> p, rounds, e;                            </span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">1</span>)            <span class="comment">/* Coding Part */</span>   </span><br><span class="line">    {</span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;               <span class="comment">//固定的得出轮数</span></span><br><span class="line">        sum = <span class="number">0</span>;                        </span><br><span class="line">        z = v[n<span class="number">-1</span>];                     </span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            sum += DELTA;                <span class="comment">//每次进行叠加</span></span><br><span class="line">            e = (sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;          <span class="comment">//固定运算</span></span><br><span class="line">            <span class="keyword">for</span> (p=<span class="number">0</span>; p&lt;n<span class="number">-1</span>; p++)       </span><br><span class="line">            {</span><br><span class="line">                y = v[p+<span class="number">1</span>];</span><br><span class="line">                v[p] += MX;</span><br><span class="line">                      z = v[p];     </span><br><span class="line">                        }</span><br><span class="line">            y = v[<span class="number">0</span>];</span><br><span class="line">            z = v[n<span class="number">-1</span>] += MX;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span> (--rounds);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (n &lt; <span class="number">-1</span>)      <span class="comment">/* Decoding Part */</span></span><br><span class="line">    {</span><br><span class="line">        n = -n;</span><br><span class="line">        rounds = <span class="number">6</span> + <span class="number">52</span>/n;</span><br><span class="line">        sum = rounds*DELTA;</span><br><span class="line">        y = v[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            e = (sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span> (p=n<span class="number">-1</span>; p&gt;<span class="number">0</span>; p--)</span><br><span class="line">            {</span><br><span class="line">                z = v[p<span class="number">-1</span>];</span><br><span class="line">                y = v[p] -= MX;</span><br><span class="line">            }</span><br><span class="line">            z = v[n<span class="number">-1</span>];</span><br><span class="line">            y = v[<span class="number">0</span>] -= MX;</span><br><span class="line">            sum -= DELTA;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">while</span> (--rounds);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">uint32_t</span> v[<span class="number">2</span>]= {<span class="number">1</span>,<span class="number">2</span>};</span><br><span class="line">    <span class="keyword">uint32_t</span> <span class="keyword">const</span> k[<span class="number">4</span>]= {<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>};</span><br><span class="line">    <span class="keyword">int</span> n= <span class="number">2</span>; <span class="comment">//n的绝对值表示v的长度，取正表示加密，取负表示解密</span></span><br><span class="line">    <span class="comment">// v为要加密的数据是两个32位无符号整数</span></span><br><span class="line">  <span class="comment">// k为加密解密密钥，为4个32位无符号整数，即密钥长度为128位</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"加密前原始数据：%u %u\n"</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);</span><br><span class="line">    btea(v, n, k);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"加密后的数据：%u %u\n"</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);</span><br><span class="line">    btea(v, -n, k);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"解密后的数据：%u %u\n"</span>,v[<span class="number">0</span>],v[<span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>还没实现过，看着流程图不知道怎么入手</p>
+]]></content>
+      <tags>
+        <tag>Reverse</tag>
       </tags>
   </entry>
   <entry>
@@ -3885,43 +3885,6 @@
       </tags>
   </entry>
   <entry>
-    <title>内存取证</title>
-    <url>/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</url>
-    <content><![CDATA[<p>内存取证</p>
-<span id="more"></span> 
-
-<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>volatility是内存取证的工具，这里我使用的是打包好了的可执行文件</p>
-<p>volatility下载地址：<a href="https://www.volatilityfoundation.org/releases">https://www.volatilityfoundation.org/releases</a></p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png"></p>
-<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>题目链接：</p>
-<p><a href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
-<p>朴实无华的取证</p>
-<h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><h2 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h2><p>先使用命令volatility -f 朴实无华的取证.raw iamgeinfo查看系统信息</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png"></p>
-<p>上面的系统都有可能，主要是第一个</p>
-<h2 id="查看运行程序列表"><a href="#查看运行程序列表" class="headerlink" title="查看运行程序列表"></a>查看运行程序列表</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 pslist</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png"></p>
-<p>这里有三处需要注意，mspaint是画图工具，360zip是解压工具，notepad是笔记本，接下来重点放在这几处</p>
-<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan，这里可以使用grep来指定搜索的字符串 格式如下：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan | grep flag</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png"></p>
-<p>可以看到过滤出了flag的相关数据</p>
-<h2 id="提取文件"><a href="#提取文件" class="headerlink" title="提取文件"></a>提取文件</h2><p>接下来需要把文件dump下来，命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 dumpfiles -Q 偏移量 -D ./(-D指定文件夹，这里aaa表示存储到aaa文件夹中)</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png"></p>
-<p>可以在aaa文件夹中找到dump下来的文件</p>
-<p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png"></p>
-<p>还有一个加了密的zip文件，这时候注意我们的notepad还没有被使用，可以去看看信息</p>
-<h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 notepad</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png"></p>
-<p>这样就得到了encrypt的密码</p>
-<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> str[]=<span class="string">"FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]"</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str); i++)</span><br><span class="line">	{</span><br><span class="line">		str[i] += <span class="number">32</span>;</span><br><span class="line">		<span class="keyword">if</span>(str[i] &gt;=<span class="string">'a'</span>+<span class="number">3</span> &amp;&amp; str[i]&lt;=<span class="string">'w'</span>+<span class="number">3</span>)</span><br><span class="line">			str[i]-=<span class="number">3</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'a'</span>)</span><br><span class="line">			str[i]=<span class="string">'x'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'b'</span>)</span><br><span class="line">			str[i]=<span class="string">'y'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'c'</span>)</span><br><span class="line">			str[i]=<span class="string">'z'</span>;	</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'|'</span>)</span><br><span class="line">			str[i]=<span class="string">'_'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>,str);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>得到flag：cazy{Xian_will_certainIy_succeed_in_fighting_the_epidemic}</p>
-]]></content>
-      <tags>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>使用汇编语言编写注入代码</title>
     <url>/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/</url>
     <content><![CDATA[<p>代码注入-汇编</p>
@@ -3977,6 +3940,43 @@
       </tags>
   </entry>
   <entry>
+    <title>内存取证</title>
+    <url>/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/</url>
+    <content><![CDATA[<p>内存取证</p>
+<span id="more"></span> 
+
+<h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><p>volatility是内存取证的工具，这里我使用的是打包好了的可执行文件</p>
+<p>volatility下载地址：<a href="https://www.volatilityfoundation.org/releases">https://www.volatilityfoundation.org/releases</a></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png"></p>
+<h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>题目链接：</p>
+<p><a href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
+<p>朴实无华的取证</p>
+<h1 id="解题过程"><a href="#解题过程" class="headerlink" title="解题过程"></a>解题过程</h1><h2 id="查看系统信息"><a href="#查看系统信息" class="headerlink" title="查看系统信息"></a>查看系统信息</h2><p>先使用命令volatility -f 朴实无华的取证.raw iamgeinfo查看系统信息</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png"></p>
+<p>上面的系统都有可能，主要是第一个</p>
+<h2 id="查看运行程序列表"><a href="#查看运行程序列表" class="headerlink" title="查看运行程序列表"></a>查看运行程序列表</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 pslist</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png"></p>
+<p>这里有三处需要注意，mspaint是画图工具，360zip是解压工具，notepad是笔记本，接下来重点放在这几处</p>
+<h2 id="查看文件"><a href="#查看文件" class="headerlink" title="查看文件"></a>查看文件</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan，这里可以使用grep来指定搜索的字符串 格式如下：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86  filescan | grep flag</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png"></p>
+<p>可以看到过滤出了flag的相关数据</p>
+<h2 id="提取文件"><a href="#提取文件" class="headerlink" title="提取文件"></a>提取文件</h2><p>接下来需要把文件dump下来，命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 dumpfiles -Q 偏移量 -D ./(-D指定文件夹，这里aaa表示存储到aaa文件夹中)</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png"></p>
+<p>可以在aaa文件夹中找到dump下来的文件</p>
+<p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png"></p>
+<p>还有一个加了密的zip文件，这时候注意我们的notepad还没有被使用，可以去看看信息</p>
+<h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 notepad</p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png"></p>
+<p>这样就得到了encrypt的密码</p>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> str[]=<span class="string">"FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]"</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str); i++)</span><br><span class="line">	{</span><br><span class="line">		str[i] += <span class="number">32</span>;</span><br><span class="line">		<span class="keyword">if</span>(str[i] &gt;=<span class="string">'a'</span>+<span class="number">3</span> &amp;&amp; str[i]&lt;=<span class="string">'w'</span>+<span class="number">3</span>)</span><br><span class="line">			str[i]-=<span class="number">3</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'a'</span>)</span><br><span class="line">			str[i]=<span class="string">'x'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'b'</span>)</span><br><span class="line">			str[i]=<span class="string">'y'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'c'</span>)</span><br><span class="line">			str[i]=<span class="string">'z'</span>;	</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'|'</span>)</span><br><span class="line">			str[i]=<span class="string">'_'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>,str);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>得到flag：cazy{Xian_will_certainIy_succeed_in_fighting_the_epidemic}</p>
+]]></content>
+      <tags>
+        <tag>Misc</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>加密与解密第四版</title>
     <url>/2022/04/13/%E5%8A%A0%E5%AF%86%E4%B8%8E%E8%A7%A3%E5%AF%86%E7%AC%AC%E5%9B%9B%E7%89%88/</url>
     <content><![CDATA[<p>《加密与解密》</p>
@@ -3991,47 +3991,6 @@
 ]]></content>
       <tags>
         <tag>Reverse</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态链接库创建与使用</title>
-    <url>/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<p>动态链接库</p>
-<span id="more"></span> 
-
-<h1 id="0x00-参考文章"><a href="#0x00-参考文章" class="headerlink" title="0x00-参考文章"></a>0x00-参考文章</h1><p><a href="https://blog.csdn.net/LyRics1996/article/details/120246497">https://blog.csdn.net/LyRics1996/article/details/120246497</a></p>
-<h1 id="0x01-创建动态链接库"><a href="#0x01-创建动态链接库" class="headerlink" title="0x01-创建动态链接库"></a>0x01-创建动态链接库</h1><p>下面以VS为例</p>
-<p>在创建新项目找到动态链接库DLL</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068184192.png"></p>
-<p>创建之后是这样的</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068250968.png"></p>
-<p>替换成我们待会要调用的函数</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070264273.png" alt="替换之后"></p>
-<p>之所以要在函数前面加上extern “C” __declspec(dllexport)</p>
-<p>是因为在导出的时候可能会增加一些符号，这样的话函数的名称会被修改，待会GetProcAddress就无法调用了</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070418832.png" alt="说明"></p>
-<h1 id="0x03-调用动态链接库"><a href="#0x03-调用动态链接库" class="headerlink" title="0x03-调用动态链接库"></a>0x03-调用动态链接库</h1><p>首先先要加载动态链接库，使用LoadLibrary，有两种方式</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">handle = LoadLibrary(_TEXT(<span class="string">"D:\\new\\AD\\C语言\\Dll1\\Debug\\Dll1.dll"</span>));</span><br></pre></td></tr></tbody></table></figure>
-
-<p>使用下面这种方式的话需要#include&lt;tcahr.h&gt;</p>
-<p>GetProcAddress调用DLL文件中的函数</p>
-<p>我们需要使用typedef为函数指针创建匹配类型的指针</p>
-<p>因为函数名就是函数的地址，所以可以直接赋值和调用，下面两种都可以调用函数，震惊！C语言白学了</p>
-<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649072130088.png"></p>
-<p>代码如下</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tchar.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*Lpfunc)</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;<span class="comment">//先定义函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	HMODULE handle;</span><br><span class="line">	handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">	handle = LoadLibrary(_TEXT(<span class="string">"Dll1.dll"</span>));</span><br><span class="line">	Lpfunc add = <span class="literal">NULL</span>;</span><br><span class="line">	add = (Lpfunc)GetProcAddress(handle, <span class="string">"add"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, add(<span class="number">3</span>, <span class="number">4</span>));</span><br><span class="line">	FreeLibrary(handle);<span class="comment">//释放资源</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>typedef声明函数指针</p>
-<p><a href="https://blog.csdn.net/afei__/article/details/82011613">https://blog.csdn.net/afei__/article/details/82011613</a></p>
-<p>当然我们也可以多层调用</p>
-<p>dll文件中</p>
-<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pch.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, k);</span><br><span class="line">}</span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    Print(c);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>python调用dll-ctype</p>
-<p><a href="https://docs.python.org/3/library/ctypes.html">https://docs.python.org/3/library/ctypes.html</a></p>
-]]></content>
-      <tags>
-        <tag>PE</tag>
       </tags>
   </entry>
   <entry>
@@ -4119,6 +4078,47 @@
 ]]></content>
       <tags>
         <tag>Reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>动态链接库创建与使用</title>
+    <url>/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<p>动态链接库</p>
+<span id="more"></span> 
+
+<h1 id="0x00-参考文章"><a href="#0x00-参考文章" class="headerlink" title="0x00-参考文章"></a>0x00-参考文章</h1><p><a href="https://blog.csdn.net/LyRics1996/article/details/120246497">https://blog.csdn.net/LyRics1996/article/details/120246497</a></p>
+<h1 id="0x01-创建动态链接库"><a href="#0x01-创建动态链接库" class="headerlink" title="0x01-创建动态链接库"></a>0x01-创建动态链接库</h1><p>下面以VS为例</p>
+<p>在创建新项目找到动态链接库DLL</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068184192.png"></p>
+<p>创建之后是这样的</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649068250968.png"></p>
+<p>替换成我们待会要调用的函数</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070264273.png" alt="替换之后"></p>
+<p>之所以要在函数前面加上extern “C” __declspec(dllexport)</p>
+<p>是因为在导出的时候可能会增加一些符号，这样的话函数的名称会被修改，待会GetProcAddress就无法调用了</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070418832.png" alt="说明"></p>
+<h1 id="0x03-调用动态链接库"><a href="#0x03-调用动态链接库" class="headerlink" title="0x03-调用动态链接库"></a>0x03-调用动态链接库</h1><p>首先先要加载动态链接库，使用LoadLibrary，有两种方式</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line">handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">handle = LoadLibrary(_TEXT(<span class="string">"D:\\new\\AD\\C语言\\Dll1\\Debug\\Dll1.dll"</span>));</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用下面这种方式的话需要#include&lt;tcahr.h&gt;</p>
+<p>GetProcAddress调用DLL文件中的函数</p>
+<p>我们需要使用typedef为函数指针创建匹配类型的指针</p>
+<p>因为函数名就是函数的地址，所以可以直接赋值和调用，下面两种都可以调用函数，震惊！C语言白学了</p>
+<p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649072130088.png"></p>
+<p>代码如下</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tchar.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*Lpfunc)</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;<span class="comment">//先定义函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	HMODULE handle;</span><br><span class="line">	handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">	handle = LoadLibrary(_TEXT(<span class="string">"Dll1.dll"</span>));</span><br><span class="line">	Lpfunc add = <span class="literal">NULL</span>;</span><br><span class="line">	add = (Lpfunc)GetProcAddress(handle, <span class="string">"add"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, add(<span class="number">3</span>, <span class="number">4</span>));</span><br><span class="line">	FreeLibrary(handle);<span class="comment">//释放资源</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>typedef声明函数指针</p>
+<p><a href="https://blog.csdn.net/afei__/article/details/82011613">https://blog.csdn.net/afei__/article/details/82011613</a></p>
+<p>当然我们也可以多层调用</p>
+<p>dll文件中</p>
+<figure class="highlight c"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pch.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, k);</span><br><span class="line">}</span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    Print(c);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>python调用dll-ctype</p>
+<p><a href="https://docs.python.org/3/library/ctypes.html">https://docs.python.org/3/library/ctypes.html</a></p>
+]]></content>
+      <tags>
+        <tag>PE</tag>
       </tags>
   </entry>
   <entry>
@@ -4329,18 +4329,6 @@
       </tags>
   </entry>
   <entry>
-    <title>文档隐写</title>
-    <url>/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/</url>
-    <content><![CDATA[<p>文档隐写</p>
-<span id="more"></span> 
-
-<p>可以看看这篇<a href="https://xz.aliyun.com/t/1883/">https://xz.aliyun.com/t/1883/</a></p>
-<h1 id="WORD"><a href="#WORD" class="headerlink" title="WORD"></a>WORD</h1><h2 id="xml隐藏信息"><a href="#xml隐藏信息" class="headerlink" title="xml隐藏信息"></a>xml隐藏信息</h2><h2 id="隐藏文字"><a href="#隐藏文字" class="headerlink" title="隐藏文字"></a>隐藏文字</h2><h2 id="隐藏文件"><a href="#隐藏文件" class="headerlink" title="隐藏文件"></a>隐藏文件</h2><h1 id="PDF"><a href="#PDF" class="headerlink" title="PDF"></a>PDF</h1><h2 id="图片遮挡"><a href="#图片遮挡" class="headerlink" title="图片遮挡"></a>图片遮挡</h2>]]></content>
-      <tags>
-        <tag>Misc</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>安卓知识</title>
     <url>/2022/01/22/%E5%AE%89%E5%8D%93%E7%9F%A5%E8%AF%86/</url>
     <content><![CDATA[<p>安卓基础知识</p>
@@ -4471,6 +4459,18 @@
 ]]></content>
       <tags>
         <tag>汇编</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>文档隐写</title>
+    <url>/2022/01/15/%E6%96%87%E6%A1%A3%E9%9A%90%E5%86%99/</url>
+    <content><![CDATA[<p>文档隐写</p>
+<span id="more"></span> 
+
+<p>可以看看这篇<a href="https://xz.aliyun.com/t/1883/">https://xz.aliyun.com/t/1883/</a></p>
+<h1 id="WORD"><a href="#WORD" class="headerlink" title="WORD"></a>WORD</h1><h2 id="xml隐藏信息"><a href="#xml隐藏信息" class="headerlink" title="xml隐藏信息"></a>xml隐藏信息</h2><h2 id="隐藏文字"><a href="#隐藏文字" class="headerlink" title="隐藏文字"></a>隐藏文字</h2><h2 id="隐藏文件"><a href="#隐藏文件" class="headerlink" title="隐藏文件"></a>隐藏文件</h2><h1 id="PDF"><a href="#PDF" class="headerlink" title="PDF"></a>PDF</h1><h2 id="图片遮挡"><a href="#图片遮挡" class="headerlink" title="图片遮挡"></a>图片遮挡</h2>]]></content>
+      <tags>
+        <tag>Misc</tag>
       </tags>
   </entry>
   <entry>
