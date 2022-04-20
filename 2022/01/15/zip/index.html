@@ -330,19 +330,7 @@
 <p>点开上面的工具-&gt; 修复压缩文件</p>
 <h1 id="套娃压缩包"><a href="#套娃压缩包" class="headerlink" title="套娃压缩包"></a>套娃压缩包</h1><p>顾名思义，就是压缩包套娃</p>
 <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF">https://buuoj.cn/challenges#[MRCTF2020]%E5%8D%83%E5%B1%82%E5%A5%97%E8%B7%AF</a></p>
-<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><pre class="language-python" data-language="python"><code class="language-python">from PIL import Image
-
-x = y = 200
-img = Image.new("RGB",(x,y))
-file = open('./qr.txt','r')
-
-for width in range(0,x):
-    for height in range(0,y):
-        line = file.readline()
-        rgb = line.replace('(','').replace(')','').split(',')
-        img.putpixel((width,height),(int(rgb[0]),int(rgb[1]),int(rgb[2])))
-img.save('flag.jpg')
-</code></pre>
+<h3 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h3><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"></span><br><span class="line">x = y = <span class="number">200</span></span><br><span class="line">img = Image.new(<span class="string">"RGB"</span>,(x,y))</span><br><span class="line">file = <span class="built_in">open</span>(<span class="string">'./qr.txt'</span>,<span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> width <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,x):</span><br><span class="line">    <span class="keyword">for</span> height <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,y):</span><br><span class="line">        line = file.readline()</span><br><span class="line">        rgb = line.replace(<span class="string">'('</span>,<span class="string">''</span>).replace(<span class="string">')'</span>,<span class="string">''</span>).split(<span class="string">','</span>)</span><br><span class="line">        img.putpixel((width,height),(<span class="built_in">int</span>(rgb[<span class="number">0</span>]),<span class="built_in">int</span>(rgb[<span class="number">1</span>]),<span class="built_in">int</span>(rgb[<span class="number">2</span>])))</span><br><span class="line">img.save(<span class="string">'flag.jpg'</span>)</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 
 
@@ -352,39 +340,10 @@ img.save('flag.jpg')
 <p><img src="/2022/01/15/zip/1642249237942.png"></p>
 <p><img src="/2022/01/15/zip/1642249207274.png"></p>
 <p>直接上脚本(不是很会)</p>
-<pre class="language-python" data-language="python"><code class="language-python">#python3
-import zipfile
-import string
-import binascii
-
-def CrackCrc(crc):
-	for i in dic:
-		for j in dic:
-			for k in dic:
-				for h in dic:
-					s = i + j + k + h
-					if crc == (binascii.crc32(s.encode())):
-						f.write(s)
-						return
-
-def CrackZip():
-	for i in range(0,68):
-		file = 'D:\\new\\新建文件夹\\out'+str(i)+'.zip'
-		crc = zipfile.ZipFile(file,'r').getinfo('data.txt').CRC
-		CrackCrc(crc)
-		print('\r'+"loading：{:%}".format(float((i+1)/68)),end='')
-
-dic = string.ascii_letters + string.digits + '+/='
-f = open('printaaa.txt','w')
-print("\nCRC32begin")
-CrackZip()
-print("CRC32finished")
-f.close()
-</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python3</span></span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackCrc</span>(<span class="params">crc</span>):</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> dic:</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> dic:</span><br><span class="line">			<span class="keyword">for</span> k <span class="keyword">in</span> dic:</span><br><span class="line">				<span class="keyword">for</span> h <span class="keyword">in</span> dic:</span><br><span class="line">					s = i + j + k + h</span><br><span class="line">					<span class="keyword">if</span> crc == (binascii.crc32(s.encode())):</span><br><span class="line">						f.write(s)</span><br><span class="line">						<span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackZip</span>():</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">68</span>):</span><br><span class="line">		file = <span class="string">'D:\\new\\新建文件夹\\out'</span>+<span class="built_in">str</span>(i)+<span class="string">'.zip'</span></span><br><span class="line">		crc = zipfile.ZipFile(file,<span class="string">'r'</span>).getinfo(<span class="string">'data.txt'</span>).CRC</span><br><span class="line">		CrackCrc(crc)</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">'\r'</span>+<span class="string">"loading：{:%}"</span>.<span class="built_in">format</span>(<span class="built_in">float</span>((i+<span class="number">1</span>)/<span class="number">68</span>)),end=<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">dic = string.ascii_letters + string.digits + <span class="string">'+/='</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">'printaaa.txt'</span>,<span class="string">'w'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\nCRC32begin"</span>)</span><br><span class="line">CrackZip()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"CRC32finished"</span>)</span><br><span class="line">f.close()</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>得到base64编码的东西</p>
-<pre class="language-none"><code class="language-none">z5BzAAANAAAAAAAAAKo+egCAIwBJAAAAVAAAAAKGNKv+a2MdSR0zAwABAAAAQ01UCRUUy91BT5UkSNPoj5hFEVFBRvefHSBCfG0ruGnKnygsMyj8SBaZHxsYHY84LEZ24cXtZ01y3k1K1YJ0vpK9HwqUzb6u9z8igEr3dCCQLQAdAAAAHQAAAAJi0efVT2MdSR0wCAAgAAAAZmxhZy50eHQAsDRpZmZpeCB0aGUgZmlsZSBhbmQgZ2V0IHRoZSBmbGFnxD17AEAHAA==
-</code></pre>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">z5BzAAANAAAAAAAAAKo</span>+egCAIwBJAAAAVAAAAAKGNKv+a<span class="number">2</span>MdSR<span class="number">0</span>zAwABAAAAQ<span class="number">01</span>UCRUUy<span class="number">91</span>BT<span class="number">5</span>UkSNPoj<span class="number">5</span>hFEVFBRvefHSBCfG<span class="number">0</span>ruGnKnygsMyj<span class="number">8</span>SBaZHxsYHY<span class="number">84</span>LEZ<span class="number">24</span>cXtZ<span class="number">01</span>y<span class="number">3</span>k<span class="number">1</span>K<span class="number">1</span>YJ<span class="number">0</span>vpK<span class="number">9</span>HwqUzb<span class="number">6</span>u<span class="number">9</span>z<span class="number">8</span>igEr<span class="number">3</span>dCCQLQAdAAAAHQAAAAJi<span class="number">0</span>efVT<span class="number">2</span>MdSR<span class="number">0</span>wCAAgAAAAZmxhZy<span class="number">50</span>eHQAsDRpZmZpeCB<span class="number">0</span>aGUgZmlsZSBhbmQgZ<span class="number">2</span>V<span class="number">0</span>IHRoZSBmbGFnxD<span class="number">17</span>AEAHAA==</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>网站在线解码，这个网站挺好的，可以直接转换文件</p>
 <p><a target="_blank" rel="noopener" href="https://the-x.cn/base64/">https://the-x.cn/base64/</a></p>
@@ -404,24 +363,7 @@ f.close()
 <p><a target="_blank" rel="noopener" href="https://the-x.cn/zh-cn/encodings/Hex.aspx">https://the-x.cn/zh-cn/encodings/Hex.aspx</a></p>
 <p><img src="/2022/01/15/zip/1642254255927.png"></p>
 <p>也可以使用脚本</p>
-<pre class="language-python" data-language="python"><code class="language-python">s='填写16进制数据'
-import binascii
-out=open('2.jpg','wb')
-out.write(binascii.unhexlify(s))
-out.close()
-
-#Author: MoChu7
-import struct
-
-a = open("str.txt","r")#十六进制数据文件
-lines = a.read()
-res = [lines[i:i+2] for i in range(0,len(lines),2)]
-
-with open("res.jpg","wb") as f:
-	for i in res:
-		s = struct.pack('B',int(i,16))
-		f.write(s)
-</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">'填写16进制数据'</span></span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">out=<span class="built_in">open</span>(<span class="string">'2.jpg'</span>,<span class="string">'wb'</span>)</span><br><span class="line">out.write(binascii.unhexlify(s))</span><br><span class="line">out.close()</span><br><span class="line"></span><br><span class="line"><span class="comment">#Author: MoChu7</span></span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">open</span>(<span class="string">"str.txt"</span>,<span class="string">"r"</span>)<span class="comment">#十六进制数据文件</span></span><br><span class="line">lines = a.read()</span><br><span class="line">res = [lines[i:i+<span class="number">2</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(lines),<span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"res.jpg"</span>,<span class="string">"wb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">		s = struct.pack(<span class="string">'B'</span>,<span class="built_in">int</span>(i,<span class="number">16</span>))</span><br><span class="line">		f.write(s)</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>打开之后得到两个文件，打开里面什么都看不到，全选就会有显示，key.ws应该是snow的密码，拿去whitespace解密</p>
 <p><img src="/2022/01/15/zip/1642254325041.png"></p>
@@ -501,13 +443,13 @@ with open("res.jpg","wb") as f:
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

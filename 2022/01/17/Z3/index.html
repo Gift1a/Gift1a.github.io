@@ -270,7 +270,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.3k</span>
+      <span>4.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -300,57 +300,18 @@
 <p>3、添加约束条件</p>
 <p>s.add(约束条件)，需要注意Int不能进行移位运算，python除是//</p>
 <p>4、判断是否存在</p>
-<pre class="language-python" data-language="python"><code class="language-python">if s.check() == sat:  
-    m = s.model()  
-    print(m)
-else:  
-    print("no answer")</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> s.check() == sat:  </span><br><span class="line">    m = s.model()  </span><br><span class="line">    <span class="built_in">print</span>(m)</span><br><span class="line"><span class="keyword">else</span>:  </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"no answer"</span>)</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="变量为整型"><a href="#变量为整型" class="headerlink" title="变量为整型"></a>变量为整型</h1><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer">https://buuoj.cn/challenges#[ACTF%E6%96%B0%E7%94%9F%E8%B5%9B2020]Universe_final_answer</a></p>
 <h2 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642416626641.png"></p>
 <p>这里就直接放脚本了</p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
-
-s=Solver()
-v1=Int('v1')
-v2=Int('v2')
-v3=Int('v3')
-v4=Int('v4')
-v5=Int('v5')
-v6=Int('v6')
-v7=Int('v7')
-v8=Int('v8')
-v9=Int('v9')
-v11=Int('v11')
-
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
-s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
-s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
-s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
-s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
-s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
-s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
-s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
-
-if s.check()==sat:
-    result=s.model()
-
-print(result)</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span>*</span><br><span class="line"></span><br><span class="line">s=Solver()</span><br><span class="line">v1=Int(<span class="string">'v1'</span>)</span><br><span class="line">v2=Int(<span class="string">'v2'</span>)</span><br><span class="line">v3=Int(<span class="string">'v3'</span>)</span><br><span class="line">v4=Int(<span class="string">'v4'</span>)</span><br><span class="line">v5=Int(<span class="string">'v5'</span>)</span><br><span class="line">v6=Int(<span class="string">'v6'</span>)</span><br><span class="line">v7=Int(<span class="string">'v7'</span>)</span><br><span class="line">v8=Int(<span class="string">'v8'</span>)</span><br><span class="line">v9=Int(<span class="string">'v9'</span>)</span><br><span class="line">v11=Int(<span class="string">'v11'</span>)</span><br><span class="line"></span><br><span class="line">s.add(-<span class="number">85</span> * v9 + <span class="number">58</span> * v8 + <span class="number">97</span> * v6 + v7 + -<span class="number">45</span> * v5 + <span class="number">84</span> * v4 + <span class="number">95</span> * v2 - <span class="number">20</span> * v1 + <span class="number">12</span> * v3 == <span class="number">12613</span>)</span><br><span class="line">s.add(-<span class="number">85</span> * v9 + <span class="number">58</span> * v8 + <span class="number">97</span> * v6 + v7 + -<span class="number">45</span> * v5 + <span class="number">84</span> * v4 + <span class="number">95</span> * v2 - <span class="number">20</span> * v1 + <span class="number">12</span> * v3 == <span class="number">12613</span>)</span><br><span class="line">s.add(-<span class="number">103</span> * v11 + <span class="number">120</span> * v8 + <span class="number">108</span> * v7 + <span class="number">48</span> * v4 + -<span class="number">89</span> * v3 + <span class="number">78</span> * v1 - <span class="number">41</span> * v2 + <span class="number">31</span> * v5 - (v6 *<span class="number">64</span>) - <span class="number">120</span> * v9 == -<span class="number">10283</span>)</span><br><span class="line">s.add(<span class="number">71</span> * v6 + (v7 *<span class="number">128</span>) + <span class="number">99</span> * v5 + -<span class="number">111</span> * v3 + <span class="number">85</span> * v1 + <span class="number">79</span> * v2 - <span class="number">30</span> * v4 - <span class="number">119</span> * v8 + <span class="number">48</span> * v9 - <span class="number">16</span> * v11 == <span class="number">22855</span>)</span><br><span class="line">s.add(<span class="number">5</span> * v11 + <span class="number">23</span> * v9 + <span class="number">122</span> * v8 + -<span class="number">19</span> * v6 + <span class="number">99</span> * v7 + -<span class="number">117</span> * v5 + -<span class="number">69</span> * v3 + <span class="number">22</span> * v1 - <span class="number">98</span> * v2 + <span class="number">10</span> * v4 == -<span class="number">2944</span>)</span><br><span class="line">s.add(-<span class="number">54</span> * v11 + -<span class="number">23</span> * v8 + -<span class="number">82</span> * v3 + -<span class="number">85</span> * v2 + <span class="number">124</span> * v1 - <span class="number">11</span> * v4 - <span class="number">8</span> * v5 - <span class="number">60</span> * v7 + <span class="number">95</span> * v6 + <span class="number">100</span> * v9 == -<span class="number">2222</span>)</span><br><span class="line">s.add(-<span class="number">83</span> * v11 + -<span class="number">111</span> * v7 + -<span class="number">57</span> * v2 + <span class="number">41</span> * v1 + <span class="number">73</span> * v3 - <span class="number">18</span> * v4 + <span class="number">26</span> * v5 + <span class="number">16</span> * v6 + <span class="number">77</span> * v8 - <span class="number">63</span> * v9 == -<span class="number">13258</span>)</span><br><span class="line">s.add(<span class="number">81</span> * v11 + -<span class="number">48</span> * v9 + <span class="number">66</span> * v8 + -<span class="number">104</span> * v6 + -<span class="number">121</span> * v7 + <span class="number">95</span> * v5 + <span class="number">85</span> * v4 + <span class="number">60</span> * v3 + -<span class="number">85</span> * v2 + <span class="number">80</span> * v1 == -<span class="number">1559</span>)</span><br><span class="line">s.add(<span class="number">101</span> * v11 + -<span class="number">85</span> * v9 + <span class="number">7</span> * v6 + <span class="number">117</span> * v7 + -<span class="number">83</span> * v5 + -<span class="number">101</span> * v4 + <span class="number">90</span> * v3 + -<span class="number">28</span> * v1 + <span class="number">18</span> * v2 - v8 == <span class="number">6308</span>)</span><br><span class="line">s.add(<span class="number">99</span> * v11 + -<span class="number">28</span> * v9 + <span class="number">5</span> * v8 + <span class="number">93</span> * v6 + -<span class="number">18</span> * v7 + -<span class="number">127</span> * v5 + <span class="number">6</span> * v4 + -<span class="number">9</span> * v3 + -<span class="number">93</span> * v1 + <span class="number">58</span> * v2 == -<span class="number">1697</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> s.check()==sat:</span><br><span class="line">    result=s.model()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></tbody></table></figure>
 
 
 
 <h1 id="变量为数组"><a href="#变量为数组" class="headerlink" title="变量为数组"></a>变量为数组</h1><h2 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h2><p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GWCTF%202019]xxor">https://buuoj.cn/challenges#[GWCTF%202019]xxor</a></p>
 <h2 id="关键代码-1"><a href="#关键代码-1" class="headerlink" title="关键代码"></a>关键代码</h2><p><img src="/2022/01/17/Z3/1642417350041.png"></p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import*
-#添加六个Int数据到s变量中
-s = [Int('s%d' % i) for i in range(6)]
-a=Solver()
-#多个约束条件可以使用逗号间隔
-a.add(s[2]-s[3]==2225223423,s[3]+s[4]==4201428739,s[2]-s[4]==1121399208,s[0]==0xdf48ef7e,s[5]==0x84f30420,s[1]==0x20caacf4)
-if a.check() == sat:
-    print(a.model())</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span>*</span><br><span class="line"><span class="comment">#添加六个Int数据到s变量中</span></span><br><span class="line">s = [Int(<span class="string">'s%d'</span> % i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">6</span>)]</span><br><span class="line">a=Solver()</span><br><span class="line"><span class="comment">#多个约束条件可以使用逗号间隔</span></span><br><span class="line">a.add(s[<span class="number">2</span>]-s[<span class="number">3</span>]==<span class="number">2225223423</span>,s[<span class="number">3</span>]+s[<span class="number">4</span>]==<span class="number">4201428739</span>,s[<span class="number">2</span>]-s[<span class="number">4</span>]==<span class="number">1121399208</span>,s[<span class="number">0</span>]==<span class="number">0xdf48ef7e</span>,s[<span class="number">5</span>]==<span class="number">0x84f30420</span>,s[<span class="number">1</span>]==<span class="number">0x20caacf4</span>)</span><br><span class="line"><span class="keyword">if</span> a.check() == sat:</span><br><span class="line">    <span class="built_in">print</span>(a.model())</span><br></pre></td></tr></tbody></table></figure>
 
 
 
@@ -358,106 +319,11 @@ if a.check() == sat:
 <p><img src="/2022/01/17/Z3/1642418166049.png"></p>
 <h1 id="数独问题"><a href="#数独问题" class="headerlink" title="数独问题"></a>数独问题</h1><p>数独问题就是9×9的方块填数（只能是1-9），分成3×3的小方块，行列数字不同，每个小方块数字不能重复</p>
 <p>先贴一下</p>
-<pre class="language-python" data-language="python"><code class="language-python">from z3 import *
-# 9x9整数变量矩阵
-X = [ [ Int("x_%s_%s" % (i+1, j+1)) for j in range(9) ]
-      for i in range(9) ]
- 
- 
-# 每个单元格包含{1，…，9}中的值
-cells_c  = [ And(1 &lt;= X[i][j], X[i][j] &lt;= 9)
-             for i in range(9) for j in range(9) ]
- 
- 
-# 每行最多包含一个数字一次
-rows_c   = [ Distinct(X[i]) for i in range(9) ]
- 
- 
-# 每列最多包含一个数字
-cols_c   = [ Distinct([ X[i][j] for i in range(9) ])
-             for j in range(9) ]
- 
- 
-# 每个3x3正方形最多包含一个数字
-sq_c     = [ Distinct([ X[3*i0 + i][3*j0 + j]
-                        for i in range(3) for j in range(3) ])
-             for i0 in range(3) for j0 in range(3) ]
- 
- 
-sudoku_c = cells_c + rows_c + cols_c + sq_c
- 
- 
-# 数独实例，我们用'0'表示空单元格
-instance = ((0,0,0,0,9,4,0,3,0),
-            (0,0,0,5,1,0,0,0,7),
-            (0,8,9,0,0,0,0,4,0),
-            (0,0,0,0,0,0,2,0,8),
-            (0,6,0,2,0,1,0,5,0),
-            (1,0,2,0,0,0,0,0,0),
-            (0,7,0,0,0,0,5,2,0),
-            (9,0,0,0,6,5,0,0,0),
-            (0,4,0,9,7,0,0,0,0))
- 
- 
-instance_c = [ If(instance[i][j] == 0,
-                  True,
-                  X[i][j] == instance[i][j])
-               for i in range(9) for j in range(9) ]
- 
- 
-s = Solver()
-s.add(sudoku_c + instance_c)
-if s.check() == sat:
-    m = s.model()
-    r = [ [ m.evaluate(X[i][j]) for j in range(9) ]
-          for i in range(9) ]
-    print_matrix(r)
-else:
-    print("failed to solve")</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"><span class="comment"># 9x9整数变量矩阵</span></span><br><span class="line">X = [ [ Int(<span class="string">"x_%s_%s"</span> % (i+<span class="number">1</span>, j+<span class="number">1</span>)) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line">      <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每个单元格包含{1，…，9}中的值</span></span><br><span class="line">cells_c  = [ And(<span class="number">1</span> &lt;= X[i][j], X[i][j] &lt;= <span class="number">9</span>)</span><br><span class="line">             <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每行最多包含一个数字一次</span></span><br><span class="line">rows_c   = [ Distinct(X[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每列最多包含一个数字</span></span><br><span class="line">cols_c   = [ Distinct([ X[i][j] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ])</span><br><span class="line">             <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 每个3x3正方形最多包含一个数字</span></span><br><span class="line">sq_c     = [ Distinct([ X[<span class="number">3</span>*i0 + i][<span class="number">3</span>*j0 + j]</span><br><span class="line">                        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) ])</span><br><span class="line">             <span class="keyword">for</span> i0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) <span class="keyword">for</span> j0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">sudoku_c = cells_c + rows_c + cols_c + sq_c</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># 数独实例，我们用'0'表示空单元格</span></span><br><span class="line">instance = ((<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">9</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">3</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">7</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">4</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">8</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">6</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">1</span>,<span class="number">0</span>,<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">9</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">6</span>,<span class="number">5</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>),</span><br><span class="line">            (<span class="number">0</span>,<span class="number">4</span>,<span class="number">0</span>,<span class="number">9</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>))</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">instance_c = [ If(instance[i][j] == <span class="number">0</span>,</span><br><span class="line">                  <span class="literal">True</span>,</span><br><span class="line">                  X[i][j] == instance[i][j])</span><br><span class="line">               <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">s = Solver()</span><br><span class="line">s.add(sudoku_c + instance_c)</span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    m = s.model()</span><br><span class="line">    r = [ [ m.evaluate(X[i][j]) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line">          <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>) ]</span><br><span class="line">    print_matrix(r)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"failed to solve"</span>)</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="题目-2"><a href="#题目-2" class="headerlink" title="题目"></a>题目</h2><p>这是改了的数独，比较简单，拿来练练手</p>
 <p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#[GUET-CTF2019]number_game">https://buuoj.cn/challenges#[GUET-CTF2019]number_game</a></p>
-<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><pre class="language-python" data-language="python"><code class="language-python">from z3 import *
-
-# 5*5整数变量矩阵
-X = [[Int("x_%s_%s" % (i + 1, j + 1)) for j in range(5)]
-     for i in range(5)]
-
-# 每个单元格包含{0，…，4}中的值
-cells_c = [And(0 &lt;= X[i][j], X[i][j] &lt;= 4)
-           for i in range(5) for j in range(5)]
-
-# 每行最多包含一个数字一次
-rows_c = [Distinct(X[i]) for i in range(5)]
-
-# 每列最多包含一个数字
-cols_c = [Distinct([X[i][j] for i in range(5)])
-          for j in range(5)]
-
-# 每个5x5正方形最多包含一个数字,i0和j0表示分为几组
-sq_c = [Distinct([X[5 * i0 + i][5 * j0 + j]
-                  for i in range(5) for j in range(5)])
-        for i0 in range(0) for j0 in range(0)]
-
-sudoku_c = cells_c + rows_c + cols_c + sq_c
-
-# 数独实例，我们用'5'表示空单元格
-instance = ((1,4,5,2,3),(3,0,5,1,5),(0,5,2,3,5),(5,3,5,5,5),(4,2,5,5,1))
-
-instance_c = [If(instance[i][j] == 5,
-                 True,
-                 X[i][j] == instance[i][j])
-              for i in range(5) for j in range(5)]
-
-s = Solver()
-s.add(sudoku_c + instance_c)
-if s.check() == sat:
-    m = s.model()
-    r = [[m.evaluate(X[i][j]) for j in range(5)]
-         for i in range(5)]
-    print_matrix(r)
-else:
-    print("failed to solve")</code></pre>
+<h2 id="Z3在题目的运用"><a href="#Z3在题目的运用" class="headerlink" title="Z3在题目的运用"></a>Z3在题目的运用</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5*5整数变量矩阵</span></span><br><span class="line">X = [[Int(<span class="string">"x_%s_%s"</span> % (i + <span class="number">1</span>, j + <span class="number">1</span>)) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">     <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个单元格包含{0，…，4}中的值</span></span><br><span class="line">cells_c = [And(<span class="number">0</span> &lt;= X[i][j], X[i][j] &lt;= <span class="number">4</span>)</span><br><span class="line">           <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每行最多包含一个数字一次</span></span><br><span class="line">rows_c = [Distinct(X[i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每列最多包含一个数字</span></span><br><span class="line">cols_c = [Distinct([X[i][j] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)])</span><br><span class="line">          <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每个5x5正方形最多包含一个数字,i0和j0表示分为几组</span></span><br><span class="line">sq_c = [Distinct([X[<span class="number">5</span> * i0 + i][<span class="number">5</span> * j0 + j]</span><br><span class="line">                  <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)])</span><br><span class="line">        <span class="keyword">for</span> i0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>) <span class="keyword">for</span> j0 <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>)]</span><br><span class="line"></span><br><span class="line">sudoku_c = cells_c + rows_c + cols_c + sq_c</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数独实例，我们用'5'表示空单元格</span></span><br><span class="line">instance = ((<span class="number">1</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">3</span>),(<span class="number">3</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">5</span>),(<span class="number">0</span>,<span class="number">5</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>),(<span class="number">5</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>),(<span class="number">4</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">5</span>,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">instance_c = [If(instance[i][j] == <span class="number">5</span>,</span><br><span class="line">                 <span class="literal">True</span>,</span><br><span class="line">                 X[i][j] == instance[i][j])</span><br><span class="line">              <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line"></span><br><span class="line">s = Solver()</span><br><span class="line">s.add(sudoku_c + instance_c)</span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    m = s.model()</span><br><span class="line">    r = [[m.evaluate(X[i][j]) <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">         <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5</span>)]</span><br><span class="line">    print_matrix(r)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"failed to solve"</span>)</span><br></pre></td></tr></tbody></table></figure>
 
 
     </div>
@@ -531,13 +397,13 @@ else:
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

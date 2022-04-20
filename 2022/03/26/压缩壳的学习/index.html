@@ -286,7 +286,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
+      <span>3.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -329,21 +329,14 @@
 <h1 id="壳的加载过程"><a href="#壳的加载过程" class="headerlink" title="壳的加载过程"></a>壳的加载过程</h1><h2 id="1、保存入口参数"><a href="#1、保存入口参数" class="headerlink" title="1、保存入口参数"></a>1、保存入口参数</h2><p>加壳程序在初始化时会保存各寄存器的值，等到外壳执行完毕，再恢复各个寄存器的值，最后跳转到原程序执行。通常使用Push ad/pop ad、pushfd/popfd指令来保存和恢复现场</p>
 <h2 id="2、获取壳本身需要使用的API地址"><a href="#2、获取壳本身需要使用的API地址" class="headerlink" title="2、获取壳本身需要使用的API地址"></a>2、获取壳本身需要使用的API地址</h2><p>在一般情况下，外壳的输入表只有GetProcAddress、GetModuleHandle和LoadLibary这三个API函数，甚至只有Kernel32.dll及GetProcAddress。如果需要使用其他API函数，可以通过LoadLibaryA或者LoadLibaryExA将DLL文件映像映射到调用进程的地址空间中，函数返回的HINSTANCE值用于标识文件映像所映射的虚拟内存地址。也就相当于DLL的基址</p>
 <h3 id="LoadLibrary函数"><a href="#LoadLibrary函数" class="headerlink" title="LoadLibrary函数"></a>LoadLibrary函数</h3><p>原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">HINSTANCE LoadLibary{
-	LPCTSTR lpLibFIlenam;//DLL文件名地址
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HINSTANCE LoadLibary{</span><br><span class="line">	LPCTSTR lpLibFIlenam;<span class="comment">//DLL文件名地址</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>返回值：成功则返回模块的句柄，失败则返回”NULL”。</p>
 <h2 id="GetModuleHandle函数"><a href="#GetModuleHandle函数" class="headerlink" title="GetModuleHandle函数"></a>GetModuleHandle函数</h2><p>如果DLL文件已被映射到调用进程的地址空间中，可以调用GetModuleHandleA函数获取DLL模块的句柄，函数原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">HMODULE GetModuleHandle{
-	LPCTSTR lpModuleName//DLL文件名地址
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HMODULE GetModuleHandle{</span><br><span class="line">	LPCTSTR lpModuleName<span class="comment">//DLL文件名地址</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="GetProcAddress函数"><a href="#GetProcAddress函数" class="headerlink" title="GetProcAddress函数"></a>GetProcAddress函数</h2><p>一旦DLL模块被加载，线程就可以调用GetProcAddress函数来获取输入函数的地址了，该函数原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">FARPROC GetProcAddress{
-	HMODULE hModule,//DLL模块句柄
-	LPCSTR lpProName //函数名
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FARPROC GetProcAddress{</span><br><span class="line">	HMODULE hModule,<span class="comment">//DLL模块句柄</span></span><br><span class="line">	LPCSTR lpProName <span class="comment">//函数名</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>但是有些壳为了提高强度，不使用系统提供的GetProcAddress函数，而是自己编写函数来替代这个API函数，以提高函数调用的隐蔽性</p>
 <h2 id="3、解密原程序的各个区块的数据"><a href="#3、解密原程序的各个区块的数据" class="headerlink" title="3、解密原程序的各个区块的数据"></a>3、解密原程序的各个区块的数据</h2><p>为了保护原程序代码和数据，壳一般会加密原程序文件的各个区块。在执行时进行解密，因为壳一般是按区块进行加密的，所以在解密的时候也是按照区块解密的，并且将解密的区块数据按照区块的定义放入内存中合适的位置</p>
@@ -459,13 +452,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

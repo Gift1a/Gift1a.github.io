@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="0x00-设置修改EIP    0x01-修改汇编 输入字符串，Ctrl+E修改，注意字符串以0结尾，最后要加上00  可以发现得到的是汇编代码，OD会自动识别 只需要选中字符串按下Ctrl+A即可转为字符串  同理修改好www.reversecore.com字符串 提取汇编接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式 得到 char shellcod">
+    <meta name="description" content="0x00-设置修改EIP    0x01-修改汇编 输入字符串，Ctrl+E修改，注意字符串以0结尾，最后要加上00  可以发现得到的是汇编代码，OD会自动识别 只需要选中字符串按下Ctrl+A即可转为字符串  同理修改好www.reversecore.com字符串 提取汇编接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式 得到 123456789char">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用汇编语言编写注入代码">
 <meta property="og:url" content="https://gift1a.github.io/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0x00-设置修改EIP    0x01-修改汇编 输入字符串，Ctrl+E修改，注意字符串以0结尾，最后要加上00  可以发现得到的是汇编代码，OD会自动识别 只需要选中字符串按下Ctrl+A即可转为字符串  同理修改好www.reversecore.com字符串 提取汇编接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式 得到 char shellcod">
+<meta property="og:description" content="0x00-设置修改EIP    0x01-修改汇编 输入字符串，Ctrl+E修改，注意字符串以0结尾，最后要加上00  可以发现得到的是汇编代码，OD会自动识别 只需要选中字符串按下Ctrl+A即可转为字符串  同理修改好www.reversecore.com字符串 提取汇编接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式 得到 123456789char">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925411946.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925229842.png">
@@ -281,7 +281,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
+      <span>3.7k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -312,95 +312,9 @@
 <p>同理修改好<a target="_blank" rel="noopener" href="http://www.reversecore.com字符串/">www.reversecore.com字符串</a></p>
 <h2 id="提取汇编"><a href="#提取汇编" class="headerlink" title="提取汇编"></a>提取汇编</h2><p>接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式</p>
 <p>得到</p>
-<pre class="language-c" data-language="c"><code class="language-c">char shellcode[] = {
-0x55,0x8B,0xEC,0x8B,0x75,0x08,0x68,0x6C,0x6C,0x00,0x00,0x68,0x33,0x32,0x2E,0x64
-,0x68,0x75,0x73,0x65,0x72,0x54,0xFF,0x16,0x68,0x6F,0x78,0x41,0x00,0x68,0x61,0x67
-,0x65,0x42,0x68,0x4D,0x65,0x73,0x73,0x54,0x50,0xFF,0x56,0x04,0x6A,0x00,0xE8,0x0C
-,0x00,0x00,0x00,0x52,0x65,0x76,0x65,0x72,0x73,0x65,0x43,0x6F,0x72,0x65,0x00,0xE8
-,0x14,0x00,0x00,0x00,0x77,0x77,0x77,0x2E,0x72,0x65,0x76,0x65,0x72,0x73,0x65,0x63
-,0x6F,0x72,0x65,0x2E,0x63,0x6F,0x6D,0x00,0x6A,0x00,0xFF,0xD0,0x33,0xC0,0x8B,0xE5
-,0x5D,0xC3
-};</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> shellcode[] = {</span><br><span class="line"><span class="number">0x55</span>,<span class="number">0x8B</span>,<span class="number">0xEC</span>,<span class="number">0x8B</span>,<span class="number">0x75</span>,<span class="number">0x08</span>,<span class="number">0x68</span>,<span class="number">0x6C</span>,<span class="number">0x6C</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x33</span>,<span class="number">0x32</span>,<span class="number">0x2E</span>,<span class="number">0x64</span></span><br><span class="line">,<span class="number">0x68</span>,<span class="number">0x75</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x54</span>,<span class="number">0xFF</span>,<span class="number">0x16</span>,<span class="number">0x68</span>,<span class="number">0x6F</span>,<span class="number">0x78</span>,<span class="number">0x41</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x61</span>,<span class="number">0x67</span></span><br><span class="line">,<span class="number">0x65</span>,<span class="number">0x42</span>,<span class="number">0x68</span>,<span class="number">0x4D</span>,<span class="number">0x65</span>,<span class="number">0x73</span>,<span class="number">0x73</span>,<span class="number">0x54</span>,<span class="number">0x50</span>,<span class="number">0xFF</span>,<span class="number">0x56</span>,<span class="number">0x04</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xE8</span>,<span class="number">0x0C</span></span><br><span class="line">,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x52</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x43</span>,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x00</span>,<span class="number">0xE8</span></span><br><span class="line">,<span class="number">0x14</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x63</span></span><br><span class="line">,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xD0</span>,<span class="number">0x33</span>,<span class="number">0xC0</span>,<span class="number">0x8B</span>,<span class="number">0xE5</span></span><br><span class="line">,<span class="number">0x5D</span>,<span class="number">0xC3</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
 
-<h1 id="0x02-代码实现"><a href="#0x02-代码实现" class="headerlink" title="0x02-代码实现"></a>0x02-代码实现</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;Windows.h&gt;
-#include&lt;string.h&gt;
-
-BYTE shellcode[] = {
- 0x55,0x8B,0xEC,0x8B,0x75,0x08,0x68,0x6C,0x6C,0x00,0x00,0x68,0x33,0x32,0x2E,0x64
-,0x68,0x75,0x73,0x65,0x72,0x54,0xFF,0x16,0x68,0x6F,0x78,0x41,0x00,0x68,0x61,0x67
-,0x65,0x42,0x68,0x4D,0x65,0x73,0x73,0x54,0x50,0xFF,0x56,0x04,0x6A,0x00,0xE8,0x0C
-,0x00,0x00,0x00,0x52,0x65,0x76,0x65,0x72,0x73,0x65,0x43,0x6F,0x72,0x65,0x00,0xE8
-,0x14,0x00,0x00,0x00,0x77,0x77,0x77,0x2E,0x72,0x65,0x76,0x65,0x72,0x73,0x65,0x63
-,0x6F,0x72,0x65,0x2E,0x63,0x6F,0x6D,0x00,0x6A,0x00,0xFF,0xD0,0x33,0xC0,0x8B,0xE5
-,0x5D,0xC3
-};
-
-typedef struct _Thread_Param
-{
-	FARPROC pFunc[2];//Loadlibrary,GetProcAddress
-}Thread_Param, * pThread_Param;
-
-void Asm_Inject(DWORD PID)
-{
-	HMODULE hMod = NULL;
-	HANDLE hProcess = NULL;
-	Thread_Param param[2] = { 0, };
-	HANDLE hThread = NULL;
-	LPVOID pRemoteBuf[2] = { 0, };
-
-	//获取kernel32.dll的句柄
-	hMod = GetModuleHandleA("kernel32.dll");
-	//将需要使用的函数存储
-	param-&gt;pFunc[0] = GetProcAddress(hMod, "LoadLibraryA");
-	param-&gt;pFunc[1] = GetProcAddress(hMod, "GetProcAddress");
-
-	//开启进程
-	if (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID)))
-	{
-		printf("Open Failed!!Error Code:%d\n", GetLastError());
-		return;
-	}
-
-	//开辟空间并写入
-	if (!(pRemoteBuf[0] = VirtualAllocEx(hProcess, NULL, sizeof(Thread_Param), MEM_COMMIT, PAGE_READWRITE)))
-	{
-		printf("VirtualAlloc Failed!!Error Code:%d\n", GetLastError());
-		return;
-	}
-
-	if (!WriteProcessMemory(hProcess, pRemoteBuf[0], (LPVOID)&amp;param, sizeof(Thread_Param), NULL))
-	{
-		printf("WriteProcess Failed!!Error Code:%d\n", GetLastError());
-		return;
-	}
-
-	//将我们的shellcode写入
-	if (!(pRemoteBuf[1] = VirtualAllocEx(hProcess, NULL, sizeof(shellcode), MEM_COMMIT, PAGE_READWRITE)))
-	{
-		printf("VirtualAlloc Failed!!Error Code:%d\n", GetLastError());
-		return;
-	}
-
-	if (!WriteProcessMemory(hProcess, pRemoteBuf[1], (LPVOID)&amp;shellcode, sizeof(shellcode), NULL))
-	{
-		printf("WriteProcess Failed!!Error Code:%d\n", GetLastError());
-		return;
-	}
-	hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)pRemoteBuf[1], pRemoteBuf[0], 0, NULL);
-
-	WaitForSingleObject(hThread, INFINITE);
-	CloseHandle(hThread);
-	CloseHandle(hProcess);
-	return;
-}
-
-
-int main(int argc,char*argv[])
-{
-	Asm_Inject((DWORD)atol(argv[1]));
-	return 0;
-}</code></pre>
+<h1 id="0x02-代码实现"><a href="#0x02-代码实现" class="headerlink" title="0x02-代码实现"></a>0x02-代码实现</h1><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">BYTE shellcode[] = {</span><br><span class="line"> <span class="number">0x55</span>,<span class="number">0x8B</span>,<span class="number">0xEC</span>,<span class="number">0x8B</span>,<span class="number">0x75</span>,<span class="number">0x08</span>,<span class="number">0x68</span>,<span class="number">0x6C</span>,<span class="number">0x6C</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x33</span>,<span class="number">0x32</span>,<span class="number">0x2E</span>,<span class="number">0x64</span></span><br><span class="line">,<span class="number">0x68</span>,<span class="number">0x75</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x54</span>,<span class="number">0xFF</span>,<span class="number">0x16</span>,<span class="number">0x68</span>,<span class="number">0x6F</span>,<span class="number">0x78</span>,<span class="number">0x41</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x61</span>,<span class="number">0x67</span></span><br><span class="line">,<span class="number">0x65</span>,<span class="number">0x42</span>,<span class="number">0x68</span>,<span class="number">0x4D</span>,<span class="number">0x65</span>,<span class="number">0x73</span>,<span class="number">0x73</span>,<span class="number">0x54</span>,<span class="number">0x50</span>,<span class="number">0xFF</span>,<span class="number">0x56</span>,<span class="number">0x04</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xE8</span>,<span class="number">0x0C</span></span><br><span class="line">,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x52</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x43</span>,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x00</span>,<span class="number">0xE8</span></span><br><span class="line">,<span class="number">0x14</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x63</span></span><br><span class="line">,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xD0</span>,<span class="number">0x33</span>,<span class="number">0xC0</span>,<span class="number">0x8B</span>,<span class="number">0xE5</span></span><br><span class="line">,<span class="number">0x5D</span>,<span class="number">0xC3</span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">Thread_Param</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">	FARPROC pFunc[<span class="number">2</span>];<span class="comment">//Loadlibrary,GetProcAddress</span></span><br><span class="line">}Thread_Param, * pThread_Param;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Asm_Inject</span><span class="params">(DWORD PID)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	HMODULE hMod = <span class="literal">NULL</span>;</span><br><span class="line">	HANDLE hProcess = <span class="literal">NULL</span>;</span><br><span class="line">	Thread_Param param[<span class="number">2</span>] = { <span class="number">0</span>, };</span><br><span class="line">	HANDLE hThread = <span class="literal">NULL</span>;</span><br><span class="line">	LPVOID pRemoteBuf[<span class="number">2</span>] = { <span class="number">0</span>, };</span><br><span class="line"></span><br><span class="line">	<span class="comment">//获取kernel32.dll的句柄</span></span><br><span class="line">	hMod = GetModuleHandleA(<span class="string">"kernel32.dll"</span>);</span><br><span class="line">	<span class="comment">//将需要使用的函数存储</span></span><br><span class="line">	param-&gt;pFunc[<span class="number">0</span>] = GetProcAddress(hMod, <span class="string">"LoadLibraryA"</span>);</span><br><span class="line">	param-&gt;pFunc[<span class="number">1</span>] = GetProcAddress(hMod, <span class="string">"GetProcAddress"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">//开启进程</span></span><br><span class="line">	<span class="keyword">if</span> (!(hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, PID)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Open Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">//开辟空间并写入</span></span><br><span class="line">	<span class="keyword">if</span> (!(pRemoteBuf[<span class="number">0</span>] = VirtualAllocEx(hProcess, <span class="literal">NULL</span>, <span class="keyword">sizeof</span>(Thread_Param), MEM_COMMIT, PAGE_READWRITE)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"VirtualAlloc Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!WriteProcessMemory(hProcess, pRemoteBuf[<span class="number">0</span>], (LPVOID)&amp;param, <span class="keyword">sizeof</span>(Thread_Param), <span class="literal">NULL</span>))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"WriteProcess Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="comment">//将我们的shellcode写入</span></span><br><span class="line">	<span class="keyword">if</span> (!(pRemoteBuf[<span class="number">1</span>] = VirtualAllocEx(hProcess, <span class="literal">NULL</span>, <span class="keyword">sizeof</span>(shellcode), MEM_COMMIT, PAGE_READWRITE)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"VirtualAlloc Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!WriteProcessMemory(hProcess, pRemoteBuf[<span class="number">1</span>], (LPVOID)&amp;shellcode, <span class="keyword">sizeof</span>(shellcode), <span class="literal">NULL</span>))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"WriteProcess Failed!!Error Code:%d\n"</span>, GetLastError());</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	}</span><br><span class="line">	hThread = CreateRemoteThread(hProcess, <span class="literal">NULL</span>, <span class="number">0</span>, (LPTHREAD_START_ROUTINE)pRemoteBuf[<span class="number">1</span>], pRemoteBuf[<span class="number">0</span>], <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	WaitForSingleObject(hThread, INFINITE);</span><br><span class="line">	CloseHandle(hThread);</span><br><span class="line">	CloseHandle(hProcess);</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span>*argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	Asm_Inject((DWORD)atol(argv[<span class="number">1</span>]));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>本质上和代码注入没区别，主要是我们将字符串也包含在了注入的代码里面，所以在线程函数中不再需要使用字符数组存储</p>
 <h1 id="0x03-分析"><a href="#0x03-分析" class="headerlink" title="0x03-分析"></a>0x03-分析</h1><p>在OD中打开并注入，让其停在新线程</p>
@@ -501,13 +415,13 @@ int main(int argc,char*argv[])
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

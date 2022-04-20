@@ -405,24 +405,7 @@
 <p>第二个和第四个是在调试时使用的，编译完这四个默认为0</p>
 <p>struct SECTION_CHARACTERISTICS Characteristics-节的属性</p>
 <p>最后一个成员struct SECTION_CHARACTERISTICS Characteristics-里面有32位，但不是每一位都用</p>
-<pre class="language-c" data-language="c"><code class="language-c">--&gt; 标志(属性块) 常用特征值对照表：&lt;--
-[值:00000020h](*包含可执行代码)
-[值:00000040h](*该块包含已初始化的数据)
-[值:00000080h](*该块包含未初始化的数据)
-[值:00000200h][Section contains comments or some other type of information.]
-[值:00000800h][Section contents will not become part of image.]
-[值:00001000h][Section contents comdat.]
-[值:00004000h][Reset speculative exceptions handling bits in the TLB entries for this section.]
-[值:00008000h][Section content can be accessed relative to GP.]
-[值:00500000h][Default alignment if no others are specified.]
-[值:01000000h][Section contains extended relocations.]
-[值:02000000h][Section can be discarded.]
-[值:04000000h][Section is not cachable.]
-[值:08000000h][Section is not pageable.]
-[值:10000000h](*该块为共享块).
-[值:20000000h](*该块可执行)
-[值:40000000h](*该块可读)
-[值:80000000h](*该块可写)</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">--&gt; 标志(属性块) 常用特征值对照表：&lt;--</span><br><span class="line">[值:<span class="number">00000020</span>h](*包含可执行代码)</span><br><span class="line">[值:<span class="number">00000040</span>h](*该块包含已初始化的数据)</span><br><span class="line">[值:<span class="number">00000080</span>h](*该块包含未初始化的数据)</span><br><span class="line">[值:<span class="number">00000200</span>h][Section contains comments <span class="keyword">or</span> some other type of information.]</span><br><span class="line">[值:<span class="number">00000800</span>h][Section contents will <span class="keyword">not</span> become part of image.]</span><br><span class="line">[值:<span class="number">00001000</span>h][Section contents comdat.]</span><br><span class="line">[值:<span class="number">00004000</span>h][Reset speculative exceptions handling bits in the TLB entries <span class="keyword">for</span> <span class="keyword">this</span> section.]</span><br><span class="line">[值:<span class="number">00008000</span>h][Section content can be accessed relative to GP.]</span><br><span class="line">[值:<span class="number">00500000</span>h][Default alignment <span class="keyword">if</span> no others are specified.]</span><br><span class="line">[值:<span class="number">01000000</span>h][Section contains extended relocations.]</span><br><span class="line">[值:<span class="number">02000000</span>h][Section can be discarded.]</span><br><span class="line">[值:<span class="number">04000000</span>h][Section is <span class="keyword">not</span> cachable.]</span><br><span class="line">[值:<span class="number">08000000</span>h][Section is <span class="keyword">not</span> pageable.]</span><br><span class="line">[值:<span class="number">10000000</span>h](*该块为共享块).</span><br><span class="line">[值:<span class="number">20000000</span>h](*该块可执行)</span><br><span class="line">[值:<span class="number">40000000</span>h](*该块可读)</span><br><span class="line">[值:<span class="number">80000000</span>h](*该块可写)</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="运行状态"><a href="#运行状态" class="headerlink" title="运行状态"></a>运行状态</h1><p>拉伸完之后还需要进行一些准备步骤</p>
 <p>先把文件对齐后的数据拷贝到内存中，根据SizeofHeades，直接copy，因为头和节表是不会变化的，但是节表后面不一定是节区，这是因为文件对齐和内存对齐不同</p>
@@ -634,13 +617,13 @@
 <p>在exe运行的时候加载器会遍历导入表，将导入表中所有dll加载到进程中，被加载的DLL的DLLMain就会被调用</p>
 <p>通过导入表可以知道程序使用了哪些函数</p>
 <p> 导入表，是为了提供的要导入的dll的函数的地址，只不过由于dll地址不固定，所以每次都会重新修正 </p>
-<h2 id="导入表解析"><a href="#导入表解析" class="headerlink" title="导入表解析"></a>导入表解析</h2><h3 id="重要字段"><a href="#重要字段" class="headerlink" title="重要字段"></a>重要字段</h3><pre class="language-c" data-language="c"><code class="language-c">DWORD OriginalFirstThunk;</code></pre>
+<h2 id="导入表解析"><a href="#导入表解析" class="headerlink" title="导入表解析"></a>导入表解析</h2><h3 id="重要字段"><a href="#重要字段" class="headerlink" title="重要字段"></a>重要字段</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DWORD OriginalFirstThunk;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>指向导入名称表（INT）的RVA</p>
-<pre class="language-c" data-language="c"><code class="language-c">DWORD   FirstThunk;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DWORD   FirstThunk;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>指向导入地址表（IAT）的RVA</p>
-<pre class="language-c" data-language="c"><code class="language-c">DWORD   Name;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DWORD   Name;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>指向导入映像文件的名字</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788456499.png"></p>
@@ -649,21 +632,7 @@
 <p>其中IAT与INT都指向 IMAGE_THUNK_DATA32（虽然二者的地址不同）</p>
 <p>INT-以全0结尾</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788999608.png">          函数名数组(对应IMAGE_THUNK_DATA32结构体数组,每一个结构体就是一个联合体-4字节) </p>
-<pre class="language-c" data-language="c"><code class="language-c">typedef struct  _IMAGE_THUNK_DATA32{
-union{//联合体，实际是4字节
-DWORD ForwarderString;
-DWORD Function;//导入函数的地址,在加载到内存之后,这里才起作用
-DWORD Ordinal;//假如是序号导入的,会用到这里
-DWORD AddressOfData;//假如是函数名导入,会用到这里,它指向另外一个结构体PIMAGE_IMPORT_BY_NAME
-}u1;
-}IMAGE_THUNK_DATA32;
-
-//如果是函数名导入的,AddressOfData会指向下面这个结构体
-typedef struct _IMAGE_IMPORT_BY_NAME{
-WORD  Hint;//序号
-CHAR Name[1];//不定长,字符串
-
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>  _<span class="title">IMAGE_THUNK_DATA32</span>{</span></span><br><span class="line"><span class="class"><span class="keyword">union</span>{</span><span class="comment">//联合体，实际是4字节</span></span><br><span class="line">DWORD ForwarderString;</span><br><span class="line">DWORD Function;<span class="comment">//导入函数的地址,在加载到内存之后,这里才起作用</span></span><br><span class="line">DWORD Ordinal;<span class="comment">//假如是序号导入的,会用到这里</span></span><br><span class="line">DWORD AddressOfData;<span class="comment">//假如是函数名导入,会用到这里,它指向另外一个结构体PIMAGE_IMPORT_BY_NAME</span></span><br><span class="line">}u1;</span><br><span class="line">}IMAGE_THUNK_DATA32;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果是函数名导入的,AddressOfData会指向下面这个结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_BY_NAME</span>{</span></span><br><span class="line">WORD  Hint;<span class="comment">//序号</span></span><br><span class="line">CHAR Name[<span class="number">1</span>];<span class="comment">//不定长,字符串</span></span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="导入表结构"><a href="#导入表结构" class="headerlink" title="导入表结构"></a>导入表结构</h2><p>在可选PE头最后的十六个数组的导入表结构，这里存放的是RVA</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646998855451.png"></p>
@@ -708,21 +677,12 @@ CHAR Name[1];//不定长,字符串
 <h2 id="可能存在的问题"><a href="#可能存在的问题" class="headerlink" title="可能存在的问题"></a>可能存在的问题</h2><p> 第一，当DLL没有占住ImageBase时，IAT中的地址就是错的；第二，当链接的DLL被修改了，那IAT里写的地址也是错的。遇到这两种情形之一，加载时就必须修复IAT了。 </p>
 <p>对于第二种情形，DLL是否被修改，是根据比较DLL的时间戳和绑定导入表中的记录的DLL时间戳来判断的，如果不一致，说明DLL被修改了。</p>
 <p>加载程序时，操作系统根据导入表中的时间戳来判断程序是否使用了绑定导入。当时间戳为0，表示不使用绑定导入表；当时间戳为0xFFFFFFFF，说明该程序使用绑定导入。</p>
-<h2 id="绑定导入表结构"><a href="#绑定导入表结构" class="headerlink" title="绑定导入表结构"></a>绑定导入表结构</h2><pre class="language-c" data-language="c"><code class="language-c">typedef struct _IMAGE_BOUND_IMPORT_DESCRIPTOR {
-    DWORD   TimeDateStamp;
-    WORD    OffsetModuleName;
-    WORD    NumberOfModuleForwarderRefs;
-// Array of zero or more IMAGE_BOUND_FORWARDER_REF follows
-} IMAGE_BOUND_IMPORT_DESCRIPTOR,  *PIMAGE_BOUND_IMPORT_DESCRIPTOR;</code></pre>
+<h2 id="绑定导入表结构"><a href="#绑定导入表结构" class="headerlink" title="绑定导入表结构"></a>绑定导入表结构</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BOUND_IMPORT_DESCRIPTOR</span> {</span></span><br><span class="line">    DWORD   TimeDateStamp;</span><br><span class="line">    WORD    OffsetModuleName;</span><br><span class="line">    WORD    NumberOfModuleForwarderRefs;</span><br><span class="line"><span class="comment">// Array of zero or more IMAGE_BOUND_FORWARDER_REF follows</span></span><br><span class="line">} IMAGE_BOUND_IMPORT_DESCRIPTOR,  *PIMAGE_BOUND_IMPORT_DESCRIPTOR;</span><br></pre></td></tr></tbody></table></figure>
 
 <p> TimeDateStamp 是时间戳，用于和DLL中的时间戳比较，判断DLL是否已经发生变化； </p>
 <p> OffsetModuleName 是当前模块名距离第一个 _IMAGE_BOUND_IMPORT_DESCRIPTOR 的偏移。</p>
 <p>  NumberOfModuleForwarderRefs 是该模块依赖的模块数量； </p>
-<h3 id="依赖模块结构"><a href="#依赖模块结构" class="headerlink" title="依赖模块结构"></a>依赖模块结构</h3><pre class="language-c" data-language="c"><code class="language-c">typedef struct _IMAGE_BOUND_FORWARDER_REF {
-    DWORD   TimeDateStamp;
-    WORD    OffsetModuleName;
-    WORD    Reserved;
-} IMAGE_BOUND_FORWARDER_REF,*PIMAGE_BOUND_FORWARDER_REF;</code></pre>
+<h3 id="依赖模块结构"><a href="#依赖模块结构" class="headerlink" title="依赖模块结构"></a>依赖模块结构</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_BOUND_FORWARDER_REF</span> {</span></span><br><span class="line">    DWORD   TimeDateStamp;</span><br><span class="line">    WORD    OffsetModuleName;</span><br><span class="line">    WORD    Reserved;</span><br><span class="line">} IMAGE_BOUND_FORWARDER_REF,*PIMAGE_BOUND_FORWARDER_REF;</span><br></pre></td></tr></tbody></table></figure>
 
 <p> 除了第三个属性保留，其他与 _IMAGE_BOUND_IMPORT_DESCRIPTOR 相同。 </p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1647049008006.png" alt="绑定导入表"></p>
@@ -798,13 +758,13 @@ CHAR Name[1];//不定长,字符串
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

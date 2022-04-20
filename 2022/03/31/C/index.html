@@ -325,36 +325,12 @@
 <p>在类中，当我们malloc时，在堆中开辟空间，但是堆中的空间使用完一般要释放，而我们无法知道什么时候才可以释放掉这个堆的空间-因为其他函数可能会继续使用。</p>
 <p>但是，当对象不再使用的时候（对象为局部变量时），堆就可以释放掉了</p>
 <p>析构函数-无需调用、不能重载、名字与类名相同并在其之前加个~</p>
-<pre class="language-c" data-language="c"><code class="language-c">~Persion()
-
-{
-
- 		free(arr);
-
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~Persion()</span><br><span class="line"></span><br><span class="line">{</span><br><span class="line"></span><br><span class="line"> 		<span class="built_in">free</span>(arr);</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/03/31/C/1648777636920.png"></p>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>本质是数据的复制</p>
 <p>当在多个结构体存在相同的成员时，我们可以将相同的成员提取出来创建一个新的结构体，在使用时只需要</p>
-<pre class="language-c" data-language="c"><code class="language-c">struct persion
-{
-	int age;
-	int sex;
-}
-
-struct student:persion
-{
-	int grade;
-	int count;
-}
-
-struct teacher:persion
-{
-	int level;
-	int p;
-}
-teacher s；
-student t;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">persion</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	<span class="keyword">int</span> sex;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">student</span>:</span>persion</span><br><span class="line">{</span><br><span class="line">	<span class="keyword">int</span> grade;</span><br><span class="line">	<span class="keyword">int</span> count;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">teacher</span>:</span>persion</span><br><span class="line">{</span><br><span class="line">	<span class="keyword">int</span> level;</span><br><span class="line">	<span class="keyword">int</span> p;</span><br><span class="line">}</span><br><span class="line">teacher s；</span><br><span class="line">student t;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>上面的代码在teacher和student结构体都有四个成员，相同成员有两个</p>
 <p><img src="/2022/03/31/C/1648778055143.png" alt="相同部分"></p>
@@ -364,7 +340,7 @@ student t;</code></pre>
 <p>3、s、t称为对象或者实例</p>
 <p>4、可以用父类的指针指向子类的对象</p>
 <p>示例：</p>
-<pre class="language-none"><code class="language-none">persion*pt=&amp;t;</code></pre>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">persion*<span class="attribute">pt</span>=&amp;t;</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/03/31/C/1648713557915.png" alt="子、父类关系"></p>
 <p>所以我们取得子类对象地址，就可以通过其来访问父类成员，但是不能访问子类成员，因为是Persion类型的指针</p>
@@ -467,13 +443,13 @@ student t;</code></pre>
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

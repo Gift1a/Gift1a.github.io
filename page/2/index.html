@@ -259,7 +259,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.9k</span>
+      <span>5.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -416,120 +416,10 @@
 <p>HHOOK SetWindowsHookExA(<br>  [in] int       idHook,// 要安装的挂钩过程的类型<br>  [in] HOOKPROC  lpfn,// 指向挂钩过程的指针<br>  [in] HINSTANCE hmod,// 所指向的挂钩过程的 DLL 的句柄<br>  [in] DWORD     dwThreadId<br>);</p>
 </blockquote>
 <p>main.cpp</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include "stdio.h"
-#include "conio.h"
-#include "windows.h"
-
-#define    DEF_DLL_NAME        "KeyHook.dll"
-#define    DEF_HOOKSTART        "HookStart"
-#define    DEF_HOOKSTOP        "HookStop"
-
-typedef void (*PFN_HOOKSTART)();
-typedef void (*PFN_HOOKSTOP)();
-
-void main()
-{
-    HMODULE    hDll = NULL;
-    PFN_HOOKSTART    HookStart = NULL;
-    PFN_HOOKSTOP    HookStop = NULL;
-    char    ch = 0;
-
-    // 加载KeyHook.dll
-    hDll = LoadLibraryA(DEF_DLL_NAME);
-    if (hDll == NULL)
-    {
-        printf("LoadLibrary(%s) failed!!! [%d]", DEF_DLL_NAME, GetLastError());
-        return;
-    }
-
-    // 获取导出函数地址
-    HookStart = (PFN_HOOKSTART)GetProcAddress(hDll, DEF_HOOKSTART);
-    HookStop = (PFN_HOOKSTOP)GetProcAddress(hDll, DEF_HOOKSTOP);
-
-    // 开始钩取
-    HookStart();
-
-    // 等待，直到用户输入“q”
-    printf("press 'q' to quit!\n");
-    while (_getch() != 'q');
-
-    // 终止钩子
-    HookStop();
-
-    // 卸载KeyHook.dll
-    FreeLibrary(hDll);
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"conio.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>    DEF_DLL_NAME        <span class="meta-string">"KeyHook.dll"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>    DEF_HOOKSTART        <span class="meta-string">"HookStart"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>    DEF_HOOKSTOP        <span class="meta-string">"HookStop"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFN_HOOKSTART)</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFN_HOOKSTOP)</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    HMODULE    hDll = <span class="literal">NULL</span>;</span><br><span class="line">    PFN_HOOKSTART    HookStart = <span class="literal">NULL</span>;</span><br><span class="line">    PFN_HOOKSTOP    HookStop = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">char</span>    ch = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载KeyHook.dll</span></span><br><span class="line">    hDll = LoadLibraryA(DEF_DLL_NAME);</span><br><span class="line">    <span class="keyword">if</span> (hDll == <span class="literal">NULL</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"LoadLibrary(%s) failed!!! [%d]"</span>, DEF_DLL_NAME, GetLastError());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取导出函数地址</span></span><br><span class="line">    HookStart = (PFN_HOOKSTART)GetProcAddress(hDll, DEF_HOOKSTART);</span><br><span class="line">    HookStop = (PFN_HOOKSTOP)GetProcAddress(hDll, DEF_HOOKSTOP);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开始钩取</span></span><br><span class="line">    HookStart();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待，直到用户输入“q”</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"press 'q' to quit!\n"</span>);</span><br><span class="line">    <span class="keyword">while</span> (_getch() != <span class="string">'q'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 终止钩子</span></span><br><span class="line">    HookStop();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卸载KeyHook.dll</span></span><br><span class="line">    FreeLibrary(hDll);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>KeyHook.dll</p>
-<pre class="language-c" data-language="c"><code class="language-c">//KeyHook.cpp
- 
-#include "stdio.h"
-#include "windows.h"
- 
-//定义目标进程名为notepad.exe
-#define DEF_PROCESS_NAME "notepad.exe"
- 
-//定义全局变量
-HINSTANCE g_hInstance = NULL;
-HHOOK g_hHook = NULL;
- 
-//DllMain()函数在DLL被加载到进程后会自动执行
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved){
-	switch( dwReason ){
-		case DLL_PROCESS_ATTACH:
-			g_hInstance = hinstDLL;
-			break;
- 
-		case DLL_PROCESS_DETACH:
-			break;
-	}
- 
-	return TRUE;
-}
- 
-//
-LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam){
-	char szPath[MAX_PATH] = {0,};
-	char *p = NULL;
-	
-	if( nCode &gt;= 0 ){
- 
-		//释放键盘按键时，bit 31 : 0 =&gt; press, 1 =&gt; release
-		if( !(lParam &amp; 0x80000000) ){
-			GetModuleFileNameA(NULL, szPath, MAX_PATH);
-			p = strrchr(szPath, '\\');
- 
-			//比较当前进程名称，若为notepad.exe，则消息不会传递给应用程序或下一个钩子函数
-			//_stricmp()函数用于比较字符串，i表示不区分大小写，若两个值相等则返回0
-			if( !_stricmp(p + 1, DEF_PROCESS_NAME) ){
-				return 1;
-			}
-		}
-	}
- 
-	//比较当前进程名称，若非notepad.exe，则消息传递给应用程序或下一个钩子函数
-	return CallNextHookEx(g_hHook, nCode, wParam, lParam);
-}
- 
-//在C++中调用C的库文件，用extern "C"告知编译器，因为C++支持函数重载而C不支持，两者的编译规则不同
-#ifdef __cplusplus
-extern "C"{
-#endif
-	//__declspec，针对编译器的关键字，用于指出导出函数
-	//当调用导出函数HookStart()时，SetWindowsHookEx()函数就会将KeyboardProc()添加到键盘钩链
-	__declspec(dllexport) void HookStart(){
-		g_hHook = SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, g_hInstance, 0);
-	}
- 
-	__declspec(dllexport) void HookStop(){
-		if(g_hHook){
-			UnhookWindowsHookEx(g_hHook);
-			g_hHook = NULL;
-		}
-	}
-#ifdef __cplusplus
-}
-#endif</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//KeyHook.cpp</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//定义目标进程名为notepad.exe</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEF_PROCESS_NAME <span class="meta-string">"notepad.exe"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//定义全局变量</span></span><br><span class="line">HINSTANCE g_hInstance = <span class="literal">NULL</span>;</span><br><span class="line">HHOOK g_hHook = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//DllMain()函数在DLL被加载到进程后会自动执行</span></span><br><span class="line"><span class="function">BOOL WINAPI <span class="title">DllMain</span><span class="params">(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)</span></span>{</span><br><span class="line">	<span class="keyword">switch</span>( dwReason ){</span><br><span class="line">		<span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">			g_hInstance = hinstDLL;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"> </span><br><span class="line">		<span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="function">LRESULT CALLBACK <span class="title">KeyboardProc</span><span class="params">(<span class="keyword">int</span> nCode, WPARAM wParam, LPARAM lParam)</span></span>{</span><br><span class="line">	<span class="keyword">char</span> szPath[MAX_PATH] = {<span class="number">0</span>,};</span><br><span class="line">	<span class="keyword">char</span> *p = <span class="literal">NULL</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>( nCode &gt;= <span class="number">0</span> ){</span><br><span class="line"> </span><br><span class="line">		<span class="comment">//释放键盘按键时，bit 31 : 0 =&gt; press, 1 =&gt; release</span></span><br><span class="line">		<span class="keyword">if</span>( !(lParam &amp; <span class="number">0x80000000</span>) ){</span><br><span class="line">			GetModuleFileNameA(<span class="literal">NULL</span>, szPath, MAX_PATH);</span><br><span class="line">			p = <span class="built_in">strrchr</span>(szPath, <span class="string">'\\'</span>);</span><br><span class="line"> </span><br><span class="line">			<span class="comment">//比较当前进程名称，若为notepad.exe，则消息不会传递给应用程序或下一个钩子函数</span></span><br><span class="line">			<span class="comment">//_stricmp()函数用于比较字符串，i表示不区分大小写，若两个值相等则返回0</span></span><br><span class="line">			<span class="keyword">if</span>( !_stricmp(p + <span class="number">1</span>, DEF_PROCESS_NAME) ){</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//比较当前进程名称，若非notepad.exe，则消息传递给应用程序或下一个钩子函数</span></span><br><span class="line">	<span class="keyword">return</span> CallNextHookEx(g_hHook, nCode, wParam, lParam);</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="comment">//在C++中调用C的库文件，用extern "C"告知编译器，因为C++支持函数重载而C不支持，两者的编译规则不同</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span>{</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="comment">//__declspec，针对编译器的关键字，用于指出导出函数</span></span><br><span class="line">	<span class="comment">//当调用导出函数HookStart()时，SetWindowsHookEx()函数就会将KeyboardProc()添加到键盘钩链</span></span><br><span class="line">	__declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">HookStart</span><span class="params">()</span></span>{</span><br><span class="line">		g_hHook = SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, g_hInstance, <span class="number">0</span>);</span><br><span class="line">	}</span><br><span class="line"> </span><br><span class="line">	__declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">HookStop</span><span class="params">()</span></span>{</span><br><span class="line">		<span class="keyword">if</span>(g_hHook){</span><br><span class="line">			UnhookWindowsHookEx(g_hHook);</span><br><span class="line">			g_hHook = <span class="literal">NULL</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>调用导出函数HookStart()时，SetWindowsHookEx()函数就会把KeyboardProc()添加到键盘钩链</p>
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649491980722.png"></p>
@@ -540,14 +430,13 @@ extern "C"{
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649493419347.png" alt="DLL_Main函数"></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tiandao2009/article/details/79839182">https://blog.csdn.net/tiandao2009/article/details/79839182</a>  dllmain函数的不同情形</p>
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649494188248.png" alt="DLL注入方法"></p>
-<h1 id="0x12-DLL卸载"><a href="#0x12-DLL卸载" class="headerlink" title="0x12-DLL卸载"></a>0x12-DLL卸载</h1><h2 id="获取目标进程的句柄"><a href="#获取目标进程的句柄" class="headerlink" title="获取目标进程的句柄"></a>获取目标进程的句柄</h2><pre class="language-c" data-language="c"><code class="language-c">hProcess=OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID);</code></pre>
+<h1 id="0x12-DLL卸载"><a href="#0x12-DLL卸载" class="headerlink" title="0x12-DLL卸载"></a>0x12-DLL卸载</h1><h2 id="获取目标进程的句柄"><a href="#获取目标进程的句柄" class="headerlink" title="获取目标进程的句柄"></a>获取目标进程的句柄</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hProcess=OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>该语句使用进程ID来获取目标进程的进程句柄，下面用获得的进程句柄调用CreateRemoteThread()</p>
-<h2 id="获取FreeLibrary-地址"><a href="#获取FreeLibrary-地址" class="headerlink" title="获取FreeLibrary()地址"></a>获取FreeLibrary()地址</h2><pre class="language-c" data-language="c"><code class="language-c">hModule=GetModule(L"kernel32.dll);
-pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code></pre>
+<h2 id="获取FreeLibrary-地址"><a href="#获取FreeLibrary-地址" class="headerlink" title="获取FreeLibrary()地址"></a>获取FreeLibrary()地址</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hModule=GetModule(<span class="string">L"kernel32.dll);</span></span><br><span class="line"><span class="string">pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"</span>FreeLibrary<span class="string">");</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>若要使目标进程自己调用FreeLibrary()，需要先获得FreeLibrary()的地址。然而上述代码获得的不是加载到目标进程中的FreeLibrary()的地址，而是EjectDll.exe进程中FreeLibrary()的地址，但是FreeLibrary在所有进程中地址是相同的</p>
-<h2 id="在目标进程中运行线程"><a href="#在目标进程中运行线程" class="headerlink" title="在目标进程中运行线程"></a>在目标进程中运行线程</h2><pre class="language-c" data-language="c"><code class="language-c">hThread=CreateRemoteThread(hProcess,NULL,0,pThreadProc,me.modBaseAddr,0,NULL);</code></pre>
+<h2 id="在目标进程中运行线程"><a href="#在目标进程中运行线程" class="headerlink" title="在目标进程中运行线程"></a>在目标进程中运行线程</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hThread=CreateRemoteThread(hProcess,<span class="literal">NULL</span>,<span class="number">0</span>,pThreadProc,me.modBaseAddr,<span class="number">0</span>,<span class="literal">NULL</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>pThreadProc参数是FreeLibrary()的地址，me.modBaseAddr参数是要卸载的DLL的加载地址。将线程函数指定为FreeLibrary()函数，并且把DLL加载地址传递给线程参数，这样就在目标进程中成功调用了FreeLibrary函数</p>
 <blockquote>
@@ -568,15 +457,7 @@ pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649926423283.png"></p>
 <p>接下来将插入的asm的机器码进行复制，并修改格式</p>
 <p>得到</p>
-<pre class="language-c" data-language="c"><code class="language-c">char shellcode[] = {
-0x55,0x8B,0xEC,0x8B,0x75,0x08,0x68,0x6C,0x6C,0x00,0x00,0x68,0x33,0x32,0x2E,0x64
-,0x68,0x75,0x73,0x65,0x72,0x54,0xFF,0x16,0x68,0x6F,0x78,0x41,0x00,0x68,0x61,0x67
-,0x65,0x42,0x68,0x4D,0x65,0x73,0x73,0x54,0x50,0xFF,0x56,0x04,0x6A,0x00,0xE8,0x0C
-,0x00,0x00,0x00,0x52,0x65,0x76,0x65,0x72,0x73,0x65,0x43,0x6F,0x72,0x65,0x00,0xE8
-,0x14,0x00,0x00,0x00,0x77,0x77,0x77,0x2E,0x72,0x65,0x76,0x65,0x72,0x73,0x65,0x63
-,0x6F,0x72,0x65,0x2E,0x63,0x6F,0x6D,0x00,0x6A,0x00,0xFF,0xD0,0x33,0xC0,0x8B,0xE5
-,0x5D,0xC3
-};</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> shellcode[] = {</span><br><span class="line"><span class="number">0x55</span>,<span class="number">0x8B</span>,<span class="number">0xEC</span>,<span class="number">0x8B</span>,<span class="number">0x75</span>,<span class="number">0x08</span>,<span class="number">0x68</span>,<span class="number">0x6C</span>,<span class="number">0x6C</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x33</span>,<span class="number">0x32</span>,<span class="number">0x2E</span>,<span class="number">0x64</span></span><br><span class="line">,<span class="number">0x68</span>,<span class="number">0x75</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x54</span>,<span class="number">0xFF</span>,<span class="number">0x16</span>,<span class="number">0x68</span>,<span class="number">0x6F</span>,<span class="number">0x78</span>,<span class="number">0x41</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x61</span>,<span class="number">0x67</span></span><br><span class="line">,<span class="number">0x65</span>,<span class="number">0x42</span>,<span class="number">0x68</span>,<span class="number">0x4D</span>,<span class="number">0x65</span>,<span class="number">0x73</span>,<span class="number">0x73</span>,<span class="number">0x54</span>,<span class="number">0x50</span>,<span class="number">0xFF</span>,<span class="number">0x56</span>,<span class="number">0x04</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xE8</span>,<span class="number">0x0C</span></span><br><span class="line">,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x52</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x43</span>,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x00</span>,<span class="number">0xE8</span></span><br><span class="line">,<span class="number">0x14</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x63</span></span><br><span class="line">,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xD0</span>,<span class="number">0x33</span>,<span class="number">0xC0</span>,<span class="number">0x8B</span>,<span class="number">0xE5</span></span><br><span class="line">,<span class="number">0x5D</span>,<span class="number">0xC3</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649985152689.png"></p>
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1650001282882.png"></p>
@@ -664,7 +545,7 @@ pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -762,7 +643,7 @@ pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
+      <span>2.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -890,8 +771,7 @@ pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code
 <p>是因为在导出的时候可能会增加一些符号，这样的话函数的名称会被修改，待会GetProcAddress就无法调用了</p>
 <p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649070418832.png" alt="说明"></p>
 <h1 id="0x03-调用动态链接库"><a href="#0x03-调用动态链接库" class="headerlink" title="0x03-调用动态链接库"></a>0x03-调用动态链接库</h1><p>首先先要加载动态链接库，使用LoadLibrary，有两种方式</p>
-<pre class="language-c" data-language="c"><code class="language-c">handle = LoadLibrary(L"Dll1.dll");
-handle = LoadLibrary(_TEXT("D:\\new\\AD\\C语言\\Dll1\\Debug\\Dll1.dll"));</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">handle = LoadLibrary(_TEXT(<span class="string">"D:\\new\\AD\\C语言\\Dll1\\Debug\\Dll1.dll"</span>));</span><br></pre></td></tr></tbody></table></figure>
 
 <p>使用下面这种方式的话需要#include&lt;tcahr.h&gt;</p>
 <p>GetProcAddress调用DLL文件中的函数</p>
@@ -899,42 +779,13 @@ handle = LoadLibrary(_TEXT("D:\\new\\AD\\C语言\\Dll1\\Debug\\Dll1.dll"));</cod
 <p>因为函数名就是函数的地址，所以可以直接赋值和调用，下面两种都可以调用函数，震惊！C语言白学了</p>
 <p><img src="/2022/04/04/%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%88%9B%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/1649072130088.png"></p>
 <p>代码如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;Windows.h&gt;
-#include&lt;string.h&gt;
-#include&lt;iostream&gt;
-#include &lt;tchar.h&gt;
-
-typedef int(*Lpfunc)(int a,int b);//先定义函数指针
-int main()
-{
-	HMODULE handle;
-	handle = LoadLibrary(L"Dll1.dll");
-	handle = LoadLibrary(_TEXT("Dll1.dll"));
-	Lpfunc add = NULL;
-	add = (Lpfunc)GetProcAddress(handle, "add");
-	printf("%d\n", add(3, 4));
-	FreeLibrary(handle);//释放资源
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;tchar.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span><span class="params">(*Lpfunc)</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>;<span class="comment">//先定义函数指针</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	HMODULE handle;</span><br><span class="line">	handle = LoadLibrary(<span class="string">L"Dll1.dll"</span>);</span><br><span class="line">	handle = LoadLibrary(_TEXT(<span class="string">"Dll1.dll"</span>));</span><br><span class="line">	Lpfunc add = <span class="literal">NULL</span>;</span><br><span class="line">	add = (Lpfunc)GetProcAddress(handle, <span class="string">"add"</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, add(<span class="number">3</span>, <span class="number">4</span>));</span><br><span class="line">	FreeLibrary(handle);<span class="comment">//释放资源</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>typedef声明函数指针</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/afei__/article/details/82011613">https://blog.csdn.net/afei__/article/details/82011613</a></p>
 <p>当然我们也可以多层调用</p>
 <p>dll文件中</p>
-<pre class="language-c" data-language="c"><code class="language-c">// dllmain.cpp : 定义 DLL 应用程序的入口点。
-#include "pch.h"
-#include&lt;stdio.h&gt;
-extern "C" _declspec (dllexport)void Print(int k)
-{
-    printf("%d\n", k);
-}
-extern "C" _declspec (dllexport)int add(int a, char b)
-{
-    int c = a + b;
-    Print(c);
-    return c;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pch.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, k);</span><br><span class="line">}</span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec (dllexport)<span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">char</span> b)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> c = a + b;</span><br><span class="line">    Print(c);</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>python调用dll-ctype</p>
 <p><a target="_blank" rel="noopener" href="https://docs.python.org/3/library/ctypes.html">https://docs.python.org/3/library/ctypes.html</a></p>
@@ -1052,13 +903,7 @@ extern "C" _declspec (dllexport)int add(int a, char b)
 <p>接下来我们重新运行一下，然后这次我们先右键锁定堆栈，观察他的变化</p>
 <p>先来看一下第一个API函数</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649058638150.png" alt="CryptCreateHash"></p>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL CryptCreateHash(
-  [in]  HCRYPTPROV hProv,
-  [in]  ALG_ID     Algid,
-  [in]  HCRYPTKEY  hKey,
-  [in]  DWORD      dwFlags,
-  [out] HCRYPTHASH *phHash
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CryptCreateHash</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  HCRYPTPROV hProv,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  ALG_ID     Algid,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  HCRYPTKEY  hKey,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  DWORD      dwFlags,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out] HCRYPTHASH *phHash</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>而前面的一些是函数的参数，关键的是下面这个，我们点进这个链接</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649058819510.png" alt="关键参数"></p>
@@ -1066,23 +911,12 @@ extern "C" _declspec (dllexport)int add(int a, char b)
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649058866139.png"></p>
 <p>再看第二个函数</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649058990852.png" alt="CryptHashData"></p>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL CryptHashData(
-  [in] HCRYPTHASH hHash,
-  [in] const BYTE *pbData,
-  [in] DWORD      dwDataLen,
-  [in] DWORD      dwFlags
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CryptHashData</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] HCRYPTHASH hHash,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] <span class="keyword">const</span> BYTE *pbData,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] DWORD      dwDataLen,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in] DWORD      dwFlags</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>关键是是我们加密的数据和数据的长度，也就是说每次取出2长度的字符串生成hashdata</p>
 <p>再看第三个</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649059153629.png" alt="CryptGetHashParam"></p>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL CryptGetHashParam(
-  [in]      HCRYPTHASH hHash,
-  [in]      DWORD      dwParam,
-  [out]     BYTE       *pbData,
-  [in, out] DWORD      *pdwDataLen,
-  [in]      DWORD      dwFlags
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">CryptGetHashParam</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]      HCRYPTHASH hHash,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]      DWORD      dwParam,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out]     BYTE       *pbData,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, out] DWORD      *pdwDataLen,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]      DWORD      dwFlags</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>具体的可以不用细看，只需知道这一段是真正的加密，因为在执行前，目标地址没有数据</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649059338076.png"></p>
@@ -1093,54 +927,7 @@ extern "C" _declspec (dllexport)int add(int a, char b)
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649059489991.png" alt="sha256表"></p>
 <p>flag格式是zer0pts，取前两个字符进行sha256加密，正好对应</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649059547681.png"></p>
-<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-python" data-language="python"><code class="language-python">hash = [
-  "33129567e0bd787efb15a26307e5311e06ba66e3b8dbc2206ad59f99780a4d78",
-  "dd191696e15e2ee293410d02454c5f9461a2249dee6d57c75f264eaeb83a3782",
-  "e75b11da693d7bb5273985dcf9f02729455da7e7c80e54a0615e00ec2ae76d8e",
-  "04249e0c258e1a4e43cfdae291a835cd15735f650bbbba0465ada1cd9846622a",
-  "e4223ed20d7ea5740a326e2b268ca6db91d041cf5194f577e393a8ba3b85d8e9",
-  "8b53639f152c8fc6ef30802fde462ba0be9cf085f7580dc69efd72e002abbb35",
-  "0117834bf60dcf977229bf1e982cf9bc63b60ef42052f7ce7e800ce1216a9af6",
-  "741d14df730e53a5a019a710116f696db4ec23a132b74cf6fbb3cf7617e68313",
-  "e30e580a4c2916bcff30ca047f2d6a494168ceaf8fb9171037a773a9f8e7268e",
-  "294763754a8efd4c739d9f679bfca3ab510106f42ddb5dc0216ba8bc98ba3158",
-  "46c9e22099ee4bfe54a99a3cdbaf69f17f7c6e2581b92f7bab25128fd2100b7a",
-  "68dbf73d03d3a5107edad3b05676eee240e68c280296e52b6986873c54cef3cb",
-  "c1818d580d8c8bc111302f4a5e6903ef2d32b11a5613efba507693de8060fb8c",
-  "44ad63f60af0f6db6fdde6d5186ef78176367df261fa06be3079b6c80c8adba4",
-  "46c9e22099ee4bfe54a99a3cdbaf69f17f7c6e2581b92f7bab25128fd2100b7a",
-  "5e07d6fdc602b0f9b99f6ea24c39e65835992faac400264c52449bc409cf4efa",
-  "e4dcd6d313af71559596d3009c12d025301842d8c7f888c2850333e91a9bda68",
-  "fffdff4b07a9d973fd1c3a6be443851bc13e82c4af94c88325244694e352aa31",
-  "3fffd018d2223020be85670d93f565b63df54a9ce3ed2cdf6347a61df016938c",
-  "b2941852282562cc3d813e8bf1705d0480a7a008ffa2475501d7c5161165a7fb",
-  "635ca73d00d4f28b5f573b16eea56e9e4579d77e561c32aa68189d9769fa1753",
-  "a4d0ef23161b5b7c6a8d5b287543fd74e16b3bf313d71aa187c24cdd728a7b1e",
-  "e0b9a8799f32453a478c9122f8b83cee68e16db18f493ac81bc1d474594b5df4",
-  "564999cbbfea80170ba068dcf961d9914625f3be951b2c1fe163bae0f8156c24",
-  "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
-  "e91787068a3c60e9712a7abeb6a67f518a40723c1b89c11d6070fe5f9389ebf9",
-  "7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6",
-  "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
-  "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
-  "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
-  "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
-  "96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7",
-]
-
-import hashlib
-import itertools
-
-def dec(h):
-  for l in range(2,3):
-    for p in itertools.product(range(128), repeat=l):
-      if hashlib.sha256(bytes(p)).hexdigest()==h:
-        return bytes(p)
-
-flag = b""
-for h in hash:
-  flag += dec(h)
-print(flag.decode())</code></pre>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">hash</span> = [</span><br><span class="line">  <span class="string">"33129567e0bd787efb15a26307e5311e06ba66e3b8dbc2206ad59f99780a4d78"</span>,</span><br><span class="line">  <span class="string">"dd191696e15e2ee293410d02454c5f9461a2249dee6d57c75f264eaeb83a3782"</span>,</span><br><span class="line">  <span class="string">"e75b11da693d7bb5273985dcf9f02729455da7e7c80e54a0615e00ec2ae76d8e"</span>,</span><br><span class="line">  <span class="string">"04249e0c258e1a4e43cfdae291a835cd15735f650bbbba0465ada1cd9846622a"</span>,</span><br><span class="line">  <span class="string">"e4223ed20d7ea5740a326e2b268ca6db91d041cf5194f577e393a8ba3b85d8e9"</span>,</span><br><span class="line">  <span class="string">"8b53639f152c8fc6ef30802fde462ba0be9cf085f7580dc69efd72e002abbb35"</span>,</span><br><span class="line">  <span class="string">"0117834bf60dcf977229bf1e982cf9bc63b60ef42052f7ce7e800ce1216a9af6"</span>,</span><br><span class="line">  <span class="string">"741d14df730e53a5a019a710116f696db4ec23a132b74cf6fbb3cf7617e68313"</span>,</span><br><span class="line">  <span class="string">"e30e580a4c2916bcff30ca047f2d6a494168ceaf8fb9171037a773a9f8e7268e"</span>,</span><br><span class="line">  <span class="string">"294763754a8efd4c739d9f679bfca3ab510106f42ddb5dc0216ba8bc98ba3158"</span>,</span><br><span class="line">  <span class="string">"46c9e22099ee4bfe54a99a3cdbaf69f17f7c6e2581b92f7bab25128fd2100b7a"</span>,</span><br><span class="line">  <span class="string">"68dbf73d03d3a5107edad3b05676eee240e68c280296e52b6986873c54cef3cb"</span>,</span><br><span class="line">  <span class="string">"c1818d580d8c8bc111302f4a5e6903ef2d32b11a5613efba507693de8060fb8c"</span>,</span><br><span class="line">  <span class="string">"44ad63f60af0f6db6fdde6d5186ef78176367df261fa06be3079b6c80c8adba4"</span>,</span><br><span class="line">  <span class="string">"46c9e22099ee4bfe54a99a3cdbaf69f17f7c6e2581b92f7bab25128fd2100b7a"</span>,</span><br><span class="line">  <span class="string">"5e07d6fdc602b0f9b99f6ea24c39e65835992faac400264c52449bc409cf4efa"</span>,</span><br><span class="line">  <span class="string">"e4dcd6d313af71559596d3009c12d025301842d8c7f888c2850333e91a9bda68"</span>,</span><br><span class="line">  <span class="string">"fffdff4b07a9d973fd1c3a6be443851bc13e82c4af94c88325244694e352aa31"</span>,</span><br><span class="line">  <span class="string">"3fffd018d2223020be85670d93f565b63df54a9ce3ed2cdf6347a61df016938c"</span>,</span><br><span class="line">  <span class="string">"b2941852282562cc3d813e8bf1705d0480a7a008ffa2475501d7c5161165a7fb"</span>,</span><br><span class="line">  <span class="string">"635ca73d00d4f28b5f573b16eea56e9e4579d77e561c32aa68189d9769fa1753"</span>,</span><br><span class="line">  <span class="string">"a4d0ef23161b5b7c6a8d5b287543fd74e16b3bf313d71aa187c24cdd728a7b1e"</span>,</span><br><span class="line">  <span class="string">"e0b9a8799f32453a478c9122f8b83cee68e16db18f493ac81bc1d474594b5df4"</span>,</span><br><span class="line">  <span class="string">"564999cbbfea80170ba068dcf961d9914625f3be951b2c1fe163bae0f8156c24"</span>,</span><br><span class="line">  <span class="string">"4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5"</span>,</span><br><span class="line">  <span class="string">"e91787068a3c60e9712a7abeb6a67f518a40723c1b89c11d6070fe5f9389ebf9"</span>,</span><br><span class="line">  <span class="string">"7eb70257593da06f682a3ddda54a9d260d4fc514f645237f5ca74b08f8da61a6"</span>,</span><br><span class="line">  <span class="string">"96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"</span>,</span><br><span class="line">  <span class="string">"96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"</span>,</span><br><span class="line">  <span class="string">"96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"</span>,</span><br><span class="line">  <span class="string">"96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"</span>,</span><br><span class="line">  <span class="string">"96a296d224f285c67bee93c30f8a309157f0daa35dc5b87e410b78630a09cfc7"</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dec</span>(<span class="params">h</span>):</span></span><br><span class="line">  <span class="keyword">for</span> l <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>,<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> itertools.product(<span class="built_in">range</span>(<span class="number">128</span>), repeat=l):</span><br><span class="line">      <span class="keyword">if</span> hashlib.sha256(<span class="built_in">bytes</span>(p)).hexdigest()==h:</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">bytes</span>(p)</span><br><span class="line"></span><br><span class="line">flag = <span class="string">b""</span></span><br><span class="line"><span class="keyword">for</span> h <span class="keyword">in</span> <span class="built_in">hash</span>:</span><br><span class="line">  flag += dec(h)</span><br><span class="line"><span class="built_in">print</span>(flag.decode())</span><br></pre></td></tr></tbody></table></figure>
 
 <p>zer0pts{m0d1fy1ng_PE_1mp0rts_1s_4n_34sy_0bfusc4t10n}</p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xxxxxxxxx/p/11544432.html">https://www.cnblogs.com/xxxxxxxxx/p/11544432.html</a></p>
@@ -1167,32 +954,7 @@ print(flag.decode())</code></pre>
 <p>安装好之后，模仿该过程生成SHA256加密，注意因为每次都会Update，所以不能将最后一次生成的值直接SHA256加密，这样得到的结果不一样</p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649153105553.png" alt="函数说明"></p>
 <p>这也就是前面说的，每加密完一次，hash初始值都会被改变</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include &lt;openssl/sha.h&gt;
-#include &lt;stdio.h&gt;
-#include&lt;stdlib.h&gt;
-int main(int argc, char const* argv[])
-{
-	SHA256_CTX ctx;
-	srand(0x2454);
-	char output[256];
-	__int64_t buffer;
-	int x, y;
-	SHA256_Init(&amp;ctx);
-	for (int i = 0; i &lt; 0x294; ++i)
-	{
-		x = rand() % 33;
-		y = rand() % 20;
-		buffer = 16 * x + y;
-		SHA256_Update(&amp;ctx, &amp;buffer, 8);
-		SHA256_Final(output, &amp;ctx);
-	}
-	for(int i = 0; i&lt;32; i++) //将SHA256以16进制输出
-	{
-         printf("%02x", (int)output[i]&amp;0xff);
-    }
-     puts("\n");
-	return 0;
-</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;openssl/sha.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	SHA256_CTX ctx;</span><br><span class="line">	srand(<span class="number">0x2454</span>);</span><br><span class="line">	<span class="keyword">char</span> output[<span class="number">256</span>];</span><br><span class="line">	<span class="keyword">__int64_t</span> buffer;</span><br><span class="line">	<span class="keyword">int</span> x, y;</span><br><span class="line">	SHA256_Init(&amp;ctx);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">0x294</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		x = rand() % <span class="number">33</span>;</span><br><span class="line">		y = rand() % <span class="number">20</span>;</span><br><span class="line">		buffer = <span class="number">16</span> * x + y;</span><br><span class="line">		SHA256_Update(&amp;ctx, &amp;buffer, <span class="number">8</span>);</span><br><span class="line">		SHA256_Final(output, &amp;ctx);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;<span class="number">32</span>; i++) <span class="comment">//将SHA256以16进制输出</span></span><br><span class="line">	{</span><br><span class="line">         <span class="built_in">printf</span>(<span class="string">"%02x"</span>, (<span class="keyword">int</span>)output[i]&amp;<span class="number">0xff</span>);</span><br><span class="line">    }</span><br><span class="line">     <span class="built_in">puts</span>(<span class="string">"\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>编译</p>
 <blockquote>
@@ -1200,25 +962,7 @@ int main(int argc, char const* argv[])
 </blockquote>
 <p>也可以动调得到最后的sha256值</p>
 <p>最后异或一下即可</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;string.h&gt;
-#include &lt;stdio.h&gt;
-
-int main(int argc, char const* argv[])
-{
-	char data[33] = {
-	0xC2, 0x98, 0xD1, 0x8E, 0xC8, 0xBF, 0x99, 0x75, 0x50, 0x41, 0x54, 0x5D, 0x3C, 0x39, 0xA8, 0x05,
-	0x73, 0x7B, 0xDE, 0xEA, 0xA3, 0xBE, 0x4C, 0x40, 0x2B, 0xE2, 0x48, 0x90, 0x80, 0x7F, 0x7B, 0x8D };
-	unsigned char magic_bytes[32] = {
-	0xB2, 0xEA, 0xE5, 0xBF, 0xBB, 0x8C, 0xC6, 0x01, 0x38, 0x72, 0x0B, 0x2F, 0x0F, 0x54, 0x9C, 0x6E,
-	0x40, 0x24, 0xEA, 0x84, 0xC7, 0xE1, 0x7D, 0x34, 0x58, 0xBD, 0x2E, 0xE2, 0xB4, 0x12, 0x48, 0xFE
-	};
-	for (int i = 0; i &lt; strlen(data); ++i)
-	{
-		data[i] ^= magic_bytes[i];
-	}
-	printf("%s", data);
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> data[<span class="number">33</span>] = {</span><br><span class="line">	<span class="number">0xC2</span>, <span class="number">0x98</span>, <span class="number">0xD1</span>, <span class="number">0x8E</span>, <span class="number">0xC8</span>, <span class="number">0xBF</span>, <span class="number">0x99</span>, <span class="number">0x75</span>, <span class="number">0x50</span>, <span class="number">0x41</span>, <span class="number">0x54</span>, <span class="number">0x5D</span>, <span class="number">0x3C</span>, <span class="number">0x39</span>, <span class="number">0xA8</span>, <span class="number">0x05</span>,</span><br><span class="line">	<span class="number">0x73</span>, <span class="number">0x7B</span>, <span class="number">0xDE</span>, <span class="number">0xEA</span>, <span class="number">0xA3</span>, <span class="number">0xBE</span>, <span class="number">0x4C</span>, <span class="number">0x40</span>, <span class="number">0x2B</span>, <span class="number">0xE2</span>, <span class="number">0x48</span>, <span class="number">0x90</span>, <span class="number">0x80</span>, <span class="number">0x7F</span>, <span class="number">0x7B</span>, <span class="number">0x8D</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> magic_bytes[<span class="number">32</span>] = {</span><br><span class="line">	<span class="number">0xB2</span>, <span class="number">0xEA</span>, <span class="number">0xE5</span>, <span class="number">0xBF</span>, <span class="number">0xBB</span>, <span class="number">0x8C</span>, <span class="number">0xC6</span>, <span class="number">0x01</span>, <span class="number">0x38</span>, <span class="number">0x72</span>, <span class="number">0x0B</span>, <span class="number">0x2F</span>, <span class="number">0x0F</span>, <span class="number">0x54</span>, <span class="number">0x9C</span>, <span class="number">0x6E</span>,</span><br><span class="line">	<span class="number">0x40</span>, <span class="number">0x24</span>, <span class="number">0xEA</span>, <span class="number">0x84</span>, <span class="number">0xC7</span>, <span class="number">0xE1</span>, <span class="number">0x7D</span>, <span class="number">0x34</span>, <span class="number">0x58</span>, <span class="number">0xBD</span>, <span class="number">0x2E</span>, <span class="number">0xE2</span>, <span class="number">0xB4</span>, <span class="number">0x12</span>, <span class="number">0x48</span>, <span class="number">0xFE</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(data); ++i)</span><br><span class="line">	{</span><br><span class="line">		data[i] ^= magic_bytes[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, data);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zyhse/article/details/108026800?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~CTRLIST~Rate-1.pc_relevant_default&amp;utm_relevant_index=2">https://blog.csdn.net/zyhse/article/details/108026800?spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1.pc_relevant_default&amp;utm_relevant_index=2</a></p>
 <p>上面介绍了openssl的一些加密算法使用，下面这个是函数说明</p>
@@ -1230,36 +974,9 @@ int main(int argc, char const* argv[])
 <p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-function-localtime.html">https://www.runoob.com/cprogramming/c-function-localtime.html</a></p>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649157668565.png"></p>
 <p>那么我们就需要借助工具来进行传送参数，需要pwntools</p>
-<pre class="language-none"><code class="language-none">process是连接本地连接
-remote是连接远端的，格式t=remote('网址',端口)
+<figure class="highlight livecodeserver"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">process</span>是连接本地连接</span><br><span class="line">remote是连接远端的，格式t=remote(<span class="string">'网址'</span>,端口)</span><br><span class="line"></span><br><span class="line">我们可以发送数据过去，也可以接受数据</span><br></pre></td></tr></tbody></table></figure>
 
-我们可以发送数据过去，也可以接受数据</code></pre>
-
-<pre class="language-python" data-language="python"><code class="language-python">val = 0xa4c570
-
-a = 1
-b = (val * 7 - 4) // 2
-c = 1
-def testfunc(a, b, c):
-    return (a + b + c &lt;&lt; ((a % b) &amp; 0x1f)) // ((2 &lt;&lt; (a &amp; 0x1f) ^ 3) * c)
-
-result = testfunc(a, b, c)
-
-print(val)
-print(result, hex(result))
-
-print(hex(a), hex(b), hex(c))
-
-from pwn import *
-
-#s = process('./timesup')
-s = remote('0.cloud.chals.io', 26020)
-
-print(s.readuntil(b'&gt;&gt;&gt; ').decode())
-
-s.writeline('{} {} {}'.format(hex(a), hex(b), hex(c)).encode())
-
-s.interactive()</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">val = <span class="number">0xa4c570</span></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">b = (val * <span class="number">7</span> - <span class="number">4</span>) // <span class="number">2</span></span><br><span class="line">c = <span class="number">1</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">testfunc</span>(<span class="params">a, b, c</span>):</span></span><br><span class="line">    <span class="keyword">return</span> (a + b + c &lt;&lt; ((a % b) &amp; <span class="number">0x1f</span>)) // ((<span class="number">2</span> &lt;&lt; (a &amp; <span class="number">0x1f</span>) ^ <span class="number">3</span>) * c)</span><br><span class="line"></span><br><span class="line">result = testfunc(a, b, c)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(val)</span><br><span class="line"><span class="built_in">print</span>(result, <span class="built_in">hex</span>(result))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">hex</span>(a), <span class="built_in">hex</span>(b), <span class="built_in">hex</span>(c))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment">#s = process('./timesup')</span></span><br><span class="line">s = remote(<span class="string">'0.cloud.chals.io'</span>, <span class="number">26020</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(s.readuntil(<span class="string">b'&gt;&gt;&gt; '</span>).decode())</span><br><span class="line"></span><br><span class="line">s.writeline(<span class="string">'{} {} {}'</span>.<span class="built_in">format</span>(<span class="built_in">hex</span>(a), <span class="built_in">hex</span>(b), <span class="built_in">hex</span>(c)).encode())</span><br><span class="line"></span><br><span class="line">s.interactive()</span><br></pre></td></tr></tbody></table></figure>
 
 <p>直接贴代码吧，感觉需要系统学pwntools</p>
 <h1 id="Hgame2022-week4-hardasm"><a href="#Hgame2022-week4-hardasm" class="headerlink" title="Hgame2022-week4-hardasm"></a>Hgame2022-week4-hardasm</h1><p>一打开有几千行的汇编代码，先定位到关键判断</p>
@@ -1275,118 +992,20 @@ s.interactive()</code></pre>
 <p><img src="/2022/04/04/%E9%A2%98%E7%9B%AE%E5%A4%8D%E7%8E%B0/1649301043777.png"></p>
 <h2 id="subprocess模块"><a href="#subprocess模块" class="headerlink" title="subprocess模块"></a>subprocess模块</h2><p> subprocess模块可以生成新的进程，连接到它们的input/output/error管道，同时获取它们的返回值</p>
 <p>我们可以使用该模块进行爆破</p>
-<pre class="language-python" data-language="python"><code class="language-python">import subprocess
-real_flag="hgame{"#绝对正确的前6个字符
-cur_index=6#当前爆破的位置
-while cur_index&lt;32:
-    for i in range(32,128):#当前爆破的位置上的字符
-        real_flag_arr = [0] * 32
-        for j in range(len(real_flag)):#正确的先复制一下
-            real_flag_arr[j]=ord(real_flag[j])
-
-        real_flag_arr[cur_index]=i#设置当前爆破的位置上的字符
-        real_flag_arr_s="".join(chr(k) for k in real_flag_arr)#输入到程序中的字符串
-        #上面都是一些初始化
-        p = subprocess.Popen(["D:\\new\\AD\\game\\hgame2022\\week4\\hardasm.exe"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        p.stdin.write(real_flag_arr_s.encode())
-        p.stdin.close()#停止输入
-        out = p.stdout.read()
-        if len(out)&gt;cur_index:#判断程序打印出的0xFF的个数是否增加，增加则说明当前爆破的位置上的字符设置的是正确的，因为存储的内容为0时，printf不打印
-            real_flag+=chr(i)
-            cur_index+=1
-            print(real_flag)
-            break
-# hgame{r
-# hgame{ri
-# hgame{rig
-# hgame{righ
-# hgame{right
-# hgame{right_
-# hgame{right_y
-# hgame{right_yo
-# hgame{right_you
-# hgame{right_your
-# hgame{right_your_
-# hgame{right_your_a
-# hgame{right_your_as
-# hgame{right_your_asm
-# hgame{right_your_asm_
-# hgame{right_your_asm_i
-# hgame{right_your_asm_is
-# hgame{right_your_asm_is_
-# hgame{right_your_asm_is_g
-# hgame{right_your_asm_is_go
-# hgame{right_your_asm_is_goo
-# hgame{right_your_asm_is_good
-# hgame{right_your_asm_is_good!
-# hgame{right_your_asm_is_good!!
-# hgame{right_your_asm_is_good!!}
-# hgame{right_your_asm_is_good!!}</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">real_flag=<span class="string">"hgame{"</span><span class="comment">#绝对正确的前6个字符</span></span><br><span class="line">cur_index=<span class="number">6</span><span class="comment">#当前爆破的位置</span></span><br><span class="line"><span class="keyword">while</span> cur_index&lt;<span class="number">32</span>:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">128</span>):<span class="comment">#当前爆破的位置上的字符</span></span><br><span class="line">        real_flag_arr = [<span class="number">0</span>] * <span class="number">32</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(real_flag)):<span class="comment">#正确的先复制一下</span></span><br><span class="line">            real_flag_arr[j]=<span class="built_in">ord</span>(real_flag[j])</span><br><span class="line"></span><br><span class="line">        real_flag_arr[cur_index]=i<span class="comment">#设置当前爆破的位置上的字符</span></span><br><span class="line">        real_flag_arr_s=<span class="string">""</span>.join(<span class="built_in">chr</span>(k) <span class="keyword">for</span> k <span class="keyword">in</span> real_flag_arr)<span class="comment">#输入到程序中的字符串</span></span><br><span class="line">        <span class="comment">#上面都是一些初始化</span></span><br><span class="line">        p = subprocess.Popen([<span class="string">"D:\\new\\AD\\game\\hgame2022\\week4\\hardasm.exe"</span>], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)</span><br><span class="line">        p.stdin.write(real_flag_arr_s.encode())</span><br><span class="line">        p.stdin.close()<span class="comment">#停止输入</span></span><br><span class="line">        out = p.stdout.read()</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(out)&gt;cur_index:<span class="comment">#判断程序打印出的0xFF的个数是否增加，增加则说明当前爆破的位置上的字符设置的是正确的，因为存储的内容为0时，printf不打印</span></span><br><span class="line">            real_flag+=<span class="built_in">chr</span>(i)</span><br><span class="line">            cur_index+=<span class="number">1</span></span><br><span class="line">            <span class="built_in">print</span>(real_flag)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"><span class="comment"># hgame{r</span></span><br><span class="line"><span class="comment"># hgame{ri</span></span><br><span class="line"><span class="comment"># hgame{rig</span></span><br><span class="line"><span class="comment"># hgame{righ</span></span><br><span class="line"><span class="comment"># hgame{right</span></span><br><span class="line"><span class="comment"># hgame{right_</span></span><br><span class="line"><span class="comment"># hgame{right_y</span></span><br><span class="line"><span class="comment"># hgame{right_yo</span></span><br><span class="line"><span class="comment"># hgame{right_you</span></span><br><span class="line"><span class="comment"># hgame{right_your</span></span><br><span class="line"><span class="comment"># hgame{right_your_</span></span><br><span class="line"><span class="comment"># hgame{right_your_a</span></span><br><span class="line"><span class="comment"># hgame{right_your_as</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_i</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_g</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_go</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_goo</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_good</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_good!</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_good!!</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_good!!}</span></span><br><span class="line"><span class="comment"># hgame{right_your_asm_is_good!!}</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>代码来源-<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45582916/article/details/122909419">https://blog.csdn.net/weixin_45582916/article/details/122909419</a></p>
 <p>POpen参数说明</p>
-<pre class="language-none"><code class="language-none">stdin stdout和stderr：
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stdin stdout和stderr：</span><br><span class="line"></span><br><span class="line">stdin stdout和stderr，分别表示子程序的标准输入、标准输出和标准错误。可选的值有PIPE或者一个有效的文件描述符（其实是个正整数）或者一个文件对象，还有None。如果是PIPE，则表示需要创建一个新的管道，如果是None，不会做任何重定向工作，子进程的文件描述符会继承父进程的。另外，stderr的值还可以是STDOUT，表示子进程的标准错误也输出到标准输出。</span><br></pre></td></tr></tbody></table></figure>
 
-stdin stdout和stderr，分别表示子程序的标准输入、标准输出和标准错误。可选的值有PIPE或者一个有效的文件描述符（其实是个正整数）或者一个文件对象，还有None。如果是PIPE，则表示需要创建一个新的管道，如果是None，不会做任何重定向工作，子进程的文件描述符会继承父进程的。另外，stderr的值还可以是STDOUT，表示子进程的标准错误也输出到标准输出。</code></pre>
-
-<pre class="language-python" data-language="python"><code class="language-python">stdin.write()#输入
-stdin.close()#关闭输入
-stout.read()#获取输出</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stdin.write()<span class="comment">#输入</span></span><br><span class="line">stdin.close()<span class="comment">#关闭输入</span></span><br><span class="line">stout.read()<span class="comment">#获取输出</span></span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="Foobarctf2022-Matrix"><a href="#Foobarctf2022-Matrix" class="headerlink" title="Foobarctf2022-Matrix"></a>Foobarctf2022-Matrix</h1><p>一道vm题+angr求解</p>
 <p>vm分析部分</p>
-<pre class="language-c" data-language="c"><code class="language-c">unsigned char opcode[124] = {
-    0x04, 0x0B, 0x1D, 0x1C, 0x1B, 0x1A, 
-	0x04, 0x0A, 0x5A, 0x50, 0x4E, 0x5D, //先把mov后面四个进行异或，然后将异或后的值与我们的输入异或 
-	0x00, 0x0A, 0x0B, 
-	0x00, 0x00, 0x0A, //0x00存的是我们的输入 
-	0x04, 0x0B, 0x2D, 0x2C, 0x2B, 0x2A, 
-	0x04, 0x0A, 0x56, 0x69, 0x58, 0x49, 
-	0x00, 0x0A, 0x0B, 
-	0x00, 0x01, 0x0A, 
-	0x04, 0x0B, 0x3D, 0x3C, 0x3B, 0x3A, 
-	0x04, 0x0A, 0x5C, 0x6C, 0x08, 0x65, 
-    0x00, 0x0A, 0x0B, 
-	0x00, 0x02, 0x0A, 
-	0x04, 0x0B, 0x4D, 0x4C, 0x4B, 0x4A, 
-	0x04, 0x0A, 0x7A, 0x04, 0x2E, 0x15, 
-	0x00, 0x0A, 0x0B, 
-	0x00, 0x03, 0x0A, 
-	0x04, 0x0B, 0x5D, 0x5C, 0x5B, 0x5A, 
-	0x04, 0x0A, 0x30, 0x1C, 0x0F, 0x08, 
-	0x00, 0x0A, 0x0B, 
-	0x00, 0x04, 0x0A, 
-	0x04, 0x0B, 0x6D, 0x6C, 0x6B, 0x6A, 
-    0x04, 0x0A, 0x24, 0x14, 0x16, 0x6A, 
-	0x00, 0x0A, 0x0B, 
-	0x00, 0x05, 0x0A, 
-	
-	0x02, 0x00, 0x01, 					//将我们异或后的值|=其后面一个值 
-	0x02, 0x00, 0x02, 
-	0x02, 0x00, 0x03, 
-	0x02, 0x00, 0x04, 
-	0x02, 0x00, 0x05, 
-	0xFF</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> opcode[<span class="number">124</span>] = {</span><br><span class="line">    <span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0x1D</span>, <span class="number">0x1C</span>, <span class="number">0x1B</span>, <span class="number">0x1A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0A</span>, <span class="number">0x5A</span>, <span class="number">0x50</span>, <span class="number">0x4E</span>, <span class="number">0x5D</span>, <span class="comment">//先把mov后面四个进行异或，然后将异或后的值与我们的输入异或 </span></span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x0B</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="comment">//0x00存的是我们的输入 </span></span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0x2D</span>, <span class="number">0x2C</span>, <span class="number">0x2B</span>, <span class="number">0x2A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0A</span>, <span class="number">0x56</span>, <span class="number">0x69</span>, <span class="number">0x58</span>, <span class="number">0x49</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x0B</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x01</span>, <span class="number">0x0A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0x3D</span>, <span class="number">0x3C</span>, <span class="number">0x3B</span>, <span class="number">0x3A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0A</span>, <span class="number">0x5C</span>, <span class="number">0x6C</span>, <span class="number">0x08</span>, <span class="number">0x65</span>, </span><br><span class="line">    <span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x0B</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x02</span>, <span class="number">0x0A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0x4D</span>, <span class="number">0x4C</span>, <span class="number">0x4B</span>, <span class="number">0x4A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0A</span>, <span class="number">0x7A</span>, <span class="number">0x04</span>, <span class="number">0x2E</span>, <span class="number">0x15</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x0B</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x03</span>, <span class="number">0x0A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0x5D</span>, <span class="number">0x5C</span>, <span class="number">0x5B</span>, <span class="number">0x5A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0A</span>, <span class="number">0x30</span>, <span class="number">0x1C</span>, <span class="number">0x0F</span>, <span class="number">0x08</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x0B</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x04</span>, <span class="number">0x0A</span>, </span><br><span class="line">	<span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0x6D</span>, <span class="number">0x6C</span>, <span class="number">0x6B</span>, <span class="number">0x6A</span>, </span><br><span class="line">    <span class="number">0x04</span>, <span class="number">0x0A</span>, <span class="number">0x24</span>, <span class="number">0x14</span>, <span class="number">0x16</span>, <span class="number">0x6A</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x0A</span>, <span class="number">0x0B</span>, </span><br><span class="line">	<span class="number">0x00</span>, <span class="number">0x05</span>, <span class="number">0x0A</span>, </span><br><span class="line">	</span><br><span class="line">	<span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x01</span>, 					<span class="comment">//将我们异或后的值|=其后面一个值 </span></span><br><span class="line">	<span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x02</span>, </span><br><span class="line">	<span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x03</span>, </span><br><span class="line">	<span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x04</span>, </span><br><span class="line">	<span class="number">0x02</span>, <span class="number">0x00</span>, <span class="number">0x05</span>, </span><br><span class="line">	<span class="number">0xFF</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>angr求解，因为最后的结果字符串存在GLUG，所以直接angr</p>
-<pre class="language-python" data-language="python"><code class="language-python">import angr
-import claripy
-import sys
-
-
-
-proj = angr.Project("./matrix")#创建文件
-state = proj.factory.entry_state()
-
-simgr = proj.factory.simgr()
-simgr.run()
-
-
-if simgr.deadended:
-    for s in simgr.deadended:
-        tmp = s.posix.dumps(0)#获取最终结果
-        if b"glug" in tmp.lower():
-            print(tmp)</code></pre>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> angr</span><br><span class="line"><span class="keyword">import</span> claripy</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">proj = angr.Project(<span class="string">"./matrix"</span>)<span class="comment">#创建文件</span></span><br><span class="line">state = proj.factory.entry_state()</span><br><span class="line"></span><br><span class="line">simgr = proj.factory.simgr()</span><br><span class="line">simgr.run()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> simgr.deadended:</span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> simgr.deadended:</span><br><span class="line">        tmp = s.posix.dumps(<span class="number">0</span>)<span class="comment">#获取最终结果</span></span><br><span class="line">        <span class="keyword">if</span> <span class="string">b"glug"</span> <span class="keyword">in</span> tmp.lower():</span><br><span class="line">            <span class="built_in">print</span>(tmp)</span><br></pre></td></tr></tbody></table></figure>
 
 <p>不知道为啥只能在linux跑，在windows跑会报错</p>
 <h1 id="CTF2022-Simplefs"><a href="#CTF2022-Simplefs" class="headerlink" title="*CTF2022-Simplefs"></a>*CTF2022-Simplefs</h1><p>根据附件里的描述，可以知道这是关键函数</p>
@@ -1402,76 +1021,7 @@ if simgr.deadended:
 <h2 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h2><p>遍历文件所有字节流，进行解密，然后和*CTF比较，比对成功就打印其后面的32位</p>
 <p>也可以先将*CTF进行加密，然后将得到的十六进制去加密的文件搜索，取出之后爆破即可（NU1L的题解就是爆破的）</p>
 <p>下面贴一下我的脚本，调试了挺久emmm，太菜了</p>
-<pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
-#include&lt;windows.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;malloc.h&gt;
-#include&lt;stdlib.h&gt;
-
-#define FilePath "D:\\new\\AD\\game\\星ctf2022\\dcacb9c0054e4a4695b2f373f255ac8e\\image.flag"
-int main()
-{
-	char xor_table[4] = { 0xEF,0xBE,0xED,0xDE };
-	FILE* pfile = fopen(FilePath, "r");
-	fseek(pfile, 0 , SEEK_END);
-	int filesize = ftell(pfile);
-	fseek(pfile, 0, SEEK_SET);
-	unsigned char *Buffer = { 0 };
-
-	Buffer = (unsigned char*)malloc(filesize);
-	memset(Buffer, 0, filesize);
-	fread(Buffer, filesize, 1, pfile);
-	int j = 0;
-	int i = 0;
-	int count = 0;
-	while (1)
-	{
-		
-		for (i=j;count&lt;32; ++i,count++)
-		{
-			Buffer[i] = ((Buffer[i] &lt;&lt; 5) | (Buffer[i] &gt;&gt; 3)) &amp; 0xff;
-			Buffer[i] ^= xor_table[3];
-			Buffer[i] = ((Buffer[i] &lt;&lt; 4) | (Buffer[i] &gt;&gt; 4)) &amp; 0xff;
-			Buffer[i] ^= xor_table[2];
-			Buffer[i] = ((Buffer[i] &lt;&lt; 3) | (Buffer[i] &gt;&gt; 5)) &amp; 0xff;
-			Buffer[i] ^= xor_table[1];
-			Buffer[i] = ((Buffer[i] &lt;&lt; 2) | (Buffer[i] &gt;&gt; 6)) &amp; 0xff;
-			Buffer[i] ^= xor_table[0];
-			Buffer[i] = ((Buffer[i] &lt;&lt; 1) | (Buffer[i] &gt;&gt; 7)) &amp; 0xff;
-		}
-		if ((Buffer[j] == '*') &amp;&amp; (Buffer[j+1] == 'C') &amp;&amp; (Buffer[j+2] == 'T') &amp;&amp; (Buffer[j+3] == 'F'))
-		{
-			for (int k = j; k &lt; 32+j; ++k)
-			{
-				printf("%c", Buffer[k]);
-			}
-			break;
-		}
-		j += 32;
-		count = 0;
-		
-	}
-	
-	//fclose(pfile);
-	/*unsigned char Buffer[] = { 0x00,0xD2,0xFC,0xD8,0xA2 };
-	for (int i = 0; i &lt; 5; ++i)
-	{
-		Buffer[i] = ((Buffer[i] &lt;&lt; 5) | (Buffer[i] &gt;&gt; 3)) &amp; 0xff;
-		Buffer[i] ^= xor_table[3];
-		Buffer[i] = ((Buffer[i] &lt;&lt; 4) | (Buffer[i] &gt;&gt; 4)) &amp; 0xff;
-		Buffer[i] ^= xor_table[2];
-		Buffer[i] = ((Buffer[i] &lt;&lt; 3) | (Buffer[i] &gt;&gt; 5)) &amp; 0xff;
-		Buffer[i] ^= xor_table[1];
-		Buffer[i] = ((Buffer[i] &lt;&lt; 2) | (Buffer[i] &gt;&gt; 6)) &amp; 0xff;
-		Buffer[i] ^= xor_table[0];
-		Buffer[i] = ((Buffer[i] &lt;&lt; 1) | (Buffer[i] &gt;&gt; 7)) &amp; 0xff;
-		
-	}*/
-	return 0;
-}
-
-</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;malloc.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FilePath <span class="meta-string">"D:\\new\\AD\\game\\星ctf2022\\dcacb9c0054e4a4695b2f373f255ac8e\\image.flag"</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> xor_table[<span class="number">4</span>] = { <span class="number">0xEF</span>,<span class="number">0xBE</span>,<span class="number">0xED</span>,<span class="number">0xDE</span> };</span><br><span class="line">	FILE* pfile = fopen(FilePath, <span class="string">"r"</span>);</span><br><span class="line">	fseek(pfile, <span class="number">0</span> , SEEK_END);</span><br><span class="line">	<span class="keyword">int</span> filesize = ftell(pfile);</span><br><span class="line">	fseek(pfile, <span class="number">0</span>, SEEK_SET);</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> *Buffer = { <span class="number">0</span> };</span><br><span class="line"></span><br><span class="line">	Buffer = (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)<span class="built_in">malloc</span>(filesize);</span><br><span class="line">	<span class="built_in">memset</span>(Buffer, <span class="number">0</span>, filesize);</span><br><span class="line">	fread(Buffer, filesize, <span class="number">1</span>, pfile);</span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span> (i=j;count&lt;<span class="number">32</span>; ++i,count++)</span><br><span class="line">		{</span><br><span class="line">			Buffer[i] = ((Buffer[i] &lt;&lt; <span class="number">5</span>) | (Buffer[i] &gt;&gt; <span class="number">3</span>)) &amp; <span class="number">0xff</span>;</span><br><span class="line">			Buffer[i] ^= xor_table[<span class="number">3</span>];</span><br><span class="line">			Buffer[i] = ((Buffer[i] &lt;&lt; <span class="number">4</span>) | (Buffer[i] &gt;&gt; <span class="number">4</span>)) &amp; <span class="number">0xff</span>;</span><br><span class="line">			Buffer[i] ^= xor_table[<span class="number">2</span>];</span><br><span class="line">			Buffer[i] = ((Buffer[i] &lt;&lt; <span class="number">3</span>) | (Buffer[i] &gt;&gt; <span class="number">5</span>)) &amp; <span class="number">0xff</span>;</span><br><span class="line">			Buffer[i] ^= xor_table[<span class="number">1</span>];</span><br><span class="line">			Buffer[i] = ((Buffer[i] &lt;&lt; <span class="number">2</span>) | (Buffer[i] &gt;&gt; <span class="number">6</span>)) &amp; <span class="number">0xff</span>;</span><br><span class="line">			Buffer[i] ^= xor_table[<span class="number">0</span>];</span><br><span class="line">			Buffer[i] = ((Buffer[i] &lt;&lt; <span class="number">1</span>) | (Buffer[i] &gt;&gt; <span class="number">7</span>)) &amp; <span class="number">0xff</span>;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">if</span> ((Buffer[j] == <span class="string">'*'</span>) &amp;&amp; (Buffer[j+<span class="number">1</span>] == <span class="string">'C'</span>) &amp;&amp; (Buffer[j+<span class="number">2</span>] == <span class="string">'T'</span>) &amp;&amp; (Buffer[j+<span class="number">3</span>] == <span class="string">'F'</span>))</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> k = j; k &lt; <span class="number">32</span>+j; ++k)</span><br><span class="line">			{</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%c"</span>, Buffer[k]);</span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">		j += <span class="number">32</span>;</span><br><span class="line">		count = <span class="number">0</span>;</span><br><span class="line">		</span><br><span class="line">	}</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//fclose(pfile);</span></span><br><span class="line">	<span class="comment">/*unsigned char Buffer[] = { 0x00,0xD2,0xFC,0xD8,0xA2 };</span></span><br><span class="line"><span class="comment">	for (int i = 0; i &lt; 5; ++i)</span></span><br><span class="line"><span class="comment">	{</span></span><br><span class="line"><span class="comment">		Buffer[i] = ((Buffer[i] &lt;&lt; 5) | (Buffer[i] &gt;&gt; 3)) &amp; 0xff;</span></span><br><span class="line"><span class="comment">		Buffer[i] ^= xor_table[3];</span></span><br><span class="line"><span class="comment">		Buffer[i] = ((Buffer[i] &lt;&lt; 4) | (Buffer[i] &gt;&gt; 4)) &amp; 0xff;</span></span><br><span class="line"><span class="comment">		Buffer[i] ^= xor_table[2];</span></span><br><span class="line"><span class="comment">		Buffer[i] = ((Buffer[i] &lt;&lt; 3) | (Buffer[i] &gt;&gt; 5)) &amp; 0xff;</span></span><br><span class="line"><span class="comment">		Buffer[i] ^= xor_table[1];</span></span><br><span class="line"><span class="comment">		Buffer[i] = ((Buffer[i] &lt;&lt; 2) | (Buffer[i] &gt;&gt; 6)) &amp; 0xff;</span></span><br><span class="line"><span class="comment">		Buffer[i] ^= xor_table[0];</span></span><br><span class="line"><span class="comment">		Buffer[i] = ((Buffer[i] &lt;&lt; 1) | (Buffer[i] &gt;&gt; 7)) &amp; 0xff;</span></span><br><span class="line"><span class="comment">		</span></span><br><span class="line"><span class="comment">	}*/</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>要注意的是</p>
 <blockquote>
@@ -1551,7 +1101,7 @@ int main()
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
+      <span>4.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -1614,15 +1164,7 @@ int main()
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648979391664.png" alt="运行时"></p>
 <p>了解到这是需要KEY文件才能正确crack的，我们从头开始分析</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648980725152.png" alt="CreateFileA"></p>
-<pre class="language-c" data-language="c"><code class="language-c">HANDLE CreateFileA(
-  [in]           LPCSTR                lpFileName,
-  [in]           DWORD                 dwDesiredAccess,
-  [in]           DWORD                 dwShareMode,
-  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,
-  [in]           DWORD                 dwCreationDisposition,
-  [in]           DWORD                 dwFlagsAndAttributes,
-  [in, optional] HANDLE                hTemplateFile
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">CreateFileA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           LPCSTR                lpFileName,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwDesiredAccess,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwShareMode,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwCreationDisposition,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwFlagsAndAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] HANDLE                hTemplateFile</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>具体参数参考<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea">https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea</a></p>
 <p>注意压入栈的顺序即可，这里根据参数应该是打开CRACKME3.KEY文件，如果没有的话返回值设置为-1</p>
@@ -1640,15 +1182,7 @@ int main()
 <p>offset存储的是字符串的地址</p>
 </blockquote>
 <p>接下来调用ReadFile读取文件内容，长度是0x12，位置是字符串地址存储的内容</p>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL ReadFile(
-    HANDLE hFile,            //文件的句柄
-    LPVOID lpBuffer,          //用于保存读入数据的一个缓冲区
-    DWORD nNumberOfBytesToRead,    //要读入的字节数
-    LPDWORD lpNumberOfBytesRead,    //指向实际读取字节数的指针
-    LPOVERLAPPED lpOverlapped
-    //如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。
-    //该结构定义了一次异步读取操作。否则，应将这个参数设为NULL
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">ReadFile</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    HANDLE hFile,            <span class="comment">//文件的句柄</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID lpBuffer,          <span class="comment">//用于保存读入数据的一个缓冲区</span></span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD nNumberOfBytesToRead,    <span class="comment">//要读入的字节数</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPDWORD lpNumberOfBytesRead,    <span class="comment">//指向实际读取字节数的指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPOVERLAPPED lpOverlapped</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//该结构定义了一次异步读取操作。否则，应将这个参数设为NULL</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981665617.png" alt="加密函数之一"></p>
 <p>先来看加密函数的初始化操作</p>
@@ -1707,25 +1241,7 @@ int main()
 <p>这段话就是将我们最后加密的字符串拼接到Cracked By:后面</p>
 <h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>先打开CRACKME3.KEY文件，读取前十八个字符，然后对前14个字符异或加密，并且将异或后的值和0x12345678异或后与最后四位进行比较，前十四个密文为<a href="mailto:wanao@yahoo.cn">wanao@yahoo.cn</a>，然后动调得到最后四位字符，填充进去即可，注意大小端序</p>
 <p>前十四位字符脚本</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-int main()
-{
-	char name[]="wanao@yahoo.cn";
-	char key='A';
-	int num=0;
-	for(int i=0;i&lt;strlen(name);++i)
-	{
-		name[i]^=key++;
-		num+=name[i];
-	}
-	printf("%s\n",name);
-	printf("%d\n",num);
-	int key2=0x12345678;
-	return 0;
-	
- } </code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> name[]=<span class="string">"wanao@yahoo.cn"</span>;</span><br><span class="line">	<span class="keyword">char</span> key=<span class="string">'A'</span>;</span><br><span class="line">	<span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(name);++i)</span><br><span class="line">	{</span><br><span class="line">		name[i]^=key++;</span><br><span class="line">		num+=name[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,num);</span><br><span class="line">	<span class="keyword">int</span> key2=<span class="number">0x12345678</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line"> } </span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985143096.png" alt="最后四位字符"></p>
 <p>最终效果</p>
@@ -1736,13 +1252,7 @@ int main()
 <p>然后找到关键比较</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033782005.png" alt="关键函数和跳转"></p>
 <p>根据程序运行知道我们需要输入name和序列号，找到获取输入的函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">UINT GetDlgItemTextA(
-  [in]  HWND  hDlg,
-  [in]  int   nIDDlgItem,
-  [out] LPSTR lpString,
-  [in]  int   cchMax
-);
-//返回值是字符串的长度</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">UINT <span class="title">GetDlgItemTextA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  HWND  hDlg,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   nIDDlgItem,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out] LPSTR lpString,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   cchMax</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"><span class="comment">//返回值是字符串的长度</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>lpstring就是我们的输入</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034100647.png" alt="关键函数"></p>
@@ -1754,10 +1264,7 @@ int main()
 <p>下面那个跳转是跳转到离开的函数</p>
 <p>inc是自增，也就是让寄存器指向password和input下一个字符</p>
 <blockquote>
-<pre class="language-c" data-language="c"><code class="language-c">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)
-标号: (标明后面就是需要循环的循环体)
-    循环执行的程序代码
-    Loop 标号//注意：每执行一次loop，ecx的值都会减1</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)</span><br><span class="line">标号: (标明后面就是需要循环的循环体)</span><br><span class="line">    循环执行的程序代码</span><br><span class="line">    Loop 标号<span class="comment">//注意：每执行一次loop，ecx的值都会减1</span></span><br></pre></td></tr></tbody></table></figure>
 </blockquote>
 <p>每执行一次loop，ecx的值都会减1</p>
 <p>所以注意这一点即可</p>
@@ -1963,7 +1470,7 @@ int main()
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>8.3k</span>
+      <span>8.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -2147,7 +1654,7 @@ int main()
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.3k</span>
+      <span>3.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -2190,21 +1697,14 @@ int main()
 <h1 id="壳的加载过程"><a href="#壳的加载过程" class="headerlink" title="壳的加载过程"></a>壳的加载过程</h1><h2 id="1、保存入口参数"><a href="#1、保存入口参数" class="headerlink" title="1、保存入口参数"></a>1、保存入口参数</h2><p>加壳程序在初始化时会保存各寄存器的值，等到外壳执行完毕，再恢复各个寄存器的值，最后跳转到原程序执行。通常使用Push ad/pop ad、pushfd/popfd指令来保存和恢复现场</p>
 <h2 id="2、获取壳本身需要使用的API地址"><a href="#2、获取壳本身需要使用的API地址" class="headerlink" title="2、获取壳本身需要使用的API地址"></a>2、获取壳本身需要使用的API地址</h2><p>在一般情况下，外壳的输入表只有GetProcAddress、GetModuleHandle和LoadLibary这三个API函数，甚至只有Kernel32.dll及GetProcAddress。如果需要使用其他API函数，可以通过LoadLibaryA或者LoadLibaryExA将DLL文件映像映射到调用进程的地址空间中，函数返回的HINSTANCE值用于标识文件映像所映射的虚拟内存地址。也就相当于DLL的基址</p>
 <h3 id="LoadLibrary函数"><a href="#LoadLibrary函数" class="headerlink" title="LoadLibrary函数"></a>LoadLibrary函数</h3><p>原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">HINSTANCE LoadLibary{
-	LPCTSTR lpLibFIlenam;//DLL文件名地址
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HINSTANCE LoadLibary{</span><br><span class="line">	LPCTSTR lpLibFIlenam;<span class="comment">//DLL文件名地址</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>返回值：成功则返回模块的句柄，失败则返回”NULL”。</p>
 <h2 id="GetModuleHandle函数"><a href="#GetModuleHandle函数" class="headerlink" title="GetModuleHandle函数"></a>GetModuleHandle函数</h2><p>如果DLL文件已被映射到调用进程的地址空间中，可以调用GetModuleHandleA函数获取DLL模块的句柄，函数原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">HMODULE GetModuleHandle{
-	LPCTSTR lpModuleName//DLL文件名地址
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">HMODULE GetModuleHandle{</span><br><span class="line">	LPCTSTR lpModuleName<span class="comment">//DLL文件名地址</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="GetProcAddress函数"><a href="#GetProcAddress函数" class="headerlink" title="GetProcAddress函数"></a>GetProcAddress函数</h2><p>一旦DLL模块被加载，线程就可以调用GetProcAddress函数来获取输入函数的地址了，该函数原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">FARPROC GetProcAddress{
-	HMODULE hModule,//DLL模块句柄
-	LPCSTR lpProName //函数名
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FARPROC GetProcAddress{</span><br><span class="line">	HMODULE hModule,<span class="comment">//DLL模块句柄</span></span><br><span class="line">	LPCSTR lpProName <span class="comment">//函数名</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>但是有些壳为了提高强度，不使用系统提供的GetProcAddress函数，而是自己编写函数来替代这个API函数，以提高函数调用的隐蔽性</p>
 <h2 id="3、解密原程序的各个区块的数据"><a href="#3、解密原程序的各个区块的数据" class="headerlink" title="3、解密原程序的各个区块的数据"></a>3、解密原程序的各个区块的数据</h2><p>为了保护原程序代码和数据，壳一般会加密原程序文件的各个区块。在执行时进行解密，因为壳一般是按区块进行加密的，所以在解密的时候也是按照区块解密的，并且将解密的区块数据按照区块的定义放入内存中合适的位置</p>
@@ -2320,7 +1820,7 @@ int main()
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>548</span>
+      <span>560</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -2513,13 +2013,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

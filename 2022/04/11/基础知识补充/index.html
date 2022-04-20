@@ -19,12 +19,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="0x00-typedef定义函数指针函数指针在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针 void hello() { 	printf(&quot;this is hello!&quot;); } &#x2F;&#x2F;函数指针定义 void (*fp)()&#x3D;hello;&#x2F;&#x2F;函数指针定义时应保证函数返回值与参数个数、类型相同，在这里void是返回类型，(*fp)">
+    <meta name="description" content="0x00-typedef定义函数指针函数指针在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针 1234567891011121314151617181920212223void hello(){	printf(&quot;this is hello!&quot;);}&#x2F;&#x2F;函数指针定义void (*fp)()&#x3D;hello;&#x2F;&#x2F;函数指针定义时应保证函数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基础知识补充">
 <meta property="og:url" content="https://gift1a.github.io/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="0x00-typedef定义函数指针函数指针在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针 void hello() { 	printf(&quot;this is hello!&quot;); } &#x2F;&#x2F;函数指针定义 void (*fp)()&#x3D;hello;&#x2F;&#x2F;函数指针定义时应保证函数返回值与参数个数、类型相同，在这里void是返回类型，(*fp)">
+<meta property="og:description" content="0x00-typedef定义函数指针函数指针在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针 1234567891011121314151617181920212223void hello(){	printf(&quot;this is hello!&quot;);}&#x2F;&#x2F;函数指针定义void (*fp)()&#x3D;hello;&#x2F;&#x2F;函数指针定义时应保证函数">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649861619368.png">
 <meta property="og:image" content="https://gift1a.github.io/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649862553289.png">
@@ -278,7 +278,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.7k</span>
+      <span>3.5k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -297,121 +297,35 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="0x00-typedef定义函数指针"><a href="#0x00-typedef定义函数指针" class="headerlink" title="0x00-typedef定义函数指针"></a>0x00-typedef定义函数指针</h1><h2 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h2><p>在此之前我们要先了解函数指针，即存放函数首地址的变量，而函数名就是函数的首地址，为了存放函数的首地址就需要定义函数指针</p>
-<pre class="language-c" data-language="c"><code class="language-c">void hello()
-{
-	printf("this is hello!");
-}
-//函数指针定义
-void (*fp)()=hello;//函数指针定义时应保证函数返回值与参数个数、类型相同，在这里void是返回类型，(*fp)后面的()是函数参数
-/*也可以理解为
-void (*fp)();
-fp=hello;
-*/
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"this is hello!"</span>);</span><br><span class="line">}</span><br><span class="line"><span class="comment">//函数指针定义</span></span><br><span class="line"><span class="keyword">void</span> (*fp)()=hello;<span class="comment">//函数指针定义时应保证函数返回值与参数个数、类型相同，在这里void是返回类型，(*fp)后面的()是函数参数</span></span><br><span class="line"><span class="comment">/*也可以理解为</span></span><br><span class="line"><span class="comment">void (*fp)();</span></span><br><span class="line"><span class="comment">fp=hello;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通过函数指针调用函数</span></span><br><span class="line">fp();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//函数指针定义,形参可以不写变量名</span></span><br><span class="line"><span class="keyword">int</span> (*fp1)(<span class="keyword">int</span>,<span class="keyword">int</span>)=add;</span><br><span class="line"><span class="comment">//函数调用</span></span><br><span class="line">fp1(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></tbody></table></figure>
 
-//通过函数指针调用函数
-fp();
-
-int add(int a,int b)
-{
-    return a+b;
-}
-
-//函数指针定义,形参可以不写变量名
-int (*fp1)(int,int)=add;
-//函数调用
-fp1(1,2);</code></pre>
-
-<h2 id="typedef与函数指针混合使用"><a href="#typedef与函数指针混合使用" class="headerlink" title="typedef与函数指针混合使用"></a>typedef与函数指针混合使用</h2><pre class="language-c" data-language="c"><code class="language-c">typedef int (*FP)(int,int);</code></pre>
+<h2 id="typedef与函数指针混合使用"><a href="#typedef与函数指针混合使用" class="headerlink" title="typedef与函数指针混合使用"></a>typedef与函数指针混合使用</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">int</span> <span class="params">(*FP)</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>那么我们在赋值的时候就可以改成</p>
-<pre class="language-c" data-language="c"><code class="language-c">FP fp1=add;//fp1就是返回值为int型，参数为两个int型的函数指针，FP表示函数指针的类型，通过类型名+变量名就可以定义函数指针
-fp1(1,2);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FP fp1=add;<span class="comment">//fp1就是返回值为int型，参数为两个int型的函数指针，FP表示函数指针的类型，通过类型名+变量名就可以定义函数指针</span></span><br><span class="line">fp1(<span class="number">1</span>,<span class="number">2</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="0x01-回调函数"><a href="#0x01-回调函数" class="headerlink" title="0x01-回调函数"></a>0x01-回调函数</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>如果函数的参数具有函数指针，那么这样的函数就被称为回调函数</p>
 <p>函数指针就是当作接口使用的</p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><pre class="language-c" data-language="c"><code class="language-c">//这里的call就是回调函数,这里传递函数指针和我们传入数组时使用函数指针是类似的，都是使用指针将首地址进行传递，而不是传整个函数
-void call(void(*fp)())
-{
-    fp();//这样调用的时候就不需要考虑函数指针的变量名，只要传递的函数是这样类型的即可在call函数中进行调用
-    return ;
-}
-//当然也可以使用typedef，让回调函数更简洁
-typedef void (*fp)();
-void call(fp)
-{
-    fp();
-    return ;
-}
-void hello()
-{
-    printf("hello");
-}
-void show()
-{
-    printf("show");
-}
-//如果不使用回调函数，调用时需要hello();show();
-int main()
-{
-    call(show);
-    call(hello);//使用回调函数调用，这样只需要传入不同参数即可完成调用
-    return 0;
-}</code></pre>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这里的call就是回调函数,这里传递函数指针和我们传入数组时使用函数指针是类似的，都是使用指针将首地址进行传递，而不是传整个函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">call</span><span class="params">(<span class="keyword">void</span>(*fp)())</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    fp();<span class="comment">//这样调用的时候就不需要考虑函数指针的变量名，只要传递的函数是这样类型的即可在call函数中进行调用</span></span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">}</span><br><span class="line"><span class="comment">//当然也可以使用typedef，让回调函数更简洁</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*fp)</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">call</span><span class="params">(fp)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    fp();</span><br><span class="line">    <span class="keyword">return</span> ;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hello</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"hello"</span>);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"show"</span>);</span><br><span class="line">}</span><br><span class="line"><span class="comment">//如果不使用回调函数，调用时需要hello();show();</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    call(show);</span><br><span class="line">    call(hello);<span class="comment">//使用回调函数调用，这样只需要传入不同参数即可完成调用</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="0x02-复杂函数"><a href="#0x02-复杂函数" class="headerlink" title="0x02-复杂函数"></a>0x02-复杂函数</h1><p>定义复杂的回调函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">void *handle(void*arg)
-{
-    printf("arg is %X\n",arg);
-    return arg;//返回值是void*
-}
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">handle</span><span class="params">(<span class="keyword">void</span>*arg)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"arg is %X\n"</span>,arg);</span><br><span class="line">    <span class="keyword">return</span> arg;<span class="comment">//返回值是void*</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//我们要定义一个参数为函数指针，返回值为函数指针的回调函数</span></span><br><span class="line"><span class="comment">//先来看参数，传入函数指针void* (*fp)(void *),另一个还要传入的是arg，这里定义为void*p</span></span><br><span class="line"><span class="comment">//然后再定义一个以上面两个参数为函数参数，返回值是函数指针(这里是handle函数指针)的函数</span></span><br><span class="line"><span class="keyword">void</span> *(*call(<span class="keyword">void</span> *(fp)(<span class="keyword">void</span>*),<span class="keyword">void</span>*p))(<span class="keyword">void</span> *)<span class="comment">//在这里call是回调函数的变量名，void*是返回值，最后的(void*)是返回的函数指针的参数，call()里的两个是回调函数的参数</span></span><br><span class="line">{</span><br><span class="line">    fp(p);</span><br><span class="line">    <span class="keyword">return</span> fp;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">int</span> num=<span class="number">10</span>;</span><br><span class="line">    <span class="keyword">void</span>*(*fp)(<span class="keyword">void</span>*)=call(handle,&amp;num);<span class="comment">//使用对应类型的函数指针接收</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">//为了方便理解，使用typedef</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span>*(*FP)(<span class="keyword">void</span>*);</span><br><span class="line"><span class="function">FP <span class="title">call</span><span class="params">(FP fp1,<span class="keyword">void</span>*p)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    fp1(p);</span><br><span class="line">    <span class="keyword">return</span> fp;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-//我们要定义一个参数为函数指针，返回值为函数指针的回调函数
-//先来看参数，传入函数指针void* (*fp)(void *),另一个还要传入的是arg，这里定义为void*p
-//然后再定义一个以上面两个参数为函数参数，返回值是函数指针(这里是handle函数指针)的函数
-void *(*call(void *(fp)(void*),void*p))(void *)//在这里call是回调函数的变量名，void*是返回值，最后的(void*)是返回的函数指针的参数，call()里的两个是回调函数的参数
-{
-    fp(p);
-    return fp;
-}
-int main()
-{
-    int num=10;
-    void*(*fp)(void*)=call(handle,&amp;num);//使用对应类型的函数指针接收
-    return 0;
-}
-
-//为了方便理解，使用typedef
-typedef void*(*FP)(void*);
-FP call(FP fp1,void*p)
-{
-    fp1(p);
-    return fp;
-}</code></pre>
-
-<h1 id="0x03-一维数组内存"><a href="#0x03-一维数组内存" class="headerlink" title="0x03-一维数组内存"></a>0x03-一维数组内存</h1><pre class="language-c" data-language="c"><code class="language-c">int arr[6]={10,20,30,40};//当有初始值时，剩余没定义的默认为0，如果没有定义初始值，则为随机值</code></pre>
+<h1 id="0x03-一维数组内存"><a href="#0x03-一维数组内存" class="headerlink" title="0x03-一维数组内存"></a>0x03-一维数组内存</h1><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> arr[<span class="number">6</span>]={<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>};<span class="comment">//当有初始值时，剩余没定义的默认为0，如果没有定义初始值，则为随机值</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>因为数组长度定义为6，类型为int，所以在内存中分配24个字节</p>
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649861619368.png" alt="数组在栈中的存储"></p>
 <h1 id="0x04-函数声明"><a href="#0x04-函数声明" class="headerlink" title="0x04-函数声明"></a>0x04-函数声明</h1><p>返回值+函数名+参数</p>
-<pre class="language-c" data-language="c"><code class="language-c">//函数声明
-int sum(int,int);
-
-int sum(int a,int b)
-{
-	return a+b;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数声明</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span>,<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">return</span> a+b;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649862553289.png" alt="原因"></p>
 <h1 id="0x05-调用约定"><a href="#0x05-调用约定" class="headerlink" title="0x05-调用约定"></a>0x05-调用约定</h1><p>为什么要有不同的调用约定——是因为调用函数之后需要清理栈，而不同的调用约定对应不同的清理方式</p>
 <blockquote>
 <p>__cdecl：调用者自己清理栈</p>
-<pre class="language-c" data-language="c"><code class="language-c">//函数外部
-call hello;函数
-add esp,立即数</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数外部</span></span><br><span class="line">call hello;函数</span><br><span class="line">add esp,立即数</span><br></pre></td></tr></tbody></table></figure>
 
 <p>__stdcall：函数自己清理栈</p>
-<pre class="language-c" data-language="c"><code class="language-c">//函数内部
-retn 立即数</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//函数内部</span></span><br><span class="line">retn 立即数</span><br></pre></td></tr></tbody></table></figure>
 
 
 </blockquote>
@@ -433,20 +347,7 @@ retn 立即数</code></pre>
 <p><strong>C++函数重载即函数名可以相等，只要该函数的参数类型或者个数不同即可</strong></p>
 </blockquote>
 <h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>标准文件头</p>
-<pre class="language-c" data-language="c"><code class="language-c">#ifndef __INCvxWorksh  /*防止该头文件被重复引用*/
-#define __INCvxWorksh
-
-#ifdef __cplusplus    //__cplusplus是cpp中自定义的一个宏
-extern "C" {          //告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的
-#endif
-
-    /**** some declaration or so *****/  
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* __INCvxWorksh */</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __INCvxWorksh  <span class="comment">/*防止该头文件被重复引用*/</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __INCvxWorksh</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus    <span class="comment">//__cplusplus是cpp中自定义的一个宏</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> {          <span class="comment">//告诉编译器，这部分代码按C语言的格式进行编译，而不是C++的</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**** some declaration or so *****/</span>  </span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* __INCvxWorksh */</span></span></span><br></pre></td></tr></tbody></table></figure>
 
 <blockquote>
 <p> extern是C/C++语言中表明函数和全局变量作用范围（可见性）的关键字，该关键字告诉编译器，其声明的函数和变量可以在本模块或其它模块中使用 </p>
@@ -466,28 +367,14 @@ extern "C" {          //告诉编译器，这部分代码按C语言的格式进�
 </blockquote>
 <h1 id="0x08-命令行参数"><a href="#0x08-命令行参数" class="headerlink" title="0x08-命令行参数"></a>0x08-命令行参数</h1><p>我们知道main函数实际上是有两个参数的，但一般不会进行使用</p>
 <p>其原型如下</p>
-<pre class="language-c" data-language="c"><code class="language-c">main(int argc,char*argv[])</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main(<span class="keyword">int</span> argc,<span class="keyword">char</span>*argv[])</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008765976.png"></p>
 <p>这两个参数实际上与命令行相关</p>
-<pre class="language-c" data-language="c"><code class="language-c">//argc是一个整数，其代表了命令行参数个数
-//argv是一个指针数组，可以接收多个参数，第一个也就是argv[0]指向输入的程序路径及名称
-//如果在命令行中运行，argc为1，也就是只有一个参数</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//argc是一个整数，其代表了命令行参数个数</span></span><br><span class="line"><span class="comment">//argv是一个指针数组，可以接收多个参数，第一个也就是argv[0]指向输入的程序路径及名称</span></span><br><span class="line"><span class="comment">//如果在命令行中运行，argc为1，也就是只有一个参数</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008701868.png"></p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;windows.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-int main(int argc,char *argv[])
-{
-	printf("命令行参数个数为：%d\n", argc);
-	for (int i = 0; i &lt; argc; ++i)
-	{
-		printf("第%d个命令行参数为：%s\n", i, argv[i]);
-	}
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"命令行参数个数为：%d\n"</span>, argc);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; argc; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"第%d个命令行参数为：%s\n"</span>, i, argv[i]);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 
     </div>
@@ -561,13 +448,13 @@ int main(int argc,char *argv[])
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

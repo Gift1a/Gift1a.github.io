@@ -274,7 +274,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.2k</span>
+      <span>3.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -308,100 +308,13 @@
 <p>思路</p>
 <p>如果我们要Hook消息框，首先要给API的首地址写入int 3断点，当执行时会产生异常，线程暂停，转交给异常处理函数处理，此时我们可以在处理函数中修改堆栈参数等</p>
 <p>相应操作完成后将int 3(0xCC)修改回源代码 修改EIP=addr(异常地址)，然后让此处的代码重新执行一次正确的代码</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
-#include&lt;stdio.h&gt;
-#pragma data_seg("ldata")
-
-char trapcode[] = "*";
-unsigned long long llcode = 204;//CC 00 00 00INT3
-#pragma data_seg()
-#pragma comment(linker,"/SECTION:ldata,RWE")
-void Decshellcode()
-{
-
-	llcode = 0xF333333333333333;
-	llcode &lt;&lt;= 2;
-	char* data = (char*)&amp;llcode;
-	/*
-	* 解密shellcode 并且执行
-	* len 解密后的指令长度
-	* data 把解密后的指令写入data
-	* 比如 push ebp 就向data写入0x55
-	* 每次解密一条指令 不要用超过7字节的指令和跳转指令
-	*/
-	MessageBoxA(0, "不要再打辣", "停下", MB_OK);
-	return ;
-}
-long _stdcall ExceptionHandle(PEXCEPTION_POINTERS val)
-{
-	//判断是否为int3断点
-	if (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)
-	{
-		Decshellcode();//执行shellcode
-		//修改EIP
-		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;
-		//表示成功处理，让程序继续执行
-		return EXCEPTION_CONTINUE_EXECUTION;
-	}
-	//继续往下搜索异常处理函数
-	else
-		return EXCEPTION_CONTINUE_SEARCH;
-}
-
-#pragma optimize("",off)
-int main()
-{
-	//创建VEH，当第一个参数不为0，则异常处理函数是第一个要调用的处理程序。如果参数为0，则处理程序是要调用的最后一个处理程序
-	//第二个参数是一个异常处理函数
-	AddVectoredExceptionHandler(1, ExceptionHandle);
-	int bilibili = 2020;
-	int arr[2] = { 1,2 };
-	int ti = 23;
-	arr[5] = (int)&amp;llcode;
-	return 0;
-}
-#pragma optimize("",on)</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg(<span class="meta-string">"ldata"</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> trapcode[] = <span class="string">"*"</span>;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> llcode = <span class="number">204</span>;<span class="comment">//CC 00 00 00INT3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker,<span class="meta-string">"/SECTION:ldata,RWE"</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Decshellcode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line"></span><br><span class="line">	llcode = <span class="number">0xF333333333333333</span>;</span><br><span class="line">	llcode &lt;&lt;= <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">char</span>* data = (<span class="keyword">char</span>*)&amp;llcode;</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	* 解密shellcode 并且执行</span></span><br><span class="line"><span class="comment">	* len 解密后的指令长度</span></span><br><span class="line"><span class="comment">	* data 把解密后的指令写入data</span></span><br><span class="line"><span class="comment">	* 比如 push ebp 就向data写入0x55</span></span><br><span class="line"><span class="comment">	* 每次解密一条指令 不要用超过7字节的指令和跳转指令</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	MessageBoxA(<span class="number">0</span>, <span class="string">"不要再打辣"</span>, <span class="string">"停下"</span>, MB_OK);</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">long</span> _stdcall <span class="title">ExceptionHandle</span><span class="params">(PEXCEPTION_POINTERS val)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//判断是否为int3断点</span></span><br><span class="line">	<span class="keyword">if</span> (val-&gt;ExceptionRecord-&gt;ExceptionCode == STATUS_BREAKPOINT)</span><br><span class="line">	{</span><br><span class="line">		Decshellcode();<span class="comment">//执行shellcode</span></span><br><span class="line">		<span class="comment">//修改EIP</span></span><br><span class="line">		val-&gt;ContextRecord-&gt;Eip = (DWORD)&amp;llcode;</span><br><span class="line">		<span class="comment">//表示成功处理，让程序继续执行</span></span><br><span class="line">		<span class="keyword">return</span> EXCEPTION_CONTINUE_EXECUTION;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//继续往下搜索异常处理函数</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> EXCEPTION_CONTINUE_SEARCH;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,off)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//创建VEH，当第一个参数不为0，则异常处理函数是第一个要调用的处理程序。如果参数为0，则处理程序是要调用的最后一个处理程序</span></span><br><span class="line">	<span class="comment">//第二个参数是一个异常处理函数</span></span><br><span class="line">	AddVectoredExceptionHandler(<span class="number">1</span>, ExceptionHandle);</span><br><span class="line">	<span class="keyword">int</span> bilibili = <span class="number">2020</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">2</span>] = { <span class="number">1</span>,<span class="number">2</span> };</span><br><span class="line">	<span class="keyword">int</span> ti = <span class="number">23</span>;</span><br><span class="line">	arr[<span class="number">5</span>] = (<span class="keyword">int</span>)&amp;llcode;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,on)</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/10/VEH/1649639633494.png"></p>
 <p>这里修改EIP为我们的Print()函数，因为函数名表示的就是函数地址，所以就是让他执行我们的Print函数</p>
 <h1 id="0x03-VEH实现隐藏函数调用"><a href="#0x03-VEH实现隐藏函数调用" class="headerlink" title="0x03-VEH实现隐藏函数调用"></a>0x03-VEH实现隐藏函数调用</h1><p>我们知道函数调用时，会先把call的地址压入栈中，而在函数内部的返回ret指令就是从栈中取出call指令的下一条地址</p>
 <p>所以我们可以对栈中的地址进行修改让其调用我们的函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;Windows.h&gt;
-#include&lt;stdio.h&gt;
-
-void showflag()
-{
-	MessageBoxA(0, "this is flag", "flag", MB_OK);
-	return ;
-}
-
-long _stdcall ExceptionHandler(PEXCEPTION_POINTERS val)
-{
-	//将EIP也就是下一条执行的指令修改为ret
-	val-&gt;ContextRecord-&gt;Eip += 6;
-	//降低栈顶
-	val-&gt;ContextRecord-&gt;Esp -= 4;
-	//入栈,将ret下一条指令压入栈中
-	*(int*)val-&gt;ContextRecord-&gt;Esp = val-&gt;ContextRecord-&gt;Eip + 1;
-	//和上面一样，这次修改为我们想要执行的地址
-	val-&gt;ContextRecord-&gt;Esp -= 4;
-	*(int*)val-&gt;ContextRecord-&gt;Esp=*(int*)(val-&gt;ContextRecord-&gt;Ebp-8);
-	return EXCEPTION_CONTINUE_EXECUTION;
-}
-int main()
-{
-	AddVectoredExceptionHandler(1, ExceptionHandler);
-	DWORD a = (DWORD)showflag;
-	int k = 0;
-	int c;
-	c=a / k;//构造除0异常
-	__asm
-	{
-		ret
-	}
-	printf("Get flag!!!");
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">showflag</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	MessageBoxA(<span class="number">0</span>, <span class="string">"this is flag"</span>, <span class="string">"flag"</span>, MB_OK);</span><br><span class="line">	<span class="keyword">return</span> ;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> _stdcall <span class="title">ExceptionHandler</span><span class="params">(PEXCEPTION_POINTERS val)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//将EIP也就是下一条执行的指令修改为ret</span></span><br><span class="line">	val-&gt;ContextRecord-&gt;Eip += <span class="number">6</span>;</span><br><span class="line">	<span class="comment">//降低栈顶</span></span><br><span class="line">	val-&gt;ContextRecord-&gt;Esp -= <span class="number">4</span>;</span><br><span class="line">	<span class="comment">//入栈,将ret下一条指令压入栈中</span></span><br><span class="line">	*(<span class="keyword">int</span>*)val-&gt;ContextRecord-&gt;Esp = val-&gt;ContextRecord-&gt;Eip + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">//和上面一样，这次修改为我们想要执行的地址</span></span><br><span class="line">	val-&gt;ContextRecord-&gt;Esp -= <span class="number">4</span>;</span><br><span class="line">	*(<span class="keyword">int</span>*)val-&gt;ContextRecord-&gt;Esp=*(<span class="keyword">int</span>*)(val-&gt;ContextRecord-&gt;Ebp<span class="number">-8</span>);</span><br><span class="line">	<span class="keyword">return</span> EXCEPTION_CONTINUE_EXECUTION;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	AddVectoredExceptionHandler(<span class="number">1</span>, ExceptionHandler);</span><br><span class="line">	DWORD a = (DWORD)showflag;</span><br><span class="line">	<span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> c;</span><br><span class="line">	c=a / k;<span class="comment">//构造除0异常</span></span><br><span class="line">	__asm</span><br><span class="line">	{</span><br><span class="line">		ret</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"Get flag!!!"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>具体的可以先看汇编</p>
 <p><img src="/2022/04/10/VEH/1649645606291.png"></p>
@@ -413,7 +326,7 @@ int main()
 <p>shellcode尾部的ret取出栈顶的值，跳转过去，回到我们正常的程序</p>
 <blockquote>
 <p>修改EIP的时候也可以</p>
-<pre class="language-none"><code class="language-none">val-&gt;ContextRecord-&gt;Eip = (DWORD)val-&gt;ExceptionRecord-&gt;ExceptionAddress+6;</code></pre>
+<figure class="highlight xl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">val</span>-&gt;</span>C<span class="function"><span class="title">ontextRecord</span>-&gt;</span>E<span class="function"><span class="title">ip</span> = (DWORD)val-&gt;</span>E<span class="function"><span class="title">xceptionRecord</span>-&gt;</span>ExceptionAddress+<span class="number">6</span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>ExceptionRecord-&gt;ExceptionAddress是触发异常的地址</p>
 <p>ExceptionRecord-&gt;ExceptionCode表示异常的类型</p>
@@ -492,13 +405,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

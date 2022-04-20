@@ -266,7 +266,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.4k</span>
+      <span>4.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -285,91 +285,15 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include &lt;string.h&gt;
-char base64_table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-void base64_encode(char raw[], char encode[])
-{
-	int code_len = strlen(raw);
-	int final_len = 0;
-	if (code_len % 3)
-	{
-		final_len = (code_len / 3 + 1) * 4;
-	}
-	else
-		final_len = (code_len / 3) * 4;
-	int i = 0, i_ = 0;
-	for (; i &lt; code_len; i += 3, i_ += 4)
-	{
-		encode[i_] = base64_table[raw[i] &gt;&gt; 2];
-		encode[i_ + 1] = base64_table[((raw[i] &amp; 0x03) &lt;&lt; 4) | ((raw[i + 1] &amp; 0xf0) &gt;&gt; 4)];
-		encode[i_ + 2] = base64_table[((raw[i + 1] &amp; 0x0f) &lt;&lt; 2) | ((raw[i + 2] &amp; 0xc0) &gt;&gt; 6)];
-		encode[i_ + 3] = base64_table[raw[i + 2] &amp; 0x3f];
-	}
-	if (code_len % 3 == 1)
-	{
-		encode[i_ - 1] = '=';
-		encode[i_ - 2] = '=';
-	}
-	else if (code_len % 3 == 2)
-	{
-		encode[i_ - 1] = '=';
-	}
-	return;
-}
-int Findindex(char c)
-{
-	for (int i = 0; i &lt; strlen(base64_table); ++i)
-	{
-		if (c == base64_table[i])
-			return i;
-	}
-}
-void base64_decode(char* encode, char* decode)
-{
-	int decode_len=0;
-	int encode_len = strlen(encode);
-	if (strstr(encode, "=="))
-		decode_len = (encode_len / 4) * 3 - 2;
-	else if (strstr(encode, "="))
-		decode_len = (encode_len / 4) * 3 - 1;
-	else
-		decode_len = (encode_len / 4) * 3;
-	int i = 0, i_ = 0;
-	for (; i &lt; encode_len; i_ += 4, i += 3)
-	{
-		decode[i] = (Findindex(encode[i_]) &lt;&lt; 2) | (Findindex(encode[i_ + 1]) &amp; 0x30) &gt;&gt; 4;
-		decode[i + 1] = ((Findindex(encode[i_ + 1]) &amp; 0xf) &lt;&lt; 4) | ((Findindex(encode[i_ + 2]) &amp; 0x3c) &gt;&gt; 2);
-		decode[i + 2] = ((Findindex(encode[i_ + 2]) &amp; 0x3) &lt;&lt; 6) | ((Findindex(encode[i_ + 3])));
-	}
-	decode[decode_len] = 0;
-	return;
-}
-int main()
-{
-	char raw[] = "hgame{123456}";
-	char encode[100] = { 0 };
-	char decode[100] = { 0 };
-	base64_encode(raw, encode);
-	printf("%s", encode);
-	base64_decode(encode, decode);
-	printf("\n%s", decode);
-}</code></pre>
+        <h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h1><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> base64_table[] = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">base64_encode</span><span class="params">(<span class="keyword">char</span> raw[], <span class="keyword">char</span> encode[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> code_len = <span class="built_in">strlen</span>(raw);</span><br><span class="line">	<span class="keyword">int</span> final_len = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (code_len % <span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		final_len = (code_len / <span class="number">3</span> + <span class="number">1</span>) * <span class="number">4</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		final_len = (code_len / <span class="number">3</span>) * <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, i_ = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; code_len; i += <span class="number">3</span>, i_ += <span class="number">4</span>)</span><br><span class="line">	{</span><br><span class="line">		encode[i_] = base64_table[raw[i] &gt;&gt; <span class="number">2</span>];</span><br><span class="line">		encode[i_ + <span class="number">1</span>] = base64_table[((raw[i] &amp; <span class="number">0x03</span>) &lt;&lt; <span class="number">4</span>) | ((raw[i + <span class="number">1</span>] &amp; <span class="number">0xf0</span>) &gt;&gt; <span class="number">4</span>)];</span><br><span class="line">		encode[i_ + <span class="number">2</span>] = base64_table[((raw[i + <span class="number">1</span>] &amp; <span class="number">0x0f</span>) &lt;&lt; <span class="number">2</span>) | ((raw[i + <span class="number">2</span>] &amp; <span class="number">0xc0</span>) &gt;&gt; <span class="number">6</span>)];</span><br><span class="line">		encode[i_ + <span class="number">3</span>] = base64_table[raw[i + <span class="number">2</span>] &amp; <span class="number">0x3f</span>];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">if</span> (code_len % <span class="number">3</span> == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		encode[i_ - <span class="number">1</span>] = <span class="string">'='</span>;</span><br><span class="line">		encode[i_ - <span class="number">2</span>] = <span class="string">'='</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (code_len % <span class="number">3</span> == <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		encode[i_ - <span class="number">1</span>] = <span class="string">'='</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Findindex</span><span class="params">(<span class="keyword">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(base64_table); ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (c == base64_table[i])</span><br><span class="line">			<span class="keyword">return</span> i;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">base64_decode</span><span class="params">(<span class="keyword">char</span>* encode, <span class="keyword">char</span>* decode)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> decode_len=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> encode_len = <span class="built_in">strlen</span>(encode);</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">strstr</span>(encode, <span class="string">"=="</span>))</span><br><span class="line">		decode_len = (encode_len / <span class="number">4</span>) * <span class="number">3</span> - <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strstr</span>(encode, <span class="string">"="</span>))</span><br><span class="line">		decode_len = (encode_len / <span class="number">4</span>) * <span class="number">3</span> - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		decode_len = (encode_len / <span class="number">4</span>) * <span class="number">3</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, i_ = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; encode_len; i_ += <span class="number">4</span>, i += <span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		decode[i] = (Findindex(encode[i_]) &lt;&lt; <span class="number">2</span>) | (Findindex(encode[i_ + <span class="number">1</span>]) &amp; <span class="number">0x30</span>) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">		decode[i + <span class="number">1</span>] = ((Findindex(encode[i_ + <span class="number">1</span>]) &amp; <span class="number">0xf</span>) &lt;&lt; <span class="number">4</span>) | ((Findindex(encode[i_ + <span class="number">2</span>]) &amp; <span class="number">0x3c</span>) &gt;&gt; <span class="number">2</span>);</span><br><span class="line">		decode[i + <span class="number">2</span>] = ((Findindex(encode[i_ + <span class="number">2</span>]) &amp; <span class="number">0x3</span>) &lt;&lt; <span class="number">6</span>) | ((Findindex(encode[i_ + <span class="number">3</span>])));</span><br><span class="line">	}</span><br><span class="line">	decode[decode_len] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> raw[] = <span class="string">"hgame{123456}"</span>;</span><br><span class="line">	<span class="keyword">char</span> encode[<span class="number">100</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">char</span> decode[<span class="number">100</span>] = { <span class="number">0</span> };</span><br><span class="line">	base64_encode(raw, encode);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, encode);</span><br><span class="line">	base64_decode(encode, decode);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n%s"</span>, decode);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="细节剖析"><a href="#细节剖析" class="headerlink" title="细节剖析"></a>细节剖析</h1><h2 id="编码部分"><a href="#编码部分" class="headerlink" title="编码部分"></a>编码部分</h2><h3 id="记录长度"><a href="#记录长度" class="headerlink" title="记录长度"></a>记录长度</h3><p>首先要先计算长度，base64就是将三个字节扩展为四个字节，所以要分成有余数和整除两种情况</p>
-<pre class="language-c" data-language="c"><code class="language-c">int code_len = strlen(raw);
-	int final_len = 0;
-	if (code_len % 3)
-	{
-		final_len = (code_len / 3 + 1) * 4;
-	}
-	else
-		final_len = (code_len / 3) * 4;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> code_len = <span class="built_in">strlen</span>(raw);</span><br><span class="line">	<span class="keyword">int</span> final_len = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span> (code_len % <span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		final_len = (code_len / <span class="number">3</span> + <span class="number">1</span>) * <span class="number">4</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		final_len = (code_len / <span class="number">3</span>) * <span class="number">4</span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="编码部分-1"><a href="#编码部分-1" class="headerlink" title="编码部分"></a>编码部分</h3><p>首先先介绍一下两个工具，&amp;和|，和一些数据做&amp;运算可以取到我们想要的位，而|运算可以将两部分结合在一起</p>
 <p>编码后的索引最多为六位，原先的数据可以是八位的</p>
 <h4 id="encode-i"><a href="#encode-i" class="headerlink" title="encode[i]"></a>encode[i]</h4><p>这个其实是最好实现的，因为只需要取到前六位，所以直接&gt;&gt;2就可以实现</p>
-<pre class="language-c" data-language="c"><code class="language-c">encode[i_] = base64_table[raw[i] &gt;&gt; 2];</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encode[i_] = base64_table[raw[i] &gt;&gt; <span class="number">2</span>];</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="encode-i-1"><a href="#encode-i-1" class="headerlink" title="encode[i+1]"></a>encode[i+1]</h4><p>先明确我们的需求，从第一个数据获取最后的两位与第二个数据获取的前四位结合。需要用到&amp;，这里的结合就需要用到|。</p>
 <p>首先要保证我们取到的是两位的，需要&amp;0x03</p>
@@ -454,55 +378,40 @@ int main()
 <td>1</td>
 </tr>
 </tbody></table>
-<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 1] = base64_table[((raw[i] &amp; 0x03) &lt;&lt; 4) | ((raw[i + 1]) &gt;&gt; 4)];</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encode[i_ + <span class="number">1</span>] = base64_table[((raw[i] &amp; <span class="number">0x03</span>) &lt;&lt; <span class="number">4</span>) | ((raw[i + <span class="number">1</span>]) &gt;&gt; <span class="number">4</span>)];</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="encode-i-2"><a href="#encode-i-2" class="headerlink" title="encode[i+2]"></a>encode[i+2]</h4><p>要用到第二个数据的后四位和第三个数据的前两位</p>
 <p>同理，要保留第二个数据的后四位并且去除前四位，就需要&amp;0xf，移到正确的位置&lt;&lt;2，剩余两位留给第三个数据的前两位</p>
 <p>要取到第三个数据的前两位</p>
 <p>可以直接&gt;&gt;6保证前两位移动到最后的两位，也可以先用&amp;0xc0清除后四位，因为是00110000，最后结合起来就可以了</p>
-<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 2] = base64_table[((raw[i + 1] &amp; 0x0f) &lt;&lt; 2) | ((raw[i + 2] ) &gt;&gt; 6)];</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encode[i_ + <span class="number">2</span>] = base64_table[((raw[i + <span class="number">1</span>] &amp; <span class="number">0x0f</span>) &lt;&lt; <span class="number">2</span>) | ((raw[i + <span class="number">2</span>] ) &gt;&gt; <span class="number">6</span>)];</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="encode-i-3"><a href="#encode-i-3" class="headerlink" title="encode[i+3]"></a>encode[i+3]</h4><p>只需要取到第三个数据的后六位就可以了</p>
 <p>直接&amp;0x3f，因为0x3f的二进制是00111111</p>
-<pre class="language-c" data-language="c"><code class="language-c">encode[i_ + 3] = base64_table[raw[i + 2] &amp; 0x3f];</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encode[i_ + <span class="number">3</span>] = base64_table[raw[i + <span class="number">2</span>] &amp; <span class="number">0x3f</span>];</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="填加"><a href="#填加" class="headerlink" title="填加="></a>填加=</h4><p>如果编码前的数据长度%3不等于0，需要使用=填充</p>
 <p>如果多出一位的话，根据经过上述过程会变成两位，所以最后两位需要用到=来填充</p>
 <p>多出两位，经过上述过程变成三位，所以只需填充最后一位为=</p>
-<pre class="language-c" data-language="c"><code class="language-c">if (code_len % 3 == 1)
-	{
-		encode[i_ - 1] = '=';
-		encode[i_ - 2] = '=';
-	}
-	else if (code_len % 3 == 2)
-	{
-		encode[i_ - 1] = '=';
-	}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (code_len % <span class="number">3</span> == <span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		encode[i_ - <span class="number">1</span>] = <span class="string">'='</span>;</span><br><span class="line">		encode[i_ - <span class="number">2</span>] = <span class="string">'='</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (code_len % <span class="number">3</span> == <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		encode[i_ - <span class="number">1</span>] = <span class="string">'='</span>;</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="解码部分"><a href="#解码部分" class="headerlink" title="解码部分"></a>解码部分</h3><p>六位还原为八位</p>
 <h4 id="去除"><a href="#去除" class="headerlink" title="去除="></a>去除=</h4><p>先计算解码后的长度，每四个对应三个，最后减去=的长度</p>
-<pre class="language-c" data-language="c"><code class="language-c">int decode_len=0;
-	int encode_len = strlen(encode);
-	if (strstr(encode, "=="))
-		decode_len = (encode_len / 4) * 3 - 2;
-	else if (strstr(encode, "="))
-		decode_len = (encode_len / 4) * 3 - 1;
-	else
-		decode_len = (encode_len / 4) * 3;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> decode_len=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> encode_len = <span class="built_in">strlen</span>(encode);</span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">strstr</span>(encode, <span class="string">"=="</span>))</span><br><span class="line">		decode_len = (encode_len / <span class="number">4</span>) * <span class="number">3</span> - <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">strstr</span>(encode, <span class="string">"="</span>))</span><br><span class="line">		decode_len = (encode_len / <span class="number">4</span>) * <span class="number">3</span> - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		decode_len = (encode_len / <span class="number">4</span>) * <span class="number">3</span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="decode-i"><a href="#decode-i" class="headerlink" title="decode[i]"></a>decode[i]</h4><p>其实和上面过程正好相反，取第一个编码数据的后六位（因为前两位是填充的0）和第二个编码数据的前两位，在此之前需要先去除前两位填充的0，所以要&amp;0x30，根据上面的过程，我们需要的是00110000，正好是0x30</p>
 <p>再用|结合</p>
-<pre class="language-c" data-language="c"><code class="language-c">decode[i] = (Findindex(encode[i_]) &lt;&lt; 2) | (Findindex(encode[i_ + 1]) &amp; 0x30) &gt;&gt; 4;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decode[i] = (Findindex(encode[i_]) &lt;&lt; <span class="number">2</span>) | (Findindex(encode[i_ + <span class="number">1</span>]) &amp; <span class="number">0x30</span>) &gt;&gt; <span class="number">4</span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="decode-i-1"><a href="#decode-i-1" class="headerlink" title="decode[i+1]"></a>decode[i+1]</h4><p>需要第二个编码数据的后四位和第三个编码数据的前四位，也是需要先去除填充的0</p>
 <p>所以第二个数据&amp;0xf保证取到后四位，&lt;&lt;4移到前四位</p>
 <p>第三个数据&amp;0x3c（00111100）进行去除填充的前两位0以及取到需要的那四位，再&gt;&gt;2，最后使用|结合</p>
-<pre class="language-c" data-language="c"><code class="language-c">decode[i + 1] = ((Findindex(encode[i_ + 1]) &amp; 0xf) &lt;&lt; 4) | ((Findindex(encode[i_ + 2]) &amp; 0x3c) &gt;&gt; 2);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decode[i + <span class="number">1</span>] = ((Findindex(encode[i_ + <span class="number">1</span>]) &amp; <span class="number">0xf</span>) &lt;&lt; <span class="number">4</span>) | ((Findindex(encode[i_ + <span class="number">2</span>]) &amp; <span class="number">0x3c</span>) &gt;&gt; <span class="number">2</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="decode-i-2"><a href="#decode-i-2" class="headerlink" title="decode[i+2]"></a>decode[i+2]</h4><p>第三个编码数据的后两位和第四个编码数据的那六位</p>
 <p>和上述过程类似，就不赘述了</p>
 <h4 id="字符数组结束"><a href="#字符数组结束" class="headerlink" title="字符数组结束"></a>字符数组结束</h4><p>最后记得填加字符数组结束符</p>
-<pre class="language-c" data-language="c"><code class="language-c">decode[decode_len] = 0;</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">decode[decode_len] = <span class="number">0</span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>base64还可以魔改，进行变表操作或者在编码过程中参杂异或（Dasctf2022）</p>
 
@@ -577,13 +486,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

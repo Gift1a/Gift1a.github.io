@@ -266,7 +266,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>17k</span>
+      <span>16k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -292,34 +292,17 @@
 <hr>
 <ol>
 <li><p>nop指令</p>
- <pre class="language-none"><code class="language-none">mov rax ; IsDebuggerPresent
-call rax ; IsDebuggerPresent</code></pre></li>
+ <figure class="highlight x86asm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mov</span> <span class="built_in">rax</span> <span class="comment">; IsDebuggerPresent</span></span><br><span class="line"><span class="keyword">call</span> <span class="built_in">rax</span> <span class="comment">; IsDebuggerPresent</span></span><br></pre></td></tr></tbody></table></figure></li>
 <li><p>jnz和jz</p>
 <hr>
 <p> jnz在结果不为0时跳转，jz在结果为0时跳转</p>
- <pre class="language-none"><code class="language-none">sub_4019F4()
-{
-    return ISDebuggerPresent;
-}
-if(!sub_4019F4)
-{
-     puts();
-}</code></pre>
+ <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">sub_4019F4</span>(<span class="params"></span>)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">return</span> ISDebuggerPresent;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">if</span>(!sub_4019F4)</span><br><span class="line">{</span><br><span class="line">     puts();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p> 这个时候如果处于调试状态，返回1，不会执行put，这时候只需要去汇编指令处把jnz改为jz，重新汇编后会变成</p>
- <pre class="language-none"><code class="language-none">sub_4019F4()
-{
-    return ISDebuggerPresent;
-}
-if(sub_4019F4)
-{
-     puts();
-}</code></pre>
+ <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">sub_4019F4</span>(<span class="params"></span>)</span></span><br><span class="line">{</span><br><span class="line">    <span class="keyword">return</span> ISDebuggerPresent;</span><br><span class="line">}</span><br><span class="line"><span class="keyword">if</span>(sub_4019F4)</span><br><span class="line">{</span><br><span class="line">     puts();</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p> 3.Attach to process</p>
- <pre class="language-none"><code class="language-none">sub_4019F4();
-printf("%d",n);
-scanf("%d",&amp;m);</code></pre>
+ <figure class="highlight lisp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sub_4019F4()<span class="comment">;</span></span><br><span class="line">printf(<span class="string">"%d"</span>,n)<span class="comment">;</span></span><br><span class="line">scanf(<span class="string">"%d"</span>,<span class="symbol">&amp;m</span>)<span class="comment">;</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p> 可以先让程序运行，这时候已经步过了反调试函数，然后Attach to process就可以调试了</p>
 <p> 4.修改EIP：jump、call、ret指令</p>
@@ -327,279 +310,44 @@ scanf("%d",&amp;m);</code></pre>
 </ol>
 <h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><ol>
 <li><p>函数介绍</p>
- <pre class="language-none"><code class="language-none">1 CreateThread 创建线程
-2 CloseHandle 关闭线程
-3 WaitForSingleObject() 实现线程转换</code></pre></li>
+ <figure class="highlight basic"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">1 </span>CreateThread 创建线程</span><br><span class="line"><span class="symbol">2 </span>CloseHandle 关闭线程</span><br><span class="line"><span class="symbol">3 </span>WaitForSingleObject() 实现线程转换</span><br></pre></td></tr></tbody></table></figure></li>
 </ol>
 <p>​      2.题目——Youngter drive</p>
-<pre class="language-none"><code class="language-none">int __cdecl main_0(int argc, const char **argv, const char **envp)
-{
-  HANDLE v4; // [esp+D0h] [ebp-14h]
-  HANDLE hObject; // [esp+DCh] [ebp-8h]
+<figure class="highlight reasonml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> __cdecl main<span class="constructor">_0(<span class="params">int</span> <span class="params">argc</span>, <span class="params">const</span> <span class="params">char</span> <span class="operator">**</span><span class="params">argv</span>, <span class="params">const</span> <span class="params">char</span> <span class="operator">**</span><span class="params">envp</span>)</span></span><br><span class="line">{</span><br><span class="line">  HANDLE v4; <span class="comment">// [esp+D0h] [ebp-14h]</span></span><br><span class="line">  HANDLE hObject; <span class="comment">// [esp+DCh] [ebp-8h]</span></span><br><span class="line"></span><br><span class="line">  ((void (*)(void))sub_4110FF)<span class="literal">()</span>;</span><br><span class="line">  ::hObject = <span class="constructor">CreateMutexW(0, 0, 0)</span>;</span><br><span class="line">  j<span class="constructor">_strcpy(Destination, &amp;Source)</span>;</span><br><span class="line">  hObject = <span class="constructor">CreateThread(0, 0, StartAddress, 0, 0, 0)</span>;</span><br><span class="line">  v4 = <span class="constructor">CreateThread(0, 0, <span class="params">sub_41119F</span>, 0, 0, 0)</span>;</span><br><span class="line">  <span class="constructor">CloseHandle(<span class="params">hObject</span>)</span>;</span><br><span class="line">  <span class="constructor">CloseHandle(<span class="params">v4</span>)</span>;</span><br><span class="line">  <span class="keyword">while</span> ( dword_418008 != -<span class="number">1</span> )</span><br><span class="line">    ;</span><br><span class="line">  sub<span class="constructor">_411190()</span>;</span><br><span class="line">  <span class="constructor">CloseHandle(::<span class="params">hObject</span>)</span>;</span><br><span class="line">  return <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-  ((void (*)(void))sub_4110FF)();
-  ::hObject = CreateMutexW(0, 0, 0);
-  j_strcpy(Destination, &amp;Source);
-  hObject = CreateThread(0, 0, StartAddress, 0, 0, 0);
-  v4 = CreateThread(0, 0, sub_41119F, 0, 0, 0);
-  CloseHandle(hObject);
-  CloseHandle(v4);
-  while ( dword_418008 != -1 )
-    ;
-  sub_411190();
-  CloseHandle(::hObject);
-  return 0;
-}</code></pre>
+<figure class="highlight reasonml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">void __stdcall <span class="constructor">StartAddress_0(<span class="params">int</span> <span class="params">a1</span>)</span></span><br><span class="line">{</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  {</span><br><span class="line">    <span class="constructor">WaitForSingleObject(<span class="params">hObject</span>, 0xFFFFFFFF)</span>;</span><br><span class="line">    <span class="keyword">if</span> ( dword_418008 &gt; -<span class="number">1</span> )</span><br><span class="line">    {</span><br><span class="line">      sub<span class="constructor">_41112C(&amp;Source, <span class="params">dword_418008</span>)</span>;</span><br><span class="line">      --dword_418008;</span><br><span class="line">      <span class="constructor">Sleep(0x64u)</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="constructor">ReleaseMutex(<span class="params">hObject</span>)</span>;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<pre class="language-none"><code class="language-none">void __stdcall StartAddress_0(int a1)
-{
-  while ( 1 )
-  {
-    WaitForSingleObject(hObject, 0xFFFFFFFF);
-    if ( dword_418008 &gt; -1 )
-    {
-      sub_41112C(&amp;Source, dword_418008);
-      --dword_418008;
-      Sleep(0x64u);
-    }
-    ReleaseMutex(hObject);
-  }
-}</code></pre>
-
-<pre class="language-none"><code class="language-none">void __stdcall sub_411B10(int a1)
-{
-  while ( 1 )
-  {
-    WaitForSingleObject(hObject, 0xFFFFFFFF);
-    if ( dword_418008 &gt; -1 )
-    {
-      Sleep(0x64u);
-      --dword_418008;
-    }
-    ReleaseMutex(hObject);
-  }
-}</code></pre>
+<figure class="highlight reasonml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void __stdcall sub<span class="constructor">_411B10(<span class="params">int</span> <span class="params">a1</span>)</span></span><br><span class="line">{</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  {</span><br><span class="line">    <span class="constructor">WaitForSingleObject(<span class="params">hObject</span>, 0xFFFFFFFF)</span>;</span><br><span class="line">    <span class="keyword">if</span> ( dword_418008 &gt; -<span class="number">1</span> )</span><br><span class="line">    {</span><br><span class="line">      <span class="constructor">Sleep(0x64u)</span>;</span><br><span class="line">      --dword_418008;</span><br><span class="line">    }</span><br><span class="line">    <span class="constructor">ReleaseMutex(<span class="params">hObject</span>)</span>;</span><br><span class="line">  }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>实际上就是每隔两位对数组元素做一次处理</p>
 <h1 id="Z3"><a href="#Z3" class="headerlink" title="Z3"></a>Z3</h1><ol>
 <li><p>基础</p>
- <pre class="language-none"><code class="language-none">1 声明整数x = Int('x')
-2 声明实数x = Real('x')
-3 声明布尔类型x = Bool('x')
-
-1 创建solver求解器
-   例：s = Solver()
-2 添加约束条件
-   例：s.add(x+y==10)
-3 检查solver中的约束是否满足
-   例：s.check()
-4 利用model()输出运算结果
-   例：s.model()
-</code></pre>
+ <figure class="highlight isbl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span> 声明整数<span class="variable">x</span> = <span class="function"><span class="title">Int</span>(<span class="string">'x'</span>)</span></span><br><span class="line"><span class="number">2</span> 声明实数<span class="variable">x</span> = <span class="function"><span class="title">Real</span>(<span class="string">'x'</span>)</span></span><br><span class="line"><span class="number">3</span> 声明布尔类型<span class="variable">x</span> = <span class="function"><span class="title">Bool</span>(<span class="string">'x'</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="number">1</span> 创建<span class="variable">solver</span>求解器</span><br><span class="line">   例：<span class="variable">s</span> = <span class="function"><span class="title">Solver</span>()</span></span><br><span class="line"><span class="number">2</span> 添加约束条件</span><br><span class="line">   例：<span class="variable">s.add</span>(<span class="variable">x</span>+<span class="variable">y</span>==<span class="number">10</span>)</span><br><span class="line"><span class="number">3</span> 检查<span class="variable">solver</span>中的约束是否满足</span><br><span class="line">   例：<span class="variable">s.check</span>()</span><br><span class="line"><span class="number">4</span> 利用<span class="function"><span class="title">model</span>()输出运算结果</span></span><br><span class="line"><span class="function">   例：<span class="variable">s.model</span>()</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p> 2.题目——Universe_final_answer</p>
- <pre class="language-none"><code class="language-none">__int64 __fastcall main(int a1, char **a2, char **a3)
-{
-  char v4[32]; // [rsp+0h] [rbp-A8h] BYREF
-  char input[104]; // [rsp+20h] [rbp-88h] BYREF
-  unsigned __int64 v6; // [rsp+88h] [rbp-20h]
+ <figure class="highlight reasonml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall main(<span class="built_in">int</span> a1, <span class="built_in">char</span> **a2, <span class="built_in">char</span> **a3)</span><br><span class="line">{</span><br><span class="line">  <span class="built_in">char</span> v4<span class="literal">[<span class="number">32</span>]</span>; <span class="comment">// [rsp+0h] [rbp-A8h] BYREF</span></span><br><span class="line">  <span class="built_in">char</span> input<span class="literal">[<span class="number">104</span>]</span>; <span class="comment">// [rsp+20h] [rbp-88h] BYREF</span></span><br><span class="line">  unsigned __int64 v6; <span class="comment">// [rsp+88h] [rbp-20h]</span></span><br><span class="line"></span><br><span class="line">  v6 = <span class="constructor">__readfsqword(0x28u)</span>;</span><br><span class="line">  <span class="constructor">__printf_chk(1LL, <span class="string">"Please give me the key string:"</span>, <span class="params">a3</span>)</span>;</span><br><span class="line">  scanf(<span class="string">"%s"</span>, input);</span><br><span class="line">  <span class="keyword">if</span> ( sub<span class="constructor">_860(<span class="params">input</span>)</span> )</span><br><span class="line">  {</span><br><span class="line">    sub<span class="constructor">_C50(<span class="params">input</span>, <span class="params">v4</span>)</span>;</span><br><span class="line">    <span class="constructor">__printf_chk(1LL, <span class="string">"Judgement pass! flag is actf{%s_%s}\n"</span>, <span class="params">input</span>)</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  {</span><br><span class="line">    puts(<span class="string">"False key!"</span>);</span><br><span class="line">  }</span><br><span class="line">  return <span class="number">0L</span>L;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
-  v6 = __readfsqword(0x28u);
-  __printf_chk(1LL, "Please give me the key string:", a3);
-  scanf("%s", input);
-  if ( sub_860(input) )
-  {
-    sub_C50(input, v4);
-    __printf_chk(1LL, "Judgement pass! flag is actf{%s_%s}\n", input);
-  }
-  else
-  {
-    puts("False key!");
-  }
-  return 0LL;
-}
-</code></pre>
-
- <pre class="language-none"><code class="language-none">bool __fastcall sub_860(char *input)
-{
-  int v1; // ecx
-  int v2; // esi
-  int v3; // edx
-  int v4; // er9
-  int v5; // er11
-  int v6; // ebp
-  int v7; // ebx
-  int v8; // er8
-  int v9; // er10
-  bool result; // al
-  int v11; // [rsp+0h] [rbp-38h]
-
-  v1 = input[1];
-  v2 = *input;
-  v3 = input[2];
-  v4 = input[3];
-  v5 = input[4];
-  v6 = input[6];
-  v7 = input[5];
-  v8 = input[7];
-  v9 = input[8];
-  result = 0;
-  if ( -85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613 )
-  {
-    v11 = input[9];
-    if ( 30 * v11 + -70 * v9 + -122 * v6 + -81 * v7 + -66 * v5 + -115 * v4 + -41 * v3 + -86 * v1 - 15 * v2 - 30 * v8 == -54400
-      &amp;&amp; -103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 &lt;&lt; 6) - 120 * v9 == -10283
-      &amp;&amp; 71 * v6 + (v7 &lt;&lt; 7) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855
-      &amp;&amp; 5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944
-      &amp;&amp; -54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222
-      &amp;&amp; -83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258
-      &amp;&amp; 81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559
-      &amp;&amp; 101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308 )
-    {
-      result = 99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697;
-    }
-  }
-  return result;
-}
-</code></pre>
+ <figure class="highlight smali"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">bool __fastcall sub_860(char *input)</span><br><span class="line">{</span><br><span class="line"> <span class="built_in"> int </span>v1; // ecx</span><br><span class="line"> <span class="built_in"> int </span>v2; // esi</span><br><span class="line"> <span class="built_in"> int </span>v3; // edx</span><br><span class="line"> <span class="built_in"> int </span>v4; // er9</span><br><span class="line"> <span class="built_in"> int </span>v5; // er11</span><br><span class="line"> <span class="built_in"> int </span>v6; // ebp</span><br><span class="line"> <span class="built_in"> int </span>v7; // ebx</span><br><span class="line"> <span class="built_in"> int </span>v8; // er8</span><br><span class="line"> <span class="built_in"> int </span>v9; // er10</span><br><span class="line">  bool result; // al</span><br><span class="line"> <span class="built_in"> int </span>v11; // [rsp+0h] [rbp-38h]</span><br><span class="line"></span><br><span class="line">  v1 = input[1];</span><br><span class="line">  v2 = *input;</span><br><span class="line">  v3 = input[2];</span><br><span class="line">  v4 = input[3];</span><br><span class="line">  v5 = input[4];</span><br><span class="line">  v6 = input[6];</span><br><span class="line">  v7 = input[5];</span><br><span class="line">  v8 = input[7];</span><br><span class="line">  v9 = input[8];</span><br><span class="line">  result = 0;</span><br><span class="line"> <span class="built_in"> if </span>( -85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613 )</span><br><span class="line">  {</span><br><span class="line">    v11 = input[9];</span><br><span class="line">   <span class="built_in"> if </span>( 30 * v11 + -70 * v9 + -122 * v6 + -81 * v7 + -66 * v5 + -115 * v4 + -41 * v3 + -86 * v1 - 15 * v2 - 30 * v8 == -54400</span><br><span class="line">      &amp;&amp; -103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 &lt;&lt; 6) - 120 * v9 == -10283</span><br><span class="line">      &amp;&amp; 71 * v6 + (v7 &lt;&lt; 7) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855</span><br><span class="line">      &amp;&amp; 5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944</span><br><span class="line">      &amp;&amp; -54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222</span><br><span class="line">      &amp;&amp; -83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258</span><br><span class="line">      &amp;&amp; 81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559</span><br><span class="line">      &amp;&amp; 101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308 )</span><br><span class="line">    {</span><br><span class="line">      result = 99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line"> <span class="built_in"> return </span>result;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p> 脚本</p>
- <pre class="language-none"><code class="language-none">from z3 import*
-
-s=Solver()
-v1=Int('v1')
-v2=Int('v2')
-v3=Int('v3')
-v4=Int('v4')
-v5=Int('v5')
-v6=Int('v6')
-v7=Int('v7')
-v8=Int('v8')
-v9=Int('v9')
-v11=Int('v11')
-
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-85 * v9 + 58 * v8 + 97 * v6 + v7 + -45 * v5 + 84 * v4 + 95 * v2 - 20 * v1 + 12 * v3 == 12613)
-s.add(-103 * v11 + 120 * v8 + 108 * v7 + 48 * v4 + -89 * v3 + 78 * v1 - 41 * v2 + 31 * v5 - (v6 *64) - 120 * v9 == -10283)
-s.add(71 * v6 + (v7 *128) + 99 * v5 + -111 * v3 + 85 * v1 + 79 * v2 - 30 * v4 - 119 * v8 + 48 * v9 - 16 * v11 == 22855)
-s.add(5 * v11 + 23 * v9 + 122 * v8 + -19 * v6 + 99 * v7 + -117 * v5 + -69 * v3 + 22 * v1 - 98 * v2 + 10 * v4 == -2944)
-s.add(-54 * v11 + -23 * v8 + -82 * v3 + -85 * v2 + 124 * v1 - 11 * v4 - 8 * v5 - 60 * v7 + 95 * v6 + 100 * v9 == -2222)
-s.add(-83 * v11 + -111 * v7 + -57 * v2 + 41 * v1 + 73 * v3 - 18 * v4 + 26 * v5 + 16 * v6 + 77 * v8 - 63 * v9 == -13258)
-s.add(81 * v11 + -48 * v9 + 66 * v8 + -104 * v6 + -121 * v7 + 95 * v5 + 85 * v4 + 60 * v3 + -85 * v2 + 80 * v1 == -1559)
-s.add(101 * v11 + -85 * v9 + 7 * v6 + 117 * v7 + -83 * v5 + -101 * v4 + 90 * v3 + -28 * v1 + 18 * v2 - v8 == 6308)
-s.add(99 * v11 + -28 * v9 + 5 * v8 + 93 * v6 + -18 * v7 + -127 * v5 + 6 * v4 + -9 * v3 + -93 * v1 + 58 * v2 == -1697)
-
-if s.check()==sat:
-    result=s.model()
-
-print(result)
-</code></pre>
+ <figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">from</span> z<span class="number">3</span> import*</span><br><span class="line"></span><br><span class="line"><span class="attribute">s</span>=Solver()</span><br><span class="line"><span class="attribute">v1</span>=Int('v<span class="number">1</span>')</span><br><span class="line"><span class="attribute">v2</span>=Int('v<span class="number">2</span>')</span><br><span class="line"><span class="attribute">v3</span>=Int('v<span class="number">3</span>')</span><br><span class="line"><span class="attribute">v4</span>=Int('v<span class="number">4</span>')</span><br><span class="line"><span class="attribute">v5</span>=Int('v<span class="number">5</span>')</span><br><span class="line"><span class="attribute">v6</span>=Int('v<span class="number">6</span>')</span><br><span class="line"><span class="attribute">v7</span>=Int('v<span class="number">7</span>')</span><br><span class="line"><span class="attribute">v8</span>=Int('v<span class="number">8</span>')</span><br><span class="line"><span class="attribute">v9</span>=Int('v<span class="number">9</span>')</span><br><span class="line"><span class="attribute">v11</span>=Int('v<span class="number">11</span>')</span><br><span class="line"></span><br><span class="line"><span class="attribute">s</span>.add(-<span class="number">85</span> * v<span class="number">9</span> + <span class="number">58</span> * v<span class="number">8</span> + <span class="number">97</span> * v<span class="number">6</span> + v<span class="number">7</span> + -<span class="number">45</span> * v<span class="number">5</span> + <span class="number">84</span> * v<span class="number">4</span> + <span class="number">95</span> * v<span class="number">2</span> - <span class="number">20</span> * v<span class="number">1</span> + <span class="number">12</span> * v<span class="number">3</span> == <span class="number">12613</span>)</span><br><span class="line"><span class="attribute">s</span>.add(-<span class="number">85</span> * v<span class="number">9</span> + <span class="number">58</span> * v<span class="number">8</span> + <span class="number">97</span> * v<span class="number">6</span> + v<span class="number">7</span> + -<span class="number">45</span> * v<span class="number">5</span> + <span class="number">84</span> * v<span class="number">4</span> + <span class="number">95</span> * v<span class="number">2</span> - <span class="number">20</span> * v<span class="number">1</span> + <span class="number">12</span> * v<span class="number">3</span> == <span class="number">12613</span>)</span><br><span class="line"><span class="attribute">s</span>.add(-<span class="number">103</span> * v<span class="number">11</span> + <span class="number">120</span> * v<span class="number">8</span> + <span class="number">108</span> * v<span class="number">7</span> + <span class="number">48</span> * v<span class="number">4</span> + -<span class="number">89</span> * v<span class="number">3</span> + <span class="number">78</span> * v<span class="number">1</span> - <span class="number">41</span> * v<span class="number">2</span> + <span class="number">31</span> * v<span class="number">5</span> - (v<span class="number">6</span> *<span class="number">64</span>) - <span class="number">120</span> * v<span class="number">9</span> == -<span class="number">10283</span>)</span><br><span class="line"><span class="attribute">s</span>.add(<span class="number">71</span> * v<span class="number">6</span> + (v<span class="number">7</span> *<span class="number">128</span>) + <span class="number">99</span> * v<span class="number">5</span> + -<span class="number">111</span> * v<span class="number">3</span> + <span class="number">85</span> * v<span class="number">1</span> + <span class="number">79</span> * v<span class="number">2</span> - <span class="number">30</span> * v<span class="number">4</span> - <span class="number">119</span> * v<span class="number">8</span> + <span class="number">48</span> * v<span class="number">9</span> - <span class="number">16</span> * v<span class="number">11</span> == <span class="number">22855</span>)</span><br><span class="line"><span class="attribute">s</span>.add(<span class="number">5</span> * v<span class="number">11</span> + <span class="number">23</span> * v<span class="number">9</span> + <span class="number">122</span> * v<span class="number">8</span> + -<span class="number">19</span> * v<span class="number">6</span> + <span class="number">99</span> * v<span class="number">7</span> + -<span class="number">117</span> * v<span class="number">5</span> + -<span class="number">69</span> * v<span class="number">3</span> + <span class="number">22</span> * v<span class="number">1</span> - <span class="number">98</span> * v<span class="number">2</span> + <span class="number">10</span> * v<span class="number">4</span> == -<span class="number">2944</span>)</span><br><span class="line"><span class="attribute">s</span>.add(-<span class="number">54</span> * v<span class="number">11</span> + -<span class="number">23</span> * v<span class="number">8</span> + -<span class="number">82</span> * v<span class="number">3</span> + -<span class="number">85</span> * v<span class="number">2</span> + <span class="number">124</span> * v<span class="number">1</span> - <span class="number">11</span> * v<span class="number">4</span> - <span class="number">8</span> * v<span class="number">5</span> - <span class="number">60</span> * v<span class="number">7</span> + <span class="number">95</span> * v<span class="number">6</span> + <span class="number">100</span> * v<span class="number">9</span> == -<span class="number">2222</span>)</span><br><span class="line"><span class="attribute">s</span>.add(-<span class="number">83</span> * v<span class="number">11</span> + -<span class="number">111</span> * v<span class="number">7</span> + -<span class="number">57</span> * v<span class="number">2</span> + <span class="number">41</span> * v<span class="number">1</span> + <span class="number">73</span> * v<span class="number">3</span> - <span class="number">18</span> * v<span class="number">4</span> + <span class="number">26</span> * v<span class="number">5</span> + <span class="number">16</span> * v<span class="number">6</span> + <span class="number">77</span> * v<span class="number">8</span> - <span class="number">63</span> * v<span class="number">9</span> == -<span class="number">13258</span>)</span><br><span class="line"><span class="attribute">s</span>.add(<span class="number">81</span> * v<span class="number">11</span> + -<span class="number">48</span> * v<span class="number">9</span> + <span class="number">66</span> * v<span class="number">8</span> + -<span class="number">104</span> * v<span class="number">6</span> + -<span class="number">121</span> * v<span class="number">7</span> + <span class="number">95</span> * v<span class="number">5</span> + <span class="number">85</span> * v<span class="number">4</span> + <span class="number">60</span> * v<span class="number">3</span> + -<span class="number">85</span> * v<span class="number">2</span> + <span class="number">80</span> * v<span class="number">1</span> == -<span class="number">1559</span>)</span><br><span class="line"><span class="attribute">s</span>.add(<span class="number">101</span> * v<span class="number">11</span> + -<span class="number">85</span> * v<span class="number">9</span> + <span class="number">7</span> * v<span class="number">6</span> + <span class="number">117</span> * v<span class="number">7</span> + -<span class="number">83</span> * v<span class="number">5</span> + -<span class="number">101</span> * v<span class="number">4</span> + <span class="number">90</span> * v<span class="number">3</span> + -<span class="number">28</span> * v<span class="number">1</span> + <span class="number">18</span> * v<span class="number">2</span> - v<span class="number">8</span> == <span class="number">6308</span>)</span><br><span class="line"><span class="attribute">s</span>.add(<span class="number">99</span> * v<span class="number">11</span> + -<span class="number">28</span> * v<span class="number">9</span> + <span class="number">5</span> * v<span class="number">8</span> + <span class="number">93</span> * v<span class="number">6</span> + -<span class="number">18</span> * v<span class="number">7</span> + -<span class="number">127</span> * v<span class="number">5</span> + <span class="number">6</span> * v<span class="number">4</span> + -<span class="number">9</span> * v<span class="number">3</span> + -<span class="number">93</span> * v<span class="number">1</span> + <span class="number">58</span> * v<span class="number">2</span> == -<span class="number">1697</span>)</span><br><span class="line"></span><br><span class="line"><span class="attribute">if</span> s.check()==sat:</span><br><span class="line">    <span class="attribute">result</span>=s.model()</span><br><span class="line"></span><br><span class="line"><span class="attribute">print</span>(result)</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p> 这里的移位操作不能被识别，需要手动转换。</p>
 <p> 其实这道题带了个简单的混淆</p>
- <pre class="language-none"><code class="language-none">unsigned __int64 __fastcall sub_C50(const char *a1, _BYTE *a2)
-{
-  size_t v4; // rax
-  unsigned int v5; // edx
-  int v6; // edi
-  int v7; // ecx
-  __int64 v8; // r8
-  __int128 *v9; // rsi
-  unsigned int v10; // ecx
-  int v11; // eax
-  int v12; // edi
-  int v13; // edx
-  int v14; // eax
-  _BYTE *v15; // rsi
-  _BYTE *v16; // rcx
-  _BYTE *v17; // r8
-  int *i; // rax
-  unsigned __int64 result; // rax
-  __int128 v20[2]; // [rsp+0h] [rbp-48h] BYREF
-  __int64 v21; // [rsp+20h] [rbp-28h]
-  unsigned __int64 v22; // [rsp+28h] [rbp-20h]
-
-  v22 = __readfsqword(0x28u);
-  v20[0] = 0LL;
-  v21 = 0LL;
-  v20[1] = 0LL;
-  v4 = strlen(a1);
-  v5 = 0;
-  v6 = 9;
-  while ( v5 &lt; v4 )
-  {
-    v7 = a1[v5++];
-    v6 ^= v7;
-  }
-  if ( v6 )
-  {
-    v8 = 0LL;
-    v9 = v20;
-    while ( 1 )
-    {
-      v9 = (__int128 *)((char *)v9 + 4);
-      v10 = v8 + 1;
-      v11 = v6 / 10;
-      v12 = v6 % 10;
-      *((_DWORD *)v9 - 1) = v12;
-      LOBYTE(v13) = v12;
-      v6 = v11;
-      if ( !v11 )
-        break;
-      v8 = v10;
-    }
-    v14 = v8 - 1;
-    v15 = a2;
-    v16 = &amp;a2[v10];
-    v17 = &amp;a2[v8];
-    for ( i = (int *)v20 + v14; ; --i )
-    {
-      *v15 = v13 + 48;
-      if ( v17 == v15 )
-        break;
-      v13 = *i;
-      ++v15;
-    }
-  }
-  else
-  {
-    v16 = a2;
-  }
-  result = __readfsqword(0x28u) ^ v22;
-  *v16 = 0;
-  return result;
-}
-</code></pre>
+ <figure class="highlight smali"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">unsigned __int64 __fastcall sub_C50(const char *a1, _BYTE *a2)</span><br><span class="line">{</span><br><span class="line">  size_t v4; // rax</span><br><span class="line">  unsigned<span class="built_in"> int </span>v5; // edx</span><br><span class="line"> <span class="built_in"> int </span>v6; // edi</span><br><span class="line"> <span class="built_in"> int </span>v7; // ecx</span><br><span class="line">  __int64 v8; // r8</span><br><span class="line">  __int128 *v9; // rsi</span><br><span class="line">  unsigned<span class="built_in"> int </span>v10; // ecx</span><br><span class="line"> <span class="built_in"> int </span>v11; // eax</span><br><span class="line"> <span class="built_in"> int </span>v12; // edi</span><br><span class="line"> <span class="built_in"> int </span>v13; // edx</span><br><span class="line"> <span class="built_in"> int </span>v14; // eax</span><br><span class="line">  _BYTE *v15; // rsi</span><br><span class="line">  _BYTE *v16; // rcx</span><br><span class="line">  _BYTE *v17; // r8</span><br><span class="line"> <span class="built_in"> int </span>*i; // rax</span><br><span class="line">  unsigned __int64 result; // rax</span><br><span class="line">  __int128 v20[2]; // [rsp+0h] [rbp-48h] BYREF</span><br><span class="line">  __int64 v21; // [rsp+20h] [rbp-28h]</span><br><span class="line">  unsigned __int64 v22; // [rsp+28h] [rbp-20h]</span><br><span class="line"></span><br><span class="line">  v22 = __readfsqword(0x28u);</span><br><span class="line">  v20[0] = 0<span class="class">LL;</span></span><br><span class="line">  v21 = 0<span class="class">LL;</span></span><br><span class="line">  v20[1] = 0<span class="class">LL;</span></span><br><span class="line">  v4 = strlen(a1);</span><br><span class="line">  v5 = 0;</span><br><span class="line">  v6 = 9;</span><br><span class="line">  while ( v5 &lt; v4 )</span><br><span class="line">  {</span><br><span class="line">    v7 = a1[v5++];</span><br><span class="line">    v6 ^= v7;</span><br><span class="line">  }</span><br><span class="line"> <span class="built_in"> if </span>( v6 )</span><br><span class="line">  {</span><br><span class="line">    v8 = 0<span class="class">LL;</span></span><br><span class="line">    v9 = v20;</span><br><span class="line">    while ( 1 )</span><br><span class="line">    {</span><br><span class="line">      v9 = (__int128 *)((char *)v9 + 4);</span><br><span class="line">      v10 = v8 + 1;</span><br><span class="line">      v11 = v6 / 10;</span><br><span class="line">      v12 = v6 % 10;</span><br><span class="line">      *((_DWORD *)v9 - 1) = v12;</span><br><span class="line">      LOBYTE(v13) = v12;</span><br><span class="line">      v6 = v11;</span><br><span class="line">     <span class="built_in"> if </span>( !v11 )</span><br><span class="line">        break;</span><br><span class="line">      v8 = v10;</span><br><span class="line">    }</span><br><span class="line">    v14 = v8 - 1;</span><br><span class="line">    v15 = a2;</span><br><span class="line">    v16 = &amp;a2[v10];</span><br><span class="line">    v17 = &amp;a2[v8];</span><br><span class="line">    for ( i = (int *)v20 + v14; ; --i )</span><br><span class="line">    {</span><br><span class="line">      *v15 = v13 + 48;</span><br><span class="line">     <span class="built_in"> if </span>( v17 == v15 )</span><br><span class="line">        break;</span><br><span class="line">      v13 = *i;</span><br><span class="line">      ++v15;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  else</span><br><span class="line">  {</span><br><span class="line">    v16 = a2;</span><br><span class="line">  }</span><br><span class="line">  result = __readfsqword(0x28u) ^ v22;</span><br><span class="line">  *v16 = 0;</span><br><span class="line"> <span class="built_in"> return </span>result;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p> 这里面的函数没有对输入进行处理，所以不用管</p>
 </li>
 </ol>
 <h1 id="修改二进制文件汇编指令"><a href="#修改二进制文件汇编指令" class="headerlink" title="修改二进制文件汇编指令"></a>修改二进制文件汇编指令</h1><p>1.题目——Overlong</p>
 <p>运行程序，得到</p>
-<pre class="language-none"><code class="language-none">I never broke the encoding：
-</code></pre>
+<figure class="highlight css"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">I</span> never broke the encoding：</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
-<pre class="language-none"><code class="language-none">int __stdcall start(int a1, int a2, int a3, int a4)
-{
-  CHAR Text[128]; // [esp+0h] [ebp-84h] BYREF
-  int v6; // [esp+80h] [ebp-4h]
-
-  v6 = sub_401160(Text, &amp;unk_402008, 28);
-  Text[v6] = 0;
-  MessageBoxA(0, Text, Caption, 0);
-  return 0;
-}
-</code></pre>
+<figure class="highlight pgsql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> __stdcall <span class="keyword">start</span>(<span class="type">int</span> a1, <span class="type">int</span> a2, <span class="type">int</span> a3, <span class="type">int</span> a4)</span><br><span class="line">{</span><br><span class="line">  <span class="type">CHAR</span> <span class="type">Text</span>[<span class="number">128</span>]; // [esp+<span class="number">0</span>h] [ebp<span class="number">-84</span>h] BYREF</span><br><span class="line">  <span class="type">int</span> v6; // [esp+<span class="number">80</span>h] [ebp<span class="number">-4</span>h]</span><br><span class="line"></span><br><span class="line">  v6 = sub_401160(<span class="type">Text</span>, &amp;unk_402008, <span class="number">28</span>);</span><br><span class="line">  <span class="type">Text</span>[v6] = <span class="number">0</span>;</span><br><span class="line">  MessageBoxA(<span class="number">0</span>, <span class="type">Text</span>, Caption, <span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里只取出了TEXT的前28位，而程序运行后的输出长度正好是28，加上题目overlong提示和：结尾，猜测部分长度没显示</p>
 <p>所以需要修改二进制文件汇编指令</p>
-<pre class="language-none"><code class="language-none">.text:004011C0                 push    ebp
-.text:004011C1                 mov     ebp, esp
-.text:004011C3                 sub     esp, 84h
-.text:004011C9                 push    1Ch
-.text:004011CB                 push    offset unk_402008
-.text:004011D0                 lea     eax, [ebp+Text]
-</code></pre>
+<figure class="highlight x86asm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">.text:</span>004011C0                 <span class="keyword">push</span>    <span class="built_in">ebp</span></span><br><span class="line"><span class="symbol">.text:</span>004011C1                 <span class="keyword">mov</span>     <span class="built_in">ebp</span>, <span class="built_in">esp</span></span><br><span class="line"><span class="symbol">.text:</span>004011C3                 <span class="keyword">sub</span>     <span class="built_in">esp</span>, <span class="number">84h</span></span><br><span class="line"><span class="symbol">.text:</span>004011C9                 <span class="keyword">push</span>    <span class="number">1Ch</span></span><br><span class="line"><span class="symbol">.text:</span>004011CB                 <span class="keyword">push</span>    offset unk_402008</span><br><span class="line"><span class="symbol">.text:</span>004011D0                 <span class="keyword">lea</span>     <span class="built_in">eax</span>, [<span class="built_in">ebp</span>+Text]</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>1c对应28，所以需要将1c改大</p>
 <p>1、ida修改–&gt; 点击菜单项“Edit”–“Patch program”–“Assemble” –&gt; 点击菜单项“Edit”–“Patch program”–“Apply patches to input file”，在弹出的对话框中点击OK按钮，则成功完成指令修改。</p>
@@ -607,385 +355,48 @@ print(result)
 <p>2、OD修改–&gt;根据汇编指令定位–&gt;右键–&gt;二进制–&gt;编辑 ,其他的可以直接修改指令，但是这里修改之后后面的汇编代码全变了，虽然不知道为啥。</p>
 <p>3、winhex修改–&gt;定位——先去ida的patch byte找到push 1c对应6A 1C 68 08 20 40 00 8D 85 7C FF FF FF 50 E8 84–&gt;去winhex修改1c，然后重新保存运行</p>
 <h1 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h1><p>1、题目——Signin</p>
-<pre class="language-none"><code class="language-none">__int64 __fastcall main(int a1, char **a2, char **a3)
-{
-  char v4[16]; // [rsp+0h] [rbp-4A0h] BYREF
-  char v5[16]; // [rsp+10h] [rbp-490h] BYREF
-  char v6[16]; // [rsp+20h] [rbp-480h] BYREF
-  char v7[16]; // [rsp+30h] [rbp-470h] BYREF
-  char v8[112]; // [rsp+40h] [rbp-460h] BYREF
-  char v9[1000]; // [rsp+B0h] [rbp-3F0h] BYREF
-  unsigned __int64 v10; // [rsp+498h] [rbp-8h]
-
-  v10 = __readfsqword(0x28u);
-  puts("[sign in]");
-  printf("[input your flag]: ");
-  __isoc99_scanf("%99s", v8);
-  sub_96A(v8, v9);//加密函数直接linux远调就可以知道是转十六进制数；
-  __gmpz_init_set_str(v7, "ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35", 16LL);//十六进制
-  __gmpz_init_set_str(v6, v9, 16LL);
-  __gmpz_init_set_str(v4, "103461035900816914121390101299049044413950405173712170434161686539878160984549", 10LL);//十进制
-  __gmpz_init_set_str(v5, "65537", 10LL);
-  __gmpz_powm(v6, v6, v5, v4);
-  if ( (unsigned int)__gmpz_cmp(v6, v7) )
-    puts("GG!");
-  else
-    puts("TTTTTTTTTTql!");
-  return 0LL;
-}
-</code></pre>
+<figure class="highlight reasonml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall main(<span class="built_in">int</span> a1, <span class="built_in">char</span> **a2, <span class="built_in">char</span> **a3)</span><br><span class="line">{</span><br><span class="line">  <span class="built_in">char</span> v4<span class="literal">[<span class="number">16</span>]</span>; <span class="comment">// [rsp+0h] [rbp-4A0h] BYREF</span></span><br><span class="line">  <span class="built_in">char</span> v5<span class="literal">[<span class="number">16</span>]</span>; <span class="comment">// [rsp+10h] [rbp-490h] BYREF</span></span><br><span class="line">  <span class="built_in">char</span> v6<span class="literal">[<span class="number">16</span>]</span>; <span class="comment">// [rsp+20h] [rbp-480h] BYREF</span></span><br><span class="line">  <span class="built_in">char</span> v7<span class="literal">[<span class="number">16</span>]</span>; <span class="comment">// [rsp+30h] [rbp-470h] BYREF</span></span><br><span class="line">  <span class="built_in">char</span> v8<span class="literal">[<span class="number">112</span>]</span>; <span class="comment">// [rsp+40h] [rbp-460h] BYREF</span></span><br><span class="line">  <span class="built_in">char</span> v9<span class="literal">[<span class="number">1000</span>]</span>; <span class="comment">// [rsp+B0h] [rbp-3F0h] BYREF</span></span><br><span class="line">  unsigned __int64 v10; <span class="comment">// [rsp+498h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v10 = <span class="constructor">__readfsqword(0x28u)</span>;</span><br><span class="line">  puts(<span class="string">"[sign in]"</span>);</span><br><span class="line">  printf(<span class="string">"[input your flag]: "</span>);</span><br><span class="line">  <span class="constructor">__isoc99_scanf(<span class="string">"%99s"</span>, <span class="params">v8</span>)</span>;</span><br><span class="line">  sub<span class="constructor">_96A(<span class="params">v8</span>, <span class="params">v9</span>)</span>;<span class="comment">//加密函数直接linux远调就可以知道是转十六进制数；</span></span><br><span class="line">  <span class="constructor">__gmpz_init_set_str(<span class="params">v7</span>, <span class="string">"ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35"</span>, 16LL)</span>;<span class="comment">//十六进制</span></span><br><span class="line">  <span class="constructor">__gmpz_init_set_str(<span class="params">v6</span>, <span class="params">v9</span>, 16LL)</span>;</span><br><span class="line">  <span class="constructor">__gmpz_init_set_str(<span class="params">v4</span>, <span class="string">"103461035900816914121390101299049044413950405173712170434161686539878160984549"</span>, 10LL)</span>;<span class="comment">//十进制</span></span><br><span class="line">  <span class="constructor">__gmpz_init_set_str(<span class="params">v5</span>, <span class="string">"65537"</span>, 10LL)</span>;</span><br><span class="line">  <span class="constructor">__gmpz_powm(<span class="params">v6</span>, <span class="params">v6</span>, <span class="params">v5</span>, <span class="params">v4</span>)</span>;</span><br><span class="line">  <span class="keyword">if</span> ( (unsigned <span class="built_in">int</span>)<span class="constructor">__gmpz_cmp(<span class="params">v6</span>, <span class="params">v7</span>)</span> )</span><br><span class="line">    puts(<span class="string">"GG!"</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    puts(<span class="string">"TTTTTTTTTTql!"</span>);</span><br><span class="line">  return <span class="number">0L</span>L;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>看到65537，加上查了__gmpz_powm()函数，也相当于__mpz_powm()函数，可以判断这是rsa加密</p>
-<pre class="language-none"><code class="language-none">void mpz_powm (mpz_t rop, const mpz_t base, const mpz_t exp, const mpz_t mod) [Function]
-Set rop to base^exp mod mod.
-</code></pre>
+<figure class="highlight monkey"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void mpz_powm (mpz_t rop, <span class="keyword">const</span> mpz_t base, <span class="keyword">const</span> mpz_t <span class="built_in">exp</span>, <span class="keyword">const</span> mpz_t <span class="literal">mod</span>) [<span class="function"><span class="keyword">Function</span>]</span></span><br><span class="line">Set rop <span class="keyword">to</span> base^<span class="built_in">exp</span> <span class="literal">mod</span> <span class="literal">mod</span>.</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p> 其实就是计算 base 的 exp 次方，并对 mod 取模，最后将结果写入 rop 中 </p>
 <p>剩下的就是解出p、q，然后写脚本了</p>
-<pre class="language-none"><code class="language-none">C=M^E mod N
-C是密文，M是明文，E是公钥（E和 φ(N)互为质数），N是公共模数（质数 P 、Q相乘得到N），MOD就是模运算
-M=C^D mod N
-
-求D：E * D % φ(N) = 1
-    φ(N) = (P-1)(Q-1)
-   
-</code></pre>
+<figure class="highlight mathematica"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">C</span><span class="operator">=</span><span class="variable">M</span><span class="operator">^</span><span class="built_in">E</span> <span class="variable">mod</span> <span class="built_in">N</span></span><br><span class="line"><span class="built_in">C</span>是密文，<span class="variable">M</span>是明文，<span class="built_in">E</span>是公钥（<span class="built_in">E</span>和 φ<span class="punctuation">(</span><span class="built_in">N</span><span class="punctuation">)</span>互为质数），<span class="built_in">N</span>是公共模数（质数 <span class="variable">P</span> 、<span class="variable">Q</span>相乘得到<span class="built_in">N</span>），<span class="variable">MOD</span>就是模运算</span><br><span class="line"><span class="variable">M</span><span class="operator">=</span><span class="built_in">C</span><span class="operator">^</span><span class="built_in">D</span> <span class="variable">mod</span> <span class="built_in">N</span></span><br><span class="line"></span><br><span class="line">求<span class="built_in">D</span>：<span class="built_in">E</span> <span class="operator">*</span> <span class="built_in">D</span> <span class="operator">%</span> φ<span class="punctuation">(</span><span class="built_in">N</span><span class="punctuation">)</span> <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">    φ<span class="punctuation">(</span><span class="built_in">N</span><span class="punctuation">)</span> <span class="operator">=</span> <span class="punctuation">(</span><span class="variable">P</span><span class="operator">-</span><span class="number">1</span><span class="punctuation">)</span><span class="punctuation">(</span><span class="variable">Q</span><span class="operator">-</span><span class="number">1</span><span class="punctuation">)</span></span><br><span class="line">   </span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>2、rsa</p>
 <p>题目给出了公钥和flag.enc文件</p>
-<pre class="language-none"><code class="language-none">(N,e)是公钥， (N, d)是私钥
-</code></pre>
+<figure class="highlight excel"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">N</span>,e)是公钥， (<span class="built_in">N</span>, d)是私钥</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>公钥和密钥生成</p>
-<pre class="language-none"><code class="language-none">4.1 求N
-我们准备两个很小对质数，
-p ＝ 17
-q ＝ 19
-N ＝ p ＊ q ＝ 323
-
-4.2 求L
-L ＝ lcm（p－1， q－1）＝ lcm(16，18） ＝ 144
-144为16和18对最小公倍数
-
-4.3 求E
-求E必须要满足2个条件：1 &lt; E &lt; L ，gcd（E，L）=1
-即1 &lt; E &lt; 144，gcd（E，144） ＝ 1 #gcd，最大公因数
-E和144互为质数，5显然满足上述2个条件
-故E ＝ 5        此时公钥=(E，N）＝ （5，323）
-
-4.4 求D
-求D也必须满足2个条件：1 &lt; D &lt; L，E＊D mod L ＝ 1
-即1 &lt; D &lt; 144，5 ＊ D mod 144 ＝ 1
-显然当D＝ 29 时满足上述两个条件
-1 &lt; 29 &lt; 144
-5＊29 mod 144 ＝ 145 mod 144 ＝ 1
-此时私钥＝（D，N）＝（29，323）
-</code></pre>
+<figure class="highlight mathematica"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4.1</span> 求<span class="built_in">N</span></span><br><span class="line">我们准备两个很小对质数，</span><br><span class="line"><span class="variable">p</span> ＝ <span class="number">17</span></span><br><span class="line"><span class="variable">q</span> ＝ <span class="number">19</span></span><br><span class="line"><span class="built_in">N</span> ＝ <span class="variable">p</span> ＊ <span class="variable">q</span> ＝ <span class="number">323</span></span><br><span class="line"></span><br><span class="line"><span class="number">4.2</span> 求<span class="variable">L</span></span><br><span class="line"><span class="variable">L</span> ＝ <span class="variable">lcm</span>（<span class="variable">p</span>－<span class="number">1</span>， <span class="variable">q</span>－<span class="number">1</span>）＝ <span class="variable">lcm</span><span class="punctuation">(</span><span class="number">16</span>，<span class="number">18</span>） ＝ <span class="number">144</span></span><br><span class="line"><span class="number">144</span>为<span class="number">16</span>和<span class="number">18</span>对最小公倍数</span><br><span class="line"></span><br><span class="line"><span class="number">4.3</span> 求<span class="built_in">E</span></span><br><span class="line">求<span class="built_in">E</span>必须要满足<span class="number">2</span>个条件：<span class="number">1</span> <span class="operator">&lt;</span> <span class="built_in">E</span> <span class="operator">&lt;</span> <span class="variable">L</span> ，<span class="variable">gcd</span>（<span class="built_in">E</span>，<span class="variable">L</span>）<span class="operator">=</span><span class="number">1</span></span><br><span class="line">即<span class="number">1</span> <span class="operator">&lt;</span> <span class="built_in">E</span> <span class="operator">&lt;</span> <span class="number">144</span>，<span class="variable">gcd</span>（<span class="built_in">E</span>，<span class="number">144</span>） ＝ <span class="number">1</span> <span class="type">#gcd</span>，最大公因数</span><br><span class="line"><span class="built_in">E</span>和<span class="number">144</span>互为质数，<span class="number">5</span>显然满足上述<span class="number">2</span>个条件</span><br><span class="line">故<span class="built_in">E</span> ＝ <span class="number">5</span>        此时公钥<span class="operator">=</span><span class="punctuation">(</span><span class="built_in">E</span>，<span class="built_in">N</span>）＝ （<span class="number">5</span>，<span class="number">323</span>）</span><br><span class="line"></span><br><span class="line"><span class="number">4.4</span> 求<span class="built_in">D</span></span><br><span class="line">求<span class="built_in">D</span>也必须满足<span class="number">2</span>个条件：<span class="number">1</span> <span class="operator">&lt;</span> <span class="built_in">D</span> <span class="operator">&lt;</span> <span class="variable">L</span>，<span class="built_in">E</span>＊<span class="built_in">D</span> <span class="variable">mod</span> <span class="variable">L</span> ＝ <span class="number">1</span></span><br><span class="line">即<span class="number">1</span> <span class="operator">&lt;</span> <span class="built_in">D</span> <span class="operator">&lt;</span> <span class="number">144</span>，<span class="number">5</span> ＊ <span class="built_in">D</span> <span class="variable">mod</span> <span class="number">144</span> ＝ <span class="number">1</span></span><br><span class="line">显然当<span class="built_in">D</span>＝ <span class="number">29</span> 时满足上述两个条件</span><br><span class="line"><span class="number">1</span> <span class="operator">&lt;</span> <span class="number">29</span> <span class="operator">&lt;</span> <span class="number">144</span></span><br><span class="line"><span class="number">5</span>＊<span class="number">29</span> <span class="variable">mod</span> <span class="number">144</span> ＝ <span class="number">145</span> <span class="variable">mod</span> <span class="number">144</span> ＝ <span class="number">1</span></span><br><span class="line">此时私钥＝（<span class="built_in">D</span>，<span class="built_in">N</span>）＝（<span class="number">29</span>，<span class="number">323</span>）</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>私钥和公钥都可以拿去解析</p>
 <p>这里解析得到</p>
-<pre class="language-none"><code class="language-none">e = 65537
-n=86934482296048119190666062003494800588905656017203025617216654058378322103517(n拿去分解)
-p = 285960468890451637935629440372639283459
-q = 304008741604601924494328155975272418463
-</code></pre>
+<figure class="highlight ini"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">e</span> = <span class="number">65537</span></span><br><span class="line"><span class="attr">n</span>=<span class="number">86934482296048119190666062003494800588905656017203025617216654058378322103517</span>(n拿去分解)</span><br><span class="line"><span class="attr">p</span> = <span class="number">285960468890451637935629440372639283459</span></span><br><span class="line"><span class="attr">q</span> = <span class="number">304008741604601924494328155975272418463</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>从文件读取公钥或者私钥</p>
-<pre class="language-none"><code class="language-none">with open('private.pem', mode='rb') as privatefile:
-	keydata = privatefile.read()#rb 是以二进制形式打开文件
-privkey = rsa.PrivateKey.load_pkcs1(keydata)
-</code></pre>
+<figure class="highlight reasonml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> <span class="keyword">open</span>('<span class="keyword">private</span>.pem', mode='rb') <span class="keyword">as</span> privatefile:</span><br><span class="line">	keydata = privatefile.read<span class="literal">()</span>#rb 是以二进制形式打开文件</span><br><span class="line">privkey = rsa.<span class="module-access"><span class="module"><span class="identifier">PrivateKey</span>.</span></span>load<span class="constructor">_pkcs1(<span class="params">keydata</span>)</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
-<pre class="language-none"><code class="language-none">import gmpy2 
-import rsa 
- 
-e = 65537
-n = 86934482296048119190666062003494800588905656017203025617216654058378322103517
-p = 285960468890451637935629440372639283459
-q = 304008741604601924494328155975272418463
-
-phin = (q-1)*(p-1)
-
-d = gmpy2.invert(e, phin)
-
-key = rsa.PrivateKey(n, e, int(d), p, q)#生成私钥
-
-with open("D:\\new\\题目\\output\\flag.enc", "rb+") as f:
-    f = f.read()
-    print(rsa.decrypt(f, key))
-
-</code></pre>
+<figure class="highlight nix"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">import</span> gmpy2 </span><br><span class="line"><span class="built_in">import</span> rsa </span><br><span class="line"> </span><br><span class="line"><span class="attr">e</span> = <span class="number">65537</span></span><br><span class="line"><span class="attr">n</span> = <span class="number">86934482296048119190666062003494800588905656017203025617216654058378322103517</span></span><br><span class="line"><span class="attr">p</span> = <span class="number">285960468890451637935629440372639283459</span></span><br><span class="line"><span class="attr">q</span> = <span class="number">304008741604601924494328155975272418463</span></span><br><span class="line"></span><br><span class="line"><span class="attr">phin</span> = (q-<span class="number">1</span>)*(p-<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="attr">d</span> = gmpy2.invert(e, phin)</span><br><span class="line"></span><br><span class="line"><span class="attr">key</span> = rsa.PrivateKey(n, e, int(d), p, q)<span class="comment">#生成私钥</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">"D:\\new\\题目\\output\\flag.enc"</span>, <span class="string">"rb+"</span>) as f:</span><br><span class="line">    <span class="attr">f</span> = f.read()</span><br><span class="line">    print(rsa.decrypt(f, key))</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="Maze"><a href="#Maze" class="headerlink" title="Maze"></a>Maze</h1><p>Maze题一般都需要找到入口、出口还有移动方向</p>
 <p>题目——unctf20201—easymaze</p>
-<pre class="language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  __int64 *v3; // rax
-  char *v4; // rdi
-  unsigned __int64 v5; // rbx
-  const char *v6; // rdx
-  int v7; // eax
-  int v8; // er9
-  int v9; // er8
-  int v10; // edx
-  char v11; // cl
-  int v12; // ecx
-  int v13; // ecx
-  __int64 *v14; // rax
-
-  sub_1400011A0(argc, argv, envp);
-  dword_140006790[0] = 1;#把鼠标放上去显示int型
-  dword_140006794 = 1;
-  dword_1400067B4 = 1;
-  dword_1400067CC = 1;
-  dword_1400067EC = 1;
-  dword_1400067F0 = 1;
-  dword_1400067D4 = 1;
-  dword_1400067D8 = 1;
-  dword_1400067F8 = 1;
-  dword_140006810 = 1;
-  dword_14000682C = 1;
-  dword_140006844 = 1;
-  dword_140006840 = 1;
-  dword_140006864 = 1;
-  dword_140006868 = 1;
-  dword_140006884 = 1;
-  dword_1400068A0 = 1;
-  dword_1400068BC = 1;
-  dword_1400068DC = 1;
-  dword_14000689C = 1;
-  v3 = sub_140001800(std::cout, (__int64)"Plz inpu7 the P4th :");
-  std::ostream::operator&lt;&lt;(v3, sub_1400019D0);
-  v4 = input;
-  v5 = -1i64;
-  sub_140001AA0(std::cin, -1i64, input);
-  do
-    ++v5;
-  while ( input[v5] );
-  if ( v5 &gt; 0x11 )
-  {
-    v6 = "to0 lon9!t0o long!";
-    goto LABEL_26;
-  }
-  if ( v5 &lt; 0x11 )
-  {
-    v6 = (const char *)&amp;unk_140003770;
-    goto LABEL_26;
-  }
-  v7 = dword_140006710;
-  v8 = 0;
-  v9 = dword_140006714;
-  v10 = dword_140006710;
-  do
-  {
-    v11 = *v4;
-    if ( *v4 == 'A' )
-      goto LABEL_21;
-    if ( v11 == 'W' )
-    {
-      ++v10;
-      v12 = v7 % 2;
-      ++v7;
-      goto LABEL_20;
-    }
-    if ( v11 == 'E' )
-    {
-      ++v10;
-      v13 = v7 % 2;
-      ++v7;
-LABEL_16:
-      dword_140006710 = v7;
-      if ( v13 )
-        goto LABEL_23;
-      goto LABEL_17;
-    }
-    if ( v11 != 'D' )
-    {
-      if ( v11 != 'X' )
-      {
-        if ( v11 != 'Z' )
-        {
-          v6 = "What the fuck did you give me?";
-          goto LABEL_26;
-        }
-        --v10;
-        v12 = v7 % 2;
-        --v7;
-LABEL_20:
-        dword_140006710 = v7;
-        if ( !v12 )
-          goto LABEL_23;
-LABEL_21:
-        --v9;
-        goto LABEL_22;
-      }
-      --v10;
-      v13 = v7 % 2;
-      --v7;
-      goto LABEL_16;
-    }
-LABEL_17:
-    ++v9;
-LABEL_22:
-    dword_140006714 = v9;
-LABEL_23:
-    ++v8;
-    ++v4;
-  }
-  while ( v8 &lt; v5 );
-  v6 = "Congratulations on this forced to get the right flag, you entered is the correct answer!";
-  
-  if ( dword_140006790[7 * v7 + v9] != 1 )
-    
-    v6 = "Try it again little unlucky!";
-LABEL_26:
-  v14 = sub_140001800(std::cout, (__int64)v6);
-  std::ostream::operator&lt;&lt;(v14, sub_1400019D0);
-  return 0;
-}
-</code></pre>
+<figure class="highlight smali"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">int __cdecl main(int argc,<span class="built_in"> const </span>char **argv,<span class="built_in"> const </span>char **envp)</span><br><span class="line">{</span><br><span class="line">  __int64 *v3; // rax</span><br><span class="line">  char *v4; // rdi</span><br><span class="line">  unsigned __int64 v5; // rbx</span><br><span class="line"> <span class="built_in"> const </span>char *v6; // rdx</span><br><span class="line"> <span class="built_in"> int </span>v7; // eax</span><br><span class="line"> <span class="built_in"> int </span>v8; // er9</span><br><span class="line"> <span class="built_in"> int </span>v9; // er8</span><br><span class="line"> <span class="built_in"> int </span>v10; // edx</span><br><span class="line">  char v11; // cl</span><br><span class="line"> <span class="built_in"> int </span>v12; // ecx</span><br><span class="line"> <span class="built_in"> int </span>v13; // ecx</span><br><span class="line">  __int64 *v14; // rax</span><br><span class="line"></span><br><span class="line">  sub_1400011A0(argc, argv, envp);</span><br><span class="line">  dword_140006790[0] = 1;<span class="comment">#把鼠标放上去显示int型</span></span><br><span class="line">  dword_140006794 = 1;</span><br><span class="line">  dword_1400067B4 = 1;</span><br><span class="line">  dword_1400067CC = 1;</span><br><span class="line">  dword_1400067EC = 1;</span><br><span class="line">  dword_1400067F0 = 1;</span><br><span class="line">  dword_1400067D4 = 1;</span><br><span class="line">  dword_1400067D8 = 1;</span><br><span class="line">  dword_1400067F8 = 1;</span><br><span class="line">  dword_140006810 = 1;</span><br><span class="line">  dword_14000682C = 1;</span><br><span class="line">  dword_140006844 = 1;</span><br><span class="line">  dword_140006840 = 1;</span><br><span class="line">  dword_140006864 = 1;</span><br><span class="line">  dword_140006868 = 1;</span><br><span class="line">  dword_140006884 = 1;</span><br><span class="line">  dword_1400068A0 = 1;</span><br><span class="line">  dword_1400068BC = 1;</span><br><span class="line">  dword_1400068DC = 1;</span><br><span class="line">  dword_14000689C = 1;</span><br><span class="line">  v3 = sub_140001800(std::cout, (__int64)<span class="string">"Plz inpu7 the P4th :"</span>);</span><br><span class="line">  std::ostream::operator&lt;&lt;(v3, sub_1400019D0);</span><br><span class="line">  v4 = input;</span><br><span class="line">  v5 = -1i64;</span><br><span class="line">  sub_140001AA0(std::cin, -1i64, input);</span><br><span class="line">  do</span><br><span class="line">    ++v5;</span><br><span class="line">  while ( input[v5] );</span><br><span class="line"> <span class="built_in"> if </span>( v5 &gt; 0x11 )</span><br><span class="line">  {</span><br><span class="line">    v6 = <span class="string">"to0 lon9!t0o long!"</span>;</span><br><span class="line">   <span class="built_in"> goto </span><span class="class">LABEL_26;</span></span><br><span class="line">  }</span><br><span class="line"> <span class="built_in"> if </span>( v5 &lt; 0x11 )</span><br><span class="line">  {</span><br><span class="line">    v6 = (const char *)&amp;unk_140003770;</span><br><span class="line">   <span class="built_in"> goto </span><span class="class">LABEL_26;</span></span><br><span class="line">  }</span><br><span class="line">  v7 = dword_140006710;</span><br><span class="line">  v8 = 0;</span><br><span class="line">  v9 = dword_140006714;</span><br><span class="line">  v10 = dword_140006710;</span><br><span class="line">  do</span><br><span class="line">  {</span><br><span class="line">    v11 = *v4;</span><br><span class="line">   <span class="built_in"> if </span>( *v4 == 'A' )</span><br><span class="line">     <span class="built_in"> goto </span><span class="class">LABEL_21;</span></span><br><span class="line">   <span class="built_in"> if </span>( v11 == 'W' )</span><br><span class="line">    {</span><br><span class="line">      ++v10;</span><br><span class="line">      v12 = v7 % 2;</span><br><span class="line">      ++v7;</span><br><span class="line">     <span class="built_in"> goto </span><span class="class">LABEL_20;</span></span><br><span class="line">    }</span><br><span class="line">   <span class="built_in"> if </span>( v11 == 'E' )</span><br><span class="line">    {</span><br><span class="line">      ++v10;</span><br><span class="line">      v13 = v7 % 2;</span><br><span class="line">      ++v7;</span><br><span class="line">LABEL_16:</span><br><span class="line">      dword_140006710 = v7;</span><br><span class="line">     <span class="built_in"> if </span>( v13 )</span><br><span class="line">       <span class="built_in"> goto </span><span class="class">LABEL_23;</span></span><br><span class="line">     <span class="built_in"> goto </span><span class="class">LABEL_17;</span></span><br><span class="line">    }</span><br><span class="line">   <span class="built_in"> if </span>( v11 != 'D' )</span><br><span class="line">    {</span><br><span class="line">     <span class="built_in"> if </span>( v11 != 'X' )</span><br><span class="line">      {</span><br><span class="line">       <span class="built_in"> if </span>( v11 != 'Z' )</span><br><span class="line">        {</span><br><span class="line">          v6 = <span class="string">"What the fuck did you give me?"</span>;</span><br><span class="line">         <span class="built_in"> goto </span><span class="class">LABEL_26;</span></span><br><span class="line">        }</span><br><span class="line">        --v10;</span><br><span class="line">        v12 = v7 % 2;</span><br><span class="line">        --v7;</span><br><span class="line">LABEL_20:</span><br><span class="line">        dword_140006710 = v7;</span><br><span class="line">       <span class="built_in"> if </span>( !v12 )</span><br><span class="line">         <span class="built_in"> goto </span><span class="class">LABEL_23;</span></span><br><span class="line">LABEL_21:</span><br><span class="line">        --v9;</span><br><span class="line">       <span class="built_in"> goto </span><span class="class">LABEL_22;</span></span><br><span class="line">      }</span><br><span class="line">      --v10;</span><br><span class="line">      v13 = v7 % 2;</span><br><span class="line">      --v7;</span><br><span class="line">     <span class="built_in"> goto </span><span class="class">LABEL_16;</span></span><br><span class="line">    }</span><br><span class="line">LABEL_17:</span><br><span class="line">    ++v9;</span><br><span class="line">LABEL_22:</span><br><span class="line">    dword_140006714 = v9;</span><br><span class="line">LABEL_23:</span><br><span class="line">    ++v8;</span><br><span class="line">    ++v4;</span><br><span class="line">  }</span><br><span class="line">  while ( v8 &lt; v5 );</span><br><span class="line">  v6 = <span class="string">"Congratulations on this forced to get the right flag, you entered is the correct answer!"</span>;</span><br><span class="line">  </span><br><span class="line"> <span class="built_in"> if </span>( dword_140006790[7 * v7 + v9] != 1 )</span><br><span class="line">    </span><br><span class="line">    v6 = <span class="string">"Try it again little unlucky!"</span>;</span><br><span class="line">LABEL_26:</span><br><span class="line">  v14 = sub_140001800(std::cout, (__int64)v6);</span><br><span class="line">  std::ostream::operator&lt;&lt;(v14, sub_1400019D0);</span><br><span class="line"> <span class="built_in"> return </span>0;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>动调就可以把AWEDXZ的移动弄出来</p>
 <p>在ida里面dd表示四个字节，db表示一个字节</p>
-<pre class="language-none"><code class="language-none">data:00007FF673BF6794 dword_7FF673BF6794 dd 0                 ; DATA XREF: main+27↑w
-.data:00007FF673BF6798 dd 0
-.data:00007FF673BF679C db    0
-.data:00007FF673BF679D db    0
-.data:00007FF673BF679E db    0
-.data:00007FF673BF679F db    0
-.data:00007FF673BF67A0 db    0
-.data:00007FF673BF67A1 db    0
-.data:00007FF673BF67A2 db    0
-.data:00007FF673BF67A3 db    0
-.data:00007FF673BF67A4 db    0
-.data:00007FF673BF67A5 db    0
-.data:00007FF673BF67A6 db    0
-.data:00007FF673BF67A7 db    0
-</code></pre>
+<figure class="highlight haskell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">data</span>:00007FF673BF6794 dword_7FF673BF6794 dd 0                 ; <span class="type">DATA</span> <span class="type">XREF</span>: main+27↑w</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF6798 dd 0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF679C db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF679D db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF679E db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF679F db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A0 db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A1 db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A2 db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A3 db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A4 db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A5 db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A6 db    0</span></span><br><span class="line">.<span class="class"><span class="keyword">data</span>:00007FF673BF67A7 db    0</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>要对着db按D转换数据类型，全部转为int型</p>
 <h1 id="base64变表"><a href="#base64变表" class="headerlink" title="base64变表"></a>base64变表</h1><p>1、base64变表实际上就是将base64编码表进行了修改</p>
 <p>2、题目——nctf2021 shadowbringer</p>
-<pre class="language-none"><code class="language-none">int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  char v4[16]; // [rsp+20h] [rbp-60h] BYREF
-  char v5[15]; // [rsp+30h] [rbp-50h] BYREF
-  char v6; // [rsp+3Fh] [rbp-41h] BYREF
-  char v7[16]; // [rsp+40h] [rbp-40h] BYREF
-  char v8[16]; // [rsp+50h] [rbp-30h] BYREF
-  char v9[16]; // [rsp+60h] [rbp-20h] BYREF
-  char v10[32]; // [rsp+70h] [rbp-10h] BYREF
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">char</span> v4[<span class="number">16</span>]; <span class="comment">// [rsp+20h] [rbp-60h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v5[<span class="number">15</span>]; <span class="comment">// [rsp+30h] [rbp-50h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v6; <span class="comment">// [rsp+3Fh] [rbp-41h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v7[<span class="number">16</span>]; <span class="comment">// [rsp+40h] [rbp-40h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v8[<span class="number">16</span>]; <span class="comment">// [rsp+50h] [rbp-30h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v9[<span class="number">16</span>]; <span class="comment">// [rsp+60h] [rbp-20h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v10[<span class="number">32</span>]; <span class="comment">// [rsp+70h] [rbp-10h] BYREF</span></span><br><span class="line"></span><br><span class="line">  _main();</span><br><span class="line">  <span class="built_in">youknowwhat</span>();</span><br><span class="line">  std::string::<span class="built_in">string</span>((std::string *)v5);</span><br><span class="line">  std::allocator&lt;<span class="keyword">char</span>&gt;::<span class="built_in">allocator</span>(&amp;v6);</span><br><span class="line">  std::string::<span class="built_in">string</span>(v4, <span class="string">"U&gt;F2UsQXN`5sXMELT=:7M_2&lt;X]^1ThaWF0=KM?9IUhAsTM5:T==_Ns&amp;&lt;Vhb!"</span>, &amp;v6);</span><br><span class="line">  std::allocator&lt;<span class="keyword">char</span>&gt;::~<span class="built_in">allocator</span>(&amp;v6);</span><br><span class="line">  std::<span class="keyword">operator</span>&lt;&lt;&lt;std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(printf_0, <span class="string">"Welcome.Please input your flag:\n"</span>);</span><br><span class="line">  std::<span class="keyword">operator</span>&gt;&gt;&lt;<span class="keyword">char</span>&gt;(scanf, (std::string *)v5);</span><br><span class="line">  std::string::<span class="built_in">string</span>((std::string *)v8, (<span class="keyword">const</span> std::string *)v5);</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">Emet</span>(v7, v8);</span><br><span class="line">  </span><br><span class="line">  std::string::<span class="keyword">operator</span>=(v5, v7);</span><br><span class="line">  std::string::~<span class="built_in">string</span>((std::string *)v7);</span><br><span class="line">  std::string::~<span class="built_in">string</span>((std::string *)v8);</span><br><span class="line">  std::string::<span class="built_in">string</span>((std::string *)v10, (<span class="keyword">const</span> std::string *)v5);</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">Selch</span>(v9, v10);</span><br><span class="line">  </span><br><span class="line">  std::string::<span class="keyword">operator</span>=(v5, v9);               </span><br><span class="line">  std::string::~<span class="built_in">string</span>((std::string *)v9);</span><br><span class="line">  std::string::~<span class="built_in">string</span>((std::string *)v10);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> __int8)std::<span class="keyword">operator</span>==&lt;<span class="keyword">char</span>&gt;(v5, v4) )</span><br><span class="line">    std::<span class="keyword">operator</span>&lt;&lt;&lt;std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(printf_0, <span class="string">"Right."</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    std::<span class="keyword">operator</span>&lt;&lt;&lt;std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(printf_0, <span class="string">"Wrong."</span>);</span><br><span class="line">  std::string::~<span class="built_in">string</span>((std::string *)v4);</span><br><span class="line">  std::string::~<span class="built_in">string</span>((std::string *)v5);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
-  _main();
-  youknowwhat();
-  std::string::string((std::string *)v5);
-  std::allocator&lt;char&gt;::allocator(&amp;v6);
-  std::string::string(v4, "U&gt;F2UsQXN`5sXMELT=:7M_2&lt;X]^1ThaWF0=KM?9IUhAsTM5:T==_Ns&amp;&lt;Vhb!", &amp;v6);
-  std::allocator&lt;char&gt;::~allocator(&amp;v6);
-  std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Welcome.Please input your flag:\n");
-  std::operator&gt;&gt;&lt;char&gt;(scanf, (std::string *)v5);
-  std::string::string((std::string *)v8, (const std::string *)v5);
-  
-  Emet(v7, v8);
-  
-  std::string::operator=(v5, v7);
-  std::string::~string((std::string *)v7);
-  std::string::~string((std::string *)v8);
-  std::string::string((std::string *)v10, (const std::string *)v5);
-  
-  Selch(v9, v10);
-  
-  std::string::operator=(v5, v9);               
-  std::string::~string((std::string *)v9);
-  std::string::~string((std::string *)v10);
-  if ( (unsigned __int8)std::operator==&lt;char&gt;(v5, v4) )
-    std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Right.");
-  else
-    std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(printf_0, "Wrong.");
-  std::string::~string((std::string *)v4);
-  std::string::~string((std::string *)v5);
-  return 0;
-}
-</code></pre>
-
-<pre class="language-none"><code class="language-none">std::string *__fastcall Emet(std::string *a1, std::string *a2)
-{
-  int i; // ebx
-  char *v3; // rax
-  unsigned __int64 v4; // rax
-  int j; // ebx
-  unsigned int v6; // eax
-  char *v7; // rax
-  unsigned __int64 v9; // [rsp+20h] [rbp-90h] BYREF
-  char v10; // [rsp+2Eh] [rbp-82h] BYREF
-  char v11; // [rsp+2Fh] [rbp-81h] BYREF
-  char v12[16]; // [rsp+30h] [rbp-80h] BYREF
-  char v13[16]; // [rsp+40h] [rbp-70h] BYREF
-  char v14[16]; // [rsp+50h] [rbp-60h] BYREF
-  char v15[16]; // [rsp+60h] [rbp-50h] BYREF
-  char v16[16]; // [rsp+70h] [rbp-40h] BYREF
-  char v17[16]; // [rsp+80h] [rbp-30h] BYREF
-  char v18[16]; // [rsp+90h] [rbp-20h] BYREF
-  char v19[16]; // [rsp+A0h] [rbp-10h] BYREF
-
-  std::allocator&lt;char&gt;::allocator(&amp;v10);
-  std::string::string(&amp;v9, &amp;unk_48A000, &amp;v10);
-  std::allocator&lt;char&gt;::~allocator(&amp;v10);
-  std::allocator&lt;char&gt;::allocator(&amp;v11);
-  std::string::string(a1, &amp;unk_48A000, &amp;v11);
-  std::allocator&lt;char&gt;::~allocator(&amp;v11);
-  for ( i = 0; i &lt; (unsigned __int64)std::string::size(a2); ++i )
-  {
-    v3 = (char *)std::string::operator[](a2, i);
-    std::bitset&lt;8ull&gt;::bitset(v14, (unsigned int)*v3);
-    std::bitset&lt;8ull&gt;::to_string(v13, v14);
-    std::operator+&lt;char&gt;(v12, &amp;v9, v13);
-    std::string::operator=(&amp;v9, v12);
-    std::string::~string((std::string *)v12);
-    std::string::~string((std::string *)v13);
-  }
-  while ( 1 )
-  {
-    v4 = std::string::size((std::string *)&amp;v9);
-    if ( v4 == 6 * (v4 / 6) )
-      break;
-    std::operator+&lt;char&gt;(v15, &amp;v9, 48i64);
-    std::string::operator=(&amp;v9, v15);
-    std::string::~string((std::string *)v15);
-  }
-  for ( j = 0; j &lt; (unsigned __int64)std::string::size((std::string *)&amp;v9); j += 6 )
-  {
-    std::string::substr((std::string *)v18, (unsigned __int64)&amp;v9, j);
-    std::bitset&lt;6ull&gt;::bitset&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;(v17, v18, 0i64);
-    v6 = std::bitset&lt;6ull&gt;::to_ulong(v17);
-    v7 = (char *)std::string::operator[](&amp;hisoralce, v6);
-    std::operator+&lt;char&gt;(v16, a1, (unsigned int)*v7);
-    std::string::operator=(a1, v16);
-    std::string::~string((std::string *)v16);
-    std::string::~string((std::string *)v18);
-  }
-  while ( (std::string::size(a1) &amp; 3) != 0 )
-  {
-    std::operator+&lt;char&gt;(v19, a1, 33i64);
-    std::string::operator=(a1, v19);
-    std::string::~string((std::string *)v19);
-  }
-  std::string::~string((std::string *)&amp;v9);
-  return a1;
-}
-</code></pre>
+<figure class="highlight arduino"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::string *__fastcall <span class="title">Emet</span><span class="params">(std::string *a1, std::string *a2)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// ebx</span></span><br><span class="line">  <span class="keyword">char</span> *v3; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v4; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> j; <span class="comment">// ebx</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v6; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">char</span> *v7; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v9; <span class="comment">// [rsp+20h] [rbp-90h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v10; <span class="comment">// [rsp+2Eh] [rbp-82h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v11; <span class="comment">// [rsp+2Fh] [rbp-81h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v12[<span class="number">16</span>]; <span class="comment">// [rsp+30h] [rbp-80h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v13[<span class="number">16</span>]; <span class="comment">// [rsp+40h] [rbp-70h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v14[<span class="number">16</span>]; <span class="comment">// [rsp+50h] [rbp-60h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v15[<span class="number">16</span>]; <span class="comment">// [rsp+60h] [rbp-50h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v16[<span class="number">16</span>]; <span class="comment">// [rsp+70h] [rbp-40h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v17[<span class="number">16</span>]; <span class="comment">// [rsp+80h] [rbp-30h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v18[<span class="number">16</span>]; <span class="comment">// [rsp+90h] [rbp-20h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v19[<span class="number">16</span>]; <span class="comment">// [rsp+A0h] [rbp-10h] BYREF</span></span><br><span class="line"></span><br><span class="line">  std::allocator&lt;<span class="keyword">char</span>&gt;::<span class="built_in">allocator</span>(&amp;v10);</span><br><span class="line">  std::string::<span class="built_in">string</span>(&amp;v9, &amp;unk_48A000, &amp;v10);</span><br><span class="line">  std::allocator&lt;<span class="keyword">char</span>&gt;::~<span class="built_in">allocator</span>(&amp;v10);</span><br><span class="line">  std::allocator&lt;<span class="keyword">char</span>&gt;::<span class="built_in">allocator</span>(&amp;v11);</span><br><span class="line">  std::string::<span class="built_in">string</span>(a1, &amp;unk_48A000, &amp;v11);</span><br><span class="line">  std::allocator&lt;<span class="keyword">char</span>&gt;::~<span class="built_in">allocator</span>(&amp;v11);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; (<span class="keyword">unsigned</span> __int64)std::string::<span class="built_in">size</span>(a2); ++i )</span><br><span class="line">  {</span><br><span class="line">    v3 = (<span class="keyword">char</span> *)std::string::<span class="keyword">operator</span>[](a2, i);</span><br><span class="line">    std::bitset&lt;8ull&gt;::<span class="built_in">bitset</span>(v14, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)*v3);</span><br><span class="line">    std::bitset&lt;8ull&gt;::<span class="built_in">to_string</span>(v13, v14);</span><br><span class="line">    std::<span class="keyword">operator</span>+&lt;<span class="keyword">char</span>&gt;(v12, &amp;v9, v13);</span><br><span class="line">    std::string::<span class="keyword">operator</span>=(&amp;v9, v12);</span><br><span class="line">    std::string::~<span class="built_in">string</span>((std::string *)v12);</span><br><span class="line">    std::string::~<span class="built_in">string</span>((std::string *)v13);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  {</span><br><span class="line">    v4 = std::string::<span class="built_in">size</span>((std::string *)&amp;v9);</span><br><span class="line">    <span class="keyword">if</span> ( v4 == <span class="number">6</span> * (v4 / <span class="number">6</span>) )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    std::<span class="keyword">operator</span>+&lt;<span class="keyword">char</span>&gt;(v15, &amp;v9, <span class="number">48</span>i64);</span><br><span class="line">    std::string::<span class="keyword">operator</span>=(&amp;v9, v15);</span><br><span class="line">    std::string::~<span class="built_in">string</span>((std::string *)v15);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt; (<span class="keyword">unsigned</span> __int64)std::string::<span class="built_in">size</span>((std::string *)&amp;v9); j += <span class="number">6</span> )</span><br><span class="line">  {</span><br><span class="line">    std::string::<span class="built_in">substr</span>((std::string *)v18, (<span class="keyword">unsigned</span> __int64)&amp;v9, j);</span><br><span class="line">    std::bitset&lt;6ull&gt;::bitset&lt;<span class="keyword">char</span>,std::char_traits&lt;<span class="keyword">char</span>&gt;,std::allocator&lt;<span class="keyword">char</span>&gt;&gt;(v17, v18, <span class="number">0</span>i64);</span><br><span class="line">    v6 = std::bitset&lt;<span class="number">6ull</span>&gt;::<span class="built_in">to_ulong</span>(v17);</span><br><span class="line">    v7 = (<span class="keyword">char</span> *)std::string::<span class="keyword">operator</span>[](&amp;hisoralce, v6);</span><br><span class="line">    std::<span class="keyword">operator</span>+&lt;<span class="keyword">char</span>&gt;(v16, a1, (<span class="keyword">unsigned</span> <span class="keyword">int</span>)*v7);</span><br><span class="line">    std::string::<span class="keyword">operator</span>=(a1, v16);</span><br><span class="line">    std::string::~<span class="built_in">string</span>((std::string *)v16);</span><br><span class="line">    std::string::~<span class="built_in">string</span>((std::string *)v18);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">while</span> ( (std::string::<span class="built_in">size</span>(a1) &amp; <span class="number">3</span>) != <span class="number">0</span> )</span><br><span class="line">  {</span><br><span class="line">    std::<span class="keyword">operator</span>+&lt;<span class="keyword">char</span>&gt;(v19, a1, <span class="number">33</span>i64);</span><br><span class="line">    std::string::<span class="keyword">operator</span>=(a1, v19);</span><br><span class="line">    std::string::~<span class="built_in">string</span>((std::string *)v19);</span><br><span class="line">  }</span><br><span class="line">  std::string::~<span class="built_in">string</span>((std::string *)&amp;v9);</span><br><span class="line">  <span class="keyword">return</span> a1;</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里的j+=6，像是base64，而&amp;hisorale是指针</p>
-<pre class="language-none"><code class="language-none">bss:00000000004AA030 hisoralce db  28h ; (                   ; DATA XREF: youknowwhat(void)+2A↑o
-.bss:00000000004AA030                                         ; youknowwhat(void)+40↑o ...
-.bss:00000000004AA031 db  3Dh ; =
-.bss:00000000004AA032 db 0BBh
-.bss:00000000004AA033 db    0
-.bss:00000000004AA034 db    0
-.bss:00000000004AA035 db    0
-.bss:00000000004AA036 db    0
-.bss:00000000004AA037 db    0
-</code></pre>
+<figure class="highlight x86asm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">bss:</span>00000000004AA030 hisoralce <span class="built_in">db</span>  <span class="number">28h</span> <span class="comment">; (                   ; DATA XREF: youknowwhat(void)+2A↑o</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA030                                         <span class="comment">; youknowwhat(void)+40↑o ...</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA031 <span class="built_in">db</span>  <span class="number">3Dh</span> <span class="comment">; =</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA032 <span class="built_in">db</span> <span class="number">0BBh</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA033 <span class="built_in">db</span>    <span class="number">0</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA034 <span class="built_in">db</span>    <span class="number">0</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA035 <span class="built_in">db</span>    <span class="number">0</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA036 <span class="built_in">db</span>    <span class="number">0</span></span><br><span class="line"><span class="symbol">.bss:</span>00000000004AA037 <span class="built_in">db</span>    <span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 
 <p>需要对着db按d转换类型，才能看到该地址存储的内容</p>
 
@@ -1057,13 +468,13 @@ LABEL_26:
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

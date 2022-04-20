@@ -390,7 +390,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.9k</span>
+      <span>5.8k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -547,120 +547,10 @@
 <p>HHOOK SetWindowsHookExA(<br>  [in] int       idHook,// 要安装的挂钩过程的类型<br>  [in] HOOKPROC  lpfn,// 指向挂钩过程的指针<br>  [in] HINSTANCE hmod,// 所指向的挂钩过程的 DLL 的句柄<br>  [in] DWORD     dwThreadId<br>);</p>
 </blockquote>
 <p>main.cpp</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include "stdio.h"
-#include "conio.h"
-#include "windows.h"
-
-#define    DEF_DLL_NAME        "KeyHook.dll"
-#define    DEF_HOOKSTART        "HookStart"
-#define    DEF_HOOKSTOP        "HookStop"
-
-typedef void (*PFN_HOOKSTART)();
-typedef void (*PFN_HOOKSTOP)();
-
-void main()
-{
-    HMODULE    hDll = NULL;
-    PFN_HOOKSTART    HookStart = NULL;
-    PFN_HOOKSTOP    HookStop = NULL;
-    char    ch = 0;
-
-    // 加载KeyHook.dll
-    hDll = LoadLibraryA(DEF_DLL_NAME);
-    if (hDll == NULL)
-    {
-        printf("LoadLibrary(%s) failed!!! [%d]", DEF_DLL_NAME, GetLastError());
-        return;
-    }
-
-    // 获取导出函数地址
-    HookStart = (PFN_HOOKSTART)GetProcAddress(hDll, DEF_HOOKSTART);
-    HookStop = (PFN_HOOKSTOP)GetProcAddress(hDll, DEF_HOOKSTOP);
-
-    // 开始钩取
-    HookStart();
-
-    // 等待，直到用户输入“q”
-    printf("press 'q' to quit!\n");
-    while (_getch() != 'q');
-
-    // 终止钩子
-    HookStop();
-
-    // 卸载KeyHook.dll
-    FreeLibrary(hDll);
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"conio.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>    DEF_DLL_NAME        <span class="meta-string">"KeyHook.dll"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>    DEF_HOOKSTART        <span class="meta-string">"HookStart"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>    DEF_HOOKSTOP        <span class="meta-string">"HookStop"</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFN_HOOKSTART)</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*PFN_HOOKSTOP)</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    HMODULE    hDll = <span class="literal">NULL</span>;</span><br><span class="line">    PFN_HOOKSTART    HookStart = <span class="literal">NULL</span>;</span><br><span class="line">    PFN_HOOKSTOP    HookStop = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">char</span>    ch = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 加载KeyHook.dll</span></span><br><span class="line">    hDll = LoadLibraryA(DEF_DLL_NAME);</span><br><span class="line">    <span class="keyword">if</span> (hDll == <span class="literal">NULL</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"LoadLibrary(%s) failed!!! [%d]"</span>, DEF_DLL_NAME, GetLastError());</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取导出函数地址</span></span><br><span class="line">    HookStart = (PFN_HOOKSTART)GetProcAddress(hDll, DEF_HOOKSTART);</span><br><span class="line">    HookStop = (PFN_HOOKSTOP)GetProcAddress(hDll, DEF_HOOKSTOP);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开始钩取</span></span><br><span class="line">    HookStart();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待，直到用户输入“q”</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"press 'q' to quit!\n"</span>);</span><br><span class="line">    <span class="keyword">while</span> (_getch() != <span class="string">'q'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 终止钩子</span></span><br><span class="line">    HookStop();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 卸载KeyHook.dll</span></span><br><span class="line">    FreeLibrary(hDll);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>KeyHook.dll</p>
-<pre class="language-c" data-language="c"><code class="language-c">//KeyHook.cpp
- 
-#include "stdio.h"
-#include "windows.h"
- 
-//定义目标进程名为notepad.exe
-#define DEF_PROCESS_NAME "notepad.exe"
- 
-//定义全局变量
-HINSTANCE g_hInstance = NULL;
-HHOOK g_hHook = NULL;
- 
-//DllMain()函数在DLL被加载到进程后会自动执行
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved){
-	switch( dwReason ){
-		case DLL_PROCESS_ATTACH:
-			g_hInstance = hinstDLL;
-			break;
- 
-		case DLL_PROCESS_DETACH:
-			break;
-	}
- 
-	return TRUE;
-}
- 
-//
-LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam){
-	char szPath[MAX_PATH] = {0,};
-	char *p = NULL;
-	
-	if( nCode &gt;= 0 ){
- 
-		//释放键盘按键时，bit 31 : 0 =&gt; press, 1 =&gt; release
-		if( !(lParam &amp; 0x80000000) ){
-			GetModuleFileNameA(NULL, szPath, MAX_PATH);
-			p = strrchr(szPath, '\\');
- 
-			//比较当前进程名称，若为notepad.exe，则消息不会传递给应用程序或下一个钩子函数
-			//_stricmp()函数用于比较字符串，i表示不区分大小写，若两个值相等则返回0
-			if( !_stricmp(p + 1, DEF_PROCESS_NAME) ){
-				return 1;
-			}
-		}
-	}
- 
-	//比较当前进程名称，若非notepad.exe，则消息传递给应用程序或下一个钩子函数
-	return CallNextHookEx(g_hHook, nCode, wParam, lParam);
-}
- 
-//在C++中调用C的库文件，用extern "C"告知编译器，因为C++支持函数重载而C不支持，两者的编译规则不同
-#ifdef __cplusplus
-extern "C"{
-#endif
-	//__declspec，针对编译器的关键字，用于指出导出函数
-	//当调用导出函数HookStart()时，SetWindowsHookEx()函数就会将KeyboardProc()添加到键盘钩链
-	__declspec(dllexport) void HookStart(){
-		g_hHook = SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, g_hInstance, 0);
-	}
- 
-	__declspec(dllexport) void HookStop(){
-		if(g_hHook){
-			UnhookWindowsHookEx(g_hHook);
-			g_hHook = NULL;
-		}
-	}
-#ifdef __cplusplus
-}
-#endif</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//KeyHook.cpp</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdio.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"windows.h"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//定义目标进程名为notepad.exe</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> DEF_PROCESS_NAME <span class="meta-string">"notepad.exe"</span></span></span><br><span class="line"> </span><br><span class="line"><span class="comment">//定义全局变量</span></span><br><span class="line">HINSTANCE g_hInstance = <span class="literal">NULL</span>;</span><br><span class="line">HHOOK g_hHook = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//DllMain()函数在DLL被加载到进程后会自动执行</span></span><br><span class="line"><span class="function">BOOL WINAPI <span class="title">DllMain</span><span class="params">(HINSTANCE hinstDLL, DWORD dwReason, LPVOID lpvReserved)</span></span>{</span><br><span class="line">	<span class="keyword">switch</span>( dwReason ){</span><br><span class="line">		<span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">			g_hInstance = hinstDLL;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line"> </span><br><span class="line">		<span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	}</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="function">LRESULT CALLBACK <span class="title">KeyboardProc</span><span class="params">(<span class="keyword">int</span> nCode, WPARAM wParam, LPARAM lParam)</span></span>{</span><br><span class="line">	<span class="keyword">char</span> szPath[MAX_PATH] = {<span class="number">0</span>,};</span><br><span class="line">	<span class="keyword">char</span> *p = <span class="literal">NULL</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>( nCode &gt;= <span class="number">0</span> ){</span><br><span class="line"> </span><br><span class="line">		<span class="comment">//释放键盘按键时，bit 31 : 0 =&gt; press, 1 =&gt; release</span></span><br><span class="line">		<span class="keyword">if</span>( !(lParam &amp; <span class="number">0x80000000</span>) ){</span><br><span class="line">			GetModuleFileNameA(<span class="literal">NULL</span>, szPath, MAX_PATH);</span><br><span class="line">			p = <span class="built_in">strrchr</span>(szPath, <span class="string">'\\'</span>);</span><br><span class="line"> </span><br><span class="line">			<span class="comment">//比较当前进程名称，若为notepad.exe，则消息不会传递给应用程序或下一个钩子函数</span></span><br><span class="line">			<span class="comment">//_stricmp()函数用于比较字符串，i表示不区分大小写，若两个值相等则返回0</span></span><br><span class="line">			<span class="keyword">if</span>( !_stricmp(p + <span class="number">1</span>, DEF_PROCESS_NAME) ){</span><br><span class="line">				<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			}</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//比较当前进程名称，若非notepad.exe，则消息传递给应用程序或下一个钩子函数</span></span><br><span class="line">	<span class="keyword">return</span> CallNextHookEx(g_hHook, nCode, wParam, lParam);</span><br><span class="line">}</span><br><span class="line"> </span><br><span class="line"><span class="comment">//在C++中调用C的库文件，用extern "C"告知编译器，因为C++支持函数重载而C不支持，两者的编译规则不同</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span>{</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="comment">//__declspec，针对编译器的关键字，用于指出导出函数</span></span><br><span class="line">	<span class="comment">//当调用导出函数HookStart()时，SetWindowsHookEx()函数就会将KeyboardProc()添加到键盘钩链</span></span><br><span class="line">	__declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">HookStart</span><span class="params">()</span></span>{</span><br><span class="line">		g_hHook = SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, g_hInstance, <span class="number">0</span>);</span><br><span class="line">	}</span><br><span class="line"> </span><br><span class="line">	__declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">HookStop</span><span class="params">()</span></span>{</span><br><span class="line">		<span class="keyword">if</span>(g_hHook){</span><br><span class="line">			UnhookWindowsHookEx(g_hHook);</span><br><span class="line">			g_hHook = <span class="literal">NULL</span>;</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>调用导出函数HookStart()时，SetWindowsHookEx()函数就会把KeyboardProc()添加到键盘钩链</p>
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649491980722.png"></p>
@@ -671,14 +561,13 @@ extern "C"{
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649493419347.png" alt="DLL_Main函数"></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/tiandao2009/article/details/79839182">https://blog.csdn.net/tiandao2009/article/details/79839182</a>  dllmain函数的不同情形</p>
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649494188248.png" alt="DLL注入方法"></p>
-<h1 id="0x12-DLL卸载"><a href="#0x12-DLL卸载" class="headerlink" title="0x12-DLL卸载"></a>0x12-DLL卸载</h1><h2 id="获取目标进程的句柄"><a href="#获取目标进程的句柄" class="headerlink" title="获取目标进程的句柄"></a>获取目标进程的句柄</h2><pre class="language-c" data-language="c"><code class="language-c">hProcess=OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID);</code></pre>
+<h1 id="0x12-DLL卸载"><a href="#0x12-DLL卸载" class="headerlink" title="0x12-DLL卸载"></a>0x12-DLL卸载</h1><h2 id="获取目标进程的句柄"><a href="#获取目标进程的句柄" class="headerlink" title="获取目标进程的句柄"></a>获取目标进程的句柄</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hProcess=OpenProcess(PROCESS_ALL_ACCESS,FALSE,dwPID);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>该语句使用进程ID来获取目标进程的进程句柄，下面用获得的进程句柄调用CreateRemoteThread()</p>
-<h2 id="获取FreeLibrary-地址"><a href="#获取FreeLibrary-地址" class="headerlink" title="获取FreeLibrary()地址"></a>获取FreeLibrary()地址</h2><pre class="language-c" data-language="c"><code class="language-c">hModule=GetModule(L"kernel32.dll);
-pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code></pre>
+<h2 id="获取FreeLibrary-地址"><a href="#获取FreeLibrary-地址" class="headerlink" title="获取FreeLibrary()地址"></a>获取FreeLibrary()地址</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hModule=GetModule(<span class="string">L"kernel32.dll);</span></span><br><span class="line"><span class="string">pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"</span>FreeLibrary<span class="string">");</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>若要使目标进程自己调用FreeLibrary()，需要先获得FreeLibrary()的地址。然而上述代码获得的不是加载到目标进程中的FreeLibrary()的地址，而是EjectDll.exe进程中FreeLibrary()的地址，但是FreeLibrary在所有进程中地址是相同的</p>
-<h2 id="在目标进程中运行线程"><a href="#在目标进程中运行线程" class="headerlink" title="在目标进程中运行线程"></a>在目标进程中运行线程</h2><pre class="language-c" data-language="c"><code class="language-c">hThread=CreateRemoteThread(hProcess,NULL,0,pThreadProc,me.modBaseAddr,0,NULL);</code></pre>
+<h2 id="在目标进程中运行线程"><a href="#在目标进程中运行线程" class="headerlink" title="在目标进程中运行线程"></a>在目标进程中运行线程</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hThread=CreateRemoteThread(hProcess,<span class="literal">NULL</span>,<span class="number">0</span>,pThreadProc,me.modBaseAddr,<span class="number">0</span>,<span class="literal">NULL</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>pThreadProc参数是FreeLibrary()的地址，me.modBaseAddr参数是要卸载的DLL的加载地址。将线程函数指定为FreeLibrary()函数，并且把DLL加载地址传递给线程参数，这样就在目标进程中成功调用了FreeLibrary函数</p>
 <blockquote>
@@ -699,15 +588,7 @@ pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649926423283.png"></p>
 <p>接下来将插入的asm的机器码进行复制，并修改格式</p>
 <p>得到</p>
-<pre class="language-c" data-language="c"><code class="language-c">char shellcode[] = {
-0x55,0x8B,0xEC,0x8B,0x75,0x08,0x68,0x6C,0x6C,0x00,0x00,0x68,0x33,0x32,0x2E,0x64
-,0x68,0x75,0x73,0x65,0x72,0x54,0xFF,0x16,0x68,0x6F,0x78,0x41,0x00,0x68,0x61,0x67
-,0x65,0x42,0x68,0x4D,0x65,0x73,0x73,0x54,0x50,0xFF,0x56,0x04,0x6A,0x00,0xE8,0x0C
-,0x00,0x00,0x00,0x52,0x65,0x76,0x65,0x72,0x73,0x65,0x43,0x6F,0x72,0x65,0x00,0xE8
-,0x14,0x00,0x00,0x00,0x77,0x77,0x77,0x2E,0x72,0x65,0x76,0x65,0x72,0x73,0x65,0x63
-,0x6F,0x72,0x65,0x2E,0x63,0x6F,0x6D,0x00,0x6A,0x00,0xFF,0xD0,0x33,0xC0,0x8B,0xE5
-,0x5D,0xC3
-};</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> shellcode[] = {</span><br><span class="line"><span class="number">0x55</span>,<span class="number">0x8B</span>,<span class="number">0xEC</span>,<span class="number">0x8B</span>,<span class="number">0x75</span>,<span class="number">0x08</span>,<span class="number">0x68</span>,<span class="number">0x6C</span>,<span class="number">0x6C</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x33</span>,<span class="number">0x32</span>,<span class="number">0x2E</span>,<span class="number">0x64</span></span><br><span class="line">,<span class="number">0x68</span>,<span class="number">0x75</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x54</span>,<span class="number">0xFF</span>,<span class="number">0x16</span>,<span class="number">0x68</span>,<span class="number">0x6F</span>,<span class="number">0x78</span>,<span class="number">0x41</span>,<span class="number">0x00</span>,<span class="number">0x68</span>,<span class="number">0x61</span>,<span class="number">0x67</span></span><br><span class="line">,<span class="number">0x65</span>,<span class="number">0x42</span>,<span class="number">0x68</span>,<span class="number">0x4D</span>,<span class="number">0x65</span>,<span class="number">0x73</span>,<span class="number">0x73</span>,<span class="number">0x54</span>,<span class="number">0x50</span>,<span class="number">0xFF</span>,<span class="number">0x56</span>,<span class="number">0x04</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xE8</span>,<span class="number">0x0C</span></span><br><span class="line">,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x52</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x43</span>,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x00</span>,<span class="number">0xE8</span></span><br><span class="line">,<span class="number">0x14</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x76</span>,<span class="number">0x65</span>,<span class="number">0x72</span>,<span class="number">0x73</span>,<span class="number">0x65</span>,<span class="number">0x63</span></span><br><span class="line">,<span class="number">0x6F</span>,<span class="number">0x72</span>,<span class="number">0x65</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0x6A</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xD0</span>,<span class="number">0x33</span>,<span class="number">0xC0</span>,<span class="number">0x8B</span>,<span class="number">0xE5</span></span><br><span class="line">,<span class="number">0x5D</span>,<span class="number">0xC3</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1649985152689.png"></p>
 <p><img src="/2022/04/07/%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B%E6%A0%B8%E5%BF%83%E5%8E%9F%E7%90%86/1650001282882.png"></p>
@@ -795,13 +676,13 @@ pThreadProc=(LPTHREAD_START_ROUTINE)GetProcAddress(hModule,"FreeLibrary");</code
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

@@ -306,109 +306,30 @@
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82">https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82</a></p>
 <p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-249592.htm">https://bbs.pediy.com/thread-249592.htm</a></p>
 <h1 id="SEH"><a href="#SEH" class="headerlink" title="SEH"></a>SEH</h1><h2 id="SEH介绍"><a href="#SEH介绍" class="headerlink" title="SEH介绍"></a>SEH介绍</h2><p> SEH(Structured Exception Handling)结构化异常处理,是windows操作系统默认的错误处理机制，它允许我们在程序产所错误时使用特定的异常处理函数处理这个异常，尽管提供的功能预取为处理异常，但由于其功能的特点，也往往大量用于反调试。 </p>
-<h2 id="重要成员介绍"><a href="#重要成员介绍" class="headerlink" title="重要成员介绍"></a>重要成员介绍</h2><h3 id="1、异常处理函数"><a href="#1、异常处理函数" class="headerlink" title="1、异常处理函数"></a>1、异常处理函数</h3><pre class="language-c" data-language="c"><code class="language-c">EXCEPTION_DISPOSITION
- __cdecl _except_handler(
-     struct _EXCEPTION_RECORD *ExceptionRecord,
-     void * EstablisherFrame,
-     struct _CONTEXT *ContextRecord,
-     void * DispatcherContext
-     );</code></pre>
+<h2 id="重要成员介绍"><a href="#重要成员介绍" class="headerlink" title="重要成员介绍"></a>重要成员介绍</h2><h3 id="1、异常处理函数"><a href="#1、异常处理函数" class="headerlink" title="1、异常处理函数"></a>1、异常处理函数</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">EXCEPTION_DISPOSITION</span><br><span class="line"> __cdecl _except_handler(</span><br><span class="line">     struct _EXCEPTION_RECORD *ExceptionRecord,</span><br><span class="line">     <span class="keyword">void</span> * EstablisherFrame,</span><br><span class="line">     struct _CONTEXT *ContextRecord,</span><br><span class="line">     <span class="keyword">void</span> * DispatcherContext</span><br><span class="line">     );</span><br></pre></td></tr></tbody></table></figure>
 
 <p>第一个参数指向结构体EXCEPTION_RECORD </p>
-<h4 id="操作系统常见异常"><a href="#操作系统常见异常" class="headerlink" title="操作系统常见异常"></a>操作系统常见异常</h4><pre class="language-c" data-language="c"><code class="language-c">EXCEPTION_ACCESS_VIOLATION     0xC0000005     程序企图读写一个不可访问的地址时引发的异常。例如企图读取0地址处的内存。
-EXCEPTION_ARRAY_BOUNDS_EXCEEDED    0xC000008C     数组访问越界时引发的异常。
-EXCEPTION_BREAKPOINT                           0x80000003     触发断点时引发的异常。
-EXCEPTION_DATATYPE_MISALIGNMENT    0x80000002     程序读取一个未经对齐的数据时引发的异常。
-EXCEPTION_FLT_DENORMAL_OPERAND     0xC000008D     如果浮点数操作的操作数是非正常的，则引发该异常。所谓非正常，即它的值太小以至于不能用标准格式表示出来。
-EXCEPTION_FLT_DIVIDE_BY_ZERO                   0xC000008E     浮点数除法的除数是0时引发该异常。
-EXCEPTION_FLT_INEXACT_RESULT           0xC000008F     浮点数操作的结果不能精确表示成小数时引发该异常。
-EXCEPTION_FLT_INVALID_OPERATION            0xC0000090     该异常表示不包括在这个表内的其它浮点数异常。
-EXCEPTION_FLT_OVERFLOW                             0xC0000091     浮点数的指数超过所能表示的最大值时引发该异常。
-EXCEPTION_FLT_STACK_CHECK                  0xC0000092     进行浮点数运算时栈发生溢出或下溢时引发该异常。
-EXCEPTION_FLT_UNDERFLOW                    0xC0000093     浮点数的指数小于所能表示的最小值时引发该异常。
-EXCEPTION_ILLEGAL_INSTRUCTION          0xC000001D     程序企图执行一个无效的指令时引发该异常。
-EXCEPTION_IN_PAGE_ERROR                        0xC0000006     程序要访问的内存页不在物理内存中时引发的异常。
-EXCEPTION_INT_DIVIDE_BY_ZERO                   0xC0000094     整数除法的除数是0时引发该异常。
-EXCEPTION_INT_OVERFLOW                             0xC0000095     整数操作的结果溢出时引发该异常。
-EXCEPTION_INVALID_DISPOSITION                  0xC0000026     异常处理器返回一个无效的处理的时引发该异常。
-EXCEPTION_NONCONTINUABLE_EXCEPTION     0xC0000025     发生一个不可继续执行的异常时，如果程序继续执行，则会引发该异常。
-EXCEPTION_PRIV_INSTRUCTION                     0xC0000096     程序企图执行一条当前CPU模式不允许的指令时引发该异常。
-EXCEPTION_SINGLE_STEP                          0x80000004     标志寄存器的TF位为1时，每执行一条指令就会引发该异常。主要用于单步调试。
-EXCEPTION_STACK_OVERFLOW                   0xC00000FD     栈溢出时引发该异常。</code></pre>
+<h4 id="操作系统常见异常"><a href="#操作系统常见异常" class="headerlink" title="操作系统常见异常"></a>操作系统常见异常</h4><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">EXCEPTION_ACCESS_VIOLATION     <span class="number">0xC0000005</span>     程序企图读写一个不可访问的地址时引发的异常。例如企图读取<span class="number">0</span>地址处的内存。</span><br><span class="line">EXCEPTION_ARRAY_BOUNDS_EXCEEDED    <span class="number">0xC000008C</span>     数组访问越界时引发的异常。</span><br><span class="line">EXCEPTION_BREAKPOINT                           <span class="number">0x80000003</span>     触发断点时引发的异常。</span><br><span class="line">EXCEPTION_DATATYPE_MISALIGNMENT    <span class="number">0x80000002</span>     程序读取一个未经对齐的数据时引发的异常。</span><br><span class="line">EXCEPTION_FLT_DENORMAL_OPERAND     <span class="number">0xC000008D</span>     如果浮点数操作的操作数是非正常的，则引发该异常。所谓非正常，即它的值太小以至于不能用标准格式表示出来。</span><br><span class="line">EXCEPTION_FLT_DIVIDE_BY_ZERO                   <span class="number">0xC000008E</span>     浮点数除法的除数是<span class="number">0</span>时引发该异常。</span><br><span class="line">EXCEPTION_FLT_INEXACT_RESULT           <span class="number">0xC000008F</span>     浮点数操作的结果不能精确表示成小数时引发该异常。</span><br><span class="line">EXCEPTION_FLT_INVALID_OPERATION            <span class="number">0xC0000090</span>     该异常表示不包括在这个表内的其它浮点数异常。</span><br><span class="line">EXCEPTION_FLT_OVERFLOW                             <span class="number">0xC0000091</span>     浮点数的指数超过所能表示的最大值时引发该异常。</span><br><span class="line">EXCEPTION_FLT_STACK_CHECK                  <span class="number">0xC0000092</span>     进行浮点数运算时栈发生溢出或下溢时引发该异常。</span><br><span class="line">EXCEPTION_FLT_UNDERFLOW                    <span class="number">0xC0000093</span>     浮点数的指数小于所能表示的最小值时引发该异常。</span><br><span class="line">EXCEPTION_ILLEGAL_INSTRUCTION          <span class="number">0xC000001D</span>     程序企图执行一个无效的指令时引发该异常。</span><br><span class="line">EXCEPTION_IN_PAGE_ERROR                        <span class="number">0xC0000006</span>     程序要访问的内存页不在物理内存中时引发的异常。</span><br><span class="line">EXCEPTION_INT_DIVIDE_BY_ZERO                   <span class="number">0xC0000094</span>     整数除法的除数是<span class="number">0</span>时引发该异常。</span><br><span class="line">EXCEPTION_INT_OVERFLOW                             <span class="number">0xC0000095</span>     整数操作的结果溢出时引发该异常。</span><br><span class="line">EXCEPTION_INVALID_DISPOSITION                  <span class="number">0xC0000026</span>     异常处理器返回一个无效的处理的时引发该异常。</span><br><span class="line">EXCEPTION_NONCONTINUABLE_EXCEPTION     <span class="number">0xC0000025</span>     发生一个不可继续执行的异常时，如果程序继续执行，则会引发该异常。</span><br><span class="line">EXCEPTION_PRIV_INSTRUCTION                     <span class="number">0xC0000096</span>     程序企图执行一条当前CPU模式不允许的指令时引发该异常。</span><br><span class="line">EXCEPTION_SINGLE_STEP                          <span class="number">0x80000004</span>     标志寄存器的TF位为<span class="number">1</span>时，每执行一条指令就会引发该异常。主要用于单步调试。</span><br><span class="line">EXCEPTION_STACK_OVERFLOW                   <span class="number">0xC00000FD</span>     栈溢出时引发该异常。</span><br></pre></td></tr></tbody></table></figure>
 
 <p>异常回调函数_except_handler的第二个参数是一个指向establisher frame结构体的指针，这是SEH中一个很重要的参数，但是现在暂时忽略。</p>
 <p>第三个参数是一个指向结构体CONTEXT的指针，CONTEXT结构体定义在WINNT.H里，它代表了特定线程的注册值。当用在SEH时，CONTEXT就表示异常发生时的注册值。顺带说一句，这个CONTEXT结构体与GetThreadContext和SetThreadContext所使用的结构体是同一个。</p>
 <p>第四个参数DispatcherContext也可以暂时忽略。</p>
 <h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>根据不同的返回值，确定是否处理</p>
-<pre class="language-c" data-language="c"><code class="language-c">4种返回值及含义
-   1.ExceptionContinueExecution(0)：回调函数处理了异常，可以从异常发生的指令处重新执行。
-   2.ExceptionContinueSearch(1)：回调函数不能处理该异常，需要要SEH链中的其他回调函数处理。
-   3.ExceptionNestedException(2)：回调函数在执行中又发生了新的异常，即发生了嵌套异常
-   4.ExceptionCollidedUnwind(3)：发生了嵌套的展开操作</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span>种返回值及含义</span><br><span class="line">   <span class="number">1.</span>ExceptionContinueExecution(<span class="number">0</span>)：回调函数处理了异常，可以从异常发生的指令处重新执行。</span><br><span class="line">   <span class="number">2.</span>ExceptionContinueSearch(<span class="number">1</span>)：回调函数不能处理该异常，需要要SEH链中的其他回调函数处理。</span><br><span class="line">   <span class="number">3.</span>ExceptionNestedException(<span class="number">2</span>)：回调函数在执行中又发生了新的异常，即发生了嵌套异常</span><br><span class="line">   <span class="number">4.</span>ExceptionCollidedUnwind(<span class="number">3</span>)：发生了嵌套的展开操作</span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="CONTEXT结构体"><a href="#CONTEXT结构体" class="headerlink" title="CONTEXT结构体"></a>CONTEXT结构体</h4><pre class="language-c" data-language="c"><code class="language-c">typedef struct _CONTEXT
- {
-     DWORD ContextFlags;
-     DWORD   Dr0;
-     DWORD   Dr1;
-     DWORD   Dr2;
-     DWORD   Dr3;
-     DWORD   Dr6;
-     DWORD   Dr7;
-     FLOATING_SAVE_AREA FloatSave;
-     DWORD   SegGs;
-     DWORD   SegFs;
-     DWORD   SegEs;
-     DWORD   SegDs;
-     DWORD   Edi;
-     DWORD   Esi;
-     DWORD   Ebx;
-     DWORD   Edx;
-     DWORD   Ecx;
-     DWORD   Eax;
-     DWORD   Ebp;
-     DWORD   Eip;
-     DWORD   SegCs;
-     DWORD   EFlags;
-     DWORD   Esp;
-     DWORD   SegSs;
- } CONTEXT;</code></pre>
+<h4 id="CONTEXT结构体"><a href="#CONTEXT结构体" class="headerlink" title="CONTEXT结构体"></a>CONTEXT结构体</h4><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">CONTEXT</span></span></span><br><span class="line"><span class="class"> {</span></span><br><span class="line">     DWORD ContextFlags;</span><br><span class="line">     DWORD   Dr0;</span><br><span class="line">     DWORD   Dr1;</span><br><span class="line">     DWORD   Dr2;</span><br><span class="line">     DWORD   Dr3;</span><br><span class="line">     DWORD   Dr6;</span><br><span class="line">     DWORD   Dr7;</span><br><span class="line">     FLOATING_SAVE_AREA FloatSave;</span><br><span class="line">     DWORD   SegGs;</span><br><span class="line">     DWORD   SegFs;</span><br><span class="line">     DWORD   SegEs;</span><br><span class="line">     DWORD   SegDs;</span><br><span class="line">     DWORD   Edi;</span><br><span class="line">     DWORD   Esi;</span><br><span class="line">     DWORD   Ebx;</span><br><span class="line">     DWORD   Edx;</span><br><span class="line">     DWORD   Ecx;</span><br><span class="line">     DWORD   Eax;</span><br><span class="line">     DWORD   Ebp;</span><br><span class="line">     DWORD   Eip;</span><br><span class="line">     DWORD   SegCs;</span><br><span class="line">     DWORD   EFlags;</span><br><span class="line">     DWORD   Esp;</span><br><span class="line">     DWORD   SegSs;</span><br><span class="line"> } CONTEXT;</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="2-、结构体EXCEPTION-RECORD"><a href="#2-、结构体EXCEPTION-RECORD" class="headerlink" title="2 、结构体EXCEPTION_RECORD"></a>2 、结构体EXCEPTION_RECORD</h3><pre class="language-c" data-language="c"><code class="language-c">typedef struct _EXCEPTION_RECORD {
- DWORD ExceptionCode;
- DWORD ExceptionFlags;
- struct _EXCEPTION_RECORD *ExceptionRecord;
- PVOID ExceptionAddress;
- DWORD NumberParameters;
- DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];
- }  EXCEPTION_RECORD;</code></pre>
+<h3 id="2-、结构体EXCEPTION-RECORD"><a href="#2-、结构体EXCEPTION-RECORD" class="headerlink" title="2 、结构体EXCEPTION_RECORD"></a>2 、结构体EXCEPTION_RECORD</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_RECORD</span> {</span></span><br><span class="line"> DWORD ExceptionCode;</span><br><span class="line"> DWORD ExceptionFlags;</span><br><span class="line"> <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_RECORD</span> *<span class="title">ExceptionRecord</span>;</span></span><br><span class="line"> PVOID ExceptionAddress;</span><br><span class="line"> DWORD NumberParameters;</span><br><span class="line"> DWORD ExceptionInformation[EXCEPTION_MAXIMUM_PARAMETERS];</span><br><span class="line"> }  EXCEPTION_RECORD;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>第一个参数ExceptionCode是一个由操作系统分配给异常的数值，在WINNT.H里用#define定义了一系列的由STATUS_为前缀的异常代码，比如STATUS_ACCESS_VIOLATION 的异常代码是 0xC0000005，我们可以从Windows NT DDK的头文件NTSTATUS.H中找到更加完备的异常代码。可以理解为异常的类型<br>第四个参数ExceptionAddress异常发生的地址。<br>其他的参数可以暂时忽略。</p>
-<h3 id="3-、EXCEPTION-REGISTRATION"><a href="#3-、EXCEPTION-REGISTRATION" class="headerlink" title="3 、EXCEPTION_REGISTRATION"></a>3 、EXCEPTION_REGISTRATION</h3><pre class="language-c" data-language="c"><code class="language-c">EXCEPTION_REGISTRATION struc
-     prev    dd      ?
-     handler dd      ?
- _EXCEPTION_REGISTRATION ends</code></pre>
+<h3 id="3-、EXCEPTION-REGISTRATION"><a href="#3-、EXCEPTION-REGISTRATION" class="headerlink" title="3 、EXCEPTION_REGISTRATION"></a>3 、EXCEPTION_REGISTRATION</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EXCEPTION_REGISTRATION struc</span><br><span class="line">     prev    dd      ?</span><br><span class="line">     handler dd      ?</span><br><span class="line"> _EXCEPTION_REGISTRATION ends</span><br></pre></td></tr></tbody></table></figure>
 
 <p>SEH是一个链表，而这个结构存储每个结点的信息，第一个成员指向下一个结点的handler，第二个成员handler指向处理异常的函数，每次添加一个异常就会添加在SEH链表的头结点位置，也就是头插法</p>
 <p>那么程序是怎么找到这个链表的呢</p>
 <blockquote>
 <p> <strong>线程信息块的第一个DWORD（在基于Intel CPU的机器上是FS:[0]）指向这个链表的头部。</strong> </p>
 </blockquote>
-<h3 id="5、线程信息块TIB-TEB"><a href="#5、线程信息块TIB-TEB" class="headerlink" title="5、线程信息块TIB/TEB"></a>5、线程信息块TIB/TEB</h3><pre class="language-c" data-language="c"><code class="language-c">typedef struct _NT_TIB {
-     struct _EXCEPTION_REGISTRATION_RECORD *ExceptionList; //异常的链表
-
-     PVOID StackBase;
-     PVOID StackLimit;
-     PVOID SubSystemTib;
-
-     union {
-         PVOID FiberData;
-         DWORD Version;
-     };
- 
-     PVOID ArbitraryUserPointer;
-     struct _NT_TIB *Self;
-} NT_TIB;</code></pre>
+<h3 id="5、线程信息块TIB-TEB"><a href="#5、线程信息块TIB-TEB" class="headerlink" title="5、线程信息块TIB/TEB"></a>5、线程信息块TIB/TEB</h3><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">NT_TIB</span> {</span></span><br><span class="line">     <span class="class"><span class="keyword">struct</span> _<span class="title">EXCEPTION_REGISTRATION_RECORD</span> *<span class="title">ExceptionList</span>;</span> <span class="comment">//异常的链表</span></span><br><span class="line"></span><br><span class="line">     PVOID StackBase;</span><br><span class="line">     PVOID StackLimit;</span><br><span class="line">     PVOID SubSystemTib;</span><br><span class="line"></span><br><span class="line">     <span class="class"><span class="keyword">union</span> {</span></span><br><span class="line">         PVOID FiberData;</span><br><span class="line">         DWORD Version;</span><br><span class="line">     };</span><br><span class="line"> </span><br><span class="line">     PVOID ArbitraryUserPointer;</span><br><span class="line">     <span class="class"><span class="keyword">struct</span> _<span class="title">NT_TIB</span> *<span class="title">Self</span>;</span></span><br><span class="line">} NT_TIB;</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="结构图"><a href="#结构图" class="headerlink" title="结构图"></a>结构图</h2><p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648189897008.png" alt="重要成员结构图"></p>
 <h2 id="异常处理流程"><a href="#异常处理流程" class="headerlink" title="异常处理流程"></a>异常处理流程</h2><p>当异常出现时，程序先判断是否处于调试状态，如果处于调试状态，那么就会向调试器发送EXCEPTION_DEBUG_EVENT事件。当异常抛给调试器后，调试器有两种选择</p>
@@ -433,71 +354,13 @@ EXCEPTION_STACK_OVERFLOW                   0xC00000FD     栈溢出时引发该�
 <h2 id="异常处理的实现"><a href="#异常处理的实现" class="headerlink" title="异常处理的实现"></a>异常处理的实现</h2><h3 id="1、-try、except和finally"><a href="#1、-try、except和finally" class="headerlink" title="1、__try、except和finally"></a>1、__try、except和finally</h3><p> Visual C++中的__try{}/__finally{}和__try{}/__except{}结构本质上是对Windows提供的SEH的封装。 </p>
 <p>try函数必须且只能跟着一个except或者一个finally，</p>
 <p> 当try块中的代码发生异常时，__except()中的过滤程序就被调用。 </p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;Windows.h&gt;
-int handle()
-{
-	printf("handling\n");
-	return 1;
-}
-int main()
-{
-	__try
-	{
-		__try
-		{
-			int x = 0;
-			int y = x / x;//构造一个除0异常，交由handle进行处理
-		}
-		__finally
-		{
-			printf("111\n");//无论是否处理成功，都会执行
-		}
-	}
-	__except (handle())//当返回值为-1，表示返回到原来的地方重新执行，0的话表示异常处理失败，1则为成功
-	{
-		printf("222\n");
-	}
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">handle</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"handling\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	__try</span><br><span class="line">	{</span><br><span class="line">		__try</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> y = x / x;<span class="comment">//构造一个除0异常，交由handle进行处理</span></span><br><span class="line">		}</span><br><span class="line">		__finally</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"111\n"</span>);<span class="comment">//无论是否处理成功，都会执行</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	__except (handle())<span class="comment">//当返回值为-1，表示返回到原来的地方重新执行，0的话表示异常处理失败，1则为成功</span></span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"222\n"</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648191644943.png" alt="执行结果"></p>
 <p>这里我们构造了一个除零异常，遇到异常后抛给except的处理函数，返回1（EXCEPTION_EXECUTE_HANDLER）表示处理完成，然后再回来执行finally的代码，但是返回值改为-1的话，他会继续回到出现异常的地方，然后执行，那么就会一直在异常处理进行</p>
 <p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648191945865.png" alt="返回值为-1"></p>
 <p>返回值为EXCEPTION_CONTINUE_SEARCH(0)时，会往外层找，因为我们这里就只有一个except，所以无法往外找，所以我们修改一下代码</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;Windows.h&gt;
-int handle1()
-{
-	printf("成功解决\n");
-	return EXCEPTION_EXECUTE_HANDLER;
-}
-int handle()
-{
-	printf("未被解决\n");
-	return EXCEPTION_CONTINUE_SEARCH;
-}
-int main()
-{
-	__try
-	{
-		__try
-		{
-			int x = 0;
-			int y = x / x;//构造一个除0异常，交由handle进行处理
-		}
-		__except(handle())
-		{
-		}
-	}
-	__except (handle1())//当返回值为-1，表示返回到原来的地方继续执行，0的话表示异常处理失败，1则为成功
-	{
-		printf("222\n");
-	}
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">handle1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"成功解决\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> EXCEPTION_EXECUTE_HANDLER;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">handle</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"未被解决\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> EXCEPTION_CONTINUE_SEARCH;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	__try</span><br><span class="line">	{</span><br><span class="line">		__try</span><br><span class="line">		{</span><br><span class="line">			<span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> y = x / x;<span class="comment">//构造一个除0异常，交由handle进行处理</span></span><br><span class="line">		}</span><br><span class="line">		__except(handle())</span><br><span class="line">		{</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	__except (handle1())<span class="comment">//当返回值为-1，表示返回到原来的地方继续执行，0的话表示异常处理失败，1则为成功</span></span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"222\n"</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里我们嵌套了两层except，从内往外执行，因为内层的无法处理，即返回0，那么就往外找处理异常的函数</p>
 <p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192362391.png" alt="执行结果"></p>
@@ -505,92 +368,12 @@ int main()
 <p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192718040.png"></p>
 <p>可以看到ida会自动加注释</p>
 <h3 id="2、插入汇编代码构造"><a href="#2、插入汇编代码构造" class="headerlink" title="2、插入汇编代码构造"></a>2、插入汇编代码构造</h3><p>我们下面插入汇编来创建一个异常的结构体</p>
-<pre class="language-c" data-language="c"><code class="language-c">#define WIN32_LEAN_AND_MEAN
-#include &lt;windows.h&gt;
-#include &lt;stdio.h&gt;
-
-DWORD  scratch;
-
-EXCEPTION_DISPOSITION
-__cdecl
-_except_handler(
-    struct _EXCEPTION_RECORD* ExceptionRecord,
-    void* EstablisherFrame,
-    struct _CONTEXT* ContextRecord,
-    void* DispatcherContext)
-{
-    unsigned i;
-
-    printf("Hello from an exception handler\n");
-
-    ContextRecord-&gt;Eax = (DWORD)&amp;scratch;//处理异常，将eax的值改为全局变量的地址
-
-    return ExceptionContinueExecution;
-}
-
-int main()
-{
-    DWORD handler = (DWORD)_except_handler;
-
-    __asm
-    {                           
-        push    handler        //将我们的异常处理函数压入栈中
-        push    FS : [0]       //将原本的SEH链压入栈，这样就构造了新的EXCEPTION_REGISTRATION
-        mov     FS : [0] , ESP     //将当前线程信息块TIB的第一个DWORD放入新的EXCEPTION_REGISTRATION
-    }
-
-    __asm
-    {
-        mov     eax, 0  //构造访问异常        
-        mov[eax], 1       
-    }
-
-    printf("After writing!\n");
-
-    __asm
-    {                          
-        mov     eax, [ESP]       
-        mov     FS : [0] , EAX     //还原为原来的SEH链
-        add     esp, 8          //从栈中弹出新的EXCEPTION_REGISTRATION
-    }
-
-    return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WIN32_LEAN_AND_MEAN</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">DWORD  scratch;</span><br><span class="line"></span><br><span class="line">EXCEPTION_DISPOSITION</span><br><span class="line">__cdecl</span><br><span class="line">_except_handler(</span><br><span class="line">    struct _EXCEPTION_RECORD* ExceptionRecord,</span><br><span class="line">    <span class="keyword">void</span>* EstablisherFrame,</span><br><span class="line">    struct _CONTEXT* ContextRecord,</span><br><span class="line">    <span class="keyword">void</span>* DispatcherContext)</span><br><span class="line">{</span><br><span class="line">    <span class="keyword">unsigned</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Hello from an exception handler\n"</span>);</span><br><span class="line"></span><br><span class="line">    ContextRecord-&gt;Eax = (DWORD)&amp;scratch;<span class="comment">//处理异常，将eax的值改为全局变量的地址</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ExceptionContinueExecution;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    DWORD handler = (DWORD)_except_handler;</span><br><span class="line"></span><br><span class="line">    __asm</span><br><span class="line">    {                           </span><br><span class="line">        push    handler        <span class="comment">//将我们的异常处理函数压入栈中</span></span><br><span class="line">        push    FS : [<span class="number">0</span>]       <span class="comment">//将原本的SEH链压入栈，这样就构造了新的EXCEPTION_REGISTRATION</span></span><br><span class="line">        mov     FS : [<span class="number">0</span>] , ESP     <span class="comment">//将当前线程信息块TIB的第一个DWORD放入新的EXCEPTION_REGISTRATION</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    __asm</span><br><span class="line">    {</span><br><span class="line">        mov     eax, <span class="number">0</span>  <span class="comment">//构造访问异常        </span></span><br><span class="line">        mov[eax], <span class="number">1</span>       </span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"After writing!\n"</span>);</span><br><span class="line"></span><br><span class="line">    __asm</span><br><span class="line">    {                          </span><br><span class="line">        mov     eax, [ESP]       </span><br><span class="line">        mov     FS : [<span class="number">0</span>] , EAX     <span class="comment">//还原为原来的SEH链</span></span><br><span class="line">        add     esp, <span class="number">8</span>          <span class="comment">//从栈中弹出新的EXCEPTION_REGISTRATION</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648195113558.png" alt="堆栈图"></p>
 <p>也就是先将我们处理异常的函数压入栈中，再把SEH链的头节点压入栈，这时候把ESP的值赋给FS:[0]也就是让SEH链指向这里，SEH链第一个节点（两个参数）第一个存储的就是原来链的地址，第二个是我们的处理函数，那么处理异常的时候，就会先让我们的异常处理函数执行，最后将ESP地址存储的值还给FS:[0]，也就是还原SEH链，add esp,8还原堆栈</p>
 <p>别人的另一种实现</p>
-<pre class="language-c" data-language="c"><code class="language-c">//1.挂入链表相当于这部分
-//fs[0]-&gt; Exception
-	_asm
-	{
-		mov eax, fs:[0]
-		mov temp,eax
-		lea ecx,Exception
-		mov fs:[0],ecx
-	}
-	//为SEH成员赋值
-	Exception.Next = (_EXCEPTION*)temp;
-	Exception.Handler = (DWORD)&amp;MyEexception_handler;
-
-//下面是2，3
-EXCEPTION_DISPOSITION _cdecl MyEexception_handler
-(
-	struct _EXCEPTION_RECORD *ExceptionRecord,	//异常结构体
-	PVOID EstablisherFrame,						//SEH结构体地址
-	struct _CONTEXT *ContextRecord,				//存储异常发生时的各种寄存器的值 栈位置等
-	PVOID DispatcherContext
-)
-{
-	if (ExceptionRecord-&gt;ExceptionCode == 0xC0000094)		//2.异常过滤
-	{
-		ContextRecord-&gt;Eip = ContextRecord-&gt;Eip + 2;			//3.异常处理
-		ContextRecord-&gt;Ecx = 100;
-
-		return ExceptionContinueExecution;
-	}
-	return ExceptionContinueSearch;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.挂入链表相当于这部分</span></span><br><span class="line"><span class="comment">//fs[0]-&gt; Exception</span></span><br><span class="line">	_asm</span><br><span class="line">	{</span><br><span class="line">		mov eax, fs:[<span class="number">0</span>]</span><br><span class="line">		mov temp,eax</span><br><span class="line">		lea ecx,Exception</span><br><span class="line">		mov fs:[<span class="number">0</span>],ecx</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//为SEH成员赋值</span></span><br><span class="line">	Exception.Next = (_EXCEPTION*)temp;</span><br><span class="line">	Exception.Handler = (DWORD)&amp;MyEexception_handler;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面是2，3</span></span><br><span class="line"><span class="function">EXCEPTION_DISPOSITION _cdecl <span class="title">MyEexception_handler</span></span></span><br><span class="line"><span class="function"><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">	struct _EXCEPTION_RECORD *ExceptionRecord,	<span class="comment">//异常结构体</span></span></span></span><br><span class="line"><span class="params"><span class="function">	PVOID EstablisherFrame,						<span class="comment">//SEH结构体地址</span></span></span></span><br><span class="line"><span class="params"><span class="function">	struct _CONTEXT *ContextRecord,				<span class="comment">//存储异常发生时的各种寄存器的值 栈位置等</span></span></span></span><br><span class="line"><span class="params"><span class="function">	PVOID DispatcherContext</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (ExceptionRecord-&gt;ExceptionCode == <span class="number">0xC0000094</span>)		<span class="comment">//2.异常过滤</span></span><br><span class="line">	{</span><br><span class="line">		ContextRecord-&gt;Eip = ContextRecord-&gt;Eip + <span class="number">2</span>;			<span class="comment">//3.异常处理</span></span><br><span class="line">		ContextRecord-&gt;Ecx = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> ExceptionContinueExecution;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ExceptionContinueSearch;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 
 
@@ -630,60 +413,7 @@ EXCEPTION_DISPOSITION _cdecl MyEexception_handler
 <p>会发现这样一段独立出来的汇编代码</p>
 <p>所以就可以写脚本，因为是unsigned int，右移31位就能知道最高位了</p>
 <p>脚本</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-
-
-
-int main()
-{
-    unsigned int tmp1, tmp2;
-    unsigned int num;
-    unsigned int init_num=0;
-    int Buf2[8] = { 0 };
-    unsigned int key[10] = { 1,2,3,4,5,6,7,8.9,0 };
-    Buf2[0] = 0x457E62CF;
-    Buf2[1] = 0x9537896C;
-    Buf2[2] = 0x1F7E7F72;
-    Buf2[3] = 0xF7A073D8;
-    Buf2[4] = 0x8E996868;
-    Buf2[5] = 0x40AFAF99;
-    Buf2[6] = 0xF990E34;
-    Buf2[7] = 0x196F4086;
-
-    for (int i = 0; i &lt; 32; i++)
-    {
-        init_num += 2654435761;
-        if ((init_num &gt;&gt;31) == 0)
-        {
-            init_num ^= 0x1234567;
-        }
-    }//0C78E4D05
-
-    for (int j = 0; j &lt; 8; j += 2)
-    {
-        tmp1 = Buf2[j], tmp2 = Buf2[j + 1];
-        num = init_num;
-        for (int i = 0; i &lt; 32; i++)
-        {
-            tmp2 -= (num + key[(num &gt;&gt; 11) &amp; 3]) ^ (tmp1 + ((16 * tmp1) ^ (tmp1 &gt;&gt; 5)));
-            if ((num&gt;&gt;31) == 0)
-            {
-                num ^= 0x01234567;
-            }
-            num -= 2654435761;
-            tmp1 -= (num + key[num &amp; 3]) ^ (tmp2 + ((16 * tmp2) ^ (tmp2 &gt;&gt; 5)));
-
-        }
-        Buf2[j] = tmp1;
-        Buf2[j + 1] = tmp2;
-    }
-    for (int i = 0; i &lt; 8; i++)
-    {
-        printf("%x\n", Buf2[i]);
-    }
-    printf("%s", Buf2);
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> tmp1, tmp2;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> num;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> init_num=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> Buf2[<span class="number">8</span>] = { <span class="number">0</span> };</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> key[<span class="number">10</span>] = { <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8.9</span>,<span class="number">0</span> };</span><br><span class="line">    Buf2[<span class="number">0</span>] = <span class="number">0x457E62CF</span>;</span><br><span class="line">    Buf2[<span class="number">1</span>] = <span class="number">0x9537896C</span>;</span><br><span class="line">    Buf2[<span class="number">2</span>] = <span class="number">0x1F7E7F72</span>;</span><br><span class="line">    Buf2[<span class="number">3</span>] = <span class="number">0xF7A073D8</span>;</span><br><span class="line">    Buf2[<span class="number">4</span>] = <span class="number">0x8E996868</span>;</span><br><span class="line">    Buf2[<span class="number">5</span>] = <span class="number">0x40AFAF99</span>;</span><br><span class="line">    Buf2[<span class="number">6</span>] = <span class="number">0xF990E34</span>;</span><br><span class="line">    Buf2[<span class="number">7</span>] = <span class="number">0x196F4086</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        init_num += <span class="number">2654435761</span>;</span><br><span class="line">        <span class="keyword">if</span> ((init_num &gt;&gt;<span class="number">31</span>) == <span class="number">0</span>)</span><br><span class="line">        {</span><br><span class="line">            init_num ^= <span class="number">0x1234567</span>;</span><br><span class="line">        }</span><br><span class="line">    }<span class="comment">//0C78E4D05</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j += <span class="number">2</span>)</span><br><span class="line">    {</span><br><span class="line">        tmp1 = Buf2[j], tmp2 = Buf2[j + <span class="number">1</span>];</span><br><span class="line">        num = init_num;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)</span><br><span class="line">        {</span><br><span class="line">            tmp2 -= (num + key[(num &gt;&gt; <span class="number">11</span>) &amp; <span class="number">3</span>]) ^ (tmp1 + ((<span class="number">16</span> * tmp1) ^ (tmp1 &gt;&gt; <span class="number">5</span>)));</span><br><span class="line">            <span class="keyword">if</span> ((num&gt;&gt;<span class="number">31</span>) == <span class="number">0</span>)</span><br><span class="line">            {</span><br><span class="line">                num ^= <span class="number">0x01234567</span>;</span><br><span class="line">            }</span><br><span class="line">            num -= <span class="number">2654435761</span>;</span><br><span class="line">            tmp1 -= (num + key[num &amp; <span class="number">3</span>]) ^ (tmp2 + ((<span class="number">16</span> * tmp2) ^ (tmp2 &gt;&gt; <span class="number">5</span>)));</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line">        Buf2[j] = tmp1;</span><br><span class="line">        Buf2[j + <span class="number">1</span>] = tmp2;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%x\n"</span>, Buf2[i]);</span><br><span class="line">    }</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%s"</span>, Buf2);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 
     </div>
@@ -757,13 +487,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

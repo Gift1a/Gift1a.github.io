@@ -285,14 +285,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>5.1k</span>
+      <span>4.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -327,10 +327,7 @@
 <p>将每个消息块分为16×32bits， 前32位表示为: <img src="/2022/03/23/sha256/equation-1648645804943.svg" alt="[公式]">, 后面32位为: <img src="/2022/03/23/sha256/equation-1648645804934.svg" alt="[公式]">, 以此类推, 最后32位的消息块可表示为: <img src="/2022/03/23/sha256/equation-1648645804929.svg" alt="[公式]"> ，而在C语言中，32位正好对应unsigned int</p>
 <h3 id="消息块扩充"><a href="#消息块扩充" class="headerlink" title="消息块扩充"></a>消息块扩充</h3><p>这里我们得到的是16个32bits消息块，要把其扩展为64个32bits的消息块</p>
 <p>扩展代码</p>
-<pre class="language-c" data-language="c"><code class="language-c">for i from 16 to 63
-    s0 := (w[i-15] rightrotate 7) xor (w[i-15] rightrotate 18) xor(w[i-15] rightshift 3)
-    s1 := (w[i-2] rightrotate 17) xor (w[i-2] rightrotate 19) xor(w[i-2] rightshift 10)
-    w[i] := w[i-16] + s0 + w[i-7] + s1</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i from <span class="number">16</span> to <span class="number">63</span></span><br><span class="line">    s0 := (w[i<span class="number">-15</span>] rightrotate <span class="number">7</span>) <span class="keyword">xor</span> (w[i<span class="number">-15</span>] rightrotate <span class="number">18</span>) <span class="keyword">xor</span>(w[i<span class="number">-15</span>] rightshift <span class="number">3</span>)</span><br><span class="line">    s1 := (w[i<span class="number">-2</span>] rightrotate <span class="number">17</span>) <span class="keyword">xor</span> (w[i<span class="number">-2</span>] rightrotate <span class="number">19</span>) <span class="keyword">xor</span>(w[i<span class="number">-2</span>] rightshift <span class="number">10</span>)</span><br><span class="line">    w[i] := w[i<span class="number">-16</span>] + s0 + w[i<span class="number">-7</span>] + s1</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="Hash主要加密流程"><a href="#Hash主要加密流程" class="headerlink" title="Hash主要加密流程"></a>Hash主要加密流程</h2><h3 id="常量初始化"><a href="#常量初始化" class="headerlink" title="常量初始化"></a>常量初始化</h3><p>初始哈希值取自自然数前8个素数(2,3,5,7,11,13,17,19)的平方根的小数部分的前32位的十六进制表示，比如：</p>
 <p><img src="/2022/03/23/sha256/equation-1648646228740.svg" alt="[公式]">小数部分约为0.414213562373095048 </p>
@@ -339,22 +336,7 @@
 <p>依次得到初始化的H值</p>
 <p> <img src="/2022/03/23/sha256/equation-1648646313831.svg" alt="初始化H值"> </p>
 <h3 id="sha256的64个常数"><a href="#sha256的64个常数" class="headerlink" title="sha256的64个常数"></a>sha256的64个常数</h3><p> 取自自然数中前面64个素数的立方根的小数部分的前32位的十六进制表示</p>
-<pre class="language-c" data-language="c"><code class="language-c">428a2f98 71374491 b5c0fbcf e9b5dba5
-3956c25b 59f111f1 923f82a4 ab1c5ed5
-d807aa98 12835b01 243185be 550c7dc3
-72be5d74 80deb1fe 9bdc06a7 c19bf174
-e49b69c1 efbe4786 0fc19dc6 240ca1cc
-2de92c6f 4a7484aa 5cb0a9dc 76f988da
-983e5152 a831c66d b00327c8 bf597fc7
-c6e00bf3 d5a79147 06ca6351 14292967
-27b70a85 2e1b2138 4d2c6dfc 53380d13
-650a7354 766a0abb 81c2c92e 92722c85
-a2bfe8a1 a81a664b c24b8b70 c76c51a3
-d192e819 d6990624 f40e3585 106aa070
-19a4c116 1e376c08 2748774c 34b0bcb5
-391c0cb3 4ed8aa4a 5b9cca4f 682e6ff3
-748f82ee 78a5636f 84c87814 8cc70208
-90befffa a4506ceb bef9a3f7 c67178f2</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">428</span>a2f98 <span class="number">71374491</span> b5c0fbcf e9b5dba5</span><br><span class="line"><span class="number">3956</span>c25b <span class="number">59f</span>111f1 <span class="number">923f</span>82a4 ab1c5ed5</span><br><span class="line">d807aa98 <span class="number">12835b</span>01 <span class="number">243185b</span>e <span class="number">550</span>c7dc3</span><br><span class="line"><span class="number">72b</span>e5d74 <span class="number">80</span>deb1fe <span class="number">9b</span>dc06a7 c19bf174</span><br><span class="line">e49b69c1 efbe4786 <span class="number">0f</span>c19dc6 <span class="number">240</span>ca1cc</span><br><span class="line"><span class="number">2</span>de92c6f <span class="number">4</span>a7484aa <span class="number">5</span>cb0a9dc <span class="number">76f</span>988da</span><br><span class="line"><span class="number">983e5152</span> a831c66d b00327c8 bf597fc7</span><br><span class="line">c6e00bf3 d5a79147 <span class="number">06</span>ca6351 <span class="number">14292967</span></span><br><span class="line"><span class="number">27b</span>70a85 <span class="number">2e1</span>b2138 <span class="number">4</span>d2c6dfc <span class="number">53380</span>d13</span><br><span class="line"><span class="number">650</span>a7354 <span class="number">766</span>a0abb <span class="number">81</span>c2c92e <span class="number">92722</span>c85</span><br><span class="line">a2bfe8a1 a81a664b c24b8b70 c76c51a3</span><br><span class="line">d192e819 d6990624 f40e3585 <span class="number">106</span>aa070</span><br><span class="line"><span class="number">19</span>a4c116 <span class="number">1e376</span>c08 <span class="number">2748774</span>c <span class="number">34b</span>0bcb5</span><br><span class="line"><span class="number">391</span>c0cb3 <span class="number">4</span>ed8aa4a <span class="number">5b</span>9cca4f <span class="number">682e6</span>ff3</span><br><span class="line"><span class="number">748f</span>82ee <span class="number">78</span>a5636f <span class="number">84</span>c87814 <span class="number">8</span>cc70208</span><br><span class="line"><span class="number">90b</span>efffa a4506ceb bef9a3f7 c67178f2</span><br></pre></td></tr></tbody></table></figure>
 
 <p>进行64次循环加密，流程图如下：</p>
 <p><img src="/2022/03/23/sha256/600px-SHA-2.svg.png" alt="主要加密"></p>
@@ -367,112 +349,7 @@ d192e819 d6990624 f40e3585 106aa070
 <p>然后把H0取出进行什么0操作，再和前面第二步的结果相加后mod32后存储在H0</p>
 <p>最后进行移位存储操作，就是除了H0和H4，剩下的H值存入前一个的H值</p>
 <p>这个步骤循环64步就是加密后的H值，这个H值会被用于下一个512bits消息块的初始H值，最后的H数组加上原来的中间Hash值就是该消息区块的Hash值</p>
-<h1 id="C语言实现"><a href="#C语言实现" class="headerlink" title="C语言实现"></a>C语言实现</h1><pre class="language-c" data-language="c"><code class="language-c">#define _CRT_SECURE_NO_WARNINGS
-#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-#include&lt;Windows.h&gt;
-#define SHA256_ROTL(a,b) (((a&gt;&gt;(32-b))&amp;(0x7fffffff&gt;&gt;(31-b)))|(a&lt;&lt;b))
-#define SHA256_SR(a,b) ((a&gt;&gt;b)&amp;(0x7fffffff&gt;&gt;(b-1)))
-#define SHA256_CH(x,y,z) ((x&amp;y)^((~x)&amp;z))
-#define SHA256_Maj(x,y,z) ((x&amp;y)^(x&amp;z)^(y&amp;z))
-#define SHA256_E0(x) (SHA256_ROTL(x,30)^SHA256_ROTL(x,19)^SHA256_ROTL(x,10))
-#define SHA256_E1(x) (SHA256_ROTL(x,26)^SHA256_ROTL(x,21)^SHA256_ROTL(x,7))
-#define SHA256_O0(x) (SHA256_ROTL(x,25)^SHA256_ROTL(x,14)^SHA256_SR(x,3))
-#define SHA256_O1(x) (SHA256_ROTL(x,15)^SHA256_ROTL(x,13)^SHA256_SR(x,10)) 
-
-void SHA256_ENCODE(char* input, int len)
-{
-	int i;
-	char* pos,*posend;
-	long A, B, C, D, E, F, G, I;
-	long W[64] = { 0 };
-	//初始化常量数据
-	long long H[8] = {
-		0x6a09e667,0xbb67ae85,0x3c6ef372,0xa54ff53a,
-		0x510e527f,0x9b05688c,0x1f83d9ab,0x5be0cd19
-	};
-	unsigned int K[64] = {
-		0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
-		0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
-		0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da,
-		0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967,
-		0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85,
-		0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070,
-		0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-		0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2,
-	};
-	//消息补位,一个字符8位，而448位为56个字符,128个字符是1024位，512的两倍
-	long long len_final = len + ((len % 64 &gt;= 56) ? (128 - len % 64) : (64 - len % 64));
-	//printf("%d", len_final);
-	//开辟空间
-	if (!(pos = (char*)malloc(len_final)))
-	{
-		printf("开辟空间失败！\n");
-		exit(0);
-	}
-	//将字符串赋值到堆中，注意因为后面需要转为long类型运算，所以赋值时要注意大小端序的问题
-	for ( i = 0; i &lt; len; ++i)
-	{
-		pos[i + 3 - 2 * (i % 4)] = input[i];
-	}
-	//字符串后面的1和填充0
-	pos[i + 3 - 2 * (i % 4)] = 0x80;
-	i++;
-	for (; i &lt; len_final; ++i)
-	{
-		pos[i + 3 - 2 * (i % 4)] = 0;
-	}
-	//填充字符串的真实长度，并扩展为64位,64位也就是8个字符
-	*((long*)(pos + len_final - 4)) = len &lt;&lt; 3;
-	*((long*)(pos + len_final - 8)) = len &gt;&gt; 29;
-	//每512位进行加密
-	for (posend = pos + len_final; pos &lt; posend; pos += 64)
-	{
-		//先分组为16*32bit
-		for (int j = 0; j &lt; 16; ++j)
-		{
-			W[j] = ((long*)pos)[j];
-		}
-		//扩展为64*32bit
-		for (int j = 16; j &lt; 64; ++j)
-		{
-			W[j] = (SHA256_O1(W[j - 2]) + W[j - 7] + SHA256_O0(W[j - 15]) + W[j - 16]);
-		}
-		//下面开始进行64轮加密
-		//因为中间哈希值最后时为原来的+加密的哈希值，所以先储存
-		A = H[0], B = H[1], C = H[2], D = H[3], E = H[4], F = H[5], G = H[6], I = H[7];
-		for (i = 0; i &lt; 64; ++i)
-		{
-			//T1存储加密的前一部分,T2存储加密的后一部分
-			long T1 = I + SHA256_CH(E, F, G) + K[i] + W[i]+SHA256_E1(E);
-			long T2 = SHA256_Maj(A, B, C) + SHA256_E0(A);
-			//只能从后往前赋值，否则会覆盖
-			I = G;
-			G = F;
-			F = E;
-			E = D + T1;
-			D = C;
-			C = B;
-			B = A;
-			A = T1 + T2;
-		}
-		H[0] += A; H[1] += B;
-		H[2] += C; H[3] += D;
-		H[4] += E; H[5] += F;
-		H[6] += G; H[7] += I;
-		for (i = 0; i &lt; 8; ++i)
-		{
-			printf("%X", H[i]);
-		}
-	}
-	return;
-}
-int main()
-{
-	char input[] = "ze";
-	SHA256_ENCODE(input, strlen(input));
-	return 0;
-}</code></pre>
+<h1 id="C语言实现"><a href="#C语言实现" class="headerlink" title="C语言实现"></a>C语言实现</h1><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_ROTL(a,b) (((a&gt;&gt;(32-b))&amp;(0x7fffffff&gt;&gt;(31-b)))|(a&lt;&lt;b))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_SR(a,b) ((a&gt;&gt;b)&amp;(0x7fffffff&gt;&gt;(b-1)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_CH(x,y,z) ((x&amp;y)^((~x)&amp;z))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_Maj(x,y,z) ((x&amp;y)^(x&amp;z)^(y&amp;z))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_E0(x) (SHA256_ROTL(x,30)^SHA256_ROTL(x,19)^SHA256_ROTL(x,10))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_E1(x) (SHA256_ROTL(x,26)^SHA256_ROTL(x,21)^SHA256_ROTL(x,7))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_O0(x) (SHA256_ROTL(x,25)^SHA256_ROTL(x,14)^SHA256_SR(x,3))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHA256_O1(x) (SHA256_ROTL(x,15)^SHA256_ROTL(x,13)^SHA256_SR(x,10)) </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SHA256_ENCODE</span><span class="params">(<span class="keyword">char</span>* input, <span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="keyword">char</span>* pos,*posend;</span><br><span class="line">	<span class="keyword">long</span> A, B, C, D, E, F, G, I;</span><br><span class="line">	<span class="keyword">long</span> W[<span class="number">64</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="comment">//初始化常量数据</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> H[<span class="number">8</span>] = {</span><br><span class="line">		<span class="number">0x6a09e667</span>,<span class="number">0xbb67ae85</span>,<span class="number">0x3c6ef372</span>,<span class="number">0xa54ff53a</span>,</span><br><span class="line">		<span class="number">0x510e527f</span>,<span class="number">0x9b05688c</span>,<span class="number">0x1f83d9ab</span>,<span class="number">0x5be0cd19</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> K[<span class="number">64</span>] = {</span><br><span class="line">		<span class="number">0x428a2f98</span>, <span class="number">0x71374491</span>, <span class="number">0xb5c0fbcf</span>, <span class="number">0xe9b5dba5</span>, <span class="number">0x3956c25b</span>, <span class="number">0x59f111f1</span>, <span class="number">0x923f82a4</span>, <span class="number">0xab1c5ed5</span>,</span><br><span class="line">		<span class="number">0xd807aa98</span>, <span class="number">0x12835b01</span>, <span class="number">0x243185be</span>, <span class="number">0x550c7dc3</span>, <span class="number">0x72be5d74</span>, <span class="number">0x80deb1fe</span>, <span class="number">0x9bdc06a7</span>, <span class="number">0xc19bf174</span>,</span><br><span class="line">		<span class="number">0xe49b69c1</span>, <span class="number">0xefbe4786</span>, <span class="number">0x0fc19dc6</span>, <span class="number">0x240ca1cc</span>, <span class="number">0x2de92c6f</span>, <span class="number">0x4a7484aa</span>, <span class="number">0x5cb0a9dc</span>, <span class="number">0x76f988da</span>,</span><br><span class="line">		<span class="number">0x983e5152</span>, <span class="number">0xa831c66d</span>, <span class="number">0xb00327c8</span>, <span class="number">0xbf597fc7</span>, <span class="number">0xc6e00bf3</span>, <span class="number">0xd5a79147</span>, <span class="number">0x06ca6351</span>, <span class="number">0x14292967</span>,</span><br><span class="line">		<span class="number">0x27b70a85</span>, <span class="number">0x2e1b2138</span>, <span class="number">0x4d2c6dfc</span>, <span class="number">0x53380d13</span>, <span class="number">0x650a7354</span>, <span class="number">0x766a0abb</span>, <span class="number">0x81c2c92e</span>, <span class="number">0x92722c85</span>,</span><br><span class="line">		<span class="number">0xa2bfe8a1</span>, <span class="number">0xa81a664b</span>, <span class="number">0xc24b8b70</span>, <span class="number">0xc76c51a3</span>, <span class="number">0xd192e819</span>, <span class="number">0xd6990624</span>, <span class="number">0xf40e3585</span>, <span class="number">0x106aa070</span>,</span><br><span class="line">		<span class="number">0x19a4c116</span>, <span class="number">0x1e376c08</span>, <span class="number">0x2748774c</span>, <span class="number">0x34b0bcb5</span>, <span class="number">0x391c0cb3</span>, <span class="number">0x4ed8aa4a</span>, <span class="number">0x5b9cca4f</span>, <span class="number">0x682e6ff3</span>,</span><br><span class="line">		<span class="number">0x748f82ee</span>, <span class="number">0x78a5636f</span>, <span class="number">0x84c87814</span>, <span class="number">0x8cc70208</span>, <span class="number">0x90befffa</span>, <span class="number">0xa4506ceb</span>, <span class="number">0xbef9a3f7</span>, <span class="number">0xc67178f2</span>,</span><br><span class="line">	};</span><br><span class="line">	<span class="comment">//消息补位,一个字符8位，而448位为56个字符,128个字符是1024位，512的两倍</span></span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> len_final = len + ((len % <span class="number">64</span> &gt;= <span class="number">56</span>) ? (<span class="number">128</span> - len % <span class="number">64</span>) : (<span class="number">64</span> - len % <span class="number">64</span>));</span><br><span class="line">	<span class="comment">//printf("%d", len_final);</span></span><br><span class="line">	<span class="comment">//开辟空间</span></span><br><span class="line">	<span class="keyword">if</span> (!(pos = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(len_final)))</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"开辟空间失败！\n"</span>);</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//将字符串赋值到堆中，注意因为后面需要转为long类型运算，所以赋值时要注意大小端序的问题</span></span><br><span class="line">	<span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; len; ++i)</span><br><span class="line">	{</span><br><span class="line">		pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = input[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//字符串后面的1和填充0</span></span><br><span class="line">	pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = <span class="number">0x80</span>;</span><br><span class="line">	i++;</span><br><span class="line">	<span class="keyword">for</span> (; i &lt; len_final; ++i)</span><br><span class="line">	{</span><br><span class="line">		pos[i + <span class="number">3</span> - <span class="number">2</span> * (i % <span class="number">4</span>)] = <span class="number">0</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//填充字符串的真实长度，并扩展为64位,64位也就是8个字符</span></span><br><span class="line">	*((<span class="keyword">long</span>*)(pos + len_final - <span class="number">4</span>)) = len &lt;&lt; <span class="number">3</span>;</span><br><span class="line">	*((<span class="keyword">long</span>*)(pos + len_final - <span class="number">8</span>)) = len &gt;&gt; <span class="number">29</span>;</span><br><span class="line">	<span class="comment">//每512位进行加密</span></span><br><span class="line">	<span class="keyword">for</span> (posend = pos + len_final; pos &lt; posend; pos += <span class="number">64</span>)</span><br><span class="line">	{</span><br><span class="line">		<span class="comment">//先分组为16*32bit</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">16</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			W[j] = ((<span class="keyword">long</span>*)pos)[j];</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">//扩展为64*32bit</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">16</span>; j &lt; <span class="number">64</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			W[j] = (SHA256_O1(W[j - <span class="number">2</span>]) + W[j - <span class="number">7</span>] + SHA256_O0(W[j - <span class="number">15</span>]) + W[j - <span class="number">16</span>]);</span><br><span class="line">		}</span><br><span class="line">		<span class="comment">//下面开始进行64轮加密</span></span><br><span class="line">		<span class="comment">//因为中间哈希值最后时为原来的+加密的哈希值，所以先储存</span></span><br><span class="line">		A = H[<span class="number">0</span>], B = H[<span class="number">1</span>], C = H[<span class="number">2</span>], D = H[<span class="number">3</span>], E = H[<span class="number">4</span>], F = H[<span class="number">5</span>], G = H[<span class="number">6</span>], I = H[<span class="number">7</span>];</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			<span class="comment">//T1存储加密的前一部分,T2存储加密的后一部分</span></span><br><span class="line">			<span class="keyword">long</span> T1 = I + SHA256_CH(E, F, G) + K[i] + W[i]+SHA256_E1(E);</span><br><span class="line">			<span class="keyword">long</span> T2 = SHA256_Maj(A, B, C) + SHA256_E0(A);</span><br><span class="line">			<span class="comment">//只能从后往前赋值，否则会覆盖</span></span><br><span class="line">			I = G;</span><br><span class="line">			G = F;</span><br><span class="line">			F = E;</span><br><span class="line">			E = D + T1;</span><br><span class="line">			D = C;</span><br><span class="line">			C = B;</span><br><span class="line">			B = A;</span><br><span class="line">			A = T1 + T2;</span><br><span class="line">		}</span><br><span class="line">		H[<span class="number">0</span>] += A; H[<span class="number">1</span>] += B;</span><br><span class="line">		H[<span class="number">2</span>] += C; H[<span class="number">3</span>] += D;</span><br><span class="line">		H[<span class="number">4</span>] += E; H[<span class="number">5</span>] += F;</span><br><span class="line">		H[<span class="number">6</span>] += G; H[<span class="number">7</span>] += I;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">8</span>; ++i)</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%X"</span>, H[i]);</span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> input[] = <span class="string">"ze"</span>;</span><br><span class="line">	SHA256_ENCODE(input, <span class="built_in">strlen</span>(input));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 
     </div>
@@ -546,13 +423,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

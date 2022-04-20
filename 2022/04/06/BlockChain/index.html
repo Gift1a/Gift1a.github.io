@@ -272,7 +272,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
+      <span>1.3k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -300,41 +300,7 @@
 <h2 id="0x00-创建文件"><a href="#0x00-创建文件" class="headerlink" title="0x00-创建文件"></a>0x00-创建文件</h2><p>按照如下操作创建新文件，名称后缀为.sol</p>
 <p><img src="/2022/04/06/BlockChain/1649250592024.png"></p>
 <h2 id="0x01-源码编译"><a href="#0x01-源码编译" class="headerlink" title="0x01-源码编译"></a>0x01-源码编译</h2><p>源代码</p>
-<pre class="language-solidity" data-language="solidity"><code class="language-solidity">pragma solidity ^0.4.23;
-contract Trans{
-    
-    string flag;
-    mapping(address =&gt; uint256) balances;
-    constructor () public {
-        //flag = WHAT_YOU_WANT;
-    }
-    
-    function getBalance() public returns (bool){
-        balances[msg.sender] = 100;
-        return true;
-    }
-    
-    function showBalance() public view returns (uint256){
-        return balances[msg.sender];
-    }
-    
-    function Transfer(address[] _addr, uint256 _value) public returns (bool){
-        uint times = _addr.length;
-        uint256 amount = uint256(times) * _value;
-        require(_value &gt; 0 &amp;&amp; balances[msg.sender] &gt;= amount);
-        require(times &gt; 0 &amp;&amp; times &lt; 10);
-        balances[msg.sender] -= amount;
-        for(uint i = 0; i &lt; times; i++){
-            balances[_addr[i]] += _value;
-        }
-        return true;
-    }
-    
-    function getFlag() public view returns (string){
-        require(balances[msg.sender] &gt; 9999999);
-        return flag;
-    }
-}</code></pre>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.23;</span><br><span class="line">contract Trans{</span><br><span class="line">    </span><br><span class="line">    string flag;</span><br><span class="line">    mapping(address =&gt; uint256) balances;</span><br><span class="line">    constructor () public {</span><br><span class="line">        //flag = WHAT_YOU_WANT;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function getBalance() public returns (bool){</span><br><span class="line">        balances[msg.sender] = 100;</span><br><span class="line">        return true;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function showBalance() public view returns (uint256){</span><br><span class="line">        return balances[msg.sender];</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function Transfer(address[] _addr, uint256 _value) public returns (bool){</span><br><span class="line">        uint times = _addr.length;</span><br><span class="line">        uint256 amount = uint256(times) * _value;</span><br><span class="line">        require(_value &gt; 0 &amp;&amp; balances[msg.sender] &gt;= amount);</span><br><span class="line">        require(times &gt; 0 &amp;&amp; times &lt; 10);</span><br><span class="line">        balances[msg.sender] -= amount;</span><br><span class="line">        for(uint i = 0; i &lt; times; i++){</span><br><span class="line">            balances[_addr[i]] += _value;</span><br><span class="line">        }</span><br><span class="line">        return true;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    function getFlag() public view returns (string){</span><br><span class="line">        require(balances[msg.sender] &gt; 9999999);</span><br><span class="line">        return flag;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>一些说明</p>
 <p>我们选择的COMPILER需要和题目的源码的版本一致</p>
@@ -419,13 +385,13 @@ contract Trans{
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

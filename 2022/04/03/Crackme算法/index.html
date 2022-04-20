@@ -313,7 +313,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>4.5k</span>
+      <span>4.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -376,15 +376,7 @@
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648979391664.png" alt="运行时"></p>
 <p>了解到这是需要KEY文件才能正确crack的，我们从头开始分析</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648980725152.png" alt="CreateFileA"></p>
-<pre class="language-c" data-language="c"><code class="language-c">HANDLE CreateFileA(
-  [in]           LPCSTR                lpFileName,
-  [in]           DWORD                 dwDesiredAccess,
-  [in]           DWORD                 dwShareMode,
-  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,
-  [in]           DWORD                 dwCreationDisposition,
-  [in]           DWORD                 dwFlagsAndAttributes,
-  [in, optional] HANDLE                hTemplateFile
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">CreateFileA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           LPCSTR                lpFileName,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwDesiredAccess,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwShareMode,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] LPSECURITY_ATTRIBUTES lpSecurityAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwCreationDisposition,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]           DWORD                 dwFlagsAndAttributes,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in, optional] HANDLE                hTemplateFile</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>具体参数参考<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea">https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-createfilea</a></p>
 <p>注意压入栈的顺序即可，这里根据参数应该是打开CRACKME3.KEY文件，如果没有的话返回值设置为-1</p>
@@ -402,15 +394,7 @@
 <p>offset存储的是字符串的地址</p>
 </blockquote>
 <p>接下来调用ReadFile读取文件内容，长度是0x12，位置是字符串地址存储的内容</p>
-<pre class="language-c" data-language="c"><code class="language-c">BOOL ReadFile(
-    HANDLE hFile,            //文件的句柄
-    LPVOID lpBuffer,          //用于保存读入数据的一个缓冲区
-    DWORD nNumberOfBytesToRead,    //要读入的字节数
-    LPDWORD lpNumberOfBytesRead,    //指向实际读取字节数的指针
-    LPOVERLAPPED lpOverlapped
-    //如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。
-    //该结构定义了一次异步读取操作。否则，应将这个参数设为NULL
-);</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">ReadFile</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    HANDLE hFile,            <span class="comment">//文件的句柄</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID lpBuffer,          <span class="comment">//用于保存读入数据的一个缓冲区</span></span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD nNumberOfBytesToRead,    <span class="comment">//要读入的字节数</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPDWORD lpNumberOfBytesRead,    <span class="comment">//指向实际读取字节数的指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPOVERLAPPED lpOverlapped</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//如文件打开时指定了FILE_FLAG_OVERLAPPED，那么必须，用这个参数引用一个特殊的结构。</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//该结构定义了一次异步读取操作。否则，应将这个参数设为NULL</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648981665617.png" alt="加密函数之一"></p>
 <p>先来看加密函数的初始化操作</p>
@@ -469,25 +453,7 @@
 <p>这段话就是将我们最后加密的字符串拼接到Cracked By:后面</p>
 <h2 id="整体流程"><a href="#整体流程" class="headerlink" title="整体流程"></a>整体流程</h2><p>先打开CRACKME3.KEY文件，读取前十八个字符，然后对前14个字符异或加密，并且将异或后的值和0x12345678异或后与最后四位进行比较，前十四个密文为<a href="mailto:wanao@yahoo.cn">wanao@yahoo.cn</a>，然后动调得到最后四位字符，填充进去即可，注意大小端序</p>
 <p>前十四位字符脚本</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-int main()
-{
-	char name[]="wanao@yahoo.cn";
-	char key='A';
-	int num=0;
-	for(int i=0;i&lt;strlen(name);++i)
-	{
-		name[i]^=key++;
-		num+=name[i];
-	}
-	printf("%s\n",name);
-	printf("%d\n",num);
-	int key2=0x12345678;
-	return 0;
-	
- } </code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> name[]=<span class="string">"wanao@yahoo.cn"</span>;</span><br><span class="line">	<span class="keyword">char</span> key=<span class="string">'A'</span>;</span><br><span class="line">	<span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(name);++i)</span><br><span class="line">	{</span><br><span class="line">		name[i]^=key++;</span><br><span class="line">		num+=name[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,num);</span><br><span class="line">	<span class="keyword">int</span> key2=<span class="number">0x12345678</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line"> } </span><br></pre></td></tr></tbody></table></figure>
 
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985143096.png" alt="最后四位字符"></p>
 <p>最终效果</p>
@@ -498,13 +464,7 @@ int main()
 <p>然后找到关键比较</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649033782005.png" alt="关键函数和跳转"></p>
 <p>根据程序运行知道我们需要输入name和序列号，找到获取输入的函数</p>
-<pre class="language-c" data-language="c"><code class="language-c">UINT GetDlgItemTextA(
-  [in]  HWND  hDlg,
-  [in]  int   nIDDlgItem,
-  [out] LPSTR lpString,
-  [in]  int   cchMax
-);
-//返回值是字符串的长度</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">UINT <span class="title">GetDlgItemTextA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  HWND  hDlg,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   nIDDlgItem,</span></span></span><br><span class="line"><span class="params"><span class="function">  [out] LPSTR lpString,</span></span></span><br><span class="line"><span class="params"><span class="function">  [in]  <span class="keyword">int</span>   cchMax</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"><span class="comment">//返回值是字符串的长度</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>lpstring就是我们的输入</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649034100647.png" alt="关键函数"></p>
@@ -516,10 +476,7 @@ int main()
 <p>下面那个跳转是跳转到离开的函数</p>
 <p>inc是自增，也就是让寄存器指向password和input下一个字符</p>
 <blockquote>
-<pre class="language-c" data-language="c"><code class="language-c">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)
-标号: (标明后面就是需要循环的循环体)
-    循环执行的程序代码
-    Loop 标号//注意：每执行一次loop，ecx的值都会减1</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    mov cx, 循环的次数 (当遇到Loop标号时 cx就代表循环的次数)</span><br><span class="line">标号: (标明后面就是需要循环的循环体)</span><br><span class="line">    循环执行的程序代码</span><br><span class="line">    Loop 标号<span class="comment">//注意：每执行一次loop，ecx的值都会减1</span></span><br></pre></td></tr></tbody></table></figure>
 </blockquote>
 <p>每执行一次loop，ecx的值都会减1</p>
 <p>所以注意这一点即可</p>
@@ -624,13 +581,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

@@ -315,29 +315,7 @@
 <h2 id="打开进程"><a href="#打开进程" class="headerlink" title="打开进程"></a>打开进程</h2><p>命令：volatility -f 朴实无华的取证.raw –profile=WinXPSP2x86 notepad</p>
 <p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png"></p>
 <p>这样就得到了encrypt的密码</p>
-<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;string.h&gt; 
-
-int main()
-{
-	char str[]="FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]";
-	for(int i = 0; i &lt; strlen(str); i++)
-	{
-		str[i] += 32;
-		if(str[i] &gt;='a'+3 &amp;&amp; str[i]&lt;='w'+3)
-			str[i]-=3;
-		else if(str[i]=='a')
-			str[i]='x';
-		else if(str[i]=='b')
-			str[i]='y';
-		else if(str[i]=='c')
-			str[i]='z';	
-		else if(str[i]=='|')
-			str[i]='_';
-	}
-	printf("%s",str);
-	return 0;
-}</code></pre>
+<h2 id="脚本"><a href="#脚本" class="headerlink" title="脚本"></a>脚本</h2><figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> str[]=<span class="string">"FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]"</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str); i++)</span><br><span class="line">	{</span><br><span class="line">		str[i] += <span class="number">32</span>;</span><br><span class="line">		<span class="keyword">if</span>(str[i] &gt;=<span class="string">'a'</span>+<span class="number">3</span> &amp;&amp; str[i]&lt;=<span class="string">'w'</span>+<span class="number">3</span>)</span><br><span class="line">			str[i]-=<span class="number">3</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'a'</span>)</span><br><span class="line">			str[i]=<span class="string">'x'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'b'</span>)</span><br><span class="line">			str[i]=<span class="string">'y'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'c'</span>)</span><br><span class="line">			str[i]=<span class="string">'z'</span>;	</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'|'</span>)</span><br><span class="line">			str[i]=<span class="string">'_'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>,str);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>得到flag：cazy{Xian_will_certainIy_succeed_in_fighting_the_epidemic}</p>
 
@@ -412,13 +390,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动

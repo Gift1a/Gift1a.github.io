@@ -274,7 +274,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>7k</span>
+      <span>6.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -305,232 +305,32 @@
 <h3 id="样例展示"><a href="#样例展示" class="headerlink" title="样例展示"></a>样例展示</h3><p>这里我们假设S表和K表都是7个字节的，密钥为345，填充结果如下</p>
 <p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644168199163.png"></p>
 <p>使用K表对S表进行置换</p>
-<pre class="language-c" data-language="c"><code class="language-c">int j = 0;
-	for (int i = 0; i &lt; 7; ++i)
-	{
-		j = (j + S[i] + K[i]) % 7;
-		Swap(S[i], S[j]);
-	}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		j = (j + S[i] + K[i]) % <span class="number">7</span>;</span><br><span class="line">		Swap(S[i], S[j]);</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>得到被置换后的S表</p>
 <p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644168394862.png"></p>
 <h2 id="生成密钥流"><a href="#生成密钥流" class="headerlink" title="生成密钥流"></a>生成密钥流</h2><p>作用：为每个待价密的字节生成一个伪随机数，用来异或</p>
 <p>注：S表完成初始化之后，种子密钥将不会再被使用</p>
 <p>使用置换后的S表生成密钥流</p>
-<pre class="language-c" data-language="c"><code class="language-c">int i, j = 0;
-for (int k = 0; k &lt; strlen(raw); ++k)
-{
-	i = (i + 1) % 7;
-	j = (j + S[i]) % 7;
-	Swap(S[i], S[j]);
-	int t = (S[i] + S[j]) % 7;
-	K[k] = S[t];
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i, j = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="built_in">strlen</span>(raw); ++k)</span><br><span class="line">{</span><br><span class="line">	i = (i + <span class="number">1</span>) % <span class="number">7</span>;</span><br><span class="line">	j = (j + S[i]) % <span class="number">7</span>;</span><br><span class="line">	Swap(S[i], S[j]);</span><br><span class="line">	<span class="keyword">int</span> t = (S[i] + S[j]) % <span class="number">7</span>;</span><br><span class="line">	K[k] = S[t];</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h1 id="加密过程-1"><a href="#加密过程-1" class="headerlink" title="加密过程"></a>加密过程</h1><p>密钥流和明文进行异或得到密文</p>
 <h1 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h1><p>加密部分的j是用来打乱的，实现伪随机</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include &lt;string.h&gt;
-void Rc4_init(unsigned char* S, unsigned char*K,unsigned char* key, unsigned long len)
-{
-	unsigned char  tmp = 0;
-	for (int i = 0; i &lt; 256; ++i)
-	{
-		S[i] = i;
-		K[i] = key[i % len];
-	}
-	int j = 0;
-	for (int i = 0; i &lt; 256; ++i)
-	{
-		j = (j + S[i] + K[i]) % 256;
-		tmp = S[i];
-		S[i] = S[j];
-		S[j] = tmp;
-	}
-	return;
-}
-void Rc4_encrypt(unsigned char* S, unsigned  char* flag,int len)
-{
-	int i = 0, j = 0,t = 0 ;
-	unsigned char key_liu[len] = { 0 };
-	unsigned char tmp = 0;
-	for (unsigned long k = 0; k &lt; len; ++k)
-	{
-		i = (i + 1) % 256;
-		j = (j + S[i]) % 256;
-		tmp = S[i];
-		S[i] = S[j];
-		S[j] = tmp;
-		t = (S[i] + S[j]) % 256;
-		key_liu[k] = S[t];
-	}
-	for (int i = 0; i &lt; len; ++i)
-	{
-		flag[i] ^= key_liu[i];
-	}
-}
-int main()
-{
-	unsigned char S[256] = { 0 };
-	unsigned char K[256] = { 0 };
-	char flag[512] = { 0xB6, 0x94, 0xFA, 0x8F, 0x3D, 0x5F, 0xB2, 0xE0,
-	0xEA, 0x0F, 0xD2, 0x66, 0x98, 0x6C, 0x9D, 0xE7,
-	0x1B, 0x08, 0x40, 0x71, 0xC5, 0xBE, 0x6F, 0x6D,
-	0x7C, 0x7B, 0x09, 0x8D, 0xA8, 0xBD, 0xF3, 0xF6};
-	char key[] = "w0wy0ugot1t";
-	unsigned long Len = strlen(flag);
-	Rc4_init(S, K,(unsigned char*)key, strlen(key));
-	Rc4_encrypt(S, (unsigned char*)flag, Len);
-	printf("%s", flag);
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Rc4_init</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>* S, <span class="keyword">unsigned</span> <span class="keyword">char</span>*K,<span class="keyword">unsigned</span> <span class="keyword">char</span>* key, <span class="keyword">unsigned</span> <span class="keyword">long</span> len)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span>  tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		S[i] = i;</span><br><span class="line">		K[i] = key[i % len];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		j = (j + S[i] + K[i]) % <span class="number">256</span>;</span><br><span class="line">		tmp = S[i];</span><br><span class="line">		S[i] = S[j];</span><br><span class="line">		S[j] = tmp;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span>;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Rc4_encrypt</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>* S, <span class="keyword">unsigned</span>  <span class="keyword">char</span>* flag,<span class="keyword">int</span> len)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>,t = <span class="number">0</span> ;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> key_liu[len] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">long</span> k = <span class="number">0</span>; k &lt; len; ++k)</span><br><span class="line">	{</span><br><span class="line">		i = (i + <span class="number">1</span>) % <span class="number">256</span>;</span><br><span class="line">		j = (j + S[i]) % <span class="number">256</span>;</span><br><span class="line">		tmp = S[i];</span><br><span class="line">		S[i] = S[j];</span><br><span class="line">		S[j] = tmp;</span><br><span class="line">		t = (S[i] + S[j]) % <span class="number">256</span>;</span><br><span class="line">		key_liu[k] = S[t];</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; ++i)</span><br><span class="line">	{</span><br><span class="line">		flag[i] ^= key_liu[i];</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> S[<span class="number">256</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> K[<span class="number">256</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">char</span> flag[<span class="number">512</span>] = { <span class="number">0xB6</span>, <span class="number">0x94</span>, <span class="number">0xFA</span>, <span class="number">0x8F</span>, <span class="number">0x3D</span>, <span class="number">0x5F</span>, <span class="number">0xB2</span>, <span class="number">0xE0</span>,</span><br><span class="line">	<span class="number">0xEA</span>, <span class="number">0x0F</span>, <span class="number">0xD2</span>, <span class="number">0x66</span>, <span class="number">0x98</span>, <span class="number">0x6C</span>, <span class="number">0x9D</span>, <span class="number">0xE7</span>,</span><br><span class="line">	<span class="number">0x1B</span>, <span class="number">0x08</span>, <span class="number">0x40</span>, <span class="number">0x71</span>, <span class="number">0xC5</span>, <span class="number">0xBE</span>, <span class="number">0x6F</span>, <span class="number">0x6D</span>,</span><br><span class="line">	<span class="number">0x7C</span>, <span class="number">0x7B</span>, <span class="number">0x09</span>, <span class="number">0x8D</span>, <span class="number">0xA8</span>, <span class="number">0xBD</span>, <span class="number">0xF3</span>, <span class="number">0xF6</span>};</span><br><span class="line">	<span class="keyword">char</span> key[] = <span class="string">"w0wy0ugot1t"</span>;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> Len = <span class="built_in">strlen</span>(flag);</span><br><span class="line">	Rc4_init(S, K,(<span class="keyword">unsigned</span> <span class="keyword">char</span>*)key, <span class="built_in">strlen</span>(key));</span><br><span class="line">	Rc4_encrypt(S, (<span class="keyword">unsigned</span> <span class="keyword">char</span>*)flag, Len);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, flag);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>可以不保存密钥流，直接进行异或，逆向的时候我们可以动调得到密钥流，再与密文进行异或就可以得到明文了</p>
-<pre class="language-c" data-language="c"><code class="language-c">void Rc4_encrypt(unsigned char* S, unsigned  char* flag,char*flag1)
-{
-	int len = strlen(flag1);
-	int i = 0, j = 0,t = 0 ;
-	unsigned char tmp = 0;
-	for (unsigned long k = 0; k &lt; len; ++k)
-	{
-		i = (i + 1) % 256;
-		j = (j + S[i]) % 256;
-		tmp = S[i];
-		S[i] = S[j];
-		S[j] = tmp;
-		t = (S[i] + S[j]) % 256;
-		flag[k] ^= S[t];
-	}
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Rc4_encrypt</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">char</span>* S, <span class="keyword">unsigned</span>  <span class="keyword">char</span>* flag,<span class="keyword">char</span>*flag1)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(flag1);</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">0</span>,t = <span class="number">0</span> ;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> tmp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">long</span> k = <span class="number">0</span>; k &lt; len; ++k)</span><br><span class="line">	{</span><br><span class="line">		i = (i + <span class="number">1</span>) % <span class="number">256</span>;</span><br><span class="line">		j = (j + S[i]) % <span class="number">256</span>;</span><br><span class="line">		tmp = S[i];</span><br><span class="line">		S[i] = S[j];</span><br><span class="line">		S[j] = tmp;</span><br><span class="line">		t = (S[i] + S[j]) % <span class="number">256</span>;</span><br><span class="line">		flag[k] ^= S[t];</span><br><span class="line">	}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>分别看一下加密过程的逆向代码</p>
 <p>直接异或，动调根据存储的寄存器进行提取</p>
-<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall Rc4_encrypt(unsigned __int8 *a1, unsigned __int8 *a2, char *a3)
-{
-  unsigned int v3; // eax
-  unsigned __int8 v4; // ST2B_1
-  __int64 result; // rax
-  unsigned int v6; // [rsp+30h] [rbp-10h]
-  unsigned int i; // [rsp+34h] [rbp-Ch]
-  int v8; // [rsp+38h] [rbp-8h]
-  signed int v9; // [rsp+3Ch] [rbp-4h]
-  unsigned __int8 *v10; // [rsp+50h] [rbp+10h]
-  unsigned __int8 *v11; // [rsp+58h] [rbp+18h]
-
-  v10 = a1;
-  v11 = a2;
-  v6 = strlen(a3);
-  v9 = 0;
-  v8 = 0;
-  for ( i = 0; ; ++i )
-  {
-    result = v6;
-    if ( v6 &lt;= i )
-      break;
-    v9 = (unsigned __int8)(((unsigned int)((v9 + 1) &gt;&gt; 31) &gt;&gt; 24) + v9 + 1) - ((unsigned int)((v9 + 1) &gt;&gt; 31) &gt;&gt; 24);
-    v3 = (unsigned int)((v8 + v10[v9]) &gt;&gt; 31) &gt;&gt; 24;
-    v8 = (unsigned __int8)(v3 + v8 + v10[v9]) - v3;
-    v4 = v10[v9];
-    v10[v9] = v10[v8];
-    v10[v8] = v4;
-    v11[i] ^= v10[(unsigned __int8)(v10[v9] + v10[v8])];
-  }
-  return result;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 __fastcall <span class="title">Rc4_encrypt</span><span class="params">(<span class="keyword">unsigned</span> __int8 *a1, <span class="keyword">unsigned</span> __int8 *a2, <span class="keyword">char</span> *a3)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v3; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int8 v4; <span class="comment">// ST2B_1</span></span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v6; <span class="comment">// [rsp+30h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+34h] [rbp-Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v8; <span class="comment">// [rsp+38h] [rbp-8h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v9; <span class="comment">// [rsp+3Ch] [rbp-4h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int8 *v10; <span class="comment">// [rsp+50h] [rbp+10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int8 *v11; <span class="comment">// [rsp+58h] [rbp+18h]</span></span><br><span class="line"></span><br><span class="line">  v10 = a1;</span><br><span class="line">  v11 = a2;</span><br><span class="line">  v6 = <span class="built_in">strlen</span>(a3);</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  v8 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</span><br><span class="line">  {</span><br><span class="line">    result = v6;</span><br><span class="line">    <span class="keyword">if</span> ( v6 &lt;= i )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    v9 = (<span class="keyword">unsigned</span> __int8)(((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((v9 + <span class="number">1</span>) &gt;&gt; <span class="number">31</span>) &gt;&gt; <span class="number">24</span>) + v9 + <span class="number">1</span>) - ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((v9 + <span class="number">1</span>) &gt;&gt; <span class="number">31</span>) &gt;&gt; <span class="number">24</span>);</span><br><span class="line">    v3 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)((v8 + v10[v9]) &gt;&gt; <span class="number">31</span>) &gt;&gt; <span class="number">24</span>;</span><br><span class="line">    v8 = (<span class="keyword">unsigned</span> __int8)(v3 + v8 + v10[v9]) - v3;</span><br><span class="line">    v4 = v10[v9];</span><br><span class="line">    v10[v9] = v10[v8];</span><br><span class="line">    v10[v8] = v4;</span><br><span class="line">    v11[i] ^= v10[(<span class="keyword">unsigned</span> __int8)(v10[v9] + v10[v8])];</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>先保存再异或</p>
-<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall Rc4_encrypt(unsigned __int8 *a1, unsigned __int8 *a2, signed int a3)
-{
-  void *v3; // rsp
-  char *v4; // rax
-  signed __int64 i; // rdx
-  unsigned int v6; // eax
-  __int64 result; // rax
-  __int64 v8; // [rsp+0h] [rbp-30h]
-  __int64 *v9; // [rsp+8h] [rbp-28h]
-  __int64 v10; // [rsp+10h] [rbp-20h]
-  int v11; // [rsp+1Ch] [rbp-14h]
-  unsigned int k; // [rsp+20h] [rbp-10h]
-  unsigned int j; // [rsp+24h] [rbp-Ch]
-  unsigned int v14; // [rsp+28h] [rbp-8h]
-  unsigned int v15; // [rsp+2Ch] [rbp-4h]
-  unsigned __int8 *v16; // [rsp+58h] [rbp+28h]
-
-  v16 = a2;
-  v15 = 0;
-  v14 = 0;
-  v11 = 0;
-  v10 = a3 - 1i64;
-  v3 = alloca(16 * ((unsigned __int64)(a3 + 15i64) &gt;&gt; 4));
-  v9 = &amp;v8;
-  LOBYTE(v8) = 0;
-  v4 = (char *)&amp;v8 + 1;
-  for ( i = a3 - 2i64; i != -1; --i )
-    *v4++ = 0;
-  HIBYTE(v8) = 0;
-  for ( j = 0; a3 &gt; j; ++j )
-  {
-    v15 = (unsigned __int8)(((unsigned int)((signed int)(v15 + 1) &gt;&gt; 31) &gt;&gt; 24) + v15 + 1)
-        - ((unsigned int)((signed int)(v15 + 1) &gt;&gt; 31) &gt;&gt; 24);
-    v6 = (unsigned int)((signed int)(v14 + a1[v15]) &gt;&gt; 31) &gt;&gt; 24;
-    v14 = (unsigned __int8)(v6 + v14 + a1[v15]) - v6;
-    HIBYTE(v8) = a1[v15];
-    a1[v15] = a1[v14];
-    a1[v14] = HIBYTE(v8);
-    v11 = (unsigned __int8)(a1[v15] + a1[v14]);
-    *((_BYTE *)v9 + j) = a1[v11];
-  }
-  for ( k = 0; ; ++k )
-  {
-    result = k;
-    if ( (signed int)k &gt;= a3 )
-      break;
-    v16[k] ^= *((_BYTE *)v9 + (signed int)k);
-  }
-  return result;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 __fastcall <span class="title">Rc4_encrypt</span><span class="params">(<span class="keyword">unsigned</span> __int8 *a1, <span class="keyword">unsigned</span> __int8 *a2, <span class="keyword">signed</span> <span class="keyword">int</span> a3)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">void</span> *v3; <span class="comment">// rsp</span></span><br><span class="line">  <span class="keyword">char</span> *v4; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">signed</span> __int64 i; <span class="comment">// rdx</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v6; <span class="comment">// eax</span></span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line">  __int64 v8; <span class="comment">// [rsp+0h] [rbp-30h]</span></span><br><span class="line">  __int64 *v9; <span class="comment">// [rsp+8h] [rbp-28h]</span></span><br><span class="line">  __int64 v10; <span class="comment">// [rsp+10h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> v11; <span class="comment">// [rsp+1Ch] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> k; <span class="comment">// [rsp+20h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> j; <span class="comment">// [rsp+24h] [rbp-Ch]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v14; <span class="comment">// [rsp+28h] [rbp-8h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v15; <span class="comment">// [rsp+2Ch] [rbp-4h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int8 *v16; <span class="comment">// [rsp+58h] [rbp+28h]</span></span><br><span class="line"></span><br><span class="line">  v16 = a2;</span><br><span class="line">  v15 = <span class="number">0</span>;</span><br><span class="line">  v14 = <span class="number">0</span>;</span><br><span class="line">  v11 = <span class="number">0</span>;</span><br><span class="line">  v10 = a3 - <span class="number">1</span>i64;</span><br><span class="line">  v3 = alloca(<span class="number">16</span> * ((<span class="keyword">unsigned</span> __int64)(a3 + <span class="number">15</span>i64) &gt;&gt; <span class="number">4</span>));</span><br><span class="line">  v9 = &amp;v8;</span><br><span class="line">  LOBYTE(v8) = <span class="number">0</span>;</span><br><span class="line">  v4 = (<span class="keyword">char</span> *)&amp;v8 + <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = a3 - <span class="number">2</span>i64; i != <span class="number">-1</span>; --i )</span><br><span class="line">    *v4++ = <span class="number">0</span>;</span><br><span class="line">  HIBYTE(v8) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( j = <span class="number">0</span>; a3 &gt; j; ++j )</span><br><span class="line">  {</span><br><span class="line">    v15 = (<span class="keyword">unsigned</span> __int8)(((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">signed</span> <span class="keyword">int</span>)(v15 + <span class="number">1</span>) &gt;&gt; <span class="number">31</span>) &gt;&gt; <span class="number">24</span>) + v15 + <span class="number">1</span>)</span><br><span class="line">        - ((<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">signed</span> <span class="keyword">int</span>)(v15 + <span class="number">1</span>) &gt;&gt; <span class="number">31</span>) &gt;&gt; <span class="number">24</span>);</span><br><span class="line">    v6 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)((<span class="keyword">signed</span> <span class="keyword">int</span>)(v14 + a1[v15]) &gt;&gt; <span class="number">31</span>) &gt;&gt; <span class="number">24</span>;</span><br><span class="line">    v14 = (<span class="keyword">unsigned</span> __int8)(v6 + v14 + a1[v15]) - v6;</span><br><span class="line">    HIBYTE(v8) = a1[v15];</span><br><span class="line">    a1[v15] = a1[v14];</span><br><span class="line">    a1[v14] = HIBYTE(v8);</span><br><span class="line">    v11 = (<span class="keyword">unsigned</span> __int8)(a1[v15] + a1[v14]);</span><br><span class="line">    *((_BYTE *)v9 + j) = a1[v11];</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">for</span> ( k = <span class="number">0</span>; ; ++k )</span><br><span class="line">  {</span><br><span class="line">    result = k;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="keyword">signed</span> <span class="keyword">int</span>)k &gt;= a3 )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    v16[k] ^= *((_BYTE *)v9 + (<span class="keyword">signed</span> <span class="keyword">int</span>)k);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>可以看到密钥流存储在v9，动调之后可以直接提取</p>
 <p>Vs2022生成的exe文件反编译</p>
-<pre class="language-c" data-language="c"><code class="language-c">__int64 __fastcall sub_140015E30(__int64 a1, __int64 a2, char *a3)
-{
-  __int64 result; // rax
-  __int64 v4; // kr00_8
-  unsigned __int8 v5; // dl
-  char v6; // STA4_1
-  int v7; // edx
-  unsigned int v8; // [rsp+24h] [rbp+4h]
-  int v9; // [rsp+44h] [rbp+24h]
-  int v10; // [rsp+64h] [rbp+44h]
-  unsigned int i; // [rsp+C4h] [rbp+A4h]
-  __int64 v12; // [rsp+1C0h] [rbp+1A0h]
-  __int64 v13; // [rsp+1C8h] [rbp+1A8h]
-  const char *Str; // [rsp+1D0h] [rbp+1B0h]
-
-  Str = a3;
-  v13 = a2;
-  v12 = a1;
-  sub_140011361(&amp;unk_14002200E);
-  v8 = j_strlen(Str);
-  v9 = 0;
-  v10 = 0;
-  for ( i = 0; ; ++i )
-  {
-    result = v8;
-    if ( i &gt;= v8 )
-      break;
-    v4 = v9 + 1;
-    v9 = (BYTE4(v4) + v9 + 1) - BYTE4(v4);
-    v5 = (*(v12 + v9) + v10) &gt;&gt; 31;
-    v10 = (v5 + *(v12 + v9) + v10) - v5;
-    v6 = *(v12 + v9);
-    *(v12 + v9) = *(v12 + v10);
-    *(v12 + v10) = v6;
-    v7 = (*(v12 + v10) + *(v12 + v9)) &gt;&gt; 31;
-    *(v13 + i) ^= *(v12 + (v7 + *(v12 + v10) + *(v12 + v9)) - v7);
-  }
-  return result;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 __fastcall <span class="title">sub_140015E30</span><span class="params">(__int64 a1, __int64 a2, <span class="keyword">char</span> *a3)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line">  __int64 v4; <span class="comment">// kr00_8</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int8 v5; <span class="comment">// dl</span></span><br><span class="line">  <span class="keyword">char</span> v6; <span class="comment">// STA4_1</span></span><br><span class="line">  <span class="keyword">int</span> v7; <span class="comment">// edx</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v8; <span class="comment">// [rsp+24h] [rbp+4h]</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [rsp+44h] [rbp+24h]</span></span><br><span class="line">  <span class="keyword">int</span> v10; <span class="comment">// [rsp+64h] [rbp+44h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+C4h] [rbp+A4h]</span></span><br><span class="line">  __int64 v12; <span class="comment">// [rsp+1C0h] [rbp+1A0h]</span></span><br><span class="line">  __int64 v13; <span class="comment">// [rsp+1C8h] [rbp+1A8h]</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *Str; <span class="comment">// [rsp+1D0h] [rbp+1B0h]</span></span><br><span class="line"></span><br><span class="line">  Str = a3;</span><br><span class="line">  v13 = a2;</span><br><span class="line">  v12 = a1;</span><br><span class="line">  sub_140011361(&amp;unk_14002200E);</span><br><span class="line">  v8 = j_strlen(Str);</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  v10 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</span><br><span class="line">  {</span><br><span class="line">    result = v8;</span><br><span class="line">    <span class="keyword">if</span> ( i &gt;= v8 )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    v4 = v9 + <span class="number">1</span>;</span><br><span class="line">    v9 = (BYTE4(v4) + v9 + <span class="number">1</span>) - BYTE4(v4);</span><br><span class="line">    v5 = (*(v12 + v9) + v10) &gt;&gt; <span class="number">31</span>;</span><br><span class="line">    v10 = (v5 + *(v12 + v9) + v10) - v5;</span><br><span class="line">    v6 = *(v12 + v9);</span><br><span class="line">    *(v12 + v9) = *(v12 + v10);</span><br><span class="line">    *(v12 + v10) = v6;</span><br><span class="line">    v7 = (*(v12 + v10) + *(v12 + v9)) &gt;&gt; <span class="number">31</span>;</span><br><span class="line">    *(v13 + i) ^= *(v12 + (v7 + *(v12 + v10) + *(v12 + v9)) - v7);</span><br><span class="line">  }</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>看着跟别的不一样</p>
 <h1 id="题目——BUU-GUET-CTF2019-encrypt"><a href="#题目——BUU-GUET-CTF2019-encrypt" class="headerlink" title="题目——BUU-[GUET-CTF2019]encrypt"></a>题目——BUU-[GUET-CTF2019]encrypt</h1><p>拖进ida，对一些变量和函数名进行识别和改名</p>
@@ -544,46 +344,7 @@ int main()
 <p>密钥流可以通过动调得到</p>
 <p><img src="/2022/02/06/RC4%E5%8E%9F%E7%90%86%E5%92%8C%E5%AE%9E%E7%8E%B0/1644339479964.png"></p>
 <p>脚本</p>
-<pre class="language-c" data-language="c"><code class="language-c">#include&lt;stdio.h&gt;
-#include&lt;string.h&gt;
-
-int main()
-{
-	char raw[52]={0x5a,
-    0x60, 0x54, 0x7A, 0x7A, 0x54, 0x72, 0x44, 0x7C, 0x66, 0x51, 0x50, 0x5B, 0x5F, 0x56, 0x56, 0x4C,
-    0x7C, 0x79, 0x6E, 0x65, 0x55, 0x52, 0x79, 0x55, 0x6D, 0x46, 0x6B, 0x6C, 0x56, 0x4A, 0x67, 0x4C,
-    0x61, 0x73, 0x4A, 0x72, 0x6F, 0x5A, 0x70, 0x48, 0x52, 0x78, 0x49, 0x55, 0x6C, 0x48, 0x5C, 0x76,
-    0x5A, 0x45, 0x3D};
-	char decode[39]={0};
-	for(int i=0;i&lt;52;++i)
-	{
-		raw[i]-=61;
-	}
-	for(int i=0,i_=0;i&lt;52;i+=4,i_+=3)
-	{
-		decode[i_]=((raw[i])&lt;&lt;2)|((raw[i+1])&gt;&gt;4);
-		decode[i_+1]=((raw[i+1]&amp;0xf)&lt;&lt;4)|((raw[i+2]&amp;0x3c)&gt;&gt;2);
-		decode[i_+2]=((raw[i+2]&amp;0xF)&lt;&lt;6)|(raw[i+3]);
-	}
-	char v[90]={0x10,0x59,0x9C,0x92,0x06,0x22,0xCF,0xA5,
-	0x72,0x1E,0x45,0x6A,0x06,0xCB,0x08,0xC3,
-	0xE4,0x49,0x5A,0x63,0x0C,0xDF,0xF6,0x5F,
-	0x08,0x28,0xBD,0xE2,0x10,0x15,0x1F,0x6E,
-	0xAA,0x5A,0xCA,0xEC,0x80,0xAF,0x9B,0x16,
-	0xBB,0x3D,0x13,0x2F,0x6A,0xA4,0xC7,0x2E,
-	0xBC,0x4B,0x60,0x9A,0xAF,0xE9,0xCE,0xDA,
-	0x67,0x39,0xBA,0x3B,0x85,0xEB,0xD2,0x6B,
-	0xAB,0x06,0x6B,0x10,0x57,0x2C,0x88,0x70,
-	0xF7,0x4F,0xAA,0x7F,0x12,0x47,0xD6,0xDE,
-	0x74,0xB2,0x1D,0xA4,0xD7,0x76,0x9A,0xE0
-	};
-	for(int i=0;i&lt;39;++i)
-	{
-		decode[i]^=v[i];
-	}
-	printf("%s",decode);
-	return 0;
-}</code></pre>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> raw[<span class="number">52</span>]={<span class="number">0x5a</span>,</span><br><span class="line">    <span class="number">0x60</span>, <span class="number">0x54</span>, <span class="number">0x7A</span>, <span class="number">0x7A</span>, <span class="number">0x54</span>, <span class="number">0x72</span>, <span class="number">0x44</span>, <span class="number">0x7C</span>, <span class="number">0x66</span>, <span class="number">0x51</span>, <span class="number">0x50</span>, <span class="number">0x5B</span>, <span class="number">0x5F</span>, <span class="number">0x56</span>, <span class="number">0x56</span>, <span class="number">0x4C</span>,</span><br><span class="line">    <span class="number">0x7C</span>, <span class="number">0x79</span>, <span class="number">0x6E</span>, <span class="number">0x65</span>, <span class="number">0x55</span>, <span class="number">0x52</span>, <span class="number">0x79</span>, <span class="number">0x55</span>, <span class="number">0x6D</span>, <span class="number">0x46</span>, <span class="number">0x6B</span>, <span class="number">0x6C</span>, <span class="number">0x56</span>, <span class="number">0x4A</span>, <span class="number">0x67</span>, <span class="number">0x4C</span>,</span><br><span class="line">    <span class="number">0x61</span>, <span class="number">0x73</span>, <span class="number">0x4A</span>, <span class="number">0x72</span>, <span class="number">0x6F</span>, <span class="number">0x5A</span>, <span class="number">0x70</span>, <span class="number">0x48</span>, <span class="number">0x52</span>, <span class="number">0x78</span>, <span class="number">0x49</span>, <span class="number">0x55</span>, <span class="number">0x6C</span>, <span class="number">0x48</span>, <span class="number">0x5C</span>, <span class="number">0x76</span>,</span><br><span class="line">    <span class="number">0x5A</span>, <span class="number">0x45</span>, <span class="number">0x3D</span>};</span><br><span class="line">	<span class="keyword">char</span> decode[<span class="number">39</span>]={<span class="number">0</span>};</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">52</span>;++i)</span><br><span class="line">	{</span><br><span class="line">		raw[i]-=<span class="number">61</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,i_=<span class="number">0</span>;i&lt;<span class="number">52</span>;i+=<span class="number">4</span>,i_+=<span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		decode[i_]=((raw[i])&lt;&lt;<span class="number">2</span>)|((raw[i+<span class="number">1</span>])&gt;&gt;<span class="number">4</span>);</span><br><span class="line">		decode[i_+<span class="number">1</span>]=((raw[i+<span class="number">1</span>]&amp;<span class="number">0xf</span>)&lt;&lt;<span class="number">4</span>)|((raw[i+<span class="number">2</span>]&amp;<span class="number">0x3c</span>)&gt;&gt;<span class="number">2</span>);</span><br><span class="line">		decode[i_+<span class="number">2</span>]=((raw[i+<span class="number">2</span>]&amp;<span class="number">0xF</span>)&lt;&lt;<span class="number">6</span>)|(raw[i+<span class="number">3</span>]);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">char</span> v[<span class="number">90</span>]={<span class="number">0x10</span>,<span class="number">0x59</span>,<span class="number">0x9C</span>,<span class="number">0x92</span>,<span class="number">0x06</span>,<span class="number">0x22</span>,<span class="number">0xCF</span>,<span class="number">0xA5</span>,</span><br><span class="line">	<span class="number">0x72</span>,<span class="number">0x1E</span>,<span class="number">0x45</span>,<span class="number">0x6A</span>,<span class="number">0x06</span>,<span class="number">0xCB</span>,<span class="number">0x08</span>,<span class="number">0xC3</span>,</span><br><span class="line">	<span class="number">0xE4</span>,<span class="number">0x49</span>,<span class="number">0x5A</span>,<span class="number">0x63</span>,<span class="number">0x0C</span>,<span class="number">0xDF</span>,<span class="number">0xF6</span>,<span class="number">0x5F</span>,</span><br><span class="line">	<span class="number">0x08</span>,<span class="number">0x28</span>,<span class="number">0xBD</span>,<span class="number">0xE2</span>,<span class="number">0x10</span>,<span class="number">0x15</span>,<span class="number">0x1F</span>,<span class="number">0x6E</span>,</span><br><span class="line">	<span class="number">0xAA</span>,<span class="number">0x5A</span>,<span class="number">0xCA</span>,<span class="number">0xEC</span>,<span class="number">0x80</span>,<span class="number">0xAF</span>,<span class="number">0x9B</span>,<span class="number">0x16</span>,</span><br><span class="line">	<span class="number">0xBB</span>,<span class="number">0x3D</span>,<span class="number">0x13</span>,<span class="number">0x2F</span>,<span class="number">0x6A</span>,<span class="number">0xA4</span>,<span class="number">0xC7</span>,<span class="number">0x2E</span>,</span><br><span class="line">	<span class="number">0xBC</span>,<span class="number">0x4B</span>,<span class="number">0x60</span>,<span class="number">0x9A</span>,<span class="number">0xAF</span>,<span class="number">0xE9</span>,<span class="number">0xCE</span>,<span class="number">0xDA</span>,</span><br><span class="line">	<span class="number">0x67</span>,<span class="number">0x39</span>,<span class="number">0xBA</span>,<span class="number">0x3B</span>,<span class="number">0x85</span>,<span class="number">0xEB</span>,<span class="number">0xD2</span>,<span class="number">0x6B</span>,</span><br><span class="line">	<span class="number">0xAB</span>,<span class="number">0x06</span>,<span class="number">0x6B</span>,<span class="number">0x10</span>,<span class="number">0x57</span>,<span class="number">0x2C</span>,<span class="number">0x88</span>,<span class="number">0x70</span>,</span><br><span class="line">	<span class="number">0xF7</span>,<span class="number">0x4F</span>,<span class="number">0xAA</span>,<span class="number">0x7F</span>,<span class="number">0x12</span>,<span class="number">0x47</span>,<span class="number">0xD6</span>,<span class="number">0xDE</span>,</span><br><span class="line">	<span class="number">0x74</span>,<span class="number">0xB2</span>,<span class="number">0x1D</span>,<span class="number">0xA4</span>,<span class="number">0xD7</span>,<span class="number">0x76</span>,<span class="number">0x9A</span>,<span class="number">0xE0</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">39</span>;++i)</span><br><span class="line">	{</span><br><span class="line">		decode[i]^=v[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>,decode);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 
     </div>
@@ -657,13 +418,13 @@ int main()
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">278k</span>
+    <span title="站点总字数">273k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:13</span>
+    <span title="站点阅读时长">4:08</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
