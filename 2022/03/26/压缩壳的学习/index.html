@@ -71,9 +71,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -363,11 +363,11 @@
 <p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648344795798.png" alt="加壳后的程序"></p>
 <p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648344833463.png" alt="程序解压缩"></p>
 <h2 id="运行过程"><a class="header-anchor" href="#运行过程">¶</a>运行过程</h2>
-<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/v3o2hqc77w.png" alt=""></p>
+<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/v3o2hqc77w.png" alt></p>
 <p>因为程序需要解压缩，但是原来的节的位置已经被占据，那么壳是怎么恢复数据的呢</p>
 <p>首先我们知道原PE的节的个数以及大小，那么此时我们生成的新的带壳PE，则会获得大小。然后在其带壳PE的下面申请怎么大小的节用来占位置即可，也就是说运行时，shell会进行偏移，不会占用解压缩的节的位置</p>
 <p>那么此时我们解压的数据，则会写到我们占位置的地方。</p>
-<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/wbx7n8dg8k.png" alt=""></p>
+<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/wbx7n8dg8k.png" alt></p>
 <h1 id="壳的加载过程"><a class="header-anchor" href="#壳的加载过程">¶</a>壳的加载过程</h1>
 <h2 id="1、保存入口参数"><a class="header-anchor" href="#1、保存入口参数">¶</a>1、保存入口参数</h2>
 <p>加壳程序在初始化时会保存各寄存器的值，等到外壳执行完毕，再恢复各个寄存器的值，最后跳转到原程序执行。通常使用Push ad/pop ad、pushfd/popfd指令来保存和恢复现场</p>
@@ -398,14 +398,14 @@
 <p>从这个时候开始，壳将控制权还给原程序</p>
 <h1 id="图解"><a class="header-anchor" href="#图解">¶</a>图解</h1>
 <p>引用了别人的图，看起来比较清晰，不过这个是x64下的</p>
-<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/842206_VKJXADJYNEQVSUQ.jpg" alt=""></p>
+<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/842206_VKJXADJYNEQVSUQ.jpg" alt></p>
 <p>可以发现在磁盘文件中，upx0是不存在的，使用工具也可以看到</p>
-<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648358178362.png" alt=""></p>
+<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648358178362.png" alt></p>
 <p>但是看UPX1的VirtualAddress可以知道这两个节中间有很大的空余区域，这些区域是存放解压缩后的原程序数据的</p>
 <h1 id="脱壳"><a class="header-anchor" href="#脱壳">¶</a>脱壳</h1>
 <p>这里以UPX壳为例</p>
 <p>首先我们知道压缩壳会修改程序入口，拖进OD发现断在了push ad</p>
-<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648345714976.png" alt=""></p>
+<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648345714976.png" alt></p>
 <h2 id="寻找OEP"><a class="header-anchor" href="#寻找OEP">¶</a>寻找OEP</h2>
 <h3 id="根据跨段指令寻找OEP"><a class="header-anchor" href="#根据跨段指令寻找OEP">¶</a>根据跨段指令寻找OEP</h3>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/dilex/p/5547241.html">https://www.cnblogs.com/dilex/p/5547241.html</a></p>
@@ -425,13 +425,13 @@
 <p>F8之后，ESP发生改变，寄存器的值也被压入了栈中</p>
 <p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361564539.png" alt="F8之后"></p>
 <p>对ESP下硬件访问断点</p>
-<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361685665.png" alt=""></p>
+<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361685665.png" alt></p>
 <p>也可以现在右键ESP，在数据窗口跟随，然后选中前四个字节右键-&gt;断点-&gt;硬件访问-&gt;DWORD</p>
 <p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361790656.png" alt="数据窗口设置断点"></p>
 <p>设置好断点后F9</p>
 <p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361835848.png" alt="F9之后"></p>
 <p>然后一直单步到jmp</p>
-<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361889146.png" alt=""></p>
+<p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361889146.png" alt></p>
 <p>这里有个往上跳的，只需要在jnz下一行处按F4即可</p>
 <p><img src="/2022/03/26/%E5%8E%8B%E7%BC%A9%E5%A3%B3%E7%9A%84%E5%AD%A6%E4%B9%A0/1648361978941.png" alt="jmp之后"></p>
 <p>这时候已经到达OEP了，可以发现堆栈和刚载入时一样</p>

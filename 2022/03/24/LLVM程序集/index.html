@@ -53,9 +53,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -328,7 +328,7 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_37206105/article/details/115274241">https://blog.csdn.net/qq_37206105/article/details/115274241</a></p>
 <h1 id="LLVM程序集转为ELF可执行文件"><a class="header-anchor" href="#LLVM程序集转为ELF可执行文件">¶</a>LLVM程序集转为ELF可执行文件</h1>
 <p>打开附件发现有点难看懂，搜索其中一段指令集后发现是LLVM指令集</p>
-<p><img src="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/1648121627952.png" alt=""></p>
+<p><img src="/2022/03/24/LLVM%E7%A8%8B%E5%BA%8F%E9%9B%86/1648121627952.png" alt></p>
 <h2 id="转为ELF可执行文件"><a class="header-anchor" href="#转为ELF可执行文件">¶</a>转为ELF可执行文件</h2>
 <p>clang task.ll -mllvm -W -g -W1,-pie -o task.out</p>
 <p>使用上面的命令即可生成elf文件</p>

@@ -69,9 +69,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -338,7 +338,7 @@
 <span id="more"></span> 
 <h1 id="WINDOWS下的异常处理"><a class="header-anchor" href="#WINDOWS下的异常处理">¶</a>WINDOWS下的异常处理</h1>
 <h2 id="异常列表"><a class="header-anchor" href="#异常列表">¶</a>异常列表</h2>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220203125855.jpg" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220203125855.jpg" alt></p>
 <h1 id="参考文章-v2"><a class="header-anchor" href="#参考文章-v2">¶</a>参考文章</h1>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82">https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows中,则直接程序崩溃。</a></p>
 <p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-249592.htm">https://bbs.pediy.com/thread-249592.htm</a></p>
@@ -410,7 +410,7 @@
 <p>这里我们嵌套了两层except，从内往外执行，因为内层的无法处理，即返回0，那么就往外找处理异常的函数</p>
 <p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192362391.png" alt="执行结果"></p>
 <p>ida中的效果</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192718040.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192718040.png" alt></p>
 <p>可以看到ida会自动加注释</p>
 <h3 id="2、插入汇编代码构造"><a class="header-anchor" href="#2、插入汇编代码构造">¶</a>2、插入汇编代码构造</h3>
 <p>我们下面插入汇编来创建一个异常的结构体</p>
@@ -433,28 +433,28 @@
 <p>我们可以自己构造异常，然后先处理掉异常，再执行我们的shellcode</p>
 <h2 id="题目——hagme2022——week2——creakme2"><a class="header-anchor" href="#题目——hagme2022——week2——creakme2">¶</a>题目——hagme2022——week2——creakme2</h2>
 <p>在静态分析中，只找到了tea加密算法，直接写脚本解不出来，去查看汇编代码（因为有时候ida没办法识别出一些汇编）</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643864939414.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643864939414.png" alt></p>
 <p>第一个框对应上上面那句代码，这里按/就会显示出来对应反编译过来的伪代码</p>
 <p>下面两个框的都是没被识别的语句</p>
 <p>在图中位置下断点进行动态调试，会报错</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865333034.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865333034.png" alt></p>
 <p>因为除数不能为0，去看看汇编</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865908164.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865908164.png" alt></p>
 <p>按；写下注释</p>
 <p>开始动态调试</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866006832.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866006832.png" alt></p>
 <p>选择yes，发现进入到这段未被反编译的语句</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866024820.png" alt=""></p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866787250.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866024820.png" alt></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866787250.png" alt></p>
 <p>第二次执行到这一段代码，可以看到ecx寄存器的值不是0，不会触发异常</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866890816.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866890816.png" alt></p>
 <p>发现没有执行异或，而是继续往下执行，这就是下一步进行的反汇编语句</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866944920.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866944920.png" alt></p>
 <p>因此可以知道，当变量num的最高位为0的时候，会触发异常，这时候系统会交给SEH进行处理，即__try代码</p>
 <p>__except会执行异常后代码</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867671850.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867671850.png" alt></p>
 <p>按空格查看执行顺序</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867149242.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867149242.png" alt></p>
 <p>会发现这样一段独立出来的汇编代码</p>
 <p>所以就可以写脚本，因为是unsigned int，右移31位就能知道最高位了</p>
 <p>脚本</p>
