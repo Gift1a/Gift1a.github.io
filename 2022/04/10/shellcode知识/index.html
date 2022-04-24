@@ -69,9 +69,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -164,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-Shellcode"><span class="nav-number">1.</span> <span class="nav-text">0x00-Shellcode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-%E6%9D%80%E6%AF%92%E8%BD%AF%E4%BB%B6%E7%94%84%E5%88%AB%E7%97%85%E6%AF%92%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">0x01-杀毒软件甄别病毒的技术原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%B9%E5%BE%81%E8%BF%9B%E8%A1%8C%E7%94%84%E5%88%AB"><span class="nav-number">2.1.</span> <span class="nav-text">基于特征进行甄别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%97%85%E6%AF%92%E7%9A%84%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E7%94%84%E5%88%AB"><span class="nav-number">2.2.</span> <span class="nav-text">基于病毒的行为进行甄别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Loader"><span class="nav-number">3.</span> <span class="nav-text">0x03-一个简单的Loader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-%E4%BC%98%E5%8C%96Loader"><span class="nav-number">4.</span> <span class="nav-text">0x04-优化Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%BC%98%E5%8C%96"><span class="nav-number">4.1.</span> <span class="nav-text">内存分配优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E5%B1%9E%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">改变属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C-v3"><span class="nav-number">4.3.</span> <span class="nav-text">最终效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-%E6%9B%B4%E8%BF%9B%E4%B8%80%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">0x05-更进一步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA-v2"><span class="nav-number">5.1.</span> <span class="nav-text">效果展示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x06-%E6%A0%88%E6%BA%A2%E5%87%BA"><span class="nav-number">6.</span> <span class="nav-text">0x06-栈溢出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">6.1.</span> <span class="nav-text">栈溢出基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8"><span class="nav-number">6.2.</span> <span class="nav-text">分析利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C-v2"><span class="nav-number">6.3.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-v8"><span class="nav-number">6.4.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x07-shellcode%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E9%87%8A%E6%94%BE"><span class="nav-number">7.</span> <span class="nav-text">0x07-shellcode的加密与释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shellcode%E6%B3%A8%E5%85%A5"><span class="nav-number">8.</span> <span class="nav-text">shellcode注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x08-%E9%9A%90%E8%97%8FAPI"><span class="nav-number">9.</span> <span class="nav-text">0x08-隐藏API</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-Shellcode"><span class="nav-number">1.</span> <span class="nav-text">0x00-Shellcode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-%E6%9D%80%E6%AF%92%E8%BD%AF%E4%BB%B6%E7%94%84%E5%88%AB%E7%97%85%E6%AF%92%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">0x01-杀毒软件甄别病毒的技术原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%89%B9%E5%BE%81%E8%BF%9B%E8%A1%8C%E7%94%84%E5%88%AB"><span class="nav-number">2.1.</span> <span class="nav-text">基于特征进行甄别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E7%97%85%E6%AF%92%E7%9A%84%E8%A1%8C%E4%B8%BA%E8%BF%9B%E8%A1%8C%E7%94%84%E5%88%AB"><span class="nav-number">2.2.</span> <span class="nav-text">基于病毒的行为进行甄别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Loader"><span class="nav-number">3.</span> <span class="nav-text">0x03-一个简单的Loader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-%E4%BC%98%E5%8C%96Loader"><span class="nav-number">4.</span> <span class="nav-text">0x04-优化Loader</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%BC%98%E5%8C%96"><span class="nav-number">4.1.</span> <span class="nav-text">内存分配优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E5%8F%98%E5%B1%9E%E6%80%A7"><span class="nav-number">4.2.</span> <span class="nav-text">改变属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C-v3"><span class="nav-number">4.3.</span> <span class="nav-text">最终效果</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-%E6%9B%B4%E8%BF%9B%E4%B8%80%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">0x05-更进一步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA-v2"><span class="nav-number">5.1.</span> <span class="nav-text">效果展示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x06-%E6%A0%88%E6%BA%A2%E5%87%BA"><span class="nav-number">6.</span> <span class="nav-text">0x06-栈溢出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%88%E6%BA%A2%E5%87%BA%E5%9F%BA%E7%A1%80"><span class="nav-number">6.1.</span> <span class="nav-text">栈溢出基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E5%88%A9%E7%94%A8"><span class="nav-number">6.2.</span> <span class="nav-text">分析利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C-v2"><span class="nav-number">6.3.</span> <span class="nav-text">效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-v11"><span class="nav-number">6.4.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x07-shellcode%E7%9A%84%E5%8A%A0%E5%AF%86%E4%B8%8E%E9%87%8A%E6%94%BE"><span class="nav-number">7.</span> <span class="nav-text">0x07-shellcode的加密与释放</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#shellcode%E6%B3%A8%E5%85%A5"><span class="nav-number">8.</span> <span class="nav-text">shellcode注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x08-%E9%9A%90%E8%97%8FAPI"><span class="nav-number">9.</span> <span class="nav-text">0x08-隐藏API</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -179,13 +179,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -406,7 +411,7 @@
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Decshellcode</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="comment">//完成恶意代码的释放、解密、执行</span></span><br><span class="line">	MessageBoxA(<span class="number">0</span>, <span class="string">"不要再打了"</span>, <span class="string">"我错了"</span>, MB_OK);</span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,off)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> a = <span class="number">2022</span>;</span><br><span class="line">	<span class="keyword">int</span> arr[<span class="number">2</span>] = { <span class="number">1</span>,<span class="number">2</span> };</span><br><span class="line">	<span class="keyword">int</span> ti = <span class="number">23</span>;</span><br><span class="line">	arr[<span class="number">5</span>] = (<span class="keyword">int</span>)Decshellcode;</span><br><span class="line">	<span class="comment">//return 0;</span></span><br><span class="line">}</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> optimize(<span class="meta-string">""</span>,on)</span></span><br></pre></td></tr></tbody></table></figure>
 <h2 id="效果-v2"><a class="header-anchor" href="#效果-v2">¶</a>效果</h2>
 <p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649559630756.png" alt=""></p>
-<h2 id="分析-v8"><a class="header-anchor" href="#分析-v8">¶</a>分析</h2>
+<h2 id="分析-v11"><a class="header-anchor" href="#分析-v11">¶</a>分析</h2>
 <p>为什么会执行呢，我们知道调用函数在汇编中要有call，但是我们并没有发现call指令</p>
 <p><img src="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/1649559733763.png" alt=""></p>
 <h1 id="0x07-shellcode的加密与释放"><a class="header-anchor" href="#0x07-shellcode的加密与释放">¶</a>0x07-shellcode的加密与释放</h1>
@@ -484,13 +489,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">274k</span>
+    <span title="站点总字数">288k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:09</span>
+    <span title="站点阅读时长">4:22</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -553,7 +558,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

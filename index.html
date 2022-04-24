@@ -46,9 +46,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -155,13 +155,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -217,6 +222,852 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/23/DASCTF-FATE-Reverse/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/23/DASCTF-FATE-Reverse/" class="post-title-link" itemprop="url">DASCTF-FATE-Reverse</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-23 20:40:54" itemprop="dateCreated datePublished" datetime="2022-04-23T20:40:54+08:00">2022-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-24 09:30:11" itemprop="dateModified" datetime="2022-04-24T09:30:11+08:00">2022-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/04/23/DASCTF-FATE-Reverse/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/23/DASCTF-FATE-Reverse/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-Crackme"><a class="header-anchor" href="#0x00-Crackme">¶</a>0x00-Crackme</h1>
+<h2 id="考点-v7"><a class="header-anchor" href="#考点-v7">¶</a>考点</h2>
+<p>MFC逆向、反调试、Wincrypt</p>
+<h2 id="分析-v7"><a class="header-anchor" href="#分析-v7">¶</a>分析</h2>
+<p>看exe文件的图标是MFC，于是去网上搜了一下MFC逆向，发现了这篇文章</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Sanky0u/article/details/81568483">https://blog.csdn.net/Sanky0u/article/details/81568483</a></p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650718980990.png" alt=""></p>
+<p>1000和1001对应两个输入框</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719074057.png" alt=""></p>
+<p>能定位到输入框</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719123440.png" alt=""></p>
+<p>对函数交叉引用发现找不到，因为这里使用的是this指针调用（可能）</p>
+<blockquote>
+<p><strong>MFC主函数是WinMain</strong></p>
+</blockquote>
+<p>然后动调半天看晕了</p>
+<p>字符串搜索回显的字符串Wrong，直接明文存储</p>
+<p>如果下次有机会出这样的题一定把回显字符串加密（</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719281899.png" alt=""></p>
+<p>流程分析</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719629400.png" alt=""></p>
+<p>这里都是一些API函数，就不过多介绍了</p>
+<h3 id="key加密"><a class="header-anchor" href="#key加密">¶</a>key加密</h3>
+<p>关键的是</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719692346.png" alt=""></p>
+<p>不同的值对应了不同的加密</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719799678.png" alt=""></p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719826383.png" alt=""></p>
+<p>所以就是将我们输入的key分为两个长度为四的字符串，然后分别进行MD5和SHA1加密</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650719927941.png" alt="最终的加密"></p>
+<h3 id="flag加密"><a class="header-anchor" href="#flag加密">¶</a>flag加密</h3>
+<p>先把整段key进行md5加密</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650720029530.png" alt=""></p>
+<p>然后将加密后的key传入最终的加密函数中，生成MD5的哈希值，传入生成Key</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650720157885.png" alt=""></p>
+<p>看到这个参数，查了一下</p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-tw/windows/win32/seccrypto/alg-id?redirectedfrom=MSDN">https://docs.microsoft.com/zh-tw/windows/win32/seccrypto/alg-id?redirectedfrom=MSDN</a></p>
+<p>发现对应AES-128，也就是生成AES-128的密钥</p>
+<p>然后调用CryptEncrypt函数加密</p>
+<h3 id="反调试-ZwSetInformationThread"><a class="header-anchor" href="#反调试-ZwSetInformationThread">¶</a>反调试-ZwSetInformationThread</h3>
+<p>我们需要动态调试提取数据，但是在刚才的位置设置断点会发现输入后直接结束，应该是有反调试</p>
+<p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/reverse/windows/anti-debug/zwsetinformationthread/">https://ctf-wiki.org/reverse/windows/anti-debug/zwsetinformationthread/</a></p>
+<p>对比各种反调试和去IMPORT找导入函数，最终确定是ZwSetInformationThread</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650720722604.png" alt=""></p>
+<p>反反调试在该文中也有介绍，就不再多说了</p>
+<p>绕过后就可以提取数据进行解密了</p>
+<h3 id="得到key"><a class="header-anchor" href="#得到key">¶</a>得到key</h3>
+<p>MD5</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650761698008.png" alt=""></p>
+<p>SHA1</p>
+<p><a target="_blank" rel="noopener" href="https://crackstation.net/">https://crackstation.net/</a></p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650762007404.png" alt=""></p>
+<h3 id="解密flag"><a class="header-anchor" href="#解密flag">¶</a>解密flag</h3>
+<p>这里直接提取数据拿去AES解密有问题（提取出来调用CryptDecrypt也不行），还是FallW1nd师傅强，想到直接模拟生成哈希值的过程，然后最后调用CryptDecrypt即可</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650762204848.png" alt=""></p>
+<p>EXP如下</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windef.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;wincrypt.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    HCRYPTKEY phKey; <span class="comment">// [esp+Ch] [ebp-10h] BYREF</span></span><br><span class="line">    HCRYPTPROV phProv; <span class="comment">// [esp+10h] [ebp-Ch] BYREF</span></span><br><span class="line">    HCRYPTHASH phHash; <span class="comment">// [esp+14h] [ebp-8h] BYREF</span></span><br><span class="line">    BOOL retValue;</span><br><span class="line"></span><br><span class="line">    BYTE flag_data[<span class="number">0x104</span>] = { <span class="number">0x5B</span>, <span class="number">0x9C</span>, <span class="number">0xEE</span>, <span class="number">0xB2</span>, <span class="number">0x3B</span>, <span class="number">0xB7</span>, <span class="number">0xD7</span>, <span class="number">0x34</span>, <span class="number">0xF3</span>, <span class="number">0x1B</span>, <span class="number">0x75</span>, <span class="number">0x14</span>, <span class="number">0xC6</span>, <span class="number">0xB2</span>, <span class="number">0x1F</span>, <span class="number">0xE8</span>, <span class="number">0xDE</span>, <span class="number">0x33</span>, <span class="number">0x44</span>, <span class="number">0x74</span>, <span class="number">0x75</span>, <span class="number">0x1B</span>, <span class="number">0x47</span>, <span class="number">0x6A</span>, <span class="number">0xD4</span>, <span class="number">0x37</span>, <span class="number">0x51</span>, <span class="number">0x88</span>, <span class="number">0xFC</span>, <span class="number">0x67</span>, <span class="number">0xE6</span>, <span class="number">0x60</span>, <span class="number">0xDA</span>, <span class="number">0x0D</span>, <span class="number">0x58</span>, <span class="number">0x07</span>, <span class="number">0x81</span>, <span class="number">0x43</span>, <span class="number">0x53</span>, <span class="number">0xEA</span>, <span class="number">0x7B</span>, <span class="number">0x52</span>, <span class="number">0x85</span>, <span class="number">0x6C</span>, <span class="number">0x86</span>, <span class="number">0x65</span>, <span class="number">0xAF</span>, <span class="number">0xB4</span> };</span><br><span class="line">    BYTE keyBuf[] = { <span class="number">0x5c</span>,<span class="number">0x53</span>,<span class="number">0xa4</span>,<span class="number">0xa4</span>,<span class="number">0x1d</span>,<span class="number">0x52</span>,<span class="number">0x43</span>,<span class="number">0x7a</span>,<span class="number">0x9f</span>,<span class="number">0xa1</span>,<span class="number">0xe9</span>,<span class="number">0xc2</span>,<span class="number">0x6c</span>,<span class="number">0xa5</span>,<span class="number">0x90</span>,<span class="number">0x90</span> };</span><br><span class="line">    DWORD dwDataLen = <span class="number">0x10</span>;</span><br><span class="line">    DWORD dwBufLen = <span class="number">0x104</span>;</span><br><span class="line">    DWORD dwDataLen_2;</span><br><span class="line">    DWORD* pdwDataLen = &amp;dwDataLen_2;</span><br><span class="line">    *pdwDataLen = <span class="number">0x20</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    phProv = <span class="number">0</span>;</span><br><span class="line">    phHash = <span class="number">0</span>;</span><br><span class="line">    phKey = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    retValue = CryptAcquireContextA(&amp;phProv, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0x18</span>u, <span class="number">0xF0000000</span>);</span><br><span class="line">    <span class="keyword">if</span> (retValue)</span><br><span class="line">    {</span><br><span class="line">        retValue = CryptCreateHash(phProv, <span class="number">0x8003</span>u, <span class="number">0</span>, <span class="number">0</span>, &amp;phHash);</span><br><span class="line">        <span class="keyword">if</span> (retValue)</span><br><span class="line">        {</span><br><span class="line">            retValue = CryptHashData(phHash, keyBuf, dwDataLen, <span class="number">0</span>);</span><br><span class="line">            <span class="keyword">if</span> (retValue)</span><br><span class="line">            {</span><br><span class="line">                retValue = CryptDeriveKey(phProv, <span class="number">0x660E</span>u, phHash, <span class="number">1u</span>, &amp;phKey);</span><br><span class="line">                <span class="keyword">if</span> (retValue)</span><br><span class="line">                    retValue = CryptDecrypt(phKey, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, flag_data, pdwDataLen);</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (phKey)</span><br><span class="line">        CryptDestroyKey(phKey);</span><br><span class="line">    <span class="keyword">if</span> (phHash)</span><br><span class="line">        CryptDestroyHash(phHash);</span><br><span class="line">    <span class="keyword">if</span> (phProv)</span><br><span class="line">        CryptReleaseContext(phProv, <span class="number">0</span>);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> retValue;</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="附录"><a class="header-anchor" href="#附录">¶</a>附录</h3>
+<p>还有这种调用加密，有兴趣可以去看看-<a target="_blank" rel="noopener" href="http://ctf.hsc2019.site/challenges#DRIVER-58">http://ctf.hsc2019.site/challenges#DRIVER-58</a></p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650762364038.png" alt=""></p>
+<h1 id="0x01-FakePica"><a class="header-anchor" href="#0x01-FakePica">¶</a>0x01-FakePica</h1>
+<h2 id="考点-v8"><a class="header-anchor" href="#考点-v8">¶</a>考点</h2>
+<p>安卓加壳、AES</p>
+<h2 id="分析-v8"><a class="header-anchor" href="#分析-v8">¶</a>分析</h2>
+<p>hgame-week3-re也有脱壳，这里把工具链接贴一下</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/CodingGay/BlackDex">https://github.com/CodingGay/BlackDex</a></p>
+<p>具体分析加壳与脱壳直接看我之前写的文章</p>
+<p><a href="https://gift1a.github.io/2022/02/13/hgame2022-week3-re/?highlight=%E6%A2%86">https://gift1a.github.io/2022/02/13/hgame2022-week3-re/?highlight=梆</a></p>
+<h3 id="加密分析"><a class="header-anchor" href="#加密分析">¶</a>加密分析</h3>
+<p>找到Mainactivity</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650762932688.png" alt=""></p>
+<p>数据提取</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> content[] = {<span class="number">-114</span>, <span class="number">95</span>, <span class="number">-37</span>, <span class="number">127</span>, <span class="number">-110</span>, <span class="number">113</span>, <span class="number">41</span>, <span class="number">74</span>, <span class="number">40</span>, <span class="number">73</span>, <span class="number">19</span>, <span class="number">124</span>, <span class="number">-57</span>, <span class="number">-88</span>, <span class="number">39</span>, <span class="number">-116</span>, <span class="number">-16</span>, <span class="number">-75</span>, <span class="number">-3</span>, <span class="number">-45</span>, <span class="number">-73</span>, <span class="number">-6</span>, <span class="number">-104</span>, <span class="number">-6</span>, <span class="number">-78</span>, <span class="number">121</span>, <span class="number">110</span>, <span class="number">74</span>, <span class="number">-90</span>, <span class="number">-47</span>, <span class="number">-28</span>, <span class="number">-28</span>};</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> content1[] = {<span class="number">-40</span>, <span class="number">26</span>, <span class="number">95</span>, <span class="number">-49</span>, <span class="number">-40</span>, <span class="number">-123</span>, <span class="number">72</span>, <span class="number">-90</span>, <span class="number">-100</span>, <span class="number">-41</span>, <span class="number">122</span>, <span class="number">-4</span>, <span class="number">25</span>, <span class="number">-101</span>, <span class="number">-58</span>, <span class="number">116</span>};</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">16</span>; ++i)</span><br><span class="line">{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%X"</span>, content1[i] &amp; <span class="number">0xff</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>解密直接去在线网站即可</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650763024950.png" alt=""></p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650763086950.png" alt="get flag"></p>
+<h1 id="0x02-奇怪的交易"><a class="header-anchor" href="#0x02-奇怪的交易">¶</a>0x02-奇怪的交易</h1>
+<h2 id="考点-v9"><a class="header-anchor" href="#考点-v9">¶</a>考点</h2>
+<p>ELF-python打包、算法</p>
+<h2 id="分析-v9"><a class="header-anchor" href="#分析-v9">¶</a>分析</h2>
+<p>还好加了Lu1u师傅，刚好看到https://lu1u.xyz/2022/03/28/RE_Challenge/</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650763204421.png" alt=""></p>
+<blockquote>
+<p><strong>objcopy --dump-section pydata=pydata.dump 1</strong></p>
+<p><strong>sudo snap install pyinstxtractor</strong></p>
+<p><strong>pyinstxtractor pydata.dump</strong></p>
+</blockquote>
+<p>得到pyc文件，修补好文件头发现uncompyle6不了，寄，只能嗯读python字节码</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dis</span><br><span class="line"><span class="keyword">import</span> libnum</span><br><span class="line"><span class="comment">#pub_key=[12702192797044914024075774649965354105344232304099465264316470282606351700311177624703682814557100043599414982439635470829841890299241342602374578366076034128412992290094164613120745611751102797279925764448133764246126488845600641524814194290745105708735258127757986238766868988676022258542038318776640732920027324986285887310132372524224961045858183153047991881042129131551711617627844146600513830709959185824512201669420128585170924683844128155435146399996585220865423125338735154727569986267948480523307784641442521735105741341230032585576300299944879647981670048377150556292280650846158185797588466680532743801893,12680615221091469696163926483122992106481999501435284497098601343706982733487916553201934931961274845294041438909951977672521864927961654544622905443692482152403380984734291652023321187458458985625147422841102922314725726207365632256563373977251725785357590588556314671253970422319546403985257810950046085994573229162322957630767327089195523762665081311711474689269184996318744510300057603532953644164998953897411177604349567514705039306693117602798453972917348902600111420473965929048876821563646206875034926505783009957256212261250539005023918242209009676914632796839852778318989278092929214021282438144809708279435]</span></span><br><span class="line">pp=[<span class="number">0</span>]</span><br><span class="line">dd=[<span class="number">54</span>,<span class="number">54</span>,<span class="number">54</span>,<span class="number">54</span>]</span><br><span class="line">oo=[<span class="number">3532577106</span>, <span class="number">1472742623</span>, <span class="number">3642468664</span>, <span class="number">4193500461</span>, <span class="number">2398676029</span>, <span class="number">617653972</span>, <span class="number">1474514999</span>, <span class="number">1471783658</span>, <span class="number">1012864704</span>, <span class="number">3615627536</span>, <span class="number">993855884</span>, <span class="number">438456717</span>, <span class="number">3358938551</span>, <span class="number">3906991208</span>, <span class="number">198959101</span>, <span class="number">3317190635</span>, <span class="number">3656923078</span>, <span class="number">613157871</span>, <span class="number">2398768861</span>, <span class="number">97286225</span>, <span class="number">2336972940</span>, <span class="number">1471645170</span>, <span class="number">3233163154</span>, <span class="number">583597118</span>, <span class="number">2863776301</span>, <span class="number">3183067750</span>, <span class="number">1384330715</span>, <span class="number">2929694742</span>, <span class="number">3522431804</span>, <span class="number">2181488067</span>, <span class="number">3303062236</span>, <span class="number">3825712422</span>, <span class="number">145643141</span>, <span class="number">2148976293</span>, <span class="number">2940910035</span>, <span class="number">506798154</span>, <span class="number">994590281</span>, <span class="number">2231904779</span>, <span class="number">3389770074</span>, <span class="number">2814269052</span>, <span class="number">1105937096</span>, <span class="number">1789727804</span>, <span class="number">3757028753</span>, <span class="number">2469686072</span>, <span class="number">1162286478</span>, <span class="number">680814033</span>, <span class="number">2934024098</span>, <span class="number">2162521262</span>, <span class="number">4048876895</span>, <span class="number">2121620700</span>, <span class="number">4240287315</span>, <span class="number">2391811140</span>, <span class="number">3396611602</span>, <span class="number">3091349617</span>, <span class="number">3031523010</span>, <span class="number">2486958601</span>, <span class="number">3164065171</span>, <span class="number">1285603712</span>, <span class="number">798920280</span>, <span class="number">2337813135</span>, <span class="number">4186055520</span>, <span class="number">3523024366</span>, <span class="number">1077514121</span>, <span class="number">1436444106</span>, <span class="number">2731983230</span>, <span class="number">1507202797</span>, <span class="number">500756149</span>, <span class="number">198754565</span>, <span class="number">2382448647</span>, <span class="number">880454148</span>, <span class="number">1970517398</span>, <span class="number">3217485349</span>, <span class="number">1161840191</span>, <span class="number">560498076</span>, <span class="number">1782600856</span>, <span class="number">2643721918</span>, <span class="number">1285196205</span>, <span class="number">788797746</span>, <span class="number">1195724574</span>, <span class="number">4061612551</span>, <span class="number">103427523</span>, <span class="number">2502688387</span>, <span class="number">4147162188</span>, <span class="number">617564657</span>, <span class="number">978211984</span>, <span class="number">1781482121</span>, <span class="number">2205798970</span>, <span class="number">3939973102</span>, <span class="number">3826603515</span>, <span class="number">659557668</span>, <span class="number">2582884932</span>, <span class="number">1561884856</span>, <span class="number">2217488804</span>, <span class="number">1189296962</span>, <span class="number">169145316</span>, <span class="number">2781742156</span>, <span class="number">1323893433</span>, <span class="number">824667876</span>, <span class="number">408202876</span>, <span class="number">3759637634</span>, <span class="number">4094868412</span>, <span class="number">1508996065</span>, <span class="number">162419237</span>, <span class="number">3732146944</span>, <span class="number">3083560189</span>, <span class="number">3955940127</span>, <span class="number">2393776934</span>, <span class="number">2470191468</span>, <span class="number">3620861513</span>, <span class="number">481927014</span>, <span class="number">2756226070</span>, <span class="number">3154651143</span>, <span class="number">1261069441</span>, <span class="number">2063238535</span>, <span class="number">2222237213</span>, <span class="number">101459755</span>, <span class="number">3159774417</span>, <span class="number">1721190841</span>, <span class="number">1078395785</span>, <span class="number">176506553</span>, <span class="number">3552913423</span>, <span class="number">1566142515</span>, <span class="number">1938949000</span>, <span class="number">1499289517</span>, <span class="number">3315102456</span>, <span class="number">829714860</span>, <span class="number">3843359394</span>, <span class="number">952932374</span>, <span class="number">1283577465</span>, <span class="number">2045007203</span>, <span class="number">3957761944</span>, <span class="number">3767891405</span>, <span class="number">2917089623</span>, <span class="number">3296133521</span>, <span class="number">482297421</span>, <span class="number">1734231412</span>, <span class="number">3670478932</span>, <span class="number">2575334979</span>, <span class="number">2827842737</span>, <span class="number">3413631016</span>, <span class="number">1533519803</span>, <span class="number">4008428470</span>, <span class="number">3890643173</span>, <span class="number">272960248</span>, <span class="number">317508587</span>, <span class="number">3299937500</span>, <span class="number">2440520601</span>, <span class="number">27470488</span>, <span class="number">1666674386</span>, <span class="number">1737927609</span>, <span class="number">750987808</span>, <span class="number">2385923471</span>, <span class="number">2694339191</span>, <span class="number">562925334</span>, <span class="number">2206035395</span>]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(oo))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ll</span>():</span></span><br><span class="line">    pub_key = [</span><br><span class="line">        <span class="number">12702192797044914024075774649965354105344232304099465264316470282606351700311177624703682814557100043599414982439635470829841890299241342602374578366076034128412992290094164613120745611751102797279925764448133764246126488845600641524814194290745105708735258127757986238766868988676022258542038318776640732920027324986285887310132372524224961045858183153047991881042129131551711617627844146600513830709959185824512201669420128585170924683844128155435146399996585220865423125338735154727569986267948480523307784641442521735105741341230032585576300299944879647981670048377150556292280650846158185797588466680532743801893</span>,</span><br><span class="line">        <span class="number">12680615221091469696163926483122992106481999501435284497098601343706982733487916553201934931961274845294041438909951977672521864927961654544622905443692482152403380984734291652023321187458458985625147422841102922314725726207365632256563373977251725785357590588556314671253970422319546403985257810950046085994573229162322957630767327089195523762665081311711474689269184996318744510300057603532953644164998953897411177604349567514705039306693117602798453972917348902600111420473965929048876821563646206875034926505783009957256212261250539005023918242209009676914632796839852778318989278092929214021282438144809708279435</span>]</span><br><span class="line">    flag=<span class="built_in">input</span>()</span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    m=libnum.s2n(flag)<span class="comment">#字符串转为数字</span></span><br><span class="line">    c=<span class="built_in">str</span>(<span class="built_in">pow</span>(m,pub_key[<span class="number">1</span>],pub_key[<span class="number">0</span>]))<span class="comment">#简单算法并且进行转为字符串</span></span><br><span class="line">    <span class="keyword">if</span> i&lt;<span class="built_in">len</span>(c):</span><br><span class="line">        kk=<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> ii <span class="keyword">in</span> c[<span class="built_in">slice</span>(i,i+<span class="number">4</span>)]:</span><br><span class="line">            kk=(kk&lt;&lt;<span class="number">8</span>)+<span class="built_in">ord</span>(ii)</span><br><span class="line">            pp.append(kk)</span><br><span class="line">            i+=<span class="number">4</span></span><br><span class="line">    <span class="keyword">if</span> pp==oo:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"you are right!!"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"gg"</span>)</span><br><span class="line">        quit()</span><br></pre></td></tr></tbody></table></figure>
+<p>翻译出来大概是这样的</p>
+<p>PS：有一部分我不知道干什么的略过了，可能这一段被我略过的是关键555</p>
+<p><img src="/2022/04/23/DASCTF-FATE-Reverse/1650763671802.png" alt=""></p>
+<p>过程差不多都可以读出来，那个for循环就是将每四个字符转为一个int，由于不会python，很多都是自己写代码试出来的（</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/" class="post-title-link" itemprop="url">安卓动调</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-23 08:53:44 / 修改时间：20:37:27" itemprop="dateCreated datePublished" datetime="2022-04-23T08:53:44+08:00">2022-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android/" itemprop="url" rel="index"><span itemprop="name">Android</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>52</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Crackme"><a class="header-anchor" href="#Crackme">¶</a>Crackme</h1>
+<p>MFC逆向</p>
+<h1 id="FakePica"><a class="header-anchor" href="#FakePica">¶</a>FakePica</h1>
+<p>安卓逆向脱壳、AES-CBC</p>
+<h1 id="问卷题"><a class="header-anchor" href="#问卷题">¶</a>问卷题</h1>
+<p>填写问卷即可得到flag</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/22/ida%E7%AC%A6%E5%8F%B7%E6%81%A2%E5%A4%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/22/ida%E7%AC%A6%E5%8F%B7%E6%81%A2%E5%A4%8D/" class="post-title-link" itemprop="url">ida符号恢复</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-22 17:04:39 / 修改时间：19:35:42" itemprop="dateCreated datePublished" datetime="2022-04-22T17:04:39+08:00">2022-04-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/04/22/ida%E7%AC%A6%E5%8F%B7%E6%81%A2%E5%A4%8D/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/22/ida%E7%AC%A6%E5%8F%B7%E6%81%A2%E5%A4%8D/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>553</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-前言-v2"><a class="header-anchor" href="#0x00-前言-v2">¶</a>0x00-前言</h1>
+<p>有时候我们在ida中反编译时遇到很多以地址命名的函数，而这些函数实际上是系统函数，当符号表被去除时，函数就会以函数地址命名，但是去除的只是函数的名称，我们可以通过其他方法还原，所以我们可以通过.sig文件来恢复符号，当然还有其他方法</p>
+<h1 id="0x01-恢复符号"><a class="header-anchor" href="#0x01-恢复符号">¶</a>0x01-恢复符号</h1>
+<h2 id="Finger"><a class="header-anchor" href="#Finger">¶</a>Finger</h2>
+<p>符号识别神器</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/aliyunav/Finger">https://github.com/aliyunav/Finger</a></p>
+<p>按照里面的介绍安装即可</p>
+<p><img src="/2022/04/22/ida%E7%AC%A6%E5%8F%B7%E6%81%A2%E5%A4%8D/1650621943386.png" alt="恢复前"></p>
+<p><img src="/2022/04/22/ida%E7%AC%A6%E5%8F%B7%E6%81%A2%E5%A4%8D/1650622196897.png" alt="恢复后"></p>
+<p>只能说太强了</p>
+<h2 id="使用lscan和flair"><a class="header-anchor" href="#使用lscan和flair">¶</a>使用lscan和flair</h2>
+<h3 id="lscan"><a class="header-anchor" href="#lscan">¶</a>lscan</h3>
+<p>lscan可以扫描sig文件，找到与二进制文件最相似的库</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/maroueneboubakri/lscan">https://github.com/maroueneboubakri/lscan</a></p>
+<figure class="highlight vim"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">python</span> ./lscan.<span class="keyword">py</span> -S .<span class="keyword">sig</span>的目录 -<span class="keyword">f</span> 要扫描的二进制文件</span><br></pre></td></tr></tbody></table></figure>
+<p>这里我使用的是python2</p>
+<p>也可以自己下载sig文件</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/push0ebp/sig-database">https://github.com/push0ebp/sig-database</a></p>
+<p><img src="/2022/04/22/ida%E7%AC%A6%E5%8F%B7%E6%81%A2%E5%A4%8D/1650623466335.png" alt=""></p>
+<h2 id="flair"><a class="header-anchor" href="#flair">¶</a>flair</h2>
+<p>ida加载sig文件的工具</p>
+<p>使用方法看下面的博客吧，我自己试的时候没找到对应的</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Breeze_CAT/article/details/103788796">https://blog.csdn.net/Breeze_CAT/article/details/103788796</a></p>
+<h1 id="0x02-去除符号"><a class="header-anchor" href="#0x02-去除符号">¶</a>0x02-去除符号</h1>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1839671">https://cloud.tencent.com/developer/article/1839671</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">Mips架构逆向初探</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-22 13:06:13 / 修改时间：15:52:10" itemprop="dateCreated datePublished" datetime="2022-04-22T13:06:13+08:00">2022-04-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-Mips指令架构"><a class="header-anchor" href="#0x00-Mips指令架构">¶</a>0x00-Mips指令架构</h1>
+<blockquote>
+<p>MIPS架构（英语：MIPS architecture，为Microprocessor without interlocked piped stages architecture的缩写，亦为Millions of Instructions Per Second的双关语），是一种采取精简指令集（RISC）的处理器架构，1981年出现，由MIPS科技公司开发并授权，广泛被使用在许多电子产品、网络设备、个人娱乐装置与商业装置上。最早的MIPS架构是32位，最新的版本已经变成64位。</p>
+</blockquote>
+<blockquote>
+<p><strong>使用linux下的readelf命令可以了解到文件相关信息</strong></p>
+</blockquote>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650604608575.png" alt=""></p>
+<h1 id="0x01-环境安装"><a class="header-anchor" href="#0x01-环境安装">¶</a>0x01-环境安装</h1>
+<p>由于程序是MIPS指令架构的，而通常我们使用的电脑是x86架构的，无法直接运行该程序，这时可以借助Qemu模拟器来运行程序。QEMU是运行在用户层的开源全虚拟化解决方案，可以在Intel机器上虚拟出完整的操作系统。QEMU主要有两种运作方式</p>
+<ul>
+<li>User Mode:即使用者模式，能单独运行那些为不同处理编译的Linux程序</li>
+<li>System Mode:即系统模式，能够模拟整个操作系统，包括中央处理器及其他周边设备</li>
+</ul>
+<p>由于BabyMips程序是通过静态链接生成的，为了方便，在User Mode下使用QEMU来运行该程序</p>
+<p>使用下面的命令来安装QEMU</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install qemu<span class="operator">-</span><span class="keyword">user</span><span class="operator">-</span><span class="keyword">static</span></span><br><span class="line">sudo apt install qemu<span class="operator">-</span><span class="keyword">user</span></span><br></pre></td></tr></tbody></table></figure>
+<p>安装qemu对应下的mips64库</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo</span> apt install libc<span class="number">6</span>-mips<span class="number">64</span>-cross</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="0x01-DDCTF2018-BabyMips"><a class="header-anchor" href="#0x01-DDCTF2018-BabyMips">¶</a>0x01-DDCTF2018-BabyMips</h1>
+<h2 id="静态分析"><a class="header-anchor" href="#静态分析">¶</a>静态分析</h2>
+<p>readelf读取文件信息-Mips32-小端序</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650606053687.png" alt=""></p>
+<p>运行试试</p>
+<p>出现错误</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650606188738.png" alt=""></p>
+<blockquote>
+<p><strong>先使用Ghidra查看反编译代码，也可以使用ida7.5即以上版本反编译，也可以使用jeb-mips</strong></p>
+</blockquote>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650606391321.png" alt="ghidra"></p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650606413794.png" alt="ida7.7"></p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650606537986.png" alt="jeb"></p>
+<p>可以看到先让我们输入，然后进入函数进行判断，所以我们需要知道函数进行了什么加密操作</p>
+<p>进入函数后发现分析出错了，在最后跳转时跳转到了垃圾数据的位置，所以我们试一下动态调试</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650606639388.png" alt=""></p>
+<h2 id="动态调试"><a class="header-anchor" href="#动态调试">¶</a>动态调试</h2>
+<p>ida+QEMU调试</p>
+<p>首先在ida中选择Remote GDB Debugger</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650606835259.png" alt=""></p>
+<p>然后Debugger设置好</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650607126949.png" alt=""></p>
+<p>连接</p>
+<figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">qemu</span>-mipsel -g <span class="number">23946</span> Baby_Mips</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p><strong>-g后面跟着端口号+文件名</strong></p>
+</blockquote>
+<p>端口的另一边可以选择IDA也可以选择GDB，这里我选择DIA</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650607359256.png" alt=""></p>
+<p>在IDA中启动调试</p>
+<p>成功断下</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650607396583.png" alt=""></p>
+<p>接下来定位到刚才出错的地址，下个断点</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650607460822.png" alt=""></p>
+<p>放开程序</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650607488259.png" alt="等待我们输入"></p>
+<p>输入完成后，提示出错</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650607545161.png" alt="报错"></p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650608745243.png" alt=""></p>
+<p>F8也会出现异常</p>
+<p>查找<code>lwc1</code>指令的含义，发现是与协处理器相关的指令。通过对后面的代码块进行分析发现，后面并没有用到<code>$f29</code>和<code>$t1</code>寄存器的内容</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650609292804.png" alt="大佬的思路"></p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650609507747.png" alt=""></p>
+<p>也就是说E8本来是8位，也就是两个字节，但是mips指令为4字节，所以跳转的时候出错了</p>
+<p>使用idc进行Patch</p>
+<p>注意idc不支持+=操作</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">auto</span> addr=<span class="number">0x4001F0</span>;</span><br><span class="line">    <span class="keyword">auto</span> addr1=<span class="number">0x403234</span>;</span><br><span class="line">    <span class="keyword">for</span>(;addr&lt;=addr1;addr=<span class="number">4</span>+addr)</span><br><span class="line">    {</span><br><span class="line">        <span class="keyword">if</span>(Byte(addr)==<span class="number">0xeb</span> &amp;&amp; Byte(addr+<span class="number">1</span>)==<span class="number">0x02</span>)</span><br><span class="line">        {</span><br><span class="line">            PatchByte(addr,<span class="number">0x00</span>);</span><br><span class="line">            PatchByte(addr+<span class="number">1</span>,<span class="number">0x00</span>);</span><br><span class="line">            PatchByte(addr+<span class="number">2</span>,<span class="number">0x00</span>);</span><br><span class="line">            PatchByte(addr+<span class="number">3</span>,<span class="number">0x00</span>);</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//printf("finished");</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>保存之后重新拖进jeb反编译</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650611442753.png" alt=""></p>
+<h2 id="脚本-v6"><a class="header-anchor" href="#脚本-v6">¶</a>脚本</h2>
+<p>十六个方程组，使用z3求解</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"></span><br><span class="line">from z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">a = [BitVec(<span class="string">'a%d'</span> %i, <span class="number">32</span>) <span class="keyword">for</span> i in range(<span class="number">16</span>)]</span><br><span class="line"></span><br><span class="line">s = Solver()</span><br><span class="line">s.add(<span class="number">0xffffc20e</span>*a[<span class="number">0</span>]<span class="number">-0xbd52</span>*a[<span class="number">1</span>]+<span class="number">0x7f57</span>*a[<span class="number">2</span>]+<span class="number">0x96cd</span>*a[<span class="number">3</span>]<span class="number">-0xac7f</span>*a[<span class="number">4</span>] +<span class="number">0x5d80</span>*a[<span class="number">5</span>]+<span class="number">0xb25e</span>*a[<span class="number">6</span>]+<span class="number">0x2447</span>*a[<span class="number">7</span>]+<span class="number">0xba8a</span>*a[<span class="number">8</span>]+<span class="number">0xbb41</span>*a[<span class="number">9</span>]+<span class="number">0xa3a8</span>*a[<span class="number">10</span>]+<span class="number">0xcb12</span>*a[<span class="number">11</span>]<span class="number">-0x6958</span>*a[<span class="number">12</span>]+<span class="number">0x5821</span>*a[<span class="number">13</span>]+<span class="number">0x77ed</span>*a[<span class="number">14</span>]+<span class="number">0xf7ff</span>*a[<span class="number">15</span>] == <span class="number">0x162f0ca</span> )</span><br><span class="line">s.add(<span class="number">0xeb44</span>*a[<span class="number">0</span>]<span class="number">-0x0f99</span>*a[<span class="number">1</span>] - <span class="number">0x40e7</span>*a[<span class="number">2</span>] +<span class="number">0xdf2e</span>*a[<span class="number">3</span>] <span class="number">-0x4b2e</span>*a[<span class="number">4</span>] <span class="number">-0x96b5</span>*a[<span class="number">5</span>] +<span class="number">0x9d66</span>*a[<span class="number">6</span>] <span class="number">-0xafa8</span>*a[<span class="number">7</span>] <span class="number">-0x6e26</span>*a[<span class="number">8</span>] <span class="number">-0xe655</span>*a[<span class="number">9</span>]- <span class="number">0x9a6e</span>*a[<span class="number">10</span>] +<span class="number">0x57ba</span>*a[<span class="number">11</span>] <span class="number">-0x227c</span>*a[<span class="number">12</span>] +<span class="number">0xbdd1</span>*a[<span class="number">13</span>] +<span class="number">0xb437</span>*a[<span class="number">14</span>] +<span class="number">0x5d3f</span>*a[<span class="number">15</span>]== <span class="number">0xffec2e48</span>)</span><br><span class="line">s.add(<span class="number">0xe6f1</span>*a[<span class="number">0</span>] +<span class="number">0xa4b2</span>*a[<span class="number">1</span>] <span class="number">-0xfe74</span>*a[<span class="number">2</span>] <span class="number">-0x0f07</span>*a[<span class="number">3</span>] <span class="number">-0x5d22</span>*a[<span class="number">4</span>] <span class="number">-0xb845</span>*a[<span class="number">5</span>] <span class="number">-0x9954</span>*a[<span class="number">6</span>] +<span class="number">0x93ac</span>*a[<span class="number">7</span>] <span class="number">-0x51e4</span>*a[<span class="number">8</span>] <span class="number">-0x4b11</span>*a[<span class="number">9</span>] +<span class="number">0xdc93</span>*a[<span class="number">10</span>] +<span class="number">0x13f8</span>*a[<span class="number">11</span>] +<span class="number">0x246c</span>*a[<span class="number">12</span>] +<span class="number">0xf121</span>*a[<span class="number">13</span>] +<span class="number">0xf09f</span>*a[<span class="number">14</span>] +<span class="number">0x0dfa</span>*a[<span class="number">15</span>] == <span class="number">0xd3c060</span>)</span><br><span class="line">s.add(<span class="number">0xffff7085</span>*a[<span class="number">0</span>] <span class="number">-0x6623</span>*a[<span class="number">1</span>] +<span class="number">0x0686</span>*a[<span class="number">2</span>] +<span class="number">0x4b2d</span>*a[<span class="number">3</span>] +<span class="number">0x68df</span>*a[<span class="number">4</span>] +<span class="number">0x9be7</span>*a[<span class="number">5</span>] +<span class="number">0x21b4</span>*a[<span class="number">6</span>] +<span class="number">0xe25a</span>*a[<span class="number">7</span>] <span class="number">-0xc807</span>*a[<span class="number">8</span>] +<span class="number">0xf695</span>*a[<span class="number">9</span>] <span class="number">-0x5421</span>*a[<span class="number">10</span>] <span class="number">-0x2469</span>*a[<span class="number">11</span>] +<span class="number">0x9f29</span>*a[<span class="number">12</span>] <span class="number">-0xe311</span>*a[<span class="number">13</span>] +<span class="number">0x78f2</span>*a[<span class="number">14</span>] <span class="number">-0x6bda</span>*a[<span class="number">15</span>] == <span class="number">0x8bf576</span>)</span><br><span class="line">s.add(<span class="number">0xffff07b8</span>*a[<span class="number">0</span>] <span class="number">-0xd048</span>*a[<span class="number">1</span>] <span class="number">-0x85f1</span>*a[<span class="number">2</span>] +<span class="number">0xee84</span>*a[<span class="number">3</span>] <span class="number">-0x37d1</span>*a[<span class="number">4</span>] +<span class="number">0xb74a</span>*a[<span class="number">5</span>] +<span class="number">0xcfe2</span>*a[<span class="number">6</span>]+ <span class="number">0x8f1e</span>*a[<span class="number">7</span>] <span class="number">-0xf211</span>*a[<span class="number">8</span>] <span class="number">-0x83bf</span>*a[<span class="number">9</span>] <span class="number">-0x1249</span>*a[<span class="number">10</span>] +<span class="number">0x7ea7</span>*a[<span class="number">11</span>] <span class="number">-0x4294</span>*a[<span class="number">12</span>] <span class="number">-0xb661</span>*a[<span class="number">13</span>] <span class="number">-0x8a73</span>*a[<span class="number">14</span>] <span class="number">-0x5e5c</span>*a[<span class="number">15</span>] == <span class="number">0xff4ea5b3</span>)</span><br><span class="line">s.add(<span class="number">0xffffd6b5</span>*a[<span class="number">0</span>] <span class="number">-0x2b5f</span>*a[<span class="number">1</span>]+ <span class="number">0xc981</span>*a[<span class="number">2</span>] <span class="number">-0x60c3</span>*a[<span class="number">3</span>] +<span class="number">0xf8f2</span>*a[<span class="number">4</span>]+ <span class="number">0xded7</span>*a[<span class="number">5</span>]- <span class="number">0xf6fb</span>*a[<span class="number">6</span>] +<span class="number">0x1083</span>*a[<span class="number">7</span>]- <span class="number">0xdc96</span>*a[<span class="number">8</span>]- <span class="number">0x587e</span>*a[<span class="number">9</span>] <span class="number">-0xb4f5</span>*a[<span class="number">10</span>] +<span class="number">0xf57a</span>*a[<span class="number">11</span>] +<span class="number">0x57d0</span>*a[<span class="number">12</span>] +<span class="number">0xe814</span>*a[<span class="number">13</span>] +<span class="number">0x6169</span>*a[<span class="number">14</span>] +<span class="number">0xf285</span>*a[<span class="number">15</span>] == <span class="number">0x9dd61e</span>)</span><br><span class="line">s.add(<span class="number">0xcd89</span>*a[<span class="number">0</span>] <span class="number">-0xd43d</span>*a[<span class="number">1</span>] +<span class="number">0xf037</span>*a[<span class="number">2</span>] +<span class="number">0x83a8</span>*a[<span class="number">3</span>] <span class="number">-0xa305</span>*a[<span class="number">4</span>] <span class="number">-0xadef</span>*a[<span class="number">5</span>] +<span class="number">0xcaaa</span>*a[<span class="number">6</span>] <span class="number">-0xf145</span>*a[<span class="number">7</span>]- <span class="number">0x6073</span>*a[<span class="number">8</span>]- <span class="number">0x2777</span>*a[<span class="number">9</span>] +<span class="number">0x794f</span>*a[<span class="number">10</span>] +<span class="number">0xf00e</span>*a[<span class="number">11</span>] <span class="number">-0xe7d5</span>*a[<span class="number">12</span>] +<span class="number">0x2654</span>*a[<span class="number">13</span>] <span class="number">-0xbed0</span>*a[<span class="number">14</span>] <span class="number">-0xb8af</span>*a[<span class="number">15</span>] == <span class="number">0xff6baab3</span>)</span><br><span class="line">s.add(<span class="number">0xffff6108</span>*a[<span class="number">0</span>] <span class="number">-0x6766</span>*a[<span class="number">1</span>] +<span class="number">0xd58e</span>*a[<span class="number">2</span>] <span class="number">-0x5ca3</span>*a[<span class="number">3</span>] +<span class="number">0x2718</span>*a[<span class="number">4</span>] +<span class="number">0x1e2b</span>*a[<span class="number">5</span>] <span class="number">-0xf49e</span>*a[<span class="number">6</span>] +<span class="number">0xcf78</span>*a[<span class="number">7</span>] +<span class="number">0x7c09</span>*a[<span class="number">8</span>] <span class="number">-0x13b7</span>*a[<span class="number">9</span>] <span class="number">-0xbeee</span>*a[<span class="number">10</span>]- <span class="number">0xe450</span>*a[<span class="number">11</span>] +<span class="number">0x4da3</span>*a[<span class="number">12</span>] <span class="number">-0x8880</span>*a[<span class="number">13</span>] <span class="number">-0x5691</span>*a[<span class="number">14</span>] +<span class="number">0x8bd8</span>*a[<span class="number">15</span>] == <span class="number">0xff818f06</span>)</span><br><span class="line">s.add(<span class="number">0xffffa564</span>*a[<span class="number">0</span>] <span class="number">-0xa95a</span>*a[<span class="number">1</span>] <span class="number">-0xe643</span>*a[<span class="number">2</span>] +<span class="number">0x0d38</span>*a[<span class="number">3</span>] <span class="number">-0x097a</span>*a[<span class="number">4</span>] <span class="number">-0xeb22</span>*a[<span class="number">5</span>] +<span class="number">0xcac3</span>*a[<span class="number">6</span>] <span class="number">-0x4ed1</span>*a[<span class="number">7</span>] <span class="number">-0x7c8a</span>*a[<span class="number">8</span>] +<span class="number">0xf107</span>*a[<span class="number">9</span>] +<span class="number">0xa59e</span>*a[<span class="number">10</span>]- <span class="number">0x1213</span>*a[<span class="number">11</span>] +<span class="number">0xb2b5</span>*a[<span class="number">12</span>] <span class="number">-0x7213</span>*a[<span class="number">13</span>] <span class="number">-0x2b83</span>*a[<span class="number">14</span>] <span class="number">-0xa155</span>*a[<span class="number">15</span>] == <span class="number">0xff8d50e7</span>)</span><br><span class="line">s.add(<span class="number">0xffff6c45</span>*a[<span class="number">0</span>] <span class="number">-0x2752</span>*a[<span class="number">1</span>] <span class="number">-0xbdc3</span>*a[<span class="number">2</span>] <span class="number">-0xf495</span>*a[<span class="number">3</span>] <span class="number">-0x7121</span>*a[<span class="number">4</span>] +<span class="number">0x9c41</span>*a[<span class="number">5</span>] <span class="number">-0x9465</span>*a[<span class="number">6</span>]- <span class="number">0x6ce3</span>*a[<span class="number">7</span>] <span class="number">-0x4f28</span>*a[<span class="number">8</span>] <span class="number">-0x8350</span>*a[<span class="number">9</span>] <span class="number">-0x176e</span>*a[<span class="number">10</span>] +<span class="number">0x7814</span>*a[<span class="number">11</span>] <span class="number">-0x739a</span>*a[<span class="number">12</span>] +<span class="number">0x5494</span>*a[<span class="number">13</span>] +<span class="number">0x142d</span>*a[<span class="number">14</span>] +<span class="number">0xca55</span>*a[<span class="number">15</span>] == <span class="number">0xff3f9826</span>)</span><br><span class="line">s.add(<span class="number">0xcf01</span>*a[<span class="number">0</span>] +<span class="number">0xf378</span>*a[<span class="number">1</span>] +<span class="number">0x1064</span>*a[<span class="number">2</span>] <span class="number">-0xd9a7</span>*a[<span class="number">3</span>] <span class="number">-0x077d</span>*a[<span class="number">4</span>]+ <span class="number">0x6dab</span>*a[<span class="number">5</span>] <span class="number">-0xaf1f</span>*a[<span class="number">6</span>]- <span class="number">0x3db7</span>*a[<span class="number">7</span>] +<span class="number">0x3554</span>*a[<span class="number">8</span>] <span class="number">-0xcb8e</span>*a[<span class="number">9</span>] <span class="number">-0x9815</span>*a[<span class="number">10</span>]+ <span class="number">0xf30b</span>*a[<span class="number">11</span>] +<span class="number">0x9c5e</span>*a[<span class="number">12</span>] <span class="number">-0x5d07</span>*a[<span class="number">13</span>] <span class="number">-0x4c31</span>*a[<span class="number">14</span>] +<span class="number">0xeae0</span>*a[<span class="number">15</span>] == <span class="number">0x213fed</span>)</span><br><span class="line">s.add(<span class="number">0x8bd4</span>*a[<span class="number">0</span>] <span class="number">-0x6d81</span>*a[<span class="number">1</span>] <span class="number">-0xe772</span>*a[<span class="number">2</span>] +<span class="number">0xb6f1</span>*a[<span class="number">3</span>] +<span class="number">0x9b57</span>*a[<span class="number">4</span>] <span class="number">-0x597d</span>*a[<span class="number">5</span>] +<span class="number">0x15d1</span>*a[<span class="number">6</span>]- <span class="number">0xa55e</span>*a[<span class="number">7</span>]+ <span class="number">0xfd13</span>*a[<span class="number">8</span>]+ <span class="number">0x17b4</span>*a[<span class="number">9</span>] +<span class="number">0xec78</span>*a[<span class="number">10</span>] <span class="number">-0xd51a</span>*a[<span class="number">11</span>] +<span class="number">0x56ad</span>*a[<span class="number">12</span>] <span class="number">-0xc319</span>*a[<span class="number">13</span>] +<span class="number">0x9f8e</span>*a[<span class="number">14</span>] +<span class="number">0xfa17</span>*a[<span class="number">15</span>] == <span class="number">0xa9f0dc</span>)</span><br><span class="line">s.add(<span class="number">0xffffb798</span>*a[<span class="number">0</span>] <span class="number">-0x8bef</span>*a[<span class="number">1</span>] +<span class="number">0x109d</span>*a[<span class="number">2</span>]- <span class="number">0xf9d4</span>*a[<span class="number">3</span>] +<span class="number">0x4ecf</span>*a[<span class="number">4</span>] +<span class="number">0xa896</span>*a[<span class="number">5</span>] +<span class="number">0x773b</span>*a[<span class="number">6</span>] +<span class="number">0x6e8a</span>*a[<span class="number">7</span>] <span class="number">-0x737c</span>*a[<span class="number">8</span>]+ <span class="number">0x4979</span>*a[<span class="number">9</span>] +<span class="number">0xc685</span>*a[<span class="number">10</span>] <span class="number">-0x96ae</span>*a[<span class="number">11</span>] +<span class="number">0x0bbd</span>*a[<span class="number">12</span>] +<span class="number">0x8280</span>*a[<span class="number">13</span>] +<span class="number">0xe3a9</span>*a[<span class="number">14</span>] <span class="number">-0x730c</span>*a[<span class="number">15</span>] == <span class="number">0xbdeb20</span>)</span><br><span class="line">s.add(<span class="number">0x0b20</span>*a[<span class="number">0</span>] +<span class="number">0x9b9c</span>*a[<span class="number">1</span>] +<span class="number">0xb4aa</span>*a[<span class="number">2</span>]+ <span class="number">0x6176</span>*a[<span class="number">3</span>] +<span class="number">0x9670</span>*a[<span class="number">4</span>] +<span class="number">0x7c9d</span>*a[<span class="number">5</span>] <span class="number">-0x5402</span>*a[<span class="number">6</span>] <span class="number">-0x8cd2</span>*a[<span class="number">7</span>] +<span class="number">0xac82</span>*a[<span class="number">8</span>] +<span class="number">0xa2f5</span>*a[<span class="number">9</span>] <span class="number">-0x8efd</span>*a[<span class="number">10</span>] <span class="number">-0x65f1</span>*a[<span class="number">11</span>] <span class="number">-0x94b9</span>*a[<span class="number">12</span>] +<span class="number">0x8cb8</span>*a[<span class="number">13</span>] +<span class="number">0x1cb5</span>*a[<span class="number">14</span>] +<span class="number">0x4aa1</span>*a[<span class="number">15</span>] == <span class="number">0x9c7cf5</span>)</span><br><span class="line">s.add(<span class="number">0x57fd</span>*a[<span class="number">0</span>] +<span class="number">0x3d83</span>*a[<span class="number">1</span>] +<span class="number">0xf745</span>*a[<span class="number">2</span>] +<span class="number">0xa5c4</span>*a[<span class="number">3</span>] <span class="number">-0x65fa</span>*a[<span class="number">4</span>] <span class="number">-0x58e9</span>*a[<span class="number">5</span>] +<span class="number">0xbebe</span>*a[<span class="number">6</span>] +<span class="number">0x1820</span>*a[<span class="number">7</span>] <span class="number">-0xd7b9</span>*a[<span class="number">8</span>] <span class="number">-0xb21f</span>*a[<span class="number">9</span>] <span class="number">-0x76a0</span>*a[<span class="number">10</span>] +<span class="number">0xc60d</span>*a[<span class="number">11</span>] +<span class="number">0x168f</span>*a[<span class="number">12</span>] +<span class="number">0x2a96</span>*a[<span class="number">13</span>] +<span class="number">0x31d6</span>*a[<span class="number">14</span>] <span class="number">-0x4b88</span>*a[<span class="number">15</span>] == <span class="number">0xd08e2</span>)</span><br><span class="line">s.add(<span class="number">0xffff1bae</span>*a[<span class="number">0</span>] <span class="number">-0xc7d4</span>*a[<span class="number">1</span>] <span class="number">-0x1554</span>*a[<span class="number">2</span>] +<span class="number">0x7eea</span>*a[<span class="number">3</span>] <span class="number">-0x684d</span>*a[<span class="number">4</span>] +<span class="number">0x6adb</span>*a[<span class="number">5</span>] +<span class="number">0x8534</span>*a[<span class="number">6</span>] <span class="number">-0x3a36</span>*a[<span class="number">7</span>] +<span class="number">0x29f0</span>*a[<span class="number">8</span>] +<span class="number">0xd3f2</span>*a[<span class="number">9</span>] <span class="number">-0x23e5</span>*a[<span class="number">10</span>] <span class="number">-0x6540</span>*a[<span class="number">11</span>] +<span class="number">0xbcd3</span>*a[<span class="number">12</span>] <span class="number">-0xef9b</span>*a[<span class="number">13</span>] +<span class="number">0xefdb</span>*a[<span class="number">14</span>] <span class="number">-0x774e</span>*a[<span class="number">15</span>] == <span class="number">0x178803</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> item in a:</span><br><span class="line">    s.add(item &gt; <span class="number">0</span>, item &lt; <span class="number">127</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> s.check() == sat:</span><br><span class="line">    m = s.model()</span><br><span class="line">    flag = []</span><br><span class="line">    <span class="keyword">for</span> i in range(<span class="number">16</span>):</span><br><span class="line">        flag.append(m[a[i]].as_long())</span><br><span class="line">    print(<span class="string">''.join(map(chr, flag)))</span></span><br></pre></td></tr></tbody></table></figure>
+<p>注意负数要换成十六进制</p>
+<p><img src="/2022/04/22/Mips%E6%9E%B6%E6%9E%84%E9%80%86%E5%90%91%E5%88%9D%E6%8E%A2/1650613838317.png" alt=""></p>
+<h1 id="参考"><a class="header-anchor" href="#参考">¶</a>参考</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46362499/article/details/107629918">https://blog.csdn.net/m0_46362499/article/details/107629918</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1123681">https://cloud.tencent.com/developer/article/1123681</a></p>
+<p><a target="_blank" rel="noopener" href="https://cq674350529.github.io/2018/05/07/Solve-baby-mips-with-angr/">https://cq674350529.github.io/2018/05/07/Solve-baby-mips-with-angr/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/22/pwnthebox%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/22/pwnthebox%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">pwnthebox刷题记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-22 09:50:53" itemprop="dateCreated datePublished" datetime="2022-04-22T09:50:53+08:00">2022-04-22</time>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/04/22/pwnthebox%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/22/pwnthebox%E5%88%B7%E9%A2%98%E8%AE%B0%E5%BD%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>0</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/21/CRC%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/21/CRC%E7%AE%97%E6%B3%95/" class="post-title-link" itemprop="url">CRC算法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-21 16:32:35" itemprop="dateCreated datePublished" datetime="2022-04-21T16:32:35+08:00">2022-04-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-22 21:29:55" itemprop="dateModified" datetime="2022-04-22T21:29:55+08:00">2022-04-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/04/21/CRC%E7%AE%97%E6%B3%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/21/CRC%E7%AE%97%E6%B3%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="0x00-前言"><a class="header-anchor" href="#0x00-前言">¶</a>0x00-前言</h1>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -374,7 +1225,16 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 09:23:52" itemprop="dateModified" datetime="2022-04-20T09:23:52+08:00">2022-04-20</time>
+      <time title="修改时间：2022-04-23 08:37:43" itemprop="dateModified" datetime="2022-04-23T08:37:43+08:00">2022-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+        </span>
     </span>
 
   
@@ -398,7 +1258,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>0</span>
+      <span>236</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -890,680 +1750,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Gift1a">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">代码注入</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-12 11:41:45" itemprop="dateCreated datePublished" datetime="2022-04-12T11:41:45+08:00">2022-04-12</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 13:46:47" itemprop="dateModified" datetime="2022-04-20T13:46:47+08:00">2022-04-20</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>9k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>代码注入</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/12/%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Gift1a">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/" class="post-title-link" itemprop="url">基础知识补充</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-11 15:59:14" itemprop="dateCreated datePublished" datetime="2022-04-11T15:59:14+08:00">2022-04-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-21 09:04:52" itemprop="dateModified" datetime="2022-04-21T09:04:52+08:00">2022-04-21</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.6k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>一些基础知识的补充</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/10/VEH/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Gift1a">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/10/VEH/" class="post-title-link" itemprop="url">VEH</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-10 17:23:53" itemprop="dateCreated datePublished" datetime="2022-04-10T17:23:53+08:00">2022-04-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 13:31:40" itemprop="dateModified" datetime="2022-04-20T13:31:40+08:00">2022-04-20</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/2022/04/10/VEH/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/10/VEH/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>VEH</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/10/VEH/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Gift1a">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">shellcode知识</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-10 09:12:25" itemprop="dateCreated datePublished" datetime="2022-04-10T09:12:25+08:00">2022-04-10</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 13:29:09" itemprop="dateModified" datetime="2022-04-20T13:29:09+08:00">2022-04-20</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>8.7k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>shellcode</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/10/shellcode%E7%9F%A5%E8%AF%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/09/DLL%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Gift1a">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">DLL注入</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-09 21:31:05" itemprop="dateCreated datePublished" datetime="2022-04-09T21:31:05+08:00">2022-04-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 09:24:19" itemprop="dateModified" datetime="2022-04-20T09:24:19+08:00">2022-04-20</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>9.1k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>《逆向工程核心原理》DLL注入</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Gift1a">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Hexo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">Windows内核基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-09 19:04:09" itemprop="dateCreated datePublished" datetime="2022-04-09T19:04:09+08:00">2022-04-09</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 13:34:07" itemprop="dateModified" datetime="2022-04-20T13:34:07+08:00">2022-04-20</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-    <span class="post-meta-item-icon">
-      <i class="far fa-comment"></i>
-    </span>
-    <span class="post-meta-item-text">Valine：</span>
-  
-    <a title="valine" href="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>507</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Windows基础</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/09/Windows%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%9F%BA%E7%A1%80/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -1586,13 +1774,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">274k</span>
+    <span title="站点总字数">288k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:09</span>
+    <span title="站点阅读时长">4:22</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -1655,7 +1843,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>

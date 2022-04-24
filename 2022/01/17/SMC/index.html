@@ -79,9 +79,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -174,7 +174,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-v2"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-v2"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">解题过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8IDC%E5%AF%B9%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86"><span class="nav-number">4.1.</span> <span class="nav-text">使用IDC对加密数据进行解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95"><span class="nav-number">4.2.</span> <span class="nav-text">动态调试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SMC-%E5%8F%8D%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF"><span class="nav-number">5.</span> <span class="nav-text">SMC+反调试技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%97%E7%8B%97%E7%9A%84%E7%A7%98%E5%AF%86"><span class="nav-number">5.1.</span> <span class="nav-text">狗狗的秘密</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SMC%E5%AE%9E%E7%8E%B0"><span class="nav-number">6.</span> <span class="nav-text">SMC实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%AE%B5"><span class="nav-number">6.1.</span> <span class="nav-text">插入段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%AE%B5%E4%B8%AD%E6%8F%92%E5%85%A5%E5%87%BD%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">在段中插入函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E5%88%B0%E6%AE%B5%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">6.3.</span> <span class="nav-text">定位到段的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E6%AE%B5%E4%BD%8D%E7%BD%AE"><span class="nav-number">6.4.</span> <span class="nav-text">定位段位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E7%89%B9%E5%BE%81%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D"><span class="nav-number">6.5.</span> <span class="nav-text">根据特征代码定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E7%BB%93%E6%9D%9F%E4%BD%8D%E7%BD%AE"><span class="nav-number">6.6.</span> <span class="nav-text">判断结束位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9exe%E6%96%87%E4%BB%B6"><span class="nav-number">6.7.</span> <span class="nav-text">修改exe文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="nav-number">6.8.</span> <span class="nav-text">效果展示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A6%E5%A4%96%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.</span> <span class="nav-text">另外实现</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%9F%E7%90%86-v2"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-v2"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE"><span class="nav-number">3.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">解题过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8IDC%E5%AF%B9%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E8%A7%A3%E5%AF%86"><span class="nav-number">4.1.</span> <span class="nav-text">使用IDC对加密数据进行解密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%B0%83%E8%AF%95-v2"><span class="nav-number">4.2.</span> <span class="nav-text">动态调试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SMC-%E5%8F%8D%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF"><span class="nav-number">5.</span> <span class="nav-text">SMC+反调试技术</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8B%97%E7%8B%97%E7%9A%84%E7%A7%98%E5%AF%86"><span class="nav-number">5.1.</span> <span class="nav-text">狗狗的秘密</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SMC%E5%AE%9E%E7%8E%B0"><span class="nav-number">6.</span> <span class="nav-text">SMC实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%AE%B5"><span class="nav-number">6.1.</span> <span class="nav-text">插入段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%AE%B5%E4%B8%AD%E6%8F%92%E5%85%A5%E5%87%BD%E6%95%B0"><span class="nav-number">6.2.</span> <span class="nav-text">在段中插入函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E5%88%B0%E6%AE%B5%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">6.3.</span> <span class="nav-text">定位到段的位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E6%AE%B5%E4%BD%8D%E7%BD%AE"><span class="nav-number">6.4.</span> <span class="nav-text">定位段位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E7%89%B9%E5%BE%81%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D"><span class="nav-number">6.5.</span> <span class="nav-text">根据特征代码定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E7%BB%93%E6%9D%9F%E4%BD%8D%E7%BD%AE"><span class="nav-number">6.6.</span> <span class="nav-text">判断结束位置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9exe%E6%96%87%E4%BB%B6"><span class="nav-number">6.7.</span> <span class="nav-text">修改exe文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="nav-number">6.8.</span> <span class="nav-text">效果展示</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%A6%E5%A4%96%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.</span> <span class="nav-text">另外实现</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -189,13 +189,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -372,7 +377,7 @@
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">auto</span> addr = <span class="number">0x401500</span>;</span><br><span class="line">    <span class="keyword">auto</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">187</span>;i++)</span><br><span class="line">    {</span><br><span class="line">        PatchByte(addr+i,Byte(addr+i)^<span class="number">0x41</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 <p>得到了解密的数据段</p>
 <p><img src="/2022/01/17/SMC/1642567365432.png" alt=""></p>
-<h2 id="动态调试"><a class="header-anchor" href="#动态调试">¶</a>动态调试</h2>
+<h2 id="动态调试-v2"><a class="header-anchor" href="#动态调试-v2">¶</a>动态调试</h2>
 <p>因为程序自带解密函数，只需要在解密函数后面下断点，运行到断点处，被加密的数据段就能成功解密</p>
 <p><img src="/2022/01/17/SMC/1642565058450.png" alt=""></p>
 <p>这是未解密的，运行后</p>
@@ -518,13 +523,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">274k</span>
+    <span title="站点总字数">288k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:09</span>
+    <span title="站点阅读时长">4:22</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -587,7 +592,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
