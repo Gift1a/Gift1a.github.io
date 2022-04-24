@@ -201,9 +201,6 @@
           <a href="http://1.12.239.117:8090/" title="http:&#x2F;&#x2F;1.12.239.117:8090&#x2F;" rel="noopener" target="_blank">Fallw1nd</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://serionago.github.io/" title="https:&#x2F;&#x2F;serionago.github.io&#x2F;" rel="noopener" target="_blank">serion</a>
-        </li>
-        <li class="links-of-blogroll-item">
           <a href="https://equinox-shame.github.io/" title="https:&#x2F;&#x2F;equinox-shame.github.io&#x2F;" rel="noopener" target="_blank">梓曰</a>
         </li>
         <li class="links-of-blogroll-item">
@@ -329,7 +326,7 @@
 <h1 id="工具"><a class="header-anchor" href="#工具">¶</a>工具</h1>
 <p>volatility是内存取证的工具，这里我使用的是打包好了的可执行文件</p>
 <p>volatility下载地址：<a target="_blank" rel="noopener" href="https://www.volatilityfoundation.org/releases">https://www.volatilityfoundation.org/releases</a></p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png" alt></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642229196730.png" alt=""></p>
 <h1 id="题目-v7"><a class="header-anchor" href="#题目-v7">¶</a>题目</h1>
 <p>题目链接：</p>
 <p><a target="_blank" rel="noopener" href="https://www.yunyansec.com/#/experiment/expdetail/3">https://www.yunyansec.com/#/experiment/expdetail/3</a></p>
@@ -337,25 +334,25 @@
 <h1 id="解题过程-v8"><a class="header-anchor" href="#解题过程-v8">¶</a>解题过程</h1>
 <h2 id="查看系统信息"><a class="header-anchor" href="#查看系统信息">¶</a>查看系统信息</h2>
 <p>先使用命令volatility -f 朴实无华的取证.raw iamgeinfo查看系统信息</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png" alt></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230119786.png" alt=""></p>
 <p>上面的系统都有可能，主要是第一个</p>
 <h2 id="查看运行程序列表"><a class="header-anchor" href="#查看运行程序列表">¶</a>查看运行程序列表</h2>
 <p>命令：volatility -f 朴实无华的取证.raw --profile=WinXPSP2x86 pslist</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png" alt></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230482092.png" alt=""></p>
 <p>这里有三处需要注意，mspaint是画图工具，360zip是解压工具，notepad是笔记本，接下来重点放在这几处</p>
 <h2 id="查看文件"><a class="header-anchor" href="#查看文件">¶</a>查看文件</h2>
 <p>命令：volatility -f 朴实无华的取证.raw --profile=WinXPSP2x86  filescan，这里可以使用grep来指定搜索的字符串 格式如下：volatility -f 朴实无华的取证.raw --profile=WinXPSP2x86  filescan | grep flag</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png" alt></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642230787104.png" alt=""></p>
 <p>可以看到过滤出了flag的相关数据</p>
 <h2 id="提取文件"><a class="header-anchor" href="#提取文件">¶</a>提取文件</h2>
 <p>接下来需要把文件dump下来，命令：volatility -f 朴实无华的取证.raw --profile=WinXPSP2x86 dumpfiles -Q 偏移量 -D ./(-D指定文件夹，这里aaa表示存储到aaa文件夹中)</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png" alt></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231017652.png" alt=""></p>
 <p>可以在aaa文件夹中找到dump下来的文件</p>
-<p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png" alt></p>
+<p>得到<img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231186454.png" alt=""></p>
 <p>还有一个加了密的zip文件，这时候注意我们的notepad还没有被使用，可以去看看信息</p>
 <h2 id="打开进程"><a class="header-anchor" href="#打开进程">¶</a>打开进程</h2>
 <p>命令：volatility -f 朴实无华的取证.raw --profile=WinXPSP2x86 notepad</p>
-<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png" alt></p>
+<p><img src="/2022/01/15/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/1642231403984.png" alt=""></p>
 <p>这样就得到了encrypt的密码</p>
 <h2 id="脚本-v8"><a class="header-anchor" href="#脚本-v8">¶</a>脚本</h2>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span> </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> str[]=<span class="string">"FDCB[8LDQ?ZLOO?FHUWDLQ)B?VXFFHHG?LQ?ILJKWLQJ?WKH?HSLGHPLF]"</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="built_in">strlen</span>(str); i++)</span><br><span class="line">	{</span><br><span class="line">		str[i] += <span class="number">32</span>;</span><br><span class="line">		<span class="keyword">if</span>(str[i] &gt;=<span class="string">'a'</span>+<span class="number">3</span> &amp;&amp; str[i]&lt;=<span class="string">'w'</span>+<span class="number">3</span>)</span><br><span class="line">			str[i]-=<span class="number">3</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'a'</span>)</span><br><span class="line">			str[i]=<span class="string">'x'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'b'</span>)</span><br><span class="line">			str[i]=<span class="string">'y'</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'c'</span>)</span><br><span class="line">			str[i]=<span class="string">'z'</span>;	</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(str[i]==<span class="string">'|'</span>)</span><br><span class="line">			str[i]=<span class="string">'_'</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>,str);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>

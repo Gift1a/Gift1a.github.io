@@ -200,9 +200,6 @@
           <a href="http://1.12.239.117:8090/" title="http:&#x2F;&#x2F;1.12.239.117:8090&#x2F;" rel="noopener" target="_blank">Fallw1nd</a>
         </li>
         <li class="links-of-blogroll-item">
-          <a href="https://serionago.github.io/" title="https:&#x2F;&#x2F;serionago.github.io&#x2F;" rel="noopener" target="_blank">serion</a>
-        </li>
-        <li class="links-of-blogroll-item">
           <a href="https://equinox-shame.github.io/" title="https:&#x2F;&#x2F;equinox-shame.github.io&#x2F;" rel="noopener" target="_blank">梓曰</a>
         </li>
         <li class="links-of-blogroll-item">
@@ -325,17 +322,17 @@
     
     <div class="post-body" itemprop="articleBody">
         <h1 id="分析-v10"><a class="header-anchor" href="#分析-v10">¶</a>分析</h1>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png" alt></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531507324.png" alt=""></p>
 <p>可以看到上面这一段是输入并且把加密后的输入赋值给Buf2，在这之后已经结束了判断，所以下面红色框的代码应该是解密代码，只需要把Buf在栈中进行修改为final字符串即可</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png" alt></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531624170.png" alt=""></p>
 <p>这里点过去发现并没有数据，这可能是一些数据没有反编译出来，但是在图中蓝色部分可以看到地址是ebp-54</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png" alt>计算一下，在堆栈窗口按g进行跳转</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png" alt></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531725452.png" alt="">计算一下，在堆栈窗口按g进行跳转</p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531744867.png" alt=""></p>
 <p>跳转之后</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png" alt></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531761124.png" alt=""></p>
 <p>然后右键Edit，或者按快捷键F2，然后进行修改，注意大小端序的问题，这里使用lazyida选择DWORD导出来就很方便，再次右键，应用修改</p>
 <p>然后运行即可，就可以在input看到flag了</p>
-<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png" alt></p>
+<p><img src="/2022/02/22/hgame2022-WOW-patch%E6%95%B0%E6%8D%AE%E6%AE%B5/1645531871154.png" alt=""></p>
 
     </div>
 
