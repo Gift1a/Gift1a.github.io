@@ -382,55 +382,55 @@
 <h1 id="Dasctf——EasyVm"><a class="header-anchor" href="#Dasctf——EasyVm">¶</a>Dasctf——EasyVm</h1>
 <p>一开始有个花指令，是比较常见的永真跳转，先对call指令按u取消定义，将e8改为90，再重新弄成函数就可以了</p>
 <p>先找到加密的函数</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951424173.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951424173.png" alt></p>
 <p>点进去看看</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951469199.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951469199.png" alt></p>
 <p>这里是base64变种，在最后加了一个异或操作，先把脚本写出来</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> base64_table[] = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findIndex</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (c == b64_table[i])</span><br><span class="line">			<span class="keyword">return</span> i;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">base64_decode</span><span class="params">(<span class="keyword">char</span> code[], <span class="keyword">char</span> str[], <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> memstr[<span class="number">200</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="built_in">memcpy</span>(memstr, code, <span class="built_in">strlen</span>(code));</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(code);</span><br><span class="line">	<span class="comment">/*while (code[len] != '!' &amp;&amp; code[len] != 0)</span></span><br><span class="line"><span class="comment">	{</span></span><br><span class="line"><span class="comment">		len++;</span></span><br><span class="line"><span class="comment">	}*/</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i_ = <span class="number">0</span>; i &lt; len; i += <span class="number">4</span>, i_ += <span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		str[i_] = (findIndex(memstr[i]^<span class="number">0xa</span>, b64_table) &lt;&lt; <span class="number">2</span>) | (findIndex(memstr[i + <span class="number">1</span>]^<span class="number">0xb</span>, b64_table) &amp; <span class="number">0x30</span>) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">		str[i_ + <span class="number">1</span>] = (findIndex(memstr[i + <span class="number">1</span>]^<span class="number">0xb</span>, b64_table) &amp; <span class="number">0xf</span>) &lt;&lt; <span class="number">4</span> | (findIndex(memstr[i + <span class="number">2</span>]^<span class="number">0xc</span>, b64_table) &amp; <span class="number">0x3c</span>) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">		str[i_ + <span class="number">2</span>] = (findIndex(memstr[i + <span class="number">2</span>]^<span class="number">0xc</span>, b64_table) &amp; <span class="number">0x03</span>) &lt;&lt; <span class="number">6</span> | (findIndex(memstr[i + <span class="number">3</span>]^<span class="number">0xd</span>, b64_table));</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">int</span> str_len = (len / <span class="number">4</span>) * <span class="number">3</span> + len % <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">if</span> (len % <span class="number">4</span>)</span><br><span class="line">	{</span><br><span class="line">		str_len -= <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	str[str_len] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> str;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> code[<span class="number">100</span>] = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">char</span> decode[] = { <span class="number">0</span> };</span><br><span class="line">	base64_decode(code, decode, base64_table);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, decode);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>接下来就是vm的部分</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951694407.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642951694407.png" alt></p>
 <p>先看func函数的类型，是指针数组</p>
 <p>这里需要结合动调看每条指令对应的操作</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953729321.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953729321.png" alt></p>
 <p>在这里下断点之后F7进入函数</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953871966.png" alt=""></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955403773.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642953871966.png" alt></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955403773.png" alt></p>
 <p>这就是func数组存放的东西，因为是指针，所以要先按d转为dd才会显示</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955602049.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955602049.png" alt></p>
 <p>先把指令提取出来</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> ida_chars[] =</span><br><span class="line">{</span><br><span class="line">  <span class="number">0xCA</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xCB</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>,</span><br><span class="line">  <span class="number">0xCC</span>, <span class="number">0xCF</span>, <span class="number">0xC9</span>, <span class="number">0xEE</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xCF</span>, <span class="number">0xD1</span>, <span class="number">0xD3</span>,</span><br><span class="line">  <span class="number">0x01</span>, <span class="number">0xFE</span>, <span class="number">0xC2</span>, <span class="number">0xD2</span>, <span class="number">0x39</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0xD4</span>, <span class="number">0xEC</span>,</span><br><span class="line">  <span class="number">0xFF</span>, <span class="number">0x00</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure>
 <p>F8单步调试</p>
 <p>0xCA</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955631076.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955631076.png" alt></p>
 <p>0xCB</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955978948.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955978948.png" alt></p>
 <p>0xCC</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955994447.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642955994447.png" alt></p>
 <p>0xCF</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956392630.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956392630.png" alt></p>
 <p>每执行完再进入func[2]都能知道当前位置，便于查看指令</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956568041.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956568041.png" alt></p>
 <p>0xc9</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956806744.png" alt=""></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957130761.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642956806744.png" alt></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957130761.png" alt></p>
 <p>0xd1</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957467393.png" alt=""></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957487310.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957467393.png" alt></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642957487310.png" alt></p>
 <p>这里本来赋值为0，1，2，为了保持字符相等的情况，把 this[5]全部赋值为1</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642987459030.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642987459030.png" alt></p>
 <p>0xd3</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988305784.png" alt=""></p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988338522.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988305784.png" alt></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988338522.png" alt></p>
 <p>0xc2</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988366450.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988366450.png" alt></p>
 <p>0xd2</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988655617.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988655617.png" alt></p>
 <p>长度判断</p>
 <p>0xd4</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988824766.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642988824766.png" alt></p>
 <p>0xcc</p>
 <p>接下来又回到0xcc，所以就能猜测是循环做了异或操作，然后判断</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642989162099.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1642989162099.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -562,7 +562,7 @@
 </tbody>
 </table>
 <p>整个过程就是这样</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220124125427.jpg" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220124125427.jpg" alt></p>
 <p>因为偶数次的异或等于不变，所以只需对奇数次的进行异或即可</p>
 <p>最终脚本</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> base64_table[] = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findIndex</span><span class="params">(<span class="keyword">char</span> c, <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">64</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">if</span> (c == b64_table[i])</span><br><span class="line">			<span class="keyword">return</span> i;</span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">char</span>* <span class="title">base64_decode</span><span class="params">(<span class="keyword">char</span> code[], <span class="keyword">char</span> str[], <span class="keyword">char</span> b64_table[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> memstr[<span class="number">200</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="built_in">memcpy</span>(memstr, code, <span class="built_in">strlen</span>(code));</span><br><span class="line">	<span class="keyword">int</span> len = <span class="built_in">strlen</span>(code);</span><br><span class="line">	<span class="comment">/*while (code[len] != '!' &amp;&amp; code[len] != 0)</span></span><br><span class="line"><span class="comment">	{</span></span><br><span class="line"><span class="comment">		len++;</span></span><br><span class="line"><span class="comment">	}*/</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, i_ = <span class="number">0</span>; i &lt; len; i += <span class="number">4</span>, i_ += <span class="number">3</span>)</span><br><span class="line">	{</span><br><span class="line">		str[i_] = (findIndex(memstr[i], b64_table) &lt;&lt; <span class="number">2</span>) | (findIndex(memstr[i + <span class="number">1</span>], b64_table) &amp; <span class="number">0x30</span>) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">		str[i_ + <span class="number">1</span>] = (findIndex(memstr[i + <span class="number">1</span>], b64_table) &amp; <span class="number">0xf</span>) &lt;&lt; <span class="number">4</span> | (findIndex(memstr[i + <span class="number">2</span>], b64_table) &amp; <span class="number">0x3c</span>) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">		str[i_ + <span class="number">2</span>] = (findIndex(memstr[i + <span class="number">2</span>], b64_table) &amp; <span class="number">0x03</span>) &lt;&lt; <span class="number">6</span> | (findIndex(memstr[i + <span class="number">3</span>], b64_table));</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">int</span> str_len = (len / <span class="number">4</span>) * <span class="number">3</span> + len % <span class="number">4</span>;</span><br><span class="line">	<span class="keyword">if</span> (len % <span class="number">4</span>)</span><br><span class="line">	{</span><br><span class="line">		str_len -= <span class="number">1</span>;</span><br><span class="line">	}</span><br><span class="line">	str[str_len] = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">return</span> str;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> s[] =</span><br><span class="line">	{</span><br><span class="line">	  <span class="number">190</span>,  <span class="number">54</span>, <span class="number">172</span>,  <span class="number">39</span>, <span class="number">153</span>,  <span class="number">79</span>, <span class="number">222</span>,  <span class="number">68</span>, <span class="number">238</span>,  <span class="number">95</span>,</span><br><span class="line">	  <span class="number">218</span>,  <span class="number">11</span>, <span class="number">181</span>,  <span class="number">23</span>, <span class="number">184</span>, <span class="number">104</span>, <span class="number">194</span>,  <span class="number">78</span>, <span class="number">156</span>,  <span class="number">74</span>,</span><br><span class="line">	  <span class="number">225</span>,  <span class="number">67</span>, <span class="number">240</span>,  <span class="number">34</span>, <span class="number">138</span>,  <span class="number">59</span>, <span class="number">136</span>,  <span class="number">91</span>, <span class="number">229</span>,  <span class="number">84</span>,</span><br><span class="line">	  <span class="number">255</span>, <span class="number">104</span>, <span class="number">213</span>, <span class="number">103</span>, <span class="number">212</span>,   <span class="number">6</span>, <span class="number">173</span>,  <span class="number">11</span>, <span class="number">216</span>,  <span class="number">80</span>,</span><br><span class="line">	  <span class="number">249</span>,  <span class="number">88</span>, <span class="number">224</span>, <span class="number">111</span>, <span class="number">197</span>,  <span class="number">74</span>, <span class="number">253</span>,  <span class="number">47</span>, <span class="number">132</span>,  <span class="number">54</span>,</span><br><span class="line">	  <span class="number">133</span>,  <span class="number">82</span>, <span class="number">251</span>, <span class="number">115</span>, <span class="number">215</span>,  <span class="number">13</span>,<span class="number">0</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">char</span> s2[] = { <span class="number">0</span> };</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">56</span>; i+=<span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		s[i] ^= <span class="number">0xee</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">56</span>; ++i)</span><br><span class="line">	{</span><br><span class="line">		s2[i] = s[i];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> k = i; k &gt; <span class="number">0</span>; k--)</span><br><span class="line">		{</span><br><span class="line">			s2[i] ^= (s2[k - <span class="number">1</span>]);<span class="comment">//该字符前面的全部都要异或上</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//printf("%s", s2);</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">56</span>; i = i + <span class="number">4</span>)</span><br><span class="line">	{</span><br><span class="line">		s2[i] ^= <span class="number">0xA</span>;</span><br><span class="line">		s2[i + <span class="number">1</span>] ^= <span class="number">0xB</span>;</span><br><span class="line">		s2[i + <span class="number">2</span>] ^= <span class="number">0xC</span>;</span><br><span class="line">		s2[i + <span class="number">3</span>] ^= <span class="number">0xD</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">char</span> decode[] = { <span class="number">0</span> };</span><br><span class="line">	base64_decode(s2, decode, base64_table);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, decode);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
@@ -570,16 +570,16 @@
 <p>第一次尝试写解释器，跟着别人的大致思路的</p>
 <p>首先VM就是模仿汇编，用指令代替汇编，用数据段来模拟寄存器和数据段，所以我们关键是要找到数据段和操作数、opcode，以及一些数据存放内容的含义</p>
 <p>先来给寄存器重新命名</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447619996.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447619996.png" alt></p>
 <p>根据main函数中switch可以找到类寄存器的位置，重命名</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447726404.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447726404.png" alt></p>
 <p>从switch的v3可以知道，前面给v3赋值的就是操作数</p>
 <p>r0[0]开始是0，所以操作指令第一个存储的位置是r0[109]，因为是int型，计算的时候×4，就可以找到地址</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447904556.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447904556.png" alt></p>
 <p>按g跳转，使用lazyida dump下来</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447995063.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645447995063.png" alt></p>
 <p>接下来动调分析每条指令对应的汇编代码</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448145669.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448145669.png" alt></p>
 <p>先++，再赋值给它，就相当于push指令的入栈操作，然后还有一个r4后移一位</p>
 <table>
 <thead>
@@ -595,7 +595,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448615771.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448615771.png" alt></p>
 <p>先–，再赋值给r5，相当于pop操作</p>
 <table>
 <thead>
@@ -611,9 +611,9 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448764344.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448764344.png" alt></p>
 <p>又回到0x12，还是push，但是因为r4++，所以已经后移，我们根据计算也可以找到存储数据的地址并提取出数据</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448880740.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645448880740.png" alt></p>
 <p>回到汇编，这里的指令push了-5进入到堆栈，也就是寄存器下面的位置</p>
 <table>
 <thead>
@@ -629,7 +629,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449458278.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449458278.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -644,7 +644,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449560687.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449560687.png" alt></p>
 <p>获取输入，并存储到a1中，这里的a1对应r3</p>
 <table>
 <thead>
@@ -660,7 +660,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449886162.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645449886162.png" alt></p>
 <p>熟悉的操作，把输入压入堆栈，记得栈顶往低处移动</p>
 <table>
 <thead>
@@ -676,7 +676,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450099792.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450099792.png" alt></p>
 <p>这里的a1是r2</p>
 <table>
 <thead>
@@ -692,7 +692,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450235632.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645450235632.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -708,7 +708,7 @@
 </tbody>
 </table>
 <p>根据前面的pop r5可以知道此时r5是0A，而我们的输入被存入了r3，也就是对我们的输入字符进行判断，那么r8应该就对应ZF标志位</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513351201.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513351201.png" alt></p>
 <p>验证了上面的想法，这里的a1是r6，也就是-5，指令跳转回去，相当于进行循环，输入完成后会有一个换行符，getchar会吸收，这里也就是结束我们的循环</p>
 <table>
 <thead>
@@ -725,7 +725,7 @@
 </tbody>
 </table>
 <p>直接在下一条指令下断点，F9运行</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513742181.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645513742181.png" alt></p>
 <p>这里的a1是r2，用于记录输入长度，因为最后有一个回车符，所以要–</p>
 <table>
 <thead>
@@ -742,10 +742,10 @@
 </tbody>
 </table>
 <p>根据前面就可以先对数组进行注释</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514228495.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514228495.png" alt></p>
 <p>r4没写上去，是内存中存储的一段数据</p>
 <p>继续往下走</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514299405.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514299405.png" alt></p>
 <p>将内存段的下一个数据入栈，也就是0x20</p>
 <table>
 <thead>
@@ -761,7 +761,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514469709.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514469709.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -791,7 +791,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514666638.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514666638.png" alt></p>
 <p>把r2的值赋给r3</p>
 <table>
 <thead>
@@ -807,7 +807,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514774277.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514774277.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -822,7 +822,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514918356.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645514918356.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -838,7 +838,7 @@
 </tbody>
 </table>
 <p>但是这次比较的是字符串的长度，也就是字符串长度是32</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515061894.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515061894.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -871,7 +871,7 @@
 </table>
 <p>0x12和0x0A</p>
 <p>这是0x0a的代码</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515342308.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515342308.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -887,7 +887,7 @@
 </tbody>
 </table>
 <p>0x13</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515472275.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515472275.png" alt></p>
 <p>r2此时为0，+9正好是堆栈的位置，也是存放我们输入数据的位置</p>
 <table>
 <thead>
@@ -904,7 +904,7 @@
 </tbody>
 </table>
 <p>从下面开始就是加密的部分了</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515606892.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515606892.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -920,7 +920,7 @@
 </tbody>
 </table>
 <p>0x0B</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515758080.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515758080.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -936,7 +936,7 @@
 </tbody>
 </table>
 <p>0x15</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515807493.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515807493.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -952,7 +952,7 @@
 </tbody>
 </table>
 <p>0x03</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515866224.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515866224.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -967,7 +967,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515954359.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645515954359.png" alt></p>
 <p>把处理完的数据重新放入栈中</p>
 <table>
 <thead>
@@ -983,7 +983,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516003430.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516003430.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -998,7 +998,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516131712.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516131712.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -1014,7 +1014,7 @@
 </tbody>
 </table>
 <p>0xF</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516166189.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516166189.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -1029,7 +1029,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516207834.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516207834.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -1046,7 +1046,7 @@
 </table>
 <p>此时的r6是-10，也就是跳转回到前十条指令，这就是循环加密，现在就差最终的密文了，前面加密的部分直接运行过去</p>
 <p>再次来到0x12</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516848887.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645516848887.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -1076,7 +1076,7 @@
 </tr>
 </tbody>
 </table>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517151788.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517151788.png" alt></p>
 <p>接下来是三个0x12</p>
 <table>
 <thead>
@@ -1097,7 +1097,7 @@
 </tbody>
 </table>
 <p>到了0x08，此时我们的比较数据已经被压入栈中</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517394177.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517394177.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -1143,7 +1143,7 @@
 </tbody>
 </table>
 <p>0x07</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517670674.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517670674.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -1159,7 +1159,7 @@
 </tbody>
 </table>
 <p>0x04</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517727020.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645517727020.png" alt></p>
 <table>
 <thead>
 <tr>
@@ -1328,7 +1328,7 @@
 </tbody>
 </table>
 <p>0xd，重新进入循环</p>
-<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645518636756.png" alt=""></p>
+<p><img src="/2022/01/23/VM%E9%80%86%E5%90%91/1645518636756.png" alt></p>
 <h2 id="最终的一些数据和分组和脚本"><a class="header-anchor" href="#最终的一些数据和分组和脚本">¶</a>最终的一些数据和分组和脚本</h2>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">int</span> opcode[<span class="number">65</span>] = {</span><br><span class="line">    <span class="number">0x00000012</span>, <span class="number">0x00000008</span>, <span class="number">0x00000012</span>, <span class="number">0x00000009</span>, </span><br><span class="line">	<span class="number">0x00000010</span>, <span class="number">0x00000004</span>, <span class="number">0x00000001</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>, <span class="comment">//接受我们的输入 </span></span><br><span class="line">	<span class="number">0x00000002</span>, <span class="number">0x00000012</span>, <span class="number">0x00000008</span>, <span class="number">0x00000012</span>, <span class="number">0x00000009</span>, <span class="number">0x00000000</span>, <span class="number">0x00000004</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>,<span class="comment">//对flag进行存储操作，比较长度，因为getchar最后是32，所以flag长度为32 </span></span><br><span class="line">	<span class="number">0x00000012</span>, <span class="number">0x00000009</span>, <span class="number">0x00000012</span>, <span class="number">0x0000000A</span>, <span class="number">0x00000013</span>, <span class="number">0x00000012</span>, <span class="number">0x0000000B</span>, <span class="number">0x00000015</span>, <span class="number">0x00000003</span>, <span class="number">0x00000014</span>, <span class="number">0x00000001</span>, <span class="number">0x00000000</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>, <span class="comment">//flag加密，flag[i]*2^3c存储的值 </span></span><br><span class="line">    <span class="number">0x00000012</span>, <span class="number">0x0000000A</span>, <span class="number">0x00000012</span>, <span class="number">0x00000012</span>, <span class="number">0x00000012</span>, <span class="number">0x00000008</span>, <span class="number">0x00000013</span>, <span class="number">0x0000000F</span>, <span class="number">0x00000007</span>, <span class="number">0x00000004</span>, <span class="number">0x00000009</span>, <span class="number">0x0000000D</span>, <span class="number">0x00000009</span>, <span class="number">0x00000008</span>, <span class="number">0x00000005</span>, <span class="number">0x00000006</span>, <span class="number">0x00000004</span>, <span class="number">0x00000001</span>, <span class="number">0x00000000</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000D</span>, </span><br><span class="line">	<span class="comment">//字符串比较 </span></span><br><span class="line">	<span class="number">0x00000012</span>, <span class="number">0x00000009</span>, <span class="number">0x00000012</span>, </span><br><span class="line">    <span class="number">0x00000008</span>, <span class="number">0x00000012</span>, <span class="number">0x0000000A</span>, <span class="number">0x00000012</span>, <span class="number">0x00000007</span>, <span class="number">0x0000000F</span>, <span class="number">0x0000000C</span>, <span class="number">0x00000011</span>, <span class="comment">//打印 </span></span><br><span class="line">    <span class="number">0x0000000E</span></span><br><span class="line">};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> xor_table[<span class="number">32</span>]={</span><br><span class="line">		<span class="number">0x5e</span>,<span class="number">0x46</span>,<span class="number">0x61</span>,<span class="number">0x43</span>,<span class="number">0x0e</span>,<span class="number">0x53</span>,<span class="number">0x49</span>,<span class="number">0x1f</span>,</span><br><span class="line">		<span class="number">0x51</span>,<span class="number">0x5e</span>,<span class="number">0x36</span>,<span class="number">0x37</span>,<span class="number">0x29</span>,<span class="number">0x41</span>,<span class="number">0x63</span>,<span class="number">0x3b</span>,</span><br><span class="line">		<span class="number">0x64</span>,<span class="number">0x3b</span>,<span class="number">0x15</span>,<span class="number">0x18</span>,<span class="number">0x5b</span>,<span class="number">0x3e</span>,<span class="number">0x22</span>,<span class="number">0x50</span>,</span><br><span class="line">		<span class="number">0x46</span>,<span class="number">0x5e</span>,<span class="number">0x35</span>,<span class="number">0x4e</span>,<span class="number">0x43</span>,<span class="number">0x23</span>,<span class="number">0x60</span>,<span class="number">0x3b</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> enc[<span class="number">32</span>]={</span><br><span class="line">		<span class="number">0x8E</span>, <span class="number">0x88</span>, <span class="number">0xA3</span>, <span class="number">0x99</span>, <span class="number">0xC4</span>, <span class="number">0xA5</span>, <span class="number">0xC3</span>, <span class="number">0xDD</span>,</span><br><span class="line">		<span class="number">0x19</span>, <span class="number">0xEC</span>, <span class="number">0x6C</span>, <span class="number">0x9B</span>, <span class="number">0xF3</span>, <span class="number">0x1B</span>, <span class="number">0x8B</span>, <span class="number">0x5B</span>,</span><br><span class="line">		<span class="number">0x3E</span>, <span class="number">0x9B</span>, <span class="number">0xF1</span>, <span class="number">0x86</span>, <span class="number">0xF3</span>, <span class="number">0xF4</span>, <span class="number">0xA4</span>, <span class="number">0xF8</span>,</span><br><span class="line">		<span class="number">0xF8</span>, <span class="number">0x98</span>, <span class="number">0xAB</span>, <span class="number">0x86</span>, <span class="number">0x89</span>, <span class="number">0x61</span>, <span class="number">0x22</span>, <span class="number">0xC1</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> data[<span class="number">83</span>] = {</span><br><span class="line">	<span class="comment">//用于跳转和判断长度的数 </span></span><br><span class="line">    <span class="number">0x0000000A</span>, <span class="number">-5</span>, <span class="number">0x00000020</span>, <span class="number">0x0000002F</span>, <span class="number">-10</span>, <span class="number">0x00000000</span>, </span><br><span class="line">    <span class="comment">//异或数据 </span></span><br><span class="line">	<span class="number">0x0000005E</span>, <span class="number">0x00000046</span>, <span class="number">0x00000061</span>, <span class="number">0x00000043</span>, <span class="number">0x0000000E</span>, <span class="number">0x00000053</span>, <span class="number">0x00000049</span>, <span class="number">0x0000001F</span>, </span><br><span class="line">	<span class="number">0x00000051</span>, <span class="number">0x0000005E</span>, <span class="number">0x00000036</span>, <span class="number">0x00000037</span>, <span class="number">0x00000029</span>, <span class="number">0x00000041</span>, <span class="number">0x00000063</span>, <span class="number">0x0000003B</span>, </span><br><span class="line">	<span class="number">0x00000064</span>, <span class="number">0x0000003B</span>, <span class="number">0x00000015</span>, <span class="number">0x00000018</span>, <span class="number">0x0000005B</span>, <span class="number">0x0000003E</span>, <span class="number">0x00000022</span>, <span class="number">0x00000050</span>, </span><br><span class="line">	<span class="number">0x00000046</span>, <span class="number">0x0000005E</span>, <span class="number">0x00000035</span>, <span class="number">0x0000004E</span>, <span class="number">0x00000043</span>, <span class="number">0x00000023</span>, <span class="number">0x00000060</span>, <span class="number">0x0000003B</span>, </span><br><span class="line">	<span class="comment">//用于跳转，以及赋值初始索引 </span></span><br><span class="line">	<span class="number">0x00000000</span>, <span class="number">-17</span>, <span class="number">0x00000015</span>, </span><br><span class="line">	<span class="comment">//密文 </span></span><br><span class="line">	<span class="number">0x0000008E</span>, <span class="number">0x00000088</span>, <span class="number">0x000000A3</span>, <span class="number">0x00000099</span>, <span class="number">0x000000C4</span>, <span class="number">0x000000A5</span>, <span class="number">0x000000C3</span>, <span class="number">0x000000DD</span>, </span><br><span class="line">	<span class="number">0x00000019</span>, <span class="number">0x000000EC</span>, <span class="number">0x0000006C</span>, <span class="number">0x0000009B</span>, <span class="number">0x000000F3</span>, <span class="number">0x0000001B</span>, <span class="number">0x0000008B</span>, <span class="number">0x0000005B</span>, </span><br><span class="line">	<span class="number">0x0000003E</span>, <span class="number">0x0000009B</span>, <span class="number">0x000000F1</span>, <span class="number">0x00000086</span>, <span class="number">0x000000F3</span>, <span class="number">0x000000F4</span>, <span class="number">0x000000A4</span>, <span class="number">0x000000F8</span>,</span><br><span class="line">	<span class="number">0x000000F8</span>, <span class="number">0x00000098</span>, <span class="number">0x000000AB</span>, <span class="number">0x00000086</span>, <span class="number">0x00000089</span>, <span class="number">0x00000061</span>, <span class="number">0x00000022</span>, <span class="number">0x000000C1</span>, </span><br><span class="line">	</span><br><span class="line">	<span class="number">0x00000002</span>, <span class="number">0x00000000</span>, <span class="number">-6</span>, <span class="number">0x00000073</span>, <span class="number">0x00000075</span>, <span class="number">0x00000063</span>, <span class="number">0x00000063</span>, </span><br><span class="line">    <span class="number">0x00000065</span>, <span class="number">0x00000073</span>, <span class="number">0x00000073</span></span><br><span class="line">};</span><br><span class="line">	<span class="keyword">char</span> flag[<span class="number">32</span>]={<span class="number">0</span>};</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">32</span>;++i)</span><br><span class="line">	{</span><br><span class="line">		enc[i]=(enc[i]^xor_table[i])/<span class="number">2</span>;</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>,enc);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
