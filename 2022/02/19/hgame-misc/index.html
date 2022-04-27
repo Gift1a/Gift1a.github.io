@@ -337,21 +337,21 @@
 <h1 id="这个压缩包有点麻烦"><a class="header-anchor" href="#这个压缩包有点麻烦">¶</a>这个压缩包有点麻烦</h1>
 <h2 id="相关知识-压缩包"><a class="header-anchor" href="#相关知识-压缩包">¶</a>相关知识-压缩包</h2>
 <h2 id="解题过程-v2"><a class="header-anchor" href="#解题过程-v2">¶</a>解题过程</h2>
-<p><img src="/2022/02/19/hgame-misc/1645212044252.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645212044252.png" alt=""></p>
 <p>可以看到在zip给出了密码的提示，六位纯数字，Advanced Archive Password Recovery爆破</p>
-<p><img src="/2022/02/19/hgame-misc/1645212152522.png" alt></p>
-<p><img src="/2022/02/19/hgame-misc/1645212207157.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645212152522.png" alt=""></p>
+<p><img src="/2022/02/19/hgame-misc/1645212207157.png" alt=""></p>
 <p>根据提示，给出的应该是字典，我们同样在爆破软件中选择字典</p>
-<p><img src="/2022/02/19/hgame-misc/1645212320305.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645212320305.png" alt=""></p>
 <p>继续下一步</p>
-<p><img src="/2022/02/19/hgame-misc/1645212429206.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645212429206.png" alt=""></p>
 <p>他让我们重新储存，把readme文件选择以存储的方式压缩发现</p>
-<p><img src="/2022/02/19/hgame-misc/1645212573216.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645212573216.png" alt=""></p>
 <p>这两个的CRC32的值是一样的，但是我们知道CRC32的值只有一个，所以使用明文攻击，这里4.5没跑出来，4.0跑出来了</p>
 <p>在jpg文件尾部发现了zip，另存一下，是伪加密</p>
-<p><img src="/2022/02/19/hgame-misc/1645213950846.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645213950846.png" alt=""></p>
 <p>修复后得到flag</p>
-<p><img src="/2022/02/19/hgame-misc/1645214098403.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645214098403.png" alt=""></p>
 <h1 id="你上当了-我的很大"><a class="header-anchor" href="#你上当了-我的很大">¶</a>你上当了 我的很大</h1>
 <h2 id="相关知识-二维码"><a class="header-anchor" href="#相关知识-二维码">¶</a>相关知识-二维码</h2>
 <h2 id="解题过程-v3"><a class="header-anchor" href="#解题过程-v3">¶</a>解题过程</h2>
@@ -360,33 +360,33 @@
 <p>这个网站可以生成不同的二维码，便于识别</p>
 <p><a target="_blank" rel="noopener" href="https://products.aspose.app/barcode/recognize#">https://products.aspose.app/barcode/recognize#</a></p>
 <p>这个网站识别比较全</p>
-<p><img src="/2022/02/19/hgame-misc/1645213399267.png" alt></p>
-<p><img src="/2022/02/19/hgame-misc/1645213453036.png" alt></p>
-<p><img src="/2022/02/19/hgame-misc/1645213467874.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645213399267.png" alt=""></p>
+<p><img src="/2022/02/19/hgame-misc/1645213453036.png" alt=""></p>
+<p><img src="/2022/02/19/hgame-misc/1645213467874.png" alt=""></p>
 <h1 id="谁不喜欢猫猫呢"><a class="header-anchor" href="#谁不喜欢猫猫呢">¶</a>谁不喜欢猫猫呢</h1>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mochu7777777/article/details/122631962-%E5%8F%AF%E4%BB%A5%E7%9C%8B%E7%9C%8B%EF%BC%8C%E8%84%9A%E6%9C%AC%E4%B8%8D%E4%BC%9A%E5%86%99">https://blog.csdn.net/mochu7777777/article/details/122631962-可以看看，脚本不会写</a></p>
 <h1 id="摆烂"><a class="header-anchor" href="#摆烂">¶</a>摆烂</h1>
 <h2 id="相关知识-盲水印、APng、零宽隐写"><a class="header-anchor" href="#相关知识-盲水印、APng、零宽隐写">¶</a>相关知识-盲水印、APng、零宽隐写</h2>
 <h2 id="解题过程-v4"><a class="header-anchor" href="#解题过程-v4">¶</a>解题过程</h2>
 <p>foremost分离压缩包得到png文件，也可以复制文件信息之后另存为，将png拖进010发现奇怪的地方</p>
-<p><img src="/2022/02/19/hgame-misc/1645214249445.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645214249445.png" alt=""></p>
 <p>正常的png文件是没有fdAT数据段的 APng-<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5333bcc20ba7">https://www.jianshu.com/p/5333bcc20ba7</a></p>
 <p>查阅资料发现是Apng，这里介绍一个分解Apng的网址</p>
 <p><a target="_blank" rel="noopener" href="https://ezgif.com/split">https://ezgif.com/split</a></p>
 <p>得到两张一模一样的图片，这时候就想到了盲水印</p>
-<p><img src="/2022/02/19/hgame-misc/1645214469303.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645214469303.png" alt=""></p>
 <p>得到带有密码的图片</p>
-<p><img src="/2022/02/19/hgame-misc/1645214585213.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645214585213.png" alt=""></p>
 <p>得到密钥解压压缩包，拼接二维码，扫码得到</p>
-<p><img src="/2022/02/19/hgame-misc/1645214612749.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645214612749.png" alt=""></p>
 <p>发现很多问号，应该就是零宽了，这里我手机扫码后的信息再拿去解密-<a target="_blank" rel="noopener" href="https://330k.github.io/misc_tools/unicode_steganography.html">https://330k.github.io/misc_tools/unicode_steganography.html</a></p>
-<p><img src="/2022/02/19/hgame-misc/1645214720413.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645214720413.png" alt=""></p>
 <h1 id="At0m的给你们的-迟到的-情人节礼物"><a class="header-anchor" href="#At0m的给你们的-迟到的-情人节礼物">¶</a>At0m的给你们的(迟到的)情人节礼物</h1>
 <h2 id="相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具"><a class="header-anchor" href="#相关知识-avi隐写、NTFS数据流、-MSU-StegoVideo工具">¶</a>相关知识-avi隐写、NTFS数据流、 MSU StegoVideo工具</h2>
 <h2 id="解题过程-v5"><a class="header-anchor" href="#解题过程-v5">¶</a>解题过程</h2>
 <p>一般数据流隐写都采取winrar，所以要关注rar文件</p>
 <p>这里解压之后时候NTFS工具得到</p>
-<p><img src="/2022/02/19/hgame-misc/1645214827597.png" alt></p>
+<p><img src="/2022/02/19/hgame-misc/1645214827597.png" alt=""></p>
 <p>四个方向对应四进制，解码的到 6557225</p>
 <p>还有一个avi文件，一般是MSU StegoVideo工具</p>
 <p>下载好之后选择好avi文件，并且指定写入的文本 ，输入密码即可</p>

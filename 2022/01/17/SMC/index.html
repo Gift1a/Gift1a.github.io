@@ -356,62 +356,62 @@
 <p><a target="_blank" rel="noopener" href="https://buuoj.cn/challenges#%5B%E7%BD%91%E9%BC%8E%E6%9D%AF%202020%20%E9%9D%92%E9%BE%99%E7%BB%84%5Djocker">https://buuoj.cn/challenges#[网鼎杯 2020 青龙组]jocker</a></p>
 <h1 id="解题过程"><a class="header-anchor" href="#解题过程">¶</a>解题过程</h1>
 <p>打开ida反编译看到</p>
-<p><img src="/2022/01/17/SMC/1642563702820.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642563702820.png" alt=""></p>
 <p>点进这个函数ida直接报错</p>
-<p><img src="/2022/01/17/SMC/1642563778289.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642563778289.png" alt=""></p>
 <p>查看汇编代码</p>
-<p><img src="/2022/01/17/SMC/1642563800178.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642563800178.png" alt=""></p>
 <p>点击函数跟进</p>
-<p><img src="/2022/01/17/SMC/1642563901545.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642563901545.png" alt=""></p>
 <p>发现一长串没被识别的数据段，这种情况可能是花指令导致，也可能是SMC，结合之前有一个循环异或，可以猜测是SMC，接下来有两种方法解密</p>
 <h2 id="使用IDC对加密数据进行解密"><a class="header-anchor" href="#使用IDC对加密数据进行解密">¶</a>使用IDC对加密数据进行解密</h2>
 <p>首先要找到被加密数据段的初始地址以及加密数据段的长度，这里长度在for循环里面，初始位置</p>
-<p><img src="/2022/01/17/SMC/1642566995107.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642566995107.png" alt=""></p>
 <p>点击函数跳转</p>
-<p><img src="/2022/01/17/SMC/1642567097998.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642567097998.png" alt=""></p>
 <p>黄色段就是初始地址，可以看到这里函数入口并不是pop开始，所以也可以猜到被加密了</p>
 <p>idc脚本如下(shift+f2)打开</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">auto</span> addr = <span class="number">0x401500</span>;</span><br><span class="line">    <span class="keyword">auto</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">187</span>;i++)</span><br><span class="line">    {</span><br><span class="line">        PatchByte(addr+i,Byte(addr+i)^<span class="number">0x41</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 <p>得到了解密的数据段</p>
-<p><img src="/2022/01/17/SMC/1642567365432.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642567365432.png" alt=""></p>
 <h2 id="动态调试-v2"><a class="header-anchor" href="#动态调试-v2">¶</a>动态调试</h2>
 <p>因为程序自带解密函数，只需要在解密函数后面下断点，运行到断点处，被加密的数据段就能成功解密</p>
-<p><img src="/2022/01/17/SMC/1642565058450.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642565058450.png" alt=""></p>
 <p>这是未解密的，运行后</p>
-<p><img src="/2022/01/17/SMC/1642565236932.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642565236932.png" alt=""></p>
 <p>这时候只需要先对函数按U，取消定义，然后选中按C——force转为汇编代码</p>
-<p><img src="/2022/01/17/SMC/1642565348450.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642565348450.png" alt=""></p>
 <p>然后按p定义成函数，再按F5就可以正常反编译了</p>
-<p><img src="/2022/01/17/SMC/1642565393714.png" alt></p>
+<p><img src="/2022/01/17/SMC/1642565393714.png" alt=""></p>
 <h1 id="SMC-反调试技术"><a class="header-anchor" href="#SMC-反调试技术">¶</a>SMC+反调试技术</h1>
 <p>因为smc可以采取动态调试来还原加密代码，所以可以采用反调试技术来阻止动态调试，所以这时候就需要绕过</p>
 <h2 id="狗狗的秘密"><a class="header-anchor" href="#狗狗的秘密">¶</a>狗狗的秘密</h2>
-<p><img src="/2022/01/17/SMC/1643034259013.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643034259013.png" alt=""></p>
 <p>在数据段发现这里类型SMC，猜测是SMC自修改，所以需要定位到解密函数</p>
 <p>在exports发现了一个函数</p>
 <p>TLS回调函数会在oep也就是程序入口前执行</p>
-<p><img src="/2022/01/17/SMC/1643034347085.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643034347085.png" alt=""></p>
 <p>这个函数会在main函数之前执行，所以先进去看看</p>
-<p><img src="/2022/01/17/SMC/1643034411621.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643034411621.png" alt=""></p>
 <p>把鼠标放在上面发现他是个指针，被赋值为smc的函数段，v8同理，所以接下来这一段应该就是smc解密代码</p>
-<p><img src="/2022/01/17/SMC/1643034535760.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643034535760.png" alt=""></p>
 <p>很明显是tea，不会写idctea脚本，所以打算采取动调，但是前面有几个反调试，需要绕过，保证能走到解密代码这一步</p>
-<p><img src="/2022/01/17/SMC/1643034646186.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643034646186.png" alt=""></p>
 <p>对于if语句，只需要用jnz或jz替换即可</p>
 <p>所以相对来说还行，主要是要先定位到这里</p>
-<p><img src="/2022/01/17/SMC/1643034751964.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643034751964.png" alt=""></p>
 <p>也可以去这些函数列表看一看</p>
 <p>动调完成还是发现出错，所以里面的值可能被引用修改，对着变量按x查看交叉引用</p>
-<p><img src="/2022/01/17/SMC/1643034871276.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643034871276.png" alt=""></p>
 <p>发现在此之前被修改过，但是动调的时候显示是0，很奇怪，不知道什么时候赋值的，所以第一次进入 tea函数需要先对dword_915168的值在hex窗口进行修改</p>
-<p><img src="/2022/01/17/SMC/1643035000708.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643035000708.png" alt=""></p>
 <p>要注意在这个窗口中数据以小端序存储</p>
 <p>修改好之后，下好断点后f9让程序跑起来就可以了</p>
-<p><img src="/2022/01/17/SMC/1643035086013.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643035086013.png" alt=""></p>
 <p>之后就是前面说的，先取消定义，然后转为代码，再定义函数</p>
 <p>寻找怎么修改hex值的时候发现了 可以添加查看窗口，就很方便，在VM逆向里面可能会看起来更方便</p>
-<p><img src="/2022/01/17/SMC/1643035222239.png" alt></p>
-<p><img src="/2022/01/17/SMC/1643035235237.png" alt></p>
+<p><img src="/2022/01/17/SMC/1643035222239.png" alt=""></p>
+<p><img src="/2022/01/17/SMC/1643035235237.png" alt=""></p>
 <h1 id="SMC实现"><a class="header-anchor" href="#SMC实现">¶</a>SMC实现</h1>
 <p>下面所说的段就是节</p>
 <p>先贴源码</p>
@@ -454,7 +454,7 @@
 <p><img src="/2022/01/17/SMC/1647951555438.png" alt="修改后的字节"></p>
 <h2 id="效果展示"><a class="header-anchor" href="#效果展示">¶</a>效果展示</h2>
 <p>运行exe发现</p>
-<p><img src="/2022/01/17/SMC/1647951602713.png" alt></p>
+<p><img src="/2022/01/17/SMC/1647951602713.png" alt=""></p>
 <p>最后打印的就是段中的代码结果</p>
 <p>ida中，可以看到已经无法正常反编译</p>
 <p><img src="/2022/01/17/SMC/1647951757121.png" alt="ida中函数情况"></p>

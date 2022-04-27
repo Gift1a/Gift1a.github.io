@@ -329,21 +329,21 @@
 <p>先查看字节码</p>
 <p>脚本</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> marshal, dis</span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">"D:\\new\\AD\\game\\vnctf2022\\re\\BabyMaze.pyc"</span>, <span class="string">"rb"</span>).read()</span><br><span class="line">code = marshal.loads(f[<span class="number">16</span>:]) <span class="comment">#这边从16位开始取因为是python3 python2从8位开始取</span></span><br><span class="line">dis.dis(code)</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848858641.png" alt></p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848858641.png" alt=""></p>
 <p>发现这一段就是花指令</p>
 <p>去python的包里面搜索opcode.h，找到对应的字节码</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848986760.png" alt></p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644848986760.png" alt=""></p>
 <p>转为十六进制后去010editor修改，去掉即可</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849226023.png" alt></p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849226023.png" alt=""></p>
 <p>但是发现还是不行，这是因为</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849421077.png" alt></p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849421077.png" alt=""></p>
 <p>pyc文件有co_code，所以修改长度之后要修改它</p>
 <p>先打印出来长度，然后计算后修改</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849766935.png" alt></p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849766935.png" alt=""></p>
 <p>2030-6=7E8</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849849453.png" alt></p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849849453.png" alt=""></p>
 <p>重新uncompyle6</p>
-<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849958666.png" alt></p>
+<p><img src="/2022/02/14/pyc%E5%8A%A0%E8%8A%B1%E6%8C%87%E4%BB%A4/1644849958666.png" alt=""></p>
 <p>反编译成功，接下来就是maze图，打印出来之后手打</p>
 <h1 id="Pyc字节码阅读-unctf2021-pytrade"><a class="header-anchor" href="#Pyc字节码阅读-unctf2021-pytrade">¶</a>Pyc字节码阅读-unctf2021-pytrade</h1>
 <p>得到两个txt文件，一个是py的字节码，一个是输出</p>

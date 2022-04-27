@@ -192,7 +192,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PE%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">PE文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PE%E6%96%87%E4%BB%B6%E5%A4%B4%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">PE文件头解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E7%9B%98%EF%BC%88%E6%96%87%E4%BB%B6%EF%BC%89%E5%AF%B9%E9%BD%90%E5%92%8C%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90"><span class="nav-number">2.1.</span> <span class="nav-text">硬盘（文件）对齐和内存对齐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PE%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%8E%E5%86%85%E5%AD%98%E6%98%A0%E5%83%8F%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">2.2.</span> <span class="nav-text">PE磁盘文件与内存映像结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOS%E5%A4%B4"><span class="nav-number">2.3.</span> <span class="nav-text">DOS头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NT%E5%A4%B4"><span class="nav-number">2.4.</span> <span class="nav-text">NT头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86PE%E5%A4%B4-20%E5%AD%97%E8%8A%82"><span class="nav-number">2.4.1.</span> <span class="nav-text">标准PE头-20字节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89PE%E5%A4%B4-v2"><span class="nav-number">2.4.2.</span> <span class="nav-text">可选PE头</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8A%82%E8%A1%A8-%E6%AF%8F%E4%B8%AA%E8%8A%82%E6%9C%8928%E5%AD%97%E8%8A%82%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">节表-每个节有28字节的信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="nav-number">4.</span> <span class="nav-text">运行状态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%9F%A5%E6%89%BE%E5%9C%A8%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">根据内存数据存储的位置查找在文件中的位置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%8A%82%E7%A9%BA%E7%99%BD%E5%8C%BA%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">代码节空白区添加代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81%E8%BF%87%E7%A8%8B-%E6%96%87%E4%BB%B6%E6%B3%A8%E5%85%A5"><span class="nav-number">5.1.</span> <span class="nav-text">添加代码过程-文件注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E8%8A%82%E7%A9%BA%E7%99%BD%E5%8C%BA%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">任意代码节空白区添加代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E8%8A%82-%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">新增节-添加代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%A4%A7%E8%8A%82-%E5%90%88%E5%B9%B6%E8%8A%82-%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">8.</span> <span class="nav-text">扩大节-合并节-数据目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DLL-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%92%8C%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="nav-number">9.</span> <span class="nav-text">DLL-动态链接库和静态链接库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">9.1.</span> <span class="nav-text">静态链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">9.2.</span> <span class="nav-text">动态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">9.2.1.</span> <span class="nav-text">隐式链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E9%93%BE%E6%8E%A5"><span class="nav-number">9.2.2.</span> <span class="nav-text">显示链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E5%88%AB%E8%AF%B4%E6%98%8E"><span class="nav-number">9.2.2.1.</span> <span class="nav-text">特别说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#def%E6%96%87%E4%BB%B6%E5%AF%BC%E5%87%BA"><span class="nav-number">9.2.3.</span> <span class="nav-text">def文件导出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dll%E5%AF%BC%E5%87%BA%E5%87%BD%E6%95%B0%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">9.3.</span> <span class="nav-text">dll导出函数的方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="nav-number">10.</span> <span class="nav-text">导出表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8%E9%87%8D%E8%A6%81%E6%88%90%E5%91%98"><span class="nav-number">10.1.</span> <span class="nav-text">导出表重要成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E5%AF%BC%E5%87%BA%E8%A1%A8-v2"><span class="nav-number">10.2.</span> <span class="nav-text">定位导出表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%B1%9E%E4%BA%8E%E5%93%AA%E4%B8%80%E4%B8%AA%E8%8A%82"><span class="nav-number">10.2.1.</span> <span class="nav-text">判断属于哪一个节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E5%87%BAFOA%E4%BD%8D%E7%BD%AE"><span class="nav-number">10.2.2.</span> <span class="nav-text">算出FOA位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87FOA%E6%89%BE%E5%88%B0%E5%AF%BC%E5%87%BA%E8%A1%A8%E4%BD%8D%E7%BD%AE"><span class="nav-number">10.2.3.</span> <span class="nav-text">通过FOA找到导出表位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">10.3.</span> <span class="nav-text">导出表的存储方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dword-Name"><span class="nav-number">10.3.1.</span> <span class="nav-text">Dword Name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dword-Base"><span class="nav-number">10.3.2.</span> <span class="nav-text">Dword Base</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dword-NumberOfFunctions-%E6%89%80%E6%9C%89%E7%9A%84%E5%AF%BC%E5%87%BA%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">10.3.3.</span> <span class="nav-text">Dword NumberOfFunctions-所有的导出函数的个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DWORD-NumberOfNames-%E4%BB%A5%E5%90%8D%E5%AD%97%EF%BC%88%E6%9C%89%E5%90%8D%E5%AD%97%E7%9A%84%EF%BC%89%E5%AF%BC%E5%87%BA%E7%9A%84%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">10.3.4.</span> <span class="nav-text">DWORD   NumberOfNames-以名字（有名字的）导出的函数的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E8%A1%A8-AddressOfFunctions"><span class="nav-number">10.3.4.1.</span> <span class="nav-text">函数地址表-AddressOfFunctions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E8%A1%A8-AddressOfNames"><span class="nav-number">10.3.4.2.</span> <span class="nav-text">函数名称表-AddressOfNames</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BA%8F%E5%8F%B7%E8%A1%A8-AddressOfNumberOrdinals%EF%BC%8D%E5%AD%98%E5%82%A8%E7%9A%84%E6%98%AFRVA"><span class="nav-number">10.3.4.3.</span> <span class="nav-text">函数序号表-AddressOfNumberOrdinals－存储的是ＲＶＡ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E5%90%8D%E7%A7%B0%E5%AF%BC%E5%87%BA"><span class="nav-number">10.3.4.4.</span> <span class="nav-text">按名称导出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E5%BA%8F%E5%8F%B7%E5%AF%BC%E5%87%BA"><span class="nav-number">10.3.4.5.</span> <span class="nav-text">按序号导出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">10.3.4.6.</span> <span class="nav-text">导出的过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable"><span class="nav-number">11.</span> <span class="nav-text">重定位表-struct IMAGE_DATA_DIRECTORY BaseRelocationTable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">11.1.</span> <span class="nav-text">程序的加载过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8%E8%A7%A3%E6%9E%90"><span class="nav-number">11.2.</span> <span class="nav-text">重定位表解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%9D%97%E6%95%B0"><span class="nav-number">11.2.1.</span> <span class="nav-text">判断块数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%AF%BC%E5%87%BA%E8%A1%A8-%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="nav-number">12.</span> <span class="nav-text">移动导出表-重定位表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%AF%BC%E5%87%BA%E8%A1%A8-v2"><span class="nav-number">12.1.</span> <span class="nav-text">移动导出表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8DLL%E6%96%87%E4%BB%B6%E4%B8%AD%E6%96%B0%E5%A2%9E%E8%8A%82"><span class="nav-number">12.1.1.</span> <span class="nav-text">在DLL文件中新增节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%95%B0%E6%8D%AE-v2"><span class="nav-number">12.1.2.</span> <span class="nav-text">复制数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6AddressOfFunctions"><span class="nav-number">12.1.2.1.</span> <span class="nav-text">复制AddressOfFunctions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6AddressOfNameOrdinals"><span class="nav-number">12.1.2.2.</span> <span class="nav-text">复制AddressOfNameOrdinals</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6AddressOfNames"><span class="nav-number">12.1.2.3.</span> <span class="nav-text">复制AddressOfNames</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%89%80%E6%9C%89%E5%87%BD%E6%95%B0%E5%90%8D"><span class="nav-number">12.1.2.4.</span> <span class="nav-text">复制所有函数名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%AF%BC%E5%87%BA%E8%A1%A8%E7%9A%84%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-number">12.1.2.5.</span> <span class="nav-text">复制导出表的整体结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E5%9C%B0%E5%9D%80"><span class="nav-number">12.1.3.</span> <span class="nav-text">修复地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E7%9B%AE%E5%BD%95%E9%A1%B9%E4%B8%AD%E7%9A%84RVA%E4%BF%AE%E6%AD%A3"><span class="nav-number">12.1.4.</span> <span class="nav-text">将目录项中的RVA修正</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8-v2"><span class="nav-number">12.2.</span> <span class="nav-text">移动重定位表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="nav-number">13.</span> <span class="nav-text">导入表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E8%A7%A3%E6%9E%90"><span class="nav-number">13.1.</span> <span class="nav-text">导入表解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%AD%97%E6%AE%B5"><span class="nav-number">13.1.1.</span> <span class="nav-text">重要字段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">13.2.</span> <span class="nav-text">导入表结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#INT%E8%A1%A8"><span class="nav-number">13.2.1.</span> <span class="nav-text">INT表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-IMAGE-IMPORT-BY-NAME"><span class="nav-number">13.2.1.1.</span> <span class="nav-text">struct _IMAGE_IMPORT_BY_NAME</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAME"><span class="nav-number">13.2.2.</span> <span class="nav-text">NAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ULONG-FirstThunk"><span class="nav-number">13.2.3.</span> <span class="nav-text">ULONG FirstThunk</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IAT%E8%A1%A8-%E5%AF%BC%E5%85%A5%E5%9C%B0%E5%9D%80%E8%A1%A8"><span class="nav-number">13.2.3.1.</span> <span class="nav-text">IAT表-导入地址表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IAT%E8%A1%A8%E5%AD%98%E5%9C%A8%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">13.2.3.2.</span> <span class="nav-text">IAT表存在的原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">13.3.</span> <span class="nav-text">导入表加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BEDLL"><span class="nav-number">13.3.1.</span> <span class="nav-text">寻找DLL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5INT%E8%A1%A8"><span class="nav-number">13.3.2.</span> <span class="nav-text">查ＩＮＴ表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9IAT"><span class="nav-number">13.3.3.</span> <span class="nav-text">修改ＩＡＴ</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%AF%BC%E5%85%A5%E8%A1%A8-struct-IMAGE-BOUND-IMPORT-DESCRIPTOR"><span class="nav-number">14.</span> <span class="nav-text">绑定导入表- struct _IMAGE_BOUND_IMPORT_DESCRIPTOR</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">14.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">14.2.</span> <span class="nav-text">可能存在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%AF%BC%E5%85%A5%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">14.3.</span> <span class="nav-text">绑定导入表结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84"><span class="nav-number">14.3.1.</span> <span class="nav-text">依赖模块结构</span></a></li></ol></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PE%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">PE文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#PE%E6%96%87%E4%BB%B6%E5%A4%B4%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">PE文件头解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AC%E7%9B%98%EF%BC%88%E6%96%87%E4%BB%B6%EF%BC%89%E5%AF%B9%E9%BD%90%E5%92%8C%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90"><span class="nav-number">2.1.</span> <span class="nav-text">硬盘（文件）对齐和内存对齐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PE%E7%A3%81%E7%9B%98%E6%96%87%E4%BB%B6%E4%B8%8E%E5%86%85%E5%AD%98%E6%98%A0%E5%83%8F%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">2.2.</span> <span class="nav-text">PE磁盘文件与内存映像结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DOS%E5%A4%B4"><span class="nav-number">2.3.</span> <span class="nav-text">DOS头</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NT%E5%A4%B4"><span class="nav-number">2.4.</span> <span class="nav-text">NT头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86PE%E5%A4%B4-20%E5%AD%97%E8%8A%82"><span class="nav-number">2.4.1.</span> <span class="nav-text">标准PE头-20字节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89PE%E5%A4%B4"><span class="nav-number">2.4.2.</span> <span class="nav-text">可选PE头</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8A%82%E8%A1%A8-%E6%AF%8F%E4%B8%AA%E8%8A%82%E6%9C%8928%E5%AD%97%E8%8A%82%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">节表-每个节有28字节的信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="nav-number">4.</span> <span class="nav-text">运行状态</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E7%9A%84%E4%BD%8D%E7%BD%AE%E6%9F%A5%E6%89%BE%E5%9C%A8%E6%96%87%E4%BB%B6%E4%B8%AD%E7%9A%84%E4%BD%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text">根据内存数据存储的位置查找在文件中的位置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%8A%82%E7%A9%BA%E7%99%BD%E5%8C%BA%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">代码节空白区添加代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81%E8%BF%87%E7%A8%8B-%E6%96%87%E4%BB%B6%E6%B3%A8%E5%85%A5"><span class="nav-number">5.1.</span> <span class="nav-text">添加代码过程-文件注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%BB%E6%84%8F%E4%BB%A3%E7%A0%81%E8%8A%82%E7%A9%BA%E7%99%BD%E5%8C%BA%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">任意代码节空白区添加代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E8%8A%82-%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">新增节-添加代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%A4%A7%E8%8A%82-%E5%90%88%E5%B9%B6%E8%8A%82-%E6%95%B0%E6%8D%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">8.</span> <span class="nav-text">扩大节-合并节-数据目录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DLL-%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93%E5%92%8C%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="nav-number">9.</span> <span class="nav-text">DLL-动态链接库和静态链接库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">9.1.</span> <span class="nav-text">静态链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">9.2.</span> <span class="nav-text">动态链接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%90%E5%BC%8F%E9%93%BE%E6%8E%A5"><span class="nav-number">9.2.1.</span> <span class="nav-text">隐式链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E7%A4%BA%E9%93%BE%E6%8E%A5"><span class="nav-number">9.2.2.</span> <span class="nav-text">显示链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%89%B9%E5%88%AB%E8%AF%B4%E6%98%8E"><span class="nav-number">9.2.2.1.</span> <span class="nav-text">特别说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#def%E6%96%87%E4%BB%B6%E5%AF%BC%E5%87%BA"><span class="nav-number">9.2.3.</span> <span class="nav-text">def文件导出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dll%E5%AF%BC%E5%87%BA%E5%87%BD%E6%95%B0%E7%9A%84%E6%96%B9%E5%BC%8F"><span class="nav-number">9.3.</span> <span class="nav-text">dll导出函数的方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="nav-number">10.</span> <span class="nav-text">导出表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8%E9%87%8D%E8%A6%81%E6%88%90%E5%91%98"><span class="nav-number">10.1.</span> <span class="nav-text">导出表重要成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%BD%8D%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="nav-number">10.2.</span> <span class="nav-text">定位导出表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%B1%9E%E4%BA%8E%E5%93%AA%E4%B8%80%E4%B8%AA%E8%8A%82"><span class="nav-number">10.2.1.</span> <span class="nav-text">判断属于哪一个节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E5%87%BAFOA%E4%BD%8D%E7%BD%AE"><span class="nav-number">10.2.2.</span> <span class="nav-text">算出FOA位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87FOA%E6%89%BE%E5%88%B0%E5%AF%BC%E5%87%BA%E8%A1%A8%E4%BD%8D%E7%BD%AE"><span class="nav-number">10.2.3.</span> <span class="nav-text">通过FOA找到导出表位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E8%A1%A8%E7%9A%84%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">10.3.</span> <span class="nav-text">导出表的存储方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dword-Name"><span class="nav-number">10.3.1.</span> <span class="nav-text">Dword Name</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dword-Base"><span class="nav-number">10.3.2.</span> <span class="nav-text">Dword Base</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dword-NumberOfFunctions-%E6%89%80%E6%9C%89%E7%9A%84%E5%AF%BC%E5%87%BA%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">10.3.3.</span> <span class="nav-text">Dword NumberOfFunctions-所有的导出函数的个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DWORD-NumberOfNames-%E4%BB%A5%E5%90%8D%E5%AD%97%EF%BC%88%E6%9C%89%E5%90%8D%E5%AD%97%E7%9A%84%EF%BC%89%E5%AF%BC%E5%87%BA%E7%9A%84%E5%87%BD%E6%95%B0%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="nav-number">10.3.4.</span> <span class="nav-text">DWORD   NumberOfNames-以名字（有名字的）导出的函数的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%9C%B0%E5%9D%80%E8%A1%A8-AddressOfFunctions"><span class="nav-number">10.3.4.1.</span> <span class="nav-text">函数地址表-AddressOfFunctions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%90%8D%E7%A7%B0%E8%A1%A8-AddressOfNames"><span class="nav-number">10.3.4.2.</span> <span class="nav-text">函数名称表-AddressOfNames</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BA%8F%E5%8F%B7%E8%A1%A8-AddressOfNumberOrdinals%EF%BC%8D%E5%AD%98%E5%82%A8%E7%9A%84%E6%98%AFRVA"><span class="nav-number">10.3.4.3.</span> <span class="nav-text">函数序号表-AddressOfNumberOrdinals－存储的是ＲＶＡ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E5%90%8D%E7%A7%B0%E5%AF%BC%E5%87%BA"><span class="nav-number">10.3.4.4.</span> <span class="nav-text">按名称导出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8C%89%E5%BA%8F%E5%8F%B7%E5%AF%BC%E5%87%BA"><span class="nav-number">10.3.4.5.</span> <span class="nav-text">按序号导出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%87%BA%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">10.3.4.6.</span> <span class="nav-text">导出的过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable"><span class="nav-number">11.</span> <span class="nav-text">重定位表-struct IMAGE_DATA_DIRECTORY BaseRelocationTable</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">11.1.</span> <span class="nav-text">程序的加载过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8%E8%A7%A3%E6%9E%90"><span class="nav-number">11.2.</span> <span class="nav-text">重定位表解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%9D%97%E6%95%B0"><span class="nav-number">11.2.1.</span> <span class="nav-text">判断块数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%AF%BC%E5%87%BA%E8%A1%A8-%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="nav-number">12.</span> <span class="nav-text">移动导出表-重定位表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E5%AF%BC%E5%87%BA%E8%A1%A8"><span class="nav-number">12.1.</span> <span class="nav-text">移动导出表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8DLL%E6%96%87%E4%BB%B6%E4%B8%AD%E6%96%B0%E5%A2%9E%E8%8A%82"><span class="nav-number">12.1.1.</span> <span class="nav-text">在DLL文件中新增节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">12.1.2.</span> <span class="nav-text">复制数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6AddressOfFunctions"><span class="nav-number">12.1.2.1.</span> <span class="nav-text">复制AddressOfFunctions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6AddressOfNameOrdinals"><span class="nav-number">12.1.2.2.</span> <span class="nav-text">复制AddressOfNameOrdinals</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6AddressOfNames"><span class="nav-number">12.1.2.3.</span> <span class="nav-text">复制AddressOfNames</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%89%80%E6%9C%89%E5%87%BD%E6%95%B0%E5%90%8D"><span class="nav-number">12.1.2.4.</span> <span class="nav-text">复制所有函数名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%AF%BC%E5%87%BA%E8%A1%A8%E7%9A%84%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-number">12.1.2.5.</span> <span class="nav-text">复制导出表的整体结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E5%A4%8D%E5%9C%B0%E5%9D%80"><span class="nav-number">12.1.3.</span> <span class="nav-text">修复地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E7%9B%AE%E5%BD%95%E9%A1%B9%E4%B8%AD%E7%9A%84RVA%E4%BF%AE%E6%AD%A3"><span class="nav-number">12.1.4.</span> <span class="nav-text">将目录项中的RVA修正</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E9%87%8D%E5%AE%9A%E4%BD%8D%E8%A1%A8"><span class="nav-number">12.2.</span> <span class="nav-text">移动重定位表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8"><span class="nav-number">13.</span> <span class="nav-text">导入表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E8%A7%A3%E6%9E%90"><span class="nav-number">13.1.</span> <span class="nav-text">导入表解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E5%AD%97%E6%AE%B5"><span class="nav-number">13.1.1.</span> <span class="nav-text">重要字段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">13.2.</span> <span class="nav-text">导入表结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#INT%E8%A1%A8"><span class="nav-number">13.2.1.</span> <span class="nav-text">INT表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-IMAGE-IMPORT-BY-NAME"><span class="nav-number">13.2.1.1.</span> <span class="nav-text">struct _IMAGE_IMPORT_BY_NAME</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NAME"><span class="nav-number">13.2.2.</span> <span class="nav-text">NAME</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ULONG-FirstThunk"><span class="nav-number">13.2.3.</span> <span class="nav-text">ULONG FirstThunk</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IAT%E8%A1%A8-%E5%AF%BC%E5%85%A5%E5%9C%B0%E5%9D%80%E8%A1%A8"><span class="nav-number">13.2.3.1.</span> <span class="nav-text">IAT表-导入地址表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IAT%E8%A1%A8%E5%AD%98%E5%9C%A8%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">13.2.3.2.</span> <span class="nav-text">IAT表存在的原因</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5%E8%A1%A8%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">13.3.</span> <span class="nav-text">导入表加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BB%E6%89%BEDLL"><span class="nav-number">13.3.1.</span> <span class="nav-text">寻找DLL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5INT%E8%A1%A8"><span class="nav-number">13.3.2.</span> <span class="nav-text">查ＩＮＴ表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9IAT"><span class="nav-number">13.3.3.</span> <span class="nav-text">修改ＩＡＴ</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%AF%BC%E5%85%A5%E8%A1%A8-struct-IMAGE-BOUND-IMPORT-DESCRIPTOR"><span class="nav-number">14.</span> <span class="nav-text">绑定导入表- struct _IMAGE_BOUND_IMPORT_DESCRIPTOR</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">14.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">14.2.</span> <span class="nav-text">可能存在的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%AF%BC%E5%85%A5%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">14.3.</span> <span class="nav-text">绑定导入表结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%A8%A1%E5%9D%97%E7%BB%93%E6%9E%84"><span class="nav-number">14.3.1.</span> <span class="nav-text">依赖模块结构</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -373,19 +373,19 @@
 <p>新的编译器在硬盘和内存都采用1000h，这是因为编译器发展，这样内存和硬盘对齐一样，运行时可以减少运算，这样虽然牺牲了空间，但是缩短了时间</p>
 <h2 id="PE磁盘文件与内存映像结构图"><a class="header-anchor" href="#PE磁盘文件与内存映像结构图">¶</a>PE磁盘文件与内存映像结构图</h2>
 <p>块表（节表）概括节的基本信息（起始和终止位置，节的大小），DOS头和PE头对当前exe文件做的概要性描述（拉伸完后的大小，堆栈大小），节表存储信息</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/19100019-8692ac67434949cb9ec42764cab75468-1646313270630.jpg" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/19100019-8692ac67434949cb9ec42764cab75468-1646313270630.jpg" alt=""></p>
 <h2 id="DOS头"><a class="header-anchor" href="#DOS头">¶</a>DOS头</h2>
 <p>DOS长度确定</p>
 <p>解析exe文件时，先解析前两个字节，并通过DOS头找到exe文件真正开始的地方</p>
 <p>第一个WORD MZSignature（e_magic）-MZ标记</p>
 <p>最后一个LONG AddressOfNewExeHeader（e_lfanew）-指向了PE文件的真正开始地址</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646292642401.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646292642401.png" alt=""></p>
 <p>这里的0108表示从文件开始的地方计算0108个字节就是PE结构开始的地方</p>
 <h2 id="NT头"><a class="header-anchor" href="#NT头">¶</a>NT头</h2>
 <p>DOS头和NT头中间是一段空间，可以自由发挥，多与少不确定，我们可以在这一段写入shellcode（ <strong>利用软件漏洞而执行的代码</strong> ），在程序中调用。有地址我们就可以访问和执行</p>
 <p>PE的标记-DWORD Signature-四个字节</p>
 <h3 id="标准PE头-20字节"><a class="header-anchor" href="#标准PE头-20字节">¶</a>标准PE头-20字节</h3>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646295409969.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646295409969.png" alt=""></p>
 <p>关键信息</p>
 <p>enum IMAGE_MACHINE Machine-程序运行的CPU型号：0x0 任何处理器 /0x14C 386及后续处理器</p>
 <p>WORD NumberOfSections-文件中存在的节的数量，如果需要新增或者合并节，就要修改这个值</p>
@@ -393,12 +393,12 @@
 <p><strong>WORD SizeOfOptionalHeader</strong>-可选PE头的大小，32位PE文件默认E0h、64位PE文件默认为F0h  大小可以自定义.</p>
 <p>struct FILE_CHARACTERISTICS Characteristics-每个位有不同的含义，可执行文件值为10F 即0 1 2 3 8位置1</p>
 <p>这里的102拆成二进制</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296388161.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296388161.png" alt=""></p>
 <p>勾中即为1</p>
-<h3 id="可选PE头-v2"><a class="header-anchor" href="#可选PE头-v2">¶</a>可选PE头</h3>
+<h3 id="可选PE头"><a class="header-anchor" href="#可选PE头">¶</a>可选PE头</h3>
 <p>结构</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296662617.png" alt></p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296680675.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296662617.png" alt=""></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646296680675.png" alt=""></p>
 <p>关键信息</p>
 <p>enum OPTIONAL_MAGIC Magic-说明文件类型：10B 32位下的PE文件、20B 64位下的PE文件</p>
 <p>DWORD SectionAlignment-内存对齐</p>
@@ -429,17 +429,17 @@
 <h1 id="节表-每个节有28字节的信息"><a class="header-anchor" href="#节表-每个节有28字节的信息">¶</a>节表-每个节有28字节的信息</h1>
 <p>节表定位-DOS+PE+OPTIONPE</p>
 <p>描述每个节的信息</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646306378425.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646306378425.png" alt=""></p>
 <p>节的结构</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646306828500.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646306828500.png" alt=""></p>
 <p>BYTE Name[8]是八个字节，不够补’\0’，在内存是0，所以不能使用char*，而要用char [9]，且可以随便改</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646306924262.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646306924262.png" alt=""></p>
 <p>第二个成员是union Misc，双字，是该节在没有对齐前的真实尺寸，该值可以不准确（可能被别的软件加工过），但是不会妨碍运行，<strong>里面的成员DWORD VirtualSize-存放PE文件放入内存时的数据宽度，他的值可能大于文件对齐后的数据宽度（SizeofRawData），这是因为未初始化的变量不会被存入文件中</strong></p>
 <p>第三个成员-DWORD VirtualAddress-节区在内存中的相对偏移（拉伸-内存对齐后的），加上ImageBase才是在内存中的真正地址（跟文件中无关）</p>
 <p>第四个成员-DWORD SizeOfRawData-节在文件中对齐后的尺寸</p>
 <p>第五个成员-DWORD PointerToRawData-节区在文件中的偏移,所以.text是从400h开始的（跟内存中无关）</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646309678678.png" alt></p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646308057578.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646309678678.png" alt=""></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646308057578.png" alt=""></p>
 <p>第二个和第四个是在调试时使用的，编译完这四个默认为0</p>
 <p>struct SECTION_CHARACTERISTICS Characteristics-节的属性</p>
 <p>最后一个成员struct SECTION_CHARACTERISTICS Characteristics-里面有32位，但不是每一位都用</p>
@@ -449,7 +449,7 @@
 <p>先把文件对齐后的数据拷贝到内存中，根据SizeofHeades，直接copy，因为头和节表是不会变化的，但是节表后面不一定是节区，这是因为文件对齐和内存对齐不同</p>
 <p>循环赋值节的内容，复制到内存的地方由节表信息里面的VirtualAddress决定，PointerToRawData决定了文件复制到内存的起始位置</p>
 <p>复制数据的大小根据SizeofRawData（Misc也可以，但是如果MIsc存在大量未初始化数据，会变得很大，可能将下一节的信息也copy到内存中）</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646548848907.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646548848907.png" alt=""></p>
 <h2 id="根据内存数据存储的位置查找在文件中的位置"><a class="header-anchor" href="#根据内存数据存储的位置查找在文件中的位置">¶</a>根据内存数据存储的位置查找在文件中的位置</h2>
 <p>假设内存开始位置是500000，数据在内存存储位置是501234</p>
 <p>1、确定节</p>
@@ -498,7 +498,7 @@
 <blockquote>
 <p>数据目录-里面存储各种表的信息</p>
 </blockquote>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646564515662.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646564515662.png" alt=""></p>
 <p>下面介绍几种比较重要的</p>
 <h1 id="DLL-动态链接库和静态链接库"><a class="header-anchor" href="#DLL-动态链接库和静态链接库">¶</a>DLL-动态链接库和静态链接库</h1>
 <p>使用的时候都需要include</p>
@@ -566,14 +566,14 @@
 <p>3、导出函数地址表RVA-DWORD AddressOfFunctions</p>
 <p>4、函数名称地址表RVA-DWORD AddressOfNames</p>
 <p>5、函数序号地址表RVA-DWORD AddressOfNameOrdinals</p>
-<h2 id="定位导出表-v2"><a class="header-anchor" href="#定位导出表-v2">¶</a>定位导出表</h2>
+<h2 id="定位导出表"><a class="header-anchor" href="#定位导出表">¶</a>定位导出表</h2>
 <p>1、找出导出表RVA的偏移</p>
 <p>首先我们要在数据目录的导出表信息的第一项，也就是导出表地址的RVA偏移是多少</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621065982.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621065982.png" alt=""></p>
 <p>可以看出c000h是RVA偏移，大小是164个字节</p>
 <h3 id="判断属于哪一个节"><a class="header-anchor" href="#判断属于哪一个节">¶</a>判断属于哪一个节</h3>
 <p>根据节区的VIrtualAddress判断</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621026524.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621026524.png" alt=""></p>
 <p>所以可以知道在.edata节</p>
 <h3 id="算出FOA位置"><a class="header-anchor" href="#算出FOA位置">¶</a>算出FOA位置</h3>
 <p>我们知道是在.rdata节的，可以算出FOA</p>
@@ -582,45 +582,45 @@
 <h3 id="通过FOA找到导出表位置"><a class="header-anchor" href="#通过FOA找到导出表位置">¶</a>通过FOA找到导出表位置</h3>
 <p>找到后根据前面的导出表大小可以知道导出表的范围</p>
 <p>跳转过去即可</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621157564.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621157564.png" alt=""></p>
 <h2 id="导出表的存储方式"><a class="header-anchor" href="#导出表的存储方式">¶</a>导出表的存储方式</h2>
 <p>一个导出表大小为0x28个字节，也就是两行半</p>
 <p>分段讲解</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621661598.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621661598.png" alt=""></p>
 <p>前面十二个字节没用，就不讲了</p>
 <h3 id="Dword-Name"><a class="header-anchor" href="#Dword-Name">¶</a>Dword Name</h3>
 <p>绿框的4个字节存储的是dll名称的RVA，想查看的话，可以计算FOA，和前面一样的，得到8250地址存储的是我们的dll名称，以00结尾</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621843130.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646621843130.png" alt=""></p>
 <h3 id="Dword-Base"><a class="header-anchor" href="#Dword-Base">¶</a>Dword Base</h3>
 <p>导出函数的起始序号</p>
 <p>DLL导出的函数如果给序号了，那么就从这个序号开始</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622459296.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622459296.png" alt=""></p>
 <h3 id="Dword-NumberOfFunctions-所有的导出函数的个数"><a class="header-anchor" href="#Dword-NumberOfFunctions-所有的导出函数的个数">¶</a>Dword NumberOfFunctions-所有的导出函数的个数</h3>
 <p>前四个</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622410901.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622410901.png" alt=""></p>
 <h3 id="DWORD-NumberOfNames-以名字（有名字的）导出的函数的个数"><a class="header-anchor" href="#DWORD-NumberOfNames-以名字（有名字的）导出的函数的个数">¶</a>DWORD   NumberOfNames-以名字（有名字的）导出的函数的个数</h3>
 <p>可以将两个不同的名字指向相同的地址</p>
 <p>有一些是无名函数不会在里面</p>
 <p>后四个</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622415877.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622415877.png" alt=""></p>
 <p>下面就是子表了，三个子表都是RVA，要转为FOA</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622483098.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622483098.png" alt=""></p>
 <p>分别是函数地址表0x8228，函数名称表0x8238，函数序号表0x8248</p>
 <blockquote>
 <p>先去找函数名称表，根据名称的下标再去序号表找对应，然后再去函数地址表找</p>
 </blockquote>
 <h4 id="函数地址表-AddressOfFunctions"><a class="header-anchor" href="#函数地址表-AddressOfFunctions">¶</a>函数地址表-AddressOfFunctions</h4>
 <p>函数地址表指向一个偏移，这个偏移存放了所有导出函数的地址，每个地址占四个字节，存放的是RVA地址</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622927186.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646622927186.png" alt=""></p>
 <p>ImageBase+函数偏移就是函数在内存中的实际地址</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646623978690.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646623978690.png" alt=""></p>
 <p>可以看到这就是函数</p>
 <p>还需要注意的就是，如果你按照序号导出1 3 4 5这4个函数，在导入表中我们的函数地址表中的地址会有5个，原因就是：中断的序号会给我们用0填充，２虽然没有，但是也会给我们导出.</p>
 <h4 id="函数名称表-AddressOfNames"><a class="header-anchor" href="#函数名称表-AddressOfNames">¶</a>函数名称表-AddressOfNames</h4>
 <p>函数名称表也是存储名称的RVA，四个字节存储一个，RVA的个数由以函数名称导出函数个数来决定（DWORD  NumberOfNames）</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625166524.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625166524.png" alt=""></p>
 <p>转为FOA就是0x805e，0x8071,0x8082,0x8093</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625255683.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625255683.png" alt=""></p>
 <p>排序的时候是按照字母顺序排列的，而不是按照导出时函数的顺序进行排序的</p>
 <p>例如:</p>
 <p>EXPORT</p>
@@ -630,7 +630,7 @@
 <p>导出三个函数，那么第一项就为 ADD，因为按照字母排序，A在前边，后面依次类推，所以我们上面看到的函数名称 ACquireSRW 这个函数名称，并不是第一个导出的函数.</p>
 <h4 id="函数序号表-AddressOfNumberOrdinals－存储的是RVA"><a class="header-anchor" href="#函数序号表-AddressOfNumberOrdinals－存储的是RVA">¶</a>函数序号表-AddressOfNumberOrdinals－存储的是ＲＶＡ</h4>
 <p>给名称用的中转表</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625803927.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646625803927.png" alt=""></p>
 <p>和函数名称表大小相同</p>
 <h4 id="按名称导出"><a class="header-anchor" href="#按名称导出">¶</a>按名称导出</h4>
 <p>得到函数名称后去AddressOfNames中的函数名称对比，得到索引后根据索引取出AddressOfNameOrdinals存储的值，以此为索引去函数地址表找到函数的地址</p>
@@ -644,7 +644,7 @@
 <p>系统和我们前面说的不一样</p>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646724098510.png" alt="1"></p>
 <p>根据函数地址表找，如果索引在序号表中，说明是按名字导出的，再去名称表找对应，索引和序号表中的相同</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646724264502.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646724264502.png" alt=""></p>
 <p>这里的100a索引是3，在序号表中没有，所以不是按照序号导出的，序号可算，为索引+Base=005</p>
 <h1 id="重定位表-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable"><a class="header-anchor" href="#重定位表-struct-IMAGE-DATA-DIRECTORY-BaseRelocationTable">¶</a>重定位表-struct IMAGE_DATA_DIRECTORY BaseRelocationTable</h1>
 <h2 id="程序的加载过程"><a class="header-anchor" href="#程序的加载过程">¶</a>程序的加载过程</h2>
@@ -655,11 +655,11 @@
 <p>所以一般exe不存在重定位表，而dll一般都有，用于记录需要修改的地方</p>
 <h2 id="重定位表解析"><a class="header-anchor" href="#重定位表解析">¶</a>重定位表解析</h2>
 <p>重定位表是分块，根据RVA计算得到FOA，跳转过去发现有几个重定位表</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646727831045.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646727831045.png" alt=""></p>
 <p>这两个数据分别存储RVA和大小</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646727910599.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646727910599.png" alt=""></p>
 <p>下面的数据中，每两个字节代表这一段有多少个数据需要修复，一般是绝对地址需要修改</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646728080337.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646728080337.png" alt=""></p>
 <p>只需要基础地址加上小表的值就可以定位到需要修改的地方，而不用四个字节来存储地址，节省了空间，而这个基础地址就是前面记录的RVA</p>
 <p>而基础地址可以不同，所以才需要分块操作</p>
 <p>可以发现每一块的间隔是1000h，也就是内存对齐的大小</p>
@@ -671,12 +671,12 @@
 <p>计算需要修改的数据个数：(SizeOfBlock-8)/2，因为前面两个数据是8个字节，剩下的两个字节为1组</p>
 <h1 id="移动导出表-重定位表"><a class="header-anchor" href="#移动导出表-重定位表">¶</a>移动导出表-重定位表</h1>
 <p>表的数据也在节区中，加密代码时，表的信息也会被加密，这样程序无法初始化，所以要先增节，再移动表，学会移动各种表是对程序加密和破解的基础</p>
-<h2 id="移动导出表-v2"><a class="header-anchor" href="#移动导出表-v2">¶</a>移动导出表</h2>
+<h2 id="移动导出表"><a class="header-anchor" href="#移动导出表">¶</a>移动导出表</h2>
 <p>比较繁琐，因为要移动多张表</p>
 <h3 id="在DLL文件中新增节"><a class="header-anchor" href="#在DLL文件中新增节">¶</a>在DLL文件中新增节</h3>
 <p>先计算大小</p>
 <p>并且返回新增节的FOA，因为后面的数据还要从新增节的开头开始</p>
-<h3 id="复制数据-v2"><a class="header-anchor" href="#复制数据-v2">¶</a>复制数据</h3>
+<h3 id="复制数据"><a class="header-anchor" href="#复制数据">¶</a>复制数据</h3>
 <p>需要复制的数据类型和长度</p>
 <h4 id="复制AddressOfFunctions"><a class="header-anchor" href="#复制AddressOfFunctions">¶</a>复制AddressOfFunctions</h4>
 <p>长度：4×NumberOfFunctions</p>
@@ -693,7 +693,7 @@
 <p>函数地址表、序号表、名称表都需要修复</p>
 <h3 id="将目录项中的RVA修正"><a class="header-anchor" href="#将目录项中的RVA修正">¶</a>将目录项中的RVA修正</h3>
 <p>指向我们新的导出表的位置</p>
-<h2 id="移动重定位表-v2"><a class="header-anchor" href="#移动重定位表-v2">¶</a>移动重定位表</h2>
+<h2 id="移动重定位表"><a class="header-anchor" href="#移动重定位表">¶</a>移动重定位表</h2>
 <p>直接复制过去，修改RVA即可</p>
 <p>加载程序：（当前面已经有DLL被加载）</p>
 <p>1、将新的DLL复制到新的位置</p>
@@ -711,24 +711,24 @@
 <p>指向导入地址表（IAT）的RVA</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DWORD   Name;</span><br></pre></td></tr></tbody></table></figure>
 <p>指向导入映像文件的名字</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788456499.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788456499.png" alt=""></p>
 <p>计算后跳转过去，注意要算的是FOA，但是这里RVA和FOA一样</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788490238.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788490238.png" alt=""></p>
 <p>其中IAT与INT都指向 IMAGE_THUNK_DATA32（虽然二者的地址不同）</p>
 <p>INT-以全0结尾</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788999608.png" alt> 		 函数名数组(对应IMAGE_THUNK_DATA32结构体数组,每一个结构体就是一个联合体-4字节)</p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646788999608.png" alt=""> 		 函数名数组(对应IMAGE_THUNK_DATA32结构体数组,每一个结构体就是一个联合体-4字节)</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>  _<span class="title">IMAGE_THUNK_DATA32</span>{</span></span><br><span class="line"><span class="class"><span class="keyword">union</span>{</span><span class="comment">//联合体，实际是4字节</span></span><br><span class="line">DWORD ForwarderString;</span><br><span class="line">DWORD Function;<span class="comment">//导入函数的地址,在加载到内存之后,这里才起作用</span></span><br><span class="line">DWORD Ordinal;<span class="comment">//假如是序号导入的,会用到这里</span></span><br><span class="line">DWORD AddressOfData;<span class="comment">//假如是函数名导入,会用到这里,它指向另外一个结构体PIMAGE_IMPORT_BY_NAME</span></span><br><span class="line">}u1;</span><br><span class="line">}IMAGE_THUNK_DATA32;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果是函数名导入的,AddressOfData会指向下面这个结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">IMAGE_IMPORT_BY_NAME</span>{</span></span><br><span class="line">WORD  Hint;<span class="comment">//序号</span></span><br><span class="line">CHAR Name[<span class="number">1</span>];<span class="comment">//不定长,字符串</span></span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <h2 id="导入表结构"><a class="header-anchor" href="#导入表结构">¶</a>导入表结构</h2>
 <p>在可选PE头最后的十六个数组的导入表结构，这里存放的是RVA</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646998855451.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646998855451.png" alt=""></p>
 <p>跳转过去发现存储的是struct IMAGE_IMPORT_DESCRIPTOR ImportDescriptor[0]，这里存放的是真正的导入表结构</p>
 <p>有多少个DLL，对应的结构体数组就有几个</p>
 <p>关键的数据有下面三个，也要注意这里的TimeDateStamp-时间戳</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999149540.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999149540.png" alt=""></p>
 <h3 id="INT表"><a class="header-anchor" href="#INT表">¶</a>INT表</h3>
 <p><em><strong>ULONG OriginalFirstThunk-RVA</strong></em>，存放的是IMAGE_THUNK_DATA这个结构体数组，四字节数，以0结尾</p>
 <p>跳转过去</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999423139.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999423139.png" alt=""></p>
 <p>但是之前学导出表有了解到，导出函数可以以名字导出，亦可以序号导出。所以为了方便区分，就将这INT表的每个值做了细微调整。</p>
 <blockquote>
 <p>如果这个4字节数的最高位（二进制）为1，那么抹去这个最高位之后，所表示的数就是要导入的函数的序号；如果最高位是0，那这个数就也是一个RVA，指向IMAGE_IMPORT_BY_NAME结构体（包含真正的导入函数的名字字符串，以0结尾）。INT表以4字节0结尾。</p>
@@ -739,7 +739,7 @@
 <p>2、BYTE Name[1]，函数名称，以0结尾</p>
 <h3 id="NAME"><a class="header-anchor" href="#NAME">¶</a>NAME</h3>
 <p>DLL的名字，以0结尾</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999638790.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1646999638790.png" alt=""></p>
 <h3 id="ULONG-FirstThunk"><a class="header-anchor" href="#ULONG-FirstThunk">¶</a>ULONG FirstThunk</h3>
 <p>根据RVA跳转，发现存储的值和INT的一样，这个存储的是IAT，当文件加载后，会发现IAT会改变</p>
 <h4 id="IAT表-导入地址表"><a class="header-anchor" href="#IAT表-导入地址表">¶</a>IAT表-导入地址表</h4>
@@ -750,7 +750,7 @@
 <h4 id="IAT表存在的原因"><a class="header-anchor" href="#IAT表存在的原因">¶</a>IAT表存在的原因</h4>
 <p>一般程序在调用自身函数的时候，自身函数地址RVA是固定的；但是当程序在调用dll里的函数的时候，由于dll的地址会发生重定位，导致dll里的函数地址每次都会发生变化。</p>
 <p>为了准确调用dll函数的地址，构造了IAT表来存储程序运行时，即DLL文件重定位之后的dll函数的位置。</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1649497133114.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1649497133114.png" alt=""></p>
 <h2 id="导入表加载过程"><a class="header-anchor" href="#导入表加载过程">¶</a>导入表加载过程</h2>
 <p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/aHR0cHM6Ly9naXRlZS5jb20vY2h0MS9JbWFnZS9yYXcvbWFzdGVyL2ltZy8yMDIwMDcxNDAzMjg0Ni5wbmc-1647000237348.png" alt="PE文件加载前"></p>
 <p>加载过程</p>
@@ -768,7 +768,7 @@
 <p>IAT表会存储dll的函数的地址，方便调用该函数时，直接取IAT表这个地址内的值，作为函数地址，去CALL。</p>
 <h1 id="绑定导入表-struct-IMAGE-BOUND-IMPORT-DESCRIPTOR"><a class="header-anchor" href="#绑定导入表-struct-IMAGE-BOUND-IMPORT-DESCRIPTOR">¶</a>绑定导入表- struct _IMAGE_BOUND_IMPORT_DESCRIPTOR</h1>
 <p>可选NT头里的结构</p>
-<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1647001593786.png" alt></p>
+<p><img src="/2022/03/03/PE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/1647001593786.png" alt=""></p>
 <h2 id="作用"><a class="header-anchor" href="#作用">¶</a>作用</h2>
 <p>有些windows程序，如notepad，为了提高加载速度，会直接把DLL中的函数地址写入到IAT表，省去了加载时的计算。</p>
 <h2 id="可能存在的问题"><a class="header-anchor" href="#可能存在的问题">¶</a>可能存在的问题</h2>
