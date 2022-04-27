@@ -61,8 +61,8 @@
   </noscript>
 
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
@@ -154,7 +154,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-%E5%89%8D%E8%A8%80-v3"><span class="nav-number">1.</span> <span class="nav-text">0x00-前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">0x01-原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="nav-number">2.1.</span> <span class="nav-text">定义函数指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">定义线程信息块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF%E5%9D%97%E8%B5%8B%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">线程信息块赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%9B%AE%E6%A0%87%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">打开目标进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E8%BE%9F%E5%86%85%E5%AD%98%E5%B9%B6%E5%86%99%E5%85%A5%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">2.5.</span> <span class="nav-text">开辟内存并写入线程信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.6.</span> <span class="nav-text">开启远程线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0%E8%B0%83%E7%94%A8"><span class="nav-number">2.7.</span> <span class="nav-text">线程函数实现调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">0x02-代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">0x03-最终效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0"><span class="nav-number">5.</span> <span class="nav-text">0x04-代码注入调试练习</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x00-%E5%89%8D%E8%A8%80-v2"><span class="nav-number">1.</span> <span class="nav-text">0x00-前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">0x01-原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="nav-number">2.1.</span> <span class="nav-text">定义函数指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF%E5%9D%97"><span class="nav-number">2.2.</span> <span class="nav-text">定义线程信息块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF%E5%9D%97%E8%B5%8B%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">线程信息块赋值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%9B%AE%E6%A0%87%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">打开目标进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E8%BE%9F%E5%86%85%E5%AD%98%E5%B9%B6%E5%86%99%E5%85%A5%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF"><span class="nav-number">2.5.</span> <span class="nav-text">开辟内存并写入线程信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E7%BA%BF%E7%A8%8B"><span class="nav-number">2.6.</span> <span class="nav-text">开启远程线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0%E8%B0%83%E7%94%A8"><span class="nav-number">2.7.</span> <span class="nav-text">线程函数实现调用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">0x02-代码实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C"><span class="nav-number">4.</span> <span class="nav-text">0x03-最终效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-%E4%BB%A3%E7%A0%81%E6%B3%A8%E5%85%A5%E8%B0%83%E8%AF%95%E7%BB%83%E4%B9%A0"><span class="nav-number">5.</span> <span class="nav-text">0x04-代码注入调试练习</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -323,7 +323,7 @@
     <div class="post-body" itemprop="articleBody">
         <p>代码注入</p>
 <span id="more"></span> 
-<h1 id="0x00-前言-v3"><a class="header-anchor" href="#0x00-前言-v3">¶</a>0x00-前言</h1>
+<h1 id="0x00-前言-v2"><a class="header-anchor" href="#0x00-前言-v2">¶</a>0x00-前言</h1>
 <p>感觉《逆向工程核心原理》只是进行了一点介绍，但是我理解能力有限</p>
 <p>于是翻阅到了这篇文章</p>
 <p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1270499-1-1.html">https://www.52pojie.cn/thread-1270499-1-1.html</a></p>
@@ -432,13 +432,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">296k</span>
+    <span title="站点总字数">301k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:29</span>
+    <span title="站点阅读时长">4:34</span>
   </span>
 </div>
 <div class="busuanzi-count">
