@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="CTF中32位程序调用64位代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTF中32位调用64位代码">
+<meta property="og:url" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="CTF中32位程序调用64位代码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084552451.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084623510.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084704987.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084801377.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652077738159.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078266535.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078302028.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078950121.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652079092143.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652267971329.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268136354.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652248950697.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652249119969.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268383536.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268475082.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268516934.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268675363.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268738053.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268936181.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269032854.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269187607.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269289722.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269376040.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269739310.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269705752.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269865596.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086069132.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086040351.png">
+<meta property="article:published_time" content="2022-05-05T11:42:31.000Z">
+<meta property="article:modified_time" content="2022-05-13T11:46:42.089Z">
+<meta property="article:author" content="Gift1a">
+<meta property="article:tag" content="Reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084552451.png">
+
+
+<link rel="canonical" href="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/","path":"2022/05/05/CTF中32位调用64位程序/","title":"CTF中32位调用64位代码"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CTF中32位调用64位代码 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-v2"><span class="nav-number">1.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CS%E5%92%8CIP"><span class="nav-number">2.1.</span> <span class="nav-text">CS和IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WOW64"><span class="nav-number">2.2.</span> <span class="nav-text">WOW64</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">3.</span> <span class="nav-text">解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#dump"><span class="nav-number">3.1.</span> <span class="nav-text">dump</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%BA64%E4%BD%8D%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.2.</span> <span class="nav-text">修改为64位程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-v2"><span class="nav-number">4.</span> <span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#hgame2022-week4-WOW"><span class="nav-number">4.1.</span> <span class="nav-text">hgame2022-week4-WOW</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ISCC-%E6%93%82%E5%8F%B0%E9%A2%98"><span class="nav-number">4.2.</span> <span class="nav-text">ISCC-擂台题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E7%82%B9-v7"><span class="nav-number">4.3.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-v7"><span class="nav-number">4.4.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="nav-number">4.4.1.</span> <span class="nav-text">第二个函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0"><span class="nav-number">4.4.2.</span> <span class="nav-text">第一个函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CreateNewThread%E5%87%BD%E6%95%B0"><span class="nav-number">4.4.2.1.</span> <span class="nav-text">CreateNewThread函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#compare-input%E5%87%BD%E6%95%B0"><span class="nav-number">4.4.2.2.</span> <span class="nav-text">compare_input函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#encode-and-compare%E5%87%BD%E6%95%B0"><span class="nav-number">4.4.2.3.</span> <span class="nav-text">encode_and_compare函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#encode-%E5%87%BD%E6%95%B0"><span class="nav-number">4.4.2.3.1.</span> <span class="nav-text">encode()函数</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux"><span class="nav-number">4.5.</span> <span class="nav-text">linux</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gift1a"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Gift1a</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Gift1a" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Gift1a" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://1.12.239.117:8090/" title="http:&#x2F;&#x2F;1.12.239.117:8090&#x2F;" rel="noopener" target="_blank">Fallw1nd</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://equinox-shame.github.io/" title="https:&#x2F;&#x2F;equinox-shame.github.io&#x2F;" rel="noopener" target="_blank">梓曰</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://a2ur2.github.io/" title="https:&#x2F;&#x2F;a2ur2.github.io&#x2F;" rel="noopener" target="_blank">A2ure</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/spmonkey/" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;spmonkey&#x2F;" rel="noopener" target="_blank">星空</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CTF中32位调用64位代码 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CTF中32位调用64位代码
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-05 19:42:31" itemprop="dateCreated datePublished" datetime="2022-05-05T19:42:31+08:00">2022-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-13 19:46:42" itemprop="dateModified" datetime="2022-05-13T19:46:42+08:00">2022-05-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>CTF中32位程序调用64位代码</p>
+<span id="more"></span>
+<h1 id="参考文章-v2"><a class="header-anchor" href="#参考文章-v2">¶</a>参考文章</h1>
+<p><a target="_blank" rel="noopener" href="https://blog.shi1011.cn/ctf/1750">https://blog.shi1011.cn/ctf/1750</a><br>
+<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/171111">https://www.anquanke.com/post/id/171111</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.psbazx.com/2022/04/06/%E5%85%B3%E4%BA%8E32%E4%BD%8D%E4%B8%8E64%E4%BD%8D%E7%A8%8B%E5%BA%8F%E5%88%87%E6%8D%A2/">https://www.psbazx.com/2022/04/06/关于32位与64位程序切换/</a></p>
+<p><a target="_blank" rel="noopener" href="https://moliam.github.io/2018/11/17/Wow64-at-the-assemly-level.html">https://moliam.github.io/2018/11/17/Wow64-at-the-assemly-level.html</a></p>
+<h1 id="基础知识"><a class="header-anchor" href="#基础知识">¶</a>基础知识</h1>
+<h2 id="CS和IP"><a class="header-anchor" href="#CS和IP">¶</a>CS和IP</h2>
+<p>CS是代码段寄存器，IP是指令指针寄存器</p>
+<blockquote>
+<p>之所以要这样设计是因为8086CPU是16位的，而物理地址是20位的，他内存的寄存器只能表现16位的地址，因此使用ip寄存器来存放偏移地址</p>
+</blockquote>
+<p>我们假设CS的值为M，IP的值为N，那么8086CPU将从内存M*16+N单元开始，读取下一条指令</p>
+<p>工作流程</p>
+<ul>
+<li>从CS:IP指向的内存单元读取指令，读取的指令进入指令缓冲区</li>
+<li>IP=IP+所读取指令的长度，便于读取下一条指令</li>
+<li>执行指令，重复第一步</li>
+</ul>
+<p>如果我们想修改CS:IP的值，可以使用转移指令，例如JMP指令</p>
+<p>以上是基于16位程序中</p>
+<p>但是32位以上段寄存器不再被用来指向段了，在本例子中CS存储的值用于判断是32位或64位工作模式</p>
+<blockquote>
+<p><strong>64位：CS=0x33；32位：CS=0x23</strong></p>
+</blockquote>
+<h2 id="WOW64"><a class="header-anchor" href="#WOW64">¶</a>WOW64</h2>
+<blockquote>
+<p>WOW64 (Windows-on-Windows 64-bit)是一个Windows操作系统的子系统, 它为现有的32位应用程序提供了32位的模拟，可以使大多数32 位应用程序在无需修改的情况下运行在 Windows 64 位版本上。</p>
+</blockquote>
+<p>在x64系统下的进程有32位和64位两种工作模式，这两种工作模式的区别在于CS寄存器。32位模式时，CS = 0x23；64位模式时，CS = 0x33</p>
+<blockquote>
+<p><strong>这两种工作模式是可以进行转换的，一般通过retf指令，一条retf指令等效于以下两条汇编指令</strong></p>
+</blockquote>
+<figure class="highlight armasm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pop</span> <span class="built_in">ip</span><span class="comment">//当前读取指令的地址</span></span><br><span class="line"><span class="keyword">pop</span> cs<span class="comment">//cs寄存器</span></span><br></pre></td></tr></tbody></table></figure>
+<p>如果此时栈中有0x33，retf会将0x33弹出到CS寄存器，实现32位程序转换到64位代码的过程。<strong>所以retf是识别32位程序调用64位代码的重要标志</strong></p>
+<p>利用好这一点就可以实现64位代码和32位代码来回切换</p>
+<h1 id="解决"><a class="header-anchor" href="#解决">¶</a>解决</h1>
+<h2 id="dump"><a class="header-anchor" href="#dump">¶</a>dump</h2>
+<p>使用idc将64位的代码段dump下来</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">auto</span> fp, begin, end, dexbyte;</span><br><span class="line">  fp = fopen(<span class="string">"./final"</span>, <span class="string">"wb"</span>);</span><br><span class="line">  begin = <span class="number">0x4011C0</span>;<span class="comment">//起始地址</span></span><br><span class="line">  end = <span class="number">0x4012A0</span>;<span class="comment">//结束地址</span></span><br><span class="line">  <span class="keyword">for</span> ( dexbyte = begin; dexbyte &lt; end; dexbyte ++ )</span><br><span class="line">      fputc(Byte(dexbyte), fp);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>使用ida64打开，选择64-bit mode</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084552451.png" alt></p>
+<p>如同修改基址为0x4011C0</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084623510.png" alt></p>
+<p>可以看到已经基本恢复了，剩下只需对比着进行代码分析即可</p>
+<h2 id="修改为64位程序"><a class="header-anchor" href="#修改为64位程序">¶</a>修改为64位程序</h2>
+<p>将这里的0x10B改成0x20B，然后使用ida64打开</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084704987.png" alt></p>
+<p>基址重新修改为原本程序的基址</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084801377.png" alt="恢复后"></p>
+<h1 id="例子-v2"><a class="header-anchor" href="#例子-v2">¶</a>例子</h1>
+<h2 id="hgame2022-week4-WOW"><a class="header-anchor" href="#hgame2022-week4-WOW">¶</a>hgame2022-week4-WOW</h2>
+<p>在某些函数中ida无法反编译</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652077738159.png" alt></p>
+<p>查看此函数的汇编，因为在此之后才无法反编译</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078266535.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078302028.png" alt="汇编"></p>
+<p>因为retf相当于pop ip;pop cs，而ip是下一条指令的地址</p>
+<p>所以这一段代码意思是先将64位工作模式的标志0x33压入栈中，然后通过call和add esp的值改变retf跳转的地址</p>
+<p>然后通过retf时将0x33pop到cs中，换为64位工作模式，所以ida32无法正确反编译</p>
+<p>再来看第二个函数</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078950121.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652079092143.png" alt="汇编代码"></p>
+<p>这里是一样的，不过这里使用的是mov指令，将0x23mov到esp+4存储的地址中</p>
+<p>通过这一段代码恢复回32位工作模式</p>
+<h2 id="ISCC-擂台题"><a class="header-anchor" href="#ISCC-擂台题">¶</a>ISCC-擂台题</h2>
+<h2 id="考点-v7"><a class="header-anchor" href="#考点-v7">¶</a>考点</h2>
+<p>创建子进程和子线程、TEA、WOW64</p>
+<h2 id="分析-v7"><a class="header-anchor" href="#分析-v7">¶</a>分析</h2>
+<p>当命令行参数为2时进入第一个函数，否则进入第二个</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652267971329.png" alt></p>
+<h3 id="第二个函数"><a class="header-anchor" href="#第二个函数">¶</a>第二个函数</h3>
+<p>第二个函数传入的参数是命令行参数的第一个，也就是我们的程序绝对路径</p>
+<p>进入第二个函数</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268136354.png" alt></p>
+<p>这一段就是打开当前程序创建子进程（根据第六个参数判断进程的属性），命令行参数为我们打开程序的路径和" DIO"，然后</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652248950697.png" alt></p>
+<p>然后根据调试事件判断时候break，这里当报告退出进程调试事件才会break</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652249119969.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268383536.png" alt="创建的新进程"></p>
+<p>这样创建的子进程具有两个命令行参数，所以进入第一个函数</p>
+<h3 id="第一个函数"><a class="header-anchor" href="#第一个函数">¶</a>第一个函数</h3>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268475082.png" alt="函数列表"></p>
+<h4 id="CreateNewThread函数"><a class="header-anchor" href="#CreateNewThread函数">¶</a>CreateNewThread函数</h4>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268516934.png" alt></p>
+<p>创建一个子线程，根据第五个参数dwCreationFlags为0可知是线程创建后立即执行，指定函数为StartAddress</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268675363.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268738053.png" alt="StartAddress函数"></p>
+<p>就是对flag的格式进行判断，并且对最后的几个字符进行异或</p>
+<p>但是此时我们还未输入，按理说会一直卡在while循环，但是单步步过CreateNewThread时都是正常的</p>
+<h4 id="compare-input函数"><a class="header-anchor" href="#compare-input函数">¶</a>compare_input函数</h4>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268936181.png" alt></p>
+<p>判断输入前几位是否为ISCC</p>
+<h4 id="encode-and-compare函数"><a class="header-anchor" href="#encode-and-compare函数">¶</a>encode_and_compare函数</h4>
+<p>通过动态调试可以知道前面的while循环是将每八个输入存储为QWORD类型，第二段就是对key，也就是命令行参数的第二个进行加密，然后传入encode()函数</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269032854.png" alt></p>
+<h5 id="encode-函数"><a class="header-anchor" href="#encode-函数">¶</a>encode()函数</h5>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269187607.png" alt></p>
+<p>这一段就是开辟空间和初始化直接动调，关键还是对该函数的调用</p>
+<p>注意要先添加命令行参数</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269289722.png" alt></p>
+<p>开启调试到达该函数，发现了切换为64位工作模式的代码</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269376040.png" alt></p>
+<p>将这一段dump下来</p>
+<p>这里调用了920000地址处的函数，所以也要一起dump下来</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269739310.png" alt></p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">auto</span> fp, begin, end, dexbyte;</span><br><span class="line">  fp = fopen(<span class="string">"./final1"</span>, <span class="string">"wb"</span>);</span><br><span class="line">  begin = <span class="number">0x920000</span>;<span class="comment">//起始地址</span></span><br><span class="line">  end = <span class="number">0x93006B</span>;<span class="comment">//结束地址</span></span><br><span class="line">  <span class="keyword">for</span> ( dexbyte = begin; dexbyte &lt; end; dexbyte ++ )</span><br><span class="line">      fputc(Byte(dexbyte), fp);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>拖进ida64，可以看出来是tea加密</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269705752.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269865596.png" alt="切换回32位"></p>
+<p>经此全部分析就已经结束了，前十六个字符先转long long型，然后进行tea加密，后5个字符进行异或，tea的密钥直接在调用encode函数处提取即可</p>
+<p>加密代码</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> __int64 tmp0;</span><br><span class="line"><span class="keyword">unsigned</span> __int64 tmp1;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> flag[<span class="number">32</span>] = { <span class="number">0</span> };</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> a[<span class="number">4</span>]={<span class="number">0x11</span>,<span class="number">0x4</span>,<span class="number">0x25</span>,<span class="number">0xf</span>};</span><br><span class="line"><span class="keyword">unsigned</span> __int64 temp[<span class="number">2</span>] = { <span class="number">0</span> };</span><br><span class="line"><span class="keyword">unsigned</span> __int64 v11[] =</span><br><span class="line">{</span><br><span class="line">	<span class="number">0x425B1CD73C3598F1</span>, <span class="number">0x72C63C6A5ACF14BA</span></span><br><span class="line">};</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i += <span class="number">2</span>)</span><br><span class="line">{</span><br><span class="line">	tmp0 = v11[i];</span><br><span class="line">	tmp1 = v11[i + <span class="number">1</span>];</span><br><span class="line">	__int64 sum = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">32</span>; ++j)</span><br><span class="line">	{</span><br><span class="line">		sum += <span class="number">0x9E3779B9</span>;</span><br><span class="line">		tmp0 += (sum + tmp1) ^ (a[<span class="number">0</span>] + <span class="number">16</span> * tmp1) ^ (a[<span class="number">1</span>] + (tmp1 &gt;&gt; <span class="number">5</span>));</span><br><span class="line">		tmp1 += (sum + tmp0) ^ (a[<span class="number">2</span>] + <span class="number">16</span> * tmp0) ^ (a[<span class="number">3</span>] + (tmp0 &gt;&gt; <span class="number">5</span>));</span><br><span class="line">	}</span><br><span class="line">	v11[i] = tmp0;</span><br><span class="line">	v11[i + <span class="number">1</span>] = tmp1;</span><br><span class="line">}</span><br><span class="line"><span class="comment">//0x425B1CD73C3598F1, 0x72C63C6A5ACF14BA</span></span><br></pre></td></tr></tbody></table></figure>
+<p>这里我不知道为啥我拿输入去加密得到的结果和程序的一致，但是解不出来😢</p>
+<p>解不出来的解密代码</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> __int64 tmp0;</span><br><span class="line"><span class="keyword">unsigned</span> __int64 tmp1;</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> flag[<span class="number">32</span>] = { <span class="number">0</span> };</span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> a[<span class="number">4</span>]={<span class="number">0x11</span>,<span class="number">0x4</span>,<span class="number">0x25</span>,<span class="number">0xf</span>};</span><br><span class="line"><span class="keyword">unsigned</span> __int64 temp[<span class="number">2</span>] = { <span class="number">0</span> };</span><br><span class="line"><span class="keyword">unsigned</span> __int64 v11[] =</span><br><span class="line">{</span><br><span class="line">	<span class="number">0x425B1CD73C3598F1</span>, <span class="number">0x72C63C6A5ACF14BA</span></span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">tmp0 = v11[<span class="number">0</span>];</span><br><span class="line">tmp1 = v11[<span class="number">1</span>];</span><br><span class="line">__int64 sum = <span class="number">32</span> * <span class="number">0x9E3779B9</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">32</span>; ++j)</span><br><span class="line">{</span><br><span class="line">	tmp1 -= (sum + tmp0) ^ (a[<span class="number">2</span>] + <span class="number">16</span> * tmp0) ^ (a[<span class="number">3</span>] + (tmp0 &gt;&gt; <span class="number">5</span>));</span><br><span class="line">	tmp0 -= (sum + tmp1) ^ (a[<span class="number">0</span>] + <span class="number">16</span> * tmp1) ^ (a[<span class="number">1</span>] + (tmp1 &gt;&gt; <span class="number">5</span>));</span><br><span class="line">	sum -= <span class="number">0x9E3779B9</span>;</span><br><span class="line">}</span><br><span class="line">v11[<span class="number">0</span>]= tmp0;</span><br><span class="line">v11[<span class="number">1</span>]= tmp1;</span><br></pre></td></tr></tbody></table></figure>
+<p>想动态调试这段汇编好像会出问题，只能单步步过</p>
+<p>不过好像使用WINDBG可以调试</p>
+<h2 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h2>
+<p>代码分析</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086069132.png" alt></p>
+<p>可以知道这一段代码是在0xDEAD000开辟空间，然后赋值后再SMC解密，然后就出现了无法识别的代码，看汇编动调发现和前面是一样的</p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086040351.png" alt></p>
+<p>使用retf实现jmp far</p>
+<p>解决方法同上</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reverse/" rel="tag"># Reverse</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/05/%E4%B8%80%E4%BA%9B%E5%9B%BD%E5%A4%96%E6%AF%94%E8%B5%9B/" rel="prev" title="一些比赛">
+                  <i class="fa fa-chevron-left"></i> 一些比赛
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gift1a</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">317k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:48</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"GhjDb9gbtgwnrtsySW3fcGac-MdYXbMMI","appKey":"0Qw5kecTryGX5eSrEvShaWPw","serverURLs":"https://ghjdb9gb.api.lncldglobal.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":"false# Article reading statistic","comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

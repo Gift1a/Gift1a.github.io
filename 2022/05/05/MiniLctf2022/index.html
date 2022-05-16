@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="题目质量很高，我也是真的菜">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MiniLctf2022">
+<meta property="og:url" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="题目质量很高，我也是真的菜">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651974115184.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651974138087.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651758278192.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651758334830.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651975334021.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651758540000.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651758596649.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651758699171.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651975828550.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976154245.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976351875.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976372396.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976527716.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976683946.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976714789.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976845486.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651977745611.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651979822133.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980030650.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651977808202.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651977842463.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651976997090.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651990868690.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651979411776.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651977305230.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651979468081.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651979593455.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980146402.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980174862.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980332623.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980405385.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980416658.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980602332.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980653548.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980933549.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651980951417.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651987423786.png">
+<meta property="article:published_time" content="2022-05-05T02:42:32.000Z">
+<meta property="article:modified_time" content="2022-05-12T08:44:16.552Z">
+<meta property="article:author" content="Gift1a">
+<meta property="article:tag" content="Competition">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gift1a.github.io/2022/05/05/MiniLctf2022/1651974115184.png">
+
+
+<link rel="canonical" href="https://gift1a.github.io/2022/05/05/MiniLctf2022/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gift1a.github.io/2022/05/05/MiniLctf2022/","path":"2022/05/05/MiniLctf2022/","title":"MiniLctf2022"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MiniLctf2022 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Twin"><span class="nav-number">1.</span> <span class="nav-text">Twin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E7%82%B9%EF%BC%9ATLS-CallBack%E5%87%BD%E6%95%B0%E3%80%81SMC%E3%80%81XXTEA-XXTEA%E9%AD%94%E6%94%B9%E3%80%81%E5%8F%8D%E8%B0%83%E8%AF%95%E3%80%81%E8%8A%B1%E6%8C%87%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">考点：TLS_CallBack函数、SMC、XXTEA+XXTEA魔改、反调试、花指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86-v3"><span class="nav-number">1.2.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS-CALLBACK%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.1.</span> <span class="nav-text">TLS_CALLBACK函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1-%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98CreateFileMapping-MapViewOfFile"><span class="nav-number">1.2.2.</span> <span class="nav-text">进程通信-共享内存CreateFileMapping+MapViewOfFile</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%9E%90-v11"><span class="nav-number">1.3.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E6%96%87%E4%BB%B6%E6%98%A0%E5%B0%84%E5%88%B0%E5%86%85%E5%AD%98%E4%B8%AD"><span class="nav-number">1.3.1.</span> <span class="nav-text">将文件映射到内存中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hook%E6%8E%89WriteFile"><span class="nav-number">1.3.2.</span> <span class="nav-text">Hook掉WriteFile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E8%BF%9B%E5%85%A5TLS-CALLBACK%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">第二次进入TLS_CALLBACK函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DEBUG%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.4.</span> <span class="nav-text">DEBUG模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.3.5.</span> <span class="nav-text">子进程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%9C%B0%E5%9D%80"><span class="nav-number">1.3.5.1.</span> <span class="nav-text">异常地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%90%E8%BF%9B%E7%A8%8B%E9%80%9A%E8%BF%87%E6%96%87%E4%BB%B6%E6%98%A0%E5%B0%84%E9%80%9A%E4%BF%A1"><span class="nav-number">1.3.5.2.</span> <span class="nav-text">子进程通过文件映射通信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xxtea"><span class="nav-number">1.3.5.3.</span> <span class="nav-text">xxtea</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#What-assembly"><span class="nav-number">2.</span> <span class="nav-text">What assembly</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E7%82%B9%EF%BC%9AWASM%E9%80%86%E5%90%91"><span class="nav-number">2.1.</span> <span class="nav-text">考点：WASM逆向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">过程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NotRC4"><span class="nav-number">3.</span> <span class="nav-text">NotRC4</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E7%82%B9%EF%BC%9ARISV%E6%9E%B6%E6%9E%84"><span class="nav-number">3.1.</span> <span class="nav-text">考点：RISV架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E7%A8%8B-v2"><span class="nav-number">3.2.</span> <span class="nav-text">过程</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gift1a"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Gift1a</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Gift1a" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Gift1a" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://1.12.239.117:8090/" title="http:&#x2F;&#x2F;1.12.239.117:8090&#x2F;" rel="noopener" target="_blank">Fallw1nd</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://equinox-shame.github.io/" title="https:&#x2F;&#x2F;equinox-shame.github.io&#x2F;" rel="noopener" target="_blank">梓曰</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://a2ur2.github.io/" title="https:&#x2F;&#x2F;a2ur2.github.io&#x2F;" rel="noopener" target="_blank">A2ure</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/spmonkey/" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;spmonkey&#x2F;" rel="noopener" target="_blank">星空</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/05/05/MiniLctf2022/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MiniLctf2022 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MiniLctf2022
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-05-05 10:42:32" itemprop="dateCreated datePublished" datetime="2022-05-05T10:42:32+08:00">2022-05-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-12 16:44:16" itemprop="dateModified" datetime="2022-05-12T16:44:16+08:00">2022-05-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Competition/" itemprop="url" rel="index"><span itemprop="name">Competition</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/05/05/MiniLctf2022/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/05/05/MiniLctf2022/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>题目质量很高，我也是真的菜</p>
+<span id="more"></span>
+<h1 id="Twin"><a class="header-anchor" href="#Twin">¶</a>Twin</h1>
+<h2 id="考点：TLS-CallBack函数、SMC、XXTEA-XXTEA魔改、反调试、花指令"><a class="header-anchor" href="#考点：TLS-CallBack函数、SMC、XXTEA-XXTEA魔改、反调试、花指令">¶</a>考点：TLS_CallBack函数、SMC、XXTEA+XXTEA魔改、反调试、花指令</h2>
+<h2 id="前置知识-v3"><a class="header-anchor" href="#前置知识-v3">¶</a>前置知识</h2>
+<h3 id="TLS-CALLBACK函数"><a class="header-anchor" href="#TLS-CALLBACK函数">¶</a>TLS_CALLBACK函数</h3>
+<blockquote>
+<p><strong>TLS设计的本意，是为了解决多线程程序中变量同步的问题，是Thread Local Storage的缩写，意为线程本地存储。线程本身有独立于其他线程的栈空间，因此线程中的局部变量不用考虑同步问题。多线程同步问题在于对全局变量的访问，TLS在操作系统的支持下，通过把全局变量打包到一个特殊的节，当每次创建线程时把这个节中的数据当做副本，拷贝到进程空闲的地址空间中。以后线程可以像访问局部变量一样访问该异于其他线程的全局变量的副本，而不用加同步控制。</strong></p>
+</blockquote>
+<p>TLS回调函数常用于反调试</p>
+<p>每当创建或终止进程的线程时会自动调用执行的函数。当然，创建进程的主线程的时候也会自动调用回调函数，且其执行先于EP代码。反调试技术就是利用的TLS回调函数的这一特征。它是各线程独立的数据存储空间，可修改进程的全局/静态数据</p>
+<p>而它可以注册多个TLS_CALLBACK函数</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651974115184.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651974138087.png" alt></p>
+<h3 id="进程通信-共享内存CreateFileMapping-MapViewOfFile"><a class="header-anchor" href="#进程通信-共享内存CreateFileMapping-MapViewOfFile">¶</a>进程通信-共享内存CreateFileMapping+MapViewOfFile</h3>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/endenvor/p/9753135.html">https://www.cnblogs.com/endenvor/p/9753135.html</a></p>
+<p>把文件映像到内存，首先必须调用CreateFileMapping()函数，然后再调用MapViewOfFile函数，把文件视映像到进程地址空间上。这样多个子进程都可以访问该内存</p>
+<h2 id="分析-v11"><a class="header-anchor" href="#分析-v11">¶</a>分析</h2>
+<p>这道题所有的字符串都进行了异或加密</p>
+<p>在main函数中逆出来得到的是fake_flag，然后去Export发现了TLS函数</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CSNN2019/article/details/113094488">https://blog.csdn.net/CSNN2019/article/details/113094488</a></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758278192.png" alt></p>
+<p>点进去发现里面什么代码都没有，很奇怪，查看汇编</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758334830.png" alt></p>
+<p>这里加了一处花指令导致ida无法正常分析</p>
+<blockquote>
+<p><strong>这段花指令就是将返回地址（call后压入栈的值）加上插入字符串的长度，以跳过这段无用代码</strong></p>
+</blockquote>
+<p>直接改为jmp到原本指令的地址</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651975334021.png" alt></p>
+<p>然后F5</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758540000.png" alt></p>
+<p>要注意的是这里面还有一处花指令很坑</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758596649.png" alt></p>
+<p>去除之后，这里就是将我们的函数注册为TLS_CALLBACK函数</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758699171.png" alt></p>
+<h3 id="将文件映射到内存中"><a class="header-anchor" href="#将文件映射到内存中">¶</a>将文件映射到内存中</h3>
+<p><img src="/2022/05/05/MiniLctf2022/1651975828550.png" alt></p>
+<p>继续往下，这里的reason是TLS_CALLBACK函数的第二个参数，因为还处于主线程，所以是1，所以不会进入这里的if</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976154245.png" alt></p>
+<p>先在注册的TLS_CALLBACK第二个函数下断点，然后F9</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976351875.png" alt></p>
+<h3 id="Hook掉WriteFile"><a class="header-anchor" href="#Hook掉WriteFile">¶</a>Hook掉WriteFile</h3>
+<p><img src="/2022/05/05/MiniLctf2022/1651976372396.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976527716.png" alt="Hook函数内部"></p>
+<p>可以看到这里是遍历，然后只要地址等于WriteFile就将final函数的地址赋值过去，实现Hook</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976683946.png" alt="Hook完成"></p>
+<p>Hook之后ExitProcess</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976714789.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976845486.png" alt="结束所有进程和线程"></p>
+<p>所以不会进入到main函数中</p>
+<h3 id="第二次进入TLS-CALLBACK函数"><a class="header-anchor" href="#第二次进入TLS-CALLBACK函数">¶</a>第二次进入TLS_CALLBACK函数</h3>
+<p>此时第二个参数变成了0，进入第二段</p>
+<p>加载资源文件</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651977745611.png" alt></p>
+<p>加载EXERES文件，然后xor_0x5F后创建tmp文件</p>
+<blockquote>
+<p>注意这里的WriteFile已经被Hook成我们的函数</p>
+</blockquote>
+<p><img src="/2022/05/05/MiniLctf2022/1651979822133.png" alt></p>
+<p>修改值为6，其他正常写入，我们手动去文件修改</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980030650.png" alt></p>
+<p>下面这个函数是将取消Hook，也就是将WriteFile函数恢复</p>
+<p>在Resources Hacker也可以找到资源文件</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651977808202.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651977842463.png" alt="生成tmp文件"></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976997090.png" alt></p>
+<blockquote>
+<p><strong>CreateProcessA创建新进程，这个新进程运行指定的可执行文件tmp文件，也就是创建子进程</strong></p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/CreateProcess/11050419">https://baike.baidu.com/item/CreateProcess/11050419</a></p>
+<p>这里的3代表的是新进程会被当做被调试的进程。系统把被调试程序发生的所有调试事件通知给调试器。</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651990868690.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651979411776.png" alt></p>
+<p>此时也可以通过工具查看</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651977305230.png" alt></p>
+<h3 id="DEBUG模式"><a class="header-anchor" href="#DEBUG模式">¶</a>DEBUG模式</h3>
+<p><img src="/2022/05/05/MiniLctf2022/1651979468081.png" alt="进入该函数"></p>
+<p>等待调试</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651979593455.png" alt></p>
+<h3 id="子进程"><a class="header-anchor" href="#子进程">¶</a>子进程</h3>
+<p>去tmp文件查看</p>
+<p>注册一个异常处理函数</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980146402.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980174862.png" alt="异常处理函数"></p>
+<p>当出现地址访问异常时，EIP+2</p>
+<blockquote>
+<p><strong>但是这里要注意因为子进程是DEBUG模式，所以优先让调试器也就是父进程处理</strong></p>
+</blockquote>
+<p>因为子进程是调试状态，所以这里要执行，也就是xxtea的常量进行异或，key[1]改为0x90</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980332623.png" alt></p>
+<h4 id="异常地址"><a class="header-anchor" href="#异常地址">¶</a>异常地址</h4>
+<p><img src="/2022/05/05/MiniLctf2022/1651980405385.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980416658.png" alt="内存访问出错"></p>
+<p>此时再去父进程看</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980602332.png" alt></p>
+<p>而EAX的值恰好是XXTEA的常量经过处理</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980653548.png" alt="常量的处理"></p>
+<h4 id="子进程通过文件映射通信"><a class="header-anchor" href="#子进程通过文件映射通信">¶</a>子进程通过文件映射通信</h4>
+<p><img src="/2022/05/05/MiniLctf2022/1651980933549.png" alt></p>
+<h4 id="xxtea"><a class="header-anchor" href="#xxtea">¶</a>xxtea</h4>
+<p>最后就是xxtea，不过要注意这里的&gt;&gt;5都改成了&gt;&gt;6,也就是前面WirteFile时候改的数值</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980951417.png" alt></p>
+<p>脚本</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> xxtea_DELTA ((((0x9E3779B9 ^0x90909090^ 0x12345678 ^ 0x7b)+12345))^0x1b207)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> xxtea_MX (((xxtea_z&gt;&gt;6^xxtea_y<span class="meta-string">&lt;&lt;2) + (xxtea_y&gt;</span>&gt;3^xxtea_z&lt;&lt;4)) ^ ((xxtea_sum^xxtea_y) + (xxtea_key[(xxtea_p&amp;3)^xxtea_e] ^ xxtea_z)))</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">xxtea</span><span class="params">(DWORD* xxtea_origin, <span class="keyword">int</span> xxtea_n, <span class="keyword">int</span> <span class="keyword">const</span> xxtea_key[<span class="number">4</span>])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">uint32_t</span> xxtea_y, xxtea_z, xxtea_sum;</span><br><span class="line">    <span class="keyword">unsigned</span> xxtea_p, xxtea_rounds, xxtea_e;</span><br><span class="line">    <span class="keyword">if</span> (xxtea_n &gt; <span class="number">1</span>)            <span class="comment">/* Coding Part */</span></span><br><span class="line">    {</span><br><span class="line">        xxtea_rounds = <span class="number">6</span> + <span class="number">52</span> / xxtea_n;</span><br><span class="line">        xxtea_sum = <span class="number">0</span>;</span><br><span class="line">        xxtea_z = xxtea_origin[xxtea_n - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            xxtea_sum += xxtea_DELTA;</span><br><span class="line">            xxtea_e = (xxtea_sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span> (xxtea_p = <span class="number">0</span>; xxtea_p &lt; xxtea_n - <span class="number">1</span>; xxtea_p++)</span><br><span class="line">            {</span><br><span class="line">                xxtea_y = xxtea_origin[xxtea_p + <span class="number">1</span>];</span><br><span class="line">                xxtea_z = xxtea_origin[xxtea_p] += xxtea_MX;</span><br><span class="line">            }</span><br><span class="line">            xxtea_y = xxtea_origin[<span class="number">0</span>];</span><br><span class="line">            xxtea_z = xxtea_origin[xxtea_n - <span class="number">1</span>] += xxtea_MX;</span><br><span class="line">        } <span class="keyword">while</span> (--xxtea_rounds);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (xxtea_n &lt; <span class="number">-1</span>)      <span class="comment">/* Decoding Part */</span></span><br><span class="line">    {</span><br><span class="line">        xxtea_n = -xxtea_n;</span><br><span class="line">        xxtea_rounds = <span class="number">6</span> + <span class="number">52</span> / xxtea_n;</span><br><span class="line">        xxtea_sum = xxtea_rounds * xxtea_DELTA;</span><br><span class="line">        xxtea_y = xxtea_origin[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            xxtea_e = (xxtea_sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span> (xxtea_p = xxtea_n - <span class="number">1</span>; xxtea_p &gt; <span class="number">0</span>; xxtea_p--)</span><br><span class="line">            {</span><br><span class="line">                xxtea_z = xxtea_origin[xxtea_p - <span class="number">1</span>];</span><br><span class="line">                xxtea_y = xxtea_origin[xxtea_p] -= xxtea_MX;</span><br><span class="line">            }</span><br><span class="line">            xxtea_z = xxtea_origin[xxtea_n - <span class="number">1</span>];</span><br><span class="line">            xxtea_y = xxtea_origin[<span class="number">0</span>] -= xxtea_MX;</span><br><span class="line">            xxtea_sum -= xxtea_DELTA;</span><br><span class="line">        } <span class="keyword">while</span> (--xxtea_rounds);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="comment">//0x40CEA5BC,0xE7B2B2F4,0x129D12A9,0x5BC810AE,0x1D06D73D,0xDCF800DC</span></span><br><span class="line">	<span class="comment">//unsigned int enc[155] = { 3532577106, 1472742623, 3642468664, 4193500461, 2398676029, 617653972, 1474514999, 1471783658, 1012864704, 3615627536, 993855884, 438456717, 3358938551, 3906991208, 198959101, 3317190635, 3656923078, 613157871, 2398768861, 97286225, 2336972940, 1471645170, 3233163154, 583597118, 2863776301, 3183067750, 1384330715, 2929694742, 3522431804, 2181488067, 3303062236, 3825712422, 145643141, 2148976293, 2940910035, 506798154, 994590281, 2231904779, 3389770074, 2814269052, 1105937096, 1789727804, 3757028753, 2469686072, 1162286478, 680814033, 2934024098, 2162521262, 4048876895, 2121620700, 4240287315, 2391811140, 3396611602, 3091349617, 3031523010, 2486958601, 3164065171, 1285603712, 798920280, 2337813135, 4186055520, 3523024366, 1077514121, 1436444106, 2731983230, 1507202797, 500756149, 198754565, 2382448647, 880454148, 1970517398, 3217485349, 1161840191, 560498076, 1782600856, 2643721918, 1285196205, 788797746, 1195724574, 4061612551, 103427523, 2502688387, 4147162188, 617564657, 978211984, 1781482121, 2205798970, 3939973102, 3826603515, 659557668, 2582884932, 1561884856, 2217488804, 1189296962, 169145316, 2781742156, 1323893433, 824667876, 408202876, 3759637634, 4094868412, 1508996065, 162419237, 3732146944, 3083560189, 3955940127, 2393776934, 2470191468, 3620861513, 481927014, 2756226070, 3154651143, 1261069441, 2063238535, 2222237213, 101459755, 3159774417, 1721190841, 1078395785, 176506553, 3552913423, 1566142515, 1938949000, 1499289517, 3315102456, 829714860, 3843359394, 952932374, 1283577465, 2045007203, 3957761944, 3767891405, 2917089623, 3296133521, 482297421, 1734231412, 3670478932, 2575334979, 2827842737, 3413631016, 1533519803, 4008428470, 3890643173, 272960248, 317508587, 3299937500, 2440520601, 27470488, 1666674386, 1737927609, 750987808, 2385923471, 2694339191, 562925334, 2206035395 };</span></span><br><span class="line">    DWORD enc[<span class="number">18</span>] = { <span class="number">0x6B7CE328</span>, <span class="number">0x4841D5DD</span>, <span class="number">0x963784DC</span>, <span class="number">0xEF8A3226</span>, <span class="number">0x0776B226</span> };</span><br><span class="line">    <span class="comment">//unsigned int key[4] = {0x12,0x90,0x56,0x78};</span></span><br><span class="line">    <span class="keyword">int</span> key[<span class="number">4</span>] = { <span class="number">0x12</span>,<span class="number">0x90</span>,<span class="number">0x56</span>,<span class="number">0x78</span> };</span><br><span class="line">    xxtea(enc, <span class="number">-5</span>, key);<span class="comment">//长度为多少，解密时第二个参数就改为多长</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i)</span><br><span class="line">    {</span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"%c%c%c%c"</span>, ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">0</span>], ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">1</span>], ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">2</span>], ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">3</span>]);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">   <span class="comment">/* char s[] = "3e90c91c02e9b40b78b}";</span></span><br><span class="line"><span class="comment">    printf("%d", strlen(s));*/</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>剩下的一部分也是xxtea，没魔改就不说了</p>
+<h1 id="What-assembly"><a class="header-anchor" href="#What-assembly">¶</a>What assembly</h1>
+<h2 id="考点：WASM逆向"><a class="header-anchor" href="#考点：WASM逆向">¶</a>考点：WASM逆向</h2>
+<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-962068-1-1.html">https://www.52pojie.cn/thread-962068-1-1.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/WebAssembly/wabt">https://github.com/WebAssembly/wabt</a></p>
+<p>wasm动态调试</p>
+<p>利用python3在与<code>.html</code>、<code>.js</code>、<code>.wasm</code>文件同目录下开启http服务。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server <span class="number">8888</span></span><br></pre></td></tr></tbody></table></figure>
+<p>然后在浏览器输入http://127.0.0.1:8888/MiniLctf-2022.html</p>
+<p>下断点动态调试</p>
+<h2 id="过程"><a class="header-anchor" href="#过程">¶</a>过程</h2>
+<figure class="highlight llvm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./wasm<span class="number">2</span><span class="keyword">c</span> flag.wasm -o flag.<span class="keyword">c</span></span><br></pre></td></tr></tbody></table></figure>
+<p>生成flag.c和flag.h</p>
+<p>将之前反编译出来的wasm.c，wasm.h，以及wabt项目内的wasm-rt.h，wasm-rt-impl.c，wasm-rt-impl.h三个文件放到同一个文件夹。</p>
+<figure class="highlight llvm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -<span class="keyword">c</span> flag.<span class="keyword">c</span> -o final.o</span><br></pre></td></tr></tbody></table></figure>
+<p>生成.o文件， 因为很多wasm的函数没有具体的实现，我们不需要编译链接生成elf文件</p>
+<p>别问为什么没有了，问就是不知道怎么动调，摆了</p>
+<h1 id="NotRC4"><a class="header-anchor" href="#NotRC4">¶</a>NotRC4</h1>
+<h2 id="考点：RISV架构"><a class="header-anchor" href="#考点：RISV架构">¶</a>考点：RISV架构</h2>
+<p>使用readelf可以知道是RISV架构</p>
+<p><img src="/2022/05/05/MiniLctf2022/1651987423786.png" alt></p>
+<h2 id="过程-v2"><a class="header-anchor" href="#过程-v2">¶</a>过程</h2>
+<p>ida无法反编译，jeb可以反编译但是效果不太好，最好的还是Ghidra</p>
+<p>就是一个VM题</p>
+<p>分析完大概就是这样</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">final</span>[<span class="number">4</span>] = {</span><br><span class="line">	<span class="number">0x4BC21DBB95EF82CA</span>, <span class="number">0xF57BECAE71B547BE</span>, <span class="number">0x80A1BDAB15E7F6CD</span>, <span class="number">0xA3C793D7E1776385</span></span><br><span class="line">	};</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">char</span> opcode[<span class="number">23</span>] = {</span><br><span class="line">	<span class="number">0xF3</span>, <span class="number">0x00</span>, <span class="number">0xF4</span>, <span class="number">0xE1</span>, <span class="number">0xF4</span>, <span class="number">0xE2</span>, <span class="number">0xF2</span>, <span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0xF5</span>, <span class="number">0xF3</span>, <span class="number">0x02</span>, <span class="number">0xF4</span>, <span class="number">0xE1</span>, <span class="number">0xF4</span>, <span class="number">0xE2</span>,</span><br><span class="line">	<span class="number">0xF2</span>, <span class="number">0x04</span>, <span class="number">0x0B</span>, <span class="number">0xF5</span>, <span class="number">0xF1</span>, <span class="number">0xFF</span>, <span class="number">0x00</span></span><br><span class="line">	};</span><br><span class="line">	<span class="comment">//F1对应的指令</span></span><br><span class="line">	<span class="comment">//compare,long型的判断</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//F2</span></span><br><span class="line">	<span class="comment">//循环的操作，和0x0B作比较，作为循环的次数，而4是指回到前四个指令的位置，实现循环</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//F3，取出输入然后加上yyds和dbt!(小端序)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	<span class="comment">//F4加密操作</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//F5,存储</span></span><br><span class="line">	<span class="keyword">int</span> key[<span class="number">2</span>] = { <span class="number">0x64627421</span>, <span class="number">0x79796473</span> };</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i += <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">long</span> tmp1 = <span class="keyword">final</span>[i] + key[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">long</span> tmp2 = <span class="keyword">final</span>[i + <span class="number">1</span>] + key[<span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">0x0C</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			tmp1 = ((tmp1 ^ tmp2) &gt;&gt; (-(<span class="keyword">char</span>)tmp2) &amp; <span class="number">0x3f</span>) | ((tmp1 ^ tmp2) &lt;&lt; ((<span class="keyword">char</span>)tmp2) &amp; <span class="number">0x3f</span>) + key[<span class="number">0</span>];</span><br><span class="line">			tmp2 = ((tmp1 ^ tmp2) &gt;&gt; (-(<span class="keyword">char</span>)tmp1) &amp; <span class="number">0x3f</span>) | ((tmp1 ^ tmp2) &lt;&lt; ((<span class="keyword">char</span>)tmp1) &amp; <span class="number">0x3f</span>) + key[<span class="number">1</span>];</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">final</span>[i] = tmp1;</span><br><span class="line">		<span class="keyword">final</span>[i + <span class="number">1</span>] = tmp2;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>脚本</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i += <span class="number">2</span>)</span><br><span class="line">	{</span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> tmp1 = <span class="keyword">final</span>[i];</span><br><span class="line">		<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> tmp2 = <span class="keyword">final</span>[i + <span class="number">1</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">0x0C</span>; ++j)</span><br><span class="line">		{</span><br><span class="line">			tmp2 = ((((tmp2 - key[<span class="number">1</span>]) &amp; <span class="number">0xffffffffffffffff</span>) &lt;&lt; ((-(<span class="keyword">char</span>)tmp1) &amp; <span class="number">0x3f</span>)) | (((tmp2 - key[<span class="number">1</span>]) &amp; <span class="number">0xffffffffffffffff</span>) &gt;&gt; (((<span class="keyword">char</span>)tmp1) &amp; <span class="number">0x3f</span>))) ^ tmp1;</span><br><span class="line">			tmp1 = ((((tmp1 - key[<span class="number">0</span>]) &amp; <span class="number">0xffffffffffffffff</span>) &lt;&lt; ((-(<span class="keyword">char</span>)tmp2) &amp; <span class="number">0x3f</span>)) | (((tmp1 - key[<span class="number">0</span>]) &amp; <span class="number">0xffffffffffffffff</span>) &gt;&gt; (((<span class="keyword">char</span>)tmp2) &amp; <span class="number">0x3f</span>))) ^ tmp2;</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">final</span>[i] = tmp1 - key[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">final</span>[i+<span class="number">1</span>] = tmp2 - key[<span class="number">1</span>];</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c%c%c%c%c%c%c%c"</span>, ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">0</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">1</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">2</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">3</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">4</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">5</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">6</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i])[<span class="number">7</span>]);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%c%c%c%c%c%c%c%c"</span>, ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">0</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">1</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">2</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">3</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">4</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">5</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">6</span>], ((<span class="keyword">char</span>*)&amp;<span class="keyword">final</span>[i+<span class="number">1</span>])[<span class="number">7</span>]);</span><br><span class="line">	}</span><br></pre></td></tr></tbody></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Competition/" rel="tag"># Competition</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/01/Frida-Hook/" rel="prev" title="Frida-Hook">
+                  <i class="fa fa-chevron-left"></i> Frida-Hook
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/05/05/%E4%B8%80%E4%BA%9B%E5%9B%BD%E5%A4%96%E6%AF%94%E8%B5%9B/" rel="next" title="一些比赛">
+                  一些比赛 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gift1a</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">317k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:48</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"GhjDb9gbtgwnrtsySW3fcGac-MdYXbMMI","appKey":"0Qw5kecTryGX5eSrEvShaWPw","serverURLs":"https://ghjdb9gb.api.lncldglobal.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":"false# Article reading statistic","comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/2022/05/05/MiniLctf2022/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+</html>

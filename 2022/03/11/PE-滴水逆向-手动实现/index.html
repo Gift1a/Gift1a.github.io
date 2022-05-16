@@ -86,9 +86,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -196,13 +196,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -357,7 +357,7 @@
 <p>ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。 所以我们要先关闭</p>
 <p><a target="_blank" rel="noopener" href="https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr">https://baijiahao.baidu.com/s?id=1681048472768096428&amp;wfr=spider&amp;for=pc&amp;searchword=aslr</a></p>
 <p>在标准PE头属性中的第一个值改为1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647081337731.png" alt></p>
 <p>这样PE文件加载到内存中就不会随机化了</p>
 <h2 id="提取关键数据"><a class="header-anchor" href="#提取关键数据">¶</a>提取关键数据</h2>
 <h3 id="可选PE头"><a class="header-anchor" href="#可选PE头">¶</a>可选PE头</h3>
@@ -372,7 +372,7 @@
 <p>如果SizeOfRawData-MIsc.DWORD VirtualSize&gt;=0x12，即可添加，这里是可以的</p>
 <h2 id="找到在文件中代码结束的位置"><a class="header-anchor" href="#找到在文件中代码结束的位置">¶</a>找到在文件中代码结束的位置</h2>
 <p>先找到在文件中的偏移PointerToRawData，再找到数据段大小MIsc.DWORD VirtualSize，两者相加就是真实数据段的结束位置</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082425978.png" alt></p>
 <h2 id="添加硬编码"><a class="header-anchor" href="#添加硬编码">¶</a>添加硬编码</h2>
 <p>MessageBoxA需要四个参数</p>
 <p>call指令长度为5</p>
@@ -381,10 +381,10 @@
 <p>真正要跳转的地址=E8/E9指令的下一条指令在内存中的地址+X（X就是E8后边跟着的四个字节）</p>
 </blockquote>
 <p>所以我们需要添加的硬编码为6A 00 6A 00 6A 00 6A 00 E8 00 00 00 00 E9 00 00 00 00</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647082868490.png" alt></p>
 <h2 id="计算E8和E9的后四个字节"><a class="header-anchor" href="#计算E8和E9的后四个字节">¶</a>计算E8和E9的后四个字节</h2>
 <p>先找到E8对应的真实地址，也就是MessageBoxA的地址，在od里面command-&gt;输入bp MessageBoxA-&gt;状态栏b-&gt;找到MessageBoxA的地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083046046.png" alt></p>
 <h3 id="E8后四字节计算"><a class="header-anchor" href="#E8后四字节计算">¶</a>E8后四字节计算</h3>
 <p>真实地址为MessageBoxA的地址</p>
 <p>X为MessageBoxA地址-VirtualAddress+ImageBase+8+5+Misc.VirtualSize</p>
@@ -393,25 +393,25 @@
 <p>真实地址为原来的OEP</p>
 <p>X为ImageBase+AddressOfEntryPoint-VirtualAddress+ImageBase+8+5+5+Misc.VirtualSize</p>
 <p>为FFF910AB</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083638028.png" alt></p>
 <h2 id="修改AddressOfPoint"><a class="header-anchor" href="#修改AddressOfPoint">¶</a>修改AddressOfPoint</h2>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647083743309.png" alt></p>
 <p>让他先执行我们的代码，也就是修改其为插入硬编码的地址</p>
 <p>VirtualAddress+Misc.VirtualSize=17D51Eh</p>
 <h2 id="最终效果"><a class="header-anchor" href="#最终效果">¶</a>最终效果</h2>
 <p>先执行MessageBoxA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084038464.png" alt></p>
 <p>再运行程序</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647084072618.png" alt></p>
 <h1 id="新增节"><a class="header-anchor" href="#新增节">¶</a>新增节</h1>
 <h2 id="大小判断"><a class="header-anchor" href="#大小判断">¶</a>大小判断</h2>
 <p>首先我们需要知道能否新增节SizeofHeaders-最后一个节表 的位置，如果大于或等于两个节表的大小（因为节表最后必须有长度为一个节表的00填充），则可以插入</p>
 <h2 id="修改节表数量"><a class="header-anchor" href="#修改节表数量">¶</a>修改节表数量</h2>
 <p>标准PE头-&gt;WORD NumberOfSections，+1即可</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647140787003.png" alt></p>
 <h2 id="添加节表信息"><a class="header-anchor" href="#添加节表信息">¶</a>添加节表信息</h2>
 <p>这里直接复制.text段的信息，因为其可读可写可执行，后续可以不用再去修改节表属性</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141001170.png" alt></p>
 <h2 id="确定插入的大小"><a class="header-anchor" href="#确定插入的大小">¶</a>确定插入的大小</h2>
 <p>根据情况自行选择，这里假设我们插入0x1000字节</p>
 <h2 id="修改内存对齐后的大小"><a class="header-anchor" href="#修改内存对齐后的大小">¶</a>修改内存对齐后的大小</h2>
@@ -426,26 +426,26 @@
 <h3 id="计算VirtualAddress"><a class="header-anchor" href="#计算VirtualAddress">¶</a>计算VirtualAddress</h3>
 <p>前面一个节表的VirtualAddress+Max(Misc.DWORD VirtualSize,SizeOfRawData)-按内存对齐后的</p>
 <p>这里SizeOfRawData大于前者，按内存对齐后是15000h，加上该节表的VirtualAddress就是我们插入节表在内存中的偏移地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141493979.png" alt></p>
 <h3 id="计算PointerToRawData"><a class="header-anchor" href="#计算PointerToRawData">¶</a>计算PointerToRawData</h3>
 <p>和前面类似SizeOfRawData（文件对齐）+PointerToRawData</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141658195.png" alt></p>
 <h3 id="最终修改"><a class="header-anchor" href="#最终修改">¶</a>最终修改</h3>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141708469.png" alt></p>
 <h2 id="插入代码"><a class="header-anchor" href="#插入代码">¶</a>插入代码</h2>
 <p>在PointerToRawData插入0x1000字节</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141776493.png" alt></p>
 <h2 id="查看信息"><a class="header-anchor" href="#查看信息">¶</a>查看信息</h2>
 <p>在PE解析工具可以看到插入的节表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647141801656.png" alt></p>
 <h1 id="新增节-节表信息后不够位置"><a class="header-anchor" href="#新增节-节表信息后不够位置">¶</a>新增节-节表信息后不够位置</h1>
 <p>我们直到DOS和NT头之前有一段垃圾数据，当节表末尾没位置插入80个字节，我们需要将NT头和节表信息前移，这样就可以空出一段无用字节，长度为垃圾数据长度</p>
 <blockquote>
 <p>注意要修改LONG AddressOfNewExeHeader-NT头的位置</p>
 </blockquote>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142922682.png" alt></p>
 <p>直接复制到垃圾数据的起始地址</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647142986819.png" alt></p>
 <p>这就是空出来的节表，后续操作和前面新增节一样，就不赘述了</p>
 <h1 id="扩大节"><a class="header-anchor" href="#扩大节">¶</a>扩大节</h1>
 <p>当前面两种做法都不能满足，我们采取扩大节的办法，可以在任意节区末尾添加，但是如果不是在最后一个节添加，后面的节表偏移都要修改，所以我们扩大最后一个节</p>
@@ -462,30 +462,30 @@
 <h2 id="修正节表信息-v2"><a class="header-anchor" href="#修正节表信息-v2">¶</a>修正节表信息</h2>
 <p>这里我们假设扩大0x1000个字节</p>
 <p>要改为Max(DWORD VirtualSize,DWORD SizeOfRawData)内存对齐的大小+我们扩大的大小=16000h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147742819.png" alt></p>
 <h2 id="修正SizeOfImage"><a class="header-anchor" href="#修正SizeOfImage">¶</a>修正SizeOfImage</h2>
 <p>直接加上0x1000即可</p>
 <h2 id="分配空间"><a class="header-anchor" href="#分配空间">¶</a>分配空间</h2>
 <p>节内存对齐增加的大小=N-DWORD SizeOfRawData，即C00</p>
 <p>在节区尾部增加即可，有时候最后一个节区尾部之后还有别的程序，那么就需要计算最后一个节区的结束地址</p>
 <p>求和得到2B6C00h</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647147968238.png" alt></p>
 <h2 id="最终-v2"><a class="header-anchor" href="#最终-v2">¶</a>最终</h2>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647148042480.png" alt></p>
 <h1 id="合并节"><a class="header-anchor" href="#合并节">¶</a>合并节</h1>
 <h2 id="修改节表个数"><a class="header-anchor" href="#修改节表个数">¶</a>修改节表个数</h2>
 <p>合并之后节数量-1，这里改为7</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149630089.png" alt></p>
 <h2 id="修改节表信息"><a class="header-anchor" href="#修改节表信息">¶</a>修改节表信息</h2>
 <p>要将节进行合并，就需要修改节表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647149670756.png" alt></p>
 <h3 id="DWORD-SizeOfRawData和DWORD-VirtualSize"><a class="header-anchor" href="#DWORD-SizeOfRawData和DWORD-VirtualSize">¶</a>DWORD SizeOfRawData和DWORD VirtualSize</h3>
 <p>将这两个值改为该节的Max(SizeOfRawData,VirtualSize)+下一个节的Max(SizeOfRawData,VirtualSize)</p>
 <p>最后保存即可</p>
 <p>那么剩下的节表信息没用了，我们可以再次新增节</p>
 <h2 id="最终效果-v2"><a class="header-anchor" href="#最终效果-v2">¶</a>最终效果</h2>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png" alt=""></p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150089815.png" alt></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647150123108.png" alt></p>
 <h1 id="移动导出表"><a class="header-anchor" href="#移动导出表">¶</a>移动导出表</h1>
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/729aff211907434689134a78e18f2a0b.png" alt="导出表结构"></p>
 <p>移动前，我们需要先开辟节区，先将后面三个表指向的数据复制到新的节区中，再复制那三个表的信息过去，最后将数据目录指向导出表开始的地方</p>
@@ -493,25 +493,25 @@
 <p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647220007029.png" alt="移动后"></p>
 <h2 id="定位导出表"><a class="header-anchor" href="#定位导出表">¶</a>定位导出表</h2>
 <p>在数据目录找到导出表的RVA</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228628138.png" alt></p>
 <p>根据节的RVA和大小确定在哪个表</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228686574.png" alt></p>
 <p>计算FOA=Export.RVA-rdata.RVA+rdata. PointerToRawData</p>
 <p>计算得到F2270，跳转，根据Export.Size确定大小</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647228914109.png" alt></p>
 <h2 id="新增节-v2"><a class="header-anchor" href="#新增节-v2">¶</a>新增节</h2>
 <p>前面说过，就不细🔒了</p>
 <h2 id="复制数据"><a class="header-anchor" href="#复制数据">¶</a>复制数据</h2>
 <p>前面四个是DWORD函数地址，DWORD函数名称表，WORD函数序号-这里比较少，就一个函数</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229009740.png" alt></p>
 <p>这两个分别是dll名字和函数名称</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229076116.png" alt></p>
 <p>直接复制剩下的导出表信息</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229244730.png" alt></p>
 <h2 id="修改RVA"><a class="header-anchor" href="#修改RVA">¶</a>修改RVA</h2>
 <p>这里我已经改好了，因为该节的RVA-PointOfRawData=1600，所以修改的时候将FOA+1600h=RVA</p>
 <p>要修改的有</p>
-<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png" alt=""></p>
+<p><img src="/2022/03/11/PE-%E6%BB%B4%E6%B0%B4%E9%80%86%E5%90%91-%E6%89%8B%E5%8A%A8%E5%AE%9E%E7%8E%B0/1647229408065.png" alt></p>
 <h2 id="数据目录修改"><a class="header-anchor" href="#数据目录修改">¶</a>数据目录修改</h2>
 <p>将Export.RVA指向我们复制导出表的初始位置</p>
 <h1 id="移动重定位表"><a class="header-anchor" href="#移动重定位表">¶</a>移动重定位表</h1>
@@ -593,13 +593,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">301k</span>
+    <span title="站点总字数">317k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:34</span>
+    <span title="站点阅读时长">4:48</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -662,7 +662,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>

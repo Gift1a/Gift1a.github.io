@@ -69,9 +69,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -164,7 +164,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WINDOWS%E4%B8%8B%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">WINDOWS下的异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%88%97%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">异常列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-v2"><span class="nav-number">2.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEH"><span class="nav-number">3.</span> <span class="nav-text">SEH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SEH%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.1.</span> <span class="nav-text">SEH介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%88%90%E5%91%98%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.</span> <span class="nav-text">重要成员介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.1.</span> <span class="nav-text">1、异常处理函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">操作系统常见异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-v2"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONTEXT%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">CONTEXT结构体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E3%80%81%E7%BB%93%E6%9E%84%E4%BD%93EXCEPTION-RECORD"><span class="nav-number">3.2.2.</span> <span class="nav-text">2 、结构体EXCEPTION_RECORD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E3%80%81EXCEPTION-REGISTRATION"><span class="nav-number">3.2.3.</span> <span class="nav-text">3 、EXCEPTION_REGISTRATION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF%E5%9D%97TIB-TEB"><span class="nav-number">3.2.4.</span> <span class="nav-text">5、线程信息块TIB&#x2F;TEB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">3.3.</span> <span class="nav-text">结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">3.4.</span> <span class="nav-text">异常处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E5%B1%95%E5%BC%80"><span class="nav-number">3.4.1.</span> <span class="nav-text">堆栈展开</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.5.</span> <span class="nav-text">异常处理的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81-try%E3%80%81except%E5%92%8Cfinally"><span class="nav-number">3.5.1.</span> <span class="nav-text">1、__try、except和finally</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%8F%92%E5%85%A5%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E6%9E%84%E9%80%A0"><span class="nav-number">3.5.2.</span> <span class="nav-text">2、插入汇编代码构造</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-v3"><span class="nav-number">3.6.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SEH%E5%88%A9%E7%94%A8"><span class="nav-number">3.7.</span> <span class="nav-text">SEH利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94hagme2022%E2%80%94%E2%80%94week2%E2%80%94%E2%80%94creakme2"><span class="nav-number">3.8.</span> <span class="nav-text">题目——hagme2022——week2——creakme2</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WINDOWS%E4%B8%8B%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">WINDOWS下的异常处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%88%97%E8%A1%A8"><span class="nav-number">1.1.</span> <span class="nav-text">异常列表</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-v3"><span class="nav-number">2.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SEH"><span class="nav-number">3.</span> <span class="nav-text">SEH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SEH%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.1.</span> <span class="nav-text">SEH介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E8%A6%81%E6%88%90%E5%91%98%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.2.</span> <span class="nav-text">重要成员介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.1.</span> <span class="nav-text">1、异常处理函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%A7%81%E5%BC%82%E5%B8%B8"><span class="nav-number">3.2.1.1.</span> <span class="nav-text">操作系统常见异常</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC-v2"><span class="nav-number">3.2.1.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CONTEXT%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">3.2.1.3.</span> <span class="nav-text">CONTEXT结构体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E3%80%81%E7%BB%93%E6%9E%84%E4%BD%93EXCEPTION-RECORD"><span class="nav-number">3.2.2.</span> <span class="nav-text">2 、结构体EXCEPTION_RECORD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E3%80%81EXCEPTION-REGISTRATION"><span class="nav-number">3.2.3.</span> <span class="nav-text">3 、EXCEPTION_REGISTRATION</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E7%BA%BF%E7%A8%8B%E4%BF%A1%E6%81%AF%E5%9D%97TIB-TEB"><span class="nav-number">3.2.4.</span> <span class="nav-text">5、线程信息块TIB&#x2F;TEB</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%9B%BE"><span class="nav-number">3.3.</span> <span class="nav-text">结构图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B"><span class="nav-number">3.4.</span> <span class="nav-text">异常处理流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A0%86%E6%A0%88%E5%B1%95%E5%BC%80"><span class="nav-number">3.4.1.</span> <span class="nav-text">堆栈展开</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.5.</span> <span class="nav-text">异常处理的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81-try%E3%80%81except%E5%92%8Cfinally"><span class="nav-number">3.5.1.</span> <span class="nav-text">1、__try、except和finally</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%8F%92%E5%85%A5%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%E6%9E%84%E9%80%A0"><span class="nav-number">3.5.2.</span> <span class="nav-text">2、插入汇编代码构造</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0-v4"><span class="nav-number">3.6.</span> <span class="nav-text">参考文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SEH%E5%88%A9%E7%94%A8"><span class="nav-number">3.7.</span> <span class="nav-text">SEH利用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E2%80%94%E2%80%94hagme2022%E2%80%94%E2%80%94week2%E2%80%94%E2%80%94creakme2"><span class="nav-number">3.8.</span> <span class="nav-text">题目——hagme2022——week2——creakme2</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -179,13 +179,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -335,8 +335,8 @@
 <span id="more"></span> 
 <h1 id="WINDOWS下的异常处理"><a class="header-anchor" href="#WINDOWS下的异常处理">¶</a>WINDOWS下的异常处理</h1>
 <h2 id="异常列表"><a class="header-anchor" href="#异常列表">¶</a>异常列表</h2>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220203125855.jpg" alt=""></p>
-<h1 id="参考文章-v2"><a class="header-anchor" href="#参考文章-v2">¶</a>参考文章</h1>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220203125855.jpg" alt></p>
+<h1 id="参考文章-v3"><a class="header-anchor" href="#参考文章-v3">¶</a>参考文章</h1>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows%E4%B8%AD,%E5%88%99%E7%9B%B4%E6%8E%A5%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83%E3%80%82">https://www.cnblogs.com/Sna1lGo/p/14732048.html#:~:text=Windows中,则直接程序崩溃。</a></p>
 <p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-249592.htm">https://bbs.pediy.com/thread-249592.htm</a></p>
 <h1 id="SEH"><a class="header-anchor" href="#SEH">¶</a>SEH</h1>
@@ -407,7 +407,7 @@
 <p>这里我们嵌套了两层except，从内往外执行，因为内层的无法处理，即返回0，那么就往外找处理异常的函数</p>
 <p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192362391.png" alt="执行结果"></p>
 <p>ida中的效果</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192718040.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1648192718040.png" alt></p>
 <p>可以看到ida会自动加注释</p>
 <h3 id="2、插入汇编代码构造"><a class="header-anchor" href="#2、插入汇编代码构造">¶</a>2、插入汇编代码构造</h3>
 <p>我们下面插入汇编来创建一个异常的结构体</p>
@@ -416,7 +416,7 @@
 <p>也就是先将我们处理异常的函数压入栈中，再把SEH链的头节点压入栈，这时候把ESP的值赋给FS:[0]也就是让SEH链指向这里，SEH链第一个节点（两个参数）第一个存储的就是原来链的地址，第二个是我们的处理函数，那么处理异常的时候，就会先让我们的异常处理函数执行，最后将ESP地址存储的值还给FS:[0]，也就是还原SEH链，add esp,8还原堆栈</p>
 <p>别人的另一种实现</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.挂入链表相当于这部分</span></span><br><span class="line"><span class="comment">//fs[0]-&gt; Exception</span></span><br><span class="line">	_asm</span><br><span class="line">	{</span><br><span class="line">		mov eax, fs:[<span class="number">0</span>]</span><br><span class="line">		mov temp,eax</span><br><span class="line">		lea ecx,Exception</span><br><span class="line">		mov fs:[<span class="number">0</span>],ecx</span><br><span class="line">	}</span><br><span class="line">	<span class="comment">//为SEH成员赋值</span></span><br><span class="line">	Exception.Next = (_EXCEPTION*)temp;</span><br><span class="line">	Exception.Handler = (DWORD)&amp;MyEexception_handler;</span><br><span class="line"></span><br><span class="line"><span class="comment">//下面是2，3</span></span><br><span class="line"><span class="function">EXCEPTION_DISPOSITION _cdecl <span class="title">MyEexception_handler</span></span></span><br><span class="line"><span class="function"><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">	struct _EXCEPTION_RECORD *ExceptionRecord,	<span class="comment">//异常结构体</span></span></span></span><br><span class="line"><span class="params"><span class="function">	PVOID EstablisherFrame,						<span class="comment">//SEH结构体地址</span></span></span></span><br><span class="line"><span class="params"><span class="function">	struct _CONTEXT *ContextRecord,				<span class="comment">//存储异常发生时的各种寄存器的值 栈位置等</span></span></span></span><br><span class="line"><span class="params"><span class="function">	PVOID DispatcherContext</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">if</span> (ExceptionRecord-&gt;ExceptionCode == <span class="number">0xC0000094</span>)		<span class="comment">//2.异常过滤</span></span><br><span class="line">	{</span><br><span class="line">		ContextRecord-&gt;Eip = ContextRecord-&gt;Eip + <span class="number">2</span>;			<span class="comment">//3.异常处理</span></span><br><span class="line">		ContextRecord-&gt;Ecx = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> ExceptionContinueExecution;</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> ExceptionContinueSearch;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<h2 id="参考文章-v3"><a class="header-anchor" href="#参考文章-v3">¶</a>参考文章</h2>
+<h2 id="参考文章-v4"><a class="header-anchor" href="#参考文章-v4">¶</a>参考文章</h2>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yilang/p/11238201.html">https://www.cnblogs.com/yilang/p/11238201.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/DeeLMind/p/6866239.html">https://www.cnblogs.com/DeeLMind/p/6866239.html</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/salomon/archive/2012/06/20/2556134.html">https://www.cnblogs.com/salomon/archive/2012/06/20/2556134.html</a></p>
@@ -430,28 +430,28 @@
 <p>我们可以自己构造异常，然后先处理掉异常，再执行我们的shellcode</p>
 <h2 id="题目——hagme2022——week2——creakme2"><a class="header-anchor" href="#题目——hagme2022——week2——creakme2">¶</a>题目——hagme2022——week2——creakme2</h2>
 <p>在静态分析中，只找到了tea加密算法，直接写脚本解不出来，去查看汇编代码（因为有时候ida没办法识别出一些汇编）</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643864939414.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643864939414.png" alt></p>
 <p>第一个框对应上上面那句代码，这里按/就会显示出来对应反编译过来的伪代码</p>
 <p>下面两个框的都是没被识别的语句</p>
 <p>在图中位置下断点进行动态调试，会报错</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865333034.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865333034.png" alt></p>
 <p>因为除数不能为0，去看看汇编</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865908164.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643865908164.png" alt></p>
 <p>按；写下注释</p>
 <p>开始动态调试</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866006832.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866006832.png" alt></p>
 <p>选择yes，发现进入到这段未被反编译的语句</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866024820.png" alt=""></p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866787250.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866024820.png" alt></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866787250.png" alt></p>
 <p>第二次执行到这一段代码，可以看到ecx寄存器的值不是0，不会触发异常</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866890816.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866890816.png" alt></p>
 <p>发现没有执行异或，而是继续往下执行，这就是下一步进行的反汇编语句</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866944920.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643866944920.png" alt></p>
 <p>因此可以知道，当变量num的最高位为0的时候，会触发异常，这时候系统会交给SEH进行处理，即__try代码</p>
 <p>__except会执行异常后代码</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867671850.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867671850.png" alt></p>
 <p>按空格查看执行顺序</p>
-<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867149242.png" alt=""></p>
+<p><img src="/2022/02/03/SEH%E5%8E%9F%E7%90%86%E5%92%8C%E4%BE%8B%E9%A2%98/1643867149242.png" alt></p>
 <p>会发现这样一段独立出来的汇编代码</p>
 <p>所以就可以写脚本，因为是unsigned int，右移31位就能知道最高位了</p>
 <p>脚本</p>
@@ -512,13 +512,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">301k</span>
+    <span title="站点总字数">317k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:34</span>
+    <span title="站点阅读时长">4:48</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -581,7 +581,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>

@@ -67,9 +67,9 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
 
-<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 <link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -177,13 +177,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">63</span>
+          <span class="site-state-item-count">67</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -335,7 +335,7 @@
 <p>C语言中，结构体作为函数参数时传参传的是副本，而数组传递的是指针，所以我们将结构体作为参数时，最好传入指针</p>
 <p>封装-就是将函数放入结构体内部，每次调用函数都会传递当前结构体的首地址，这样我们使用里面的变量就会比较方便</p>
 <p>类-这个结构体就叫做类，在结构体插入函数时，结构体大小不变，因为函数不在结构体内部，可以看到sizeoftest=8，也就是两个int</p>
-<p><img src="/2022/03/31/C/1648776748495.png" alt=""></p>
+<p><img src="/2022/03/31/C/1648776748495.png" alt></p>
 <p>对象-当使用使用类型创建变量时，创建的名称就叫做对象，比如Base base，Base是类，那么base就叫做对象</p>
 <p>成员-里面的参数都是成员</p>
 <p>成员函数-顾名思义，结构体中函数类型的成员</p>
@@ -361,7 +361,7 @@
 <p>但是，当对象不再使用的时候（对象为局部变量时），堆就可以释放掉了</p>
 <p>析构函数-无需调用、不能重载、名字与类名相同并在其之前加个~</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~Persion()</span><br><span class="line"></span><br><span class="line">{</span><br><span class="line"></span><br><span class="line"> 		<span class="built_in">free</span>(arr);</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="/2022/03/31/C/1648777636920.png" alt=""></p>
+<p><img src="/2022/03/31/C/1648777636920.png" alt></p>
 <h2 id="继承"><a class="header-anchor" href="#继承">¶</a>继承</h2>
 <p>本质是数据的复制</p>
 <p>当在多个结构体存在相同的成员时，我们可以将相同的成员提取出来创建一个新的结构体，在使用时只需要</p>
@@ -407,7 +407,7 @@
 </blockquote>
 <p><img src="/2022/03/31/C/1648792481902.png" alt="子类父类构造函数执行顺序"></p>
 <p>我们可以先得到子类的地址，然后访问，即使父类的成员是private，也会被复制过来，只是不能直接访问，下面可以看到这是3个int的大小</p>
-<p><img src="/2022/03/31/C/1648791796705.png" alt=""></p>
+<p><img src="/2022/03/31/C/1648791796705.png" alt></p>
 <p>但是我们可以知道子类的地址，然后通过指针访问私有的父类</p>
 <p><img src="/2022/03/31/C/1648792223939.png" alt="指针访问私有父类"></p>
 <h1 id="虚函数表"><a class="header-anchor" href="#虚函数表">¶</a>虚函数表</h1>
@@ -465,13 +465,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">301k</span>
+    <span title="站点总字数">317k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:34</span>
+    <span title="站点阅读时长">4:48</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -534,7 +534,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>
