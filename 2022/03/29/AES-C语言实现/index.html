@@ -342,7 +342,7 @@
 <p>这一段是SMC的解密代码，加上前面的mprotect名称，也可以大致确定，动调跑一下即可</p>
 <p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542144906.png" alt="SMC"></p>
 <p>init_key函数</p>
-<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542218644.png" alt=""></p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648542218644.png" alt></p>
 <p>看到了各种table，开始不知道是什么，但是不影响，因为并没有对我们的输入进行处理，到后面可以知道这是个生成密钥的函数</p>
 <p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/IVT%7DV%7DA4I1PSHR2NX%60EP_F.png" alt="key_generate"></p>
 <p>刚好长度为16，对应AES的密钥长度</p>
@@ -364,7 +364,7 @@
 <p>重复进行9轮，最后进行第十轮（不包括列混合）</p>
 <p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/1648543079057.png" alt="第十轮"></p>
 <p>至此key和密文都有了，解密</p>
-<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/GN37@K06OO18H7U6%5DX8W%5DYY.png" alt=""></p>
+<p><img src="/2022/03/29/AES-C%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0/GN37@K06OO18H7U6%5DX8W%5DYY.png" alt></p>
 
     </div>
 

@@ -332,16 +332,16 @@
 <span id="more"></span> 
 <h1 id="0x00-设置"><a class="header-anchor" href="#0x00-设置">¶</a>0x00-设置</h1>
 <p>修改EIP</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925411946.png" alt=""></p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925229842.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925411946.png" alt></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925229842.png" alt></p>
 <p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649925283278.png" alt="关闭自动填充nop"></p>
 <h1 id="0x01-修改汇编"><a class="header-anchor" href="#0x01-修改汇编">¶</a>0x01-修改汇编</h1>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926048838.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926048838.png" alt></p>
 <p>输入字符串，Ctrl+E修改，注意字符串以0结尾，最后要加上00</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926227498.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926227498.png" alt></p>
 <p>可以发现得到的是汇编代码，OD会自动识别</p>
 <p>只需要选中字符串按下Ctrl+A即可转为字符串</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926333629.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1649926333629.png" alt></p>
 <p>同理修改好www.reversecore.com字符串</p>
 <h2 id="提取汇编"><a class="header-anchor" href="#提取汇编">¶</a>提取汇编</h2>
 <p>接下来将插入的asm的机器码进行复制（在内存窗口中复制对应长度的十六进制数据），并修改格式</p>
@@ -352,28 +352,28 @@
 <p>本质上和代码注入没区别，主要是我们将字符串也包含在了注入的代码里面，所以在线程函数中不再需要使用字符数组存储</p>
 <h1 id="0x03-分析"><a class="header-anchor" href="#0x03-分析">¶</a>0x03-分析</h1>
 <p>在OD中打开并注入，让其停在新线程</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650001855752.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650001855752.png" alt></p>
 <p>先提升堆栈，然后将函数的参数存入ESI中，也就是线程函数对应的THREAD_PARAM结构体，因为里面只有两个函数指针，所以大小为0x8</p>
 <p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002105819.png" alt="ESI的值"></p>
 <p>我们执行完移动到esi这一步，去内存中查看ESI存储的值</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002164069.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002164069.png" alt></p>
 <p>将其转为地址，注释中会告知我们其对应的API函数</p>
 <p>接下来的四个PUSH+call可以知道是调用函数，LoadLibraryA只需要一个参数</p>
 <p>前面三个PUSH是将函数名称压入栈，而最后一个是将当前的ESP的值压入栈，而当前ESP的值正好是存储字符串的地址，这样就实现了给LoadLibraryA传参</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002382351.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002382351.png" alt></p>
 <p>需要注意这里是小端序</p>
 <p>接下来的四个PUSH和前面是一样的，关键是最后一个PUSH</p>
 <blockquote>
 <p><strong>因为返回值一般存储在EAX，并且函数调用时入栈顺序是从右往左依次入栈</strong></p>
 </blockquote>
 <p>这里的EAX存储的值就是user32.dll的句柄，也就是地址，在eax寄存器中OD也自动标明了</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002603450.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002603450.png" alt></p>
 <p>最后获取到MessageBoxA的地址</p>
 <p>MessageBoxA的传参</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002654110.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002654110.png" alt></p>
 <p>这一段本来是字符串，但是OD给我们识别成了代码</p>
 <p>执行完之后</p>
-<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002721021.png" alt=""></p>
+<p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002721021.png" alt></p>
 <p>可以看到我们的MessageBoxA的参数都在栈中了</p>
 <p><img src="/2022/04/14/%E4%BD%BF%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99%E6%B3%A8%E5%85%A5%E4%BB%A3%E7%A0%81/1650002770898.png" alt="调用MessageBoxA"></p>
 <p>最后就是清空eax和恢复堆栈了</p>

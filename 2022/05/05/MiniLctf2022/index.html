@@ -374,8 +374,8 @@
 <p>TLS回调函数常用于反调试</p>
 <p>每当创建或终止进程的线程时会自动调用执行的函数。当然，创建进程的主线程的时候也会自动调用回调函数，且其执行先于EP代码。反调试技术就是利用的TLS回调函数的这一特征。它是各线程独立的数据存储空间，可修改进程的全局/静态数据</p>
 <p>而它可以注册多个TLS_CALLBACK函数</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651974115184.png" alt=""></p>
-<p><img src="/2022/05/05/MiniLctf2022/1651974138087.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651974115184.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651974138087.png" alt></p>
 <h3 id="进程通信-共享内存CreateFileMapping-MapViewOfFile"><a class="header-anchor" href="#进程通信-共享内存CreateFileMapping-MapViewOfFile">¶</a>进程通信-共享内存CreateFileMapping+MapViewOfFile</h3>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/endenvor/p/9753135.html">https://www.cnblogs.com/endenvor/p/9753135.html</a></p>
 <p>把文件映像到内存，首先必须调用CreateFileMapping()函数，然后再调用MapViewOfFile函数，把文件视映像到进程地址空间上。这样多个子进程都可以访问该内存</p>
@@ -383,88 +383,88 @@
 <p>这道题所有的字符串都进行了异或加密</p>
 <p>在main函数中逆出来得到的是fake_flag，然后去Export发现了TLS函数</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/CSNN2019/article/details/113094488">https://blog.csdn.net/CSNN2019/article/details/113094488</a></p>
-<p><img src="/2022/05/05/MiniLctf2022/1651758278192.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758278192.png" alt></p>
 <p>点进去发现里面什么代码都没有，很奇怪，查看汇编</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651758334830.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758334830.png" alt></p>
 <p>这里加了一处花指令导致ida无法正常分析</p>
 <blockquote>
 <p><strong>这段花指令就是将返回地址（call后压入栈的值）加上插入字符串的长度，以跳过这段无用代码</strong></p>
 </blockquote>
 <p>直接改为jmp到原本指令的地址</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651975334021.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651975334021.png" alt></p>
 <p>然后F5</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651758540000.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758540000.png" alt></p>
 <p>要注意的是这里面还有一处花指令很坑</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651758596649.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758596649.png" alt></p>
 <p>去除之后，这里就是将我们的函数注册为TLS_CALLBACK函数</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651758699171.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651758699171.png" alt></p>
 <h3 id="将文件映射到内存中"><a class="header-anchor" href="#将文件映射到内存中">¶</a>将文件映射到内存中</h3>
-<p><img src="/2022/05/05/MiniLctf2022/1651975828550.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651975828550.png" alt></p>
 <p>继续往下，这里的reason是TLS_CALLBACK函数的第二个参数，因为还处于主线程，所以是1，所以不会进入这里的if</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651976154245.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976154245.png" alt></p>
 <p>先在注册的TLS_CALLBACK第二个函数下断点，然后F9</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651976351875.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976351875.png" alt></p>
 <h3 id="Hook掉WriteFile"><a class="header-anchor" href="#Hook掉WriteFile">¶</a>Hook掉WriteFile</h3>
-<p><img src="/2022/05/05/MiniLctf2022/1651976372396.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976372396.png" alt></p>
 <p><img src="/2022/05/05/MiniLctf2022/1651976527716.png" alt="Hook函数内部"></p>
 <p>可以看到这里是遍历，然后只要地址等于WriteFile就将final函数的地址赋值过去，实现Hook</p>
 <p><img src="/2022/05/05/MiniLctf2022/1651976683946.png" alt="Hook完成"></p>
 <p>Hook之后ExitProcess</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651976714789.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976714789.png" alt></p>
 <p><img src="/2022/05/05/MiniLctf2022/1651976845486.png" alt="结束所有进程和线程"></p>
 <p>所以不会进入到main函数中</p>
 <h3 id="第二次进入TLS-CALLBACK函数"><a class="header-anchor" href="#第二次进入TLS-CALLBACK函数">¶</a>第二次进入TLS_CALLBACK函数</h3>
 <p>此时第二个参数变成了0，进入第二段</p>
 <p>加载资源文件</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651977745611.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651977745611.png" alt></p>
 <p>加载EXERES文件，然后xor_0x5F后创建tmp文件</p>
 <blockquote>
 <p>注意这里的WriteFile已经被Hook成我们的函数</p>
 </blockquote>
-<p><img src="/2022/05/05/MiniLctf2022/1651979822133.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651979822133.png" alt></p>
 <p>修改值为6，其他正常写入，我们手动去文件修改</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651980030650.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980030650.png" alt></p>
 <p>下面这个函数是将取消Hook，也就是将WriteFile函数恢复</p>
 <p>在Resources Hacker也可以找到资源文件</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651977808202.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651977808202.png" alt></p>
 <p><img src="/2022/05/05/MiniLctf2022/1651977842463.png" alt="生成tmp文件"></p>
-<p><img src="/2022/05/05/MiniLctf2022/1651976997090.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651976997090.png" alt></p>
 <blockquote>
 <p><strong>CreateProcessA创建新进程，这个新进程运行指定的可执行文件tmp文件，也就是创建子进程</strong></p>
 </blockquote>
 <p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/CreateProcess/11050419">https://baike.baidu.com/item/CreateProcess/11050419</a></p>
 <p>这里的3代表的是新进程会被当做被调试的进程。系统把被调试程序发生的所有调试事件通知给调试器。</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651990868690.png" alt=""></p>
-<p><img src="/2022/05/05/MiniLctf2022/1651979411776.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651990868690.png" alt></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651979411776.png" alt></p>
 <p>此时也可以通过工具查看</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651977305230.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651977305230.png" alt></p>
 <h3 id="DEBUG模式"><a class="header-anchor" href="#DEBUG模式">¶</a>DEBUG模式</h3>
 <p><img src="/2022/05/05/MiniLctf2022/1651979468081.png" alt="进入该函数"></p>
 <p>等待调试</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651979593455.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651979593455.png" alt></p>
 <h3 id="子进程"><a class="header-anchor" href="#子进程">¶</a>子进程</h3>
 <p>去tmp文件查看</p>
 <p>注册一个异常处理函数</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651980146402.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980146402.png" alt></p>
 <p><img src="/2022/05/05/MiniLctf2022/1651980174862.png" alt="异常处理函数"></p>
 <p>当出现地址访问异常时，EIP+2</p>
 <blockquote>
 <p><strong>但是这里要注意因为子进程是DEBUG模式，所以优先让调试器也就是父进程处理</strong></p>
 </blockquote>
 <p>因为子进程是调试状态，所以这里要执行，也就是xxtea的常量进行异或，key[1]改为0x90</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651980332623.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980332623.png" alt></p>
 <h4 id="异常地址"><a class="header-anchor" href="#异常地址">¶</a>异常地址</h4>
-<p><img src="/2022/05/05/MiniLctf2022/1651980405385.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980405385.png" alt></p>
 <p><img src="/2022/05/05/MiniLctf2022/1651980416658.png" alt="内存访问出错"></p>
 <p>此时再去父进程看</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651980602332.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980602332.png" alt></p>
 <p>而EAX的值恰好是XXTEA的常量经过处理</p>
 <p><img src="/2022/05/05/MiniLctf2022/1651980653548.png" alt="常量的处理"></p>
 <h4 id="子进程通过文件映射通信"><a class="header-anchor" href="#子进程通过文件映射通信">¶</a>子进程通过文件映射通信</h4>
-<p><img src="/2022/05/05/MiniLctf2022/1651980933549.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980933549.png" alt></p>
 <h4 id="xxtea"><a class="header-anchor" href="#xxtea">¶</a>xxtea</h4>
 <p>最后就是xxtea，不过要注意这里的&gt;&gt;5都改成了&gt;&gt;6,也就是前面WirteFile时候改的数值</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651980951417.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651980951417.png" alt></p>
 <p>脚本</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> xxtea_DELTA ((((0x9E3779B9 ^0x90909090^ 0x12345678 ^ 0x7b)+12345))^0x1b207)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> xxtea_MX (((xxtea_z&gt;&gt;6^xxtea_y<span class="meta-string">&lt;&lt;2) + (xxtea_y&gt;</span>&gt;3^xxtea_z&lt;&lt;4)) ^ ((xxtea_sum^xxtea_y) + (xxtea_key[(xxtea_p&amp;3)^xxtea_e] ^ xxtea_z)))</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">xxtea</span><span class="params">(DWORD* xxtea_origin, <span class="keyword">int</span> xxtea_n, <span class="keyword">int</span> <span class="keyword">const</span> xxtea_key[<span class="number">4</span>])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">uint32_t</span> xxtea_y, xxtea_z, xxtea_sum;</span><br><span class="line">    <span class="keyword">unsigned</span> xxtea_p, xxtea_rounds, xxtea_e;</span><br><span class="line">    <span class="keyword">if</span> (xxtea_n &gt; <span class="number">1</span>)            <span class="comment">/* Coding Part */</span></span><br><span class="line">    {</span><br><span class="line">        xxtea_rounds = <span class="number">6</span> + <span class="number">52</span> / xxtea_n;</span><br><span class="line">        xxtea_sum = <span class="number">0</span>;</span><br><span class="line">        xxtea_z = xxtea_origin[xxtea_n - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            xxtea_sum += xxtea_DELTA;</span><br><span class="line">            xxtea_e = (xxtea_sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span> (xxtea_p = <span class="number">0</span>; xxtea_p &lt; xxtea_n - <span class="number">1</span>; xxtea_p++)</span><br><span class="line">            {</span><br><span class="line">                xxtea_y = xxtea_origin[xxtea_p + <span class="number">1</span>];</span><br><span class="line">                xxtea_z = xxtea_origin[xxtea_p] += xxtea_MX;</span><br><span class="line">            }</span><br><span class="line">            xxtea_y = xxtea_origin[<span class="number">0</span>];</span><br><span class="line">            xxtea_z = xxtea_origin[xxtea_n - <span class="number">1</span>] += xxtea_MX;</span><br><span class="line">        } <span class="keyword">while</span> (--xxtea_rounds);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (xxtea_n &lt; <span class="number">-1</span>)      <span class="comment">/* Decoding Part */</span></span><br><span class="line">    {</span><br><span class="line">        xxtea_n = -xxtea_n;</span><br><span class="line">        xxtea_rounds = <span class="number">6</span> + <span class="number">52</span> / xxtea_n;</span><br><span class="line">        xxtea_sum = xxtea_rounds * xxtea_DELTA;</span><br><span class="line">        xxtea_y = xxtea_origin[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        {</span><br><span class="line">            xxtea_e = (xxtea_sum &gt;&gt; <span class="number">2</span>) &amp; <span class="number">3</span>;</span><br><span class="line">            <span class="keyword">for</span> (xxtea_p = xxtea_n - <span class="number">1</span>; xxtea_p &gt; <span class="number">0</span>; xxtea_p--)</span><br><span class="line">            {</span><br><span class="line">                xxtea_z = xxtea_origin[xxtea_p - <span class="number">1</span>];</span><br><span class="line">                xxtea_y = xxtea_origin[xxtea_p] -= xxtea_MX;</span><br><span class="line">            }</span><br><span class="line">            xxtea_z = xxtea_origin[xxtea_n - <span class="number">1</span>];</span><br><span class="line">            xxtea_y = xxtea_origin[<span class="number">0</span>] -= xxtea_MX;</span><br><span class="line">            xxtea_sum -= xxtea_DELTA;</span><br><span class="line">        } <span class="keyword">while</span> (--xxtea_rounds);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="comment">//0x40CEA5BC,0xE7B2B2F4,0x129D12A9,0x5BC810AE,0x1D06D73D,0xDCF800DC</span></span><br><span class="line">	<span class="comment">//unsigned int enc[155] = { 3532577106, 1472742623, 3642468664, 4193500461, 2398676029, 617653972, 1474514999, 1471783658, 1012864704, 3615627536, 993855884, 438456717, 3358938551, 3906991208, 198959101, 3317190635, 3656923078, 613157871, 2398768861, 97286225, 2336972940, 1471645170, 3233163154, 583597118, 2863776301, 3183067750, 1384330715, 2929694742, 3522431804, 2181488067, 3303062236, 3825712422, 145643141, 2148976293, 2940910035, 506798154, 994590281, 2231904779, 3389770074, 2814269052, 1105937096, 1789727804, 3757028753, 2469686072, 1162286478, 680814033, 2934024098, 2162521262, 4048876895, 2121620700, 4240287315, 2391811140, 3396611602, 3091349617, 3031523010, 2486958601, 3164065171, 1285603712, 798920280, 2337813135, 4186055520, 3523024366, 1077514121, 1436444106, 2731983230, 1507202797, 500756149, 198754565, 2382448647, 880454148, 1970517398, 3217485349, 1161840191, 560498076, 1782600856, 2643721918, 1285196205, 788797746, 1195724574, 4061612551, 103427523, 2502688387, 4147162188, 617564657, 978211984, 1781482121, 2205798970, 3939973102, 3826603515, 659557668, 2582884932, 1561884856, 2217488804, 1189296962, 169145316, 2781742156, 1323893433, 824667876, 408202876, 3759637634, 4094868412, 1508996065, 162419237, 3732146944, 3083560189, 3955940127, 2393776934, 2470191468, 3620861513, 481927014, 2756226070, 3154651143, 1261069441, 2063238535, 2222237213, 101459755, 3159774417, 1721190841, 1078395785, 176506553, 3552913423, 1566142515, 1938949000, 1499289517, 3315102456, 829714860, 3843359394, 952932374, 1283577465, 2045007203, 3957761944, 3767891405, 2917089623, 3296133521, 482297421, 1734231412, 3670478932, 2575334979, 2827842737, 3413631016, 1533519803, 4008428470, 3890643173, 272960248, 317508587, 3299937500, 2440520601, 27470488, 1666674386, 1737927609, 750987808, 2385923471, 2694339191, 562925334, 2206035395 };</span></span><br><span class="line">    DWORD enc[<span class="number">18</span>] = { <span class="number">0x6B7CE328</span>, <span class="number">0x4841D5DD</span>, <span class="number">0x963784DC</span>, <span class="number">0xEF8A3226</span>, <span class="number">0x0776B226</span> };</span><br><span class="line">    <span class="comment">//unsigned int key[4] = {0x12,0x90,0x56,0x78};</span></span><br><span class="line">    <span class="keyword">int</span> key[<span class="number">4</span>] = { <span class="number">0x12</span>,<span class="number">0x90</span>,<span class="number">0x56</span>,<span class="number">0x78</span> };</span><br><span class="line">    xxtea(enc, <span class="number">-5</span>, key);<span class="comment">//长度为多少，解密时第二个参数就改为多长</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i)</span><br><span class="line">    {</span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"%c%c%c%c"</span>, ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">0</span>], ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">1</span>], ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">2</span>], ((<span class="keyword">char</span>*)&amp;enc[i])[<span class="number">3</span>]);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">   <span class="comment">/* char s[] = "3e90c91c02e9b40b78b}";</span></span><br><span class="line"><span class="comment">    printf("%d", strlen(s));*/</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>剩下的一部分也是xxtea，没魔改就不说了</p>
@@ -499,7 +499,7 @@
 <h1 id="NotRC4"><a class="header-anchor" href="#NotRC4">¶</a>NotRC4</h1>
 <h2 id="考点：RISV架构"><a class="header-anchor" href="#考点：RISV架构">¶</a>考点：RISV架构</h2>
 <p>使用readelf可以知道是RISV架构</p>
-<p><img src="/2022/05/05/MiniLctf2022/1651987423786.png" alt=""></p>
+<p><img src="/2022/05/05/MiniLctf2022/1651987423786.png" alt></p>
 <h2 id="过程-v2"><a class="header-anchor" href="#过程-v2">¶</a>过程</h2>
 <p>ida无法反编译，jeb可以反编译但是效果不太好，最好的还是Ghidra</p>
 <p>就是一个VM题</p>
