@@ -340,23 +340,23 @@
 <p>选择对应手机版本的即可</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/frida/frida/releases">https://github.com/frida/frida/releases</a></p>
 <h3 id="配置手机端"><a class="header-anchor" href="#配置手机端">¶</a>配置手机端</h3>
-<p><img src="/2022/05/01/Frida-Hook/1651354655163.png" alt></p>
+<p><img src="/2022/05/01/Frida-Hook/1651354655163.png" alt=""></p>
 <p>先将frida-server文件存至手机文件夹data/local/tmp中</p>
 <p>然后授权</p>
 <figure class="highlight apache"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">adb</span> forward tcp:<span class="number">27042</span> tcp:<span class="number">27042</span></span><br></pre></td></tr></tbody></table></figure>
 <p>端口转发</p>
 <h2 id="0x01-代码审计"><a class="header-anchor" href="#0x01-代码审计">¶</a>0x01-代码审计</h2>
 <p>这是Namahonctf的一道Mobile题</p>
-<p><img src="/2022/05/01/Frida-Hook/1651356220172.png" alt></p>
+<p><img src="/2022/05/01/Frida-Hook/1651356220172.png" alt=""></p>
 <p>从这里可以看出这里只需要点击的次数为0x5F5E0FF即可获得flag，所以采用自动化工具更为方便</p>
 <h2 id="0x02-编写脚本"><a class="header-anchor" href="#0x02-编写脚本">¶</a>0x02-编写脚本</h2>
 <figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Java.perform(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    <span class="keyword">var</span> click = Java.use(<span class="string">"com.example.clickme.MainActivity"</span>);</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">var</span> run = click.$new();</span><br><span class="line">    <span class="keyword">var</span> returnvalue = run.getFlag();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">""</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Flag: "</span> + returnvalue);</span><br><span class="line">  });</span><br></pre></td></tr></tbody></table></figure>
 <p>先让frida-server处于开启状态</p>
-<p><img src="/2022/05/01/Frida-Hook/1651355616556.png" alt></p>
+<p><img src="/2022/05/01/Frida-Hook/1651355616556.png" alt=""></p>
 <p>在手机中打开程序，通过以下命令查找进程</p>
-<p><img src="/2022/05/01/Frida-Hook/1651354746522.png" alt></p>
+<p><img src="/2022/05/01/Frida-Hook/1651354746522.png" alt=""></p>
 <p>开启</p>
-<p><img src="/2022/05/01/Frida-Hook/1651355383018.png" alt></p>
+<p><img src="/2022/05/01/Frida-Hook/1651355383018.png" alt=""></p>
 <p>-U 连接USB设备<br>
 -l 加载JavaScript脚本文件<br>
 -f表示包名</p>
@@ -513,7 +513,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>

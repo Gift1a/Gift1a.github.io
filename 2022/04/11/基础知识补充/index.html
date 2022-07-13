@@ -372,11 +372,11 @@
 <blockquote>
 <p><strong>所以，在跨（开发）平台的调用中，我们都使用stdcall（有时是以WINAPI的样子出现）。那么为什么还需要_cdecl呢？当我们遇到这样的函数如fprintf()它的参数是可变的，不定长的，被调用者事先无法知道参数的长度，事后的清除工作也无法正常的进行，因此，这种情况我们只能使用cdecl</strong></p>
 </blockquote>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898026998.png" alt></p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898651751.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898026998.png" alt=""></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898651751.png" alt=""></p>
 <h1 id="0x06-extern-“C”"><a class="header-anchor" href="#0x06-extern-“C”">¶</a>0x06-extern “C”</h1>
 <h2 id="原因"><a class="header-anchor" href="#原因">¶</a>原因</h2>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898161708.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898161708.png" alt=""></p>
 <p>也就是说如果不声明为extern “C”，我们导出的函数名会被修饰</p>
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898480365.png" alt="DLL代码"></p>
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1649898496934.png" alt="导出的函数名称"></p>
@@ -416,19 +416,19 @@
 <p>我们知道main函数实际上是有两个参数的，但一般不会进行使用</p>
 <p>其原型如下</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main(<span class="keyword">int</span> argc,<span class="keyword">char</span>*argv[])</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008765976.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008765976.png" alt=""></p>
 <p>这两个参数实际上与命令行相关</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//argc是一个整数，其代表了命令行参数个数</span></span><br><span class="line"><span class="comment">//argv是一个指针数组，可以接收多个参数，第一个也就是argv[0]指向输入的程序路径及名称</span></span><br><span class="line"><span class="comment">//如果在命令行中运行，argc为1，也就是只有一个参数</span></span><br></pre></td></tr></tbody></table></figure>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008701868.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650008701868.png" alt=""></p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"命令行参数个数为：%d\n"</span>, argc);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; argc; ++i)</span><br><span class="line">	{</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"第%d个命令行参数为：%s\n"</span>, i, argv[i]);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <h1 id="0x09-有符号数和无符号数"><a class="header-anchor" href="#0x09-有符号数和无符号数">¶</a>0x09-有符号数和无符号数</h1>
 <h2 id="unsigend和signed"><a class="header-anchor" href="#unsigend和signed">¶</a>unsigend和signed</h2>
 <p>unsigned顾名思义就是无符号数，signed是有符号数</p>
 <p>我们以char为例，char类型存储时为8位，当声明为signed的时候（不加unsigned的时候），最高位也就是第八位被当作符号位，当最高位为0的时候为正数，1时为负数，那么后七位就是数据位</p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650504748332.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650504748332.png" alt=""></p>
 <p>所以signed char也就是char可以表示-127-128的值（2**7）</p>
 <p>当声明为unsigned char时，最高位也是数据位，此时可以表示0-256中的数据（2**8）</p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650505930033.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650505930033.png" alt=""></p>
 <h2 id="有符号数与无符号数的移位问题"><a class="header-anchor" href="#有符号数与无符号数的移位问题">¶</a>有符号数与无符号数的移位问题</h2>
 <blockquote>
 <p><strong>逻辑移位用于无符号数<br>
@@ -444,7 +444,7 @@
 <p>算术移位，右移时（未溢出），保持符号位不变，同时用符号位补数值最高位</p>
 <p>-65=11000001，转为补码为10111111，&gt;&gt;2变成11101111，再转为原码10010001，为-17</p>
 <p>算术移位，左移时（未溢出），<strong>直接将数据最高有效位移入符号位，最低位补0</strong></p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650505897036.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1650505897036.png" alt=""></p>
 <p>当符号位为1时，为负数，若数据最高位为0（补码的数据最高位），那么此时左移必定溢出，正数也同理</p>
 <h1 id="0x0A-整型溢出与左移溢出"><a class="header-anchor" href="#0x0A-整型溢出与左移溢出">¶</a>0x0A-整型溢出与左移溢出</h1>
 <h2 id="整型溢出"><a class="header-anchor" href="#整型溢出">¶</a>整型溢出</h2>
@@ -477,7 +477,7 @@
 <p>通过分析直到数组，然后点进去跳转到栈，右键-&gt;Array-&gt;填写最大大小，然后确定即可</p>
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1652271943834.png" alt="生成数组前"></p>
 <p>点击数组首元素v17</p>
-<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1652272005586.png" alt></p>
+<p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1652272005586.png" alt=""></p>
 <p>填写好数组大小</p>
 <p><img src="/2022/04/11/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85/1652272029957.png" alt="生成数组后"></p>
 
@@ -605,7 +605,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>

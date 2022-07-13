@@ -353,59 +353,59 @@
 <p><strong>注意：手机要先ROOT，调试的so文件根据系统版本来选择</strong></p>
 </blockquote>
 <p>我的是arm64，所以选择这个</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650937243317.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650937243317.png" alt=""></p>
 <h3 id="打开手机的USB调试功能"><a class="header-anchor" href="#打开手机的USB调试功能">¶</a>打开手机的USB调试功能</h3>
 <p>首先打开开发者选项，然后进入开发者选项打开USB调试</p>
 <h3 id="adb连接手机"><a class="header-anchor" href="#adb连接手机">¶</a>adb连接手机</h3>
 <blockquote>
 <p>adb devices</p>
 </blockquote>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650866742532.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650866742532.png" alt=""></p>
 <h3 id="adb进入手机"><a class="header-anchor" href="#adb进入手机">¶</a>adb进入手机</h3>
 <blockquote>
 <p>adb shell</p>
 </blockquote>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650866794822.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650866794822.png" alt=""></p>
 <h3 id="查看手机ro-debuggable"><a class="header-anchor" href="#查看手机ro-debuggable">¶</a>查看手机ro.debuggable</h3>
 <p>ro.debuggable是rom级别的调试，如果ro.debuggable的值是1说明你的手机已经打开了调试功能，如果为0的话需要安装的安卓app已经打开了android:debuggable属性方可调试，通常正式发布出来的apk默认android:debuggable属性都是关闭的</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650866865200.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650866865200.png" alt=""></p>
 <blockquote>
 <p><strong>值为0，所以需要去让安装的app开启android:debuggable属性</strong></p>
 </blockquote>
 <h3 id="开启被调试APK的debuggable属性"><a class="header-anchor" href="#开启被调试APK的debuggable属性">¶</a>开启被调试APK的debuggable属性</h3>
 <p>使用APK Editor Studio查看android:debuggable属性，没有的话就需要自行添加</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867048124.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867048124.png" alt=""></p>
 <p>这里我已经修改好了</p>
 <h3 id="重新签名打包"><a class="header-anchor" href="#重新签名打包">¶</a>重新签名打包</h3>
 <p>因为修改之后签名需要更新</p>
 <p>在APK Editor Studio中按下Ctrl+Alt+S重新打包</p>
 <h3 id="安装APK文件到手机中"><a class="header-anchor" href="#安装APK文件到手机中">¶</a>安装APK文件到手机中</h3>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867221276.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867221276.png" alt=""></p>
 <p>此时手机中会弹出安装提示，确认即可安装</p>
 <p>也可以使用adb安装</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43203586/article/details/104881919">https://blog.csdn.net/qq_43203586/article/details/104881919</a></p>
 <h3 id="上传ida的远程工具"><a class="header-anchor" href="#上传ida的远程工具">¶</a>上传ida的远程工具</h3>
 <p>在ida的dbgsrv目录下，将android_server64传入手机目录中</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867343056.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867343056.png" alt=""></p>
 <blockquote>
 <p><strong>使用命令：adb push android_server64 /data/local/tmp</strong></p>
 </blockquote>
 <p>使用chmod提升权限</p>
 <p>此时在该目录下我们可以找到该文件</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867613473.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650867613473.png" alt=""></p>
 <h3 id="启动android-server64"><a class="header-anchor" href="#启动android-server64">¶</a>启动android_server64</h3>
 <p>在data/local/tmp目录下直接运行</p>
 <h3 id="启动adb端口转发"><a class="header-anchor" href="#启动adb端口转发">¶</a>启动adb端口转发</h3>
 <blockquote>
 <p><strong>adb forward tcp:23946 tcp:23946</strong></p>
 </blockquote>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868122288.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868122288.png" alt=""></p>
 <h3 id="以调试模式启动APK"><a class="header-anchor" href="#以调试模式启动APK">¶</a>以调试模式启动APK</h3>
 <p>启动前我们先获取Mainactivity</p>
 <blockquote>
 <p><strong>adb shell am start -D -n 包名路径/.Activity</strong></p>
 </blockquote>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868216815.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868216815.png" alt=""></p>
 <p>以调试模式启动APK</p>
 <blockquote>
 <p><strong>adb shell am start -D -n com.j.hiddendata/.MainActivity</strong></p>
@@ -413,26 +413,26 @@
 <p>此时真机已经进入Waiting For Debugger界面了</p>
 <h3 id="ida下断点"><a class="header-anchor" href="#ida下断点">¶</a>ida下断点</h3>
 <p>在我们要调试的地方设置断点</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650937076837.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650937076837.png" alt=""></p>
 <h3 id="ida进行动态调试"><a class="header-anchor" href="#ida进行动态调试">¶</a>ida进行动态调试</h3>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868333739.png" alt></p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868368483.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868333739.png" alt=""></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868368483.png" alt=""></p>
 <p>attach上我们的程序</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868402833.png" alt></p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868433623.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868402833.png" alt=""></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868433623.png" alt=""></p>
 <p>此时已经停下，F9一下，让其处于运行状态</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868487721.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868487721.png" alt=""></p>
 <h3 id="启动monitor并使用jdb连接端口"><a class="header-anchor" href="#启动monitor并使用jdb连接端口">¶</a>启动monitor并使用jdb连接端口</h3>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868567690.png" alt></p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868595091.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868567690.png" alt=""></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868595091.png" alt=""></p>
 <p>端口号为8600，接下来使用jdb连接</p>
 <blockquote>
 <p><strong>jdb -connect com.sun.jdi.SocketAttach:hostname=127.0.0.1,port=8600</strong></p>
 </blockquote>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868659975.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650868659975.png" alt=""></p>
 <p>此时真机的等待调试窗口关闭</p>
 <p>ida中提示已经加载，会问你包中的so文件是否和你的一致，选择same即可，接下来就是等待时间</p>
-<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650937277662.png" alt></p>
+<p><img src="/2022/04/23/%E5%AE%89%E5%8D%93%E5%8A%A8%E8%B0%83/1650937277662.png" alt=""></p>
 <p>然后就可以调试了</p>
 <h1 id="0x01-JEB调试"><a class="header-anchor" href="#0x01-JEB调试">¶</a>0x01-JEB调试</h1>
 
@@ -560,7 +560,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>

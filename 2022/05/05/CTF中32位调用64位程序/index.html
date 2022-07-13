@@ -393,27 +393,27 @@
 <p>使用idc将64位的代码段dump下来</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">auto</span> fp, begin, end, dexbyte;</span><br><span class="line">  fp = fopen(<span class="string">"./final"</span>, <span class="string">"wb"</span>);</span><br><span class="line">  begin = <span class="number">0x4011C0</span>;<span class="comment">//起始地址</span></span><br><span class="line">  end = <span class="number">0x4012A0</span>;<span class="comment">//结束地址</span></span><br><span class="line">  <span class="keyword">for</span> ( dexbyte = begin; dexbyte &lt; end; dexbyte ++ )</span><br><span class="line">      fputc(Byte(dexbyte), fp);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>使用ida64打开，选择64-bit mode</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084552451.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084552451.png" alt=""></p>
 <p>如同修改基址为0x4011C0</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084623510.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084623510.png" alt=""></p>
 <p>可以看到已经基本恢复了，剩下只需对比着进行代码分析即可</p>
 <h2 id="修改为64位程序"><a class="header-anchor" href="#修改为64位程序">¶</a>修改为64位程序</h2>
 <p>将这里的0x10B改成0x20B，然后使用ida64打开</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084704987.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084704987.png" alt=""></p>
 <p>基址重新修改为原本程序的基址</p>
 <p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652084801377.png" alt="恢复后"></p>
 <h1 id="例子-v3"><a class="header-anchor" href="#例子-v3">¶</a>例子</h1>
 <h2 id="hgame2022-week4-WOW"><a class="header-anchor" href="#hgame2022-week4-WOW">¶</a>hgame2022-week4-WOW</h2>
 <p>在某些函数中ida无法反编译</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652077738159.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652077738159.png" alt=""></p>
 <p>查看此函数的汇编，因为在此之后才无法反编译</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078266535.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078266535.png" alt=""></p>
 <p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078302028.png" alt="汇编"></p>
 <p>因为retf相当于pop ip;pop cs，而ip是下一条指令的地址</p>
 <p>所以这一段代码意思是先将64位工作模式的标志0x33压入栈中，然后通过call和add esp的值改变retf跳转的地址</p>
 <p>然后通过retf时将0x33pop到cs中，换为64位工作模式，所以ida32无法正确反编译</p>
 <p>再来看第二个函数</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078950121.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652078950121.png" alt=""></p>
 <p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652079092143.png" alt="汇编代码"></p>
 <p>这里是一样的，不过这里使用的是mov指令，将0x23mov到esp+4存储的地址中</p>
 <p>通过这一段代码恢复回32位工作模式</p>
@@ -422,45 +422,45 @@
 <p>创建子进程和子线程、TEA、WOW64</p>
 <h2 id="分析-v7"><a class="header-anchor" href="#分析-v7">¶</a>分析</h2>
 <p>当命令行参数为2时进入第一个函数，否则进入第二个</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652267971329.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652267971329.png" alt=""></p>
 <h3 id="第二个函数"><a class="header-anchor" href="#第二个函数">¶</a>第二个函数</h3>
 <p>第二个函数传入的参数是命令行参数的第一个，也就是我们的程序绝对路径</p>
 <p>进入第二个函数</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268136354.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268136354.png" alt=""></p>
 <p>这一段就是打开当前程序创建子进程（根据第六个参数判断进程的属性），命令行参数为我们打开程序的路径和" DIO"，然后</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652248950697.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652248950697.png" alt=""></p>
 <p>然后根据调试事件判断时候break，这里当报告退出进程调试事件才会break</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652249119969.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652249119969.png" alt=""></p>
 <p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268383536.png" alt="创建的新进程"></p>
 <p>这样创建的子进程具有两个命令行参数，所以进入第一个函数</p>
 <h3 id="第一个函数"><a class="header-anchor" href="#第一个函数">¶</a>第一个函数</h3>
 <p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268475082.png" alt="函数列表"></p>
 <h4 id="CreateNewThread函数"><a class="header-anchor" href="#CreateNewThread函数">¶</a>CreateNewThread函数</h4>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268516934.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268516934.png" alt=""></p>
 <p>创建一个子线程，根据第五个参数dwCreationFlags为0可知是线程创建后立即执行，指定函数为StartAddress</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268675363.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268675363.png" alt=""></p>
 <p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268738053.png" alt="StartAddress函数"></p>
 <p>就是对flag的格式进行判断，并且对最后的几个字符进行异或</p>
 <p>但是此时我们还未输入，按理说会一直卡在while循环，但是单步步过CreateNewThread时都是正常的</p>
 <h4 id="compare-input函数"><a class="header-anchor" href="#compare-input函数">¶</a>compare_input函数</h4>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268936181.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652268936181.png" alt=""></p>
 <p>判断输入前几位是否为ISCC</p>
 <h4 id="encode-and-compare函数"><a class="header-anchor" href="#encode-and-compare函数">¶</a>encode_and_compare函数</h4>
 <p>通过动态调试可以知道前面的while循环是将每八个输入存储为QWORD类型，第二段就是对key，也就是命令行参数的第二个进行加密，然后传入encode()函数</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269032854.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269032854.png" alt=""></p>
 <h5 id="encode-函数"><a class="header-anchor" href="#encode-函数">¶</a>encode()函数</h5>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269187607.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269187607.png" alt=""></p>
 <p>这一段就是开辟空间和初始化直接动调，关键还是对该函数的调用</p>
 <p>注意要先添加命令行参数</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269289722.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269289722.png" alt=""></p>
 <p>开启调试到达该函数，发现了切换为64位工作模式的代码</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269376040.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269376040.png" alt=""></p>
 <p>将这一段dump下来</p>
 <p>这里调用了920000地址处的函数，所以也要一起dump下来</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269739310.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269739310.png" alt=""></p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">  <span class="keyword">auto</span> fp, begin, end, dexbyte;</span><br><span class="line">  fp = fopen(<span class="string">"./final1"</span>, <span class="string">"wb"</span>);</span><br><span class="line">  begin = <span class="number">0x920000</span>;<span class="comment">//起始地址</span></span><br><span class="line">  end = <span class="number">0x93006B</span>;<span class="comment">//结束地址</span></span><br><span class="line">  <span class="keyword">for</span> ( dexbyte = begin; dexbyte &lt; end; dexbyte ++ )</span><br><span class="line">      fputc(Byte(dexbyte), fp);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <p>拖进ida64，可以看出来是tea加密</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269705752.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269705752.png" alt=""></p>
 <p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652269865596.png" alt="切换回32位"></p>
 <p>经此全部分析就已经结束了，前十六个字符先转long long型，然后进行tea加密，后5个字符进行异或，tea的密钥直接在调用encode函数处提取即可</p>
 <p>加密代码</p>
@@ -472,9 +472,9 @@
 <p>不过好像使用WINDBG可以调试</p>
 <h2 id="linux"><a class="header-anchor" href="#linux">¶</a>linux</h2>
 <p>代码分析</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086069132.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086069132.png" alt=""></p>
 <p>可以知道这一段代码是在0xDEAD000开辟空间，然后赋值后再SMC解密，然后就出现了无法识别的代码，看汇编动调发现和前面是一样的</p>
-<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086040351.png" alt></p>
+<p><img src="/2022/05/05/CTF%E4%B8%AD32%E4%BD%8D%E8%B0%83%E7%94%A864%E4%BD%8D%E7%A8%8B%E5%BA%8F/1652086040351.png" alt=""></p>
 <p>使用retf实现jmp far</p>
 <p>解决方法同上</p>
 
@@ -602,7 +602,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
 </html>
