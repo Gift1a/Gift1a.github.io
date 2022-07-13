@@ -208,18 +208,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -392,7 +392,7 @@
 <p>可以看到这里进行了两次拼接操作</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964780202.png" alt="两次拼接"></p>
 <p>这个拼接的字符串是已知的，再看另一个</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964832766.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964832766.png" alt=""></p>
 <p>可以看到先通过GetVolumeInformationA获取驱动器信息，并生成字符串存储到aData4562Abex中，然后将字符串String2拼接到生成的字符串后</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648964910270.png" alt="aData4562Abex操作"></p>
 <p>接下来重点讲讲ds段寄存器和重要的操作数</p>
@@ -451,7 +451,7 @@
 <p>接着就是cl++，然后判断bl的值是否为0x4F，因为初始时bl的值为0x41，所以加密数据的长度是0x4f-0x41</p>
 <p>最后，函数loc_401335结束前把ecx的值存放到ds段寄存器地址的内容中</p>
 <p>因为异或后相加的结果存储在dword_4020F9中，这里将它和0x12345678异或</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982757718.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648982757718.png" alt=""></p>
 <blockquote>
 <p>add esp,4是因为call的时候将其下一条指令压入栈中，所以需要add esp,4</p>
 </blockquote>
@@ -477,12 +477,12 @@
 <p>先把DWORD_402149，也就是前面说的加密的长度</p>
 <p>也就是先把传入的两个参数的地址分别存入esi和edi中</p>
 <p>而第一个参数也就是arg_0(后压入栈)，被存放到esi中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984644479.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984644479.png" alt=""></p>
 <p>同时，第一个参数也是前面存放我们字符串的地址</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984708951.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984708951.png" alt=""></p>
 <p>然后edi指向的地址后移</p>
 <p>再循环将esi的值存入edi中，循环次数为ecx的值</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984226522.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648984226522.png" alt=""></p>
 <p>这段话就是将我们最后加密的字符串拼接到Cracked By:后面</p>
 <h2 id="整体流程"><a class="header-anchor" href="#整体流程">¶</a>整体流程</h2>
 <p>先打开CRACKME3.KEY文件，读取前十八个字符，然后对前14个字符异或加密，并且将异或后的值和0x12345678异或后与最后四位进行比较，前十四个密文为wanao@yahoo.cn，然后动调得到最后四位字符，填充进去即可，注意大小端序</p>
@@ -490,7 +490,7 @@
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> name[]=<span class="string">"wanao@yahoo.cn"</span>;</span><br><span class="line">	<span class="keyword">char</span> key=<span class="string">'A'</span>;</span><br><span class="line">	<span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(name);++i)</span><br><span class="line">	{</span><br><span class="line">		name[i]^=key++;</span><br><span class="line">		num+=name[i];</span><br><span class="line">	}</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>,name);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,num);</span><br><span class="line">	<span class="keyword">int</span> key2=<span class="number">0x12345678</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line"> } </span><br></pre></td></tr></tbody></table></figure>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985143096.png" alt="最后四位字符"></p>
 <p>最终效果</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985203991.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1648985203991.png" alt=""></p>
 <h1 id="004-Acid-Bytes-2"><a class="header-anchor" href="#004-Acid-Bytes-2">¶</a>004-Acid Bytes.2</h1>
 <p>upx壳，去掉后很快就能找到比较</p>
 <h1 id="006-ArturDents-CrackMe-2"><a class="header-anchor" href="#006-ArturDents-CrackMe-2">¶</a>006-ArturDents-CrackMe#2</h1>
@@ -524,13 +524,13 @@
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040650078.png" alt="关键字符串"></p>
 <p>定位过去</p>
 <p>可以看到先把字符串也就是reg.dll移动到eax中，然后call，再对al进行验证，所以这个函数应该是打开这个文件，没有这个文件的话就返回0</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040684329.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040684329.png" alt=""></p>
 <p>接下来这一段应该是将dll文件的username和sn读取出来</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040844910.png" alt="读取函数"></p>
 <p>可以看到先把刚才读取的username和sn存放到edx和eax中，然后调用函数，调用结束后进行test和跳转，所以这个函数应该是加密函数</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649040977142.png" alt="加密函数"></p>
 <p>加密函数中，先将变量的值清0，并且将username和sn存放到第一个和第二个参数中</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041483499.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041483499.png" alt=""></p>
 <p>往下看，这里先把第二个参数（序列号）的地址读取到eax中，然后返回值和0x10作比较，那么这段应该就是计算序列号的长度</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649041704450.png" alt="关键比较"></p>
 <p>在函数出事的地方，可以看到var_8=-8，然后ebp-8就是存放的序列号</p>
@@ -539,11 +539,11 @@
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042190963.png" alt="堆栈图"></p>
 <p>下面这一段应该是对序列号验证，因为sub会让标志寄存器改变</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042492337.png" alt="验证"></p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042642683.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042642683.png" alt=""></p>
 <p>FTSP汇编指令</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liujiayu2/article/details/77711838">https://blog.csdn.net/liujiayu2/article/details/77711838</a></p>
 <p>最后在这里的堆栈图找到了正确的序列号，长度正好是0x10</p>
-<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042753681.png" alt></p>
+<p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042753681.png" alt=""></p>
 <p>先把两个参数存放的内容以及第三个参数也就是var_10的地址存储到ecx中，那么这个应该就是正确的序列号</p>
 <p><img src="/2022/04/03/Crackme%E7%AE%97%E6%B3%95/1649042840725.png" alt="在调用前面的函数前"></p>
 <p>函数有点复杂，有时间再看，据说后面有md5</p>
@@ -601,13 +601,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">321k</span>
+    <span title="站点总字数">349k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:52</span>
+    <span title="站点阅读时长">5:17</span>
   </span>
 </div>
 <div class="busuanzi-count">

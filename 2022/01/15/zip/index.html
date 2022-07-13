@@ -177,18 +177,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -341,28 +341,28 @@
 <p>《美丽的烟火》</p>
 <p>链接：<a target="_blank" rel="noopener" href="http://ctf.bugku.com/challenges/detail/id/350.html">http://ctf.bugku.com/challenges/detail/id/350.html</a></p>
 <p>直接打开压缩包，可以得到被加密的文件</p>
-<p><img src="/2022/01/15/zip/1642245880907.png" alt></p>
+<p><img src="/2022/01/15/zip/1642245880907.png" alt=""></p>
 <p>痛苦，一般这种没有提示的(下面会有介绍)，一般就是伪加密了。</p>
 <p>拖进winhex，搜索504b0102（不知道为什么的速速去看前面那篇文章），这个按钮</p>
-<p><img src="/2022/01/15/zip/1642246321198.png" alt></p>
+<p><img src="/2022/01/15/zip/1642246321198.png" alt=""></p>
 <p>把09改成00，要仔细，这里有两个，我开始只看到一个</p>
-<p><img src="/2022/01/15/zip/1642246469204.png" alt></p>
-<p><img src="/2022/01/15/zip/1642246506196.png" alt></p>
+<p><img src="/2022/01/15/zip/1642246469204.png" alt=""></p>
+<p><img src="/2022/01/15/zip/1642246506196.png" alt=""></p>
 <p>重新打开压缩包</p>
-<p><img src="/2022/01/15/zip/1642246638206.png" alt></p>
+<p><img src="/2022/01/15/zip/1642246638206.png" alt=""></p>
 <p>心情愉悦~</p>
 <p>接下来就是进行解密了</p>
 <p>这里不细讲了，不然就跑偏了，png文件是stegpy隐写，密码是shumu，stegpy安装应该会有问题，具体安装请看图片隐写</p>
-<p><img src="/2022/01/15/zip/1642246877362.png" alt></p>
+<p><img src="/2022/01/15/zip/1642246877362.png" alt=""></p>
 <p>password解密是base64，base58，栅栏，</p>
 <p>这里推荐一篇博客</p>
 <p>得到的字符串是aes的key，然后直接aes在线解密</p>
-<p><img src="/2022/01/15/zip/1642247152438.png" alt></p>
+<p><img src="/2022/01/15/zip/1642247152438.png" alt=""></p>
 <p>flag：flag{yX73nAutbBozYhge6d2flG}</p>
 <p>网站也放这了：<a target="_blank" rel="noopener" href="https://the-x.cn/cryptography/Aes.aspx">https://the-x.cn/cryptography/Aes.aspx</a></p>
 <h3 id="注"><a class="header-anchor" href="#注">¶</a>注</h3>
 <p>winrar可以修复伪加密，不过是部分的</p>
-<p><img src="/2022/01/15/zip/1642251859085.png" alt></p>
+<p><img src="/2022/01/15/zip/1642251859085.png" alt=""></p>
 <p>点开上面的工具-&gt; 修复压缩文件</p>
 <h1 id="套娃压缩包"><a class="header-anchor" href="#套娃压缩包">¶</a>套娃压缩包</h1>
 <p>顾名思义，就是压缩包套娃</p>
@@ -376,8 +376,8 @@
 <p>总之每个文件都有唯一的CRC32值，即便数据中一个bit发生变化，也会导致CRC32值不同。若是知道一段数据的长度和CRC32值，便可穷举数据，与其CRC32对照，以此达到暴力猜解的目的。但通常只适用于较小文本文件。</p>
 <h3 id="解题过程-v6"><a class="header-anchor" href="#解题过程-v6">¶</a>解题过程</h3>
 <p>打开里面有很多压缩包，里面存储的都是小数据文件</p>
-<p><img src="/2022/01/15/zip/1642249237942.png" alt></p>
-<p><img src="/2022/01/15/zip/1642249207274.png" alt></p>
+<p><img src="/2022/01/15/zip/1642249237942.png" alt=""></p>
+<p><img src="/2022/01/15/zip/1642249207274.png" alt=""></p>
 <p>直接上脚本(不是很会)</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#python3</span></span><br><span class="line"><span class="keyword">import</span> zipfile</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackCrc</span>(<span class="params">crc</span>):</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> dic:</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> dic:</span><br><span class="line">			<span class="keyword">for</span> k <span class="keyword">in</span> dic:</span><br><span class="line">				<span class="keyword">for</span> h <span class="keyword">in</span> dic:</span><br><span class="line">					s = i + j + k + h</span><br><span class="line">					<span class="keyword">if</span> crc == (binascii.crc32(s.encode())):</span><br><span class="line">						f.write(s)</span><br><span class="line">						<span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CrackZip</span>():</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="number">68</span>):</span><br><span class="line">		file = <span class="string">'D:\\new\\新建文件夹\\out'</span>+<span class="built_in">str</span>(i)+<span class="string">'.zip'</span></span><br><span class="line">		crc = zipfile.ZipFile(file,<span class="string">'r'</span>).getinfo(<span class="string">'data.txt'</span>).CRC</span><br><span class="line">		CrackCrc(crc)</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">'\r'</span>+<span class="string">"loading：{:%}"</span>.<span class="built_in">format</span>(<span class="built_in">float</span>((i+<span class="number">1</span>)/<span class="number">68</span>)),end=<span class="string">''</span>)</span><br><span class="line"></span><br><span class="line">dic = string.ascii_letters + string.digits + <span class="string">'+/='</span></span><br><span class="line">f = <span class="built_in">open</span>(<span class="string">'printaaa.txt'</span>,<span class="string">'w'</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\nCRC32begin"</span>)</span><br><span class="line">CrackZip()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"CRC32finished"</span>)</span><br><span class="line">f.close()</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 <p>得到base64编码的东西</p>
@@ -385,7 +385,7 @@
 <p>网站在线解码，这个网站挺好的，可以直接转换文件</p>
 <p><a target="_blank" rel="noopener" href="https://the-x.cn/base64/">https://the-x.cn/base64/</a></p>
 <p>解码后在尾部看到这句话</p>
-<p><img src="/2022/01/15/zip/1642250774952.png" alt></p>
+<p><img src="/2022/01/15/zip/1642250774952.png" alt=""></p>
 <p>他让我们修复文件，所以我们首先要先了解文件头和尾</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-2.queryctrv2">https://blog.csdn.net/Ahuuua/article/details/109165473?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~default-2.queryctrv2</a></p>
 <p>修补好rar文件头在注释里得到flag</p>
@@ -398,16 +398,16 @@
 <h2 id="解题过程-v7"><a class="header-anchor" href="#解题过程-v7">¶</a>解题过程</h2>
 <p>得到流量包，导出HTTP对象</p>
 <p>得到几个文件，依次查看，注意要仔细看，流量包文件有时候会很多</p>
-<p><img src="/2022/01/15/zip/1642254197336.png" alt></p>
+<p><img src="/2022/01/15/zip/1642254197336.png" alt=""></p>
 <p>发现了504b0304，可以写脚本，也可以直接网站解码得到压缩包</p>
 <p><a target="_blank" rel="noopener" href="https://the-x.cn/zh-cn/encodings/Hex.aspx">https://the-x.cn/zh-cn/encodings/Hex.aspx</a></p>
-<p><img src="/2022/01/15/zip/1642254255927.png" alt></p>
+<p><img src="/2022/01/15/zip/1642254255927.png" alt=""></p>
 <p>也可以使用脚本</p>
 <figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">s=<span class="string">'填写16进制数据'</span></span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">out=<span class="built_in">open</span>(<span class="string">'2.jpg'</span>,<span class="string">'wb'</span>)</span><br><span class="line">out.write(binascii.unhexlify(s))</span><br><span class="line">out.close()</span><br><span class="line"></span><br><span class="line"><span class="comment">#Author: MoChu7</span></span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line">a = <span class="built_in">open</span>(<span class="string">"str.txt"</span>,<span class="string">"r"</span>)<span class="comment">#十六进制数据文件</span></span><br><span class="line">lines = a.read()</span><br><span class="line">res = [lines[i:i+<span class="number">2</span>] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>,<span class="built_in">len</span>(lines),<span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">"res.jpg"</span>,<span class="string">"wb"</span>) <span class="keyword">as</span> f:</span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> res:</span><br><span class="line">		s = struct.pack(<span class="string">'B'</span>,<span class="built_in">int</span>(i,<span class="number">16</span>))</span><br><span class="line">		f.write(s)</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
 <p>打开之后得到两个文件，打开里面什么都看不到，全选就会有显示，key.ws应该是snow的密码，拿去whitespace解密</p>
-<p><img src="/2022/01/15/zip/1642254325041.png" alt></p>
+<p><img src="/2022/01/15/zip/1642254325041.png" alt=""></p>
 <p>然后snow解密 命令：SNOW.EXE -p 密码 -C 文件</p>
-<p><img src="/2022/01/15/zip/1642254470293.png" alt></p>
+<p><img src="/2022/01/15/zip/1642254470293.png" alt=""></p>
 <p>cazy{C4n_y0u_underSt4nd_th3_b0oK_With0ut_Str1ng}</p>
 <h1 id="爆破压缩包"><a class="header-anchor" href="#爆破压缩包">¶</a>爆破压缩包</h1>
 <p>使用工具爆破，如Advanced Archive Password Recovery</p>
@@ -469,13 +469,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">321k</span>
+    <span title="站点总字数">349k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:52</span>
+    <span title="站点阅读时长">5:17</span>
   </span>
 </div>
 <div class="busuanzi-count">

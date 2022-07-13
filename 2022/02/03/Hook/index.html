@@ -171,18 +171,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -342,7 +342,7 @@
 <p>在Windows中，应用程序不直接调用任何窗口函数，而是等待Windows调用函数窗口，请求完成任务或返回信息。</p>
 <p>为保证Windows调用这个窗口函数，这个函数必须先向Windows登记，然后在Windows实施操作时回调，所以窗口函数又被称为回调函数。WndProc是一个主回调函数，Windows至少有一个回调函数。他是在应用程序进行窗口类注册时向Windows登记的。</p>
 <h1 id="0x01-HOOK"><a class="header-anchor" href="#0x01-HOOK">¶</a>0x01-HOOK</h1>
-<p><img src="/2022/02/03/Hook/20180613200129100" alt></p>
+<p><img src="/2022/02/03/Hook/20180613200129100" alt=""></p>
 <blockquote>
 <p>钩子是Windows消息处理机制的一个平台，应用程序可以在上面设置子程以监视指定窗口的某种消息，而且所监视的窗口可以是其他进程所创建的。</p>
 <p>当消息到达后，钩子可以在目标窗口处理函数之前处理它并且可以阻止消息的传递。</p>
@@ -363,7 +363,7 @@
 <p>HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn,HINSTANCE hMod, DWORD dwThreadId );</p>
 </blockquote>
 <p>其中，idHook是指钩子的类型</p>
-<p><img src="/2022/02/03/Hook/1649502050125.png" alt></p>
+<p><img src="/2022/02/03/Hook/1649502050125.png" alt=""></p>
 <blockquote>
 <p>lpfn是指钩子子程的地址指针。如果dwThreadId参数为0 或是一个由别的进程创建的线程的标识，lpfn必 须指向DLL中的钩子子程。除此以外，lpfn可以指向当前进程的一段钩子子程代码。</p>
 <p>hMod是指应用程序实例的句柄。标识包含lpfn所指的子程的DLL。如果dwThreadId 标识当前进程创建的一个线程，而且子程代码位于当前进程，hMod必须为NULL。</p>
@@ -377,24 +377,24 @@
 <p>参数hhk是etWindowsHookEx()函数返回钩子句柄，函数成功返回TRUE，否则返回FALSE</p>
 <h1 id="题目-BUUCTF-easystrcmp"><a class="header-anchor" href="#题目-BUUCTF-easystrcmp">¶</a>题目-BUUCTF-easystrcmp</h1>
 <p>进入主函数</p>
-<p><img src="/2022/02/03/Hook/1643884712406.png" alt></p>
+<p><img src="/2022/02/03/Hook/1643884712406.png" alt=""></p>
 <p>看似是一个简单的比较，但是输入之后发现并不对</p>
 <p>应该是做了什么处理，动态调试</p>
 <p>点进strcmp函数</p>
-<p><img src="/2022/02/03/Hook/1643884961802.png" alt></p>
+<p><img src="/2022/02/03/Hook/1643884961802.png" alt=""></p>
 <p>发现跳转到了加密函数</p>
 <p>原理分析</p>
 <p>因为存在init段，去查看函数</p>
-<p><img src="/2022/02/03/Hook/1643885017644.png" alt></p>
+<p><img src="/2022/02/03/Hook/1643885017644.png" alt=""></p>
 <p>这样可以查看函数列表进行跳转</p>
-<p><img src="/2022/02/03/Hook/1643885047181.png" alt></p>
+<p><img src="/2022/02/03/Hook/1643885047181.png" alt=""></p>
 <p>进入off函数</p>
-<p><img src="/2022/02/03/Hook/1643885073169.png" alt></p>
+<p><img src="/2022/02/03/Hook/1643885073169.png" alt=""></p>
 <p>第一个函数点进去没发现什么，第二个函数点进去</p>
-<p><img src="/2022/02/03/Hook/1643885101701.png" alt></p>
+<p><img src="/2022/02/03/Hook/1643885101701.png" alt=""></p>
 <p>可以看到先把strcmp函数的地址赋值给qword_201090</p>
 <p>然后把sub_6EA函数赋值给off-102028,点进去</p>
-<p><img src="/2022/02/03/Hook/1643885199097.png" alt></p>
+<p><img src="/2022/02/03/Hook/1643885199097.png" alt=""></p>
 <p>发现正好是strcmp的地址，所以真正运行起来，函数会跳转到sub_6EA函数中，而不是strcmp函数，这样就实现了一个简单的hook</p>
 <p>脚本</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">char</span> flag[]=<span class="string">"********CENSORED********"</span>;</span><br><span class="line">	<span class="keyword">char</span> s[]={<span class="number">0x42</span>, <span class="number">0x09</span>, </span><br><span class="line">  <span class="number">0x4A</span>, <span class="number">0x49</span>, <span class="number">0x35</span>, <span class="number">0x43</span>, <span class="number">0x0A</span>, <span class="number">0x41</span>, <span class="number">0xF0</span>, <span class="number">0x19</span>, <span class="number">0xE6</span>, <span class="number">0x0B</span>, </span><br><span class="line">  <span class="number">0xF5</span>, <span class="number">0xF2</span>, <span class="number">0x0E</span>, <span class="number">0x0B</span>, <span class="number">0x2B</span>, <span class="number">0x28</span>, <span class="number">0x35</span>, <span class="number">0x4A</span>, <span class="number">0x06</span>, <span class="number">0x3A</span>, </span><br><span class="line">  <span class="number">0x0A</span>, <span class="number">0x4F</span>};</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="built_in">strlen</span>(flag);++i)</span><br><span class="line">  {</span><br><span class="line">  	flag[i]+=s[i];</span><br><span class="line">  }</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%s"</span>,flag);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> } </span><br></pre></td></tr></tbody></table></figure>
@@ -455,13 +455,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">321k</span>
+    <span title="站点总字数">349k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:52</span>
+    <span title="站点阅读时长">5:17</span>
   </span>
 </div>
 <div class="busuanzi-count">

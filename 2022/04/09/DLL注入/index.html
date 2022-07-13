@@ -168,18 +168,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">67</span>
+          <span class="site-state-item-count">73</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -382,9 +382,9 @@
 <p>inject.dll</p>
 <figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// dllmain.cpp : 定义 DLL 应用程序的入口点。</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"pch.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> _declspec(dllexport) <span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"helloworld"</span>);</span><br><span class="line">}</span><br><span class="line"><span class="function">BOOL APIENTRY <span class="title">DllMain</span><span class="params">( HMODULE hModule,</span></span></span><br><span class="line"><span class="params"><span class="function">                       DWORD  ul_reason_for_call,</span></span></span><br><span class="line"><span class="params"><span class="function">                       LPVOID lpReserved</span></span></span><br><span class="line"><span class="params"><span class="function">                     )</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">switch</span> (ul_reason_for_call)</span><br><span class="line">    {</span><br><span class="line">    <span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">        MessageBoxA(<span class="number">0</span>, <span class="string">"注入成功"</span>, <span class="string">"Hint"</span>, MB_OK);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> DLL_THREAD_ATTACH:</span><br><span class="line">    <span class="keyword">case</span> DLL_THREAD_DETACH:</span><br><span class="line">    <span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 <h3 id="效果"><a class="header-anchor" href="#效果">¶</a>效果</h3>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655410419.png" alt></p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655410419.png" alt=""></p>
 <p>可以看到在notepad.exe的进程中注入了inject.dll</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655358785.png" alt></p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649655358785.png" alt=""></p>
 <h3 id="附"><a class="header-anchor" href="#附">¶</a>附</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiewneqi/article/details/4683888?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ETopBlog-1.topblog&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ETopBlog-1.topblog&amp;utm_relevant_index=1">https://blog.csdn.net/xiewneqi/article/details/4683888?spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~TopBlog-1.topblog&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~CTRLIST~TopBlog-1.topblog&amp;utm_relevant_index=1</a></p>
 <p>有时候需要提升进程权限</p>
@@ -423,15 +423,15 @@
 <h1 id="0x01-注册表注入"><a class="header-anchor" href="#0x01-注册表注入">¶</a>0x01-注册表注入</h1>
 <h2 id="原理"><a class="header-anchor" href="#原理">¶</a>原理</h2>
 <p>Windows操作系统的注册表默认提供了AppInit_DLLs与LoadAppInit_DLLs两个注册表项</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658626858.png" alt></p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658626858.png" alt=""></p>
 <p>在注册表编辑器中，将要注入的DLL路径字符串写入AppInit_DLLs项目，然后把LoadAppInit_DLLs的项目值设置为1.重启后，指定DLL会注入所有进程。</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658441593.png" alt></p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658441593.png" alt=""></p>
 <h1 id="0x02-SetWindowsHookEx"><a class="header-anchor" href="#0x02-SetWindowsHookEx">¶</a>0x02-SetWindowsHookEx()</h1>
 <p>在另一篇文章Hook写了，就不过多介绍</p>
 <p>下面是更详细的解释</p>
 <p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1199648?msclkid=f79c9cc7b96011ecbdb2f47296f3b9d3">https://cloud.tencent.com/developer/article/1199648?msclkid=f79c9cc7b96011ecbdb2f47296f3b9d3</a></p>
 <p>注入DLL的第三个方法就是消息钩取</p>
-<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658514411.png" alt></p>
+<p><img src="/2022/04/09/DLL%E6%B3%A8%E5%85%A5/1649658514411.png" alt=""></p>
 <h1 id="0x03-还有其他方法"><a class="header-anchor" href="#0x03-还有其他方法">¶</a>0x03-还有其他方法</h1>
 <p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-253918.htm">https://bbs.pediy.com/thread-253918.htm</a></p>
 
@@ -490,13 +490,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">321k</span>
+    <span title="站点总字数">349k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:52</span>
+    <span title="站点阅读时长">5:17</span>
   </span>
 </div>
 <div class="busuanzi-count">
