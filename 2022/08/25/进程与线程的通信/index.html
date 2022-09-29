@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Serif+SC:300,300italic,400,400italic,700,700italic%7CRoboto+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="进程与线程的通信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程与线程的通信">
+<meta property="og:url" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="进程与线程的通信">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661650750289.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661655709477.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661655717925.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661656781866.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661656793282.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661658143013.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661658184863.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661685902421.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661734802012.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661689897124.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661690092331.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661740938764.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836456721.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836601857.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836792311.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836944153.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836986652.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661837122485.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661837960123.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661838508133.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661838166600.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839123742.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839212443.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839518457.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839809183.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839855923.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840207721.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840362045.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840698699.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840797460.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661841489175.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435725924.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435753854.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435800476.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435817631.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661474185837.png">
+<meta property="article:published_time" content="2022-08-25T06:00:44.000Z">
+<meta property="article:modified_time" content="2022-08-30T07:06:48.123Z">
+<meta property="article:author" content="Gift1a">
+<meta property="article:tag" content="Reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661650750289.png">
+
+
+<link rel="canonical" href="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/","path":"2022/08/25/进程与线程的通信/","title":"进程与线程的通信"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>进程与线程的通信 | Hexo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>留言板</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">进程和线程的区别和联系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E8%BF%9B%E7%A8%8B%E7%A9%BA%E9%97%B4"><span class="nav-number">1.2.1.</span> <span class="nav-text">共享进程空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98"><span class="nav-number">1.2.2.</span> <span class="nav-text">共享内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">1.2.3.</span> <span class="nav-text">信号量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E9%94%81"><span class="nav-number">1.2.4.</span> <span class="nav-text">互斥锁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">2.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%85%B1%E4%BA%AB%E7%A9%BA%E9%97%B4"><span class="nav-number">2.1.</span> <span class="nav-text">创建共享空间</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CreateFileMapping"><span class="nav-number">2.1.1.</span> <span class="nav-text">CreateFileMapping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MapViewOfFile"><span class="nav-number">2.1.2.</span> <span class="nav-text">MapViewOfFile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OpenFileMapping"><span class="nav-number">2.1.3.</span> <span class="nav-text">OpenFileMapping</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B-v2"><span class="nav-number">3.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B"><span class="nav-number">3.1.</span> <span class="nav-text">创建线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C"><span class="nav-number">3.2.</span> <span class="nav-text">多线程执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#WaitForSingleObject"><span class="nav-number">3.2.1.</span> <span class="nav-text">WaitForSingleObject()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%92%E6%96%A5%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.2.2.</span> <span class="nav-text">互斥对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E8%BF%9B%E7%A8%8B%E4%BF%9D%E6%8A%A4"><span class="nav-number">4.</span> <span class="nav-text">双进程保护</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%90%E8%BF%9B%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">创建子进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows%E4%B8%8B"><span class="nav-number">4.1.1.</span> <span class="nav-text">Windows下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux%E4%B8%8B"><span class="nav-number">4.1.2.</span> <span class="nav-text">Linux下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QWB-easyre"><span class="nav-number">4.1.3.</span> <span class="nav-text">QWB-easyre</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%80%83%E7%82%B9-v11"><span class="nav-number">4.1.3.1.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90"><span class="nav-number">4.1.3.2.</span> <span class="nav-text">题目分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%90%E8%BF%9B%E7%A8%8B-v2"><span class="nav-number">4.1.3.2.1.</span> <span class="nav-text">子进程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%88%B6%E8%BF%9B%E7%A8%8B"><span class="nav-number">4.1.3.2.2.</span> <span class="nav-text">父进程</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%BE%AA%E7%8E%AF"><span class="nav-number">4.1.3.2.2.1.</span> <span class="nav-text">第一次循环</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E5%BE%AA%E7%8E%AF"><span class="nav-number">4.1.3.2.2.2.</span> <span class="nav-text">第二次循环</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AC%A1%E5%BE%AA%E7%8E%AF"><span class="nav-number">4.1.3.2.2.3.</span> <span class="nav-text">第三次循环</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%81%A2%E5%A4%8DSMC%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="nav-number">4.1.3.3.</span> <span class="nav-text">恢复SMC的数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC%E6%81%A2%E5%A4%8D"><span class="nav-number">4.1.3.3.1.</span> <span class="nav-text">编写脚本恢复</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A9%E7%88%B6%E8%BF%9B%E7%A8%8B%E5%85%88%E7%BB%93%E6%9D%9F%EF%BC%8C%E8%80%8C%E5%AD%90%E8%BF%9B%E7%A8%8B%E5%A4%84%E4%BA%8E%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81%EF%BC%8Cattach%E5%88%B0ida%E4%B8%8A"><span class="nav-number">4.1.3.3.2.</span> <span class="nav-text">让父进程先结束，而子进程处于运行状态，attach到ida上</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A8%E8%B0%83dump%E6%B3%95"><span class="nav-number">4.1.3.3.3.</span> <span class="nav-text">动调dump法</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#exe%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%8A%A0%E8%BD%BD%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">exe文件添加和加载资源文件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">5.1.</span> <span class="nav-text">添加资源文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">加载资源文件</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Gift1a"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Gift1a</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">76</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Gift1a" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Gift1a" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      友链
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://1.12.239.117:8090/" title="http:&#x2F;&#x2F;1.12.239.117:8090&#x2F;" rel="noopener" target="_blank">Fallw1nd</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://equinox-shame.github.io/" title="https:&#x2F;&#x2F;equinox-shame.github.io&#x2F;" rel="noopener" target="_blank">梓曰</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://a2ur2.github.io/" title="https:&#x2F;&#x2F;a2ur2.github.io&#x2F;" rel="noopener" target="_blank">A2ure</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.cnblogs.com/spmonkey/" title="https:&#x2F;&#x2F;www.cnblogs.com&#x2F;spmonkey&#x2F;" rel="noopener" target="_blank">星空</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://gift1a.github.io/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Gift1a">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="进程与线程的通信 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          进程与线程的通信
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-25 14:00:44" itemprop="dateCreated datePublished" datetime="2022-08-25T14:00:44+08:00">2022-08-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-30 15:06:48" itemprop="dateModified" datetime="2022-08-30T15:06:48+08:00">2022-08-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Reverse/" itemprop="url" rel="index"><span itemprop="name">Reverse</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>进程与线程的通信</p>
+<span id="more"></span>
+<h1 id="进程和线程的区别和联系"><a class="header-anchor" href="#进程和线程的区别和联系">¶</a>进程和线程的区别和联系</h1>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1334756">进程的联系和区别</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/403313422">举例理解进程和线程</a></p>
+<h2 id="进程"><a class="header-anchor" href="#进程">¶</a>进程</h2>
+<p><strong>进程是程序在某个数据集合上的一次运行活动，也是操作系统进行资源分配和保护的基本单位</strong>，通俗来说：进程就是程序的一个执行过程</p>
+<p>进程主要有三个部分组成</p>
+<ol>
+<li>
+<p>进程控制块PCB，包含了进程描述信息、进程控制和管理信息、资源分配清单、CPU相关信息</p>
+</li>
+<li>
+<p>数据段，即程序运行过程中的各种数据(比如程序中定义的变量)</p>
+</li>
+<li>
+<p>程序段：就是程序的代码</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661650750289.png" alt=""></p>
+</li>
+</ol>
+<h2 id="线程"><a class="header-anchor" href="#线程">¶</a>线程</h2>
+<p>单个CPU一次只能运行一个任务，而进程就代表CPU所能处理的单个任务，而一个进程可以包括多个线程。<strong>线程是独立调度的基本单位</strong>。 CPU有单核和多核区别，<strong>单核CPU</strong>其实就是多个线程会轮流得到那一个CPU核心的支持；在<strong>多核CPU</strong>中，一个核心可以服务于一个线程，例如我的电脑是4核的话，有四个线程A、B、C、D需要处理，那CPU会将他们分配到核心1、2、3、4，如果还有其他更多的线程，也必须要等待CPU的切换执行。</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9218692cb209">线程的通信和同步方式</a></p>
+<h3 id="共享进程空间"><a class="header-anchor" href="#共享进程空间">¶</a>共享进程空间</h3>
+<p>一个进程的内存空间是共享的，<strong>每个线程都可以使用这些共享内存</strong></p>
+<h3 id="共享内存"><a class="header-anchor" href="#共享内存">¶</a>共享内存</h3>
+<p>当某个线程使用一些共享空间时，其他线程必须等待它试用结束才能继续使用这一块内存</p>
+<h3 id="信号量"><a class="header-anchor" href="#信号量">¶</a>信号量</h3>
+<p>用于保证多个线程不会互相冲突，<strong>互斥体就是其中的一种体现</strong>，通过CreateMutex和ReleaseMutex告知下一个线程此时内存可以访问，BUU-Youngter-drive</p>
+<h3 id="互斥锁"><a class="header-anchor" href="#互斥锁">¶</a>互斥锁</h3>
+<p>防止多个线程同时读写一块内存区域，而互斥锁就是信号量的一种特殊情况</p>
+<h1 id="进程间通信"><a class="header-anchor" href="#进程间通信">¶</a>进程间通信</h1>
+<p><strong>由于资源分配时将资源分配给了不同的进程，这样进程的资源是独立的，进程之间就无法共享数据和进行互相访问，如果我们需要在不同进程之间实现信息交互和状态传递，此时就需要进程间的通信</strong></p>
+<h2 id="创建共享空间"><a class="header-anchor" href="#创建共享空间">¶</a>创建共享空间</h2>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/csafu/article/details/8602142">细节</a></p>
+<h3 id="CreateFileMapping"><a class="header-anchor" href="#CreateFileMapping">¶</a>CreateFileMapping</h3>
+<h3 id="MapViewOfFile"><a class="header-anchor" href="#MapViewOfFile">¶</a>MapViewOfFile</h3>
+<h3 id="OpenFileMapping"><a class="header-anchor" href="#OpenFileMapping">¶</a>OpenFileMapping</h3>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建内存地址，这些函数指定的权限标志和CreateFileMapping中的权限标志不一致，则会执行失败。</span></span><br><span class="line">	<span class="keyword">char</span> init[] = <span class="string">"Helloworld!"</span>;</span><br><span class="line">	<span class="keyword">char</span> <span class="keyword">final</span>[<span class="number">30</span>] = { <span class="number">0</span> };</span><br><span class="line">	<span class="comment">//第一个是需要创建映射的文件句柄，0xFFFF表示创建空间</span></span><br><span class="line">	HANDLE hobject = CreateFileMapping(<span class="number">0</span>, <span class="number">0</span>, PAGE_READWRITE, <span class="number">0</span>, <span class="number">0x1000</span>u, (LPCWSTR)<span class="string">"FLAG"</span>);</span><br><span class="line">	LPVOID address = MapViewOfFile(hobject, <span class="number">0xF001F</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0x1000</span>u);</span><br><span class="line">	<span class="built_in">memcpy</span>((<span class="keyword">void</span>*)address, init, <span class="built_in">strlen</span>(init));</span><br><span class="line">	<span class="comment">//第一个参数是文件映射对对象的句柄，第二个为属性为访问权限</span></span><br><span class="line">	<span class="comment">/*HANDLE hobject1 = CreateFileMappingA(0, 0, PAGE_READWRITE, 0, 0x1000u, "FLAG");</span></span><br><span class="line"><span class="comment">	LPVOID address1 = MapViewOfFile(hobject, 0xF001F, 0, 0, 0x1000u);*/</span></span><br><span class="line">	HANDLE Myshare = OpenFileMapping(FILE_MAP_ALL_ACCESS, FALSE, (LPCWSTR)<span class="string">"FLAG"</span>);</span><br><span class="line">	LPVOID address1 = MapViewOfFile(hobject, <span class="number">0xF001F</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0x1000</span>u);</span><br><span class="line">	<span class="built_in">memcpy</span>(<span class="keyword">final</span>, address1,<span class="built_in">strlen</span>(init));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s"</span>, <span class="keyword">final</span>);</span><br><span class="line">	UnmapViewOfFile(Myshare);</span><br><span class="line">	CloseHandle(address1);</span><br><span class="line">	UnmapViewOfFile((LPVOID)address);</span><br><span class="line">	CloseHandle(hobject);</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="多线程-v2"><a class="header-anchor" href="#多线程-v2">¶</a>多线程</h1>
+<h2 id="创建线程"><a class="header-anchor" href="#创建线程">¶</a>创建线程</h2>
+<p>首先来看创建线程的函数</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//CreateThread</span></span><br><span class="line"><span class="function">HANDLE <span class="title">CreateThread</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  LPSECURITY_ATTRIBUTES lpThreadAttributes,<span class="comment">//安全属性，通常设置为NULL</span></span></span></span><br><span class="line"><span class="params"><span class="function">  SIZE_T dwStackSize,<span class="comment">//参数用于设定参数可以将多少地址空间用于他自己的堆栈，每个线程拥有自己的堆栈</span></span></span></span><br><span class="line"><span class="params"><span class="function">  LPTHREAD_START_ROUTINE lpStartAddress,<span class="comment">//参数用于指明想要新线程执行的线程函数的地址</span></span></span></span><br><span class="line"><span class="params"><span class="function">  LPVOID lpParameter,<span class="comment">//线程函数的参数，在线程启动执行时将该参数传递给线程函数，既可以是数字，也可以是指向包含其他信息的一个数据结构的指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD dwCreationFlags,<span class="comment">//0表示创建完毕后立即调度，CREATE_SUSPENDED表示创建之后挂起</span></span></span></span><br><span class="line"><span class="params"><span class="function">  LPDWORD lpThreadId<span class="comment">//线程ID</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;<span class="comment">//返回值，线程句柄</span></span><br></pre></td></tr></tbody></table></figure>
+<p>线程函数的格式是统一的</p>
+<figure class="highlight less"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">DWORD</span> <span class="selector-tag">WINAPI</span> 函数名(LPVOID 线程参数)</span><br></pre></td></tr></tbody></table></figure>
+<blockquote>
+<p>线程函数放类中需要加static修饰，或者直接放类外</p>
+</blockquote>
+<p>下面是创建线程的例子</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">Thread</span><span class="params">(LPVOID lparam)</span> </span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"This is A Thread Test\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"this is main\n"</span>);</span><br><span class="line">	HANDLE hObject = CreateThread(<span class="number">0</span>, <span class="number">0</span>, Thread, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	CloseHandle(hObject);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>我们在运行时会发现一个问题，多次运行的结果并不相同</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661655709477.png" alt=""></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661655717925.png" alt=""></p>
+<p>这是因为线程原则上是并行执行的，而不是顺序执行的，操作系统来决定线程的执行顺序——<strong>CPU调度</strong>，所以可能是主线程先结束，也可能是其他线程先结束</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661656781866.png" alt=""></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661656793282.png" alt=""></p>
+<p><a target="_blank" rel="noopener" href="https://www.its404.com/article/kofandlizi/6458011">CloseHandle</a></p>
+<p>同时需要注意Closehandle这个函数，<strong>因为他的作用不是用于关闭线程，而是释放线程句柄，表示不再对这个线程进行操作</strong>，线程句柄是一个内核对象，我们可以通过线程句柄来操作线程，<strong>但是线程的生命周期和线程句柄的生命周期不一样的。线程的生命周期就是线程函数从开始执行到return，线程句柄的生命周期是从CreateThread返回到你CloseHandle()</strong></p>
+<p>当我们不再使用句柄时一定要记得释放，因为句柄属于系统资源，使用完就得还回去</p>
+<h2 id="多线程执行"><a class="header-anchor" href="#多线程执行">¶</a>多线程执行</h2>
+<p>通过上面的例子我们可以知道多个线程的执行顺序是由操作系统决定的，但是有时候我们需要明确线程的执行先后顺序，这时候我们就需要对线程进行控制</p>
+<h3 id="WaitForSingleObject"><a class="header-anchor" href="#WaitForSingleObject">¶</a>WaitForSingleObject()</h3>
+<p>使用WaitForSingleObject()来控制</p>
+<p>通过传入线程的句柄和等待的时间(参数中以毫秒为单位)来控制，INFINITE表示无限(0xFFFFFFFF)，即当线程执行完之后再执行其他线程</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WaitForSingleObject(hObject, INFINITE);</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661658143013.png" alt=""></p>
+<p>而没有WaitForSingleObject是这样的</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661658184863.png" alt=""></p>
+<h3 id="互斥对象"><a class="header-anchor" href="#互斥对象">¶</a>互斥对象</h3>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jinxiang1224/p/8468339.html">互斥对象创建</a></p>
+<p><a target="_blank" rel="noopener" href="https://zditect.com/article/11173924.html">多线程环境</a></p>
+<p>互斥对象是系统内核维护的一种数据结构，<strong>它保证了对象对单个线程的访问权</strong></p>
+<p>互斥对象的结构</p>
+<ol>
+<li>一个使用数量：指有多少个线程在调用该对象</li>
+<li>一个线程ID：指互斥对象维护的线程的ID</li>
+<li>一个计数器：表示当前线程调用该对象多少次</li>
+</ol>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line">HANDLE hObject;</span><br><span class="line"><span class="keyword">int</span> k = <span class="number">10</span>;</span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">Fun1</span><span class="params">(LPVOID data)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		WaitForSingleObject(hObject, INFINITE);</span><br><span class="line">		<span class="keyword">if</span> (k-- &gt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"第%d次调用Thread1\n"</span>,k);</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span> {</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">		ReleaseMutex(hObject);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function">DWORD WINAPI <span class="title">Fun2</span><span class="params">(LPVOID data)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">	{</span><br><span class="line">		WaitForSingleObject(hObject, INFINITE);</span><br><span class="line">		<span class="keyword">if</span> (k-- &gt; <span class="number">0</span>)</span><br><span class="line">		{</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"第%d次调用Thread2\n"</span>,k);</span><br><span class="line">		}</span><br><span class="line">		<span class="keyword">else</span> {</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		}</span><br><span class="line">		ReleaseMutex(hObject);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	::hObject = CreateMutex(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);<span class="comment">//表示对全局变量进行赋值</span></span><br><span class="line">	HANDLE hObject1 = CreateThread(<span class="number">0</span>, <span class="number">0</span>, Fun1, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	HANDLE hObject2 = CreateThread(<span class="number">0</span>, <span class="number">0</span>, Fun2, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	CloseHandle(hObject1);</span><br><span class="line">	CloseHandle(hObject2);</span><br><span class="line">	Sleep(<span class="number">0x1000</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661685902421.png" alt=""></p>
+<p>可以看到此时已经是两个线程交替执行了，但是谁先执行还是不确定的</p>
+<p>下面对几个关键的函数进行说明</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HANDLE <span class="title">CreateMutexx</span><span class="params">(<span class="comment">//用于创建或打开一个已经命名或者匿名的互斥对象</span></span></span></span><br><span class="line"><span class="params"><span class="function"> 	LPSECURITY_ATTRIBUTES lpMutexAttributes,<span class="comment">//一般设置为NULL，表示对互斥对象使用默认的安全性</span></span></span></span><br><span class="line"><span class="params"><span class="function">   	BOOL bInitialOwner,<span class="comment">//True表示创建者对象的线程获得该对象的使用权，内部计数器+1，否则该线程不获得互斥对象的所有权</span></span></span></span><br><span class="line"><span class="params"><span class="function">  	LPCSTR lpName<span class="comment">//如果此参数为NULL，表示创建一个匿名的互斥对象</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;<span class="comment">//返回互斥对象的句柄</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL WINAPI <span class="title">ReleaseMutex</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//当我们对共享资源访问结束后，我们需要释放该对象的所有权，让这个互斥对象处于已通知状态，此时调用ReleaseMutex相当于互斥对象的计数器-1</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//当线程调用该函数，表示当前线程使用完毕该资源，其他线程有机会获得对象的所有权，进而访问共享资源</span></span></span></span><br><span class="line"><span class="params"><span class="function">	HANDLE hMutex;<span class="comment">//需要释放的互斥对象的句柄</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">DWORD <span class="title">WaitForSingleObject</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  HANDLE hHandle,<span class="comment">//所请求互斥对象的句柄，一旦互斥对象处于有信号状态，该函数就返回(表示未被使用中)，如果互斥对象一直处于无状态对象(表示在被其他线程使用)，该线程暂停执行</span></span></span></span><br><span class="line"><span class="params"><span class="function">  DWORD dwMilliseconds<span class="comment">//指定等待的时间间隔，以毫秒为单位，INFINITE表示一直等待直到共享资源处于未被使用状态</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="双进程保护"><a class="header-anchor" href="#双进程保护">¶</a>双进程保护</h1>
+<blockquote>
+<p><strong>双进程保护：实际上是程序本身作为以恶搞进程或一个调试器，并且在调试模式下运行自身程序</strong></p>
+</blockquote>
+<p>这种程序的技术特点是</p>
+<ol>
+<li>无法被调试，因为程序本身也是一个调试器，我们直到一般情况下一个程序只能被一个调试器所调试，如果他的程序先抢占作为了调试器，那么我们就没办法进行调试，<strong>所以解决办法只能是在他的调试器附加之前你先开始调试</strong></li>
+<li>一般来说，为了防止你抢占调试器，程序中会添加一个异常处理函数，并且在程序中加入使程序异常的代码，然后程序本身作为调试器对异常进行处理，而我们作为调试者，在调试过程中无法处理异常的代码</li>
+</ol>
+<h2 id="创建子进程"><a class="header-anchor" href="#创建子进程">¶</a>创建子进程</h2>
+<p><strong>在Windows和Linux下的函数不一样</strong>，父进程创建的子进程，如果父进程关闭，子进程不一定关闭</p>
+<h3 id="Windows下"><a class="header-anchor" href="#Windows下">¶</a>Windows下</h3>
+<p>直接通过当前文件和CreateProcess即可</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//CreateProcess说明</span></span><br><span class="line"><span class="function">BOOL <span class="title">CreateProcess</span></span></span><br><span class="line"><span class="function"><span class="params">(  </span></span></span><br><span class="line"><span class="params"><span class="function">    LPCTSTR lpApplicationName,<span class="comment">//要创建进程的文件路径,当其为NULL时，可执行模块的名字必须处于lpCommandLine最前面并且由空格符与后面的字符分开</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPTSTR lpCommandLine,  <span class="comment">//传入给新进程的命令行字符串 </span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">//前两个参数可以搭配使用也可以单独使用</span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPSECURITY_ATTRIBUTES lpProcessAttributes,<span class="comment">//决定句柄是否被子进程继承 </span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPSECURITY_ATTRIBUTES lpThreadAttributes, <span class="comment">//决定线程是否被继承         </span></span></span></span><br><span class="line"><span class="params"><span class="function">    BOOL bInheritHandles, <span class="comment">//指示新进程是否从调用进程继承了句柄，如果为真，调用进程中的每一个可继承的打开句柄都将被子进程继承</span></span></span></span><br><span class="line"><span class="params"><span class="function">    DWORD dwCreationFlags, <span class="comment">//指定附加的、用来控制优先类的进程的创建的表示，他有多个值并且对应不同的含义 </span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPVOID lpEnvironment,<span class="comment">//指向一个新进程的环境块，如果参数为空，新进程使用调用进程的环境          </span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPCTSTR lpCurrentDirectory,<span class="comment">//指定子进程的工作路径 </span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPSTARTUPINFO lpStartupInfo,<span class="comment">//指向一个用于决定新进程主窗体如何实现的STARTINFO结构体，我们只需要给这个结构体的第一个成员(cb)赋值为其结构体大小         </span></span></span></span><br><span class="line"><span class="params"><span class="function">    LPPROCESS_INFORMATION lpProcessInformation<span class="comment">//指向一个用来接收新进程的识别信息的PROCESS_INFORMATION结构体，该结构返回有关新进程及其主线程的信息 </span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="comment">/*</span></span></span></span><br><span class="line"><span class="comment"><span class="params"><span class="function">    HANDLE hPRocess;//进程句柄</span></span></span></span><br><span class="line"><span class="comment"><span class="params"><span class="function">    HANDLE hThread;//主线程句柄</span></span></span></span><br><span class="line"><span class="comment"><span class="params"><span class="function">    DWORD dwProcessId;//进程ID</span></span></span></span><br><span class="line"><span class="comment"><span class="params"><span class="function">    DWORD dwThreadId;//线程ID</span></span></span></span><br><span class="line"><span class="comment"><span class="params"><span class="function">    只要创建成功系统就会给这个结构体赋值</span></span></span></span><br><span class="line"><span class="comment"><span class="params"><span class="function">    */</span></span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;  </span><br></pre></td></tr></tbody></table></figure>
+<p>dwCreationFlags对应的参数，<strong>而我们要实现双进程保护需要使用到DEBUG_PROCESS</strong>，这样调用进程将被作为调试器来调试新进程，并且把调试程序的所有调试时间通知给调试器，可以使用<strong>WaitForDebugEvent函数来接收</strong></p>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/procthread/process-creation-flags">dwCreationFlags常量值</a></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661734802012.png" alt=""></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661689897124.png" alt=""></p>
+<p>dwCreation还可以用来控制新进程的优先类</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661690092331.png" alt=""></p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span>  _CRT_SECURE_NO_WARNINGS</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (argc == <span class="number">2</span>)<span class="comment">//根据命令行参数的个数来区分主进程和子进程</span></span><br><span class="line">	{</span><br><span class="line">		__asm <span class="keyword">int</span> <span class="number">3</span>;<span class="comment">//断点</span></span><br><span class="line">		MessageBoxA(<span class="number">0</span>, (LPCSTR)<span class="string">"这是一个简单的例子"</span>, (LPCSTR)<span class="string">"TraceMe"</span>, <span class="number">0</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	{</span><br><span class="line">		struct _STARTUPINFOW StartupInfo;</span><br><span class="line">		<span class="class"><span class="keyword">struct</span> _<span class="title">PROCESS_INFORMATION</span> <span class="title">ProcessInformation</span>;</span></span><br><span class="line">		GetStartupInfoW(&amp;StartupInfo);</span><br><span class="line">		<span class="comment">//printf("%s\n", argv[0]);</span></span><br><span class="line">		TCHAR CommandLine[] = TEXT(<span class="string">"D:\\new\\wmctf2022\\Test_RAAA\\Release\\Test_RAAA.exe DIO"</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Father\n"</span>);</span><br><span class="line">		BOOL test = CreateProcess(<span class="literal">NULL</span>, CommandLine, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, DEBUG_ONLY_THIS_PROCESS|DEBUG_PROCESS, <span class="number">0</span>, <span class="number">0</span>, &amp;StartupInfo, &amp;ProcessInformation);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, test);</span><br><span class="line">		<span class="class"><span class="keyword">struct</span> _<span class="title">DEBUG_EVENT</span> <span class="title">DebugEvent</span>;</span></span><br><span class="line">		<span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">		{</span><br><span class="line">			WaitForDebugEvent(&amp;DebugEvent, INFINITE);<span class="comment">//等待调试事件</span></span><br><span class="line">			<span class="keyword">if</span> (DebugEvent.dwDebugEventCode == <span class="number">5</span>)</span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">break</span>;<span class="comment">//表示退出调试事件</span></span><br><span class="line">			}</span><br><span class="line">			<span class="keyword">if</span> (DebugEvent.dwDebugEventCode == <span class="number">1</span>)</span><br><span class="line">			{</span><br><span class="line">				<span class="keyword">int</span> test[<span class="number">23</span>];</span><br><span class="line">				CONTEXT Context;</span><br><span class="line">				<span class="comment">//报告异常处理事件</span></span><br><span class="line">				<span class="built_in">memcpy</span>(test, &amp;DebugEvent.u, <span class="number">0x54</span>);</span><br><span class="line">				<span class="keyword">if</span> (test[<span class="number">0</span>] == EXCEPTION_BREAKPOINT)<span class="comment">//如果触发的是断点异常</span></span><br><span class="line">				{</span><br><span class="line">					HANDLE hThread=<span class="literal">NULL</span>;</span><br><span class="line">					<span class="comment">//获取触发异常的上下文数据，然后进行修改后赋值回去</span></span><br><span class="line">					<span class="built_in">memset</span>(&amp;Context, <span class="number">0</span>, <span class="keyword">sizeof</span>(Context));</span><br><span class="line">					Context.ContextFlags = <span class="number">0x10007</span>;</span><br><span class="line">					GetThreadContext(hThread, &amp;Context);</span><br><span class="line">					Context.Eip += <span class="number">1</span>;<span class="comment">//获取上下文信息之后处理异常</span></span><br><span class="line">					SetThreadContext(hThread, &amp;Context);</span><br><span class="line">				}</span><br><span class="line">			}</span><br><span class="line">			ContinueDebugEvent(DebugEvent.dwProcessId, DebugEvent.dwThreadId, <span class="number">0x10002</span>);<span class="comment">//继续执行子进程</span></span><br><span class="line">		}</span><br><span class="line">	}</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/debug/getexceptioncode">DebugEvent.Code</a></p>
+<h3 id="Linux下"><a class="header-anchor" href="#Linux下">¶</a>Linux下</h3>
+<p>使用fork函数</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line">    pid=fork();</span><br><span class="line">    <span class="keyword">if</span>(pid&lt;<span class="number">0</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"创建子进程失败\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid==<span class="number">0</span>)</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"进入子进程,进程ID为%d\n"</span>,getpid());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span>{</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"这是父进程，进程ID为%d\n"</span>,getpid());</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661740938764.png" alt=""></p>
+<p>子进程创建之后我们可以使用ptrace进行跟踪，**Ptrace 可以让父进程控制子进程运行，并可以检查和改变子进程的核心image的功能 **</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b1f9d6911c90">Linux ptrace</a></p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-265812.htm#:~:text=ptrace%20%28PTRACE_foom%2C%20pid%2C...%29%20%2F%2F%20pid%E4%B8%BAlinux%E4%B8%AD%E5%AF%B9%E5%BA%94%E7%9A%84%E7%BA%BF%E7%A8%8BID%20%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E8%B0%83%E7%94%A8%20fork%20%28%29,%EF%BC%8C%E7%84%B6%E5%90%8E%E6%89%A7%E8%A1%8C%20execve%20%28%E4%B8%80%E8%88%AC%E6%83%85%E5%86%B5%E4%B8%8B%29%E6%9D%A5%E5%90%AF%E5%8A%A8%E8%B7%9F%E8%B8%AA%E3%80%82%20%E8%BF%9B%E7%A8%8B%E4%B9%9F%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8%20PTRACE_ATTACH%20%E6%88%96%20PTRACE_SEIZE%20%E8%BF%9B%E8%A1%8C%E8%B7%9F%E8%B8%AA%E3%80%82">Linux Ptrace</a></p>
+<h3 id="QWB-easyre"><a class="header-anchor" href="#QWB-easyre">¶</a>QWB-easyre</h3>
+<h4 id="考点-v11"><a class="header-anchor" href="#考点-v11">¶</a>考点</h4>
+<p>PTRACE双进程保护、SMC</p>
+<h4 id="题目分析"><a class="header-anchor" href="#题目分析">¶</a>题目分析</h4>
+<p>首先使用Finger恢复符号</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836456721.png" alt=""></p>
+<blockquote>
+<p>这里ptrace的值原本是0，而ptrace的第一个参数是个共用体，我们可以将鼠标置于第一个参数上，然后按M导入enum，搜索对应的共用体即可</p>
+</blockquote>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836601857.png" alt=""></p>
+<p>程序首先创建re3文件，将内嵌的ELF文件数据写入文件中，然后fork一个子进程，此时若是父进程fork，会返回子进程的PID，进入if语句，子进程fork返回值为0，进入else语句，接着让生成的子<strong>进程执行PTRACE_TRACEME，然后启动新的程序re3文件，此时re3作为新的进程替换子进程</strong>，（这一过程就相当于Windows中的双击程序之后先创建explorer进程，然后通过explorer进程运行我们想打开的程序，然后explorer进程就相当于结束了，而我们的程序变成了新的进程）那么<strong>re3仍然接受父进程的调试并且继承原来进程的命令行参数</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yangbodong22011/article/details/50197785">execve函数</a></p>
+<h5 id="子进程-v2"><a class="header-anchor" href="#子进程-v2">¶</a>子进程</h5>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836792311.png" alt=""></p>
+<p>首先进行命令行参数判断，<strong>由于使用execve函数创建进程时继承了原本进程的命令行参数，而原本进程是父进程的子进程，继承了父进程的命令行参数</strong>，所以待会调试的时候需要加上命令行参数</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836944153.png" alt=""></p>
+<p>然后在另一函数处发现了一处SMC，int 3断点会使得子进程通知，并且通知父进程调试，由父进程处理</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661836986652.png" alt=""></p>
+<p>恢复数据之后的就是数织游戏，并且在init处对数据进行了修改，并且使用了setjmp和longjmp代替了循环</p>
+<p><a target="_blank" rel="noopener" href="http://www.52cxydh.com/docs/cyuyanjiaocheng/qita/cyuyanzhongde-setjump-he-longjump">setjmp和longjmp</a></p>
+<h5 id="父进程"><a class="header-anchor" href="#父进程">¶</a>父进程</h5>
+<h6 id="第一次循环"><a class="header-anchor" href="#第一次循环">¶</a>第一次循环</h6>
+<p><strong>waitpid函数用于停止父进程，等待子进程执行</strong></p>
+<p>由于原先创建的子进程被替换了，所以信号量会被发送到父进程中，接受到之后使用PTRACE_CONT使子进程继续执行</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661837122485.png" alt=""></p>
+<p>接着通过prop/{pid}/maps获取子进程程序的开始地址，再从内存中read数据，这里的数据很特殊需要注意一下，第一个存储的是长度</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661837960123.png" alt=""></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661838508133.png" alt="从内存中read的数据"></p>
+<p>然后继续waitpid，之后子进程运行到第一处int 3中断，返回父进程处理，首先使用<strong>PTRACE_GETREGS</strong>获取子进程中寄存器的值存储到REG结构体中（这里我没创建结构体(绝对不是因为我们找到REG的结构体成员)，所以看起来很怪，因为看不出来哪里给Rip_addr进行了赋值，但实际上这里就是RIP）</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661838166600.png" alt=""></p>
+<p>紧接着<strong>PTRACE_PEEKTEXT</strong>从目标地址中返回数据，从接受到的数据我们可以知道返回的数据类型为QWORD，而这个数据正好是子进程int 3断点位置处的数据</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839123742.png" alt="返回的数据"></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839212443.png" alt="子进程int 3处的数据"></p>
+<p>接下里进入SMC函数，首先获取长度0x27，然后获取异常处地址然后+10处的数据，<strong>read_from_addr函数通过异常处+10位置-程序开始的地址然后从前面读出来的一大串数据进行比对取值</strong>，比如此次相减得到0x2213，也就是8723，那么对应得到820555419</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839518457.png" alt=""></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839809183.png" alt=""></p>
+<p>而0x2213正好是int 3断点处+10</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661839855923.png" alt=""></p>
+<p>接着对得到的820555419字符串进行MD5加密，再从后往前开始传递数据，只传递一半，并且将数据改为字符串形式，最后将字符串改为QWORD，<strong>比如820555419MD5之后为357C98DED772654AE188CFC9EA1C2723，从后往前每两个一组转为字符串，得到23271CEAC9CF88E1，最后转为QWORD:0x23271CEAC9CF88E1h</strong>，然后和原来地址处的值异或</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840207721.png" alt=""></p>
+<p>最后<strong>PTRACE_POKETEXT</strong>将数据写回去</p>
+<p>for循环直到所有地址处的数据都进行SMC解密</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840362045.png" alt=""></p>
+<p>结束SMC之后修改RIP，然后将新的REG结构体写入子进程中，并且调用<strong>PTRACE_CONT</strong>从新的地址处开始执行</p>
+<h6 id="第二次循环"><a class="header-anchor" href="#第二次循环">¶</a>第二次循环</h6>
+<p>程序继续wait，等到程序运行到第二个int 3处，此时该地址的QWORD的值正好为0xCAFE1055BFCCLL</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840698699.png" alt=""></p>
+<p>进入else中</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661840797460.png" alt=""></p>
+<p>此时就是对原来SMC的数据进行重新加密并放入子进程中</p>
+<h6 id="第三次循环"><a class="header-anchor" href="#第三次循环">¶</a>第三次循环</h6>
+<p>最后waitpid等待子进程结束，返回信号，最后remove掉re3文件，父进程退出</p>
+<h4 id="恢复SMC的数据"><a class="header-anchor" href="#恢复SMC的数据">¶</a>恢复SMC的数据</h4>
+<h5 id="编写脚本恢复"><a class="header-anchor" href="#编写脚本恢复">¶</a>编写脚本恢复</h5>
+<p>首先我们先<strong>使用条件断点</strong>获取到最终异或的值，然后编写idapython脚本恢复数据并且nop掉一些没用的数据</p>
+<p>Edit BreakPoint-&gt;“…”-&gt;编写脚本打印RAX寄存器的值</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661841489175.png" alt=""></p>
+<p>得到</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x23271ceac9cf88e1</span>,<span class="number">0x4d9403a34275494c</span>,<span class="number">0xf1ac2fea63c94ea9</span>,<span class="number">0xf32554baaf233dcc</span>,<span class="number">0xad5ea15de7bcf568</span>,<span class="number">0xabdfc454b2ec9fd0</span>,<span class="number">0xa5ee2b4680957b2b</span>,<span class="number">0xaf42f81128b7fb38</span>,<span class="number">0xca34bde4268cae3</span>,<span class="number">0x4ee274bc39f2d547</span>,<span class="number">0x53458e3ea10ab93b</span>,<span class="number">0x2e5fb32efac34cff</span>,<span class="number">0x99f8f6faa7a64aec</span>,<span class="number">0xef38004300eda44d</span>,<span class="number">0xee67c44e2bcd18fc</span>,<span class="number">0x9b1c209768ecb41e</span>,<span class="number">0xfae74344fcba3cdb</span>,<span class="number">0x62654e739151118d</span>,<span class="number">0xbfa53d12825ac60</span>,<span class="number">0x5fda7e9212d8d034</span>,<span class="number">0xe8e15b2ffd058214</span>,<span class="number">0x6258db99ec82ff1f</span>,<span class="number">0xc1f8d40001b68bf6</span>,<span class="number">0x6211d421f8ab1d50</span>,<span class="number">0xd25bc129ebbbd366</span>,<span class="number">0xaea9e2a30d3fcd24</span>,<span class="number">0x12e2013bc48da1de</span>,<span class="number">0x1db06bde7ca30286</span>,<span class="number">0x226499b91812859b</span>,<span class="number">0xb2b0d80d0f244ce4</span>,<span class="number">0xfba26ec5f66ad4a5</span>,<span class="number">0xef4975489b39baa5</span>,<span class="number">0x75da0adeb0d03511</span>,<span class="number">0xcbb9c9ef1c68088d</span>,<span class="number">0xb707f2ec82b077b8</span>,<span class="number">0x4989b97aadc513bb</span>,<span class="number">0x74c613b6d47fcde</span>,<span class="number">0x1d6396837a7ad9d8</span>,<span class="number">0x7f1a74782535fe54</span></span><br></pre></td></tr></tbody></table></figure>
+<p>然后写脚本将对应位置处的值异或上即可</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xor_data = {<span class="number">8723</span>: <span class="number">2533025110152939745</span>, <span class="number">8739</span>: <span class="number">5590097037203163468</span>, <span class="number">8755</span>: <span class="number">17414346542877855401</span>, <span class="number">8771</span>: <span class="number">17520503086133755340</span>, <span class="number">8787</span>: <span class="number">12492599841064285544</span>, <span class="number">8803</span>: <span class="number">12384833368350302160</span>, <span class="number">8819</span>: <span class="number">11956541642520230699</span>, <span class="number">8835</span>: <span class="number">12628929057681570616</span>, <span class="number">8851</span>: <span class="number">910654967627959011</span>, <span class="number">8867</span>: <span class="number">5684234031469876551</span>, <span class="number">8883</span>: <span class="number">6000358478182005051</span>, <span class="number">8899</span>: <span class="number">3341586462889168127</span>, <span class="number">8915</span>: <span class="number">11094889238442167020</span>, <span class="number">8931</span>: <span class="number">17237527861538956365</span>, <span class="number">8947</span>: <span class="number">17178915143649401084</span>, <span class="number">8963</span>: <span class="number">11176844209899222046</span>, <span class="number">8979</span>: <span class="number">18079493192679046363</span>, <span class="number">8995</span>: <span class="number">7090159446630928781</span>, <span class="number">9011</span>: <span class="number">863094436381699168</span>, <span class="number">9027</span>: <span class="number">6906972144372600884</span>, <span class="number">9043</span>: <span class="number">16780793948225765908</span>, <span class="number">9059</span>: <span class="number">7086655467811962655</span>, <span class="number">9075</span>: <span class="number">13977154540038163446</span>, <span class="number">9091</span>: <span class="number">7066662532691991888</span>, <span class="number">9107</span>: <span class="number">15157921356638311270</span>, <span class="number">9123</span>: <span class="number">12585839823593393444</span>, <span class="number">9139</span>: <span class="number">1360651393631625694</span>, <span class="number">9155</span>: <span class="number">2139328426318955142</span>, <span class="number">9171</span>: <span class="number">2478274715212481947</span>, <span class="number">9187</span>: <span class="number">12876028885252459748</span>, <span class="number">9203</span>: <span class="number">18132176846268847269</span>, <span class="number">9219</span>: <span class="number">17242441603067001509</span>, <span class="number">9235</span>: <span class="number">8492111998925944081</span>, <span class="number">9251</span>: <span class="number">14679986489201789069</span>, <span class="number">9267</span>: <span class="number">13188777131396593592</span>, <span class="number">9283</span>: <span class="number">5298970373130621883</span>, <span class="number">9299</span>: <span class="number">525902164359904478</span>, <span class="number">9315</span>: <span class="number">2117701741234018776</span>, <span class="number">9331</span>: <span class="number">9158760851580517972</span>}</span><br><span class="line"></span><br><span class="line">addr = <span class="number">0x2213</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">    data = get_qword(addr)</span><br><span class="line">    key = xor_data[addr]</span><br><span class="line">    dec = data ^ key</span><br><span class="line">    idc.patch_qword(addr, dec)</span><br><span class="line">    addr += <span class="number">16</span></span><br></pre></td></tr></tbody></table></figure>
+<h5 id="让父进程先结束，而子进程处于运行状态，attach到ida上"><a class="header-anchor" href="#让父进程先结束，而子进程处于运行状态，attach到ida上">¶</a>让父进程先结束，而子进程处于运行状态，attach到ida上</h5>
+<p>需要先对程序patch，首先为了让子进程不结束，我们需要使子进程进入死循环，即原地TP，接着就是不让父进程对子进程解密后的结果加密，也就是修改为XOR 0，最后要让父进程提前结束而不是父进程等待子进程结束之后再结束，需要修改for循环次数为2次，此时所有的patch都已经执行完毕</p>
+<p><a target="_blank" rel="noopener" href="http://1.12.239.117:8090/archives/qwb2022-easyre">FallW1nd的神之一手</a></p>
+<h5 id="动调dump法"><a class="header-anchor" href="#动调dump法">¶</a>动调dump法</h5>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ug411y77V?spm_id_from=333.337.search-card.all.click">Itlly师傅的动调dump大法</a></p>
+<h1 id="exe文件添加和加载资源文件"><a class="header-anchor" href="#exe文件添加和加载资源文件">¶</a>exe文件添加和加载资源文件</h1>
+<h2 id="添加资源文件"><a class="header-anchor" href="#添加资源文件">¶</a>添加资源文件</h2>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435725924.png" alt=""></p>
+<p>然后导入文件即可</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435753854.png" alt=""></p>
+<p><strong>然后为资源类型命名</strong></p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435800476.png" alt="1661435800476"></p>
+<p>效果如下</p>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661435817631.png" alt=""></p>
+<h2 id="加载资源文件"><a class="header-anchor" href="#加载资源文件">¶</a>加载资源文件</h2>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HRSRC test = FindResourceA(<span class="number">0</span>,(LPCSTR)<span class="number">101</span>, <span class="string">"EXEC"</span>);<span class="comment">//第二个参数是名称，第三个参数是类型</span></span><br><span class="line">	DWORD Size = SizeofResource(<span class="number">0</span>, test);</span><br><span class="line">	HGLOBAL hResData = LoadResource(<span class="number">0</span>, test);<span class="comment">//返回资源的句柄</span></span><br><span class="line">	LPCVOID lpBuffer = LockResource(hResData);<span class="comment">//返回资源的第一个字节的地址</span></span><br><span class="line">	HANDLE hFile = CreateFileA(<span class="string">"tmp.exe"</span>, <span class="number">0xC0000000</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">0x80</span>, <span class="number">0</span>);<span class="comment">//创建文件句柄</span></span><br><span class="line">	DWORD NumberofByteWritten = <span class="number">0</span>;</span><br><span class="line">	BOOL <span class="keyword">final</span> = WriteFile(hFile, lpBuffer, Size, &amp;NumberofByteWritten, <span class="number">0</span>);<span class="comment">//写入文件</span></span><br><span class="line">	FlushFileBuffers(hFile);</span><br><span class="line">	CloseHandle(hFile);</span><br></pre></td></tr></tbody></table></figure>
+<p><img src="/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/1661474185837.png" alt=""></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reverse/" rel="tag"># Reverse</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/13/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/" rel="prev" title="数据结构与算法刷题">
+                  <i class="fa fa-chevron-left"></i> 数据结构与算法刷题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/08/30/IDAPython/" rel="next" title="IDAPython">
+                  IDAPython <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Gift1a</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">489k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:25</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="https://cdn.jsdelivr.net/npm/ribbon.js@1.0.2/dist/ribbon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+
+<script class="next-config" data-name="valine" type="application/json">{"enable":true,"appId":"GhjDb9gbtgwnrtsySW3fcGac-MdYXbMMI","appKey":"0Qw5kecTryGX5eSrEvShaWPw","serverURLs":"https://ghjdb9gb.api.lncldglobal.com","placeholder":"Just go go","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":null,"visitor":"false# Article reading statistic","comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[],"el":"#valine-comments","path":"/2022/08/25/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%80%9A%E4%BF%A1/"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.valine.el)
+    .then(() => NexT.utils.getScript(
+      'https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js',
+      { condition: window.Valine }
+    ))
+    .then(() => {
+      new Valine(CONFIG.valine);
+    });
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
+</html>

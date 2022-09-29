@@ -20,15 +20,35 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"gift1a.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"always","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"stickytabs":false,"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="article">
+    <meta name="description" content="TLS回调函数和_initterm">
+<meta property="og:type" content="article">
 <meta property="og:title" content="TLS和main前的初始化">
 <meta property="og:url" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="TLS回调函数和_initterm">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/921830_NGG6PFCV4Y3JV2A.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/921830_KAKMQQXZQ6CSG96.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660156917230.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660157006375.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660157017354.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660195964084.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660160685756.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660195777264.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660195762159.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163017555.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163060881.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660162773317.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163723641.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163738434.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163775047.png">
+<meta property="og:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163823588.png">
 <meta property="article:published_time" content="2022-06-18T09:08:22.000Z">
-<meta property="article:modified_time" content="2022-06-18T09:08:22.399Z">
+<meta property="article:modified_time" content="2022-08-12T17:52:00.230Z">
 <meta property="article:author" content="Gift1a">
+<meta property="article:tag" content="Reverse">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/921830_NGG6PFCV4Y3JV2A.png">
 
 
 <link rel="canonical" href="https://gift1a.github.io/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/">
@@ -130,7 +150,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,6 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TLS%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">TLS回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TLS%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0-v2"><span class="nav-number">1.1.</span> <span class="nav-text">TLS回调函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TLS%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">TLS回调函数的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#initterm"><span class="nav-number">2.</span> <span class="nav-text">_initterm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0-v2"><span class="nav-number">2.1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%AE%B5"><span class="nav-number">2.2.</span> <span class="nav-text">创建段</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -157,13 +178,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">76</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -262,6 +283,13 @@
 
       <time title="创建时间：2022-06-18 17:08:22" itemprop="dateCreated datePublished" datetime="2022-06-18T17:08:22+08:00">2022-06-18</time>
     </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-13 01:52:00" itemprop="dateModified" datetime="2022-08-13T01:52:00+08:00">2022-08-13</time>
+    </span>
 
   
   
@@ -284,14 +312,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>0</span>
+      <span>4.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -302,7 +330,95 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <p>TLS回调函数和_initterm</p>
+<span id="more"></span>
+<h1 id="TLS回调函数"><a class="header-anchor" href="#TLS回调函数">¶</a>TLS回调函数</h1>
+<p>在介绍TLS回调函数之前，可以先了解一下TLS</p>
+<p>[TLS及其分类][<a target="_blank" rel="noopener" href="https://www.cnblogs.com/revercc/p/14348817.html">https://www.cnblogs.com/revercc/p/14348817.html</a>]</p>
+<blockquote>
+<p>Thread Local Storage（TLS），线程局部存储：各线程独立的数据存储空间。使用TLS技术可以在线程内部独立使用或修改进程的全局数据或静态数据， 就像对待自身的局部变量一样</p>
+</blockquote>
+<h2 id="TLS回调函数-v2"><a class="header-anchor" href="#TLS回调函数-v2">¶</a>TLS回调函数</h2>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-267175.htm">TLS_callback</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.cnitblog.com/textbox/archive/2010/09/27/69239.html#Post">TLS_callback</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/xiao_yi_xiao/article/details/121762629">反调试和TLS回调函数</a></p>
+<p>TLS回调函数要执行需要经历下面三个步骤</p>
+<ol>
+<li>在链接(link)时，链接器要在PE文件中创建TLS目录</li>
+<li>在创建线程时，加载器(loader)会从TEB(Thread Environment Block，线程环境块，通过FS段寄存器可以获取TEB的位置)中获取一个指向TLS回调函数数组的指针</li>
+<li>如果在TLS回调函数数组不是一个空的数组，加载器就会顺序执行这个数组中的各个回调函数</li>
+</ol>
+<p><strong>TLS回调函数用于反调试，主要是利用于TLS回调函数的调用要先于EP代码的执行</strong>，也就是在主线程创建之前先执行TLS回调函数。</p>
+<blockquote>
+<p><strong>TLS回调函数是每当创建或终止进程的线程时会自动调用执行的函数</strong>。创建进程的主线程的时候也会自动调用回调函数</p>
+</blockquote>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/921830_NGG6PFCV4Y3JV2A.png" alt=""></p>
+<p>从上图中，我们可以看出TLS回调函数和DllMain的定义是类似的，其中第一个参数表示模块句柄，第二个参数表示调用TLS回调函数的原因</p>
+<p>Reason的类型有如下四种，下面是定义</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/921830_KAKMQQXZQ6CSG96.png" alt="图片描述"></p>
+<blockquote>
+<p>DLL_PROCESS_ATTACH-1：新进程创建时，在初始化主线程时执行</p>
+<p>DLL_THREAD_ATTACH-2：在新线程创建时执行，但不包括主线程</p>
+<p>DLL_THREAD_DETACH-3：指所有线程终止时执行，但不包括主线程</p>
+<p>DLL_PROCESS_DETACH-0：进程终止时执行</p>
+</blockquote>
+<h3 id="TLS回调函数的实现"><a class="header-anchor" href="#TLS回调函数的实现">¶</a>TLS回调函数的实现</h3>
+<p>下面的代码是基于Release版的X86程序。接下来说一下这个程序的问题，使用Release\X64，无法成功调用TLS回调函数，而使用Debug\X64,Debug\X86只能在主线程创建前调用，而在主线程结束之后没有调用</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span>  </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> NTAPI __stdcall <span class="title">TLS_CALLBACK1</span><span class="params">(PVOID DllHandle, DWORD dwReason, PVOID Reserved)</span></span>;<span class="comment">//TLS回调函数的声明</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _M_IX86  <span class="comment">//判断当前编译模式是32位还是64位,然后通知链接器要创建TLS目录</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">"/INCLUDE:__tls_used"</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">"/INCLUDE:__tls_callback"</span>)  </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span>  </span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">"/INCLUDE:_tls_used"</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment (linker, <span class="meta-string">"/INCLUDE:_tls_callback"</span>) <span class="comment">//对应64位模式，通知编译器存在tls段 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span>  </span></span><br><span class="line"></span><br><span class="line">EXTERN_C</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">创建一个TLS段，注册TLS函数</span></span><br><span class="line"><span class="comment">.CRTXLX的作用：</span></span><br><span class="line"><span class="comment">CRT表示使用C Runtime机制</span></span><br><span class="line"><span class="comment">X表示表示名随机</span></span><br><span class="line"><span class="comment">L表示TLS CallBack Section</span></span><br><span class="line"><span class="comment">X可以换成B~Y其中任意一个字符</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _M_X64  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> const_seg (<span class="meta-string">".CRT$XLB"</span>)  </span></span><br><span class="line"><span class="keyword">const</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span>  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg (<span class="meta-string">".CRT$XLB"</span>)  </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span>   </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg()</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> const_seg()</span></span><br><span class="line">PIMAGE_TLS_CALLBACK _tls_callback[] = { TLS_CALLBACK1,<span class="number">0</span> };<span class="comment">//TLS_CALLBACK数组存储回调函数，以0结尾</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//根据TLS回调函数的定义创建TLS回调函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> NTAPI __stdcall <span class="title">TLS_CALLBACK1</span><span class="params">(PVOID DllHandle, DWORD Reason, PVOID Reserved)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Reason);</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">IsDebuggerPresent</span>())</span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"TLS_CALLBACK: Debugger Detected!\n"</span>);</span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    {</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"TLS_CALLBACK: No Debugger Present!\n"</span>);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>效果</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660156917230.png" alt=""></p>
+<p>ida中</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660157006375.png" alt=""></p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660157017354.png" alt="ida中TLS回调函数"></p>
+<h1 id="initterm"><a class="header-anchor" href="#initterm">¶</a>_initterm</h1>
+<p>参考文章：</p>
+<p><a target="_blank" rel="noopener" href="https://www.dazhuanlan.com/relic256/topics/1212274">程序入口点与main函数</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liu5320102/article/details/46375799">initterm</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41006901/article/details/107639086">在main前执行函数</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cxybb.com/article/xiaofengsheng/5367801">全局构造函数执行</a></p>
+<p>在Windows平台中，执行我们手写的main函数之前，系统会执行一段mainCRTStartup代码，其中不同版本的实现也是不同的</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660195964084.png" alt=""></p>
+<p>其对系统的堆栈、全局变量、命令行参数、环境变量等进行初始化操作，而_init_term就是对全局变量进行初始化的函数，其在main函数前执行</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660160685756.png" alt=""></p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660195777264.png" alt=""></p>
+<p>并且对于函数指针数组</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660195762159.png" alt=""></p>
+<p>其中__xc_a和__xc_z是两个函数指针</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//__xc_a, __xc_z的定义</span></span><br><span class="line">_CRTALLOC(<span class="string">".CRT$XCA"</span>) _PVFV __xc_a[] = {<span class="literal">NULL</span>};</span><br><span class="line">_CRTALLOC(<span class="string">".CRT$XCZ"</span>) _PVFV __xc_z[] = {<span class="literal">NULL</span>};</span><br><span class="line"></span><br><span class="line"><span class="comment">//_CRTALLOC的定义</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> section(<span class="meta-string">".CRT$XCA"</span>, long, read)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> section(<span class="meta-string">".CRT$XCZ"</span>, long, read)</span></span><br></pre></td></tr></tbody></table></figure>
+<p>而initterm函数的内容如下</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> __cdecl _initterm (_PVFV * pfbegin,_PVFV * pfend)</span><br><span class="line">{</span><br><span class="line"><span class="keyword">while</span> ( pfbegin &lt; pfend )</span><br><span class="line">{</span><br><span class="line"><span class="keyword">if</span> ( *pfbegin != <span class="literal">NULL</span> )</span><br><span class="line">	(**pfbegin)();</span><br><span class="line">	++pfbegin;</span><br><span class="line">}</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>PVFV的定义</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(__cdecl *_PVFV)</span><span class="params">()</span></span>;</span><br></pre></td></tr></tbody></table></figure>
+<p>可以看出initterm就是遍历上面两个函数指针之间的所有函数并执行</p>
+<p>我们有两种办法在这两个函数指针之间添加函数</p>
+<h2 id="构造函数-v2"><a class="header-anchor" href="#构造函数-v2">¶</a>构造函数</h2>
+<p>全局对象的构造函数会被加入到a和z之间，注意下面的例子是Release的，使用Debug模式编译出来的也是一样效果，但是在ida中a和z之间还有很多0进行填充，如下两图</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163017555.png" alt=""></p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163060881.png" alt=""></p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">data</span></span></span><br><span class="line"><span class="class">{</span></span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">data</span>();</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">data::<span class="built_in">data</span>()</span><br><span class="line">{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"hello\n"</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">data test;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"world"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>通过全局对象的构造函数在cpp的初始化中添加函数</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660162773317.png" alt=""></p>
+<p>从ida的注释定义也可以看出是函数指针以及其含义</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (__fastcall *pre_cpp_initializer)()</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="创建段"><a class="header-anchor" href="#创建段">¶</a>创建段</h2>
+<p>注意：以下代码只有在Debug模式下可以得到想要的效果</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SECNAME <span class="meta-string">".CRT$XCG"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> section(SECNAME,long,read)<span class="comment">//创建段，在__xc_a和__xc_z之间</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">foo</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	std::cout &lt;&lt; <span class="string">"hello"</span> &lt;&lt; std::endl;</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span><span class="params">(__cdecl* _PVFV)</span><span class="params">()</span></span>;<span class="comment">//定义和__xc_a和__xc_z一样类型的函数</span></span><br><span class="line">__declspec(<span class="built_in">allocate</span>(SECNAME)) _PVFV dummy[] = { foo };<span class="comment">//在创建的段中生成数据，我们这里将函数的地址存储进去</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"world"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>效果</p>
+<p>因为我们添加的是xcg，所以只看对于cpp的xca和xcz之间的</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163723641.png" alt=""></p>
+<p>xca段的地址</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163738434.png" alt=""></p>
+<p>xcz段的地址</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163775047.png" alt=""></p>
+<p>添加的xcg段的地址</p>
+<p><img src="/2022/06/18/TLS%E5%92%8Cmain%E5%89%8D%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96/1660163823588.png" alt=""></p>
+<p>可以发现这是介于两函数指针之间的，所以是会被遍历到并且执行的</p>
+<p><strong>而我们想在C的全局对象初始化数组中添加函数只需要修改段的名称为.CRT$XIG</strong></p>
+<p>也可以按照上述链接中的代码进行</p>
+<figure class="highlight cpp"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1.通过段名称“.CRT$XIU”，“.CRT$XCU”把函数表放在“C/C++初始化函数表”中</span></span><br><span class="line"><span class="comment">//通过特殊的段名称“.CRT$XIU”，“.CRT$XCU”，</span></span><br><span class="line"><span class="comment">//链接器会把before1表放在“C初始化函数表”中，类似这样</span></span><br><span class="line"><span class="comment">//[__xi_a, ..., before1(xiu), ..., __xi_z].</span></span><br><span class="line"><span class="comment">//同理，before2表会被链接器放在“C++初始化函数表”中，象这样</span></span><br><span class="line"><span class="comment">//[__xc_a, ..., before2(xcu), ..., __xc_z]，</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">before_main1</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>{  </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"before_main1()\n"</span>);  </span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">}  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">before_main2</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function"></span>{  </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"before_main2()\n"</span>);  </span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">}  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">after_main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"after_main()\n"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">int</span> <span class="title">func</span><span class="params">()</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg(<span class="meta-string">".CRT$XIU"</span>)  <span class="comment">//用#pragma data_seg建立一个新的数据段并定义共享数据</span></span></span><br><span class="line"><span class="comment">//static func * before1[] = { before_main1 };  </span></span><br><span class="line">func *before1 = before_main1;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg(<span class="meta-string">".CRT$XCU"</span>)  </span></span><br><span class="line"><span class="comment">//static func * before2[] = { before_main2 };  </span></span><br><span class="line">func *before2 = before_main2;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg() </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">	_onexit(after_main);</span><br><span class="line">	cout&lt;&lt;<span class="string">"this's main start"</span>&lt;&lt;endl;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>但是只能在Debug\X86下能得到想要的结果</p>
+
     </div>
 
     
@@ -310,6 +426,9 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Reverse/" rel="tag"># Reverse</a>
+          </div>
 
         
 
@@ -320,8 +439,8 @@
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/07/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="next" title="数据结构与算法">
-                  数据结构与算法 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/07/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
@@ -355,13 +474,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">349k</span>
+    <span title="站点总字数">489k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:17</span>
+    <span title="站点阅读时长">7:25</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -424,7 +543,7 @@ document.addEventListener('page:loaded', () => {
       new Valine(CONFIG.valine);
     });
 });
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script></body>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false});</script><!-- hexo-inject:begin --><!-- hexo-inject:end --></body>
 </html>
