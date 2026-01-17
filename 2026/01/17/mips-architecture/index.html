@@ -17,17 +17,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
-  <title>mips_architecture - Gift1a的小宇宙</title>
+  <title>Mips指令集解码 - Gift1a的小宇宙</title>
 
   
     <meta property="og:type" content="article">
-<meta property="og:title" content="mips_architecture">
+<meta property="og:title" content="Mips指令集解码">
 <meta property="og:url" content="http://gift1a.cn/2026/01/17/mips-architecture/">
 <meta property="og:site_name" content="Gift1a的小宇宙">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg">
 <meta property="article:published_time" content="2026-01-17T12:30:27.000Z">
-<meta property="article:modified_time" content="2026-01-17T12:33:10.391Z">
+<meta property="article:modified_time" content="2026-01-17T12:34:50.870Z">
 <meta property="article:author" content="Gift1a">
 <meta property="article:tag" content="Mips">
 <meta property="article:tag" content="技术">
@@ -48,7 +48,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"},"dateCreated":"2026-01-17T20:30:27+08:00","dateModified":"2026-01-17T20:33:10+08:00","datePublished":"2026-01-17T20:30:27+08:00","description":"","headline":"mips_architecture","mainEntityOfPage":{"@type":"WebPage","@id":"http://gift1a.cn/2026/01/17/mips-architecture/"},"publisher":{"@type":"Organization","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg","logo":{"@type":"ImageObject","url":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"}},"url":"http://gift1a.cn/2026/01/17/mips-architecture/","keywords":"Mips, 技术","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"},"dateCreated":"2026-01-17T20:30:27+08:00","dateModified":"2026-01-17T20:34:50+08:00","datePublished":"2026-01-17T20:30:27+08:00","description":"","headline":"Mips指令集解码","mainEntityOfPage":{"@type":"WebPage","@id":"http://gift1a.cn/2026/01/17/mips-architecture/"},"publisher":{"@type":"Organization","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg","logo":{"@type":"ImageObject","url":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"}},"url":"http://gift1a.cn/2026/01/17/mips-architecture/","keywords":"Mips, 技术","image":[]}</script>
   <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
 </head>
 <body>
@@ -67,7 +67,7 @@
 
 
 
-<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/01/17/mips-architecture/"><span class="title">mips_architecture</span></a></div></widget>
+<widget class="widget-wrapper recent post-list"><div class="widget-header dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><a class="item title" href="/2026/01/17/mips-architecture/"><span class="title">Mips指令集解码</span></a></div></widget>
 </div>
 <footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://" target="_blank" rel="external nofollow noopener noreferrer"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/></a><a class="social" href="https://" target="_blank" rel="external nofollow noopener noreferrer"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3845874.svg"/></a><a class="social" href="https://" target="_blank" rel="external nofollow noopener noreferrer"><img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3616429.svg"/></a><a class="social" href="javaScript:void('永夜');" rel="noopener noreferrer"><img id="ThemeM" src="/customize/svg/moon.svg"/></a><a class="social" href="javaScript:void('永昼');" rel="noopener noreferrer"><img id="ThemeL" src="/customize/svg/sun.svg"/></a></div></footer>
 </div></aside><div class="l_main" id="main">
@@ -80,12 +80,12 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/Mips/">Mips</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-01-17T12:30:27.000Z">2026-01-17</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-01-17T12:33:10.391Z">2026-01-17</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-01-17T12:30:27.000Z">2026-01-17</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-01-17T12:34:50.870Z">2026-01-17</time></span></div></div></div>
     
     <div class="bottom only-title">
       
       <div class="text-area">
-        <h1 class="text title"><span>mips_architecture</span></h1>
+        <h1 class="text title"><span>Mips指令集解码</span></h1>
         
       </div>
     </div>
