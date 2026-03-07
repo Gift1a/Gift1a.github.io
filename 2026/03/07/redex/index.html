@@ -29,15 +29,16 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg">
 <meta property="article:published_time" content="2026-03-07T03:32:27.000Z">
-<meta property="article:modified_time" content="2026-03-07T03:41:51.280Z">
+<meta property="article:modified_time" content="2026-03-07T03:47:18.951Z">
 <meta property="article:author" content="Gift1a">
+<meta property="article:tag" content="Android">
 <meta property="article:tag" content="技术">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg">
   
   
   
-  <meta name="keywords" content="技术">
+  <meta name="keywords" content="技术,Android">
 
   <!-- feed -->
   
@@ -49,7 +50,7 @@
 
   
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"},"dateCreated":"2026-03-07T11:32:27+08:00","dateModified":"2026-03-07T11:41:51+08:00","datePublished":"2026-03-07T11:32:27+08:00","description":"","headline":"ReDex反混淆与混淆","mainEntityOfPage":{"@type":"WebPage","@id":"http://gift1a.cn/2026/03/07/redex/"},"publisher":{"@type":"Organization","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg","logo":{"@type":"ImageObject","url":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"}},"url":"http://gift1a.cn/2026/03/07/redex/","keywords":"技术","image":[]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"},"dateCreated":"2026-03-07T11:32:27+08:00","dateModified":"2026-03-07T11:47:18+08:00","datePublished":"2026-03-07T11:32:27+08:00","description":"","headline":"ReDex反混淆与混淆","mainEntityOfPage":{"@type":"WebPage","@id":"http://gift1a.cn/2026/03/07/redex/"},"publisher":{"@type":"Organization","name":"Gift1a","sameAs":[],"image":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg","logo":{"@type":"ImageObject","url":"https://gift1a.oss-cn-hangzhou.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_2026-01-06_233617_016.jpg"}},"url":"http://gift1a.cn/2026/03/07/redex/","keywords":"技术, Android","image":[]}</script>
   <link rel="stylesheet" href="https://npm.elemecdn.com/lxgw-wenkai-screen-webfont/style.css" media="print" onload="this.media='all'">
 </head>
 <body>
@@ -81,7 +82,7 @@
   <div class="content">
     <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a>
 <span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></div>
-<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-03-07T03:32:27.000Z">2026-03-07</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-03-07T03:41:51.280Z">2026-03-07</time></span></div></div></div>
+<div class="flex-row" id="post-meta"><span class="text created">发布于：<time datetime="2026-03-07T03:32:27.000Z">2026-03-07</time></span><span class="sep updated"></span><span class="text updated">更新于：<time datetime="2026-03-07T03:47:18.951Z">2026-03-07</time></span></div></div></div>
     
     <div class="bottom only-title">
       
@@ -99,7 +100,14 @@
 <h2 id="第一部分：什么是-ReDex"><a href="#第一部分：什么是-ReDex" class="headerlink" title="第一部分：什么是 ReDex"></a>第一部分：什么是 ReDex</h2><h3 id="1-1-定位"><a href="#1-1-定位" class="headerlink" title="1.1 定位"></a>1.1 定位</h3><p>ReDex 是 FaceBook 开源的 Android DEX 字节码优化器。它不是传统意义上的”工具”，而是一个 <strong>DEX-to-DEX 编译器</strong>——读入 DEX，经过一系列变换 Pass，输出优化后的 DEX。</p>
 <p>与 ProGuard&#x2F;R8 的区别：ProGuard 工作在 Java 字节码层面（.class），ReDex 直接操作 Dalvik 字节码（.dex）。这意味着 ReDex 能做到 ProGuard 做不到的事——比如跨 DEX 优化、DEX 内部布局重排、以及本文要讲的 IR 级别的精确变换。</p>
 <h3 id="1-2-Pass-Pipeline-架构"><a href="#1-2-Pass-Pipeline-架构" class="headerlink" title="1.2 Pass Pipeline 架构"></a>1.2 Pass Pipeline 架构</h3><p>ReDex 的核心是 Pass Pipeline——一条由多个独立变换单元串联而成的流水线：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;input.dex&quot;] --&gt; P1[&quot;Pass 1&quot;]</span><br><span class="line">    P1 --&gt; P2[&quot;Pass 2&quot;]</span><br><span class="line">    P2 --&gt; P3[&quot;...&quot;]</span><br><span class="line">    P3 --&gt; PN[&quot;Pass N&quot;]</span><br><span class="line">    PN --&gt; B[&quot;output.dex&quot;]</span><br><span class="line">    style A fill:#e8f5e9</span><br><span class="line">    style B fill:#e3f2fd</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+    A["input.dex"] --> P1["Pass 1"]
+    P1 --> P2["Pass 2"]
+    P2 --> P3["..."]
+    P3 --> PN["Pass N"]
+    PN --> B["output.dex"]
+    style A fill:#e8f5e9
+    style B fill:#e3f2fd</pre>
 
 <p>每个 Pass 继承 <code>Pass</code> 基类，Pipeline 由 JSON 配置驱动：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyPass</span> : <span class="keyword">public</span> Pass &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="built_in">MyPass</span>() : <span class="built_in">Pass</span>(<span class="string">&quot;MyPass&quot;</span>) &#123;&#125;</span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">run_pass</span><span class="params">(DexStoresVector&amp; stores,</span></span></span><br><span class="line"><span class="params"><span class="function">                ConfigFiles&amp; conf,</span></span></span><br><span class="line"><span class="params"><span class="function">                PassManager&amp; mgr)</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> scope = <span class="built_in">build_class_scope</span>(stores);</span><br><span class="line">    <span class="comment">// 在这里操作所有类、方法、指令</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="type">static</span> MyPass s_pass;  <span class="comment">// 文件末尾声明静态实例，自动注册</span></span><br></pre></td></tr></table></figure>
@@ -108,7 +116,17 @@
 
 <p>PassManager 按顺序执行每个 Pass，Pass 之间共享同一份 IR 数据结构。一个 Pass 的输出就是下一个 Pass 的输入。</p>
 <h3 id="1-3-数据模型"><a href="#1-3-数据模型" class="headerlink" title="1.3 数据模型"></a>1.3 数据模型</h3><p>ReDex 将整个 APK 的 DEX 文件加载为统一的内存数据结构：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">    A[&quot;DexStoresVector&quot;] --&gt; B[&quot;DexStore（DEX 文件）&quot;]</span><br><span class="line">    B --&gt; C[&quot;DexClasses&quot;]</span><br><span class="line">    C --&gt; D[&quot;DexClass&quot;]</span><br><span class="line">    D --&gt; E[&quot;DexField[]&quot;]</span><br><span class="line">    D --&gt; F[&quot;dmethods[]&lt;br/&gt;static / private / 构造器&quot;]</span><br><span class="line">    D --&gt; G[&quot;vmethods[]&lt;br/&gt;虚方法&quot;]</span><br><span class="line">    F --&gt; H[&quot;DexMethod&quot;]</span><br><span class="line">    G --&gt; H</span><br><span class="line">    H --&gt; I[&quot;IRCode&lt;br/&gt;方法体（IR 指令序列）&quot;]</span><br><span class="line">    style I fill:#fff3e0</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">graph TD
+    A["DexStoresVector"] --> B["DexStore（DEX 文件）"]
+    B --> C["DexClasses"]
+    C --> D["DexClass"]
+    D --> E["DexField[]"]
+    D --> F["dmethods[]<br/>static / private / 构造器"]
+    D --> G["vmethods[]<br/>虚方法"]
+    F --> H["DexMethod"]
+    G --> H
+    H --> I["IRCode<br/>方法体（IR 指令序列）"]
+    style I fill:#fff3e0</pre>
 
 <p><code>build_class_scope(stores)</code> 将所有 DexStore 展平为一个 <code>Scope</code>（即 <code>vector&lt;DexClass*&gt;</code>），这是大多数 Pass 的起点。</p>
 <h3 id="1-4-方法遍历"><a href="#1-4-方法遍历" class="headerlink" title="1.4 方法遍历"></a>1.4 方法遍历</h3><p>有了 Scope，就可以遍历所有方法的 IR。ReDex 提供了并行遍历工具：</p>
@@ -176,7 +194,11 @@
 </ul>
 <p>现在我们知道了单条指令的结构。接下来的问题是：一个方法中的所有指令是如何组织的？</p>
 <h3 id="2-4-指令的两种组织形式：线性-IR-与-CFG"><a href="#2-4-指令的两种组织形式：线性-IR-与-CFG" class="headerlink" title="2.4 指令的两种组织形式：线性 IR 与 CFG"></a>2.4 指令的两种组织形式：线性 IR 与 CFG</h3><p>ReDex 的 <code>IRCode</code> 提供两种表示形式，可以随时互相转换：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;线性 IR&lt;br/&gt;(IRList 双向链表)&quot;] -- &quot;code.build_cfg()&quot; --&gt; B[&quot;CFG&lt;br/&gt;(基本块 + 边)&quot;]</span><br><span class="line">    B -- &quot;code.clear_cfg()&quot; --&gt; A</span><br><span class="line">    style A fill:#e8f5e9</span><br><span class="line">    style B fill:#e3f2fd</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+    A["线性 IR<br/>(IRList 双向链表)"] -- "code.build_cfg()" --> B["CFG<br/>(基本块 + 边)"]
+    B -- "code.clear_cfg()" --> A
+    style A fill:#e8f5e9
+    style B fill:#e3f2fd</pre>
 
 <p><strong>线性模式</strong>：指令存储在双向链表 <code>IRList</code> 中，每个节点是 <code>MethodItemEntry</code>（MIE）。MIE 有多种类型：</p>
 <table>
@@ -225,7 +247,13 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">B0: preds=[] succs=[B1(goto), B2(branch)]</span><br><span class="line">    LOAD_PARAM   v1</span><br><span class="line">    IF_EQZ       v1          ← 切割点：跳转指令</span><br><span class="line"></span><br><span class="line">B1: preds=[B0(goto)] succs=[B3(goto)]</span><br><span class="line">    CONST        v0, 42      ← then 分支</span><br><span class="line">                                （GOTO 指令被边吸收，不再显式存在）</span><br><span class="line"></span><br><span class="line">B2: preds=[B0(branch)] succs=[B3(goto)]</span><br><span class="line">    CONST        v0, 99      ← else 分支</span><br><span class="line"></span><br><span class="line">B3: preds=[B1(goto), B2(goto)] succs=[]</span><br><span class="line">    RETURN       v0          ← 汇合点</span><br></pre></td></tr></table></figure>
 
 <p>对应关系一目了然：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    B0[&quot;B0&lt;br/&gt;LOAD_PARAM v1&lt;br/&gt;IF_EQZ v1&quot;] -- &quot;goto&lt;br/&gt;(if-false)&quot; --&gt; B1[&quot;B1&lt;br/&gt;CONST v0, 42&quot;]</span><br><span class="line">    B0 -- &quot;branch&lt;br/&gt;(if-true)&quot; --&gt; B2[&quot;B2&lt;br/&gt;CONST v0, 99&quot;]</span><br><span class="line">    B1 -- &quot;goto&quot; --&gt; B3[&quot;B3&lt;br/&gt;RETURN v0&quot;]</span><br><span class="line">    B2 -- &quot;goto&quot; --&gt; B3</span><br><span class="line">    style B0 fill:#e8f5e9</span><br><span class="line">    style B3 fill:#e3f2fd</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart TD
+    B0["B0<br/>LOAD_PARAM v1<br/>IF_EQZ v1"] -- "goto<br/>(if-false)" --> B1["B1<br/>CONST v0, 42"]
+    B0 -- "branch<br/>(if-true)" --> B2["B2<br/>CONST v0, 99"]
+    B1 -- "goto" --> B3["B3<br/>RETURN v0"]
+    B2 -- "goto" --> B3
+    style B0 fill:#e8f5e9
+    style B3 fill:#e3f2fd</pre>
 
 <p>转换的核心规则：</p>
 <ul>
@@ -328,7 +356,12 @@
 <hr>
 <h2 id="第三部分：分析基础设施-—-从”能读写”到”能理解”"><a href="#第三部分：分析基础设施-—-从”能读写”到”能理解”" class="headerlink" title="第三部分：分析基础设施 — 从”能读写”到”能理解”"></a>第三部分：分析基础设施 — 从”能读写”到”能理解”</h2><p>第二部分让我们能读写 IR，但面对一条 <code>INVOKE_STATIC v0, v1, ...</code>，我们只知道”v0 和 v1 被传入了某个方法”，却不知道 v0 和 v1 的值是什么、从哪来。分析基础设施解决的就是这类问题。</p>
 <p>ReDex 内置了三类核心分析能力，层层递进：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">flowchart TD</span><br><span class="line">    A[&quot;Reaching Definitions&lt;br/&gt;方法内 · 前向数据流&lt;br/&gt;回答：寄存器的值由谁定义？&quot;] --&gt; B[&quot;Def-Use Chain&lt;br/&gt;方法内 · 双向查询&lt;br/&gt;回答：定义被谁使用？使用来自谁？&quot;]</span><br><span class="line">    A --&gt; C[&quot;Call Graph&lt;br/&gt;全程序 · 调用关系图&lt;br/&gt;回答：谁调用了这个方法？&quot;]</span><br><span class="line">    style A fill:#e8f5e9</span><br><span class="line">    style B fill:#e3f2fd</span><br><span class="line">    style C fill:#fff3e0</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart TD
+    A["Reaching Definitions<br/>方法内 · 前向数据流<br/>回答：寄存器的值由谁定义？"] --> B["Def-Use Chain<br/>方法内 · 双向查询<br/>回答：定义被谁使用？使用来自谁？"]
+    A --> C["Call Graph<br/>全程序 · 调用关系图<br/>回答：谁调用了这个方法？"]
+    style A fill:#e8f5e9
+    style B fill:#e3f2fd
+    style C fill:#fff3e0</pre>
 
 <h3 id="3-1-不动点迭代：所有数据流分析的共同基础"><a href="#3-1-不动点迭代：所有数据流分析的共同基础" class="headerlink" title="3.1 不动点迭代：所有数据流分析的共同基础"></a>3.1 不动点迭代：所有数据流分析的共同基础</h3><p>所有方法内数据流分析都基于同一个框架（底层使用 Facebook 的 SPARTA 抽象解释库），遵循相同的三步模式：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 构造分析器（传入 CFG）</span></span><br><span class="line"><span class="function">MyFixpointIterator <span class="title">fp</span><span class="params">(cfg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 运行不动点迭代（传入初始状态）</span></span><br><span class="line">fp.<span class="built_in">run</span>(MyDomain::<span class="built_in">initial_value</span>());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 查询结果</span></span><br><span class="line"><span class="keyword">auto</span> state = fp.<span class="built_in">get_entry_state_at</span>(block);  <span class="comment">// 块入口状态</span></span><br></pre></td></tr></table></figure>
@@ -344,7 +377,11 @@
 <p><strong>Domain 语义</strong>：<code>env.get(reg)</code> 返回的是一个<strong>集合</strong>。如果集合中有多个元素，说明该寄存器在不同的执行路径上有不同的定义（例如来自 if-else 的两个分支）。只有集合大小为 1 时，值才是静态确定的。</p>
 <h3 id="3-3-Call-Graph：全程序调用关系"><a href="#3-3-Call-Graph：全程序调用关系" class="headerlink" title="3.3 Call Graph：全程序调用关系"></a>3.3 Call Graph：全程序调用关系</h3><p>Reaching Definitions 工作在单个方法内部。但如果我们想知道”谁调用了某个方法”，就需要跨方法的全程序分析。</p>
 <p>构建过程分两步：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flowchart LR</span><br><span class="line">    A[&quot;Scope&lt;br/&gt;(所有类)&quot;] --&gt; B[&quot;Method Override Graph&lt;br/&gt;解析虚方法重写关系&quot;]</span><br><span class="line">    B --&gt; C[&quot;Call Graph&lt;br/&gt;建立调用者↔被调用者关系&quot;]</span><br><span class="line">    C --&gt; D[&quot;cg.get_callers(target)&lt;br/&gt;精确获取调用者集合&quot;]</span><br><span class="line">    style D fill:#e3f2fd</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart LR
+    A["Scope<br/>(所有类)"] --> B["Method Override Graph<br/>解析虚方法重写关系"]
+    B --> C["Call Graph<br/>建立调用者↔被调用者关系"]
+    C --> D["cg.get_callers(target)<br/>精确获取调用者集合"]
+    style D fill:#e3f2fd</pre>
 
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;MethodOverrideGraph.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;CallGraph.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 1：构建方法重写图（解析虚方法多态）</span></span><br><span class="line"><span class="keyword">auto</span> override_graph = method_override_graph::<span class="built_in">build_graph</span>(scope);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 步骤 2：构建调用图</span></span><br><span class="line"><span class="keyword">auto</span> cg = call_graph::<span class="built_in">single_callee_graph</span>(*override_graph, scope);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询：谁调用了 target？</span></span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span>&amp; callers = cg.<span class="built_in">get_callers</span>(target);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">const</span> DexMethod* caller : <span class="built_in">UnorderedIterable</span>(callers)) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1282,7 +1319,35 @@
     }
   });
 </script>
+<script defer type="text/javascript" src="https://gcore.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
 <script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "auto" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "neutral",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    mermaid.initialize(mermaid_config);
+  });
+</script><script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');
     if (window.codeElements.length > 0) {
